@@ -155,7 +155,7 @@ CreateThread(function()
             local user_id = getUserId(source)
             if user_id and args[1] then
                 if vRP.getInventoryItemAmount(user_id, "roupas") >= 1 then
-                    TriggerClientEvent(event,source,args[1],args[2])
+                    TriggerClientEvent(event,source,tonumber(args[1]),tonumber(args[2]))
                 else
                     TriggerClientEvent("Notify",source,"negado","Você não possui o item roupas",5000)
                 end
