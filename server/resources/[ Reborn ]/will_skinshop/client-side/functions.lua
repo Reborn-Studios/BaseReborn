@@ -33,7 +33,7 @@ end)
 -- SETMASK
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNetEvent("will_skinshop:setMask")
-AddEventHandler("will_skinshop:setMask",function()
+AddEventHandler("will_skinshop:setMask",function(item,texture)
 	if not animation then
 		animation = true
 		vRP.playAnim(true,{"missfbi4","takeoff_mask"},true)
@@ -41,7 +41,9 @@ AddEventHandler("will_skinshop:setMask",function()
 
 		local ped = PlayerPedId()
 
-		if GetPedDrawableVariation(ped,1) == skinData["mask"]["item"] then
+		if item then
+			SetPedComponentVariation(ped,1,item,texture or 0,1)
+		elseif GetPedDrawableVariation(ped,1) == skinData["mask"]["item"] then
 			SetPedComponentVariation(ped,1,0,0,1)
 		else
 			SetPedComponentVariation(ped,1,skinData["mask"]["item"],skinData["mask"]["texture"],1)
@@ -55,7 +57,7 @@ end)
 -- SETHAT
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNetEvent("will_skinshop:setHat")
-AddEventHandler("will_skinshop:setHat",function()
+AddEventHandler("will_skinshop:setHat",function(item,texture)
 	if not animation then
 		animation = true
 		vRP.playAnim(true,{"mp_masks@standard_car@ds@","put_on_mask"},true)
@@ -63,7 +65,9 @@ AddEventHandler("will_skinshop:setHat",function()
 
 		local ped = PlayerPedId()
 
-		if GetPedPropIndex(ped,0) == skinData["hat"]["item"] then
+		if item then
+			SetPedPropIndex(ped,0,item,texture or 0,1)
+		elseif GetPedPropIndex(ped,0) == skinData["hat"]["item"] then
 			ClearPedProp(ped,0)
 		else
 			SetPedPropIndex(ped,0,skinData["hat"]["item"],skinData["hat"]["texture"],1)
@@ -77,7 +81,7 @@ end)
 -- SETGLASSES
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNetEvent("will_skinshop:setGlasses")
-AddEventHandler("will_skinshop:setGlasses",function()
+AddEventHandler("will_skinshop:setGlasses",function(item,texture)
 	if not animation then
 		animation = true
 		vRP.playAnim(true,{"clothingspecs","take_off"},true)
@@ -85,7 +89,9 @@ AddEventHandler("will_skinshop:setGlasses",function()
 
 		local ped = PlayerPedId()
 
-		if GetPedPropIndex(ped,1) == skinData["glass"]["item"] then
+		if item then
+			SetPedPropIndex(ped,1,item,texture or 0,1)
+		elseif GetPedPropIndex(ped,1) == skinData["glass"]["item"] then
 			ClearPedProp(ped,1)
 		else
 			SetPedPropIndex(ped,1,skinData["glass"]["item"],skinData["glass"]["texture"],1)
@@ -99,7 +105,7 @@ end)
 -- SETARMS
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNetEvent("will_skinshop:setArms")
-AddEventHandler("will_skinshop:setArms",function()
+AddEventHandler("will_skinshop:setArms",function(item,texture)
 	if not animation then
 		animation = true
 		vRP.playAnim(true,{"clothingtie","try_tie_negative_a"},true)
@@ -107,7 +113,9 @@ AddEventHandler("will_skinshop:setArms",function()
 
 		local ped = PlayerPedId()
 
-		if GetPedDrawableVariation(ped,3) == skinData["arms"]["item"] then
+		if item then
+			SetPedComponentVariation(ped,3,item,texture or 0,1)
+		elseif GetPedDrawableVariation(ped,3) == skinData["arms"]["item"] then
 			SetPedComponentVariation(ped,3,15,0,1)
 		else
 			SetPedComponentVariation(ped,3,skinData["arms"]["item"],skinData["arms"]["texture"],1)
@@ -121,7 +129,7 @@ end)
 -- SETSHOES
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNetEvent("will_skinshop:setShoes")
-AddEventHandler("will_skinshop:setShoes",function()
+AddEventHandler("will_skinshop:setShoes",function(item,texture)
 	if not animation then
 		animation = true
 		vRP.playAnim(true,{"clothingtie","try_tie_negative_a"},true)
@@ -129,7 +137,9 @@ AddEventHandler("will_skinshop:setShoes",function()
 
 		local ped = PlayerPedId()
 
-		if GetPedDrawableVariation(ped,6) == skinData["shoes"]["item"] then
+		if item then
+			SetPedComponentVariation(ped,6,item,texture or 0,1)
+		elseif GetPedDrawableVariation(ped,6) == skinData["shoes"]["item"] then
 			SetPedComponentVariation(ped,6,5,0,1)
 		else
 			SetPedComponentVariation(ped,6,skinData["shoes"]["item"],skinData["shoes"]["texture"],1)
@@ -143,7 +153,7 @@ end)
 -- SETPANTS
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNetEvent("will_skinshop:setPants")
-AddEventHandler("will_skinshop:setPants",function()
+AddEventHandler("will_skinshop:setPants",function(item,texture)
 	if not animation then
 		animation = true
 		vRP.playAnim(true,{"clothingtie","try_tie_negative_a"},true)
@@ -151,7 +161,9 @@ AddEventHandler("will_skinshop:setPants",function()
 
 		local ped = PlayerPedId()
 
-		if GetPedDrawableVariation(ped,4) == skinData["pants"]["item"] then
+		if item then
+			SetPedComponentVariation(ped,4,item,texture or 0,1)
+		elseif GetPedDrawableVariation(ped,4) == skinData["pants"]["item"] then
 			if GetEntityModel(ped) == GetHashKey("mp_m_freemode_01") then
 				SetPedComponentVariation(ped,4,14,0,1)
 			elseif GetEntityModel(ped) == GetHashKey("mp_f_freemode_01") then
@@ -169,7 +181,7 @@ end)
 -- SETSHIRT
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNetEvent("will_skinshop:setShirt")
-AddEventHandler("will_skinshop:setShirt",function()
+AddEventHandler("will_skinshop:setShirt",function(item,texture)
 	if not animation then
 		animation = true
 		vRP.playAnim(true,{"clothingtie","try_tie_negative_a"},true)
@@ -177,7 +189,9 @@ AddEventHandler("will_skinshop:setShirt",function()
 
 		local ped = PlayerPedId()
 
-		if GetPedDrawableVariation(ped,8) == skinData["tshirt"]["item"] then
+		if item then
+			SetPedComponentVariation(ped,8,item,texture or 0,1)
+		elseif GetPedDrawableVariation(ped,8) == skinData["tshirt"]["item"] then
 			SetPedComponentVariation(ped,8,15,0,1)
 			SetPedComponentVariation(ped,3,15,0,1)
 		else
@@ -192,7 +206,7 @@ end)
 -- SETJACKET
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNetEvent("will_skinshop:setJacket")
-AddEventHandler("will_skinshop:setJacket",function()
+AddEventHandler("will_skinshop:setJacket",function(item,texture)
 	if not animation then
 		animation = true
 		vRP.playAnim(true,{"clothingtie","try_tie_negative_a"},true)
@@ -200,7 +214,9 @@ AddEventHandler("will_skinshop:setJacket",function()
 
 		local ped = PlayerPedId()
 
-		if GetPedDrawableVariation(ped,11) == skinData["torso"]["item"] then
+		if item then
+			SetPedComponentVariation(ped,11,item,texture or 0,1)
+		elseif GetPedDrawableVariation(ped,11) == skinData["torso"]["item"] then
 			SetPedComponentVariation(ped,11,15,0,1)
 			SetPedComponentVariation(ped,3,15,0,1)
 		else
@@ -215,7 +231,7 @@ end)
 -- SETVEST
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNetEvent("will_skinshop:setVest")
-AddEventHandler("will_skinshop:setVest",function()
+AddEventHandler("will_skinshop:setVest",function(item,texture)
 	if not animation then
 		animation = true
 		vRP.playAnim(true,{"clothingtie","try_tie_negative_a"},true)
@@ -223,7 +239,9 @@ AddEventHandler("will_skinshop:setVest",function()
 
 		local ped = PlayerPedId()
 
-		if GetPedDrawableVariation(ped,9) == skinData["vest"]["item"] then
+		if item then
+			SetPedComponentVariation(ped,9,item,texture or 0,1)
+		elseif GetPedDrawableVariation(ped,9) == skinData["vest"]["item"] then
 			SetPedComponentVariation(ped,9,0,0,1)
 		else
 			SetPedComponentVariation(ped,9,skinData["vest"]["item"],skinData["vest"]["texture"],1)

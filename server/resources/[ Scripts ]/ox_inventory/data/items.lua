@@ -1760,4 +1760,15 @@ return {
 			image = "fuel.png",
 		}
 	},
+
+	["roupas"] = {
+		label = "Roupas",
+		weight = 1,
+		stack = true,
+		close = true,
+		description = "Realize trocas de roupas",
+		client = {
+			image = "roupas.png",
+		}
+	},
 }
