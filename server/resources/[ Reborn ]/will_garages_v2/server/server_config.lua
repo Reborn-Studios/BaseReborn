@@ -300,13 +300,12 @@ end)
 --########## Pegar tunagem ##########
 
 function getTunning(user_id,veiculo,vehPlate)
+    local tunagem = ''
     if GetResourceState("will_tunners") == "started" then
-        return getSData("custom:"..vehPlate)
+        tunagem = getSData("custom:"..vehPlate)
     elseif GetResourceState("ld_tunners") == "started" then
-        return getSData("mods:"..vehPlate)
-    end
-	local tunagem = ''
-	if Config.base == "creative" then
+        tunagem = getSData("mods:"..vehPlate)
+    elseif Config.base == "creative" then
     	tunagem = getSData("custom:"..user_id..":"..veiculo)
 	elseif Config.base == "vrpex" then
     	tunagem = getSData("custom:u"..user_id.."veh_"..veiculo)
@@ -383,7 +382,7 @@ function transferVehicle(source, nplayer, vehicle, plate)
         if request(source, "Deseja transferir o veiculo "..vehicle.." para "..identity.name.." ?", 30) then
         	local vehData = query("will/get_user_plate", { plate = plate })
             if vehData[1] and parseInt(vehData[1]['user_id']) == user_id then
-                local custom = getTunning(user_id,vehicle)
+                local custom = getTunning(user_id,vehicle,plate)
                 if custom then
                     execute("will/rem_srv_data",{ dkey = "custom:u"..parseInt(user_id).."veh_"..tostring(vehicle) })
                     execute("will/set_srvdata",{ key = "custom:u"..parseInt(nuser_id).."veh_"..tostring(vehicle), value = json.encode(custom) })

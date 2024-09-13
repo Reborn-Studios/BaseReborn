@@ -54,7 +54,9 @@ function applyModifies(nveh,engine,fuel,tuning,vehDoors,vehWindows,vehTyres,vnam
 	if GetResourceState("will_tunners") == "started" then
 		exports['will_tunners']:SetVehicleProp(nveh,tuning)
 	elseif GetResourceState("ld_tunners") == "started" then
-		TriggerServerEvent("ld_tunners:applyMods",GetVehicleNumberPlateText(nveh),vname,nveh)
+		if tuning then
+			TriggerServerEvent("ld_tunners:applyMods", nveh, tuning)
+		end
 	else
 		vehicleMods(nveh,tuning)
 	end
@@ -341,11 +343,16 @@ end
 --##  GARAGEM PROXIMA  ##--
 --#######################--
 
+local garagesGlobal = GlobalState['GaragesGlobal'] or {}
+
+AddStateBagChangeHandler("GaragesGlobal",nil,function(name,key,value)
+	garagesGlobal = value
+end)
+
 Citizen.CreateThread(function()
 	while true do
 		local coords = GetEntityCoords(PlayerPedId())
 		local will = 700
-		local garagesGlobal = GlobalState['GaragesGlobal']
 		for k,v in pairs(garagesGlobal) do
 			local x,y,z = getBlip(v)
 			local distance = #(coords - vector3(x, y, z))
