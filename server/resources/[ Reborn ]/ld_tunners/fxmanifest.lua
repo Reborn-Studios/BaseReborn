@@ -18,8 +18,8 @@ client_scripts {
 server_scripts {
     "functions_server.lua",
     "server/server.lua",
-    "@mysql-async/lib/MySQL.lua",
-    "@oxmysql/lib/MySQL.lua",
+    -- "@mysql-async/lib/MySQL.lua",
+    "@oxmysql/lib/MySQL.lua", -- if you are using oxmysql
 }
 
 ui_page "ui/index.html"
@@ -46,5 +46,10 @@ lua54 'yes'
 escrow_ignore {
     "*.*"
 }
+
+
+dependency '/assetpacks'
+
+
 
 dependency '/assetpacks'

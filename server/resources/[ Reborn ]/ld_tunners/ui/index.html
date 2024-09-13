@@ -1,235 +1,229 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <title>ld_tunners</title>
-    <meta charset="UTF-8" />
-    <link rel="stylesheet" href="style.css" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1" name="viewport" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <!-- JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> <!-- JQuery -->
     <script src="https://cdn.jsdelivr.net/npm/@jaames/iro@5"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.1.1/howler.min.js"></script>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-      crossorigin="anonymous"
-    />
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/howler/2.1.1/howler.min.js"></script>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css' crossorigin='anonymous' />
     <script src="jquery.minicolors.js"></script>
-    <link rel="stylesheet" href="jquery.minicolors.css" />
-  </head>
-  <body>
+    <link rel="stylesheet" href="jquery.minicolors.css">
+</head>
+<body >
     <!-- <div class="background-sx"></div> -->
     <div class="background-blur-main"></div>
     <div class="eye">
-      <span id="eye-label">zart</span>
-      <i class="fa-solid fa-sort-down"></i>
-      <img src="img/settings.gif" />
+        <span id="eye-label">zart</span>
+        <i class="fa-solid fa-sort-down"></i>
+        <img src="img/settings.gif">
     </div>
 
     <div class="main-menu">
-      <div class="left-mechanic-part">
-        <div class="left-mechanic-top-bar">
-          <!-- <div id="inside-of-bar">
+        <div class="left-mechanic-part">
+            <div class="left-mechanic-top-bar">
+                <!-- <div id="inside-of-bar">
                     <img src="img/bennyslogo.png" alt="">
                 </div> -->
-        </div>
-        <div class="mechanic-left-text">
-          <span>Yorem ipsum dolor sit amet,</span> consectetur adipiscing elit.
-          Nunc vulputate libero et velit interdum, ac aliquet odio mattis.
-        </div>
-        <div class="bottom-border">
-          <div></div>
-        </div>
-      </div>
-      <div class="mid-mechanic-part">
-        <div class="mid-mechanic-top">
-          <img src="img/left-arrow.svg" alt="" />
-          <div class="category-name">Menu principal</div>
-          <div id="top-line" style="display: flex"></div>
-          <div class="left-line" style="display: none">
-            <div></div>
-          </div>
-
-          <div class="default-colors" data-id="closeable" style="display: none">
-            <div class="color-wheel" data-wheel="secondary"></div>
-          </div>
-          <div class="right-line" style="display: none">
-            <div></div>
-          </div>
-          <div class="category-items">Peças</div>
-          <img src="img/poly.png" alt="" />
-        </div>
-
-        <div class="color-menu">
-          <div class="wheel">
-            <img
-              src="img/left-right.png"
-              class="left-d"
-              id="arrow"
-              data-side="left"
-              data-type="main"
-            />
-            <!-- <i class="fa-solid fa-caret-left" id="arrow" data-side="left" data-type="main"></i> -->
-            <div class="wheel-text">
-              <span id="main">Primary</span>
             </div>
-            <img
-              src="img/left-right.png"
-              alt=""
-              id="arrow"
-              data-side="right"
-              data-type="main"
-            />
-            <!-- <i class="fa-solid fa-caret-right" id="arrow" data-side="right" data-type="main"></i> -->
-          </div>
-          <!--         <div class="default-colors" data-id="closeable">
+            <div class="mechanic-left-text">
+                <span>Yorem ipsum dolor sit amet,</span>  consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.
+            </div>
+            <div class="bottom-border">
+                <div></div> 
+            </div>
+
+    
+        </div>
+        <div class="mid-mechanic-part">
+            <div class="mid-mechanic-top">
+                <img src="img/left-arrow.svg" alt="">
+                <div class="category-name">
+                    Menu principal
+                </div>
+                <div id="top-line" style="display: flex;">
+
+                </div>
+                <div class="left-line" style="display: none;">
+                    <div></div>
+                </div>
+
+                <div class="default-colors" data-id="closeable" style="display: none;">
+                    <div class="color-wheel" data-wheel="secondary"></div>
+                </div>
+                <div class="right-line" style="display: none;">
+                    <div></div>
+                </div>
+                <div class="category-items">
+                    Peças
+                </div>
+                <img src="img/poly.png" alt="">
+            </div>
+
+            <div class="color-menu">
+                <div class="wheel">
+                    <img src="img/left-right.png" class="left-d" id="arrow" data-side="left" data-type="main">
+                    <!-- <i class="fa-solid fa-caret-left" id="arrow" data-side="left" data-type="main"></i> -->
+                    <div class="wheel-text">
+                        <span id="main">Primary</span>
+                    </div>
+                    <img src="img/left-right.png" alt="" id="arrow" data-side="right" data-type="main">
+                    <!-- <i class="fa-solid fa-caret-right" id="arrow" data-side="right" data-type="main"></i> -->
+                </div>
+        <!--         <div class="default-colors" data-id="closeable">
                     <span>Default colors</span>
                     <div class="color-wheel" data-wheel="main"></div>
                 </div> -->
-
-          <div id="picker" data-id="closeable"></div>
-
-          <div class="wheel" data-id="closeable" id="blabla">
-            <img
-              src="img/left-right.png"
-              class="left-d"
-              id="arrow"
-              data-side="left"
-              data-type="secondary"
-            />
-            <!-- <i class="fa-solid fa-caret-left" id="arrow" data-side="left" data-type="secondary"></i> -->
-            <div class="wheel-text">
-              <span id="secondary">Classic</span>
-            </div>
-            <img
-              src="img/left-right.png"
-              alt=""
-              id="arrow"
-              data-side="right"
-              data-type="secondary"
-            />
-            <!-- <i class="fa-solid fa-caret-right" id="arrow" data-side="right" data-type="secondary"></i> -->
-          </div>
-          <!-- <div class="default-colors" data-id="closeable">
+        
+                <div id="picker" data-id="closeable"></div>
+        
+                <div class="wheel" data-id="closeable" id="blabla">
+                    <img src="img/left-right.png" class="left-d" id="arrow" data-side="left" data-type="secondary">
+                    <!-- <i class="fa-solid fa-caret-left" id="arrow" data-side="left" data-type="secondary"></i> -->
+                    <div class="wheel-text">
+                        <span id="secondary">Classic</span>
+                    </div>
+                    <img src="img/left-right.png" alt="" id="arrow" data-side="right" data-type="secondary">
+                    <!-- <i class="fa-solid fa-caret-right" id="arrow" data-side="right" data-type="secondary"></i> -->
+                </div>
+                <!-- <div class="default-colors" data-id="closeable">
                     <span>Default colors</span>
                     <div class="color-wheel" data-wheel="secondary"></div>
                 </div> -->
+        
+                <div class="wheel" data-id="openable" style="display: none;">
+                    <div class="divider"></div>
+                    <div class="modal">
+                        <img src="img/left-right.png" class="left-d" id="arrow" data-side="left" data-type="chameleon">
+                     
+                        <div class="wheel-text">
+                            <span id="chameleon">Metallic</span>
+                        </div>
+                        <img src="img/left-right.png" alt="" id="arrow" data-side="right" data-type="chameleon">
 
-          <div class="wheel" data-id="openable" style="display: none">
-            <div class="divider"></div>
-            <div class="modal">
-              <img
-                src="img/left-right.png"
-                class="left-d"
-                id="arrow"
-                data-side="left"
-                data-type="chameleon"
-              />
-
-              <div class="wheel-text">
-                <span id="chameleon">Metallic</span>
-              </div>
-              <img
-                src="img/left-right.png"
-                alt=""
-                id="arrow"
-                data-side="right"
-                data-type="chameleon"
-              />
+                    </div>
+                </div>
+        
+                <div id="buyColor" class="buy">
+                    <span id="buyButton">Buy color</span>
+                </div>
+        
             </div>
-          </div>
+            <div class="menu-items">
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <h1>PART <span>#1</span></h1>
+                        <p>LB Sleek</p>
+                    </div>
+                    <div class="menu-item-image-content">
+                        <img src="img/enginetwo.png" alt="">
+                    </div>
+                    <div class="alt-content">
+                        <div class="alt-content-row">
+                            <div class="stock-situation">
 
-          <div id="buyColor" class="buy">
-            <span id="buyButton">Buy color</span>
-          </div>
+                            </div>
+                            <div class="menu-item-price">
+                                <span>$</span>500
+                            </div>
+                        </div>
+                    </div>
+          
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <h1>PART <span>#1</span></h1>
+                        <p>LB Sleek</p>
+                    </div>
+                    <div class="menu-item-image-content">
+                        <img src="img/enginetwo.png" alt="">
+                    </div>
+                    <div class="alt-content">
+                        <div class="alt-content-row">
+                            <div class="stock-situation">
+
+                            </div>
+                            <div class="menu-item-price">
+                                <span>$</span>500
+                            </div>
+                        </div>
+                    </div>
+          
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <h1>PART <span>#1</span></h1>
+                        <p>LB Sleek</p>
+                    </div>
+                    <div class="menu-item-image-content">
+                        <img src="img/enginetwo.png" alt="">
+                    </div>
+                    <div class="alt-content">
+                        <div class="alt-content-row">
+                            <div class="stock-situation">
+
+                            </div>
+                            <div class="menu-item-price">
+                                <span>$</span>500
+                            </div>
+                        </div>
+                    </div>
+          
+                </div>
+                <div class="menu-item" data-active="true">
+                    <div class="menu-item-info">
+                        <h1>PART <span>#1</span></h1>
+                        <p>LB Sleek</p>
+                    </div>
+                    <div class="menu-item-image-content">
+                        <img src="img/enginetwo.png" alt="">
+                    </div>
+                    <div class="alt-content">
+                        <div class="alt-content-row">
+                            <div class="stock-situation">
+                                <span>Em</span> ESTOQUE
+                            </div>
+                            <div class="menu-item-price">
+                                <span>$</span>500
+                            </div>
+                        </div>
+                    </div>
+          
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <h1>PART <span>#1</span></h1>
+                        <p>LB Sleek</p>
+                    </div>
+                    <div class="menu-item-image-content">
+                        <img src="img/enginetwo.png" alt="">
+                    </div>
+                    <div class="alt-content">
+                        <div class="alt-content-row">
+                            <div class="stock-situation">
+
+                            </div>
+                            <div class="menu-item-price">
+                                <span>$</span>500
+                            </div>
+                        </div>
+                    </div>
+          
+                </div>
+            </div>
         </div>
-        <div class="menu-items">
-          <div class="menu-item">
-            <div class="menu-item-info">
-              <h1>PART <span>#1</span></h1>
-              <p>LB Sleek</p>
-            </div>
-            <div class="menu-item-image-content">
-              <img src="img/enginetwo.png" alt="" />
-            </div>
-            <div class="alt-content">
-              <div class="alt-content-row">
-                <div class="stock-situation"></div>
-                <div class="menu-item-price"><span>$</span>500</div>
-              </div>
-            </div>
-          </div>
-          <div class="menu-item">
-            <div class="menu-item-info">
-              <h1>PART <span>#1</span></h1>
-              <p>LB Sleek</p>
-            </div>
-            <div class="menu-item-image-content">
-              <img src="img/enginetwo.png" alt="" />
-            </div>
-            <div class="alt-content">
-              <div class="alt-content-row">
-                <div class="stock-situation"></div>
-                <div class="menu-item-price"><span>$</span>500</div>
-              </div>
-            </div>
-          </div>
-          <div class="menu-item">
-            <div class="menu-item-info">
-              <h1>PART <span>#1</span></h1>
-              <p>LB Sleek</p>
-            </div>
-            <div class="menu-item-image-content">
-              <img src="img/enginetwo.png" alt="" />
-            </div>
-            <div class="alt-content">
-              <div class="alt-content-row">
-                <div class="stock-situation"></div>
-                <div class="menu-item-price"><span>$</span>500</div>
-              </div>
-            </div>
-          </div>
-          <div class="menu-item" data-active="true">
-            <div class="menu-item-info">
-              <h1>PART <span>#1</span></h1>
-              <p>LB Sleek</p>
-            </div>
-            <div class="menu-item-image-content">
-              <img src="img/enginetwo.png" alt="" />
-            </div>
-            <div class="alt-content">
-              <div class="alt-content-row">
-                <div class="stock-situation"><span>Em</span> ESTOQUE</div>
-                <div class="menu-item-price"><span>$</span>500</div>
-              </div>
-            </div>
-          </div>
-          <div class="menu-item">
-            <div class="menu-item-info">
-              <h1>PART <span>#1</span></h1>
-              <p>LB Sleek</p>
-            </div>
-            <div class="menu-item-image-content">
-              <img src="img/enginetwo.png" alt="" />
-            </div>
-            <div class="alt-content">
-              <div class="alt-content-row">
-                <div class="stock-situation"></div>
-                <div class="menu-item-price"><span>$</span>500</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="right-mechanic-basket-content">
-        <div class="basket-main-content">
-          <div class="empty-basket-text">
-            <h1>O carrinho está</h1>
-            <p>vazio.</p>
-          </div>
-
-          <!-- <div class="basket-item">
+        <div class="right-mechanic-basket-content">
+            <div class="basket-main-content">
+               <div class="empty-basket-text">
+                    <h1>O carrinho está</h1>
+                    <p>vazio.</p>
+               </div>
+                
+               
+                <!-- <div class="basket-item">
                     <div class="basket-left-content">
                         <img src="img/wheel-in-basket.png" alt="">
                         <div class="basket-item-info">
@@ -242,34 +236,29 @@
                         <img src="img/delete.svg" alt="">
                     </div>
                 </div> -->
+            </div>
+            <div class="basket-bottom-border">
+                <div></div>
+                <div></div>
+            </div>
+            <div class="payment-information">
+                <div class="payment-text">
+                    <h1>Pagamento</h1>
+                    <p>Preço total</p>
+                </div>
+                <div class="total-price-info">
+                    <span>$</span><div class="price-is">0</div>
+                </div>
+            </div>
+            <div class="payment-type-selection">
+                <div class="payment-button" id="card">PAGAR COM <span>&nbsp;CARTÃO</span></div>
+                <div class="payment-button" id="cash">PAGAR COM <span>&nbsp;CARTEIRA</span></div>
+            </div>
         </div>
-        <div class="basket-bottom-border">
-          <div></div>
-          <div></div>
-        </div>
-        <div class="payment-information">
-          <div class="payment-text">
-            <h1>Pagamento</h1>
-            <p>Preço total</p>
-          </div>
-          <div class="total-price-info">
-            <span>$</span>
-            <div class="price-is">0</div>
-          </div>
-        </div>
-        <div class="payment-type-selection">
-          <div class="payment-button" id="card">
-            PAGAR COM <span>&nbsp;CARTÃO</span>
-          </div>
-          <div class="payment-button" id="cash">
-            PAGAR COM <span>&nbsp;CARTEIRA</span>
-          </div>
-        </div>
-      </div>
-      <!-- <div class="mechanic-logo">
+        <!-- <div class="mechanic-logo">
             <img src="img/bennys.png">
         </div> -->
-      <!-- <div class="menu-items">
+        <!-- <div class="menu-items">
 
             <div class="menu-item" data-id="0" data-active="true">
                 <div class="menu-item-price">
@@ -282,243 +271,173 @@
         </div> -->
     </div>
 
-    <div class="fitment-menu" style="display: none">
-      <div class="category-blur"></div>
-      <div class="header-part">
-        <h1>Montagem da Roda</h1>
-        <p>Personalize a roda do seu carro do jeito que você quiser!</p>
-      </div>
-      <!-- <span>Fitment menu</span> -->
-      <!-- <div class="divider"></div> -->
-      <div class="fitment">
-        <div class="fitment-title">
-          <span>Wheels width</span>
+    
+
+    <div class="fitment-menu" style="display: none;">
+        <div class="category-blur"></div>
+        <div class="header-part">
+            <h1>Montagem da Roda</h1>
+            <p>Personalize a roda do seu carro do jeito que você quiser!</p>
         </div>
-        <div class="fitment-modal" data-fitment="wheels-width">
-          <button
-            class="countDown act-btn"
-            id="arrow"
-            data-side="left"
-            data-type="fitment"
-          >
-            -
-          </button>
-          <div class="currentCount act-btn" id="fitment">1.0</div>
-          <button
-            class="countUp act-btn"
-            id="arrow"
-            data-side="right"
-            data-type="fitment"
-          >
-            +
-          </button>
-          <!-- <div class="dec" id="arrow" data-side="left" data-type="fitment"></div>
+        <!-- <span>Fitment menu</span> -->
+        <!-- <div class="divider"></div> -->
+        <div class="fitment">
+            <div class="fitment-title">
+                <span>Wheels width</span>
+            </div>
+            <div class="fitment-modal" data-fitment="wheels-width">
+                <button class="countDown act-btn" id="arrow" data-side="left" data-type="fitment">-</button>
+                <div class="currentCount act-btn" id="fitment">1.0</div>
+                <button class="countUp act-btn" id="arrow" data-side="right" data-type="fitment">+</button>
+                <!-- <div class="dec" id="arrow" data-side="left" data-type="fitment"></div>
                 <!-- <i class="fa-solid fa-caret-left" id="arrow" data-side="left" data-type="fitment"></i> -->
-          <!-- <span id="fitment">1.0</span> -->
-          <!-- <div class="inc" id="arrow" data-side="right" data-type="fitment"></div> -->
-          <!-- <i class="fa-solid fa-caret-right" id="arrow" data-side="right" data-type="fitment"></i> -->
+                <!-- <span id="fitment">1.0</span> -->
+                <!-- <div class="inc" id="arrow" data-side="right" data-type="fitment"></div> -->
+                <!-- <i class="fa-solid fa-caret-right" id="arrow" data-side="right" data-type="fitment"></i> -->
+            </div>
         </div>
-      </div>
-      <!-- <div class="divider"></div> -->
-      <div class="fitment">
-        <div class="fitment-title">
-          <span>Wheels Front left</span>
+        <!-- <div class="divider"></div> -->
+        <div class="fitment">
+            <div class="fitment-title">
+                <span>Wheels Front left</span>
+            </div>
+            <div class="fitment-modal" data-fitment="front-left">
+               <button class="countDown act-btn" id="arrow" data-side="left" data-type="fitment">-</button>
+                <div class="currentCount act-btn" id="fitment">1.0</div>
+                <button class="countUp act-btn" id="arrow" data-side="right" data-type="fitment">+</button>
+            </div>
         </div>
-        <div class="fitment-modal" data-fitment="front-left">
-          <button
-            class="countDown act-btn"
-            id="arrow"
-            data-side="left"
-            data-type="fitment"
-          >
-            -
-          </button>
-          <div class="currentCount act-btn" id="fitment">1.0</div>
-          <button
-            class="countUp act-btn"
-            id="arrow"
-            data-side="right"
-            data-type="fitment"
-          >
-            +
-          </button>
+        <!-- <div class="divider"></div> -->
+        <div class="fitment">
+            <div class="fitment-title">
+                <span>Wheels Front right</span>
+            </div>
+            <div class="fitment-modal" data-fitment="front-right">
+               <button class="countDown act-btn" id="arrow" data-side="left" data-type="fitment">-</button>
+                <div class="currentCount act-btn" id="fitment">1.0</div>
+                <button class="countUp act-btn" id="arrow" data-side="right" data-type="fitment">+</button>
+            </div>
         </div>
-      </div>
-      <!-- <div class="divider"></div> -->
-      <div class="fitment">
-        <div class="fitment-title">
-          <span>Wheels Front right</span>
+        <!-- <div class="divider"></div> -->
+        <div class="fitment">
+            <div class="fitment-title">
+                <span>Wheels rear left</span>
+            </div>
+            <div class="fitment-modal" data-fitment="rear-left">
+               <button class="countDown act-btn" id="arrow" data-side="left" data-type="fitment">-</button>
+                <div class="currentCount act-btn" id="fitment">1.0</div>
+                <button class="countUp act-btn" id="arrow" data-side="right" data-type="fitment">+</button>
+            </div>
         </div>
-        <div class="fitment-modal" data-fitment="front-right">
-          <button
-            class="countDown act-btn"
-            id="arrow"
-            data-side="left"
-            data-type="fitment"
-          >
-            -
-          </button>
-          <div class="currentCount act-btn" id="fitment">1.0</div>
-          <button
-            class="countUp act-btn"
-            id="arrow"
-            data-side="right"
-            data-type="fitment"
-          >
-            +
-          </button>
+        <!-- <div class="divider"></div> -->
+        <div class="fitment">
+            <div class="fitment-title">
+                <span>Wheels rear right</span>
+            </div>
+            <div class="fitment-modal" data-fitment="rear-right">
+               <button class="countDown act-btn" id="arrow" data-side="left" data-type="fitment">-</button>
+                <div class="currentCount act-btn" id="fitment">1.0</div>
+                <button class="countUp act-btn" id="arrow" data-side="right" data-type="fitment">+</button>
+            </div>
         </div>
-      </div>
-      <div class="fitment">
-        <div class="fitment-title">
-          <span>Wheels rear left</span>
+        
+        <!-- <div class="divider"></div> -->
+        <div class="fitment">
+            <div class="fitment-title">
+                <span>Wheels Front Camber</span>
+            </div>
+            <div class="fitment-modal" data-fitment="front-left-camber">
+               <button class="countDown act-btn" id="arrow" data-side="left" data-type="fitment">-</button>
+                <div class="currentCount act-btn" id="fitment">1.0</div>
+                <button class="countUp act-btn" id="arrow" data-side="right" data-type="fitment">+</button>
+            </div>
         </div>
-        <div class="fitment-modal" data-fitment="rear-left">
-          <button
-            class="countDown act-btn"
-            id="arrow"
-            data-side="left"
-            data-type="fitment"
-          >
-            -
-          </button>
-          <div class="currentCount act-btn" id="fitment">1.0</div>
-          <button
-            class="countUp act-btn"
-            id="arrow"
-            data-side="right"
-            data-type="fitment"
-          >
-            +
-          </button>
+        <!-- <div class="divider"></div> -->
+        <div class="fitment">
+            <div class="fitment-title">
+                <span>Wheels Front Camber</span>
+            </div>
+            <div class="fitment-modal" data-fitment="front-right-camber">
+               <button class="countDown act-btn" id="arrow" data-side="left" data-type="fitment">-</button>
+                <div class="currentCount act-btn" id="fitment">1.0</div>
+                <button class="countUp act-btn" id="arrow" data-side="right" data-type="fitment">+</button>
+            </div>
         </div>
-      </div>
-      <div class="fitment">
-        <div class="fitment-title">
-          <span>Wheels rear right</span>
+        <!-- <div class="divider"></div> -->
+        <div class="fitment">
+            <div class="fitment-title">
+                <span>Wheels rear Camber</span>
+            </div>
+            <div class="fitment-modal" data-fitment="rear-left-camber">
+               <button class="countDown act-btn" id="arrow" data-side="left" data-type="fitment">-</button>
+                <div class="currentCount act-btn" id="fitment">1.0</div>
+                <button class="countUp act-btn" id="arrow" data-side="right" data-type="fitment">+</button>
+            </div>
         </div>
-        <div class="fitment-modal" data-fitment="rear-right">
-          <button
-            class="countDown act-btn"
-            id="arrow"
-            data-side="left"
-            data-type="fitment"
-          >
-            -
-          </button>
-          <div class="currentCount act-btn" id="fitment">1.0</div>
-          <button
-            class="countUp act-btn"
-            id="arrow"
-            data-side="right"
-            data-type="fitment"
-          >
-            +
-          </button>
+        <!-- <div class="divider"></div> -->
+        <div class="fitment">
+            <div class="fitment-title">
+                <span>Wheels rear Camber</span>
+            </div>
+            <div class="fitment-modal" data-fitment="rear-right-camber">
+               <button class="countDown act-btn" id="arrow" data-side="left" data-type="fitment">-</button>
+                <div class="currentCount act-btn" id="fitment">1.0</div>
+                <button class="countUp act-btn" id="arrow" data-side="right" data-type="fitment">+</button>
+            </div>
         </div>
-      </div>
-      <div class="fitment">
-        <div class="fitment-title">
-          <span>Wheels Front Camber</span>
+
+        <div class="fitment-row">
+            <div id="buyFitment" class="buy">
+                <span>Aplicar configurações</span>
+            </div>
         </div>
-        <div class="fitment-modal" data-fitment="front-left-camber">
-          <button
-            class="countDown act-btn"
-            id="arrow"
-            data-side="left"
-            data-type="fitment"
-          >
-            -
-          </button>
-          <div class="currentCount act-btn" id="fitment">1.0</div>
-          <button
-            class="countUp act-btn"
-            id="arrow"
-            data-side="right"
-            data-type="fitment"
-          >
-            +
-          </button>
-        </div>
-      </div>
-      <div class="fitment">
-        <div class="fitment-title">
-          <span>Wheels Front Camber</span>
-        </div>
-        <div class="fitment-modal" data-fitment="front-right-camber">
-          <button
-            class="countDown act-btn"
-            id="arrow"
-            data-side="left"
-            data-type="fitment"
-          >
-            -
-          </button>
-          <div class="currentCount act-btn" id="fitment">1.0</div>
-          <button
-            class="countUp act-btn"
-            id="arrow"
-            data-side="right"
-            data-type="fitment"
-          >
-            +
-          </button>
-        </div>
-      </div>
-      <div class="fitment">
-        <div class="fitment-title">
-          <span>Wheels rear Camber</span>
-        </div>
-        <div class="fitment-modal" data-fitment="rear-left-camber">
-          <button
-            class="countDown act-btn"
-            id="arrow"
-            data-side="left"
-            data-type="fitment"
-          >
-            -
-          </button>
-          <div class="currentCount act-btn" id="fitment">1.0</div>
-          <button
-            class="countUp act-btn"
-            id="arrow"
-            data-side="right"
-            data-type="fitment"
-          >
-            +
-          </button>
-        </div>
-      </div>
-      <div class="fitment">
-        <div class="fitment-title">
-          <span>Wheels rear Camber</span>
-        </div>
-        <div class="fitment-modal" data-fitment="rear-right-camber">
-          <button
-            class="countDown act-btn"
-            id="arrow"
-            data-side="left"
-            data-type="fitment"
-          >
-            -
-          </button>
-          <div class="currentCount act-btn" id="fitment">1.0</div>
-          <button
-            class="countUp act-btn"
-            id="arrow"
-            data-side="right"
-            data-type="fitment"
-          >
-            +
-          </button>
-        </div>
-      </div>
-      <div class="fitment-row">
-        <div id="buyFitment" class="buy">
-          <span>Aplicar configurações</span>
-        </div>
-      </div>
+ 
     </div>
+
+    <!-- <div class="invoice">
+        <div class="invoice-logo">
+            <img src="img/bennys.png">
+        </div>
+        <div class="divider-invoice"></div>
+        <div class="basket">
+            <div class="basket-item">
+                <div class="basket-item-img">
+                    <img src="img/front_bumper.png">
+                </div>
+                <div class="basket-item-labels">
+                    <span>Front bumper</span>
+                    <span>Vehicle customization</span>
+                </div>
+                <div class="basket-item-price">
+                    <span>$3000</span>
+                </div>
+            </div>
+        </div>
+        <div class="divider-invoice"></div>
+        <div class="invoice-modals">
+            <div class="total-price">
+                <span>Total price:</span>
+                <span>$1300</span>
+            </div>
+            <div class="modal-buttons">
+                <div class="modal-button" id="buy">
+                    <span>Buy</span>
+                </div>
+                <div class="modal-button" id="bill">
+                    <span>Bill player</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal">
+        <span>enter player id</span>
+        <input type="number">
+        <div class="modal-button" id="buy">
+            <span>send bill</span>
+        </div>
+    </div> -->
+
     <script src="script.js"></script>
-  </body>
+</body>
 </html>

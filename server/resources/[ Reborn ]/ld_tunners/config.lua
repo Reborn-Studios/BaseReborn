@@ -18,6 +18,7 @@ Config.Settings = {
         keyCode = 38, -- Tecla para utilizar o nitro
     },
     syncFitment = true, -- Ativar sincronização para todos os players sobre as montagens de roda (pode afetar a performance do script)
+    automaticTunningSync = false, -- Ativar sincronização das tunagens independente da garagem
 }
 
 Config.Menus = {
@@ -26,7 +27,7 @@ Config.Menus = {
         transmission = { basePrice = 5000, increaseBy = 500 },
         suspension = { basePrice = 5000, increaseBy = 500 },
         engine = { basePrice = 5000, increaseBy = 500 },
-        turbo = 5000,
+        turbo = { basePrice = 5000 },
     },
     customization = {
         spoiler = { basePrice = 1500, increaseBy = 250 },
@@ -76,10 +77,10 @@ Config.Menus = {
         price = 7500,
     },
     tuning = {
-        vehicle_traction = 10000,
-        tuner_chip = 25000,
-        nitro = 15000,
-        popcorn = 15000,
+        vehicle_traction = { basePrice = 10000 },
+        tuner_chip = { basePrice = 25000 },
+        nitro = { basePrice = 15000 },
+        popcorn = { basePrice = 15000 },
     },
     paintBooth = {
         color = 500, 
@@ -98,12 +99,13 @@ Config.Menus = {
 Config.Locations = {
     ["Bennys Workshop"] = {
         illegalMechanic = false,
-        permission = nil,
+        permission = "mecanico.permissao",
         coords = {
             vector3(835.4,-983.77,26.0),
             vector3(835.51,-975.3,26.0),
             vector3(835.06,-967.17,26.01)
         },
+        excludeMods = {}, -- vehicle, cosmetic, upgrades, wheel, paintbrush
         showBlip = false,
         blipSprite = 446,
         blipColor = 4,
@@ -112,11 +114,12 @@ Config.Locations = {
     
     ["Bennys Workshop Ilegal"] = {
         illegalMechanic = true,
-        permission = nil,
+        permission = "bennys.permissao",
         coords = {
             vector3(-222.97,-1329.2,30.9)
         },
         showBlip = false,
+        excludeMods = {},
         blipSprite = 446,
         blipColor = 4,
         blipCoords = vector3(-222.97,-1329.2,30.9),
@@ -136,6 +139,7 @@ Config.Locale = {
     ["open_mechanic_menu"] = "~INPUT_CONTEXT~ Abrir mecânica",
     ["open_extra_menu"] = "~INPUT_CONTEXT~ Abrir menu de extras",
     ["dont_have_money"] = "Você não possui dinheiro suficiente",
+    ["dont_have_item"] = "Você não possui o item necessário",
     ["popnbang_active"] = "Status do Pops'N'Bangs: %s",
     ["save_cancel"] = "Mudanças canceladas.",
     ["saved"] = "As mudanças foram aplicadas com sucesso!"

@@ -8,13 +8,25 @@ Citizen.CreateThread(function()
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
     ]])
 
-    GetMoney = function(source)
-        local user_id = vRP.getUserId(source)
-        return vRP.getBankMoney(user_id)
+    GetUserSource = function(user_id)
+        return vRP.getUserSource(user_id)
+    end
+
+    GetUserId = function(source)
+        return vRP.getUserId(source)
+    end
+
+    GetMoney = function(source, type)
+        local user_id = GetUserId(source)
+        if type == "card" then
+            return vRP.getBankMoney(user_id)
+        else
+            return vRP.getInventoryItemAmount(user_id, "dollars")
+        end
     end
 
     RemoveMoney = function(source, amount, type)
-        local user_id = vRP.getUserId(source)
+        local user_id = GetUserId(source)
         if type == "card" then
             vRP.tryPayment(user_id, amount)
         else
@@ -22,8 +34,13 @@ Citizen.CreateThread(function()
         end
     end
 
+    RemoveItem = function(source,item)
+        local user_id = GetUserId(source)
+        return vRP.tryGetInventoryItem(user_id, item, 1)
+    end
+
     HasPermission = function(source, permission)
-        local user_id = vRP.getUserId(source)
+        local user_id = GetUserId(source)
         return vRP.hasPermission(user_id, permission)
     end
 
@@ -31,41 +48,52 @@ Citizen.CreateThread(function()
         TriggerClientEvent("Notify",source,"importante",message)
     end
 
-    local Tunners = {}
+    GetUserByPlate = function(plate)
+        return vRP.getVehiclePlate(plate)
+    end
+
+    local vehicleModsCache = {}
 
     RegisterServerEvent("ld_tunners:saveVehicle")
-    AddEventHandler("ld_tunners:saveVehicle",function(mods,plate,car)
-        local user_id = vRP.getVehiclePlate(plate)
+    AddEventHandler("ld_tunners:saveVehicle", function(mods, plate, car)
+        local user_id = GetUserByPlate(plate)
         if user_id then
-            Tunners[plate] = mods
-            MySQL.Async.execute("REPLACE INTO vrp_srv_data(dkey,dvalue) VALUES(@dkey,@dvalue)",{
+            vehicleModsCache[plate] = mods
+            MySQL.Async.execute("REPLACE INTO vrp_srv_data(dkey,dvalue) VALUES(@dkey,@dvalue)", {
                 ["@dkey"] = "mods:"..plate,
                 ["@dvalue"] = json.encode(mods),
             })
         end
     end)
 
-    RegisterServerEvent("ld_tunners:applyMods")
-    AddEventHandler("ld_tunners:applyMods",function(plate,car_name,car_ent)
-        if Tunners[plate] then
-            TriggerClientEvent("ld_tunners:client:applyMods",-1,car_ent,Tunners[plate])
-            return
-        end
-        local user_id = vRP.getVehiclePlate(plate)
+    RegisterServerEvent("ld_tunners:server:syncMods")
+    AddEventHandler("ld_tunners:server:syncMods", function(plate, car_name, entity)
+        local user_id = GetUserByPlate(plate)
         if user_id then
-            local source = vRP.getUserSource(user_id)
+            local source = GetUserSource(user_id)
             if source then
-                MySQL.Async.fetchAll("SELECT * FROM vrp_srv_data WHERE dkey = @key",{
-                    ["@key"] = "mods:"..plate
-                }, function(result)
-                    if #result > 0 then
-                        if not Tunners[plate] then
-                            Tunners[plate] = json.decode(result[1].dvalue)
+                if vehicleModsCache[plate] then
+                    TriggerClientEvent("ld_tunners:client:applyMods", source, entity, vehicleModsCache[plate])
+                else
+                    MySQL.Async.fetchAll("SELECT * FROM vrp_srv_data WHERE dkey = @key", {
+                        ["@key"] = "mods:"..plate
+                    }, function(result)
+                        if #result > 0 then
+                            local mods = json.decode(result[1].dvalue)
+                            vehicleModsCache[plate] = mods
+                            TriggerClientEvent("ld_tunners:client:applyMods", source, entity, mods)
                         end
-                        TriggerClientEvent("ld_tunners:client:applyMods",source,car_ent,Tunners[plate])
-                    end
-                end)
+                    end)
+                end
             end
         end
     end)
+
+    RegisterServerEvent("ld_tunners:applyMods")
+    AddEventHandler("ld_tunners:applyMods",function(car_ent,tunning)
+        if car_ent then
+            TriggerClientEvent("ld_tunners:client:applyMods",source,car_ent,tunning)
+        end
+    end)
 end)
+

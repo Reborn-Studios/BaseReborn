@@ -1,4 +1,4 @@
-CreateThread(function()
+Citizen.CreateThread(function()
     for mName, mData in pairs(Config.Locations) do
         if mData.showBlip then
             mData.blipHandle = AddBlipForCoord(mData.blipCoords)
@@ -171,6 +171,7 @@ setVehicleProperties = function(vehicle, props)
                 end
             end
         end
+        --print(181, props.color1)
         local colorPrimary, colorSecondary
         local pearlescentColor, wheelColor
         if not props.color1 and props.color2 then
@@ -431,25 +432,23 @@ setVehicleProperties = function(vehicle, props)
 	end
 end
 
-exports("setVehicleProperties",setVehicleProperties)
-
 RequestAndWaitModel = function(model)
     while not HasModelLoaded(model) do
         RequestModel(model)
-        Wait(1)
+        Citizen.Wait(1)
     end
 end
 
 RequestAndWaitAnim = function(animDict)
     while not HasAnimDictLoaded(animDict) do
         RequestAnimDict(animDict)
-        Wait(1)
+        Citizen.Wait(1)
     end
 end
 
-CreateThread(function()
+Citizen.CreateThread(function()
     while vSERVER.getUserID() == nil do
-		Wait(1000)
+		Citizen.Wait(100)
 	end
     local data = vSERVER.getVehData()
     if not data then
