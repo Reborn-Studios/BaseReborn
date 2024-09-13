@@ -64,18 +64,12 @@ function cmVRP.stopMachine(x,y,z)
 	if user_id then
 		if machineStart then
 			machineStart = false
-			local grid = vRP.getGridzone(x,y)
-			TriggerEvent("ld-inv:DropItem",{ inventory = "ground", item = "dollars", qtd = math.random(15000,17500), x = x, y = y, z = z })
-			local random = math.random(100)
-			if parseInt(random) >= 75 then
-				TriggerEvent("ld-inv:DropItem",{ inventory = "ground", item = "aluminum", qtd = math.random(10,20), x = x, y = y, z = z })
-			elseif parseInt(random) >= 50 and parseInt(random) <= 74 then
-				TriggerEvent("ld-inv:DropItem",{ inventory = "ground", item = "rubber", qtd = math.random(25,50), x = x, y = y, z = z })
-			elseif parseInt(random) >= 25 and parseInt(random) <= 49 then
-				TriggerEvent("ld-inv:DropItem",{ inventory = "ground", item = "plastic", qtd = math.random(25,50), x = x, y = y, z = z })
-			elseif parseInt(random) <= 24 then
-				TriggerEvent("ld-inv:DropItem",{ inventory = "ground", item = "plastic", qtd = math.random(10,20), x = x, y = y, z = z })
-			end
+			TriggerEvent("ox_inventory:customDrop","Caixinha",{
+				{ "dollars", math.random(15000,17500) },
+				{ "aluminum", math.random(10,20) },
+				{ "rubber", math.random(25,50) },
+				{ "plastic", math.random(25,50) },
+			}, vector3(x,y,z))
 		end
 	end
 end
