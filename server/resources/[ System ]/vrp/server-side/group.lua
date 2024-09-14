@@ -84,6 +84,13 @@ function vRP.removePermission(user_id,perm)
 	if nplayer then
 		TriggerEvent("vrp_blipsystem:serviceExit",nplayer)
 		Player(nplayer)["state"][perm] = false
+		if vRP.hasPermission(user, "policia.permissao") then
+			Player(nplayer)["state"]["Police"] = false
+		elseif vRP.hasPermission(user, "paramedico.permissao") then
+			Player(nplayer)["state"]["Paramedic"] = false
+		elseif vRP.hasPermission(user, "mecanico.permissao") then
+			Player(nplayer)["state"]["Mechanic"] = false
+		end
 		if groups[perm] and groups[perm]._config then
 			if groups[perm]._config.gtype and groups[perm]._config.gtype == "vip" then
 				Player(nplayer)["state"]["Premium"] = false
@@ -101,9 +108,16 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- HASPERMISSION
 -----------------------------------------------------------------------------------------------------------------------------------------
-function vRP.hasPermission(user,perm)
+local aliasPerm = {
+	['Police'] = "policia.permissao",
+	['Mechanic'] = "mecanico.permissao",
+	['Paramedic'] = "paramedico.permissao"
+}
+
+function vRP.hasPermission(user,_perm)
 	local user_id = parseInt(user)
-	if permissions[user_id] then
+	if permissions[user_id] and _perm then
+		local perm = aliasPerm[perm] or _perm
 		for k,v in pairs(permissions[user_id]) do
 			if v.permiss == perm then
 				return true
@@ -134,12 +148,6 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- USERS BY PERMISSION
 -----------------------------------------------------------------------------------------------------------------------------------------
-local aliasPerm = {
-	['Police'] = "policia.permissao",
-	['Mechanic'] = "mecanico.permissao",
-	['Paramedic'] = "paramedico.permissao"
-}
-
 function vRP.numPermission(perm, offline)
 	local users = {}
 	if perm and aliasPerm[perm] then
