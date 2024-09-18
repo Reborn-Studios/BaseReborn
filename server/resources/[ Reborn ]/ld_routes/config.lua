@@ -493,7 +493,18 @@ config.main = {
 					["plastic"] = 5,
 					["eletronics"] = 5,
 				}
-			},			
+			},
+			["bluecard"] = {
+				["image"] = "bluecard",
+				["amount"] = 1,
+				["destroy"] = true,
+				["webhook"] = 'https://discord.com/api/webhooks/SEUWEBHOOK',
+				["police_chance"] = 0,
+				["require"] = {
+					["plastic"] = 5,
+					["eletronics"] = 5,
+				}
+			},		
 			["c4"] = {
 				["image"] = "c4",
 				["amount"] = 1,
