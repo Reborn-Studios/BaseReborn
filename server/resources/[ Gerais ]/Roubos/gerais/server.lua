@@ -35,7 +35,7 @@ function robRP.checkPolice(robberyId,coords)
 			return false
 		end
 
-		if not vRP.hasPermission(user_id,"Police") then
+		if not vRP.hasPermission(user_id,"policia.permissao") then
 			if vRP.tryGetInventoryItem(user_id,vars[robberyId].required,1,true) then
 				for k,v in pairs(amountCops) do
 					local player = vRP.getUserSource(v)
@@ -52,6 +52,8 @@ function robRP.checkPolice(robberyId,coords)
 				TriggerClientEvent("Notify",source,"aviso","Você precisa de <b>1x "..vRP.itemNameList(vars[robberyId].required).."</b>.",4000)
 				return false
 			end
+		else
+			TriggerClientEvent("Notify",source,"aviso","Você não pode fazer isso.",4000)
 		end
 	end
 end
