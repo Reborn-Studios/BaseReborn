@@ -1,113 +1,118 @@
 ::-webkit-scrollbar {
-	width: 0;
+  width: 0;
 }
 
 ::selection {
-	background: transparent;
+  background: transparent;
 }
 
 ::-moz-selection {
-	background: transparent;
+  background: transparent;
 }
 
-body, html {
-	width: 100vw;
-	height: 100vh;
-	display: flex;
-	align-items: center;
-	font-family: "Roboto";
-	justify-content: center;
+body,
+html {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  font-family: "Roboto";
+  justify-content: center;
 }
 
 b {
-	font-weight: 300;
+  font-weight: 300;
 }
 
 .Body {
-	max-width: 320px;
-	max-height: 800px;
-	position: absolute;
-	display: block;
-	overflow-y: auto;
-	right: 20rem;
+  max-width: 320px;
+  max-height: 800px;
+  position: absolute;
+  display: block;
+  overflow-y: auto;
+  right: 20rem;
 }
 
 .Container {
-	margin: 1rem;
+  margin: 1rem;
 }
 
 .btn {
-	color: #ccc;
-	border: none;
-	outline: none;
-	display: block;
-	font-size: 16px;
-	min-height: 30px;
-	max-height: 58px;
-	min-width: 280px;
-	margin-bottom: 5px;
-	position: relative;
-	border-radius: 4px;
-	padding: 20px 20px 20px 15px;
-	background: rgba(15,15,15,0.75);
+  color: #ccc;
+  border: none;
+  outline: none;
+  display: block;
+  font-size: 16px;
+  min-height: 30px;
+  max-height: 58px;
+  min-width: 280px;
+  margin-bottom: 5px;
+  position: relative;
+  border-radius: 4px;
+  padding: 20px 20px 20px 15px;
+  background: rgba(15, 15, 15, 0.75);
 }
 
-.btn:hover, .normalbutton:hover {
-	color: #fff;
-	background: rgba(64,130,226,0.75);
+.btn:hover,
+.normalbutton:hover {
+  color: #fff;
+  background: rgba(75, 64, 226, 0.75);
 }
 
 .title {
-	float: left;
-	font-size: 15px;
-	margin-top: -9px;
-	text-align: left;
-	letter-spacing: 2px;
+  float: left;
+  font-size: 15px;
+  margin-top: -9px;
+  text-align: left;
+  letter-spacing: 2px;
 }
 
 .description {
-	color: #999;
-	font-size: 11px;
-	margin-top: 13px;
-	text-align: left;
-	letter-spacing: 0.8px;
+  color: #999;
+  font-size: 11px;
+  margin-top: 13px;
+  text-align: left;
+  letter-spacing: 0.8px;
 }
 
-.btn:hover .description, .normalbutton:hover .description {
-	color: #c8dfff;
+.btn:hover .description,
+.normalbutton:hover .description {
+  color: #cdc8ff;
 }
 
 .btn:hover .title {
-	color: #fff;
+  color: #fff;
 }
 
-.description yellow, .description b {
-	color: #e1bc29;
+.description yellow,
+.description b {
+  color: #4513d1;
 }
 
 .normalbutton {
-	color: #ccc;
-	display: block;
-	font-size: 16px;
-	cursor: default;
-	min-width: 243px;
-	margin-bottom: 5px;
-	position: relative;
-	border-radius: 4px;
-	padding: 20px 20px 12px 14px;
-	background: rgba(15,15,15,0.75);
+  color: #ccc;
+  display: block;
+  font-size: 16px;
+  cursor: default;
+  min-width: 243px;
+  margin-bottom: 5px;
+  position: relative;
+  border-radius: 4px;
+  padding: 20px 20px 12px 14px;
+  background: rgba(15, 15, 15, 0.75);
 }
 
 .amarelo {
-	color: #362d09;
-	background: #e1bc29;
+  color: #170549;
+  background: #4513d1;
 }
 
-.amarelo:hover, .amarelo:hover .description {
-	color: #634f00;
-	background: #f4cc2d;
+.amarelo:hover,
+.amarelo:hover .description {
+  color: #170549;
+  background: #582df4;
 }
 
 .amarelo .description {
-	color: #79692a;
+  color: #ffffff;
 }

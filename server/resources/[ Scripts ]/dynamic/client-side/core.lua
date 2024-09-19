@@ -45,7 +45,6 @@ RegisterNUICallback("clicked",function(Data,Callback)
 			TriggerEvent(Data["trigger"],Data["param"])
 		end
 	end
-
 	Callback("Ok")
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -54,7 +53,6 @@ end)
 RegisterNUICallback("close",function(Data,Callback)
 	SetNuiFocus(false,false)
 	Dynamic = false
-
 	Callback("Ok")
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -75,7 +73,6 @@ RegisterCommand("globalFunctions",function()
 	if not LocalPlayer["state"]["Commands"] and not LocalPlayer["state"]["Handcuff"] and not LocalPlayer["state"]["Prison"] and not Dynamic and not IsPauseMenuActive() then
 		local Ped = PlayerPedId()
 		local Coords = GetEntityCoords(Ped)
-
 		if GetEntityHealth(Ped) > 100 then
 			if LocalPlayer["state"]["Premium"] then
 				exports["dynamic"]:AddButton("Vestir Premium","Vestir-se com as vestimentas guardadas.","player:Outfit","aplicarpre","wardrobe",true)
@@ -107,7 +104,6 @@ RegisterCommand("globalFunctions",function()
 					if GetEntityModel(LastVehicle) == GetHashKey("flatbed") and not IsPedInAnyVehicle(Ped) then
 						exports["dynamic"]:AddButton("Rebocar","Colocar o veículo na prancha.","towdriver:invokeTow","","others",false)
 					end
-
 					if vRP.nearestPlayer(3) then
 						exports["dynamic"]:AddButton("Colocar no Veículo","Colocar no veículo mais próximo.","player:cvFunctions","cv","closestpeds",true)
 						exports["dynamic"]:AddButton("Remover do Veículo","Remover do veículo mais próximo.","player:cvFunctions","rv","closestpeds",true)
@@ -146,15 +142,11 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterCommand("tencodeFunctions",function()
 	if (LocalPlayer["state"]["Police"]) and not IsPauseMenuActive() then
-		if not LocalPlayer["state"]["Commands"] and not LocalPlayer["state"]["Handcuff"] and not menuOpen and LocalPlayer["state"]["Route"] < 900000 then
-
-			if LocalPlayer["state"]["Police"] then
-				exports["dynamic"]:AddButton("QTI","Deslocamento.","dynamic:Tencode","1",false,true)
-				exports["dynamic"]:AddButton("QTH","Localização.","dynamic:Tencode","2",false,true)
-				exports["dynamic"]:AddButton("QRR","Apoio com prioridade.","dynamic:Tencode","3",false,true)
-				exports["dynamic"]:AddButton("QRT","Oficial desmaiado/ferido.","dynamic:Tencode","4",false,true)
-			end
-
+		if not LocalPlayer["state"]["Commands"] and not LocalPlayer["state"]["Handcuff"] and not menuOpen then
+			exports["dynamic"]:AddButton("QTI","Deslocamento.","dynamic:Tencode","1",false,true)
+			exports["dynamic"]:AddButton("QTH","Localização.","dynamic:Tencode","2",false,true)
+			exports["dynamic"]:AddButton("QRR","Apoio com prioridade.","dynamic:Tencode","3",false,true)
+			exports["dynamic"]:AddButton("QRT","Oficial desmaiado/ferido.","dynamic:Tencode","4",false,true)
 			exports["dynamic"]:openMenu()
 		end
 	end
@@ -176,23 +168,16 @@ RegisterCommand("emergencyFunctions",function()
 				exports["dynamic"]:AddButton("Remover Máscara","Remover da pessoa mais próxima.","skinshop:Remove","Mask","player",true)
 				exports["dynamic"]:AddButton("Remover Óculos","Remover da pessoa mais próxima.","skinshop:Remove","Glasses","player",true)
 				exports["dynamic"]:SubMenu("Jogador","Pessoa mais próxima de você.","player")
-
-				exports["dynamic"]:AddButton("Recruta","Fardamento de Recruta.","player:Preset","1","prePolice",true)
-				exports["dynamic"]:AddButton("Oficial","Fardamento de oficial.","player:Preset","2","prePolice",true)
-				exports["dynamic"]:AddButton("Oficial 2","Fardamento de oficial.","player:Preset","3","prePolice",true)
-				exports["dynamic"]:AddButton("GTM","Fardamento de GTM.","player:Preset","4","prePolice",true)
-				exports["dynamic"]:AddButton("GAR","Fardamento de GAR.","player:Preset","5","prePolice",true)
-				exports["dynamic"]:AddButton("DIP","Fardamento de DIP.","player:Preset","6","prePolice",true)
-				exports["dynamic"]:AddButton("DIP - Delegado","Fardamento de DIP.","player:Preset","7","prePolice",true)
-				exports["dynamic"]:AddButton("CORE","Fardamento de CORE","player:Preset","8","prePolice",true)
-				exports["dynamic"]:AddButton("CORE 2","Fardamento de CORE.","player:Preset","9","prePolice",true)
-				exports["dynamic"]:AddButton("GAEP","Fardamento de GAEP.","player:Preset","10","prePolice",true)
-				exports["dynamic"]:AddButton("Comando","Fardamento do Comando.","player:Preset","11","prePolice",true)
+				if Presets["Police"] then
+					for Name,data in pairs(Presets["Police"]) do
+						if LocalPlayer["state"][Name] then
+							exports["dynamic"]:AddButton(Name,"Fardamento de "..Name..".","player:Preset",Name,"prePolice",true)
+						end
+					end
+				end
 				exports["dynamic"]:SubMenu("Fardamentos","Todos os fardamentos policiais.","prePolice")
 			end
-
 			exports["dynamic"]:AddButton("Computador","Computador de bordo policial.","police:Open","",false,false)
-
 			exports["dynamic"]:openMenu()
 		elseif LocalPlayer["state"]["Paramedic"] then
 			if GetEntityHealth(Ped) > 100 and not IsPedInAnyVehicle(Ped) then
@@ -204,11 +189,14 @@ RegisterCommand("emergencyFunctions",function()
 				exports["dynamic"]:AddButton("Remover Máscara","Remover da pessoa mais próxima.","skinshop:Remove","Mask","player",true)
 				exports["dynamic"]:AddButton("Remover Óculos","Remover da pessoa mais próxima.","skinshop:Remove","Glasses","player",true)
 				exports["dynamic"]:SubMenu("Jogador","Pessoa mais próxima de você.","player")
-
-				exports["dynamic"]:AddButton("Medical Center","Fardamento de doutor.","player:Preset","12","preMedic",true)
-				exports["dynamic"]:AddButton("Medical Center","Fardamento de paramédico.","player:Preset","13","preMedic",true)
+				if Presets["Paramedic"] then
+					for Name,data in pairs(Presets["Paramedic"]) do
+						if LocalPlayer["state"][Name] then
+							exports["dynamic"]:AddButton(Name,"Fardamento de "..Name..".","player:Preset",Name,"preMedic",true)
+						end
+					end
+				end
 				exports["dynamic"]:SubMenu("Fardamentos","Todos os fardamentos médicos.","preMedic")
-
 				exports["dynamic"]:openMenu()
 			end
 		end
@@ -218,5 +206,5 @@ end)
 -- KEYMAPPING
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterKeyMapping("globalFunctions","Abrir menu principal.","keyboard","F9")
-RegisterKeyMapping("tencodeFunctions","Abrir menu de chamados policiais.","keyboard","F3")
+RegisterKeyMapping("tencodeFunctions","Abrir menu de chamados policiais.","keyboard","F4")
 RegisterKeyMapping("emergencyFunctions","Abrir menu de emergencial.","keyboard","F10")
