@@ -45,30 +45,31 @@ AddEventHandler("Notify",function(css,mensagem,timer,position)
             type = 'warning',
             duration = timer
         })
-    end
-
-	if css == "negado" or css == "vermelho" or css == "error" then
+    elseif css == "negado" or css == "vermelho" or css == "error" then
         Notify:new({
             message = mensagem,
             title = 'Negado',
             type = 'error',
             duration = timer
         })
-    end
-
-	if css == "sucesso" or css == "verde" or css == "success" then
+    elseif css == "sucesso" or css == "verde" or css == "success" then
         Notify:new({
             message = mensagem,
             title = 'Sucesso',
             type = 'success',
             duration = timer
         })
-    end
-
-	if css == "importante" or css == "azul" then
+    elseif css == "importante" or css == "azul" then
         Notify:new({
             message = mensagem,
             title = 'Informação',
+            type = 'info',
+            duration = timer
+        })
+    else
+        Notify:new({
+            message = mensagem,
+            title = css,
             type = 'info',
             duration = timer
         })
