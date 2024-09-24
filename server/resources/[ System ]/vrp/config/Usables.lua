@@ -1,5 +1,6 @@
 local Proxy = module("vrp","lib/Proxy")
 local Tunnel = module("vrp","lib/Tunnel")
+local Webhooks = module("Reborn/webhooks")
 vRP = Proxy.getInterface("vRP")
 vTASKBAR = Tunnel.getInterface("taskbar")
 vSURVIVAL = Tunnel.getInterface("Survival")
@@ -565,15 +566,17 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 	end
 
 	if itemName == "lockpick" then
-		local checkHome = exports['will_homes']:tryEnterHome(source, true)
-		if checkHome then
-			vRPclient.playAnim(source,false,{"missheistfbi3b_ig7","lift_fibagent_loop"},false)
-			local taskResult = vTASKBAR.taskLockpick(source)
-			if taskResult then
-				TriggerClientEvent("will_homes:client:enterHouse",source, checkHome, true)
+		if GetResourceState("will_homes") == "started" then
+			local checkHome = exports['will_homes']:tryEnterHome(source, true)
+			if checkHome then
+				vRPclient.playAnim(source,false,{"missheistfbi3b_ig7","lift_fibagent_loop"},false)
+				local taskResult = vTASKBAR.taskLockpick(source)
+				if taskResult then
+					TriggerClientEvent("will_homes:client:enterHouse",source, checkHome, true)
+				end
+				vRPclient._stopAnim(source,false)
+				return
 			end
-			vRPclient._stopAnim(source,false)
-			return
 		end
 		local vehicle,vehNet,vehPlate,vehName,vehLock,vehBlock,vehHealth,vehModel,vehClass = vRPclient.vehList(source,3)
 		if vehicle and vehClass ~= 15 and vehClass ~= 16 then
@@ -582,14 +585,20 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 				vRPclient.stopActived(source)
                 vRPclient._playAnim(source,true,{"anim@amb@clubhouse@tutorial@bkr_tut_ig3@","machinic_loop_mechandplayer"},true)
 				local taskResult = vTASKBAR.taskLockpick(source)
-				if taskResult then
+				if taskResult and vRP.tryGetInventoryItem(user_id,itemName,1) then
 					local iddoroubado = vRP.getVehiclePlate(vehPlate)
-					--SendWebhookMessage(webhookrobberycar,"```prolog\n[ID]: "..user_id.."\n[ROUBOU CARRO]: "..vRP.vehicleName(vehName).." "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
-					if iddoroubado and math.random(100) >= 50 then
-						TriggerClientEvent("Notify",source,"aviso","O alarme do seu veículo <b>"..vRP.vehicleName(vehName).."</b> foi acionado.",7000)
+					if iddoroubado then
+						local nplayer = vRP.getUserSource(iddoroubado)
+						if nplayer then
+							TriggerClientEvent("Notify",nplayer,"aviso","O alarme do seu veículo <b>"..vRP.vehicleName(vehName).."</b> foi acionado.",7000)
+						end
+						vRP.createWeebHook(Webhooks.webhookrobberycar,"```prolog\n[ID]: "..user_id.."\n[ROUBOU VEICULO]: "..vRP.vehicleName(vehName).." \n[DONO VEICULO]: "..iddoroubado.."\n[LOCAL]: "..GetEntityCoords(GetPlayerPed(source))..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
+					else
+						vRP.createWeebHook(Webhooks.webhookrobberycar,"```prolog\n[ID]: "..user_id.."\n[ROUBOU VEICULO]: "..vRP.vehicleName(vehName).."\n[LOCAL]: "..GetEntityCoords(GetPlayerPed(source))..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
 					end
 					TriggerEvent("setPlateEveryone",vehPlate)
 					TriggerEvent("setPlatePlayers",vehPlate,user_id)
+					TriggerClientEvent("Notify",source,"sucesso","Veiculo roubado com sucesso.",7000)
 					if math.random(100) >= 15 then
 						local x,y,z = vRPclient.getPositions(source)
 						local copAmount = vRP.numPermission("Police")
@@ -604,25 +613,26 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 				else
 					TriggerClientEvent("Notify",source,"aviso","Voce falhou, tente novamente.",7000)
 				end
-
-				if parseInt(math.random(100)) >= 85 then
-					vRP.removeInventoryItem(user_id,itemName,1,true)
-				end
                 vRPclient._stopAnim(source)
 				active[user_id] = nil
 			else
 				active[user_id] = 100
 				vRPclient.stopActived(source)
 				vRPclient._playAnim(source,false,{"missfbi_s4mop","clean_mop_back_player"},true)
-
 				local taskResult = vTASKBAR.taskLockpick(source)
 				if taskResult then
 					vRP.upgradeStress(user_id,4)
 					local iddoroubado = vRP.getVehiclePlate(vehPlate)
-					--SendWebhookMessage(webhookrobberycar,"```prolog\n[ID]: "..user_id.."\n[ROUBOU CARRO]: "..vRP.vehicleName(vehPlate).." "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
 					if iddoroubado then
-						TriggerClientEvent("Notify",source,"aviso","Veículo <b>"..vRP.vehicleName(vehName).."</b> foi roubado.",7000)
+						local nplayer = vRP.getUserSource(iddoroubado)
+						if nplayer then
+							TriggerClientEvent("Notify",nplayer,"aviso","O alarme do seu veículo <b>"..vRP.vehicleName(vehName).."</b> foi acionado.",7000)
+						end
+						vRP.createWeebHook(Webhooks.webhookrobberycar,"```prolog\n[ID]: "..user_id.."\n[ROUBOU VEICULO]: "..vRP.vehicleName(vehName).." \n[DONO VEICULO]: "..iddoroubado.."\n[LOCAL]: "..GetEntityCoords(GetPlayerPed(source))..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
+					else
+						vRP.createWeebHook(Webhooks.webhookrobberycar,"```prolog\n[ID]: "..user_id.."\n[ROUBOU VEICULO]: "..vRP.vehicleName(vehName).."\n[LOCAL]: "..GetEntityCoords(GetPlayerPed(source))..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
 					end
+					TriggerClientEvent("Notify",source,"sucesso","Veiculo roubado com sucesso.",7000)
 					if math.random(100) >= 50 then
 						TriggerEvent("setPlateEveryone",vehPlate)
 						local networkVeh = NetworkGetEntityFromNetworkId(vehNet)
@@ -643,11 +653,6 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 				else
 					TriggerClientEvent("Notify",source,"aviso","Voce falhou.",7000)
 				end
-
-				if parseInt(math.random(1000)) >= 850 then
-					vRP.removeInventoryItem(user_id,itemName,1,true,slot)
-				end
-
 				vRPclient._stopAnim(source,false)
 				active[user_id] = nil
 			end
