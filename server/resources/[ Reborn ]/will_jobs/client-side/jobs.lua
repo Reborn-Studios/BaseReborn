@@ -486,6 +486,22 @@ end)
 
 RegisterNetEvent("will_jobs:initDiver",function()
 
+    CreateThread(function ()
+        local ped = PlayerPedId()
+        while inService do
+            if IsPedSwimmingUnderWater(ped) then
+                if GetEntityModel(ped) == GetHashKey("mp_m_freemode_01") and GetPedDrawableVariation(ped,8) ~= 123 then
+                    SetPedComponentVariation(ped,8,123,0,2)
+                    SetPedPropIndex(ped,1,26,0,true)
+                elseif GetEntityModel(ped) == GetHashKey("mp_f_freemode_01") and GetPedDrawableVariation(ped,8) ~= 153 then
+                    SetPedComponentVariation(ped,8,153,0,2)
+                    SetPedPropIndex(ped,1,28,0,true)
+                end
+            end
+            Wait(500)
+        end
+    end)
+
     function JobFunctions:collectItem()
         if jobVehicle and DoesEntityExist(jobVehicle) then
             createObjects("anim@heists@box_carry@","idle","prop_big_bag_01",50,28422)
