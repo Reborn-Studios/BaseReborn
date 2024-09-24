@@ -173,6 +173,7 @@ function tvRP.giveWeapons(weapons,clear_before,forceHand)
 		GiveWeaponToPed(ped,GetHashKey(k),v.ammo or 0,false,forceHand)
 		weapon_list[string.upper(k)] = v
 	end
+	vRPserver.updateWeapons(tvRP.getWeapons())
 	TriggerServerEvent("will_inventory:giveWeapons", weapon_list)
 end
 -----------------------------------------------------------------------------------------------------------------------------------------

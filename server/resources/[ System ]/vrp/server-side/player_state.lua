@@ -12,6 +12,19 @@ function tvRP.updatePositions(x,y,z)
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- UPDATEWEAPONS
+-----------------------------------------------------------------------------------------------------------------------------------------
+function tvRP.updateWeapons(weapons)
+	local source = source
+	local user_id = vRP.getUserId(source)
+	if user_id then
+		local data = vRP.getUserDataTable(user_id)
+		if data then
+			data.weaps = weapons
+		end
+	end
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- MATHLEGTH
 -----------------------------------------------------------------------------------------------------------------------------------------
 function tvRP.mathLegth(n)
@@ -135,6 +148,9 @@ AddEventHandler("vRP:playerSpawn",function(user_id,source)
 					end
 				end
 			end)
+		end
+		if data.weaps then
+			vRPclient.giveWeapons(source,data.weaps,true)
 		end
 		TriggerClientEvent("statusHunger",source,data.hunger)
 		TriggerClientEvent("statusThirst",source,data.thirst)
