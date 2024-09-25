@@ -49,7 +49,7 @@ Citizen.CreateThread(function()
 							inRace = true
 							raceSelect = vwSERVER.raceSelect()
 							raceTime = parseInt(race[raceSelect].time)
-							makeBlipMarked()
+							makeWaterBlipMarked()
 						end
 					end
 				end
@@ -70,7 +70,7 @@ Citizen.CreateThread(function()
 							PlaySoundFrontend(-1,"RACE_PLACED","HUD_AWARDS",false)
 						else
 							racePos = racePos + 1
-							makeBlipMarked()
+							makeWaterBlipMarked()
 						end
 					end
 				end
@@ -110,7 +110,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- MAKEBLIPRACE
 -----------------------------------------------------------------------------------------------------------------------------------------
-function makeBlipMarked()
+function makeWaterBlipMarked()
 	blipRace = AddBlipForCoord(race[raceSelect][racePos][1],race[raceSelect][racePos][2],race[raceSelect][racePos][3])
 	SetBlipSprite(blipRace,1)
 	SetBlipColour(blipRace,1)

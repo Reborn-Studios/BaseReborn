@@ -32,6 +32,7 @@ function cnVRP.checkTicket()
 			vRP.upgradeStress(user_id,5)
 			return true
 		end
+		TriggerClientEvent("Notify",source,"negado","Você não possui ticket de corrida.",5000)
 		return false
 	end
 end

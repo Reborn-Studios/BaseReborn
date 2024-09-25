@@ -67,7 +67,7 @@ Citizen.CreateThread(function()
 						timeDistance = 4
 						DrawMarker(23,v["init"][1],v["init"][2],v["init"][3]-0.95,0,0,0,0,0,0,10.5,10.5,1.5,42,137,255,100,0,0,0,0)
 
-						if IsControlJustPressed(1,38) and distance <= 5 then
+						if IsControlJustPressed(1,38) and distance <= 5 and vsSERVER.checkTicket() then
 							vrSERVER.startRaces()
 							vrSERVER.callPolice(v["init"][1],v["init"][2],v["init"][3])
 							inSelected = parseInt(k)

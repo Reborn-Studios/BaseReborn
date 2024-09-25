@@ -26,7 +26,7 @@ local timeSeconds = 0
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
-local race = Config.streetRace
+local race = Config.streetRace['races']
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- RACETIMERS
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -56,7 +56,7 @@ Citizen.CreateThread(function()
 								inRace = true
 								raceSelect = vsSERVER.startRace()
 								raceTime = parseInt(raceTimers[raceSelect])
-								makeBlipMarked(raceSelect)
+								makeStreetBlipMarked(raceSelect)
 								SetNewWaypoint(race[raceSelect][racePos][1]+0.0001,race[raceSelect][racePos][2]+0.0001)
 							end
 						end
@@ -144,7 +144,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- MAKEBLIPRACE
 -----------------------------------------------------------------------------------------------------------------------------------------
-function makeBlipMarked(number)
+function makeStreetBlipMarked(number)
 	for k,v in pairs(race[number]) do
 		blipRace[k] = AddBlipForCoord(v[1],v[2],v[3])
 		SetBlipSprite(blipRace[k],1)
