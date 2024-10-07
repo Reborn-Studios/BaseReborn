@@ -10,194 +10,79 @@
       { "name": "Praça", "location": [156.9, -1012.25, 29.4] },
       { "name": "Hospital", "location": [-454.38, -365.89, 32.94] },
       { "name": "Mecânica", "location": [-360.99, -122.79, 37.99] },
-      { "name": "Departamento Policial", "location": [2526.21,-385.6,95.31] }
+      { "name": "Departamento Policial", "location": [2526.21, -385.6, 95.31] }
     ],
     "cancelable": 1
   },
   "food": {
-    "categories": [
-      { "id": 1, "name": "Restaurantes" },
-      { "id": 2, "name": "Bebidas" },
-      { "id": 3, "name": "Farmácias" }
-    ],
+    "categories": [{ "id": 1, "name": "Restaurantes" }],
     "stores": [
       {
         "id": 1,
-        "name": "7 Eleven 24h",
-        "icon": "https://ih1.redbubble.net/image.2320262164.4775/st,small,507x507-pad,600x600,f8f8f8.jpg",
+        "name": "Burgershot",
+        "icon": "https://ih1.redbubble.net/image.2293502912.2530/flat,750x,075,f-pad,750x1000,f8f8f8.jpg",
         "category_id": 1,
         "price": 1,
-        "fee": 15,
-        "location": [29.0, -1342.89, 29.5],
+        "fee": 400,
+        "location": [-1198.4, -883.53, 13.46],
         "products": [
           {
-            "id": 6,
-            "name": "Batatinha",
-            "description": "",
-            "price": 8,
+            "id": 1,
+            "name": "Cheeseburguer",
+            "description": "Pão, hambúrguer, queijo cheddar, picles e ketckup.",
+            "price": 25,
             "section": "Lanches",
-            "image": "https://carrefourbr.vtexassets.com/arquivos/ids/16787418/batata-lays-sour-cream-80g-1.jpg?v=637554114399000000",
+            "image": "https://d3sn2rlrwxy0ce.cloudfront.net/_800x600_crop_center-center_none/cheeseburger-thumb_2021-09-16-134559_ypzs.png?mtime=20210916094600&focal=none&tmtime=20210916095008",
             "items": {
-              "fries": 1
+              "hamburger": 1
             }
           },
           {
-            "id": 7,
-            "name": "Frango Frito",
-            "description": "Porção de 200gr de frango frito.",
-            "price": 14,
+            "id": 2,
+            "name": "Baconburger",
+            "description": "Pão, hambúrguer, queijo cheddar, bacon e ketchup.",
+            "price": 25,
             "section": "Lanches",
-            "image": "https://www.solucoesindustriais.com.br/images/produtos/imagens_11773/p_embalagem-balde-para-frango-frito_11773_364836_19.png",
+            "image": "https://d3sn2rlrwxy0ce.cloudfront.net/_800x600_crop_center-center_none/cheeseburger-bacon-thumb_2021-09-16-134755_cxdp.png?mtime=20210916094756&focal=none&tmtime=20210916095009",
             "items": {
-              "frango": 1
+              "hamburger": 1
             }
           },
           {
-            "id": 8,
+            "id": 3,
+            "name": "Cachorro quente",
+            "description": "Pão e salsicha.",
+            "price": 25,
+            "section": "Lanches",
+            "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQeXeaFFsnwnlR3Cd10SuFD7xp-e_nvFNRiQ&s",
+            "items": {
+              "hotdog": 1
+            }
+          },
+          {
+            "id": 4,
             "name": "Coca-cola",
-            "description": "",
-            "price": 6,
+            "description": "Refrigerante para seu bem estar.",
+            "price": 15,
             "section": "Bebidas",
-            "image": "https://www.hotdogdomarcio.com.br/wp-content/uploads/2020/04/coca-cola-sombra-02.png",
+            "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhTi7_oBrNBIR1ikKv6bNiN9DpXVFtIRPbCA&s",
             "items": {
               "cola": 1
             }
           },
           {
-            "id": 9,
-            "name": "Sprite",
-            "description": "",
-            "price": 6,
+            "id": 5,
+            "name": "Soda",
+            "description": "Refrigerante para seu bem estar.",
+            "price": 15,
             "section": "Bebidas",
-            "image": "https://www.paodeacucar.com/img/uploads/1/904/11840904.jpg",
+            "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXw_zuDWV7RPdBM8VudvhtpGJ7QvRWQJrGFg&s",
             "items": {
-              "sprunk": 1
-            }
-          },
-
-          {
-            "id": 101,
-            "name": "Chocolate",
-            "description": "",
-            "price": 5,
-            "section": "Doces",
-            "image": "https://cdn.jesteriruka.dev/cactus/items/chocolate.png",
-            "items": {
-              "chocolate": 1
-            }
-          },
-          {
-            "id": 10,
-            "name": "Água",
-            "description": "",
-            "price": 4,
-            "section": "Bebidas",
-            "image": "https://cdn.jesteriruka.dev/cactus/items/water.png",
-            "items": {
-              "water": 1
-            }
-          },
-          {
-            "id": 205,
-            "name": "Energético",
-            "description": "",
-            "price": 10,
-            "section": "Bebidas",
-            "image": "https://cdn.jesteriruka.dev/cactus/items/energetic.png",
-            "items": {
-              "energetic": 1
+              "soda": 1
             }
           }
         ]
-      },
-      {
-        "id": 2,
-        "name": "Burgershot",
-        "icon": "https://ih1.redbubble.net/image.2293502912.2530/flat,750x,075,f-pad,750x1000,f8f8f8.jpg",
-        "category_id": 1,
-        "price": 1,
-        "fee": 15,
-        "location": [-1192.15, -894.6, 14.0],
-        "products": [
-          {
-            "id": 1,
-            "name": "Cheeseburguer",
-            "description": "Pão, hambúrguer, queijo cheddar, picles e ketckup.",
-            "price": 12,
-            "section": "Lanches",
-            "image": "https://d3sn2rlrwxy0ce.cloudfront.net/_800x600_crop_center-center_none/cheeseburger-thumb_2021-09-16-134559_ypzs.png?mtime=20210916094600&focal=none&tmtime=20210916095008",
-            "items": {
-              "hamburger": 1
-            }
-          },
-          {
-            "id": 2,
-            "name": "Baconburger",
-            "description": "Pão, hambúrguer, queijo cheddar, bacon e ketchup.",
-            "price": 14,
-            "section": "Lanches",
-            "image": "https://d3sn2rlrwxy0ce.cloudfront.net/_800x600_crop_center-center_none/cheeseburger-bacon-thumb_2021-09-16-134755_cxdp.png?mtime=20210916094756&focal=none&tmtime=20210916095009",
-            "items": {
-              "hamburger": 1
-            }
-          },
-          {
-            "id": 7,
-            "name": "Frango Frito",
-            "description": "Porção de 200gr de frango frito.",
-            "price": 14,
-            "section": "Lanches",
-            "image": "https://www.solucoesindustriais.com.br/images/produtos/imagens_11773/p_embalagem-balde-para-frango-frito_11773_364836_19.png",
-            "items": {
-              "frango": 1
-            }
-          } 
-        ] 
-      },
-      {
-        "id": 2,
-        "name": "Burgershot",
-        "icon": "https://ih1.redbubble.net/image.2293502912.2530/flat,750x,075,f-pad,750x1000,f8f8f8.jpg",
-        "category_id": 1,
-        "price": 1,
-        "fee": 15,
-        "location": [-1192.15, -894.6, 14.0],
-        "products": [
-          {
-            "id": 1,
-            "name": "Cheeseburguer",
-            "description": "Pão, hambúrguer, queijo cheddar, picles e ketckup.",
-            "price": 12,
-            "section": "Lanches",
-            "image": "https://d3sn2rlrwxy0ce.cloudfront.net/_800x600_crop_center-center_none/cheeseburger-thumb_2021-09-16-134559_ypzs.png?mtime=20210916094600&focal=none&tmtime=20210916095008",
-            "items": {
-              "hamburger": 1
-            }
-          },
-          {
-            "id": 2,
-            "name": "Baconburger",
-            "description": "Pão, hambúrguer, queijo cheddar, bacon e ketchup.",
-            "price": 14,
-            "section": "Lanches",
-            "image": "https://d3sn2rlrwxy0ce.cloudfront.net/_800x600_crop_center-center_none/cheeseburger-bacon-thumb_2021-09-16-134755_cxdp.png?mtime=20210916094756&focal=none&tmtime=20210916095009",
-            "items": {
-              "hamburger": 1
-            }
-          },
-          {
-            "id": 7,
-            "name": "Frango Frito",
-            "description": "Porção de 200gr de frango frito.",
-            "price": 14,
-            "section": "Lanches",
-            "image": "https://www.solucoesindustriais.com.br/images/produtos/imagens_11773/p_embalagem-balde-para-frango-frito_11773_364836_19.png",
-            "items": {
-              "frango": 1
-            }
-          } 
-        ] 
-      }    
+      }
     ]
   }
 }
