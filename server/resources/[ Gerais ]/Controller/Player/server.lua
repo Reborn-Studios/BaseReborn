@@ -33,7 +33,7 @@ AddEventHandler("logplayerDied",function(killer, weapon)
 	if killer and nuser_id then
 		for k,v in pairs(admAmount) do
 			local player = vRP.getUserSource(v)
-			TriggerClientEvent("Notify",player,"negado",""..user_id.." MATOU "..nuser_id,3000)
+			TriggerClientEvent("Notify",player,"negado",""..nuser_id.." MATOU "..user_id,3000)
 		end
 		vRP.createWeebHook(Webhooks.webhooklinkdeath,"```prolog\n[ID]: "..nuser_id.." \n[MATOU]: "..user_id.." \n[ARMA]: "..weapon..""..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
 	else
