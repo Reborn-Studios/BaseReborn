@@ -93,8 +93,9 @@ Item('bandage', function(data, slot)
 	local health = GetEntityHealth(cache.ped)
 	ox_inventory:useItem(data, function(data)
 		if data then
+			TriggerEvent("resetBleeding")
 			SetEntityHealth(cache.ped, math.min(maxHealth, math.floor(health + maxHealth / 16)))
-			lib.notify({ description = 'You feel better already' })
+			lib.notify({ description = 'Você esta se sentindo melhor' })
 		end
 	end)
 end)
