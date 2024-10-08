@@ -23,7 +23,7 @@ function src.pegaTrouxa()
     vRP.kick(user_id,"Administração Mandou um Beijo <3")
 end
 
-RegisterCommand("combat", function(source, args, rawcmd)
+RegisterCommand("cl", function(source, args, rawcmd)
     TriggerClientEvent("pixel_antiCL:show", source)
 end)
 
