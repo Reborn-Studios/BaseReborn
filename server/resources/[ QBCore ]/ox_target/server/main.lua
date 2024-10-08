@@ -49,5 +49,10 @@ end)
 
 RegisterNetEvent("ox_inventory:requestRevist",function(nplayer)
     local source = source
-    exports.ox_inventory:forceOpenInventory(source, 'player', tonumber(nplayer))
+    if tonumber(nplayer) == nil then return end
+    if Player(tonumber(nplayer)).state.Handcuff or GetEntityHealth(GetPlayerPed(tonumber(nplayer))) <= 101 then
+        exports.ox_inventory:forceOpenInventory(source, 'player', tonumber(nplayer))
+    else
+        TriggerClientEvent("Notify",source,"negado","A pessoa precisa estar algemada",5000)
+    end
 end)
