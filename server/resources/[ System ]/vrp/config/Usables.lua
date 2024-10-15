@@ -1133,74 +1133,74 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 	end
 
 	if itemName == "backpackp" then
-		if GetResourceState("ox_inventory") == "started" then
-			if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
-				exports.ox_inventory:SetMaxWeight(source, 40000)
-				exports.ox_inventory:SetSlotCount(source, 60)
+		local exp = vRP.getBackpack(user_id)
+		if exp < 35 then
+			if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
+				local BACKPACK_WEIGHT = 40
+				local BACKPACK_SLOTS = 60
+				vRP.setSlots(user_id,BACKPACK_SLOTS)
+				vRP.setBackpack(user_id,BACKPACK_WEIGHT)
+				if GetResourceState("ox_inventory") == "started" then
+					exports.ox_inventory:SetMaxWeight(source, BACKPACK_WEIGHT * 1000)
+					exports.ox_inventory:SetSlotCount(source, BACKPACK_SLOTS)
+				end
 			end
 		else
-			local exp = vRP.getBackpack(user_id)
-			if exp < 25 then
-				if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
-					vRP.setBackpack(user_id,25)
-				end
-			else
-				TriggerClientEvent("Notify",source,"aviso","No momento você não pode usar essa mochila.",5000)
-			end
+			TriggerClientEvent("Notify",source,"aviso","No momento você não pode usar essa mochila.",5000)
 		end
 	end
 
 	if itemName == "backpackm" then
-		if GetResourceState("ox_inventory") == "started" then
-			if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
-				exports.ox_inventory:SetMaxWeight(source, 60000)
-				exports.ox_inventory:SetSlotCount(source, 75)
+		local exp = vRP.getBackpack(user_id)
+		if exp >= 35 and exp < 50 then
+			if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
+				local BACKPACK_WEIGHT = 60
+				local BACKPACK_SLOTS = 75
+				vRP.setSlots(user_id,BACKPACK_SLOTS)
+				vRP.setBackpack(user_id,BACKPACK_WEIGHT)
+				if GetResourceState("ox_inventory") == "started" then
+					exports.ox_inventory:SetMaxWeight(source, BACKPACK_WEIGHT * 1000)
+					exports.ox_inventory:SetSlotCount(source, BACKPACK_SLOTS)
+				end
 			end
 		else
-			local exp = vRP.getBackpack(user_id)
-			if exp >= 25 and exp < 50 then
-				if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
-					vRP.setBackpack(user_id,50)
-				end
-			else
-				TriggerClientEvent("Notify",source,"aviso","No momento você não pode usar essa mochila.",5000)
-			end
+			TriggerClientEvent("Notify",source,"aviso","No momento você não pode usar essa mochila.",5000)
 		end
 	end
 
 	if itemName == "backpackg" then
-		if GetResourceState("ox_inventory") == "started" then
-			if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
-				exports.ox_inventory:SetMaxWeight(source, 80000)
-				exports.ox_inventory:SetSlotCount(source, 90)
+		local exp = vRP.getBackpack(user_id)
+		if exp >= 50 and exp < 75 then
+			if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
+				local BACKPACK_WEIGHT = 80
+				local BACKPACK_SLOTS = 90
+				vRP.setSlots(user_id,BACKPACK_SLOTS)
+				vRP.setBackpack(user_id,BACKPACK_WEIGHT)
+				if GetResourceState("ox_inventory") == "started" then
+					exports.ox_inventory:SetMaxWeight(source, BACKPACK_WEIGHT * 1000)
+					exports.ox_inventory:SetSlotCount(source, BACKPACK_SLOTS)
+				end
 			end
 		else
-			local exp = vRP.getBackpack(user_id)
-			if exp >= 50 and exp < 75 then
-				if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
-					vRP.setBackpack(user_id,75)
-				end
-			else
-				TriggerClientEvent("Notify",source,"aviso","No momento você não pode usar essa mochila.",5000)
-			end
+			TriggerClientEvent("Notify",source,"aviso","No momento você não pode usar essa mochila.",5000)
 		end
 	end
 
 	if itemName == "backpackx" then
-		if GetResourceState("ox_inventory") == "started" then
-			if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
-				exports.ox_inventory:SetMaxWeight(source, 100000)
-				exports.ox_inventory:SetSlotCount(source, 100)
+		local exp = vRP.getBackpack(user_id)
+		if exp >= 75 and exp < 100 then
+			if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
+				local BACKPACK_WEIGHT = 100
+				local BACKPACK_SLOTS = 100
+				vRP.setSlots(user_id,BACKPACK_SLOTS)
+				vRP.setBackpack(user_id,BACKPACK_WEIGHT)
+				if GetResourceState("ox_inventory") == "started" then
+					exports.ox_inventory:SetMaxWeight(source, BACKPACK_WEIGHT * 1000)
+					exports.ox_inventory:SetSlotCount(source, BACKPACK_SLOTS)
+				end
 			end
 		else
-			local exp = vRP.getBackpack(user_id)
-			if exp >= 75 and exp < 100 then
-				if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
-					vRP.setBackpack(user_id,100)
-				end
-			else
-				TriggerClientEvent("Notify",source,"aviso","No momento você não pode usar essa mochila.",5000)
-			end
+			TriggerClientEvent("Notify",source,"aviso","No momento você não pode usar essa mochila.",5000)
 		end
 	end
 
