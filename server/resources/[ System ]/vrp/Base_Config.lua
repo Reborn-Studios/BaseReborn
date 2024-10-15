@@ -122,6 +122,35 @@ Reborn.statistics = function()
     }
 end
 
+----####----####----####----##
+----##  CHANGE IDENTIFIER  -##
+----####----####----####----##
+
+Reborn.changeIdentifier = function()
+    return {
+        ['Comando'] = "mudarid",
+        ['Tabelas'] = {
+            ['hud-data'] = "identifier",
+            ['ld_orgs_daily'] = "user_id",
+            ['ld_orgs_monthly'] = "user_id",
+            ['ox_inventory'] = "owner",
+            ['playerskins'] = "user_id",
+            ['saved_skins'] = "user_id",
+            ['vrp_permissions'] = "user_id",
+            ['vrp_users'] = "id",
+            ['vrp_user_data'] = "user_id",
+            ['vrp_user_ids'] = "user_id",
+            ['vrp_vehicles'] = "user_id",
+            ['will_battlepass'] = "user_id",
+            ['will_ficha'] = "user_id",
+            ['will_homes'] = "owner",
+            ['will_jobs'] = "id",
+            ['will_rent'] = "user_id",
+            ['will_shops'] = "owner",
+        }
+    }
+end
+
 --####----####--
 --##  WIPE  ##--
 --####----####--
