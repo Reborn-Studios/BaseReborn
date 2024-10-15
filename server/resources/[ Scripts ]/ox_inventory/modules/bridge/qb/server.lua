@@ -103,8 +103,6 @@ AddEventHandler('QBCore:Server:OnMoneyChange', function(src, account, amount, ch
 	if account ~= "cash" then return end
 
 	local item = Inventory.GetItem(src, 'dollars', nil, false)
-	print(src, account, amount, changeType)
-	print(json.encode(item))
     if not item then return end
 
 	Inventory.SetItem(src, 'dollars', changeType == "set" and amount or changeType == "remove" and item.count - amount or changeType == "add" and item.count + amount)

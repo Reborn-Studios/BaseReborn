@@ -1,19 +1,18 @@
 if not lib then return end
 
+require 'modules.bridge.server'
+require 'modules.crafting.server'
+require 'modules.shops.server'
+require 'modules.pefcl.server'
+
 if GetConvar('inventory:versioncheck', 'true') == 'true' then
 	lib.versionCheck('overextended/ox_inventory')
 end
-
-require 'modules.bridge.server'
-require 'modules.pefcl.server'
 
 local TriggerEventHooks = require 'modules.hooks.server'
 local db = require 'modules.mysql.server'
 local Items = require 'modules.items.server'
 local Inventory = require 'modules.inventory.server'
-
-require 'modules.crafting.server'
-require 'modules.shops.server'
 
 ---@param player table
 ---@param data table?
@@ -55,7 +54,9 @@ function server.setPlayerInventory(player, data)
 	end
 
 	player.source = tonumber(player.source)
-	local inv = Inventory.Create(player.source, player.name, 'player', shared.playerslots, totalWeight, shared.playerweight, player.identifier, inventory)
+	local playerSlots = vRP.getSlots(player.identifier)
+	local invMaxWeight = vRP.getBackpack(player.identifier) * 1000
+	local inv = Inventory.Create(player.source, player.name, 'player', playerSlots or shared.playerslots, totalWeight, invMaxWeight or shared.playerweight, player.identifier, inventory)
 
 	if inv then
 		inv.player = server.setPlayerData(player)

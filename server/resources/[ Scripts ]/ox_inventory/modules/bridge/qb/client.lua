@@ -39,8 +39,7 @@ function client.setPlayerStatus(values)
 		-- compatibility for ESX style values
 		-- if value > 100 or value < -100 then
 		value = value * 0.0001
-		-- end	
-			
+		-- end
 		if name == "hunger" then
 			TriggerServerEvent('consumables:server:addHunger', QBCore.Functions.GetPlayerData().metadata.hunger + value)
 		elseif name == "thirst" then
