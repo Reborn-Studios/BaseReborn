@@ -362,6 +362,25 @@ function vRP.setBackpack(user_id,amount)
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- SETSLOTS
+-----------------------------------------------------------------------------------------------------------------------------------------
+function vRP.setSlots(user_id,amount)
+	local data = vRP.getUserDataTable(user_id)
+	if data then
+		data.slots = amount
+	end
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- GETSLOTS
+-----------------------------------------------------------------------------------------------------------------------------------------
+function vRP.getSlots(user_id)
+	local data = vRP.getUserDataTable(user_id)
+	if data.slots == nil then
+		data.slots = GetConvarInt('inventory:slots', 50)
+	end
+	return data.slots
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- BONUSDELIVERY
 -----------------------------------------------------------------------------------------------------------------------------------------
 function vRP.bonusDelivery(user_id)
@@ -497,14 +516,6 @@ CreateThread(function()
 				end
 			end
 			return weight
-		end
-	
-		vRP.getBackpack = function(user_id)
-			local nplayer = vRP.getUserSource(user_id)
-			if nplayer then
-				local inventory = exports.ox_inventory:GetInventory(nplayer)
-				return inventory and inventory.maxWeight or 30000
-			end
 		end
 	end
 end)
