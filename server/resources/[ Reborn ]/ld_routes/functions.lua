@@ -43,7 +43,7 @@ config.callPolice = function(source, user_id, x,y,z, titulo, mensagem, cor)
 end
 
 config.getPlayerName = function(user_id)
-	local identity = vRP.userIdentity(user_id)
+	local identity = vRP.getUserIdentity(tonumber(user_id))
 	return identity.name.." "..identity.name2
 end
 
