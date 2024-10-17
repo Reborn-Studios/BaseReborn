@@ -124,9 +124,15 @@ function getFullName(user_id)
 	return "Não identificado"
 end
 
-function getSpecificPerm(perm)
-	local users = vRP.numPermission(perm)
-	return users
+function getSpecificPerm()
+    local polices = {}
+    for k,perm in pairs(Config.hierarquia) do
+        local users = vRP.numPermission(perm,true)
+        for _,user in pairs(users) do
+            table.insert(polices,user)
+        end
+    end
+	return polices
 end
 
 function prepare(name, query)
