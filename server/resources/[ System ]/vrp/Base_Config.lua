@@ -11,7 +11,7 @@ Tunnel.bindInterface("Reborn",Reborn)
 Reborn.license = function()
     return {
         ['license'] = "Sua licença (Token) aqui",
-        ['ip'] = "http://localhost/",
+        ['ip'] = GetConvar('sv_listingIPOverride', "http://localhost/"),
         ['porta'] = "30120",
     }
 end
@@ -21,8 +21,8 @@ end
 --####----####----####----
 
 GlobalState['Basics'] = {
-    ['ServerName'] = "Reborn Studios",
-    ['Discord'] = "https://discord.gg/8unYr9MUdx",
+    ['ServerName'] = GetConvar('sv_hostname', "Reborn Studios"),
+    ['Discord'] = GetConvar('Discord', "https://discord.gg/8unYr9MUdx"),
     ['ServerStore'] = "",
     ['Whitelist'] = true,
     ['Debug'] = false
@@ -130,6 +130,7 @@ Reborn.changeIdentifier = function()
     return {
         ['Comando'] = "mudarid",
         ['Tabelas'] = {
+            -- # Tabela - Identificador
             ['hud-data'] = "identifier",
             ['ld_orgs_daily'] = "user_id",
             ['ld_orgs_monthly'] = "user_id",
@@ -244,7 +245,7 @@ Reborn.dbSimilarTables = function()
     return {
 
         -- VRP
-        
+
         { ['Old'] = "vrp_user_vehicles", ['New'] = "vrp_vehicles",
             ['Columns'] = {
                 ['detido'] = "arrest",
