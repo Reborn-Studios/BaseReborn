@@ -1062,15 +1062,6 @@ local weapons = {
 		unique = true,
 		weight = 0.50
 	},
-	["flashlight"] = {
-		index = "flashlight",
-		name = "Lanterna",
-		type = "weapon",
-		unique = true,
-		x = 1,
-		y = 2,
-		weight = 0.50
-	},
 	["nightstick"] = {
 		index = "nightstick",
 		name = "Cassetete",

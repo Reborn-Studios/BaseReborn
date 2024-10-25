@@ -16,7 +16,10 @@ local groups = {
 		"player.secret",
 		"player.wall",
 		"moderador.permissao",
-		"adm.permissao"
+		"adm.permissao",
+		"comando.permissao",
+		"lidermecanico.permissao",
+		"diretor.permissao",
 	},
 	["Admin"] = {
 		"admin.permissao",
@@ -29,7 +32,7 @@ local groups = {
 		"player.wall",
 		"moderador.permissao",
 		"adm.permissao"
-	}, 
+	},
 	["Mod"] = {
 		"moderador.permissao",
 		"player.blips",
@@ -276,7 +279,6 @@ local groups = {
 			gtype = "job",
 			salary = 5000
 		},
-		"lidermecanico.permissao",
 		"mecanico.permissao",
 	},
 	["Mecanicolider"] = {
@@ -448,6 +450,7 @@ local groups = {
 		"liderdesmanche.permissao",
 		"desmanche.permissao",
 		"motoclub.permissao",
+
 	},
 	["Milicia"] = {
 		_config = {
@@ -584,7 +587,7 @@ local groups = {
 			title = "Piloto",
 			gtype = "alt"
 		},
-		"piloto.permissao"	
+		"piloto.permissao"
 	},
 	["Advogado"] = {
 		_config = {
