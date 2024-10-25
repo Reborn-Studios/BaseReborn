@@ -63,28 +63,49 @@ body {
 }
 
 #NotifyBackground {
-  font-size: 14px;
-  line-height: 20px;
-  padding: 15px 20px;
-  margin-right: 10px;
-  background: rgba(0, 0, 0, 0.17);
-  border-radius: 15px;
-  text-shadow: 1px 1px rgba(0, 0, 0, 0.8);
-  color: rgba(255, 255, 255, 0.637);
-  border: solid 1px #00000062;
-  font-family: Arial, Helvetica, sans-serif;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 3px;
+  padding: 1vh 1.2vw;
+  color: rgba(255, 255, 255, 0.8);
+  margin-right: 0.7vw;
+  max-width: 20vw;
 }
 
-#NotifyBackground green {
-  color: #85e200;
-}
-
-#NotifyBackground red {
-  color: #f83d24;
+#NotifyBackground span {
+  font-size: 0.9vw;
+  text-align: left;
+  /* line-height: 4vh; */
+  padding: 1vh 0;
+  text-shadow: 1px 1px rgba(0, 0, 0, 0.9);
 }
 
 #NotifyBackground b {
   color: rgba(255, 255, 255, 0.9);
+}
+
+#requestButtons {
+  display: flex;
+  align-items: center;
+  gap: 0.5vw;
+  margin-top: 0.7vh;
+  /* justify-content: space-between; */
+}
+
+#requestButtons div {
+  width: 100%;
+  text-align: center;
+  padding: 0.5vh 1vw;
+  font-size: 1vw;
+  border-radius: 3px;
+  text-shadow: 1px 1px rgba(0, 0, 0, 0.8);
+}
+
+#requestButtons div:nth-child(1) {
+  background-color: #74c403c9;
+}
+
+#requestButtons div:nth-child(2) {
+  background-color: #cf1d05c0;
 }
 
 .menu {

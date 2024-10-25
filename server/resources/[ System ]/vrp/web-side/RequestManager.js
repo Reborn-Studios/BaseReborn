@@ -10,11 +10,15 @@ function RequestManager() {
 }
 
 RequestManager.prototype.buildText = function (text, time) {
-  return (
-    '<div id="NotifyBackground">' +
-    text +
-    "<br>Para aceitar aperte <green>Y</green>, para rejeitar aperte <red>U</red></div>"
-  );
+  return `
+      <div id="NotifyBackground">
+        <span>${text}</span>
+        <div id="requestButtons">
+          <div>Y</div>
+          <div>U</div>
+        </div>
+      </div>
+    `;
 };
 
 RequestManager.prototype.addRequest = function (id, text, time) {
