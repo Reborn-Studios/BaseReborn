@@ -3,13 +3,13 @@
 -----------------------------------------------------------------------------------------------------------------------------------------
 local Tunnel = module("vrp","lib/Tunnel")
 local Proxy = module("vrp","lib/Proxy")
-vRPC = Tunnel.getInterface("vRP")
 vRP = Proxy.getInterface("vRP")
+vRPC = Tunnel.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-cRP = {}
-Tunnel.bindInterface("tencode",cRP)
+CodeServer = {}
+Tunnel.bindInterface("tencode",CodeServer)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -46,22 +46,23 @@ local codes = {
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- SENDCODE
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cRP.sendCode(code)
+function CodeServer.sendCode(code)
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
 		local ped = GetPlayerPed(source)
 		local coords = GetEntityCoords(ped)
 		local identity = vRP.getUserIdentity(user_id)
-		local policeResult = vRP.numPermission("Police")
-
+		local policeResult = vRP.getUsersByPermission("policia.permissao")
 		for k,v in pairs(policeResult) do
-			local nplayer = vRP.getUserSource(v)
 			async(function()
-				if code ~= 13 then
-					vRPC.playSound(nplayer,"Event_Start_Text","GTAO_FM_Events_Soundset")
+				local nplayer = vRP.getUserSource(v)
+				if nplayer then
+					if code ~= 13 then
+						vRPC.playSound(nplayer,"Event_Start_Text","GTAO_FM_Events_Soundset")
+					end
+					TriggerClientEvent("NotifyPush",nplayer,{ code = code, title = codes[parseInt(code)]["text"], x = coords["x"], y = coords["y"], z = coords["z"], name = identity["name"].." "..identity["name2"], time = "Recebido às "..os.date("%H:%M"), blipColor = codes[parseInt(code)]["blip"], rgba = {205,52,56} })
 				end
-				TriggerClientEvent("NotifyPush",nplayer,{ code = code, title = codes[parseInt(code)]["text"], x = coords["x"], y = coords["y"], z = coords["z"], name = identity["name"].." "..identity["name2"], time = "Recebido às "..os.date("%H:%M"), blipColor = codes[parseInt(code)]["blip"], rgba = {205,52,56} })
 			end)
 		end
 	end

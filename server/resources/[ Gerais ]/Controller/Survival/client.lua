@@ -7,61 +7,64 @@ vRP = Proxy.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-svVRP = {}
-Tunnel.bindInterface("Survival",svVRP)
-svSERVER = Tunnel.getInterface("Survival")
+SvClient = {}
+Tunnel.bindInterface("Survival",SvClient)
+SvServer = Tunnel.getInterface("Survival")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
-local deadPlayer = false
+local deathtimer = 0
+local Death = false
 local finalizado = false
-local deathtimer = 50
 local blockControls = false
+local Cooldown = GetGameTimer()
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADHEALTH
 -----------------------------------------------------------------------------------------------------------------------------------------
-local inGame = false
-RegisterNetEvent("will_pvp:inGame")
-AddEventHandler("will_pvp:inGame",function(status)
-	inGame = status
-end)
-
 CreateThread(function()
 	SetPedMaxHealth(PlayerPedId(),400)
 	while true do
-		local timeDistance = 200
+		local timeDistance = 999
 		local ped = PlayerPedId()
 		SetPlayerHealthRechargeMultiplier(PlayerId(),0)
-		if GetEntityHealth(ped) <= 101 and deathtimer >= 0 then
-			if not deadPlayer then
-				timeDistance = 100
-				deadPlayer = true
+		if GetEntityHealth(ped) <= 101 and not LocalPlayer.state.inPvp then
+			if not Death then
+				Death = true
 				local coords = GetEntityCoords(ped)
-				NetworkResurrectLocalPlayer(coords,true,true,false)
-				deathtimer = 60
+				NetworkResurrectLocalPlayer(coords,0.0)
+
+				SetFacialIdleAnimOverride(ped,"mood_sleeping_1")
+				LocalPlayer["state"]:set("Invincible",true,false)
+				deathtimer = Config.Survival['deathTimer']
+
+				SetEntityInvincible(ped,true)
+				SetEntityHealth(ped,101)
+
+				SendNUIMessage({ name = "DeathScreen", payload = true })
+				vRP.playAnim(false,{"dead","dead_a"},true)
+				TriggerEvent("radio:outServers")
+				TriggerServerEvent("pma-voice:toggleMute",true)
+			elseif deathtimer > 0 then
+				timeDistance = 1
+				SetEntityHealth(ped,101)
+
+				if GetGameTimer() >= Cooldown then
+					Cooldown = GetGameTimer() + 1000
+
+					if deathtimer > 0 then
+						deathtimer = deathtimer - 1
+						SendNUIMessage({ name = "UpdateDeathScreen", payload = deathtimer })
+					end
+				end
 
 				if not IsEntityPlayingAnim(ped,"dead","dead_a",3) and not IsPedInAnyVehicle(ped) then
-					vRP.playAnim(false,{"dead","dead_a"},true)
+					TaskPlayAnim(ped,"dead","dead_a",8.0,8.0,-1,1,1,false,false,false)
 				end
-				SetEntityHealth(ped,101)
-				SetEntityInvincible(ped,true)
 
-				TriggerEvent("radio:outServers")
-				TriggerServerEvent("vrp_inventory:Cancel")
-				TriggerServerEvent("pma-voice:toggleMute",true)
-			else
-				if deathtimer > 0 then
-					timeDistance = 4
-					SetEntityHealth(ped,101)
-					drawTxt("AGUARDE: ~r~"..deathtimer.."~w~ SEGUNDOS.",4,0.5,0.93,0.50,255,255,255,120)
-					if not IsEntityPlayingAnim(ped,"dead","dead_a",3) and not IsPedInAnyVehicle(ped) then
-						vRP.playAnim(false,{"dead","dead_a"},true)
-					end
-				else
-					timeDistance = 4
-					drawTxt("DIGITE ~r~/GG~w~.",4,0.5,0.93,0.50,255,255,255,120)
-					if not IsEntityPlayingAnim(ped,"dead","dead_a",3) and not IsPedInAnyVehicle(ped) then
-						vRP.playAnim(false,{"dead","dead_a"},true)
+				if IsPedInAnyVehicle(ped) then
+					local Vehicle = GetVehiclePedIsUsing(ped)
+					if GetPedInVehicleSeat(Vehicle,-1) == ped then
+						SetVehicleEngineOn(Vehicle,false,true,true)
 					end
 				end
 			end
@@ -70,14 +73,30 @@ CreateThread(function()
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- DEATHTIMER
+-- REVIVE
 -----------------------------------------------------------------------------------------------------------------------------------------
-CreateThread(function()
-	while true do
-		Wait(1000)
-		if deadPlayer and deathtimer > 0 then
-			deathtimer = deathtimer - 1
-		end
+exports("Revive",function(Health)
+	local Ped = PlayerPedId()
+
+	SetEntityHealth(Ped,Health)
+	SetEntityInvincible(Ped,false)
+	LocalPlayer["state"]:set("Invincible",false,false)
+
+	if Death then
+		Death = false
+		deathtimer = 0
+
+		ClearPedTasks(Ped)
+		ClearFacialIdleAnimOverride(Ped)
+		NetworkSetFriendlyFireOption(true)
+
+		SendNUIMessage({ name = "DeathScreen", payload = false })
+
+		Death = false
+		TriggerServerEvent("pma-voice:toggleMute",false)
+		ClearPedBloodDamage(ped)
+		SetEntityHealth(ped,400)
+		SetEntityInvincible(ped,false)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -85,45 +104,36 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterCommand("gg",function(source,args,rawCommand)
 	if deathtimer <= 0 then
-		svSERVER.ResetPedToHospital()
+		SvServer.ResetPedToHospital()
 	else
-		TriggerEvent("Notify","aviso","AGUARDE: <b>"..deathtimer.."</b> OU CHAME OS <b>PARAMÉDICOS</b>.",5000)
+		TriggerEvent("Notify","aviso","AGUARDE: <b>"..deathtimer.." segundos</b> OU CHAME OS <b>PARAMÉDICOS</b>.",5000)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- FINISHDEATH
 -----------------------------------------------------------------------------------------------------------------------------------------
-function svVRP.finishDeath()
-	local ped = PlayerPedId()
-	if GetEntityHealth(ped) <= 101 then
-		deadPlayer = false
-		TriggerServerEvent("pma-voice:toggleMute",false)
-		ClearPedBloodDamage(ped)
-		SetEntityHealth(ped,400)
-		SetEntityInvincible(ped,false)
-	end
+function SvClient.finishDeath()
+	exports["Controller"]:Revive(400)
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- DEADPLAYER
+-- Death
 -----------------------------------------------------------------------------------------------------------------------------------------
-function svVRP.deadPlayer()
-	return deadPlayer
+function SvClient.Death()
+	return Death
 end
 
-function svVRP.finalizado()
+function SvClient.deadPlayer()
+	return Death
+end
+
+function SvClient.finalizado()
 	return finalizado
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- REVIVEPLAYER
 -----------------------------------------------------------------------------------------------------------------------------------------
-function svVRP.revivePlayer(health)
-	SetEntityHealth(PlayerPedId(),health)
-	SetEntityInvincible(PlayerPedId(),false)
-	TriggerServerEvent("pma-voice:toggleMute",false)
-	if deadPlayer then
-		deadPlayer = false
-		ClearPedTasks(PlayerPedId())
-	end
+function SvClient.revivePlayer(health)
+	exports["Controller"]:Revive(health)
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CHECKIN
@@ -135,30 +145,93 @@ AddEventHandler("vrp_survival:CheckIn",function()
 
 	Wait(500)
 	TriggerServerEvent("pma-voice:toggleMute",false)
-	deadPlayer = false
+	Death = false
 	blockControls = true
 end)
 
 RegisterNetEvent("vrp_survival:finalizado")
 AddEventHandler("vrp_survival:finalizado",function()
-	deadPlayer = true
-	deathtimer = 30
+	Death = true
+	deathtimer = Config.Survival['deathTimer'] / 2
 	finalizado = true
 end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- STARTCURE
+-----------------------------------------------------------------------------------------------------------------------------------------
+local cure = false
+function SvClient.startCure()
+	local ped = PlayerPedId()
+	if cure then
+		return
+	end
+	cure = true
+	TriggerEvent("Notify","sucesso","O tratamento começou, espere o paramédico libera-lo.",3000)
+	if cure then
+		repeat
+			Wait(1000)
+			if GetEntityHealth(ped) > 101 then
+				SetEntityHealth(ped,GetEntityHealth(ped) + 1)
+			end
+		until GetEntityHealth(ped) >= 400 or GetEntityHealth(ped) <= 101
+			TriggerEvent("Notify","sucesso","Tratamento concluído.",3000)
+			Death = false
+			cure = false
+			blockControls = false
+	end
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- BEDS
+-----------------------------------------------------------------------------------------------------------------------------------------
+local beds = {
+	{ GetHashKey("v_med_bed1"),0.0,0.0 },
+	{ GetHashKey("v_med_bed2"),0.0,0.0 },
+	{ -1498379115,1.0,90.0 },
+	{ -1519439119,1.0,0.0 },
+	{ -289946279,1.0,0.0 }
+}
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- SETPEDINBED
+-----------------------------------------------------------------------------------------------------------------------------------------
+function SvClient.SetPedInBed()
+	local ped = PlayerPedId()
+	local x,y,z = table.unpack(GetEntityCoords(ped))
+	for k,v in pairs(beds) do
+		local object = GetClosestObjectOfType(x,y,z,0.9,v[1],false,false,false)
+		if DoesEntityExist(object) then
+			local x2,y2,z2 = table.unpack(GetEntityCoords(object))
+			SetEntityCoords(ped,x2,y2,z2+v[2])
+			SetEntityHeading(ped,GetEntityHeading(object)+v[3]-180.0)
+			vRP.playAnim(false,{"dead","dead_a"},true)
+		end
+	end
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- SCREENFADEINOUT
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("vrp_survival:FadeOutIn")
+AddEventHandler("vrp_survival:FadeOutIn",function()
+	DoScreenFadeOut(1000)
+	Wait(5000)
+	DoScreenFadeIn(1000)
+end)
 
-RegisterNetEvent("vrp_survival:royaleDead")
-AddEventHandler("vrp_survival:royaleDead",function()
-	deathtimer = 30
+RegisterNetEvent("vrp_survival:desbugar")
+AddEventHandler("vrp_survival:desbugar",function()
+	blockControls = false
+	Death = false
+	if GetScreenEffectIsActive("DeathFailOut") then
+		StopScreenEffect("DeathFailOut")
+	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- BLOCKCONTROLS
 -----------------------------------------------------------------------------------------------------------------------------------------
 CreateThread(function()
 	while true do
-		local timeDistance = 500
+		local timeDistance = 999
 		local ped = PlayerPedId()
-		if blockControls or (deadPlayer and not inGame and not LocalPlayer.state.inPvp) then
-			timeDistance = 4
+		if (blockControls or Death) and not LocalPlayer.state.inPvp then
+			timeDistance = 1
 			DisablePlayerFiring(ped,true)
 			DisableControlAction(1,22,true) -- SPACEBAR
 			DisableControlAction(1,29,true) -- B
@@ -179,91 +252,3 @@ CreateThread(function()
 		Wait(timeDistance)
 	end
 end)
------------------------------------------------------------------------------------------------------------------------------------------
--- STARTCURE
------------------------------------------------------------------------------------------------------------------------------------------
-local cure = false
-function svVRP.startCure()
-	local ped = PlayerPedId()
-	if cure then
-		return
-	end
-	cure = true
-	TriggerEvent("Notify","sucesso","O tratamento começou, espere o paramédico libera-lo.",3000)
-	if cure then
-		repeat
-			Wait(1000)
-			if GetEntityHealth(ped) > 101 then
-				SetEntityHealth(ped,GetEntityHealth(ped)+1)
-			end
-		until GetEntityHealth(ped) >= 400 or GetEntityHealth(ped) <= 101
-			TriggerEvent("Notify","sucesso","Tratamento concluído.",3000)
-			deadPlayer = false
-			cure = false
-			blockControls = false
-	end
-end
------------------------------------------------------------------------------------------------------------------------------------------
--- BEDS
------------------------------------------------------------------------------------------------------------------------------------------
-local beds = {
-	{ GetHashKey("v_med_bed1"),0.0,0.0 },
-	{ GetHashKey("v_med_bed2"),0.0,0.0 },
-	{ -1498379115,1.0,90.0 },
-	{ -1519439119,1.0,0.0 },
-	{ -289946279,1.0,0.0 }
-}
------------------------------------------------------------------------------------------------------------------------------------------
--- SETPEDINBED
------------------------------------------------------------------------------------------------------------------------------------------
-function svVRP.SetPedInBed()
-	local ped = PlayerPedId()
-	local x,y,z = table.unpack(GetEntityCoords(ped))
-
-	for k,v in pairs(beds) do
-		local object = GetClosestObjectOfType(x,y,z,0.9,v[1],0,0,0)
-		if DoesEntityExist(object) then
-			local x2,y2,z2 = table.unpack(GetEntityCoords(object))
-			
-			SetEntityCoords(ped,x2,y2,z2+v[2])
-			SetEntityHeading(ped,GetEntityHeading(object)+v[3]-180.0)
-
-			vRP.playAnim(false,{"dead","dead_a"},true)
-
-			SetTimeout(7000,function()
-				TriggerServerEvent("vrp_inventory:Cancel")
-			end)
-		end
-	end
-end
------------------------------------------------------------------------------------------------------------------------------------------
--- SCREENFADEINOUT
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterNetEvent("vrp_survival:FadeOutIn")
-AddEventHandler("vrp_survival:FadeOutIn",function()
-	DoScreenFadeOut(1000)
-	Wait(5000)
-	DoScreenFadeIn(1000)
-end)
-
-RegisterNetEvent("vrp_survival:desbugar")
-AddEventHandler("vrp_survival:desbugar",function()
-	blockControls = false
-	deadPlayer = false
-	if GetScreenEffectIsActive("DeathFailOut") then
-		StopScreenEffect("DeathFailOut")
-	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- DRAWTXT
------------------------------------------------------------------------------------------------------------------------------------------
-function drawTxt(text,font,x,y,scale,r,g,b,a)
-	SetTextFont(font)
-	SetTextScale(scale,scale)
-	SetTextColour(r,g,b,a)
-	SetTextOutline()
-	SetTextCentre(1)
-	SetTextEntry("STRING")
-	AddTextComponentString(text)
-	DrawText(x,y)
-end

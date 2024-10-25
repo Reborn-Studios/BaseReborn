@@ -1,20 +1,25 @@
 fx_version "bodacious"
 game "gta5"
 
-ui_page "Tencode/web-side/index.html"
+ui_page "Web/index.html"
 
 client_scripts {
 	"@vrp/lib/utils.lua",
+	"@vrp/Reborn/cloakrooms.lua",
+	"Config.lua",
 	"**/client.lua",
 }
 
 server_scripts {
 	"@vrp/lib/utils.lua",
-	"Doors/config.lua",
+	"@vrp/Reborn/cloakrooms.lua",
+	"Config.lua",
 	"**/server.lua",
 }
 
 files {
-	"Tencode/web-side/*",
-	"Tencode/web-side/**/*"
+	"Web/*",
+	"Web/**/*"
 }
+
+provide "survival"

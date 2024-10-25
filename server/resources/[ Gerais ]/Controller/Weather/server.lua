@@ -1,5 +1,3 @@
-local Proxy = module("vrp","lib/Proxy")
-vRP = Proxy.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -28,44 +26,36 @@ local weatherTypes = {
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADGLOBAL
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		if not GlobalState.freezeTime then
 			if GetGameTimer() >= (timeDate + 4000) then
 				timeDate = GetGameTimer()
 				GlobalState.clockMinutes = GlobalState.clockMinutes + 1
-	
 				if GlobalState.clockMinutes >= 60 then
 					GlobalState.clockHours = GlobalState.clockHours + 1
 					GlobalState.clockMinutes = 0
-	
 					if GlobalState.clockHours >= 24 then
 						GlobalState.clockHours = 0
 					end
 				end
 			end
 		end
-		Citizen.Wait(4000)
+		Wait(4000)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- COMANDO
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterCommand("time",function(source,args,rawCommand)
-	local source = source
-	local user_id = vRP.getUserId(source)
-	if user_id then
-		if vRP.hasPermission(user_id,"admin.permissao") and parseInt(args[1]) >= 0 and parseInt(args[2]) >= 0 then
-			GlobalState.clockMinutes = parseInt(args[2])
-			GlobalState.clockHours = parseInt(args[1])
-
-			if GlobalState.clockMinutes >= 60 then
-				GlobalState.clockMinutes = 0
-			end
-
-			if GlobalState.clockHours >= 24 then
-				GlobalState.clockHours = 0
-			end
+	if HasPermission(source,"time") and parseInt(args[1]) >= 0 and parseInt(args[2]) >= 0 then
+		GlobalState.clockMinutes = parseInt(args[2])
+		GlobalState.clockHours = parseInt(args[1])
+		if GlobalState.clockMinutes >= 60 then
+			GlobalState.clockMinutes = 0
+		end
+		if GlobalState.clockHours >= 24 then
+			GlobalState.clockHours = 0
 		end
 	end
 end)
@@ -73,11 +63,7 @@ end)
 -- WEATHER
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterCommand("weather",function(source,args,rawCommand)
-	local source = source
-	local user_id = vRP.getUserId(source)
-	if user_id then
-		if vRP.hasPermission(user_id,"admin.permissao") and args[1] ~= "" and weatherTypes[string.upper(args[1])] then
-			GlobalState.weatherSync = string.upper(args[1])
-		end
+	if HasPermission(source,"weather") and args[1] ~= "" and weatherTypes[string.upper(args[1])] then
+		GlobalState.weatherSync = string.upper(args[1])
 	end
 end)

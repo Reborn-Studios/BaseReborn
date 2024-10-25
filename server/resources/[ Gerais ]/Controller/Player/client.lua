@@ -8,36 +8,35 @@ vRPclient = Tunnel.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-plVRP = {}
-Tunnel.bindInterface("Player",plVRP)
-plSERVER = Tunnel.getInterface("Player")
-local gsrTime = 0
+PlvRP = {}
+Tunnel.bindInterface("Player",PlvRP)
+PlayerServer = Tunnel.getInterface("Player")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- RECEIVESALARY
 -----------------------------------------------------------------------------------------------------------------------------------------
 CreateThread(function()
 	while true do
-		Wait(30*60000)
+		Wait(Config.Geral['salaryTime']*60*1000)
 		TriggerServerEvent("vrp_player:salary")
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- DIVING
 -----------------------------------------------------------------------------------------------------------------------------------------
-function plVRP.setDiving()
+function PlvRP.setDiving()
 	local ped = PlayerPedId()
 	if IsPedSwimming(ped) then
 		if GetEntityModel(ped) == GetHashKey("mp_m_freemode_01") then
 			SetPedComponentVariation(ped,8,123,0,2)
-			SetPedPropIndex(ped,1,26,0,2)
+			SetPedPropIndex(ped,1,26,0,true)
 		elseif GetEntityModel(ped) == GetHashKey("mp_f_freemode_01") then
 			SetPedComponentVariation(ped,8,153,0,2)
-			SetPedPropIndex(ped,1,28,0,2)
+			SetPedPropIndex(ped,1,28,0,true)
 		end
 	end
 end
 
-function plVRP.playerDriving()
+function PlvRP.playerDriving()
 	local ped = PlayerPedId()
 	if GetPedInVehicleSeat(GetVehiclePedIsUsing(ped),-1) == ped or GetVehiclePedIsTryingToEnter(ped) > 0 then
 		return true
@@ -46,7 +45,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- SEATSHUFFLE
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		local timeDistance = 500
 		local ped = PlayerPedId()
@@ -59,54 +58,25 @@ Citizen.CreateThread(function()
 				end
 			end
 		end
-		Citizen.Wait(timeDistance)
-	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- Trunkin
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterNetEvent("vrp_player:trunkin")
-AddEventHandler("vrp_player:trunkin",function()
-	local ped = PlayerPedId()
-	local veh = GetVehiclePedIsUsing(ped)
-	if not GetPedInVehicleSeat(veh,-1) == ped then
-		if vRP.getHealth() > 101 and not IsPedInAnyVehicle(ped) then
-			TriggerEvent("vrp_player:EnterTrunk")
-		end
+		Wait(timeDistance)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- SETENERGETIC
 -----------------------------------------------------------------------------------------------------------------------------------------
-local energetic = 0
 RegisterNetEvent("setEnergetic")
 AddEventHandler("setEnergetic",function(timers,number)
-	energetic = timers
+	if not timers or type(timers) ~= "number" then return end
+	local energetic = timers
 	SetRunSprintMultiplierForPlayer(PlayerId(),number)
-end)
-
-Citizen.CreateThread(function()
-	while true do
-		local timeDistance = 1000
-		if energetic > 0 then
-			timeDistance = 4
-			RestorePlayerStamina(PlayerId(),1.0)
+	while energetic > 0 do
+		energetic = energetic - 1
+		if energetic <= 0 or GetEntityHealth(PlayerPedId()) <= 101 then
+			energetic = 0
+			SetRunSprintMultiplierForPlayer(PlayerId(),1.0)
 		end
-		Citizen.Wait(timeDistance)
-	end
-end)
-
-Citizen.CreateThread(function()
-	while true do
-		if energetic > 0 then
-			energetic = energetic - 1
-
-			if energetic <= 0 or GetEntityHealth(PlayerPedId()) <= 101 then
-				energetic = 0
-				SetRunSprintMultiplierForPlayer(PlayerId(),1.0)
-			end
-		end
-		Citizen.Wait(1000)
+		RestorePlayerStamina(PlayerId(),1.0)
+		Wait(1000)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -115,9 +85,20 @@ end)
 local ecstasy = 0
 RegisterNetEvent("setEcstasy")
 AddEventHandler("setEcstasy",function()
-	ecstasy = ecstasy + 15
+	ecstasy = ecstasy + 10
 	if not GetScreenEffectIsActive("MinigameTransitionIn") then
 		StartScreenEffect("MinigameTransitionIn",0,true)
+	end
+	while ecstasy > 0 do
+		ecstasy = ecstasy - 1
+		ShakeGameplayCam("LARGE_EXPLOSION_SHAKE",0.05)
+		if ecstasy <= 0 or GetEntityHealth(PlayerPedId()) <= 101 then
+			ecstasy = 0
+			if GetScreenEffectIsActive("MinigameTransitionIn") then
+				StopScreenEffect("MinigameTransitionIn")
+			end
+		end
+		Wait(3000)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -126,60 +107,74 @@ end)
 local meth = 0
 RegisterNetEvent("setMeth")
 AddEventHandler("setMeth",function()
-	meth = meth + 60
+	meth = meth + 20
 	if not GetScreenEffectIsActive("DMT_flight") then
 		StartScreenEffect("DMT_flight",0,true)
+	end
+	while meth > 0 do
+		meth = meth - 1
+		if meth <= 0 or GetEntityHealth(PlayerPedId()) <= 101 then
+			meth = 0
+			if GetScreenEffectIsActive("DMT_flight") then
+				StopScreenEffect("DMT_flight")
+			end
+		end
+		Wait(3000)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- SETDRUNK
 -----------------------------------------------------------------------------------------------------------------------------------------
+local gsrTime = 0
 local drunkTime = 0
+
 RegisterNetEvent("setDrunkTime")
 AddEventHandler("setDrunkTime",function(timers)
 	drunkTime = timers
-	TriggerEvent("vrp:blockDrunk",true)
 	RequestAnimSet("move_m@drunk@verydrunk")
 	while not HasAnimSetLoaded("move_m@drunk@verydrunk") do
-		Citizen.Wait(10)
+		Wait(10)
 	end
 	SetPedMovementClipset(PlayerPedId(),"move_m@drunk@verydrunk",0.25)
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
-		if ecstasy > 0 then
-			ecstasy = ecstasy - 1
-			ShakeGameplayCam("LARGE_EXPLOSION_SHAKE",0.05)
-			if ecstasy <= 0 or GetEntityHealth(PlayerPedId()) <= 101 then
-				ecstasy = 0
-				if GetScreenEffectIsActive("MinigameTransitionIn") then
-					StopScreenEffect("MinigameTransitionIn")
-				end
-			end
-		end
-		if meth > 0 then
-			meth = meth - 1
-			if meth <= 0 or GetEntityHealth(PlayerPedId()) <= 101 then
-				meth = 0
-				if GetScreenEffectIsActive("DMT_flight") then
-					StopScreenEffect("DMT_flight")
-				end
-			end
-		end
 		if drunkTime > 0 then
 			drunkTime = drunkTime - 1
 			if drunkTime <= 0 or GetEntityHealth(PlayerPedId()) <= 101 then
 				ResetPedMovementClipset(PlayerPedId(),0.25)
-				TriggerEvent("vrp:blockDrunk",false)
 			end
 		end
 		if gsrTime > 0 then
 			gsrTime = gsrTime - 1
 		end
-		Citizen.Wait(3000)
+		Wait(1000)
 	end
 end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- THREADSHOTSFIRED
+-----------------------------------------------------------------------------------------------------------------------------------------
+CreateThread(function()
+	while true do
+		local timeDistance = 500
+		local ped = PlayerPedId()
+		if IsPedArmed(ped,4) and not LocalPlayer.state.inLateGame and not LocalPlayer.state.inPvp then
+			timeDistance = 10
+			if IsPedShooting(ped) then
+				PlayerServer.shotsFired()
+				gsrTime = 60
+			end
+		end
+		Wait(timeDistance)
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- GSRCHECK
+-----------------------------------------------------------------------------------------------------------------------------------------
+function PlvRP.gsrCheck()
+	return gsrTime
+end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CLEANEFFECTDRUGS
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -188,7 +183,6 @@ AddEventHandler("cleanEffectDrugs",function()
 	if GetScreenEffectIsActive("MinigameTransitionIn") then
 		StopScreenEffect("MinigameTransitionIn")
 	end
-
 	if GetScreenEffectIsActive("DMT_flight") then
 		StopScreenEffect("DMT_flight")
 	end
@@ -202,9 +196,9 @@ AddEventHandler("vrp_player:syncHood",function(index)
 		local v = NetToEnt(index)
 		if DoesEntityExist(v) then
 			if GetVehicleDoorAngleRatio(v,4) == 0 then
-				SetVehicleDoorOpen(v,4,0,1)
+				SetVehicleDoorOpen(v,4,false,true)
 			else
-				SetVehicleDoorShut(v,4,1)
+				SetVehicleDoorShut(v,4,true)
 			end
 		end
 	end
@@ -240,67 +234,65 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNetEvent("vrp_player:syncDoors")
 AddEventHandler("vrp_player:syncDoors",function(index,door)
-	--if NetworkDoesNetworkIdExist(index) then
-		local v = index -- NetToEnt(index)
-		if DoesEntityExist(v) then
-			if door == "1" then
-				if GetVehicleDoorAngleRatio(v,0) == 0 then
-					SetVehicleDoorOpen(v,0,0,0)
-				else
-					SetVehicleDoorShut(v,0,0)
-				end
-			elseif door == "2" then
-				if GetVehicleDoorAngleRatio(v,1) == 0 then
-					SetVehicleDoorOpen(v,1,0,0)
-				else
-					SetVehicleDoorShut(v,1,0)
-				end
-			elseif door == "3" then
-				if GetVehicleDoorAngleRatio(v,2) == 0 then
-					SetVehicleDoorOpen(v,2,0,0)
-				else
-					SetVehicleDoorShut(v,2,0)
-				end
-			elseif door == "4" then
-				if GetVehicleDoorAngleRatio(v,3) == 0 then
-					SetVehicleDoorOpen(v,3,0,0)
-				else
-					SetVehicleDoorShut(v,3,0)
-				end
-			elseif door == "5" then
-				if GetVehicleDoorAngleRatio(v,5) == 0 then
-					SetVehicleDoorOpen(v,5,0,1)
-				else
-					SetVehicleDoorShut(v,5,1)
-				end
-			elseif door == nil then
-				if GetVehicleDoorAngleRatio(v,0) == 0 and GetVehicleDoorAngleRatio(v,1) == 0 then
-					SetVehicleDoorOpen(v,0,0,0)
-					SetVehicleDoorOpen(v,1,0,0)
-					SetVehicleDoorOpen(v,2,0,0)
-					SetVehicleDoorOpen(v,3,0,0)
-				else
-					SetVehicleDoorShut(v,0,0)
-					SetVehicleDoorShut(v,1,0)
-					SetVehicleDoorShut(v,2,0)
-					SetVehicleDoorShut(v,3,0)
-				end
+	local v = index
+	if DoesEntityExist(v) then
+		if door == "1" then
+			if GetVehicleDoorAngleRatio(v,0) == 0 then
+				SetVehicleDoorOpen(v,0,false,false)
+			else
+				SetVehicleDoorShut(v,0,false)
+			end
+		elseif door == "2" then
+			if GetVehicleDoorAngleRatio(v,1) == 0 then
+				SetVehicleDoorOpen(v,1,false,false)
+			else
+				SetVehicleDoorShut(v,1,false)
+			end
+		elseif door == "3" then
+			if GetVehicleDoorAngleRatio(v,2) == 0 then
+				SetVehicleDoorOpen(v,2,false,false)
+			else
+				SetVehicleDoorShut(v,2,false)
+			end
+		elseif door == "4" then
+			if GetVehicleDoorAngleRatio(v,3) == 0 then
+				SetVehicleDoorOpen(v,3,false,false)
+			else
+				SetVehicleDoorShut(v,3,false)
+			end
+		elseif door == "5" then
+			if GetVehicleDoorAngleRatio(v,5) == 0 then
+				SetVehicleDoorOpen(v,5,false,true)
+			else
+				SetVehicleDoorShut(v,5,true)
+			end
+		elseif door == nil then
+			if GetVehicleDoorAngleRatio(v,0) == 0 and GetVehicleDoorAngleRatio(v,1) == 0 then
+				SetVehicleDoorOpen(v,0,false,false)
+				SetVehicleDoorOpen(v,1,false,false)
+				SetVehicleDoorOpen(v,2,false,false)
+				SetVehicleDoorOpen(v,3,false,false)
+			else
+				SetVehicleDoorShut(v,0,false)
+				SetVehicleDoorShut(v,1,false)
+				SetVehicleDoorShut(v,2,false)
+				SetVehicleDoorShut(v,3,false)
 			end
 		end
-	--end
+	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CUFF
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterCommand("keybindcuff",function(source,args)
-	plSERVER.cuffToggle()
+	PlayerServer.cuffToggle()
 end)
 RegisterKeyMapping("keybindcuff","Algemar o Cidadao","keyboard","g")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CARRY
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterCommand("keybindcarry",function(source,args)
-	plSERVER.carryToggle()
+	PlayerServer.carryToggle()
 end)
 RegisterKeyMapping("keybindcarry","Carregar o Cidadao","keyboard","h")
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -308,112 +300,68 @@ RegisterKeyMapping("keybindcarry","Carregar o Cidadao","keyboard","h")
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterCommand("vtuning",function(source,args)
 	local ped = PlayerPedId()
-	local vehicle = GetVehiclePedIsUsing(ped)
+	local Vehicle = GetVehiclePedIsUsing(ped)
 	if IsEntityAVehicle(vehicle) then
-		local motor = GetVehicleMod(vehicle,11)
-		local freio = GetVehicleMod(vehicle,12)
-		local transmissao = GetVehicleMod(vehicle,13)
-		local suspensao = GetVehicleMod(vehicle,15)
-		local blindagem = GetVehicleMod(vehicle,16)
-		local body = GetVehicleBodyHealth(vehicle)
-		local engine = GetVehicleEngineHealth(vehicle)
-		local fuel = GetVehicleFuelLevel(vehicle)
-
-		if motor == -1 then
-			motor = "Disabled"
-		elseif motor == 0 then
-			motor = "Nível 1 / "..GetNumVehicleMods(vehicle,11)
-		elseif motor == 1 then
-			motor = "Nível 2 / "..GetNumVehicleMods(vehicle,11)
-		elseif motor == 2 then
-			motor = "Nível 3 / "..GetNumVehicleMods(vehicle,11)
-		elseif motor == 3 then
-			motor = "Nível 4 / "..GetNumVehicleMods(vehicle,11)
-		elseif motor == 4 then
-			motor = "Nível 5 / "..GetNumVehicleMods(vehicle,11)
+		local Engine = GetVehicleMod(Vehicle,11)
+		if Engine ~= -1 then
+			exports["dynamic"]:AddButton("Motor","Modelo instalado: <yellow>"..Engine.."</yellow>","","",false,false)
 		end
 
-		if freio == -1 then
-			freio = "Disabled"
-		elseif freio == 0 then
-			freio = "Nível 1 / "..GetNumVehicleMods(vehicle,12)
-		elseif freio == 1 then
-			freio = "Nível 2 / "..GetNumVehicleMods(vehicle,12)
-		elseif freio == 2 then
-			freio = "Nível 3 / "..GetNumVehicleMods(vehicle,12)
+		local Brake = GetVehicleMod(Vehicle,12)
+		if Brake ~= -1 then
+			exports["dynamic"]:AddButton("Freio","Modelo instalado: <yellow>"..Brake.."</yellow>","","",false,false)
 		end
 
-		if transmissao == -1 then
-			transmissao = "Disabled"
-		elseif transmissao == 0 then
-			transmissao = "Nível 1 / "..GetNumVehicleMods(vehicle,13)
-		elseif transmissao == 1 then
-			transmissao = "Nível 2 / "..GetNumVehicleMods(vehicle,13)
-		elseif transmissao == 2 then
-			transmissao = "Nível 3 / "..GetNumVehicleMods(vehicle,13)
-		elseif transmissao == 3 then
-			transmissao = "Nível 4 / "..GetNumVehicleMods(vehicle,13)
+		local Transmission = GetVehicleMod(Vehicle,13)
+		if Transmission ~= -1 then
+			exports["dynamic"]:AddButton("Transmissão","Modelo instalado: <yellow>"..Transmission.."</yellow>","","",false,false)
 		end
 
-		if suspensao == -1 then
-			suspensao = "Disabled"
-		elseif suspensao == 0 then
-			suspensao = "Nível 1 / "..GetNumVehicleMods(vehicle,15)
-		elseif suspensao == 1 then
-			suspensao = "Nível 2 / "..GetNumVehicleMods(vehicle,15)
-		elseif suspensao == 2 then
-			suspensao = "Nível 3 / "..GetNumVehicleMods(vehicle,15)
-		elseif suspensao == 3 then
-			suspensao = "Nível 4 / "..GetNumVehicleMods(vehicle,15)
-		elseif suspensao == 4 then
-			suspensao = "Nível 5 / "..GetNumVehicleMods(vehicle,15)
+		local Suspension = GetVehicleMod(Vehicle,15)
+		if Suspension ~= -1 then
+			exports["dynamic"]:AddButton("Suspensão","Modelo instalado: <yellow>"..Suspension.."</yellow>","","",false,false)
 		end
 
-		if blindagem == -1 then
-			blindagem = "Disabled"
-		elseif blindagem == 0 then
-			blindagem = "Nível 1 / "..GetNumVehicleMods(vehicle,16)
-		elseif blindagem == 1 then
-			blindagem = "Nível 2 / "..GetNumVehicleMods(vehicle,16)
-		elseif blindagem == 2 then
-			blindagem = "Nível 3 / "..GetNumVehicleMods(vehicle,16)
-		elseif blindagem == 3 then
-			blindagem = "Nível 4 / "..GetNumVehicleMods(vehicle,16)
-		elseif blindagem == 4 then
-			blindagem = "Nível 5 / "..GetNumVehicleMods(vehicle,16)
+		local Shielding = GetVehicleMod(Vehicle,16)
+		if Shielding ~= -1 then
+			exports["dynamic"]:AddButton("Blindagem","Modelo instalado: <yellow>"..Shielding.."</yellow>","","",false,false)
 		end
 
-		TriggerEvent("Notify","importante","<b>Motor:</b> "..motor.."<br><b>Freio:</b> "..freio.."<br><b>Transmissão:</b> "..transmissao.."<br><b>Suspensão:</b> "..suspensao.."<br><b>Blindagem:</b> "..blindagem.."<br><b>Lataria:</b> "..parseInt(body/10).."%<br><b>Motor:</b> "..parseInt(engine/10).."%<br><b>Gasolina:</b> "..parseInt(fuel).."%",10000)
+		local Force = GetVehicleEngineHealth(Vehicle) / 10
+		exports["dynamic"]:AddButton("Potência","Potência do motor se encontra em <yellow>"..parseInt(Force).."%</yellow>.","","",false,false)
+
+		local Body = GetVehicleBodyHealth(Vehicle) / 10
+		exports["dynamic"]:AddButton("Lataria","Qualidade da lataria se encontra em <yellow>"..parseInt(Body).."%</yellow>.","","",false,false)
+
+		local Health = GetEntityHealth(Vehicle) / 10
+		exports["dynamic"]:AddButton("Chassi","Rigidez do chassi se encontra em <yellow>"..parseInt(Health).."%</yellow>.","","",false,false)
+
+		exports["dynamic"]:openMenu()
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- SEAT
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNetEvent("vrp_player:SeatPlayer")
-AddEventHandler("vrp_player:SeatPlayer",function(index)
-	local ped = PlayerPedId()
-	local vehicle = GetVehiclePedIsUsing(ped)
-	if IsEntityAVehicle(vehicle) and IsPedInAnyVehicle(ped) then
-		if parseInt(index) <= 1 or index == nil then
-			seat = -1
-		elseif parseInt(index) == 2 then
-			seat = 0
-		elseif parseInt(index) == 3 then
-			seat = 1
-		elseif parseInt(index) == 4 then
-			seat = 2
-		elseif parseInt(index) == 5 then
-			seat = 3
-		elseif parseInt(index) == 6 then
-			seat = 4
-		elseif parseInt(index) == 7 then
-			seat = 5
-		elseif parseInt(index) >= 8 then
-			seat = 6
-		end
-
-		if IsVehicleSeatFree(vehicle,seat) then
-			SetPedIntoVehicle(ped,vehicle,seat)
+AddEventHandler("vrp_player:SeatPlayer",function(Index)
+	local Ped = PlayerPedId()
+	local Vehicle = GetVehiclePedIsUsing(Ped)
+	if IsEntityAVehicle(vehicle) and IsPedInAnyVehicle(Ped) then
+		if Index == "0" then
+			if IsVehicleSeatFree(Vehicle,-1) then
+				SetPedIntoVehicle(Ped,Vehicle,-1)
+			end
+		elseif Index == "1" then
+			if IsVehicleSeatFree(Vehicle,0) then
+				SetPedIntoVehicle(Ped,Vehicle,0)
+			end
+		else
+			for Seat = 1,10 do
+				if IsVehicleSeatFree(Vehicle,Seat) then
+					SetPedIntoVehicle(Ped,Vehicle,Seat)
+					break
+				end
+			end
 		end
 	end
 end)
@@ -422,7 +370,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 local handcuff = false
 
-function plVRP.toggleHandcuff()
+function PlvRP.toggleHandcuff()
 	local ped = PlayerPedId()
 	if not handcuff then
 		handcuff = true
@@ -442,16 +390,17 @@ function plVRP.toggleHandcuff()
 	LocalPlayer["state"]:set("Handcuff",handcuff,true)
 end
 
-RegisterNetEvent("police:client:GetCuffed",plVRP.toggleHandcuff)
+RegisterNetEvent("police:client:GetCuffed",PlvRP.toggleHandcuff)
+
+function PlvRP.getHandcuff() return handcuff end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- GETHANDCUFF
+-- PORTA-MALAS
 -----------------------------------------------------------------------------------------------------------------------------------------
 local mala = false
-function plVRP.toggleMalas()
+function PlvRP.toggleMalas()
 	mala = not mala
-	ped = PlayerPedId()
-	vehicle = plVRP.getNearestVehicle(7)
-
+	local ped = PlayerPedId()
+	local vehicle = vRP.getNearestVehicle(7)
 	if IsEntityAVehicle(vehicle) then
 		if mala then
 			AttachEntityToEntity(ped,vehicle,GetEntityBoneIndexByName(vehicle,"bumper_r"),0.6,-0.4,-0.1,60.0,-90.0,180.0,false,false,false,true,2,true)
@@ -461,45 +410,18 @@ function plVRP.toggleMalas()
 			DetachEntity(ped,true,true)
 			SetEntityVisible(ped,true)
 			SetEntityInvincible(ped,false)
-			SetPedToRagdoll(ped,2000,2000,0,0,0,0)
-		end
-		TriggerServerEvent("trymala",VehToNet(vehicle))
-	end
-end
-
-RegisterNetEvent("syncmala")
-AddEventHandler("syncmala",function(index)
-	if NetworkDoesNetworkIdExist(index) then
-		local v = NetToVeh(index)
-		if DoesEntityExist(v) then
-			if IsEntityAVehicle(v) then
-				SetVehicleDoorOpen(v,5,0,0)
-				Citizen.Wait(1000)
-				SetVehicleDoorShut(v,5,0)
-			end
+			SetPedToRagdoll(ped,2000,2000,0,false,false,false)
 		end
 	end
-end)
-
-function plVRP.getHandcuff()
-	return handcuff
 end
 
-function plVRP.getNoCarro()
-	return IsPedInAnyVehicle(PlayerPedId())
-end
-
-function plVRP.getCarroClass(vehicle)
-	return GetVehicleClass(vehicle) == 0 or GetVehicleClass(vehicle) == 1 or GetVehicleClass(vehicle) == 2 or GetVehicleClass(vehicle) == 3 or GetVehicleClass(vehicle) == 4 or GetVehicleClass(vehicle) == 5 or GetVehicleClass(vehicle) == 6 or GetVehicleClass(vehicle) == 7 or GetVehicleClass(vehicle) == 9 or GetVehicleClass(vehicle) == 12
-end
-
-function plVRP.setMalas(flag)
+function PlvRP.setMalas(flag)
 	if mala ~= flag then
-		plVRP.toggleMalas()
+		PlvRP.toggleMalas()
 	end
 end
 
-function plVRP.isMalas()
+function PlvRP.isMalas()
 	return mala
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -518,231 +440,106 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- MOVEMENTCLIP
 -----------------------------------------------------------------------------------------------------------------------------------------
-function plVRP.movementClip(dict)
+function PlvRP.movementClip(dict)
 	RequestAnimSet(dict)
 	while not HasAnimSetLoaded(dict) do
-		Citizen.Wait(10)
+		Wait(10)
 	end
 	SetPedMovementClipset(PlayerPedId(),dict,0.25)
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADHANDCUFF
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
-	while true do
-		local timeDistance = 500
-		if handcuff then
-			timeDistance = 4
-			DisableControlAction(1,21,true)
-			DisableControlAction(1,23,true)
-			DisableControlAction(1,24,true)
-			DisableControlAction(1,25,true)
-			DisableControlAction(1,37,true)
-			DisableControlAction(0,37,true)
-			DisableControlAction(1,75,true)
-			DisableControlAction(1,22,true)
-			--DisableControlAction(1,73,true)
-			DisableControlAction(1,167,true)
-			DisableControlAction(1,311,true)
-			DisableControlAction(1,29,true)
-			DisableControlAction(1,182,true)
-			DisableControlAction(1,187,true)
-			DisableControlAction(1,189,true)
-			DisableControlAction(1,190,true)
-			DisableControlAction(1,188,true)
-			DisableControlAction(1,245,true)
-			DisableControlAction(1,243,true)
-			DisableControlAction(1,105,true)
-			DisableControlAction(0,21,true)
-			DisableControlAction(0,22,true)
-			DisableControlAction(0,24,true)
-			DisableControlAction(0,25,true)
-			DisableControlAction(0,29,true)
-			DisableControlAction(0,32,true)
-			DisableControlAction(0,33,true)
-			DisableControlAction(0,34,true)
-			DisableControlAction(0,35,true)
-			DisableControlAction(0,56,true)
-			DisableControlAction(0,58,true)
-			--DisableControlAction(0,73,true)
-			DisableControlAction(0,75,true)
-			DisableControlAction(0,140,true)
-			DisableControlAction(0,141,true)
-			DisableControlAction(0,142,true)
-			DisableControlAction(0,143,true)
-			DisableControlAction(0,159,true)
-			DisableControlAction(0,166,true)
-			DisableControlAction(0,167,true)
-			DisableControlAction(1,167,true)
-			DisableControlAction(2,167,true)
-			DisableControlAction(0,170,true)
-			DisableControlAction(0,177,true)
-			DisableControlAction(0,182,true)
-			DisableControlAction(0,187,true)
-			DisableControlAction(0,188,true)
-			DisableControlAction(0,189,true)
-			DisableControlAction(0,190,true)
-			DisableControlAction(0,243,true)
-			DisableControlAction(0,245,true)
-			DisableControlAction(0,246,true)
-			DisableControlAction(0,257,true)
-			DisableControlAction(0,263,true)
-			DisableControlAction(0,264,true)
-			DisableControlAction(0,268,true)
-			DisableControlAction(0,269,true)
-			DisableControlAction(0,270,true)
-			DisableControlAction(0,271,true)
-			DisableControlAction(0,288,true)
-			DisableControlAction(0,289,true)
-			DisableControlAction(0,303,true)
-			DisableControlAction(0,311,true)
-			DisableControlAction(0,344,true)
-			DisablePlayerFiring(PlayerPedId(),true)
-		end
-		Citizen.Wait(timeDistance)
-	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- THREADWHILEHANDCUFF
------------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
-	while true do
-		local ped = PlayerPedId()
-		if handcuff and GetEntityHealth(ped) > 101 then
-			vRP.playAnim(true,{"mp_arresting","idle"},true)
-		end
-		Citizen.Wait(10000)
-	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- BLACKWEAPONS
------------------------------------------------------------------------------------------------------------------------------------------
-local blackWeapons = {
-	"WEAPON_RAILGUN",
-	"WEAPON_GARBAGEBAG",
-	"VINTAGE_PISTOL",
-	"WEAPON_MINIGUN",
-	"WEAPON_PROXMINE",   
-	"WEAPON_SNSPISTOL_MK2",
-	"WEAPON_HEAVYPISTOL",
-	"WEAPON_MARKSMANPISTOL",
-	"WEAPON_KNUCKLEDUSTER",
-	"WEAPON_DOUBLEACTION",
-	"WEAPON_SMG_MK2",
-	"WEAPON_RAYCARBINE",
-	"WEAPON_ASSAULTSHOTGUN",
-	"WEAPON_BULLPUPSHOTGUN",
-	"WEAPON_HEAVYSHOTGUN",
-	"WEAPON_DBSHOTGUN",
-	"WEAPON_AUTOSHOTGUN",
-	"WEAPON_ADVANCEDRIFLE",
-	"WEAPON_BULLPUPRIFLE_MK2",
-	"WEAPON_COMPACTRIFLE",
-	"WEAPON_MG",
-	"WEAPON_COMBATMG",
-	"WEAPON_COMBATMG_MK2",
-	"WEAPON_SNIPERRIFLE",
-	"WEAPON_MARKSMANRIFLE",
-	"WEAPON_MARKSMANRIFLE_MK2",
-	"WEAPON_GRENADELAUNCHER",
-	"WEAPON_MINIGUN",
-	"WEAPON_FIREWORK",
-	"WEAPON_RAILGUN",
-	"WEAPON_HOMINGLAUNCHER",
-	"WEAPON_COMPACTLAUNCHER",
-	"WEAPON_RAYMINIGUN",
-	"WEAPON_GRENADE",
-	"WEAPON_MOLOTOV",
-	"WEAPON_STICKYBOMB",
-	"WEAPON_PROXMINE",
-	"WEAPON_PIPEBOMB",
-	"WEAPON_BALL",
-	"WEAPON_UNARMED",
-	"WEAPON_PETROLCAN"
-}
------------------------------------------------------------------------------------------------------------------------------------------
--- THREADSHOTSFIRED
------------------------------------------------------------------------------------------------------------------------------------------
-local inGame = false
-RegisterNetEvent("will_pvp:inGame")
-AddEventHandler("will_pvp:inGame",function(status)
-	inGame = status
-end)
-
-Citizen.CreateThread(function()
-	while true do
-		local timeDistance = 500
-		local ped = PlayerPedId()
-		if not LocalPlayer.state.inLateGame and not inGame then
-			timeDistance = 4
-			if IsPedShooting(ped) then
-				if not bWeapons then
-					plSERVER.shotsFired()
-					gsrTime = 60
-				end
-				bWeapons = false
-			end
-		end
-		Citizen.Wait(timeDistance)
-	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- GSRCHECK
------------------------------------------------------------------------------------------------------------------------------------------
-function plVRP.gsrCheck()
-	return gsrTime
-end
------------------------------------------------------------------------------------------------------------------------------------------
--- SHOTDISTANCE
------------------------------------------------------------------------------------------------------------------------------------------
-local shotDistance = {
-	{ -186.1,-893.5,29.3,2500 },
-	{ 1389.7,3237.2,37.6,1300 },
-	{ -137.4,6228.4,31.2,1000 }
-}
-
-function plVRP.shotDistance(x,y,z)
+AddStateBagChangeHandler("Handcuff", "", function(bagName, key, value)
+    local player = GetPlayerFromStateBagName(bagName)
+    if player == 0 or player ~= PlayerId() or not value then return end
 	local ped = PlayerPedId()
-	local coords = GetEntityCoords(ped)
-	for k,v in pairs(shotDistance) do
-		local distance = #(coords - vector3(v[1],v[2],v[3]))
-		if distance <= v[4] then
-			return true
+	CreateThread(function()
+		while LocalPlayer.state.Handcuff do
+			if GetEntityHealth(ped) > 101 then
+				vRP.playAnim(true,{"mp_arresting","idle"},true)
+			end
+			Wait(5000)
 		end
+	end)
+    while LocalPlayer.state.Handcuff do
+		DisableControlAction(1,21,true)
+		DisableControlAction(1,23,true)
+		DisableControlAction(1,24,true)
+		DisableControlAction(1,25,true)
+		DisableControlAction(1,37,true)
+		DisableControlAction(0,37,true)
+		DisableControlAction(1,75,true)
+		DisableControlAction(1,22,true)
+		--DisableControlAction(1,73,true)
+		DisableControlAction(1,167,true)
+		DisableControlAction(1,311,true)
+		DisableControlAction(1,29,true)
+		DisableControlAction(1,182,true)
+		DisableControlAction(1,187,true)
+		DisableControlAction(1,189,true)
+		DisableControlAction(1,190,true)
+		DisableControlAction(1,188,true)
+		DisableControlAction(1,245,true)
+		DisableControlAction(1,243,true)
+		DisableControlAction(1,105,true)
+		DisableControlAction(0,21,true)
+		DisableControlAction(0,22,true)
+		DisableControlAction(0,24,true)
+		DisableControlAction(0,25,true)
+		DisableControlAction(0,29,true)
+		DisableControlAction(0,32,true)
+		DisableControlAction(0,33,true)
+		DisableControlAction(0,34,true)
+		DisableControlAction(0,35,true)
+		DisableControlAction(0,56,true)
+		DisableControlAction(0,58,true)
+		--DisableControlAction(0,73,true)
+		DisableControlAction(0,75,true)
+		DisableControlAction(0,140,true)
+		DisableControlAction(0,141,true)
+		DisableControlAction(0,142,true)
+		DisableControlAction(0,143,true)
+		DisableControlAction(0,159,true)
+		DisableControlAction(0,166,true)
+		DisableControlAction(0,167,true)
+		DisableControlAction(1,167,true)
+		DisableControlAction(2,167,true)
+		DisableControlAction(0,170,true)
+		DisableControlAction(0,177,true)
+		DisableControlAction(0,182,true)
+		DisableControlAction(0,187,true)
+		DisableControlAction(0,188,true)
+		DisableControlAction(0,189,true)
+		DisableControlAction(0,190,true)
+		DisableControlAction(0,243,true)
+		DisableControlAction(0,245,true)
+		DisableControlAction(0,246,true)
+		DisableControlAction(0,257,true)
+		DisableControlAction(0,263,true)
+		DisableControlAction(0,264,true)
+		DisableControlAction(0,268,true)
+		DisableControlAction(0,269,true)
+		DisableControlAction(0,270,true)
+		DisableControlAction(0,271,true)
+		DisableControlAction(0,288,true)
+		DisableControlAction(0,289,true)
+		DisableControlAction(0,303,true)
+		DisableControlAction(0,311,true)
+		DisableControlAction(0,344,true)
+		DisablePlayerFiring(ped,true)
+		Wait(4)
 	end
-	return false
-end
+end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- TOGGLECARRY
 -----------------------------------------------------------------------------------------------------------------------------------------
 local uCarry = nil
 local iCarry = false
 local sCarry = false
-function plVRP.toggleCarry(source)
+function PlvRP.toggleCarry(source)
 	uCarry = source
 	iCarry = not iCarry
-
-	local ped = PlayerPedId()
-	if iCarry and uCarry then
-		AttachEntityToEntity(ped,GetPlayerPed(GetPlayerFromServerId(uCarry)),11816,0.6,0.0,0.0,0.0,0.0,0.0,false,false,false,false,2,true)
-		sCarry = true
-	else
-		if sCarry then
-			DetachEntity(ped,false,false)
-			sCarry = false
-		end
-	end	
-end
------------------------------------------------------------------------------------------------------------------------------------------
--- TOGGLECARRY2
------------------------------------------------------------------------------------------------------------------------------------------
-local uCarry = nil
-local iCarry = false
-local sCarry = false
-function plVRP.toggleCarry2(source)
-	uCarry = source
-	iCarry = not iCarry
-
 	local ped = PlayerPedId()
 	if iCarry and uCarry then
 		Citizen.InvokeNative(0x6B9BBD38AB0796DF,PlayerPedId(),GetPlayerPed(GetPlayerFromServerId(uCarry)),4103,11816,0.5,0.0,0.0,0.0,0.0,0.0,false,false,false,false,2,true)
@@ -752,136 +549,42 @@ function plVRP.toggleCarry2(source)
 			DetachEntity(ped,false,false)
 			sCarry = false
 		end
-	end	
+	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- REMOVEVEHICLE
 -----------------------------------------------------------------------------------------------------------------------------------------
-function plVRP.removeVehicle()
+function PlvRP.removeVehicle()
 	local ped = PlayerPedId()
 	if IsPedSittingInAnyVehicle(ped) then
 		iCarry = false
-		DetachEntity(GetPlayerPed(GetPlayerFromServerId(uCarry)),false,false)
+		if uCarry then
+			DetachEntity(GetPlayerPed(GetPlayerFromServerId(uCarry)),false,false)
+		end
 		TaskLeaveVehicle(ped,GetVehiclePedIsUsing(ped),4160)
-	end
-end
------------------------------------------------------------------------------------------------------------------------------------------
--- EXTRAS
------------------------------------------------------------------------------------------------------------------------------------------
-function plVRP.extraVehicle(data)
-	local vehicle = vRP.getNearVehicle(11)
-	if data == "1" then
-		if DoesExtraExist(vehicle,1) then
-			if IsVehicleExtraTurnedOn(vehicle,1) then
-				SetVehicleExtra(vehicle,1,true)
-			else
-				SetVehicleExtra(vehicle,1,false)
-			end
-		end
-	elseif data == "2" then
-		if DoesExtraExist(vehicle,2) then
-			if IsVehicleExtraTurnedOn(vehicle,2) then
-				SetVehicleExtra(vehicle,2,true)
-			else
-				SetVehicleExtra(vehicle,2,false)
-			end
-		end
-	elseif data == "3" then
-		if DoesExtraExist(vehicle,3) then
-			if IsVehicleExtraTurnedOn(vehicle,3) then
-				SetVehicleExtra(vehicle,3,true)
-			else
-				SetVehicleExtra(vehicle,3,false)
-			end
-		end
-	elseif data == "4" then
-		if DoesExtraExist(vehicle,4) then
-			if IsVehicleExtraTurnedOn(vehicle,4) then
-				SetVehicleExtra(vehicle,4,true)
-			else
-				SetVehicleExtra(vehicle,4,false)
-			end
-		end
-	elseif data == "5" then
-		if DoesExtraExist(vehicle,5) then
-			if IsVehicleExtraTurnedOn(vehicle,5) then
-				SetVehicleExtra(vehicle,5,true)
-			else
-				SetVehicleExtra(vehicle,5,false)
-			end
-		end
-	elseif data == "6" then
-		if DoesExtraExist(vehicle,6) then
-			if IsVehicleExtraTurnedOn(vehicle,6) then
-				SetVehicleExtra(vehicle,6,true)
-			else
-				SetVehicleExtra(vehicle,6,false)
-			end
-		end
-	elseif data == "7" then
-		if DoesExtraExist(vehicle,7) then
-			if IsVehicleExtraTurnedOn(vehicle,7) then
-				SetVehicleExtra(vehicle,7,true)
-			else
-				SetVehicleExtra(vehicle,7,false)
-			end
-		end
-	elseif data == "8" then
-		if DoesExtraExist(vehicle,8) then
-			if IsVehicleExtraTurnedOn(vehicle,8) then
-				SetVehicleExtra(vehicle,8,true)
-			else
-				SetVehicleExtra(vehicle,8,false)
-			end
-		end
-	elseif data == "9" then
-		if DoesExtraExist(vehicle,9) then
-			if IsVehicleExtraTurnedOn(vehicle,9) then
-				SetVehicleExtra(vehicle,9,true)
-			else
-				SetVehicleExtra(vehicle,9,false)
-			end
-		end
-	elseif data == "10" then
-		if DoesExtraExist(vehicle,10) then
-			if IsVehicleExtraTurnedOn(vehicle,10) then
-				SetVehicleExtra(vehicle,10,true)
-			else
-				SetVehicleExtra(vehicle,10,false)
-			end
-		end
-	elseif data == "11" then
-		if DoesExtraExist(vehicle,11) then
-			if IsVehicleExtraTurnedOn(vehicle,11) then
-				SetVehicleExtra(vehicle,11,true)
-			else
-				SetVehicleExtra(vehicle,11,false)
-			end
-		end
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PUTVEHICLE
 -----------------------------------------------------------------------------------------------------------------------------------------
-function plVRP.putVehicle()
+function PlvRP.putVehicle()
 	local veh = vRP.getNearVehicle(11)
 	if IsEntityAVehicle(veh) then
 		local vehSeats = 10
 		local Ped = PlayerPedId()
-
 		repeat
 			vehSeats = vehSeats - 1
 			if IsVehicleSeatFree(veh,vehSeats) then
 				ClearPedTasks(Ped)
 				ClearPedSecondaryTask(Ped)
 				SetPedIntoVehicle(Ped,veh,vehSeats)
-				vehSeats = true
+				vehSeats = 0
 			end
-		until vehSeats == true or vehSeats == 0
+		until vehSeats == 0
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- HOLSTER
+-- HOLSTER - ANIMAÇÃO ARMA EQUIPADA
 -----------------------------------------------------------------------------------------------------------------------------------------
 local weapons = {
 	"WEAPON_KNIFE",
@@ -916,7 +619,7 @@ local weapons = {
 	"WEAPON_GUSENBERG"
 }
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	if GlobalState['Inventory'] ~= "ox_inventory" then
 		local holster = false
 		while true do
@@ -926,29 +629,28 @@ Citizen.CreateThread(function()
 				if not holster and CheckWeapon(ped) then
 					timeDistance = 4
 					if not IsEntityPlayingAnim(ped,"amb@world_human_sunbathe@female@back@idle_a","idle_a",3) then
-						loadAnimDict("rcmjosh4")
-						TaskPlayAnim(ped,"rcmjosh4","josh_leadout_cop2",3.0,2.0,-1,48,10,0,0,0)
-						Citizen.Wait(450)
+						LoadAnim("rcmjosh4")
+						TaskPlayAnim(ped,"rcmjosh4","josh_leadout_cop2",3.0,2.0,-1,48,10,false,false,false)
+						Wait(450)
 						ClearPedTasks(ped)
 					end
 					holster = true
 				elseif holster and not CheckWeapon(ped) then
 					timeDistance = 4
 					if not IsEntityPlayingAnim(ped,"amb@world_human_sunbathe@female@back@idle_a","idle_a",3) then
-						loadAnimDict("weapons@pistol@")
-						TaskPlayAnim(ped,"weapons@pistol@","aim_2_holster",3.0,2.0,-1,48,10,0,0,0)
-						Citizen.Wait(450)
+						LoadAnim("weapons@pistol@")
+						TaskPlayAnim(ped,"weapons@pistol@","aim_2_holster",3.0,2.0,-1,48,10,false,false,false)
+						Wait(450)
 						ClearPedTasks(ped)
 					end
 					holster = false
 				end
 			end
-	
 			if GetEntityHealth(ped) <= 101 and holster then
 				holster = false
 				SetCurrentPedWeapon(ped,GetHashKey("WEAPON_UNARMED"),true)
 			end
-			Citizen.Wait(timeDistance)
+			Wait(timeDistance)
 		end
 	end
 end)
@@ -961,90 +663,6 @@ function CheckWeapon(ped)
 	end
 	return false
 end
-
-function loadAnimDict(dict)
-	while not HasAnimDictLoaded(dict) do
-		RequestAnimDict(dict)
-		Citizen.Wait(10)
-	end
-end
------------------------------------------------------------------------------------------------------------------------------------------
--- LIVERY
------------------------------------------------------------------------------------------------------------------------------------------
-function plVRP.toggleLivery(number)
-	local ped = PlayerPedId()
-	if IsPedInAnyVehicle(ped) then
-		SetVehicleLivery(GetVehiclePedIsUsing(ped),number)
-	end
-end
------------------------------------------------------------------------------------------------------------------------------------------
--- WECOLORS
------------------------------------------------------------------------------------------------------------------------------------------
-function plVRP.weColors(number)
-	local ped = PlayerPedId()
-	local weapon = GetSelectedPedWeapon(ped)
-	SetPedWeaponTintIndex(ped,weapon,parseInt(number))
-end
------------------------------------------------------------------------------------------------------------------------------------------
--- WELUX
------------------------------------------------------------------------------------------------------------------------------------------
-local wLux = {
-	["WEAPON_PISTOL"] = {
-		"COMPONENT_PISTOL_VARMOD_LUXE",
-	},
-	["WEAPON_APPISTOL"] = {
-		"COMPONENT_APPISTOL_VARMOD_LUXE"
-	},
-	["WEAPON_HEAVYPISTOL"] = {
-		"COMPONENT_HEAVYPISTOL_VARMOD_LUXE"
-	},
-	["WEAPON_MICROSMG"] = {
-		"COMPONENT_MICROSMG_VARMOD_LUXE"
-	},
-	["WEAPON_SNSPISTOL"] = {
-		"COMPONENT_SNSPISTOL_VARMOD_LOWRIDER"
-	},
-	["WEAPON_PISTOL50"] = {
-		"COMPONENT_PISTOL50_VARMOD_LUXE"
-	},
-	["WEAPON_COMBATPISTOL"] = {
-		"COMPONENT_COMBATPISTOL_VARMOD_LOWRIDER"
-	},
-	["WEAPON_CARBINERIFLE"] = {
-		"COMPONENT_CARBINERIFLE_VARMOD_LUXE"
-	},
-	["WEAPON_PUMPSHOTGUN"] = {
-		"COMPONENT_PUMPSHOTGUN_VARMOD_LOWRIDER"
-	},
-	["WEAPON_SAWNOFFSHOTGUN"] = {
-		"COMPONENT_SAWNOFFSHOTGUN_VARMOD_LUXE"
-	},
-	["WEAPON_SMG"] = {
-		"COMPONENT_SMG_VARMOD_LUXE"
-	},
-	["WEAPON_ASSAULTRIFLE"] = {
-		"COMPONENT_ASSAULTRIFLE_VARMOD_LUXE"
-	},
-	["WEAPON_ASSAULTRIFLE_MK2"] = {
-		"COMPONENT_ASSAULTRIFLE_MK2_CAMO_IND_01"
-	},
-	["WEAPON_ASSAULTSMG"] = {
-		"COMPONENT_ASSAULTSMG_VARMOD_LOWRIDER"
-	}
-}
------------------------------------------------------------------------------------------------------------------------------------------
--- WELUX
------------------------------------------------------------------------------------------------------------------------------------------
-function plVRP.weLux()
-	local ped = PlayerPedId()
-	for k,v in pairs(wLux) do
-		if GetSelectedPedWeapon(ped) == GetHashKey(k) then
-			for k2,v2 in pairs(v) do
-				GiveWeaponComponentToPed(ped,GetHashKey(k),GetHashKey(v2))
-			end
-		end
-	end
-end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- HIDETRUNK
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -1052,7 +670,6 @@ local inTrunk = false
 RegisterNetEvent("vrp_player:EnterTrunk")
 AddEventHandler("vrp_player:EnterTrunk",function()
 	local ped = PlayerPedId()
-
 	if not inTrunk then
 		local vehicle = vRP.vehList(11)
 		if DoesEntityExist(vehicle) then
@@ -1062,14 +679,14 @@ AddEventHandler("vrp_player:EnterTrunk",function()
 				local coordsEnt = GetWorldPositionOfEntityBone(vehicle,trunk)
 				local distance = #(coords - coordsEnt)
 				if distance <= 3.0 and not IsPedInAnyVehicle(ped) then
-					timeDistance = 4
 					if GetVehicleDoorAngleRatio(vehicle,5) < 0.9 and GetVehicleDoorsLockedForPlayer(vehicle,PlayerId()) ~= 1 then
 						SetCarBootOpen(vehicle)
 						SetEntityVisible(ped,false,false)
-						Citizen.Wait(750)
+						Wait(750)
 						AttachEntityToEntity(ped,vehicle,-1,0.0,-2.2,0.5,0.0,0.0,0.0,false,false,false,false,20,true)
 						inTrunk = true
-						Citizen.Wait(500)
+						StartTrunkThread()
+						Wait(500)
 						SetVehicleDoorShut(vehicle,5)
 					end
 				end
@@ -1083,15 +700,15 @@ AddEventHandler("vrp_player:EnterTrunk",function()
 			local coordsEnt = GetWorldPositionOfEntityBone(vehicle,trunk)
 			local distance = #(coords - coordsEnt)
 			if distance <= 3.0 then
-				timeDistance = 4
 				if DoesEntityExist(vehicle) then
 					SetCarBootOpen(vehicle)
-					Citizen.Wait(750)
+					Wait(750)
 					inTrunk = false
 					DetachEntity(ped,false,false)
 					SetEntityVisible(ped,true,false)
-					SetEntityCoords(ped,GetOffsetFromEntityInWorldCoords(ped,0.0,-1.5,-0.75))
-					Citizen.Wait(500)
+					local VehTrunk = GetOffsetFromEntityInWorldCoords(ped,0.0,-1.5,-0.75)
+					SetEntityCoords(ped,VehTrunk.x,VehTrunk.y,VehTrunk.z)
+					Wait(500)
 					SetVehicleDoorShut(vehicle,5)
 				end
 			end
@@ -1106,22 +723,22 @@ AddEventHandler("vrp_player:CheckTrunk",function()
 		local vehicle = GetEntityAttachedTo(ped)
 		if DoesEntityExist(vehicle) then
 			SetCarBootOpen(vehicle)
-			Citizen.Wait(750)
+			Wait(750)
 			inTrunk = false
 			DetachEntity(ped,false,false)
 			SetEntityVisible(ped,true,false)
-			SetEntityCoords(ped,GetOffsetFromEntityInWorldCoords(ped,0.0,-1.5,-0.75))
-			Citizen.Wait(500)
+			local VehTrunk = GetOffsetFromEntityInWorldCoords(ped,0.0,-1.5,-0.75)
+			SetEntityCoords(ped,VehTrunk.x,VehTrunk.y,VehTrunk.z)
+			Wait(500)
 			SetVehicleDoorShut(vehicle,5)
 		end
 	end
 end)
 
-Citizen.CreateThread(function()
-	while true do
-		local timeDistance = 500
-
-		if inTrunk then
+function StartTrunkThread()
+	CreateThread(function()
+		while inTrunk do
+			local timeDistance = 1000
 			local ped = PlayerPedId()
 			local vehicle = GetEntityAttachedTo(ped)
 			if DoesEntityExist(vehicle) then
@@ -1150,12 +767,12 @@ Citizen.CreateThread(function()
 
 				if IsControlJustPressed(1,38) then
 					SetCarBootOpen(vehicle)
-					Citizen.Wait(750)
+					Wait(750)
 					inTrunk = false
 					DetachEntity(ped,false,false)
 					SetEntityVisible(ped,true,false)
 					SetEntityCoords(ped,GetOffsetFromEntityInWorldCoords(ped,0.0,-1.5,-0.75))
-					Citizen.Wait(500)
+					Wait(500)
 					SetVehicleDoorShut(vehicle,5)
 				end
 			else
@@ -1164,23 +781,29 @@ Citizen.CreateThread(function()
 				SetEntityVisible(ped,true,false)
 				SetEntityCoords(ped,GetOffsetFromEntityInWorldCoords(ped,0.0,-1.5,-0.75))
 			end
+			Wait(timeDistance)
 		end
-		Citizen.Wait(timeDistance)
-	end
-end)
+	end)
+end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- /sequestro
+-- SEQUESTRO DE NPC
 -----------------------------------------------------------------------------------------------------------------------------------------
 local sequestrado = nil
+
+function PlvRP.getVehicleClass(vehicle)
+	return GetVehicleClass(vehicle) == 0 or GetVehicleClass(vehicle) == 1 or GetVehicleClass(vehicle) == 2 or GetVehicleClass(vehicle) == 3 or GetVehicleClass(vehicle) == 4 or GetVehicleClass(vehicle) == 5 or GetVehicleClass(vehicle) == 6 or GetVehicleClass(vehicle) == 7 or GetVehicleClass(vehicle) == 9 or GetVehicleClass(vehicle) == 12
+end
+
 RegisterCommand("sequestro2",function(source,args)
+	local complet = false
 	local ped = PlayerPedId()
 	local random,npc = FindFirstPed()
 	repeat
 		local distancia = GetDistanceBetweenCoords(GetEntityCoords(ped),GetEntityCoords(npc),true)
 		if not IsPedAPlayer(npc) and distancia <= 3 and not IsPedInAnyVehicle(npc) then
-			vehicle = vRP.getNearestVehicle(7)
+			local vehicle = vRP.getNearestVehicle(7)
 			if IsEntityAVehicle(vehicle) then
-				if vRP.getCarroClass(vehicle) then
+				if PlvRP.getVehicleClass(vehicle) then
 					if sequestrado then
 						AttachEntityToEntity(sequestrado,vehicle,GetEntityBoneIndexByName(vehicle,"bumper_r"),0.6,-1.2,-0.6,60.0,-90.0,180.0,false,false,false,true,2,true)
 						DetachEntity(sequestrado,true,true)
@@ -1197,7 +820,6 @@ RegisterCommand("sequestro2",function(source,args)
 						sequestrado = npc
 						complet = true
 					end
-					TriggerServerEvent("trymala",VehToNet(vehicle))
 				end
 			end
 		end
@@ -1208,64 +830,21 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- EMPURRAR
 -----------------------------------------------------------------------------------------------------------------------------------------
-local entityEnumerator = {
-	__gc = function(enum)
-		if enum.destructor and enum.handle then
-			enum.destructor(enum.handle)
-		end
-		enum.destructor = nil
-		enum.handle = nil
-	end
-}
+local First = vector3(0.0,0.0,0.0)
+local Second = vector3(5.0,5.0,5.0)
+local Vehicle = { Coords = nil, Vehicle = nil, Dimension = nil, IsInFront = false, Distance = nil }
 
-local function EnumerateEntities(initFunc,moveFunc,disposeFunc)
-	return coroutine.wrap(function()
-		local iter, id = initFunc()
-		if not id or id == 0 then
-			disposeFunc(iter)
-			return
-		end
-
-		local enum = { handle = iter, destructor = disposeFunc }
-		setmetatable(enum, entityEnumerator)
-
-		local next = true
-		repeat
-		coroutine.yield(id)
-		next,id = moveFunc(iter)
-		until not next
-
-		enum.destructor,enum.handle = nil,nil
-		disposeFunc(iter)
-	end)
-end
-
-function EnumerateVehicles()
-	return EnumerateEntities(FindFirstVehicle,FindNextVehicle,EndFindVehicle)
-end
-
-function GetVeh()
-    local vehicles = {}
-    for vehicle in EnumerateVehicles() do
-        table.insert(vehicles,vehicle)
-    end
-    return vehicles
-end
-
-function GetClosestVeh(coords)
-	local vehicles = GetVeh()
+local function getClosestVeh(coords)
+	local vehicles = GetGamePool("CVehicle")
 	local closestDistance = -1
 	local closestVehicle = -1
-	local coords = coords
-
 	if coords == nil then
 		local ped = PlayerPedId()
 		coords = GetEntityCoords(ped)
 	end
-
 	for i=1,#vehicles,1 do
 		local vehicleCoords = GetEntityCoords(vehicles[i])
-		local distance = GetDistanceBetweenCoords(vehicleCoords,coords.x,coords.y,coords.z,true)
+		local distance = GetDistanceBetweenCoords(vehicleCoords.x,vehicleCoords.y,vehicleCoords.z,coords.x,coords.y,coords.z,true)
 		if closestDistance == -1 or closestDistance > distance then
 			closestVehicle  = vehicles[i]
 			closestDistance = distance
@@ -1274,14 +853,10 @@ function GetClosestVeh(coords)
 	return closestVehicle,closestDistance
 end
 
-local First = vector3(0.0,0.0,0.0)
-local Second = vector3(5.0,5.0,5.0)
-local Vehicle = { Coords = nil, Vehicle = nil, Dimension = nil, IsInFront = false, Distance = nil }
-
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		local ped = PlayerPedId()
-		local closestVehicle,Distance = GetClosestVeh()
+		local closestVehicle,Distance = getClosestVeh()
 		if Distance < 6.1 and not IsPedInAnyVehicle(ped) then
 			Vehicle.Coords = GetEntityCoords(closestVehicle)
 			Vehicle.Dimensions = GetModelDimensions(GetEntityModel(closestVehicle),First,Second)
@@ -1295,42 +870,37 @@ Citizen.CreateThread(function()
 		else
 			Vehicle = { Coords = nil, Vehicle = nil, Dimensions = nil, IsInFront = false, Distance = nil }
 		end
-		Citizen.Wait(1200)
+		Wait(1200)
 	end
 end)
 
-Citizen.CreateThread(function()
-	while true do 
-		Citizen.Wait(1000)
+CreateThread(function()
+	while true do
+		Wait(1000)
 		if Vehicle.Vehicle ~= nil then
 			local ped = PlayerPedId()
 			if IsControlPressed(0,244) and GetEntityHealth(ped) > 100 and IsVehicleSeatFree(Vehicle.Vehicle,-1) and not IsEntityInAir(ped) and not IsPedBeingStunned(ped) and not IsEntityAttachedToEntity(ped,Vehicle.Vehicle) and not (GetEntityRoll(Vehicle.Vehicle) > 75.0 or GetEntityRoll(Vehicle.Vehicle) < -75.0) then
 				RequestAnimDict('missfinale_c2ig_11')
-				TaskPlayAnim(ped,'missfinale_c2ig_11','pushcar_offcliff_m',2.0,-8.0,-1,35,0,0,0,0)
+				TaskPlayAnim(ped,'missfinale_c2ig_11','pushcar_offcliff_m',2.0,-8.0,-1,35,0,false,false,false)
 				NetworkRequestControlOfEntity(Vehicle.Vehicle)
-
 				if Vehicle.IsInFront then
 					AttachEntityToEntity(ped,Vehicle.Vehicle,GetPedBoneIndex(6286),0.0,Vehicle.Dimensions.y*-1+0.1,Vehicle.Dimensions.z+1.0,0.0,0.0,180.0,0.0,false,false,true,false,true)
 				else
 					AttachEntityToEntity(ped,Vehicle.Vehicle,GetPedBoneIndex(6286),0.0,Vehicle.Dimensions.y-0.3,Vehicle.Dimensions.z+1.0,0.0,0.0,0.0,0.0,false,false,true,false,true)
 				end
-
 				while true do
-					Citizen.Wait(5)
+					Wait(5)
 					if IsDisabledControlPressed(0,34) then
 						TaskVehicleTempAction(ped,Vehicle.Vehicle,11,100)
 					end
-
 					if IsDisabledControlPressed(0,9) then
 						TaskVehicleTempAction(ped,Vehicle.Vehicle,10,100)
 					end
-
 					if Vehicle.IsInFront then
 						SetVehicleForwardSpeed(Vehicle.Vehicle,-1.0)
 					else
 						SetVehicleForwardSpeed(Vehicle.Vehicle,1.0)
 					end
-
 					if not IsDisabledControlPressed(0,244) then
 						DetachEntity(ped,false,false)
 						StopAnimTask(ped,'missfinale_c2ig_11','pushcar_offcliff_m',2.0)
@@ -1341,15 +911,12 @@ Citizen.CreateThread(function()
 		end
 	end
 end)
-
-
 -------------------------------------------------------------------------------------------------------------------------------
 -- LOGS
 -------------------------------------------------------------------------------------------------------------------------------
-
 local alreadyDead = false
 
-function getWeaponHashName(hash)
+local function getWeaponHashName(hash)
 	if hash ~= nil then
 		if hash == "2725352035" then return "WEAPON_UNARMED"
 		elseif hash == "4194021054" then return "WEAPON_ANIMAL"
@@ -1459,381 +1026,6 @@ function getWeaponHashName(hash)
 		return "SUICIDIO"
 	end
 end
------------------------------------------------------------------------------------------------------------------------------------------
--- VARIABLES
------------------------------------------------------------------------------------------------------------------------------------------
-local fov_max = 80.0
-local fov_min = 5.0 -- max zoom level (smaller fov is more zoom)
-local zoomspeed = 3.0 -- camera zoom speed
-local speed_lr = 4.0 -- speed by which the camera pans left-right 
-local speed_ud = 4.0 -- speed by which the camera pans up-down
-local toggle_helicam = 51 -- control id of the button by which to toggle the helicam mode. Default: INPUT_CONTEXT (E)
-local toggle_rappel = 154 -- control id to rappel out of the heli. Default: INPUT_DUCK (X)
-local toggle_spotlight = 183 -- control id to toggle the various spotlight states Default: INPUT_PhoneCameraGrid (G)
-local toggle_display = 44 -- control id to toggle vehicle info display. Default: INPUT_COVER (Q)
-local radiusup_key = 137 -- control id to increase manual spotlight radius. Default: INPUT_VEH_PUSHBIKE_SPRINT (CAPSLOCK)
-local radiusdown_key = 21 -- control id to decrease spotlight radius. Default: INPUT_SPRINT (LEFT-SHIFT)
-local maxtargetdistance = 700 -- max distance at which target lock is maintained
-local brightness = 1.0 -- default spotlight brightness
-local spotradius = 4.0 -- default manual spotlight radius
-
-local target_vehicle = nil
-local manual_spotlight = false
-local tracking spotlight = false
-local vehicle_display = 0
-local helicam = false
-local polmav_hash = GetHashKey("policiaheli")
-local fov = (fov_max+fov_min)*0.5
-local vision_state = 0
-
-Citizen.CreateThread(function()
-	DecorRegister("SpotvectorX",3)
-	DecorRegister("SpotvectorY",3)
-	DecorRegister("SpotvectorZ",3)
-	DecorRegister("Target",3)
-end)
-
-Citizen.CreateThread(function()
-	while true do
-		local timeDistance = 1500
-		if IsPlayerInPolmav() then
-			timeDistance = 4
-			local ped = PlayerPedId()
-			local heli = GetVehiclePedIsUsing(ped)
-			
-			if IsHeliHighEnough(heli) then
-				if IsControlJustPressed(1,toggle_helicam) then
-					PlaySoundFrontend(-1,"SELECT","HUD_FRONTEND_DEFAULT_SOUNDSET",false)
-					helicam = true
-				end
-				
-				if IsControlJustPressed(1,toggle_rappel) then
-					if GetPedInVehicleSeat(heli,1) == ped or GetPedInVehicleSeat(heli,2) == ped then
-						PlaySoundFrontend(-1,"SELECT","HUD_FRONTEND_DEFAULT_SOUNDSET",false)
-						TaskRappelFromHeli(ped,1)
-					end
-				end
-			end
-
-			if IsControlJustPressed(1,toggle_spotlight) and GetPedInVehicleSeat(heli,-1) == ped and not helicam then
-				if target_vehicle then
-					if tracking_spotlight then
-						if not pause_Tspotlight then
-							pause_Tspotlight = true
-							TriggerServerEvent("heli:pause.tracking.spotlight",pause_Tspotlight)
-						else
-							pause_Tspotlight = false
-							TriggerServerEvent("heli:pause.tracking.spotlight",pause_Tspotlight)
-						end
-						PlaySoundFrontend(-1,"SELECT","HUD_FRONTEND_DEFAULT_SOUNDSET",false)
-					else
-						if Fspotlight_state then
-							Fspotlight_state = false
-							TriggerServerEvent("heli:forward.spotlight",Fspotlight_state)
-						end
-						local target_netID = VehToNet(target_vehicle)
-						local target_plate = GetVehicleNumberPlateText(target_vehicle)
-						local targetposx,targetposy,targetposz = table.unpack(GetEntityCoords(target_vehicle))
-						pause_Tspotlight = false
-						tracking_spotlight = true
-						TriggerServerEvent("heli:tracking.spotlight",target_netID,target_plate,targetposx,targetposy,targetposz)
-						PlaySoundFrontend(-1,"SELECT","HUD_FRONTEND_DEFAULT_SOUNDSET",false)
-					end
-				else
-					if tracking_spotlight then
-						pause_Tspotlight = false
-						tracking_spotlight = false
-						TriggerServerEvent("heli:tracking.spotlight.toggle")
-					end
-					Fspotlight_state = not Fspotlight_state
-					TriggerServerEvent("heli:forward.spotlight",Fspotlight_state)
-					PlaySoundFrontend(-1,"SELECT","HUD_FRONTEND_DEFAULT_SOUNDSET",false)
-				end
-			end
-
-			if IsControlJustPressed(1,toggle_display) and GetPedInVehicleSeat(heli,-1) == ped then 
-				ChangeDisplay()
-			end
-		end
-		
-		if helicam then
-			SetTimecycleModifier("heliGunCam")
-			SetTimecycleModifierStrength(0.3)
-			local scaleform = RequestScaleformMovie("HELI_CAM")
-			while not HasScaleformMovieLoaded(scaleform) do
-				Citizen.Wait(10)
-			end
-
-			local ped = PlayerPedId()
-			local heli = GetVehiclePedIsUsing(ped)
-			local cam = CreateCam("DEFAULT_SCRIPTED_FLY_CAMERA",true)
-			AttachCamToEntity(cam,heli,0.0,0.0,-1.5,true)
-			SetCamRot(cam,0.0,0.0,GetEntityHeading(heli))
-			SetCamFov(cam,fov)
-			RenderScriptCams(true,false,0,1,0)
-			PushScaleformMovieFunction(scaleform,"SET_CAM_LOGO")
-			PushScaleformMovieFunctionParameterInt(0)
-			PopScaleformMovieFunctionVoid()
-			while helicam and not IsEntityDead(ped) and (GetVehiclePedIsUsing(ped) == heli) and IsHeliHighEnough(heli) do
-				if IsControlJustPressed(1,toggle_helicam) then
-					PlaySoundFrontend(-1,"SELECT","HUD_FRONTEND_DEFAULT_SOUNDSET",false)
-					if manual_spotlight and target_vehicle then
-						TriggerServerEvent("heli:manual.spotlight.toggle")
-						local target_netID = VehToNet(target_vehicle)
-						local target_plate = GetVehicleNumberPlateText(target_vehicle)
-						local targetposx,targetposy,targetposz = table.unpack(GetEntityCoords(target_vehicle))
-						pause_Tspotlight = false
-						tracking_spotlight = true
-						TriggerServerEvent("heli:tracking.spotlight",target_netID,target_plate,targetposx,targetposy,targetposz)
-						PlaySoundFrontend(-1,"SELECT","HUD_FRONTEND_DEFAULT_SOUNDSET",false)
-					end
-					manual_spotlight = false
-					helicam = false
-				end
-
-				if IsControlJustPressed(1,toggle_spotlight) then
-					if tracking_spotlight then
-						pause_Tspotlight = true
-						TriggerServerEvent("heli:pause.tracking.spotlight",pause_Tspotlight)
-						manual_spotlight = not manual_spotlight
-						if manual_spotlight then
-							local rotation = GetCamRot(cam, 2)
-							local forward_vector = RotAnglesToVec(rotation)
-							local SpotvectorX,SpotvectorY,SpotvectorZ = table.unpack(forward_vector)
-							DecorSetInt(ped,"SpotvectorX",SpotvectorX)
-							DecorSetInt(ped,"SpotvectorY",SpotvectorY)
-							DecorSetInt(ped,"SpotvectorZ",SpotvectorZ)
-							PlaySoundFrontend(-1,"SELECT","HUD_FRONTEND_DEFAULT_SOUNDSET",false)
-							TriggerServerEvent("heli:manual.spotlight")
-						else
-							TriggerServerEvent("heli:manual.spotlight.toggle")
-						end
-					elseif Fspotlight_state then
-						Fspotlight_state = false
-						TriggerServerEvent("heli:forward.spotlight",Fspotlight_state)
-						manual_spotlight = not manual_spotlight
-						if manual_spotlight then
-							PlaySoundFrontend(-1,"SELECT","HUD_FRONTEND_DEFAULT_SOUNDSET",false)
-							TriggerServerEvent("heli:manual.spotlight")
-						else
-							TriggerServerEvent("heli:manual.spotlight.toggle")
-						end
-					else
-						manual_spotlight = not manual_spotlight
-						if manual_spotlight then
-							PlaySoundFrontend(-1,"SELECT","HUD_FRONTEND_DEFAULT_SOUNDSET",false)
-							TriggerServerEvent("heli:manual.spotlight")
-						else
-							TriggerServerEvent("heli:manual.spotlight.toggle")
-						end
-					end
-				end
-
-				if IsControlJustPressed(1,radiusup_key) then
-					TriggerServerEvent("heli:radius.up")
-				end
-
-				if IsControlJustPressed(1,radiusdown_key) then
-					TriggerServerEvent("heli:radius.down")
-				end
-
-				if IsControlJustPressed(1,toggle_display) then 
-					ChangeDisplay()
-				end
-
-				local zoomvalue = (1.0/(fov_max-fov_min))*(fov-fov_min)
-				CheckInputRotation(cam, zoomvalue)
-				local vehicle_detected = GetVehicleInView(cam)
-				if DoesEntityExist(vehicle_detected) then
-					RenderVehicleInfo(vehicle_detected)
-				end
-
-				HandleZoom(cam)
-				HideHudAndRadarThisFrame()
-				PushScaleformMovieFunction(scaleform,"SET_ALT_FOV_HEADING")
-				PushScaleformMovieFunctionParameterFloat(GetEntityCoords(heli).z)
-				PushScaleformMovieFunctionParameterFloat(zoomvalue)
-				PushScaleformMovieFunctionParameterFloat(GetCamRot(cam,2).z)
-				PopScaleformMovieFunctionVoid()
-				DrawScaleformMovieFullscreen(scaleform,255,255,255,255)
-				Citizen.Wait(0)
-
-				if manual_spotlight then
-					local rotation = GetCamRot(cam, 2)
-					local forward_vector = RotAnglesToVec(rotation)
-					local SpotvectorX, SpotvectorY, SpotvectorZ = table.unpack(forward_vector)
-					local camcoords = GetCamCoord(cam)
-
-					DecorSetInt(ped,"SpotvectorX",SpotvectorX)
-					DecorSetInt(ped,"SpotvectorY",SpotvectorY)
-					DecorSetInt(ped,"SpotvectorZ",SpotvectorZ)
-					DrawSpotLight(camcoords,forward_vector,255,255,255,800.0,10.0,brightness,spotradius,1.0,1.0)
-				else
-					TriggerServerEvent("heli:manual.spotlight.toggle")
-				end
-
-			end
-			if manual_spotlight then
-				manual_spotlight = false
-				TriggerServerEvent("heli:manual.spotlight.toggle")
-			end
-			helicam = false
-			ClearTimecycleModifier()
-			fov = (fov_max+fov_min)*0.5
-			RenderScriptCams(false,false,0,1,0)
-			SetScaleformMovieAsNoLongerNeeded(scaleform)
-			DestroyCam(cam,false)
-			SetNightvision(false)
-			SetSeethrough(false)
-		end
-
-		if IsPlayerInPolmav() and target_vehicle and not helicam and vehicle_display ~=2 then
-			RenderVehicleInfo(target_vehicle)
-		end
-
-		Citizen.Wait(timeDistance)
-	end
-end)
-
-RegisterNetEvent('heli:forward.spotlight')
-AddEventHandler('heli:forward.spotlight',function(serverID,state)
-	local heli = GetVehiclePedIsUsing(GetPlayerPed(GetPlayerFromServerId(serverID)))
-	SetVehicleSearchlight(heli,state,false)
-end)
-
-RegisterNetEvent('heli:Tspotlight')
-AddEventHandler('heli:Tspotlight',function(serverID,target_netID,target_plate,targetposx,targetposy,targetposz)
-	if GetVehicleNumberPlateText(NetToVeh(target_netID)) == target_plate then
-		Tspotlight_target = NetToVeh(target_netID)
-	elseif GetVehicleNumberPlateText(DoesVehicleExistWithDecorator("Target")) == target_plate then
-		Tspotlight_target = DoesVehicleExistWithDecorator("Target")
-	elseif GetVehicleNumberPlateText(GetClosestVehicle(targetposx,targetposy,targetposz,25.0,0,70)) == target_plate then
-		Tspotlight_target = GetClosestVehicle(targetposx,targetposy,targetposz,25.0,0,70)
-	else 
-		vehicle_match = FindVehicleByPlate(target_plate)
-		if vehicle_match then
-			Tspotlight_target = vehicle_match
-		else 
-			Tspotlight_target = nil
-		end
-	end
-
-	local heli = GetVehiclePedIsUsing(GetPlayerPed(GetPlayerFromServerId(serverID)),false)
-	local heliPed = GetPlayerPed(GetPlayerFromServerId(serverID))
-	Tspotlight_toggle = true
-	Tspotlight_pause = false
-	tracking_spotlight = true
-	while not IsEntityDead(heliPed) and (GetVehiclePedIsUsing(heliPed) == heli) and Tspotlight_target and Tspotlight_toggle do
-		Citizen.Wait(1)
-		local helicoords = GetEntityCoords(heli)
-		local targetcoords = GetEntityCoords(Tspotlight_target)
-		local spotVector = targetcoords - helicoords
-		local target_distance = Vdist(targetcoords,helicoords)
-		if Tspotlight_target and Tspotlight_toggle and not Tspotlight_pause then
-			DrawSpotLight(helicoords['x'],helicoords['y'],helicoords['z'],spotVector['x'],spotVector['y'],spotVector['z'],255,255,255,(target_distance+20),10.0,brightness,4.0,1.0,0.0)
-		end
-		if Tspotlight_target and Tspotlight_toggle and target_distance > maxtargetdistance then
-			DecorRemove(Tspotlight_target,"Target")			
-			target_vehicle = nil
-			tracking_spotlight = false
-			TriggerServerEvent("heli:tracking.spotlight.toggle")
-			Tspotlight_target = nil
-			break
-		end
-	end
-	Tspotlight_toggle = false
-	Tspotlight_pause = false
-	Tspotlight_target = nil
-	tracking_spotlight = false
-end)
-
-RegisterNetEvent('heli:Tspotlight.toggle')
-AddEventHandler('heli:Tspotlight.toggle',function(serverID)
-	Tspotlight_toggle = false
-	tracking_spotlight = false
-end)
-
-RegisterNetEvent('heli:pause.Tspotlight')
-AddEventHandler('heli:pause.Tspotlight',function(serverID,pause_Tspotlight)
-	if pause_Tspotlight then
-		Tspotlight_pause = true
-	else
-		Tspotlight_pause = false
-	end
-end)
-
-RegisterNetEvent('heli:Mspotlight')
-AddEventHandler('heli:Mspotlight',function(serverID)
-	if GetPlayerServerId(PlayerId()) ~= serverID then
-		local heli = GetVehiclePedIsUsing(GetPlayerPed(GetPlayerFromServerId(serverID)), false)
-		local heliPed = GetPlayerPed(GetPlayerFromServerId(serverID))
-		Mspotlight_toggle = true
-		while not IsEntityDead(heliPed) and (GetVehiclePedIsUsing(heliPed) == heli) and Mspotlight_toggle do
-			Citizen.Wait(0) 
-			local helicoords = GetEntityCoords(heli)
-			spotoffset = helicoords + vector3(0.0,0.0,-1.5)
-			SpotvectorX = DecorGetInt(heliPed,"SpotvectorX")
-			SpotvectorY = DecorGetInt(heliPed,"SpotvectorY")
-			SpotvectorZ = DecorGetInt(heliPed,"SpotvectorZ")
-			if SpotvectorX then
-				DrawSpotLight(spotoffset['x'],spotoffset['y'],spotoffset['z'],SpotvectorX,SpotvectorY,SpotvectorZ,255,255,255,800.0,10.0,brightness,spotradius,1.0,1.0)
-			end
-		end
-		Mspotlight_toggle = false
-		DecorSetInt(heliPed,"SpotvectorX",nil)
-		DecorSetInt(heliPed,"SpotvectorY",nil)
-		DecorSetInt(heliPed,"SpotvectorZ",nil)
-	end
-end)
-
-RegisterNetEvent('heli:Mspotlight.toggle')
-AddEventHandler('heli:Mspotlight.toggle',function(serverID)
-	Mspotlight_toggle = false
-end)
-
-RegisterNetEvent('heli:radius.up')
-AddEventHandler('heli:radius.up',function(serverID)
-	if spotradius < 10.0 then
-		spotradius = spotradius + 1.0
-	end
-end)
-
-RegisterNetEvent('heli:radius.down')
-AddEventHandler('heli:radius.down',function(serverID)
-	if spotradius > 4.0 then
-		spotradius = spotradius - 1.0
-	end
-end)
-
-function IsPlayerInPolmav()
-	local ped = PlayerPedId()
-	local vehicle = GetVehiclePedIsUsing(ped)
-	return IsVehicleModel(vehicle,polmav_hash)
-end
-
-function IsHeliHighEnough(heli)
-	return GetEntityHeightAboveGround(heli) > 1.5
-end
-
-function ChangeDisplay()
-	if vehicle_display == 0 then
-		vehicle_display = 1
-	elseif vehicle_display == 1 then
-		vehicle_display = 2
-	else
-		vehicle_display = 0
-	end
-end
-
-local alreadyDead = false
-Citizen.CreateThread(function()
-    while true do
-		if GetEntityHealth(PlayerPedId()) > 102 then
-			alreadyDead = false
-		end
-        Citizen.Wait(5000)
-    end
-end)
 
 AddEventHandler("gameEventTriggered",function(event,args)
     if event == "CEventNetworkEntityDamage" then
@@ -1847,137 +1039,22 @@ AddEventHandler("gameEventTriggered",function(event,args)
 						killerSource = GetPlayerServerId(NetworkGetPlayerIndexFromPed(data.attacker))
 					end
                     alreadyDead = true
-					TriggerServerEvent("logplayerDied",killerSource,getWeaponHashName(weapon))
+					TriggerServerEvent("logplayerDied",killerSource,getWeaponHashName(data.weapon))
+					CreateThread(function()
+						while alreadyDead do
+							if GetEntityHealth(ped) > 102 then
+								alreadyDead = false
+							end
+							Wait(4)
+						end
+					end)
                 end
             end
         end
     end
 end)
-
-function CheckInputRotation(cam, zoomvalue)
-	local rightAxisX = GetDisabledControlNormal(0,220)
-	local rightAxisY = GetDisabledControlNormal(0,221)
-	local rotation = GetCamRot(cam,2)
-	if rightAxisX ~= 0.0 or rightAxisY ~= 0.0 then
-		new_z = rotation.z + rightAxisX*-1.0*(speed_ud)*(zoomvalue+0.1)
-		new_x = math.max(math.min(20.0,rotation.x+rightAxisY*-1.0*(speed_lr)*(zoomvalue+0.1)),-89.5)
-		SetCamRot(cam,new_x,0.0,new_z,2)
-	end
-end
-
-function HandleZoom(cam)
-	if IsControlJustPressed(1,241) then
-		fov = math.max(fov - zoomspeed, fov_min)
-	end
-
-	if IsControlJustPressed(1,242) then
-		fov = math.min(fov + zoomspeed, fov_max)
-	end
-
-	local current_fov = GetCamFov(cam)
-	if math.abs(fov-current_fov) < 0.1 then
-		fov = current_fov
-	end
-
-	SetCamFov(cam,current_fov+(fov-current_fov)*0.05)
-end
-
-function GetVehicleInView(cam)
-	local coords = GetCamCoord(cam)
-	local forward_vector = RotAnglesToVec(GetCamRot(cam,2))
-	local rayhandle = CastRayPointToPoint(coords,coords+(forward_vector*200.0),10,GetVehiclePedIsUsing(PlayerPedId()),0)
-	local _,_,_,_,entityHit = GetRaycastResult(rayhandle)
-	if entityHit > 0 and IsEntityAVehicle(entityHit) then
-		return entityHit
-	else
-		return nil
-	end
-end
-
-function RenderVehicleInfo(vehicle)
-	if DoesEntityExist(vehicle) then
-		local model = GetEntityModel(vehicle)
-		local vehname = GetLabelText(GetDisplayNameFromVehicleModel(model))
-		local licenseplate = GetVehicleNumberPlateText(vehicle)
-		local vehspeed = GetEntitySpeed(vehicle)*2.236936
-		SetTextFont(0)
-		SetTextProportional(1)
-
-		if vehicle_display == 0 then
-			SetTextScale(0.0,0.49)
-		elseif vehicle_display == 1 then
-			SetTextScale(0.0,0.55)
-		end
-
-		SetTextColour(255,255,255,255)
-		SetTextDropshadow(0,0,0,0,255)
-		SetTextEdge(1,0,0,0,255)
-		SetTextDropShadow()
-		SetTextOutline()
-		SetTextEntry("STRING")
-		if vehicle_display == 0 then
-			AddTextComponentString("SPEED: " .. math.ceil(vehspeed) .. " KM/H\nMODEL: " .. vehname .. "\nPLATE: " .. licenseplate)
-		elseif vehicle_display == 1 then
-			AddTextComponentString("MODDEL: " .. vehname .. "\nPLATE: " .. licenseplate)
-		end
-		DrawText(0.45,0.9)
-	end
-end
-
-function RotAnglesToVec(rot)
-	local z = math.rad(rot.z)
-	local x = math.rad(rot.x)
-	local num = math.abs(math.cos(x))
-	return vector3(-math.sin(z)*num,math.cos(z)*num,math.sin(x))
-end
-
-local entityEnumerator = {
-	__gc = function(enum)
-		if enum.destructor and enum.handle then
-			enum.destructor(enum.handle)
-		end
-		enum.destructor = nil
-		enum.handle = nil
-	end
-}
-
-local function EnumerateEntities(initFunc,moveFunc,disposeFunc)
-	return coroutine.wrap(function()
-		local iter,id = initFunc()
-		if not id or id == 0 then
-			disposeFunc(iter)
-			return
-		end
-
-		local enum = { handle = iter, destructor = disposeFunc }
-		setmetatable(enum,entityEnumerator)
-
-		local next = true
-		repeat
-			Citizen.Wait(1)
-			coroutine.yield(id)
-			next,id = moveFunc(iter)
-		until not next
-
-		enum.destructor,enum.handle = nil,nil
-		disposeFunc(iter)
-	end)
-end
-
-function EnumerateVehicles()
-	return EnumerateEntities(FindFirstVehicle,FindNextVehicle,EndFindVehicle)
-end
-
-function FindVehicleByPlate(plate)
-	for vehicle in EnumerateVehicles() do
-		if GetVehicleNumberPlateText(vehicle) == plate then
-			return vehicle
-		end
-	end
-end
-
 ------------------------------------------------------------------------------------------------------------------------
--- FPS ON & OFF --------------------------------------------------------------------------------------------------------
+-- FPS ON & OFF 
 ------------------------------------------------------------------------------------------------------------------------
 RegisterCommand("fps",function(source,args)
     if args[1] == "on" then
@@ -1987,8 +1064,10 @@ RegisterCommand("fps",function(source,args)
         SetTimecycleModifier("default")
         TriggerEvent("Notify","sucesso","Boost de fps desligado!",2000)
     end
-end) 
-
+end)
+------------------------------------------------------------------------------------------------------------------------
+-- CRUISER
+------------------------------------------------------------------------------------------------------------------------
 RegisterCommand("cruiser",function(source,args)
 	local ped = PlayerPedId()
 	local veh = GetVehiclePedIsUsing(ped)
@@ -2061,45 +1140,69 @@ local teleport = {
 
 	{ -419.0,-344.73,24.24,-436.09,-359.74,34.95,"ENTRAR" },
 	{ -436.09,-359.74,34.95,-419.0,-344.73,24.24,"SAIR" },
-
 }
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
-		local timeDistance = 500
+		local timeDistance = 999
 		local ped = PlayerPedId()
 		if not IsPedInAnyVehicle(ped) then
 			local coords = GetEntityCoords(ped)
 			for k,v in pairs(teleport) do
 				local distance = #(coords - vector3(v[1],v[2],v[3]))
-				if distance <= 1 then
-					timeDistance = 4
-					DrawText3D(v[1],v[2],v[3],"~g~E~w~   "..v[7])
+				if distance <= 1.5 then
+					timeDistance = 1
+					DrawBase3D(v[1],v[2],v[3],"~g~E~w~   "..v[7])
 					if IsControlJustPressed(1,38) then
 						DoScreenFadeOut(1000)
-						Citizen.Wait(1200)
+						Wait(1200)
 						SetEntityCoords(ped,v[4],v[5],v[6])
-						Citizen.Wait(1200)
+						Wait(1200)
 						DoScreenFadeIn(1000)
 					end
 				end
 			end
 		end
-		Citizen.Wait(timeDistance)
+		Wait(timeDistance)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- DRAWTEXT3D
+-- ILHA
 -----------------------------------------------------------------------------------------------------------------------------------------
-function DrawText3D(x,y,z,text)
-	local onScreen,_x,_y = World3dToScreen2d(x,y,z)
-	SetTextFont(4)
-	SetTextScale(0.3,0.3)
-	SetTextColour(255,255,255,100)
-	SetTextEntry("STRING")
-	SetTextCentre(1)
-	AddTextComponentString(text)
-	DrawText(_x,_y)
-	local factor = (string.len(text)) / 450
-	DrawRect(_x,_y+0.0125,0.01+factor,0.03,0,0,0,100)
-end
+CreateThread(function()
+    while true do
+        local timeDistance = 500
+        if IsPauseMenuActive() then
+            timeDistance = 1
+            SetRadarAsExteriorThisFrame()
+            SetRadarAsInteriorThisFrame("h4_fake_islandx",vec(4700.0,-5145.0),0,0)
+        end
+        Wait(timeDistance)
+    end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- DRIFT
+-----------------------------------------------------------------------------------------------------------------------------------------
+local blockedVehs = Config.Geral['driftBlocked']
+
+CreateThread(function()
+    while true do
+        local ped = PlayerPedId()
+        local vehicle = GetVehiclePedIsIn(PlayerPedId())
+        local timeDistance = 1000
+        if IsPedInAnyVehicle(ped) then
+            local speed = GetEntitySpeed(vehicle)*2.236936
+            if GetPedInVehicleSeat(vehicle,-1) == ped and not blockedVehs[GetEntityModel(vehicle)] then
+                if speed <= 100.0 then
+                    timeDistance = 50
+                    if IsControlPressed(1,21) then
+                        SetVehicleReduceGrip(vehicle,true)
+                    else
+                        SetVehicleReduceGrip(vehicle,false)
+                    end
+                end
+            end
+        end
+        Wait(timeDistance)
+    end
+end)

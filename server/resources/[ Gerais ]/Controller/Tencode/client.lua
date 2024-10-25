@@ -7,7 +7,7 @@ vRP = Proxy.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-vSERVER = Tunnel.getInterface("tencode")
+local CodeServer = Tunnel.getInterface("tencode")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADBUTTON
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -27,7 +27,7 @@ end)
 RegisterNUICallback("sendCode",function(data)
 	SetNuiFocus(false,false)
 	SetCursorLocation(0.5,0.5)
-	vSERVER.sendCode(data["code"])
+	CodeServer.sendCode(data["code"])
 	SendNUIMessage({ tencode = false })
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -44,9 +44,8 @@ CreateThread(function()
 					timeDistance = 100
 					local vehicle = GetVehiclePedIsUsing(ped)
 					local vehicleDimension = GetOffsetFromEntityInWorldCoords(vehicle,0.0,1.0,1.0)
-
 					local vehicleFront = GetOffsetFromEntityInWorldCoords(vehicle,0.0,105.0,0.0)
-					local vehicleFrontShape = StartShapeTestCapsule(vehicleDimension,vehicleFront,3.0,10,vehicle,7)
+					local vehicleFrontShape = StartShapeTestCapsule(vehicleDimension.x,vehicleDimension.y,vehicleDimension.z,vehicleFront.x,vehicleFront.y,vehicleFront.z,3.0,10,vehicle,7)
 					local _,_,_,_,vehFront = GetShapeTestResult(vehicleFrontShape)
 
 					if IsEntityAVehicle(vehFront) then
@@ -54,12 +53,11 @@ CreateThread(function()
 						local vehName = vRP.vehicleModel(vehModel)
 						local vehPlate = GetVehicleNumberPlateText(vehFront)
 						local vehSpeed = GetEntitySpeed(vehFront) * 2.236936
-
 						SendNUIMessage({ radar = "top", plate = vehPlate, model = vehName, speed = vehSpeed })
 					end
 
 					local vehicleBack = GetOffsetFromEntityInWorldCoords(vehicle,0.0,-105.0,0.0)
-					local vehicleBackShape = StartShapeTestCapsule(vehicleDimension,vehicleBack,3.0,10,vehicle,7)
+					local vehicleBackShape = StartShapeTestCapsule(vehicleDimension.x,vehicleDimension.y,vehicleDimension.z,vehicleBack.x,vehicleBack.y,vehicleBack.z,3.0,10,vehicle,7)
 					local _,_,_,_,vehBack = GetShapeTestResult(vehicleBackShape)
 
 					if IsEntityAVehicle(vehBack) then
@@ -72,12 +70,10 @@ CreateThread(function()
 				end
 			end
 		end
-
 		if not IsPedInAnyVehicle(ped) and policeRadar then
 			policeRadar = false
 			SendNUIMessage({ radar = false })
 		end
-
 		Wait(timeDistance)
 	end
 end)
