@@ -1,8 +1,8 @@
 ---------------------------
 -- ## DB - CONFIG
 ---------------------------
-local function tableConcat(self,t2) 
-    for k,v in next,t2 do 
+local function tableConcat(self,t2)
+    for k,v in next,t2 do
         self[#self+1] = v
     end
     return self
@@ -12,7 +12,6 @@ local function blob2string(blob)
     for i,c in pairs(blob) do
         blob[i] = string.char(c)
     end
-
     return tableConcat(blob)
 end
 
@@ -71,8 +70,8 @@ local function on_query(name, params, mode)
         end
     end
     local _params = {_ = true}
-    for k,v in pairs(params) do 
-        _params[k] = v 
+    for k,v in pairs(params) do
+        _params[k] = v
     end
     local r = async()
     if mode == "execute" then
@@ -101,14 +100,14 @@ local function on_query(name, params, mode)
     else
         local condition = query:sub(0,query:last('IF;'))
         local splited = {}
-        if condition:len() > 0 then 
+        if condition:len() > 0 then
             table.insert(splited, condition)
         end
         tableConcat(splited or {}, query:sub(query:last('IF;') + 1):split(';') or {})
         local responses = {}
         local lastInsert = {}
         for k,v in next, splited do
-            if type(v) ~= 'string' or not v:match("%w") then goto continue end 
+            if type(v) ~= 'string' or not v:match("%w") then goto continue end
             local p = async()
             local s,l = v:lower():find('last_insert_id()')
             if s and l then 

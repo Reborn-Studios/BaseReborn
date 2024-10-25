@@ -1,5 +1,5 @@
-local groups = module('vrp',"Reborn/Groups")
 local permissions = {}
+local groups = module('vrp',"Reborn/Groups") or {}
 RegisterServerEvent("Reborn:reloadInfos",function() groups = module('vrp',"Reborn/Groups") end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- GROUPS FUNCTIONS
@@ -14,22 +14,23 @@ end
 
 function vRP.getUserGroups(user_id)
     local data = vRP.query("vRP/get_perm", { user_id = user_id })
-    local groups = {}
+    local userGroups = {}
     if data then
         for k,v in pairs(data) do
-            groups[v.permiss] = true
+            userGroups[v.permiss] = true
         end
     end
-    return groups
+    return userGroups
 end
 
 function vRP.getUserGroupByType(user_id,gtype)
-    local user_groups = vRP.getUserGroups(parseInt(user_id))
-    for k,v in pairs(user_groups) do
-        local kgroup = groups[k]
+	if not user_id then return end
+	if not permissions[user_id] then permissions[user_id] = {} end
+    for k,v in pairs(permissions[user_id]) do
+        local kgroup = groups[v.permiss]
         if kgroup then
             if kgroup._config and kgroup._config.gtype and kgroup._config.gtype == gtype then
-                return k
+                return v.permiss
             end
         end
     end
@@ -73,6 +74,9 @@ function vRP.insertPermission(user_id,perm)
 	elseif vRP.hasPermission(user, "mecanico.permissao") then
 		Player(nplayer)["state"]["Mechanic"] = true
 		TriggerEvent("vrp_blipsystem:serviceEnter",nplayer,"Mecanico",51)
+	elseif vRP.hasPermission(user, "admin.permissao") then
+		lib.addPrincipal(nplayer, "group.admin")
+		lib.addPrincipal(vRP.getSteam(nplayer), "group.admin")
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -90,6 +94,9 @@ function vRP.removePermission(user_id,perm)
 			Player(nplayer)["state"]["Paramedic"] = false
 		elseif vRP.hasPermission(user, "mecanico.permissao") then
 			Player(nplayer)["state"]["Mechanic"] = false
+		elseif vRP.hasPermission(user, "admin.permissao") then
+			lib.removePrincipal(nplayer, "group.admin")
+			lib.removePrincipal(vRP.getSteam(nplayer), "group.admin")
 		end
 		if groups[perm] and groups[perm]._config then
 			if groups[perm]._config.gtype and groups[perm]._config.gtype == "vip" then
@@ -108,16 +115,9 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- HASPERMISSION
 -----------------------------------------------------------------------------------------------------------------------------------------
-local aliasPerm = {
-	['Police'] = "policia.permissao",
-	['Mechanic'] = "mecanico.permissao",
-	['Paramedic'] = "paramedico.permissao"
-}
-
-function vRP.hasPermission(user,_perm)
+function vRP.hasPermission(user,perm)
 	local user_id = parseInt(user)
-	if permissions[user_id] and _perm then
-		local perm = aliasPerm[perm] or _perm
+	if permissions[user_id] then
 		for k,v in pairs(permissions[user_id]) do
 			if v.permiss == perm then
 				return true
@@ -148,6 +148,12 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- USERS BY PERMISSION
 -----------------------------------------------------------------------------------------------------------------------------------------
+local aliasPerm = {
+	['Police'] = "policia.permissao",
+	['Mechanic'] = "mecanico.permissao",
+	['Paramedic'] = "paramedico.permissao"
+}
+
 function vRP.numPermission(perm, offline)
 	local users = {}
 	if perm and aliasPerm[perm] then

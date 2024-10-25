@@ -69,12 +69,11 @@ function vRP.upgradeHunger(user_id,amount)
 	end
 end
 
-function vRP.clientUpgradeHunger()
+function vRP.clientUpgradeHunger(amount)
 	local source = source
 	local user_id = vRP.getUserId(source)
 	vRP.upgradeHunger(user_id,amount)
 end
-
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- DOWNGRADETHIRST
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -154,10 +153,10 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- HUNGER / THIRST
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	local needs = Reborn.needs()
 	while true do
-		Citizen.Wait(needs['Tempo']*1000)
+		Wait(needs['Tempo']*1000)
 		local users = vRP.getUsers()
 		for k,v in pairs(users) do
 			vRP.downgradeThirst(k, needs['Sede'])

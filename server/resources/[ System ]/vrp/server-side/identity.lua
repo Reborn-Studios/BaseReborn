@@ -31,8 +31,9 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 function vRP.initPrison(user_id,amount)
 	vRP.execute("vRP/set_prison",{ user_id = user_id, prison = parseInt(amount), locate = 1 })
-	if usersIdentity[user_id] then
-		usersIdentity[user_id]["prison"] = parseInt(amount)
+	local UserIdentity = vRP.getUserIdentity(user_id)
+	if UserIdentity then
+		UserIdentity["prison"] = parseInt(amount)
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -40,12 +41,12 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 function vRP.updatePrison(user_id)
 	vRP.execute("vRP/rem_prison",{ user_id = user_id, prison = 1 })
+	local UserIdentity = vRP.getUserIdentity(user_id)
+	if UserIdentity then
+		UserIdentity["prison"] = UserIdentity["prison"] - 1
 
-	if usersIdentity[user_id] then
-		usersIdentity[user_id]["prison"] = usersIdentity[user_id]["prison"] - 1
-
-		if usersIdentity[user_id]["prison"] < 0 then
-			usersIdentity[user_id]["prison"] = 0
+		if UserIdentity["prison"] < 0 then
+			UserIdentity["prison"] = 0
 		end
 	end
 end
@@ -53,10 +54,10 @@ end
 -- UPGRADECHARS
 -----------------------------------------------------------------------------------------------------------------------------------------
 function vRP.upgradeChars(user_id)
-	vRP.execute("accounts/infosUpdatechars",{ steam = usersIdentity[user_id]["steam"] })
-
-	if usersIdentity[user_id] then
-		usersIdentity[user_id]["chars"] = usersIdentity[user_id]["chars"] + 1
+	local UserIdentity = vRP.getUserIdentity(user_id)
+	if UserIdentity then
+		vRP.execute("accounts/infosUpdatechars",{ steam = UserIdentity["steam"] })
+		UserIdentity["chars"] = UserIdentity["chars"] + 1
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -70,17 +71,20 @@ end
 -- UPGRADEGEMSTONE
 -----------------------------------------------------------------------------------------------------------------------------------------
 function vRP.upgradeGemstone(user_id,amount)
-	vRP.execute("vRP/set_vRP_gems",{ steam = usersIdentity[user_id]["steam"], gems = amount })
+	local UserIdentity = vRP.getUserIdentity(user_id)
+	if UserIdentity then
+		vRP.execute("vRP/set_vRP_gems",{ steam = UserIdentity["steam"], gems = amount })
+	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- UPGRADENAMES
 -----------------------------------------------------------------------------------------------------------------------------------------
 function vRP.upgradeNames(user_id,name,name2)
 	vRP.execute("vRP/rename_characters",{ name = name, name2 = name2, id = user_id })
-
-	if usersIdentity[user_id] then
-		usersIdentity[user_id]["name2"] = name2
-		usersIdentity[user_id]["name"] = name
+	local UserIdentity = vRP.getUserIdentity(user_id)
+	if UserIdentity then
+		UserIdentity["name2"] = name2
+		UserIdentity["name"] = name
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -88,9 +92,9 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 function vRP.upgradePhone(user_id,phone)
 	vRP.execute("characters/updatePhone",{ phone = phone, id = user_id })
-
-	if usersIdentity[user_id] then
-		usersIdentity[user_id]["phone"] = phone
+	local UserIdentity = vRP.getUserIdentity(user_id)
+	if UserIdentity then
+		UserIdentity["phone"] = phone
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -120,8 +124,9 @@ end
 -- GETPHONE
 -----------------------------------------------------------------------------------------------------------------------------------------
 function vRP.getPhone(id)
-	if usersIdentity[user_id] then
-		return usersIdentity[user_id]['phone']
+	local UserIdentity = vRP.getUserIdentity(id)
+	if UserIdentity then
+		return UserIdentity['phone']
 	end
 	local rows = vRP.query("vRP/get_vrp_users",{ id = id })
 	if rows[1] then

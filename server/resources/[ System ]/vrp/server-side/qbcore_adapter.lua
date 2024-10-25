@@ -491,9 +491,9 @@ function QBCore.Player.GetOfflinePlayer(citizenid)
                 isboss = false,
                 grade = {}
             }
-            local newData = vRP.getUserDataTable(user_id)
+            local newData = vRP.getUserDataTable(citizenid)
             if newData == nil then
-		        newData = json.decode(vRP.getUData(user_id,"Datatable")) or {}
+		        newData = json.decode(vRP.getUData(citizenid,"Datatable")) or {}
             end
             UserData.position = newData.position
             UserData.metadata = newData

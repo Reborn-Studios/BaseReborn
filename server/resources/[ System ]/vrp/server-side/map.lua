@@ -6,7 +6,7 @@ local repose = {}
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- WANTEDDOWN
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		for k,v in pairs(wanted) do
 			if wanted[k] > 0 then
@@ -24,7 +24,7 @@ Citizen.CreateThread(function()
 				end
 			end
 		end
-		Citizen.Wait(1000)
+		Wait(1000)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -73,7 +73,6 @@ end
 -- WANTED
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterCommand("procurado",function(source,args,rawCommand)
-	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
 		if wanted[user_id] ~= nil then
@@ -187,9 +186,9 @@ function tvRP.enterArea(name)
 	local source = source
 	local user_id = vRP.getUserId(source)
 	local areas = client_areas[source]
-	if not vRP.searchReturn(source,user_id) then
+	if not vRP.searchReturn(source) then
 		if areas then
-			local area = areas[name] 
+			local area = areas[name]
 			if area and not area.inside then
 				area.inside = true
 				if area.enter then
@@ -225,7 +224,7 @@ local Discords = {}
 AddEventHandler("Discord",function(Hook,Message,Color)
 	if not Discords[Hook] then return end
 	PerformHttpRequest(Discords[Hook],function(err,text,headers) end,"POST",json.encode({
-		username = ServerName,
+		username = GlobalState['Basics']['ServerName'],
 		embeds = { { color = Color, description = Message } }
 	}),{ ["Content-Type"] = "application/json" })
 end)
@@ -247,7 +246,7 @@ function vRP.createWeebHook(webhook,message)
                             text = os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S"),
                             icon_url = "https://cdn.discordapp.com/attachments/929192133011841074/956001692917321778/rbn.png"
                         },
-                        color = color
+                        color = 3092790
                     }
                 }
             }

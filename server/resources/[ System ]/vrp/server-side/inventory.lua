@@ -1,9 +1,6 @@
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- ITEMLIST
 -----------------------------------------------------------------------------------------------------------------------------------------
-local Proxy = module("vrp","lib/Proxy")
-local Tunnel = module("vrp","lib/Tunnel")
-Reborn = Proxy.getInterface("Reborn")
 local items = module('vrp',"Reborn/Itemlist")
 local Webhooks = module("Reborn/webhooks")
 
@@ -72,7 +69,7 @@ end
 function vRP.GetItemBySlot(user_id,slot)
 	local data = vRP.getInventory(user_id)
 	if data and slot then
-		local slot = tostring(slot)
+		slot = tostring(slot)
 		if data[slot] then
 			return data[slot]
 		end
@@ -106,15 +103,14 @@ function vRP.giveInventoryItemCustom(source,idname,amount,slot,notify,metadata)
 	local user_id = vRP.getUserId(source)
 	local data = vRP.getInventory(user_id)
 	if data and parseInt(amount) > 0 then
-		if type(slot) == "boolean" then 
-			backupslot = slot
+		if type(slot) == "boolean" then
+			local backupslot = slot
 			slot = notify
 			notify = backupslot
 		end
 		if not slot or slot == nil then
 			local initial = 12
-			
-			local slot = vRP.GetSlotByItem(data, idname)
+			slot = vRP.GetSlotByItem(data, idname)
 			if slot == nil then
 				repeat
 					initial = initial + 1
@@ -122,7 +118,6 @@ function vRP.giveInventoryItemCustom(source,idname,amount,slot,notify,metadata)
 			else
 				initial = tonumber(slot)
 			end
-			
 			initial = tostring(initial)
 
 			if data[initial] == nil then
@@ -131,7 +126,6 @@ function vRP.giveInventoryItemCustom(source,idname,amount,slot,notify,metadata)
 				data[initial].amount = parseInt(data[initial].amount) + parseInt(amount)
 			end
 
-			--notify
 			if notify and vRP.itemBodyList(idname) then
 				TriggerClientEvent("itensNotify",vRP.getUserSource(user_id),{ "RECEBEU",vRP.itemIndexList(idname),vRP.format(parseInt(amount)),vRP.itemNameList(idname) })
 			end
@@ -147,7 +141,6 @@ function vRP.giveInventoryItemCustom(source,idname,amount,slot,notify,metadata)
 				data[slot] = { item = idname, amount = parseInt(amount) }
 			end
 
-			--notify
 			if notify and vRP.itemBodyList(idname) then
 				TriggerClientEvent("itensNotify",vRP.getUserSource(user_id),{ "RECEBEU",vRP.itemIndexList(idname),vRP.format(parseInt(amount)),vRP.itemNameList(idname) })
 			end
@@ -197,7 +190,7 @@ end
 function vRP.getInventoryItemCustom(source,item)
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		local data = vRP.getInventory(user_id)
+		local data = vRP.getInventory(user_id) or {}
 		for k,v in pairs(data) do
 			if v.item == item then
 				return v
@@ -221,7 +214,7 @@ function vRP.removeItemCustom(source,item,amount,slot,notify)
 	local data = vRP.getInventory(user_id)
 	if data then
 		if slot then
-			local slot  = tostring(slot)
+			slot  = tostring(slot)
 			if data[slot] and data[slot].item == item and parseInt(data[slot].amount) >= parseInt(amount) then
 				data[slot].amount = parseInt(data[slot].amount) - parseInt(amount)
 				if parseInt(data[slot].amount) <= 0 then
@@ -249,11 +242,11 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 local actived = {}
 local activedAmount = {}
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		local slyphe = 500
 		if actived then
-			slyphe = 100 
+			slyphe = 100
 			for k,v in pairs(actived) do
 				if actived[k] > 0 then
 					actived[k] = v - 1
@@ -263,7 +256,7 @@ Citizen.CreateThread(function()
 				end
 			end
 		end
-		Citizen.Wait(slyphe)
+		Wait(slyphe)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -273,23 +266,23 @@ function vRP.tryChestItem(user_id,chestData,itemName,amount,slot)
 	if actived[user_id] == nil then
 		actived[user_id] = 1
 		local data = vRP.getSData(chestData)
-		local items = json.decode(data) or {}
-		if data and items ~= nil then
-			if items[itemName] ~= nil and parseInt(items[itemName].amount) >= parseInt(amount) then
+		local userItems = json.decode(data) or {}
+		if data and userItems ~= nil then
+			if userItems[itemName] ~= nil and parseInt(userItems[itemName].amount) >= parseInt(amount) then
 				if parseInt(amount) > 0 then
 					activedAmount[user_id] = parseInt(amount)
 				else
-					activedAmount[user_id] = parseInt(items[itemName].amount)
+					activedAmount[user_id] = parseInt(userItems[itemName].amount)
 				end
 				local new_weight = vRP.computeInvWeight(user_id) + vRP.itemWeightList(itemName) * parseInt(activedAmount[user_id])
 				if new_weight <= vRP.getBackpack(user_id) then
 					vRP.giveInventoryItem(user_id,itemName,parseInt(activedAmount[user_id]),true,slot)
-					items[itemName].amount = parseInt(items[itemName].amount) - parseInt(activedAmount[user_id])
-					vRP.createWeebHook(Webhooks.retiradadeitens,"```PASSAPORTE: "..user_id.." ( RETIROU )\nBAU:"..chestData.." \nITEM: "..vRP.format(parseInt(activedAmount[user_id])).."x "..vRP.itemNameList(itemName).."```")
-					if parseInt(items[itemName].amount) <= 0 then
-						items[itemName] = nil
+					userItems[itemName].amount = parseInt(userItems[itemName].amount) - parseInt(activedAmount[user_id])
+					if parseInt(userItems[itemName].amount) <= 0 then
+						userItems[itemName] = nil
 					end
-					vRP.setSData(chestData,json.encode(items))
+					vRP.setSData(chestData,json.encode(userItems))
+					vRP.createWeebHook(Webhooks.retiradadeitens,"```PASSAPORTE: "..user_id.." ( RETIROU )\nBAU:"..chestData.." \nITEM: "..vRP.format(parseInt(activedAmount[user_id])).."x "..vRP.itemNameList(itemName).."```")
 					return true
 				end
 			end
@@ -303,10 +296,10 @@ end
 function vRP.storeChestItem(user_id,chestData,itemName,amount,chestWeight,slot)
 	if actived[user_id] == nil then
 		actived[user_id] = 1
-		local slot = tostring(slot)
+		slot = tostring(slot)
 		local data = vRP.getSData(chestData)
-		local items = json.decode(data) or {}
-		if data and items ~= nil then
+		local userItems = json.decode(data) or {}
+		if data and userItems ~= nil then
 			if parseInt(amount) > 0 then
 				activedAmount[user_id] = parseInt(amount)
 			else
@@ -315,16 +308,16 @@ function vRP.storeChestItem(user_id,chestData,itemName,amount,chestWeight,slot)
 					activedAmount[user_id] = parseInt(inv[slot].amount)
 				end
 			end
-			local new_weight = vRP.computeChestWeight(items) + vRP.itemWeightList(itemName) * parseInt(activedAmount[user_id])
+			local new_weight = vRP.computeChestWeight(userItems) + vRP.itemWeightList(itemName) * parseInt(activedAmount[user_id])
 			if new_weight <= chestWeight then
 				if vRP.tryGetInventoryItem(user_id,itemName,parseInt(activedAmount[user_id]),true,slot) then
-					if items[itemName] ~= nil then
-						items[itemName].amount = parseInt(items[itemName].amount) + parseInt(activedAmount[user_id])
+					if userItems[itemName] ~= nil then
+						userItems[itemName].amount = parseInt(userItems[itemName].amount) + parseInt(activedAmount[user_id])
 					else
-						items[itemName] = { amount = parseInt(activedAmount[user_id]) }
+						userItems[itemName] = { amount = parseInt(activedAmount[user_id]) }
 					end
 					vRP.createWeebHook(Webhooks.colocouitens,"```PASSAPORTE: "..user_id.." ( GUARDOU )\nBAU:"..chestData.."\nITEM: "..vRP.format(parseInt(activedAmount[user_id])).."x "..vRP.itemNameList(itemName).."```")
-					vRP.setSData(chestData,json.encode(items))
+					vRP.setSData(chestData,json.encode(userItems))
 					return true
 				end
 			end
@@ -443,18 +436,18 @@ CreateThread(function()
 			end
 			return exports['will_inventory']:getInventory(inventory)
 		end
-		
+
 		vRP.getInventoryMaxWeight = function(user_id)
 			return exports['will_inventory']:getInvWeight(user_id) or 0
 		end
-	
+
 		vRP.getInventoryWeight = function(inventory)
 			if parseInt(inventory) > 0 then
 				inventory = 'content-'..inventory
 			end
 			return exports['will_inventory']:computeInvWeight(inventory)
 		end
-	
+
 		vRP.computeItemsWeight = function(itemslist)
 			local weight = 0
 			for k,v in pairs(itemslist) do
@@ -466,12 +459,12 @@ CreateThread(function()
 			end
 			return weight
 		end
-	
+
 		vRP.getBackpack = function(user_id)
 			return exports['will_inventory']:getInvWeight(user_id) or 0
 		end
 	end
-	
+
 	if GlobalState['Inventory'] == "ox_inventory" then
         assert(GetResourceState("ox_inventory") ~= "missing","ox_inventario não encontrado, confira o resource ou altere GlobalState['Inventory']")
 		vRP.getInventory = function(user_id)
@@ -497,7 +490,7 @@ CreateThread(function()
 				return inventory and inventory.maxWeight or 30000
 			end
 		end
-	
+
 		vRP.getInventoryWeight = function(inventory)
 			local nplayer = vRP.getUserSource(user_id)
 			if nplayer then
@@ -505,7 +498,7 @@ CreateThread(function()
 				return inventory and inventory.weight or 0
 			end
 		end
-	
+
 		vRP.computeItemsWeight = function(itemslist)
 			local weight = 0
 			for k,v in pairs(itemslist) do
