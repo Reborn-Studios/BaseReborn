@@ -16,6 +16,6 @@ server_scripts {
 files {
 	"web-side/index.html",
 	"web-side/css.css",
+	"web-side/bg.jpg",
 	"web-side/jquery.js",
-	"web-side/img/identity.png",
 }              
