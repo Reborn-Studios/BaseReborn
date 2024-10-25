@@ -2249,14 +2249,14 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADBINOCULOS
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		local timeDistance = 500
 		if (binoculos or camera) then
 			timeDistance = 4
 			local scaleform = RequestScaleformMovie("BINOCULARS")
 			while not HasScaleformMovieLoaded(scaleform) do
-				Citizen.Wait(10)
+				Wait(10)
 			end
 
 			local cam = CreateCam("DEFAULT_SCRIPTED_FLY_CAMERA",true)
@@ -2266,7 +2266,7 @@ Citizen.CreateThread(function()
 			RenderScriptCams(true,false,0,1,0)
 
 			while (binoculos or camera) and true do
-				Citizen.Wait(4)
+				Wait(4)
 				local zoomvalue = (1.0/(fov_max-fov_min))*(fov-fov_min)
 				CheckInputRotation(cam,zoomvalue)
 				HandleZoom(cam)
@@ -2283,21 +2283,21 @@ Citizen.CreateThread(function()
 			SetSeethrough(false)
 		end
 
-		Citizen.Wait(timeDistance)
+		Wait(timeDistance)
 	end
 end)
 
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADTABLET
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		local timeDistance = 500
 		if tablet then
 			timeDistance = 4
 			local scaleform = RequestScaleformMovie("BINOCULARS")
 			while not HasScaleformMovieLoaded(scaleform) do
-				Citizen.Wait(10)
+				Wait(10)
 			end
 
 			local cam = CreateCam("DEFAULT_SCRIPTED_FLY_CAMERA",true)
@@ -2306,7 +2306,7 @@ Citizen.CreateThread(function()
 			SetCamFov(cam,fov)
 			RenderScriptCams(true,false,0,1,0)
 			while tablet do
-				Citizen.Wait(4)
+				Wait(4)
 				local zoomvalue = (1.0/(fov_max-fov_min))*(fov-fov_min)
 				CheckInputRotation(cam,zoomvalue)
 				HandleZoom(cam)
@@ -2320,7 +2320,7 @@ Citizen.CreateThread(function()
 			SetSeethrough(false)
 		end
 
-		Citizen.Wait(timeDistance)
+		Wait(timeDistance)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -2413,8 +2413,8 @@ AddEventHandler("vrp_hospital:macas",function()
 
 	repeat
 		SetEntityHealth(ped,GetEntityHealth(ped)+1)
-		Citizen.Wait(700)
-	until GetEntityHealth(ped) >= 398
+		Wait(700)
+	until GetEntityHealth(ped) >= 400
 		TriggerEvent("Notify","sucesso","Tratamento completo.",5000)
 		TriggerEvent("cancelando",false)
 		ClearPedBloodDamage(ped)

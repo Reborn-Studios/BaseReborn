@@ -1,52 +1,19 @@
 
-local Tunnel = module("vrp","lib/Tunnel")
 local Proxy = module("vrp","lib/Proxy")
 vRP = Proxy.getInterface("vRP")
 
 local malhando = false
 
 local barraFixa = {
-     {-1200.0500488281,-1571.0577392578,4.6096024513245,h=211.15209960938},
-     {-1204.7548828125,-1564.3947753906,4.6095118522644,h=31.65938949585},
-     {1773.181640625,2596.7548828125,45.7978515625,h=273.0752563476563 },
-     {1773.1364746094,2594.98828125,45.797859191895,h=273.0752563476563 },
-     {1643.3723144531,2527.8002929688,45.56485748291,h=52.09461212 },
-     {1649.1096191406,2529.6103515625,45.56485748291,h=52.09461212 },
-
-     {-1104.0754394531,-838.32049560547,26.827457427979,h=127.5403 },
-     {-1105.1391601563,-836.93286132813,26.827451705933,h=127.5403 },
-     
+    {-1200.0500488281,-1571.0577392578,4.6096024513245,h=211.15209960938},
+    {-1204.7548828125,-1564.3947753906,4.6095118522644,h=31.65938949585},
+    {1773.181640625,2596.7548828125,45.7978515625,h=273.0752563476563 },
+    {1773.1364746094,2594.98828125,45.797859191895,h=273.0752563476563 },
+    {1643.3723144531,2527.8002929688,45.56485748291,h=52.09461212 },
+    {1649.1096191406,2529.6103515625,45.56485748291,h=52.09461212 },
+    {-1104.0754394531,-838.32049560547,26.827457427979,h=127.5403 },
+    {-1105.1391601563,-836.93286132813,26.827451705933,h=127.5403 },
 }
-
-
-Citizen.CreateThread(function()
-    while true do 
-        local idle = 1000
-        for _,mark in pairs(barraFixa) do
-            local x,y,z = table.unpack(mark)
-            local aparelhos = GetDistanceBetweenCoords(GetEntityCoords(PlayerPedId()),x,y,z,true)
-            if not malhando and aparelhos < 1.0 then 
-                idle = 5
-                DrawText3D(x,y,z,"APERTE ~y~[E] ~w~ PARA FAZER BARRA")
-                if IsControlJustPressed(0, 46) then
-                    TriggerEvent("cancelando",true)
-                    FreezeEntityPosition(PlayerPedId(),true)
-                    SetEntityHeading(PlayerPedId(),mark.h)
-                    SetEntityCoords(PlayerPedId(),x,y,z-1,false,false,false,false)
-                    vRP._playAnim(false,{"amb@prop_human_muscle_chin_ups@male@base","base"},true)
-                    TriggerEvent("progress",20000,"Malhando...")
-                    malhando = true
-                    Wait(20000)
-                    malhando = false
-                    vRP._stopAnim(false)
-                    TriggerEvent("cancelando",false)
-                    FreezeEntityPosition(PlayerPedId(),false)
-                end
-            end 
-        end
-        Citizen.Wait(idle)
-    end 
-end)
 
 local pegarBarra = {
     {-1198.6065673828,-1563.1163330078,4.6217041015625},
@@ -57,33 +24,6 @@ local pegarBarra = {
     {1642.7316894531,2524.201171875,45.56485748291},
     {1644.6632080078,2522.5671386719,45.56485748291},
 }
-
-Citizen.CreateThread(function()
-    while true do 
-        local idle = 1000
-        for _,mark in pairs(pegarBarra) do
-            local x,y,z = table.unpack(mark)
-            local aparelhos = GetDistanceBetweenCoords(GetEntityCoords(PlayerPedId()),x,y,z,true)
-            if not malhando and aparelhos < 1.0 then 
-                idle = 5
-                DrawText3D(x,y,z,"APERTE ~y~[E] ~w~ PARA PEGAR BARRA")
-                if IsControlJustPressed(0, 46) then
-                    FreezeEntityPosition(PlayerPedId(),true)
-                    vRP._CarregarObjeto("amb@world_human_muscle_free_weights@male@barbell@base","base","prop_curl_bar_01",50,28422)
-                    TriggerEvent("progress",20000,"Malhando...")
-                    malhando = true
-                    Wait(20000)
-                    vRP._DeletarObjeto()
-                    malhando = false
-                    TriggerEvent("cancelando",false)
-                    FreezeEntityPosition(PlayerPedId(),false)
-                end
-            end 
-        end
-        Citizen.Wait(idle)
-    end 
-end)
-
 
 local fazerAbdominal = {
     {-1207.09,-1560.8,5.02,h = 10},
@@ -99,18 +39,91 @@ local fazerAbdominal = {
     {-1098.4610595703,-839.92706298828,27.343587875366,h = 127.06},
     {-1104.0706787109,-832.76068115234,27.236524581909,h = 127.6790},
     {-1101.5124511719,-835.86694335938,27.236526489258,h = 127.6790},
-
 }
 
-Citizen.CreateThread(function()
-    while true do 
+local fazerFlexao = {
+    {-1205.62,-1567.84,4.61,h = 308.15},
+    {1766.9295654297,2598.7375488281,45.797798156738,h = 178.40202},
+    {1648.4486083984,2534.2878417969,45.56485748291,h=140.8329620},
+    {1637.3734130859,2524.2614746094,45.56485748291,h=321.43734741},
+    {-3140.4362792969,-2012.9219970703,15.041701316833,h=316.938},
+    {-3139.3178710938,-2013.9251708984,15.041561126709,h=316.938},
+    {-3141.5964355469,-2012.0222167969,15.036888122559,h=316.938},
+    {-1110.6954345703,-837.15167236328,26.847421646118,h=216.167},
+    {-1109.0836181641,-836.06817626953,26.847431182861,h=216.167},
+}
+
+local fazerCorridinha = {
+    {-1207.32,-1565.84,4.61,h = 308.15},
+}
+
+CreateThread(function()
+    while true do
+        local idle = 1000
+        for _,mark in pairs(barraFixa) do
+            local x,y,z = table.unpack(mark)
+            local pedCoords = GetEntityCoords(PlayerPedId())
+            local aparelhos = GetDistanceBetweenCoords(pedCoords.x,pedCoords.y,pedCoords.z,x,y,z,true)
+            if not malhando and aparelhos < 1.0 then
+                idle = 5
+                DrawBase3D(x,y,z,"APERTE ~y~[E] ~w~ PARA FAZER BARRA")
+                if IsControlJustPressed(0, 46) then
+                    TriggerEvent("cancelando",true)
+                    FreezeEntityPosition(PlayerPedId(),true)
+                    SetEntityHeading(PlayerPedId(),mark.h)
+                    SetEntityCoords(PlayerPedId(),x,y,z-1,false,false,false,false)
+                    vRP._playAnim(false,{"amb@prop_human_muscle_chin_ups@male@base","base"},true)
+                    TriggerEvent("progress",20000,"Malhando...")
+                    malhando = true
+                    Wait(20000)
+                    malhando = false
+                    vRP._stopAnim(false)
+                    TriggerEvent("cancelando",false)
+                    FreezeEntityPosition(PlayerPedId(),false)
+                end
+            end
+        end
+        Wait(idle)
+    end
+end)
+
+CreateThread(function()
+    while true do
+        local idle = 1000
+        for _,mark in pairs(pegarBarra) do
+            local x,y,z = table.unpack(mark)
+            local pedCoords = GetEntityCoords(PlayerPedId())
+            local aparelhos = GetDistanceBetweenCoords(pedCoords.x,pedCoords.y,pedCoords.z,x,y,z,true)
+            if not malhando and aparelhos < 1.0 then
+                idle = 5
+                DrawBase3D(x,y,z,"APERTE ~y~[E] ~w~ PARA PEGAR BARRA")
+                if IsControlJustPressed(0, 46) then
+                    FreezeEntityPosition(PlayerPedId(),true)
+                    vRP._CarregarObjeto("amb@world_human_muscle_free_weights@male@barbell@base","base","prop_curl_bar_01",50,28422)
+                    TriggerEvent("progress",20000,"Malhando...")
+                    malhando = true
+                    Wait(20000)
+                    vRP._DeletarObjeto()
+                    malhando = false
+                    TriggerEvent("cancelando",false)
+                    FreezeEntityPosition(PlayerPedId(),false)
+                end
+            end
+        end
+        Wait(idle)
+    end
+end)
+
+CreateThread(function()
+    while true do
         local idle = 1000
         for _,mark in pairs(fazerAbdominal) do
             local x,y,z = table.unpack(mark)
-            local aparelhos = GetDistanceBetweenCoords(GetEntityCoords(PlayerPedId()),x,y,z,true)
-            if not malhando and aparelhos < 1.0 then 
+            local pedCoords = GetEntityCoords(PlayerPedId())
+            local aparelhos = GetDistanceBetweenCoords(pedCoords.x,pedCoords.y,pedCoords.z,x,y,z,true)
+            if not malhando and aparelhos < 1.0 then
                 idle = 5
-                DrawText3D(x,y,z,"APERTE ~y~[E] ~w~ PARA FAZER ABDOMINAL")
+                DrawBase3D(x,y,z,"APERTE ~y~[E] ~w~ PARA FAZER ABDOMINAL")
                 if IsControlJustPressed(0, 46) then
                     FreezeEntityPosition(PlayerPedId(),true)
                     TriggerEvent("cancelando",true)
@@ -125,36 +138,22 @@ Citizen.CreateThread(function()
                     TriggerEvent("cancelando",false)
                     FreezeEntityPosition(PlayerPedId(),false)
                 end
-            end 
+            end
         end
-        Citizen.Wait(idle)
-    end 
+        Wait(idle)
+    end
 end)
 
-local fazerFlexao = {
-    {-1205.62,-1567.84,4.61,h = 308.15},
-    {1766.9295654297,2598.7375488281,45.797798156738,h = 178.40202},
-    {1648.4486083984,2534.2878417969,45.56485748291,h=140.8329620},
-    {1637.3734130859,2524.2614746094,45.56485748291,h=321.43734741},
-    {-3140.4362792969,-2012.9219970703,15.041701316833,h=316.938},
-    {-3139.3178710938,-2013.9251708984,15.041561126709,h=316.938},
-    {-3141.5964355469,-2012.0222167969,15.036888122559,h=316.938},
-
-    {-1110.6954345703,-837.15167236328,26.847421646118,h=216.167},
-    {-1109.0836181641,-836.06817626953,26.847431182861,h=216.167},
-    
-    
-}
-
-Citizen.CreateThread(function()
-    while true do 
+CreateThread(function()
+    while true do
         local idle = 1000
         for _,mark in pairs(fazerFlexao) do
             local x,y,z = table.unpack(mark)
-            local aparelhos = GetDistanceBetweenCoords(GetEntityCoords(PlayerPedId()),x,y,z,true)
-            if not malhando and aparelhos < 1.0 then 
+            local pedCoords = GetEntityCoords(PlayerPedId())
+            local aparelhos = GetDistanceBetweenCoords(pedCoords.x,pedCoords.y,pedCoords.z,x,y,z,true)
+            if not malhando and aparelhos < 1.0 then
                 idle = 5
-                DrawText3D(x,y,z,"APERTE ~y~[E] ~w~ PARA FAZER FLEXÃO")
+                DrawBase3D(x,y,z,"APERTE ~y~[E] ~w~ PARA FAZER FLEXÃO")
                 if IsControlJustPressed(0, 46) then
                     FreezeEntityPosition(PlayerPedId(),true)
                     TriggerEvent("cancelando",true)
@@ -169,25 +168,22 @@ Citizen.CreateThread(function()
                     TriggerEvent("cancelando",false)
                     FreezeEntityPosition(PlayerPedId(),false)
                 end
-            end 
+            end
         end
-        Citizen.Wait(idle)
-    end 
+        Wait(idle)
+    end
 end)
 
-local fazerCorridinha = {
-    {-1207.32,-1565.84,4.61,h = 308.15},
-}
-
-Citizen.CreateThread(function()
-    while true do 
+CreateThread(function()
+    while true do
         local idle = 1000
         for _,mark in pairs(fazerCorridinha) do
             local x,y,z = table.unpack(mark)
-            local aparelhos = GetDistanceBetweenCoords(GetEntityCoords(PlayerPedId()),x,y,z,true)
-            if not malhando and aparelhos < 1.0 then 
+            local pedCoords = GetEntityCoords(PlayerPedId())
+            local aparelhos = GetDistanceBetweenCoords(pedCoords.x,pedCoords.y,pedCoords.z,x,y,z,true)
+            if not malhando and aparelhos < 1.0 then
                 idle = 5
-                DrawText3D(x,y,z,"APERTE ~y~[E] ~w~ PARA FAZER CORRIDINHA")
+                DrawBase3D(x,y,z,"APERTE ~y~[E] ~w~ PARA FAZER CORRIDINHA")
                 if IsControlJustPressed(0, 46) then
                     FreezeEntityPosition(PlayerPedId(),true)
                     TriggerEvent("cancelando",true)
@@ -202,24 +198,8 @@ Citizen.CreateThread(function()
                     TriggerEvent("cancelando",false)
                     FreezeEntityPosition(PlayerPedId(),false)
                 end
-            end 
+            end
         end
-        Citizen.Wait(idle)
-    end 
+        Wait(idle)
+    end
 end)
-
-function DrawText3D(x,y,z, text)
-    local onScreen,_x,_y=World3dToScreen2d(x,y,z)
-    local px,py,pz=table.unpack(GetGameplayCamCoords())
-    
-    SetTextScale(0.35, 0.35)
-    SetTextFont(4)
-    SetTextProportional(1)
-    SetTextColour(255, 255, 255, 215)
-    SetTextEntry("STRING")
-    SetTextCentre(1)
-    AddTextComponentString(text)
-    DrawText(_x,_y)
-    local factor = (string.len(text)) / 370
-    DrawRect(_x,_y+0.0125, 0.015+ factor, 0.03, 41, 11, 41, 68)
-end
