@@ -662,7 +662,7 @@ function QBShared.SetDefaultVehicleExtras(vehicle, config)
     -- Clear Extras
     for i = 1, 20 do
         if DoesExtraExist(vehicle, i) then
-            SetVehicleExtra(vehicle, i, 1)
+            SetVehicleExtra(vehicle, i, true)
         end
     end
 

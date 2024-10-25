@@ -194,3 +194,29 @@ function LoadAnim(anim)
 	end
 	return true
 end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- LOADMOVEMENT
+-----------------------------------------------------------------------------------------------------------------------------------------
+function LoadMovement(Library)
+	RequestAnimSet(Library)
+	while not HasAnimSetLoaded(Library) do
+		RequestAnimSet(Library)
+		Wait(1)
+	end
+	return true
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- DRAWBASE3D
+-----------------------------------------------------------------------------------------------------------------------------------------
+function DrawBase3D(x,y,z,text)
+	local _,_x,_y = World3dToScreen2d(x,y,z)
+	SetTextFont(2)
+	SetTextScale(0.35,0.35)
+	SetTextColour(255,255,255,215)
+	SetTextEntry("STRING")
+	SetTextCentre(true)
+	AddTextComponentString(text)
+	DrawText(_x,_y)
+	local factor = (string.len(text))/350
+	DrawRect(_x,_y+0.0125,0.01+factor,0.03,34,44,52,175)
+end
