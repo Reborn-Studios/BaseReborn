@@ -57,9 +57,6 @@ function lib.showContext(id)
         action = 'showContext',
         data = {
             title = data.title,
-            description = data.description,
-            background = data.background or GetConvarInt('ox:menuBackground', 0) == 1,
-            backgroundColor = data.backgroundColor,
             canClose = data.canClose,
             menu = data.menu,
             options = data.options

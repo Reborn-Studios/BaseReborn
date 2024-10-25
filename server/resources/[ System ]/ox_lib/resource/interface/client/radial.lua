@@ -297,9 +297,9 @@ function lib.disableRadial(state)
 end
 
 lib.addKeybind({
-    name = 'mri_Qbox_lib-radial',
+    name = 'ox_lib-radial',
     description = locale('open_radial_menu'),
-    defaultKey = 'f1',
+    defaultKey = 'z',
     onPressed = function()
         if isDisabled then return end
 
@@ -331,7 +331,7 @@ lib.addKeybind({
             Wait(0)
         end
     end,
-    onReleased = lib.hideRadial,
+    -- onReleased = lib.hideRadial,
 })
 
 AddEventHandler('onClientResourceStop', function(resource)
