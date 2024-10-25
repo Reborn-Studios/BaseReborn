@@ -1,7 +1,6 @@
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
-local crouch = false
 local point = false
 local celular = false
 local cancelando = false
@@ -16,6 +15,9 @@ RegisterNetEvent("cancelando")
 AddEventHandler("cancelando",function(status)
 	cancelando = status
 	LocalPlayer["state"]:set("Commands",status,true)
+	if status then
+		InitCommandsThread()
+	end
 end)
 
 function tvRP.isHandcuffed()
@@ -27,15 +29,16 @@ end
 RegisterNetEvent("status:celular")
 AddEventHandler("status:celular",function(status)
 	celular = status
+	if status then
+		InitCelularThread()
+	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADCELULAR
 -----------------------------------------------------------------------------------------------------------------------------------------
-CreateThread(function()
-	while true do
-		local timeDistance = 500
-		if celular then
-			timeDistance = 4
+function InitCelularThread()
+	CreateThread(function()
+		while celular do
 			DisableControlAction(1,288,true)
 			DisableControlAction(1,289,true)
 			DisableControlAction(1,170,true)
@@ -55,30 +58,33 @@ CreateThread(function()
 			DisableControlAction(1,68,true)
 			DisableControlAction(1,70,true)
 			DisableControlAction(1,91,true)
-			DisablePlayerFiring(PlayerPedId(),true)
+			DisablePlayerFiring(cache.ped,true)
+			Wait(4)
 		end
-		if cancelando or LocalPlayer["state"]["Commands"] then
-			timeDistance = 4
-			DisableControlAction(1,73,true)
-			DisableControlAction(1,29,true)
-			DisableControlAction(1,47,true)
-			DisableControlAction(1,187,true)
-			DisableControlAction(1,189,true)
-			DisableControlAction(1,190,true)
-			DisableControlAction(1,188,true)
-			DisableControlAction(1,257,true)
-			DisableControlAction(1,167,true)
-			DisableControlAction(1,140,true)
-			DisableControlAction(1,141,true)
-			DisableControlAction(1,142,true)
-			DisableControlAction(1,137,true)
-			--DisableControlAction(1,37,true)
-			DisableControlAction(1,38,true)
-			DisablePlayerFiring(PlayerPedId(),true)
-		end
-		Wait(timeDistance)
+	end)
+end
+
+function InitCommandsThread()
+	while cancelando or LocalPlayer["state"]["Commands"] do
+		DisableControlAction(1,73,true)
+		DisableControlAction(1,29,true)
+		DisableControlAction(1,47,true)
+		DisableControlAction(1,187,true)
+		DisableControlAction(1,189,true)
+		DisableControlAction(1,190,true)
+		DisableControlAction(1,188,true)
+		DisableControlAction(1,257,true)
+		DisableControlAction(1,167,true)
+		DisableControlAction(1,140,true)
+		DisableControlAction(1,141,true)
+		DisableControlAction(1,142,true)
+		DisableControlAction(1,137,true)
+		--DisableControlAction(1,37,true)
+		DisableControlAction(1,38,true)
+		DisablePlayerFiring(PlayerPedId(),true)
+		Wait(4)
 	end
-end)
+end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- REQUEST
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -99,8 +105,16 @@ end)
 -- PROMPT
 -----------------------------------------------------------------------------------------------------------------------------------------
 function tvRP.prompt(title,default_text)
-	SendNUIMessage({ act = "prompt", title = title, text = tostring(default_text) })
-	SetNuiFocus(true)
+	if lib then
+		local input = lib.inputDialog(title, {
+			{ type = 'textarea', label = title, default = default_text, icon = "fa-regular fa-keyboard" }
+		})
+		if not input then return end
+		vRPserver._promptResult(input[1])
+	else
+		SendNUIMessage({ act = "prompt", title = title, text = tostring(default_text) })
+		SetNuiFocus(true)
+	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- REQUEST
@@ -135,21 +149,12 @@ function tvRP.loadAnimSet(dict)
 	LoadAnim(dict)
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- BLOCKDRUNK
------------------------------------------------------------------------------------------------------------------------------------------
-local blockDrunk = false
-RegisterNetEvent("vrp:blockDrunk")
-AddEventHandler("vrp:blockDrunk",function(status)
-	blockDrunk = status
-end)
------------------------------------------------------------------------------------------------------------------------------------------
 -- APONTAR COM DEDO
 -----------------------------------------------------------------------------------------------------------------------------------------
-CreateThread(function()
-	while true do
-		local timeDistance = 1500
-		if point then
-			timeDistance = 4
+function InitPointThread()
+	CreateThread(function()
+		while point do
+			local timeDistance = 4
 			local ped = PlayerPedId()
 			local camPitch = GetGameplayCamRelativePitch()
 
@@ -170,21 +175,17 @@ CreateThread(function()
 			end
 			camHeading = (camHeading + 180.0) / 360.0
 
-			local blocked = 0
-			local nn = 0
 			local coords = GetOffsetFromEntityInWorldCoords(ped,(cosCamHeading*-0.2)-(sinCamHeading*(0.4*camHeading+0.3)),(sinCamHeading*-0.2)+(cosCamHeading*(0.4*camHeading+0.3)),0.6)
 			local ray = Cast_3dRayPointToPoint(coords.x,coords.y,coords.z-0.2,coords.x,coords.y,coords.z+0.2,0.4,95,ped,7);
-			nn,blocked,coords,coords = GetRaycastResult(ray)
-
+			local nn,blocked = GetRaycastResult(ray)
 			Citizen.InvokeNative(0xD5BB4025AE449A4E,ped,"Pitch",camPitch)
 			Citizen.InvokeNative(0xD5BB4025AE449A4E,ped,"Heading",camHeading*-1.0+1.0)
 			Citizen.InvokeNative(0xB0A6CFD2C69C1088,ped,"isBlocked",blocked)
 			Citizen.InvokeNative(0xB0A6CFD2C69C1088,ped,"isFirstPerson",Citizen.InvokeNative(0xEE778F8C7E1142E2,Citizen.InvokeNative(0x19CAFA3C87F7C2FF))==4)
+			Wait(timeDistance)
 		end
-
-		Wait(timeDistance)
-	end
-end)
+	end)
+end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- SYNCDELETEENTITY
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -202,21 +203,21 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- SYNCCLEANENTITY
 -----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("syncclean")
 RegisterNetEvent("syncCleanEntity")
-AddEventHandler("syncCleanEntity",function(index)
-	if NetworkDoesNetworkIdExist(index) then
-		local v = NetToEnt(index)
-		if DoesEntityExist(v) then
-			SetVehicleDirtLevel(v,0.0)
-			SetVehicleUndriveable(v,false)
+
+local function clearEntity(NetId)
+	if NetworkDoesNetworkIdExist(NetId) then
+		local Entity = NetToEnt(NetId)
+		if DoesEntityExist(Entity) then
+			SetVehicleDirtLevel(Entity,0.0)
+			SetVehicleUndriveable(Entity,false)
 		end
 	end
-end)
+end
 
-RegisterNetEvent("syncclean")
-AddEventHandler("syncclean",function(index)
-	TriggerEvent('syncCleanEntity', index)
-end)
+AddEventHandler("syncCleanEntity",clearEntity)
+AddEventHandler("syncclean", clearEntity)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CANCELF6
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -255,21 +256,20 @@ RegisterCommand("keybindPoint",function(source,args)
 
 			if not point then
 				tvRP.stopActived()
-				SetPedCurrentWeaponVisible(ped,0,1,1,1)
-				SetPedConfigFlag(ped,36,1)
-				TaskMoveNetwork(ped,"task_mp_pointing",0.5,0,"anim@mp_point",24)
+				SetPedCurrentWeaponVisible(ped,false,true,true,true)
+				SetPedConfigFlag(ped,36,true)
+				TaskMoveNetwork(ped,"task_mp_pointing",0.5,false,"anim@mp_point",24)
 				point = true
+				InitPointThread()
 			else
 				Citizen.InvokeNative(0xD01015C7316AE176,ped,"Stop")
 				if not IsPedInjured(ped) then
 					ClearPedSecondaryTask(ped)
 				end
-
 				if not IsPedInAnyVehicle(ped) then
-					SetPedCurrentWeaponVisible(ped,1,1,1,1)
+					SetPedCurrentWeaponVisible(ped,true,true,true,true)
 				end
-
-				SetPedConfigFlag(ped,36,0)
+				SetPedConfigFlag(ped,36,false)
 				ClearPedSecondaryTask(ped)
 				point = false
 			end
@@ -387,11 +387,46 @@ RegisterCommand("keybindReject",function(source,args)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- CROUCH
+-----------------------------------------------------------------------------------------------------------------------------------------
+local Walk = nil
+local Crouch = false
+local Button = GetGameTimer()
+
+RegisterCommand("keybindCrouch",function()
+	DisableControlAction(0,36,true)
+	local Ped = PlayerPedId()
+	if GetGameTimer() >= Button and not IsPauseMenuActive() and not LocalPlayer["state"]["Buttons"] and not LocalPlayer["state"]["Commands"] and not LocalPlayer["state"]["Handcuff"] and not IsPedInAnyVehicle(Ped) and GetEntityHealth(Ped) > 100 and not LocalPlayer["state"]["Cancel"] and not IsPedReloading(Ped) then
+		Button = GetGameTimer() + 1000
+		if Crouch then
+			Crouch = false
+			ResetPedStrafeClipset(Ped)
+			ResetPedMovementClipset(Ped,0.25)
+
+			if Walk and LoadMovement(Walk) then
+				SetPedMovementClipset(Ped,Walk,0.25)
+			end
+		else
+			if LoadMovement("move_ped_crouched") and LoadMovement("move_ped_crouched_strafing") then
+				SetPedStrafeClipset(Ped,"move_ped_crouched_strafing")
+				SetPedMovementClipset(Ped,"move_ped_crouched",0.25)
+				Crouch = true
+
+				while Crouch do
+					DisablePlayerFiring(PlayerPedId(),true)
+					Wait(1)
+				end
+			end
+		end
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- KEYMAPPING
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterKeyMapping("keybindCancel","Cancelar animações","keyboard","f6")
 RegisterKeyMapping("keybindHandsupp","Levantar as mãos","keyboard","x")
 RegisterKeyMapping("keybindPoint","Apontar os dedos","keyboard","b")
+RegisterKeyMapping("keybindCrouch","Agachar","keyboard","LCONTROL")
 RegisterKeyMapping("keybindEngine","Ligar veículo","keyboard","z")
 RegisterKeyMapping("keybindAnim f1","Animation Bind f1","keyboard","f1")
 RegisterKeyMapping("keybindAnim f2","Animation Bind f2","keyboard","f2")
@@ -438,15 +473,3 @@ end)
 RegisterNUICallback("menu_state",function(data,cb)
 	menu_state = data
 end)
-
-function tvRP.setDiv(name,css,content)
-	SendNUIMessage({ act = "set_div", name = name, css = css, content = content })
-end
-
-function tvRP.setDivContent(name,content)
-	SendNUIMessage({ act = "set_div_content", name = name, content = content })
-end
-
-function tvRP.removeDiv(name)
-	SendNUIMessage({ act = "remove_div", name = name })
-end

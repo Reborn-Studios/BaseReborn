@@ -20,7 +20,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- OBJECTCOORDS
 -----------------------------------------------------------------------------------------------------------------------------------------
-function targetLabel(x,y,z,Number,item,mode)
+local function targetLabel(x,y,z,Number,item,mode)
 	if mode == "1" then
 		exports["target"]:AddCircleZone("Objects:"..Number,vector3(x,y,z),1.0,{
 			name = "Objects:"..Number,
@@ -213,25 +213,24 @@ function tvRP.objectCoords(model)
 		Wait(1)
 	end
 
-	local coords = GetEntityCoords(ped)
+	local pedCoords = GetEntityCoords(ped)
 	local pedHeading = GetEntityHeading(ped)
-	local newObject = CreateObject(mHash,coords["x"],coords["y"],coords["z"],false,false,false)
+	local newObject = CreateObject(mHash,pedCoords["x"],pedCoords["y"],pedCoords["z"],false,false,false)
 	SetEntityCollision(newObject,false,false)
 	SetEntityHeading(newObject,pedHeading)
 	SetEntityAlpha(newObject,100,false)
 
 	while objectProgress do
-		local ped = PlayerPedId()
 		local cam = GetGameplayCamCoord()
 		local handle = StartExpensiveSynchronousShapeTestLosProbe(cam,GetCoordsFromCam(10.0,cam),-1,ped,4)
 		local _,_,coords = GetShapeTestResult(handle)
 
-		SetEntityCoordsNoOffset(newObject,coords["x"],coords["y"],coords["z"],1,0,0)
+		SetEntityCoordsNoOffset(newObject,coords["x"],coords["y"],coords["z"],true,false,false)
 
-		dwText("~g~F~w~  CANCELAR",4,0.015,0.86,0.38,255,255,255,255)
-		dwText("~g~E~w~  COLOCAR OBJETO",4,0.015,0.89,0.38,255,255,255,255)
-		dwText("~y~SCROLL UP~w~  GIRA ESQUERDA",4,0.015,0.92,0.38,255,255,255,255)
-		dwText("~y~SCROLL DOWN~w~  GIRA DIREITA",4,0.015,0.95,0.38,255,255,255,255)
+		DrwTxt("~g~F~w~  CANCELAR",4,0.015,0.86,0.38,255,255,255,255)
+		DrwTxt("~g~E~w~  COLOCAR OBJETO",4,0.015,0.89,0.38,255,255,255,255)
+		DrwTxt("~y~SCROLL UP~w~  GIRA ESQUERDA",4,0.015,0.92,0.38,255,255,255,255)
+		DrwTxt("~y~SCROLL DOWN~w~  GIRA DIREITA",4,0.015,0.95,0.38,255,255,255,255)
 
 		if IsControlJustPressed(1,38) then
 			aplicationObject = true
@@ -272,7 +271,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- DWTEXT
 -----------------------------------------------------------------------------------------------------------------------------------------
-function dwText(text,font,x,y,scale,r,g,b,a)
+function DrwTxt(text,font,x,y,scale,r,g,b,a)
 	SetTextFont(font)
 	SetTextScale(scale,scale)
 	SetTextColour(r,g,b,a)
@@ -296,9 +295,7 @@ AddEventHandler("vRP:Sentar",function(Number)
 	local model = GetEntityModel(initObjects[Number])
 	local heading = GetEntityHeading(initObjects[Number])
 	local objCoords = GetEntityCoords(initObjects[Number])
-
-	SetEntityCoords(ped,objCoords["x"],objCoords["y"],objCoords["z"] + chairs[model],1,0,0,0)
+	SetEntityCoords(ped,objCoords["x"],objCoords["y"],objCoords["z"] + chairs[model],true,false,false,false)
 	SetEntityHeading(ped,heading - 180.0)
-
 	tvRP.playAnim(false,{ task = "PROP_HUMAN_SEAT_CHAIR_MP_PLAYER" },false)
 end)

@@ -3,8 +3,7 @@
 -----------------------------------------------------------------------------------------------------------------------------------------
 CreateThread(function()
 	LoadMpDlcMaps()
-	EnableMpDlcMaps(true)
-
+	EnableMpDlcMaps(1)
 	RequestIpl("gabz_pillbox_milo_")
 	RequestIpl("coronertrash")
 	RequestIpl("Coroner_Int_On")
@@ -881,7 +880,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 CreateThread(function()
 	LoadMpDlcMaps()
-	EnableMpDlcMaps(true)
+	EnableMpDlcMaps(1)
 	-- ISLAND
 	RequestIpl("h4_islandairstrip")
 	RequestIpl("h4_islandairstrip_props")

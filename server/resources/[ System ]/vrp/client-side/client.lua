@@ -8,7 +8,7 @@ function exportHandler(resource, exportName, func)
     end)
 end
 
-tvRP.getNearestPlayer = function(radius) 
+tvRP.getNearestPlayer = function(radius)
     return vRP.nearestPlayer(radius)
 end
 
@@ -83,7 +83,7 @@ function tvRP.Skin(Hash)
 	end
 end
 
-function tvRP.ClosestVehicle(Radius)
+function tvRP.ClosestVehicle(radius)
     return vRP.getNearVehicle(radius)
 end
 

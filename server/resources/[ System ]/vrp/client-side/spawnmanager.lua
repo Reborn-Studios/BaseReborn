@@ -1,65 +1,13 @@
-local spawnPoints = {}
-local autoSpawnEnabled = false
-local autoSpawnCallback
-local spawnNum = 1
-local spawnLock = false
-local respawnForced
 local diedAt
+local spawnNum = 1
+local respawnForced
 local spawned = false
+local spawnPoints = {}
+local spawnLock = false
+local autoSpawnCallback
+local autoSpawnEnabled = false
 
-AddEventHandler("getMapDirectives",function(add)
-	add("spawnpoint",function(state,model)
-		return function(opts)
-			local x,y,z,heading
-			local s,e = pcall(function()
-				if opts.x then
-					x = opts.x
-					y = opts.y
-					z = opts.z
-				else
-					x = opts[1]
-					y = opts[2]
-					z = opts[3]
-				end
-
-				x = x + 0.0001
-				y = y + 0.0001
-				z = z + 0.0001
-
-				heading = opts.heading and (opts.heading + 0.01) or 0
-
-				addSpawnPoint({ x = x, y = y, z = z, heading = heading, model = model })
-
-				if not tonumber(model) then
-					model = GetHashKey(model,_r)
-				end
-
-				state.add("xyz",{ x, y, z })
-				state.add("model",model)
-			end)
-		end
-	end,function(state,arg)
-		for i,sp in ipairs(spawnPoints) do
-			if sp.x == state.xyz[1] and sp.y == state.xyz[2] and sp.z == state.xyz[3] and sp.model == state.model then
-				table.remove(spawnPoints,i)
-				return
-			end
-		end
-	end)
-end)
-
-function loadSpawns(spawnString)
-	local data = json.decode(spawnString)
-	if not data.spawns then
-		error("no spawns in JSON data")
-	end
-
-	for i,spawn in ipairs(data.spawns) do
-		addSpawnPoint(spawn)
-	end
-end
-
-function addSpawnPoint(spawn)
+local function addSpawnPoint(spawn)
 	if not tonumber(spawn.x) or not tonumber(spawn.y) or not tonumber(spawn.z) then
 		error("invalid spawn position")
 	end
@@ -87,7 +35,60 @@ function addSpawnPoint(spawn)
 	return spawn.idx
 end
 
-function removeSpawnPoint(spawn)
+
+AddEventHandler("getMapDirectives",function(add)
+	add("spawnpoint",function(state,model)
+		return function(opts)
+			local x,y,z,heading
+			local s,e = pcall(function()
+				if opts.x then
+					x = opts.x
+					y = opts.y
+					z = opts.z
+				else
+					x = opts[1]
+					y = opts[2]
+					z = opts[3]
+				end
+
+				x = x + 0.0001
+				y = y + 0.0001
+				z = z + 0.0001
+
+				heading = opts.heading and (opts.heading + 0.01) or 0
+
+				addSpawnPoint({ x = x, y = y, z = z, heading = heading, model = model })
+
+				if not tonumber(model) then
+					model = GetHashKey(model)
+				end
+
+				state.add("xyz",{ x, y, z })
+				state.add("model",model)
+			end)
+		end
+	end,function(state,arg)
+		for i,sp in ipairs(spawnPoints) do
+			if sp.x == state.xyz[1] and sp.y == state.xyz[2] and sp.z == state.xyz[3] and sp.model == state.model then
+				table.remove(spawnPoints,i)
+				return
+			end
+		end
+	end)
+end)
+
+local function loadSpawns(spawnString)
+	local data = json.decode(spawnString)
+	if not data.spawns then
+		error("no spawns in JSON data")
+	end
+
+	for i,spawn in ipairs(data.spawns) do
+		addSpawnPoint(spawn)
+	end
+end
+
+local function removeSpawnPoint(spawn)
 	for i = 1,#spawnPoints do
 		if spawnPoints[i].idx == spawn then
 			table.remove(spawnPoints,i)
@@ -96,18 +97,18 @@ function removeSpawnPoint(spawn)
 	end
 end
 
-function setAutoSpawn(enabled)
+local function setAutoSpawn(enabled)
 	autoSpawnEnabled = enabled
 end
 
-function setAutoSpawnCallback(cb)
+local function setAutoSpawnCallback(cb)
 	autoSpawnCallback = cb
 	autoSpawnEnabled = true
 end
 
 local function freezePlayer(id,freeze)
 	local player = id
-	SetPlayerControl(player,not freeze,false)
+	SetPlayerControl(player,not freeze,0)
 
 	local ped = GetPlayerPed(player)
 
@@ -132,20 +133,7 @@ local function freezePlayer(id,freeze)
 	end
 end
 
-function loadScene(x,y,z)
-	if not NewLoadSceneStart then
-		return
-	end
-
-	NewLoadSceneStart(x,y,z,0.0,0.0,0.0,20.0,0)
-
-	while IsNewLoadSceneActive() do
-		networkTimer = GetNetworkTimer()
-		NetworkUpdateLoadScene()
-	end
-end
-
-function spawnPlayer(spawnIdx,cb)
+local function spawnPlayer(spawnIdx,cb)
 	if spawnLock then
 		return
 	end
@@ -195,8 +183,8 @@ function spawnPlayer(spawnIdx,cb)
 
 		local ped = PlayerPedId()
 
-		SetEntityCoordsNoOffset(ped,spawn.x,spawn.y,spawn.z,false,false,false,true)
-		NetworkResurrectLocalPlayer(spawn.x,spawn.y,spawn.z,spawn.heading,true,true,false)
+		SetEntityCoordsNoOffset(ped,spawn.x,spawn.y,spawn.z,false,false,false)
+		NetworkResurrectLocalPlayer(spawn.x,spawn.y,spawn.z,spawn.heading,0,true)
 		ClearPedTasksImmediately(ped)
 		--RemoveAllPedWeapons(ped)
 		ClearPlayerWantedLevel(PlayerId())
@@ -260,11 +248,13 @@ CreateThread(function()
 					diedAt = nil
 				end
 			end
+		else
+			break
 		end
 	end
 end)
 
-function forceRespawn()
+local function forceRespawn()
 	spawnLock = false
 	respawnForced = true
 end

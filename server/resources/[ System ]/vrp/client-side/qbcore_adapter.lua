@@ -38,42 +38,15 @@ end
 -- Utility
 
 function QBCore.Functions.DrawText(x, y, width, height, scale, r, g, b, a, text)
-    -- Use local function instead
-    SetTextFont(4)
-    SetTextProportional(0)
-    SetTextScale(scale, scale)
-    SetTextColour(r, g, b, a)
-    SetTextDropShadow(0, 0, 0, 0, 255)
-    SetTextEdge(2, 0, 0, 0, 255)
-    SetTextDropShadow()
-    SetTextOutline()
-    SetTextEntry('STRING')
-    AddTextComponentString(text)
-    DrawText(x - width / 2, y - height / 2 + 0.005)
+    DrwTxt(text,4,x,y,scale,r,g,b,a)
 end
 
 function QBCore.Functions.DrawText3D(x, y, z, text)
-    -- Use local function instead
-    SetTextScale(0.35, 0.35)
-    SetTextFont(4)
-    SetTextProportional(1)
-    SetTextColour(255, 255, 255, 215)
-    SetTextEntry('STRING')
-    SetTextCentre(true)
-    AddTextComponentString(text)
-    SetDrawOrigin(x, y, z, 0)
-    DrawText(0.0, 0.0)
-    local factor = (string.len(text)) / 370
-    DrawRect(0.0, 0.0 + 0.0125, 0.017 + factor, 0.03, 0, 0, 0, 75)
-    ClearDrawOrigin()
+    DrawBase3D(x,y,z,text)
 end
 
 function QBCore.Functions.RequestAnimDict(animDict)
-	if HasAnimDictLoaded(animDict) then return end
-	RequestAnimDict(animDict)
-	while not HasAnimDictLoaded(animDict) do
-		Wait(0)
-	end
+	LoadAnim(animDict)
 end
 
 function QBCore.Functions.PlayAnim(animDict, animName, upperbodyOnly, duration)
@@ -85,19 +58,11 @@ function QBCore.Functions.PlayAnim(animDict, animName, upperbodyOnly, duration)
 end
 
 function QBCore.Functions.LoadModel(model)
-    if HasModelLoaded(model) then return end
-	RequestModel(model)
-	while not HasModelLoaded(model) do
-		Wait(0)
-	end
+    LoadModel(model)
 end
 
 function QBCore.Functions.LoadAnimSet(animSet)
-    if HasAnimSetLoaded(animSet) then return end
-    RequestAnimSet(animSet)
-    while not HasAnimSetLoaded(animSet) do
-        Wait(0)
-    end
+    LoadMovement(animSet)
 end
 
 RegisterNUICallback('getNotifyConfig', function(_, cb)
@@ -105,29 +70,12 @@ RegisterNUICallback('getNotifyConfig', function(_, cb)
 end)
 
 function QBCore.Functions.Notify(text, texttype, length)
-    TriggerEvent("Notify", texttype, text, length or 5000)
-    --[[ if type(text) == "table" then
-        local ttext = text.text or 'Placeholder'
-        local caption = text.caption or 'Placeholder'
-        texttype = texttype or 'primary'
-        length = length or 5000
-        SendNUIMessage({
-            action = 'notify',
-            type = texttype,
-            length = length,
-            text = ttext,
-            caption = caption
-        })
-    else
-        texttype = texttype or 'primary'
-        length = length or 5000
-        SendNUIMessage({
-            action = 'notify',
-            type = texttype,
-            length = length,
-            text = text
-        })
-    end ]]
+    lib.notify({
+        title = 'Notificação',
+        description = text,
+        type = texttype,
+        duration = length
+    })
 end
 
 function QBCore.Debug(resource, obj, depth)
@@ -153,28 +101,16 @@ function QBCore.Functions.TriggerCallback(name, cb, ...)
 end
 
 function QBCore.Functions.Progressbar(name, label, duration, useWhileDead, canCancel, disableControls, animation, prop, propTwo, onFinish, onCancel)
-    if GetResourceState('progressbar') ~= 'started' then error('progressbar needs to be started in order for QBCore.Functions.Progressbar to work') end
-    exports['progressbar']:Progress({
-        name = name:lower(),
-        duration = duration,
+    lib.progressCircle({
         label = label,
+        duration = duration,
+        position = 'bottom',
         useWhileDead = useWhileDead,
         canCancel = canCancel,
-        controlDisables = disableControls,
-        animation = animation,
+        anim = animation,
         prop = prop,
-        propTwo = propTwo,
-    }, function(cancelled)
-        if not cancelled then
-            if onFinish then
-                onFinish()
-            end
-        else
-            if onCancel then
-                onCancel()
-            end
-        end
-    end)
+        disable = disableControls,
+    })
 end
 
 -- Getters
@@ -902,7 +838,7 @@ function QBCore.Functions.StartParticleAtCoord(dict, ptName, looped, coords, rot
         SetParticleFxLoopedAlpha(particleHandle, alpha or 10.0)
         if duration then
             Wait(duration)
-            StopParticleFxLooped(particleHandle, 0)
+            StopParticleFxLooped(particleHandle, false)
         end
     else
         SetParticleFxNonLoopedAlpha(alpha or 10.0)
@@ -938,7 +874,7 @@ function QBCore.Functions.StartParticleOnEntity(dict, ptName, looped, entity, bo
         SetParticleFxLoopedAlpha(particleHandle, alpha)
         if duration then
             Wait(duration)
-            StopParticleFxLooped(particleHandle, 0)
+            StopParticleFxLooped(particleHandle, false)
         end
     else
         SetParticleFxNonLoopedAlpha(alpha or 10.0)
@@ -1003,7 +939,7 @@ end
 function QBCore.Functions.GetGroundZCoord(coords)
     if not coords then return end
 
-    local retval, groundZ = GetGroundZFor_3dCoord(coords.x, coords.y, coords.z, 0)
+    local retval, groundZ = GetGroundZFor_3dCoord(coords.x, coords.y, coords.z, false)
     if retval then
         return vector3(coords.x, coords.y, groundZ)
     else
@@ -1218,9 +1154,9 @@ local function Draw3DText(coords, str)
         SetTextFont(4)
         SetTextColour(255, 255, 255, 255)
         SetTextEdge(2, 0, 0, 0, 150)
-        SetTextProportional(1)
+        SetTextProportional(true)
         SetTextOutline()
-        SetTextCentre(1)
+        SetTextCentre(true)
         BeginTextCommandDisplayText("STRING")
         AddTextComponentSubstringPlayerName(str)
         EndTextCommandDisplayText(worldX, worldY)

@@ -4,42 +4,36 @@ AddEventHandler("syncmala",function(index)
 		local v = NetToVeh(index)
 		if DoesEntityExist(v) then
 			if IsEntityAVehicle(v) then
-				SetVehicleDoorOpen(v,5,0,0)
+				SetVehicleDoorOpen(v,5,false,false)
 				Wait(1000)
-				SetVehicleDoorShut(v,5,0)
+				SetVehicleDoorShut(v,5,false)
 			end
 		end
 	end
 end)
 
 CreateThread(function()
-	while true do
-		local Pid = PlayerId()
-		local Ped = PlayerPedId()
-
-		SetPlayerHealthRechargeMultiplier(Pid,0.0)
-		SetPlayerHealthRechargeLimit(Pid,0.0)
-
-		if GetEntityMaxHealth(Ped) ~= 400 then
-			SetEntityMaxHealth(Ped,400)
-			SetPedMaxHealth(Ped,400)
-		end
-
-		if GetPlayerMaxArmour(Ped) ~= 100 then
-			SetPlayerMaxArmour(Ped,100)
-		end
-
-		if GetPlayerMaxStamina(Pid) ~= 200.0 then
-			SetPlayerMaxStamina(Pid,200.0)
-		end
-
-		Wait(500)
-	end
-end)
-
-CreateThread(function()
 	for i = 1,121 do
 		EnableDispatchService(i,false)
+	end
+	while true do
+		SetPlayerHealthRechargeMultiplier(cache.playerId,0.0)
+		SetPlayerHealthRechargeLimit(cache.playerId,0.0)
+
+		if GetEntityMaxHealth(cache.ped) ~= 400 then
+			SetEntityMaxHealth(cache.ped,400)
+			SetPedMaxHealth(cache.ped,400)
+		end
+
+		if GetPlayerMaxArmour(cache.ped) ~= 100 then
+			SetPlayerMaxArmour(cache.ped,100)
+		end
+
+		if GetPlayerMaxStamina(cache.playerId) ~= 200.0 then
+			SetPlayerMaxStamina(cache.playerId,200.0)
+		end
+
+		Wait(1000)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -108,7 +102,7 @@ function tvRP.getCustomization()
 	local custom = {}
 	custom.modelhash = GetEntityModel(ped)
 
-	for i = 0,20 do
+	for i = 0,11 do
 		custom[i] = { GetPedDrawableVariation(ped,i),GetPedTextureVariation(ped,i),GetPedPaletteVariation(ped,i) }
 	end
 
@@ -118,20 +112,20 @@ function tvRP.getCustomization()
 	return custom
 end
 
+local function parse_part(key)
+	if type(key) == "string" and string.sub(key,1,1) == "p" then
+		return true,tonumber(string.sub(key,2))
+	else
+		return false,tonumber(key)
+	end
+end
+
 function tvRP.getDrawableTextures(part,drawable)
 	local isprop, index = parse_part(part)
 	if isprop then
 		return GetNumberOfPedPropTextureVariations(PlayerPedId(),index,drawable)
 	else
 		return GetNumberOfPedTextureVariations(PlayerPedId(),index,drawable)
-	end
-end
-
-local function parse_part(key)
-	if type(key) == "string" and string.sub(key,1,1) == "p" then
-		return true,tonumber(string.sub(key,2))
-	else
-		return false,tonumber(key)
 	end
 end
 
@@ -157,8 +151,8 @@ function tvRP.setCustomization(custom)
                 end
 
                 if HasModelLoaded(mhash) then
-                    local armour = GetPedArmour(ped)
-                    local health = GetEntityHealth(ped)
+                    -- local armour = GetPedArmour(ped)
+                    -- local health = GetEntityHealth(ped)
                     SetPlayerModel(PlayerId(),mhash)
 					--SetEntityHealth(ped,health)
                     SetModelAsNoLongerNeeded(mhash)
@@ -175,7 +169,7 @@ function tvRP.setCustomization(custom)
 						if v[1] < 0 then
 							ClearPedProp(ped,index)
 						else
-							SetPedPropIndex(ped,index,v[1],v[2],v[3] or 2)
+							SetPedPropIndex(ped,index,v[1],v[2],v[3] or true)
 						end
 					else
 						SetPedComponentVariation(ped,index,v[1],v[2],v[3] or 2)
@@ -198,6 +192,7 @@ function tvRP.noClip()
 	if noclip then
 		SetEntityInvincible(ped,true)
 		SetEntityVisible(ped,false,false)
+		InitNoClipThread()
 	else
 		SetEntityInvincible(ped,false)
 		SetEntityVisible(ped,true,false)
@@ -206,13 +201,25 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADNOCLIP
 -----------------------------------------------------------------------------------------------------------------------------------------
-CreateThread(function()
-	while true do
-		local timeDistance = 1500
+local function getCamDirection()
+	local heading = GetGameplayCamRelativeHeading()+GetEntityHeading(PlayerPedId())
+	local pitch = GetGameplayCamRelativePitch()
+	local x = -math.sin(heading*math.pi/180.0)
+	local y = math.cos(heading*math.pi/180.0)
+	local z = math.sin(pitch*math.pi/180.0)
+	local len = math.sqrt(x*x+y*y+z*z)
+	if len ~= 0 then
+		x = x / len
+		y = y / len
+		z = z / len
+	end
+	return x,y,z
+end
 
-		if noclip then
-			timeDistance = 4
-			local ped = PlayerPedId()
+function InitNoClipThread()
+	CreateThread(function()
+		local ped = PlayerPedId()
+		while noclip do
 			local x,y,z = table.unpack(GetEntityCoords(ped))
 			local dx,dy,dz = getCamDirection()
 			local speed = 1.0
@@ -224,17 +231,17 @@ CreateThread(function()
 			end
 
 			if IsControlPressed(0,22) then
-                speed = 30.0
+				speed = 30.0
 			end
-			
+
 			if IsControlPressed(0,19) then
-                speed = 100.0
+				speed = 100.0
 			end
 
 			if IsControlPressed(0,210) then
-                speed = 0.2
+				speed = 0.2
 			end
-			
+
 			if IsControlPressed(1,32) then
 				x = x + speed * dx
 				y = y + speed * dy
@@ -256,23 +263,7 @@ CreateThread(function()
 			end
 
 			SetEntityCoordsNoOffset(ped,x,y,z,true,true,true)
+			Wait(1)
 		end
-
-		Wait(timeDistance)
-	end
-end)
-
-function getCamDirection()
-	local heading = GetGameplayCamRelativeHeading()+GetEntityHeading(PlayerPedId())
-	local pitch = GetGameplayCamRelativePitch()
-	local x = -math.sin(heading*math.pi/180.0)
-	local y = math.cos(heading*math.pi/180.0)
-	local z = math.sin(pitch*math.pi/180.0)
-	local len = math.sqrt(x*x+y*y+z*z)
-	if len ~= 0 then
-		x = x / len
-		y = y / len
-		z = z / len
-	end
-	return x,y,z
+	end)
 end

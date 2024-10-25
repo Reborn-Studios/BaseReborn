@@ -2,7 +2,6 @@
 -- WEAPONTYPES
 -----------------------------------------------------------------------------------------------------------------------------------------
 local weapon_list = {}
-
 local weapon_types = {
 	"GADGET_PARACHUTE",
 	"WEAPON_KNIFE",
@@ -103,8 +102,8 @@ local weapon_types = {
 -----------------------------------------------------------------------------------------------------------------------------------------
 function tvRP.getWeapons()
 	local ped = PlayerPedId()
-	local ammo_types = {}
 	local weapons = {}
+	local ammo_types = {}
 	for k,v in pairs(weapon_types) do
 		local hash = GetHashKey(v)
 		if HasPedGotWeapon(ped,hash) then
@@ -124,21 +123,19 @@ function tvRP.getWeapons()
 end
 
 function tvRP.legalWeaponsChecker(weapon)
-	local source = source
-	local weapon = weapon
 	local weapons_legal = tvRP.getWeaponsLegal()
 	local ilegal = false
 	for v, b in pairs(weapon) do
-	  if not weapon_list[v] then
-		ilegal = true 
-	  end
+		if not weapon_list[v] then
+			ilegal = true
+		end
 	end
 	if ilegal then
 		tvRP.giveWeapons(weapons_legal, true, false)
-		weapon = weapons_legal						 
+		weapon = weapons_legal
 	end
 	return weapon
-end	
+end
 
 function tvRP.getWeaponsLegal()
 	return weapon_list
@@ -176,15 +173,3 @@ function tvRP.giveWeapons(weapons,clear_before,forceHand)
 	vRPserver.updateWeapons(tvRP.getWeapons())
 	TriggerServerEvent("will_inventory:giveWeapons", weapon_list)
 end
------------------------------------------------------------------------------------------------------------------------------------------
--- THREADGLOBAL - 5
------------------------------------------------------------------------------------------------------------------------------------------
-CreateThread(function()
-	while true do
-		local ped = PlayerPedId()
-		if not IsPedInAnyVehicle(ped) then
-			SetPedInfiniteAmmo(ped,true,"WEAPON_FIREEXTINGUISHER")
-		end
-		Wait(5)
-	end
-end)

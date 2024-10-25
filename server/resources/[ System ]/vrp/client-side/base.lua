@@ -3,7 +3,7 @@
 -----------------------------------------------------------------------------------------------------------------------------------------
 local Tunnel = module("vrp","lib/Tunnel")
 local Proxy = module("vrp","lib/Proxy")
-local Tools = module("vrp","lib/Tools")
+vRP = Proxy.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -12,16 +12,18 @@ Tunnel.bindInterface("vRP",tvRP)
 vRPserver = Tunnel.getInterface("vRP")
 Proxy.addInterface("vRP",tvRP)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- VARIABLES
+-- VARANIM
 -----------------------------------------------------------------------------------------------------------------------------------------
-local anims = {}
-local players = {}
-local anim_ids = Tools.newIDGenerator()
+local animActived = false
+local animDict = nil
+local animName = nil
+local animFlags = 0
+local object = nil
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- TELEPORT
 -----------------------------------------------------------------------------------------------------------------------------------------
 function tvRP.teleport(x,y,z)
-	SetEntityCoords(PlayerPedId(),x+0.0001,y+0.0001,z+0.0001,1,0,0,1)
+	SetEntityCoords(PlayerPedId(),x+0.0001,y+0.0001,z+0.0001,true,false,false,true)
 	vRPserver._updatePositions(x,y,z)
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -95,14 +97,6 @@ function tvRP.nearestPlayer(radius)
 	return p
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- VARANIM
------------------------------------------------------------------------------------------------------------------------------------------
-local animActived = false
-local animDict = nil
-local animName = nil
-local animFlags = 0
-local object = nil
------------------------------------------------------------------------------------------------------------------------------------------
 -- PLAYANIM
 -----------------------------------------------------------------------------------------------------------------------------------------
 function tvRP.playAnim(upper,seq,looping)
@@ -111,7 +105,7 @@ function tvRP.playAnim(upper,seq,looping)
 		tvRP.stopAnim(true)
 		if seq.task == "PROP_HUMAN_SEAT_CHAIR_MP_PLAYER" then
 			local coords = GetEntityCoords(ped)
-			TaskStartScenarioAtPosition(ped,seq.task,coords.x,coords.y,coords.z-1,GetEntityHeading(ped),0,0,false)
+			TaskStartScenarioAtPosition(ped,seq.task,coords.x,coords.y,coords.z-1,GetEntityHeading(ped),0,false,false)
 		else
 			TaskStartScenarioInPlace(ped,seq.task,0,not seq.play_exit)
 		end
@@ -145,7 +139,7 @@ function tvRP.playAnim(upper,seq,looping)
 				if flags == 49 then
 					animActived = true
 				end
-				TaskPlayAnim(ped,dictAnim,nameAnim,3.0,3.0,-1,flags,0,0,0,0)
+				TaskPlayAnim(ped,dictAnim,nameAnim,3.0,3.0,-1,flags,0,false,false,false)
 			end
 		end)
 	end
@@ -156,20 +150,10 @@ end
 CreateThread(function()
 	while true do
 		local timeDistance = 1000
-		local ped = PlayerPedId()
-		if animActived and not IsEntityPlayingAnim(ped,animDict,animName,3) then
-			TaskPlayAnim(ped,animDict,animName,3.0,3.0,-1,animFlags,0,0,0,0)
+		if animActived and animDict and animName and not IsEntityPlayingAnim(cache.ped,animDict,animName,3) then
+			TaskPlayAnim(cache.ped,animDict,animName,3.0,3.0,-1,animFlags,0,false,false,false)
 			timeDistance = 4
 		end
-		Wait(timeDistance)
-	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- THREADBLOCK
------------------------------------------------------------------------------------------------------------------------------------------
-CreateThread(function()
-	while true do
-		local timeDistance = 500
 		if animActived then
 			timeDistance = 4
 			DisableControlAction(1,16,true)
@@ -198,24 +182,26 @@ function tvRP.stopActived()
 	animActived = false
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- CREATEOBJECTS
+-- DELETEOBJECT
 -----------------------------------------------------------------------------------------------------------------------------------------
-local animDict = nil
-local animName = nil
-local animActived = false
-function tvRP.createObjects(dict,anim,prop,flag,mao,altura,pos1,pos2,pos3,pos4,pos5)
-	if DoesEntityExist(object) then
+function DeleteObject()
+	if object and DoesEntityExist(object) then
 		TriggerServerEvent("tryDeleteEntity",ObjToNet(object))
 		object = nil
 	end
-
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- CREATEOBJECTS
+-----------------------------------------------------------------------------------------------------------------------------------------
+function tvRP.createObjects(dict,anim,prop,flag,mao,altura,pos1,pos2,pos3,pos4,pos5)
+	DeleteObject()
 	local ped = PlayerPedId()
 	local mHash = GetHashKey(prop)
 	LoadModel(mHash)
-	
+
 	if anim ~= "" then
 		tvRP.loadAnimSet(dict)
-		TaskPlayAnim(ped,dict,anim,3.0,3.0,-1,flag,0,0,0,0)
+		TaskPlayAnim(ped,dict,anim,3.0,3.0,-1,flag,0,false,false,false)
 	end
 
 	if altura then
@@ -239,10 +225,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 function tvRP.removeActived()
 	if animActived then
-		if DoesEntityExist(object) then
-			TriggerServerEvent("tryDeleteEntity",ObjToNet(object))
-			object = nil
-		end
+		DeleteObject()
 		animActived = false
 	end
 end
@@ -258,14 +241,10 @@ function tvRP.removeObjects(status)
 		tvRP.stopAnim(true)
 		tvRP.stopAnim(false)
 	end
-
 	animActived = false
 	TriggerEvent("camera")
 	TriggerEvent("binoculos")
-	if DoesEntityExist(object) then
-		TriggerServerEvent("tryDeleteEntity",ObjToNet(object))
-		object = nil
-	end
+	DeleteObject()
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADQUEUE
@@ -277,13 +256,5 @@ CreateThread(function()
 			return
 		end
 		Wait(30000)
-	end
-end)
-
-local Ran = false
-AddEventHandler("vRP:clientSpawned", function ()
-	if not Ran then
-		ShutdownLoadingScreenNui()
-		Ran = true
 	end
 end)

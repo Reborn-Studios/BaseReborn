@@ -99,32 +99,28 @@ function ESX.SetPlayerData(key, val)
 end
 
 function ESX.Progressbar(message, length, Options)
-    TriggerEvent("Progress", length, message)
-
-   -- exports["esx_progressbar"]:Progressbar(message, length, Options)
+    lib.progressCircle({
+        duration = length,
+        position = 'bottom',
+        useWhileDead = false,
+    })
 end
 
 function ESX.ShowNotification(message, type, length)
-    local tipo = type or "aviso"
-    TriggerEvent("Notify",tipo,message,5000)
+    lib.notify({
+        title = 'Notificação',
+        description = message,
+        type = type,
+        duration = length
+    })
 end
 
 function ESX.TextUI(message, type)
-    if GetResourceState("esx_textui") ~= "missing" then
-        exports["esx_textui"]:TextUI(message, type)
-    else 
-        print("[ERROR] Missing ESX TextUI!")
-        return
-    end
+    lib.showTextUI(message)
 end
 
 function ESX.HideUI()
-    if GetResourceState("esx_textui") ~= "missing" then
-        exports["esx_textui"]:HideUI()
-    else 
-        print("[ERROR] Missing ESX TextUI!")
-        return
-    end
+    lib.hideTextUI()
 end
 
 function ESX.ShowAdvancedNotification(sender, subject, msg, textureDict, iconType, flash, saveToBrief, hudColorIndex)
@@ -206,7 +202,6 @@ else
         print("[ERROR] Tried to close context menu, but esx_context is missing!")
     end
 end
-
 
 ESX.RegisterInput = function(command_name, label, input_group, key, on_press, on_release)
     RegisterCommand(on_release ~= nil and "+" .. command_name or command_name, on_press)
@@ -359,8 +354,7 @@ CreateThread(function()
 
     CreateThread(function()
         while true do
-            local Sleep = 500
-
+            local Sleep = 1000
             if OpenedMenus > 0 then
                 Sleep = 10
                 if IsControlPressed(0, 18) and IsUsingKeyboard(0) and (GetGameTimer() - GUI.Time) > 200 then
@@ -420,6 +414,7 @@ end)
 ------------------ DIALOG TYPE ---------------------------------
 
 CreateThread(function()
+    Wait(500)
     local Timeouts, OpenedMenus, MenuType = {}, {}, 'dialog'
 
     local function openMenu(namespace, name, data)
@@ -737,19 +732,15 @@ function ESX.Game.GetPedMugshot(ped, transparent)
 end
 
 function ESX.Game.Teleport(entity, coords, cb)
-    local vector = type(coords) == "vector4" and coords or type(coords) == "vector3" and vector4(coords, 0.0) or
-                       vec(coords.x, coords.y, coords.z, coords.heading or 0.0)
-
+    local vector = type(coords) == "vector4" and coords or type(coords) == "vector3" and vector4(coords, 0.0) or vec(coords.x, coords.y, coords.z, coords.heading or 0.0)
     if DoesEntityExist(entity) then
         RequestCollisionAtCoord(vector.xyz)
         while not HasCollisionLoadedAroundEntity(entity) do
             Wait(0)
         end
-
         SetEntityCoords(entity, vector.xyz, false, false, false, false)
         SetEntityHeading(entity, vector.w)
     end
-
     if cb then
         cb()
     end
@@ -773,12 +764,11 @@ function ESX.Game.SpawnObject(object, coords, cb, networked)
                 cb(obj)
             end
         end, object, coords, 0.0)
-    else 
+    else
         local model = type(object) == 'number' and object or joaat(object)
         local vector = type(coords) == "vector3" and coords or vec(coords.x, coords.y, coords.z)
         CreateThread(function()
             ESX.Streaming.RequestModel(model)
-
             local obj = CreateObject(model, vector.xyz, networked, false, true)
             if cb then
                 cb(obj)
@@ -805,7 +795,7 @@ function ESX.Game.SpawnVehicle(vehicle, coords, heading, cb, networked)
     local model = (type(vehicle) == 'number' and vehicle or joaat(vehicle))
     local vector = type(coords) == "vector3" and coords or vec(coords.x, coords.y, coords.z)
     networked = networked == nil and true or networked
-    if networked then 
+    if networked then
         local isAutomobile = IsThisModelACar(model)
         if isAutomobile ~= false then isAutomobile = true end
         ESX.TriggerServerCallback('esx:Onesync:SpawnVehicle',function(NetID)
@@ -1238,9 +1228,9 @@ function ESX.Game.SetVehicleProperties(vehicle, props)
         if props.extras then
             for extraId, enabled in pairs(props.extras) do
                 if enabled then
-                    SetVehicleExtra(vehicle, tonumber(extraId), 0)
+                    SetVehicleExtra(vehicle, tonumber(extraId), false)
                 else
-                    SetVehicleExtra(vehicle, tonumber(extraId), 1)
+                    SetVehicleExtra(vehicle, tonumber(extraId), true)
                 end
             end
         end
@@ -1747,10 +1737,9 @@ AddEventHandler('esx:showNotification', function(msg, type, length)
 end)
 
 RegisterNetEvent('esx:showAdvancedNotification')
-AddEventHandler('esx:showAdvancedNotification',
-    function(sender, subject, msg, textureDict, iconType, flash, saveToBrief, hudColorIndex)
-        ESX.ShowAdvancedNotification(sender, subject, msg, textureDict, iconType, flash, saveToBrief, hudColorIndex)
-    end)
+AddEventHandler('esx:showAdvancedNotification', function(sender, subject, msg, textureDict, iconType, flash, saveToBrief, hudColorIndex)
+    ESX.ShowAdvancedNotification(sender, subject, msg, textureDict, iconType, flash, saveToBrief, hudColorIndex)
+end)
 
 RegisterNetEvent('esx:showHelpNotification')
 AddEventHandler('esx:showHelpNotification', function(msg, thisFrame, beep, duration)
@@ -1760,7 +1749,7 @@ end)
 -- SetTimeout
 CreateThread(function()
     while true do
-        local sleep = 100
+        local sleep = 1000
         if #Core.TimeoutCallbacks > 0 then
             local currTime = GetGameTimer()
             sleep = 0
@@ -1783,34 +1772,6 @@ local PlayerBank, PlayerMoney = 0,0
 RegisterNetEvent('esx:playerLoaded')
 AddEventHandler('esx:playerLoaded', function(xPlayer, isNew, skin)
 	ESX.PlayerData = xPlayer
-
-	--[[ if Config.Multichar then
-		Wait(3000)
-	else
-		exports.spawnmanager:spawnPlayer({
-			x = ESX.PlayerData.coords.x,
-			y = ESX.PlayerData.coords.y,
-			z = ESX.PlayerData.coords.z + 0.25,
-			heading = ESX.PlayerData.coords.heading,
-			model = `mp_m_freemode_01`,
-			skipFade = false
-		}, function()
-			TriggerServerEvent('esx:onPlayerSpawn')
-			TriggerEvent('esx:onPlayerSpawn')
-			TriggerEvent('esx:restoreLoadout')
-
-			if isNew then
-				TriggerEvent('skinchanger:loadDefaultModel', skin.sex == 0)
-			elseif skin then
-				TriggerEvent('skinchanger:loadSkin', skin)
-			end
-
-			TriggerEvent('esx:loadingScreenOff')
-			ShutdownLoadingScreen()
-			ShutdownLoadingScreenNui()
-		end)
-	end ]]
-
 	ESX.PlayerLoaded = true
 
 	while ESX.PlayerData.ped == nil do Wait(20) end
@@ -1831,9 +1792,6 @@ AddEventHandler('esx:playerLoaded', function(xPlayer, isNew, skin)
 			grade_label = gradeLabel
 		})
 	end
-
-	--SetDefaultVehicleNumberPlateTextPattern(-1, Config.CustomAIPlates)
-	--StartServerSyncLoops()
 end)
 
 RegisterNetEvent('esx:onPlayerLogout')
@@ -1976,7 +1934,6 @@ if not Config.OxInventory then
 	RegisterNetEvent('esx:setWeaponTint')
 	AddEventHandler('esx:setWeaponTint', function(weapon, weaponTintIndex)
 		SetPedWeaponTintIndex(ESX.PlayerData.ped, joaat(weapon), weaponTintIndex)
-		
 	end)
 
 	RegisterNetEvent('esx:removeWeapon')
@@ -2019,7 +1976,7 @@ AddEventHandler('esx:spawnVehicle', function(vehicle)
 					TaskWarpPedIntoVehicle(ESX.PlayerData.ped, vehicle, -1)
 					SetVehicleDirtLevel(vehicle, 0)
 					SetVehicleFuelLevel(vehicle, 100.0)
-			    -- SetVehicleCustomSecondaryColour(vehicle, 55, 140, 191) -- ESX Blue
+			    --  SetVehicleCustomSecondaryColour(vehicle, 55, 140, 191) -- ESX Blue
 					SetEntityAsMissionEntity(vehicle, true, true) -- Persistant Vehicle
 
 					-- Max out vehicle upgrades
@@ -2115,10 +2072,8 @@ end
 if Config.EnableHud then
 	CreateThread(function()
 		local isPaused = false
-		
 		while true do
 			local time = 500
-            
 			if IsPauseMenuActive() and not isPaused then
 				time = 100
 				isPaused = true
@@ -2157,10 +2112,10 @@ function StartServerSyncLoops()
                             if ammoCount ~= currentWeapon.Ammo then
                                 currentWeapon.Ammo = ammoCount
                                 TriggerServerEvent('esx:updateWeaponAmmo', weapon.name, ammoCount)
-                            end 
-                        end   
+                            end
+                        end
                     end
-                end    
+                end
                 Wait(sleep)
             end
         end)
@@ -2194,7 +2149,6 @@ if not Config.OxInventory and Config.EnableDefaultInventory then
 			ESX.ShowInventory()
 		end
 	end)
-
 	RegisterKeyMapping('showinv', _U('keymap_showinventory'), 'keyboard', 'F2')
 end
 
@@ -2261,160 +2215,85 @@ AddEventHandler("esx:tpm", function()
 		if admin then
 			local blipMarker = GetFirstBlipInfoId(8)
 			if not DoesBlipExist(blipMarker) then
-					ESX.ShowNotification('No Waypoint Set.', true, false, 140)
-					return 'marker'
+				ESX.ShowNotification('No Waypoint Set.', true, false)
+				return 'marker'
 			end
-	
 			-- Fade screen to hide how clients get teleported.
 			DoScreenFadeOut(650)
 			while not IsScreenFadedOut() do
 				Wait(0)
 			end
-	
 			local ped, coords = ESX.PlayerData.ped, GetBlipInfoIdCoord(blipMarker)
 			local vehicle = GetVehiclePedIsIn(ped, false)
 			local oldCoords = GetEntityCoords(ped)
-	
 			-- Unpack coords instead of having to unpack them while iterating.
 			-- 825.0 seems to be the max a player can reach while 0.0 being the lowest.
 			local x, y, groundZ, Z_START = coords['x'], coords['y'], 850.0, 950.0
 			local found = false
 			if vehicle > 0 then
-					FreezeEntityPosition(vehicle, true)
+				FreezeEntityPosition(vehicle, true)
 			else
-					FreezeEntityPosition(ped, true)
+				FreezeEntityPosition(ped, true)
 			end
-	
 			for i = Z_START, 0, -25.0 do
-					local z = i
-					if (i % 2) ~= 0 then
-							z = Z_START - i
-					end
-	
-					NewLoadSceneStart(x, y, z, x, y, z, 50.0, 0)
-					local curTime = GetGameTimer()
-					while IsNetworkLoadingScene() do
-							if GetGameTimer() - curTime > 1000 then
-									break
-							end
-							Wait(0)
-					end
-					NewLoadSceneStop()
-					SetPedCoordsKeepVehicle(ped, x, y, z)
-	
-					while not HasCollisionLoadedAroundEntity(ped) do
-							RequestCollisionAtCoord(x, y, z)
-							if GetGameTimer() - curTime > 1000 then
-									break
-							end
-							Wait(0)
-					end
-	
-					-- Get ground coord. As mentioned in the natives, this only works if the client is in render distance.
-					found, groundZ = GetGroundZFor_3dCoord(x, y, z, false)
-					if found then
-							Wait(0)
-							SetPedCoordsKeepVehicle(ped, x, y, groundZ)
-							break
-					end
-					Wait(0)
+                local z = i
+                if (i % 2) ~= 0 then
+                    z = Z_START - i
+                end
+
+                NewLoadSceneStart(x, y, z, x, y, z, 50.0, 0)
+                local curTime = GetGameTimer()
+                while IsNetworkLoadingScene() do
+                    if GetGameTimer() - curTime > 1000 then
+                        break
+                    end
+                    Wait(0)
+                end
+                NewLoadSceneStop()
+                SetPedCoordsKeepVehicle(ped, x, y, z)
+
+                while not HasCollisionLoadedAroundEntity(ped) do
+                    RequestCollisionAtCoord(x, y, z)
+                    if GetGameTimer() - curTime > 1000 then
+                            break
+                    end
+                    Wait(0)
+                end
+
+                -- Get ground coord. As mentioned in the natives, this only works if the client is in render distance.
+                found, groundZ = GetGroundZFor_3dCoord(x, y, z, false)
+                if found then
+                    Wait(0)
+                    SetPedCoordsKeepVehicle(ped, x, y, groundZ)
+                    break
+                end
+                Wait(0)
 			end
-	
 			-- Remove black screen once the loop has ended.
 			DoScreenFadeIn(650)
 			if vehicle > 0 then
-					FreezeEntityPosition(vehicle, false)
+				FreezeEntityPosition(vehicle, false)
 			else
-					FreezeEntityPosition(ped, false)
+				FreezeEntityPosition(ped, false)
 			end
-	
+
 			if not found then
-					-- If we can't find the coords, set the coords to the old ones.
-					-- We don't unpack them before since they aren't in a loop and only called once.
-					SetPedCoordsKeepVehicle(ped, oldCoords['x'], oldCoords['y'], oldCoords['z'] - 1.0)
-					ESX.ShowNotification('Successfully Teleported', true, false, 140)
+                -- If we can't find the coords, set the coords to the old ones.
+                -- We don't unpack them before since they aren't in a loop and only called once.
+                SetPedCoordsKeepVehicle(ped, oldCoords['x'], oldCoords['y'], oldCoords['z'] - 1.0)
+                ESX.ShowNotification('Successfully Teleported', true, false)
 			end
-	
+
 			-- If Z coord was found, set coords in found coords.
 			SetPedCoordsKeepVehicle(ped, x, y, groundZ)
-			ESX.ShowNotification('Successfully Teleported', true, false, 140)
+			ESX.ShowNotification('Successfully Teleported', true, false)
 		end
 	end)
-end)
-
-local noclip = false
-RegisterNetEvent("esx:noclip")
-AddEventHandler("esx:noclip", function(input)
-	ESX.TriggerServerCallback("esx:isUserAdmin", function(admin)
-		if admin then
-        local player = PlayerId()
-
-        local msg = "disabled"
-        if(noclip == false)then
-            noclip_pos = GetEntityCoords(ESX.PlayerData.ped, false)
-        end
-
-        noclip = not noclip
-
-        if(noclip)then
-            msg = "enabled"
-        end
-
-        TriggerEvent("chatMessage", "Noclip has been ^2^*" .. msg)
-        end
-	end)
-end)
-
-local heading = 0
-CreateThread(function()
-	while true do
-		local Sleep = 1500
-
-		if(noclip)then
-			Sleep = 0
-			SetEntityCoordsNoOffset(ESX.PlayerData.ped, noclip_pos.x, noclip_pos.y, noclip_pos.z, 0, 0, 0)
-
-			if(IsControlPressed(1, 34))then
-				heading = heading + 1.5
-				if(heading > 360)then
-					heading = 0
-				end
-
-				SetEntityHeading(ESX.PlayerData.ped, heading)
-			end
-
-			if(IsControlPressed(1, 9))then
-				heading = heading - 1.5
-				if(heading < 0)then
-					heading = 360
-				end
-
-				SetEntityHeading(ESX.PlayerData.ped, heading)
-			end
-
-			if(IsControlPressed(1, 8))then
-				noclip_pos = GetOffsetFromEntityInWorldCoords(ESX.PlayerData.ped, 0.0, 1.0, 0.0)
-			end
-
-			if(IsControlPressed(1, 32))then
-				noclip_pos = GetOffsetFromEntityInWorldCoords(ESX.PlayerData.ped, 0.0, -1.0, 0.0)
-			end
-
-			if(IsControlPressed(1, 27))then
-				noclip_pos = GetOffsetFromEntityInWorldCoords(ESX.PlayerData.ped, 0.0, 0.0, 1.0)
-			end
-
-			if(IsControlPressed(1, 173))then
-				noclip_pos = GetOffsetFromEntityInWorldCoords(ESX.PlayerData.ped, 0.0, 0.0, -1.0)
-			end
-		end
-	    Wait(Sleep)
-	end
 end)
 
 RegisterNetEvent("esx:killPlayer")
 AddEventHandler("esx:killPlayer", function()
-  SetEntityHealth(ESX.PlayerData.ped, 0)
+    SetEntityHealth(ESX.PlayerData.ped, 0)
 end)
 
 RegisterNetEvent("esx:freezePlayer")
