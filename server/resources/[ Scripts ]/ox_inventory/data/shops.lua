@@ -148,6 +148,32 @@ return {
         }
     },
 
+	CassinoBuy = {
+        name = 'Compra de fichas',
+        inventory = {
+            { name = 'fichas', price = 1, amount = 1 },
+        },
+        locations = {
+			vector3(948.24,33.27,71.84),
+        },
+        targets = {
+			{ loc = vec3(948.24,33.27,71.84), length = 2.5, width = 3.0, heading = 250.0, minZ = 70.5, maxZ = 72.5, distance = 4 }
+        }
+    },
+
+	CassinoSell = {
+        name = 'Venda de fichas',
+        inventory = {
+            { name = 'dollars', price = 1, amount = 1, currency = 'fichas', },
+        },
+        locations = {
+			vector3(950.15,35.42,71.84),
+        },
+        targets = {
+			{ loc = vec3(950.15,35.42,71.84), length = 2.5, width = 3.0, heading = 250.0, minZ = 70.5, maxZ = 72.5, distance = 4 }
+        }
+    },
+
 	--[[ 
 
 		Machine Shops
@@ -155,7 +181,7 @@ return {
 	]]
 
 	VendingMachineDrinks = {
-		name = 'Vending Machine',
+		name = 'Venda de drinks',
 		inventory = {
 			{ name = 'water', price = 10 },
 			{ name = 'cola', price = 10 },
@@ -166,7 +192,7 @@ return {
 	},
 
 	VendingMachineCoffee = {
-		name = 'Vending Machine',
+		name = 'Venda de café',
 		inventory = {
 			{ name = 'coffee', price = 30 },
 		},
@@ -174,7 +200,7 @@ return {
 	},
 
 	VendingMachineDonut = {
-		name = 'Vending Machine',
+		name = 'Venda de donut',
 		inventory = {
 			{ name = 'donut', price = 20 },
 		},
@@ -182,7 +208,7 @@ return {
 	},
 
 	VendingMachineBurger = {
-		name = 'Vending Machine',
+		name = 'Venda de hamburguer',
 		inventory = {
 			{ name = 'hamburger', price = 25 },
 		},
@@ -190,7 +216,7 @@ return {
 	},
 
 	VendingMachineHotdog = {
-		name = 'Vending Machine',
+		name = 'Venda de hotdog',
 		inventory = {
 			{ name = 'hotdog', price = 25 },
 		},
@@ -198,7 +224,7 @@ return {
 	},
 	
 	VendingMachineWater = {
-		name = 'Vending Machine',
+		name = 'Venda de agua',
 		inventory = {
 			{ name = 'water', price = 15 },
 		},
