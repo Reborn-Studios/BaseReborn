@@ -204,7 +204,13 @@ local List = {
 		Model = "s_m_m_prisguard_01",
 		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
 	},
-	{ -- Venda de peixes
+	{
+		Distance = 100,
+		Coords = { -1083.07,-245.78,37.77,203.98 },
+		Model = "ig_dale",
+		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
+	}
+	--[[ { -- Venda de peixes
 		Distance = 50,
 		Coords = { -1564.64,-976.76,13.02,271.64 },
 		Model = "ig_dale",
@@ -251,7 +257,7 @@ local List = {
 		Coords = { 239.45,243.0,106.69,68.97 },
 		Model = "s_m_y_hwaycop_01",
 		anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
-	},
+	}, ]]
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- ADDPED
@@ -272,7 +278,6 @@ CreateThread(function()
 	while true do
 		local Ped = PlayerPedId()
 		local Coords = GetEntityCoords(Ped)
-
 		for Number = 1,#List do
 			local Distance = #(Coords - vec3(List[Number]["Coords"][1],List[Number]["Coords"][2],List[Number]["Coords"][3]))
 			if Distance <= List[Number]["Distance"] then
@@ -283,12 +288,10 @@ CreateThread(function()
 						SetEntityInvincible(localPeds[Number],true)
 						FreezeEntityPosition(localPeds[Number],true)
 						SetBlockingOfNonTemporaryEvents(localPeds[Number],true)
-
 						SetModelAsNoLongerNeeded(List[Number]["Model"])
-
 						if List[Number]["anim"] ~= nil then
 							if LoadAnim(List[Number]["anim"][1]) then
-								TaskPlayAnim(localPeds[Number],List[Number]["anim"][1],List[Number]["anim"][2],4.0,4.0,-1,1,0,0,0,0)
+								TaskPlayAnim(localPeds[Number],List[Number]["anim"][1],List[Number]["anim"][2],4.0,4.0,-1,1,0,false,false,false)
 							end
 						end
 					end
@@ -298,12 +301,10 @@ CreateThread(function()
 					if DoesEntityExist(localPeds[Number]) then
 						DeleteEntity(localPeds[Number])
 					end
-
 					localPeds[Number] = nil
 				end
 			end
 		end
-
-		Wait(1000)
+		Wait(2000)
 	end
 end)
