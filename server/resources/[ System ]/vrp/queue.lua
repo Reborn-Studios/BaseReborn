@@ -13,7 +13,7 @@ Queue.Connecting = {}
 Queue.ThreadCount = 0
 
 function Queue:HexIdToSteamId(hexId)
-	local cid = parseInt(string.sub(hexId, 7), 16)
+	local cid = parseInt(string.sub(hexId, 7))
 	local steam64 = parseInt(string.sub( cid, 2))
 	local a = steam64 % 2 == 0 and 0 or 1
 	local b = parseInt(math.abs(6561197960265728 - steam64 - a) / 2)
@@ -94,7 +94,7 @@ function Queue:AddToQueue(ids,connectTime,name,src,deferrals)
 
 	local tmp = { source = src, ids = ids, name = name, firstconnect = connectTime, priority = self:IsPriority(ids) or (src == "debug" and math.random(0,15)), timeout = 0, deferrals = deferrals }
 
-	local _pos = false
+	local _pos = 1
 	local queueCount = self:GetSize() + 1
 
 	for k,v in ipairs(self.QueueList) do
@@ -122,7 +122,9 @@ end
 function Queue:RemoveFromQueue(ids,bySource)
 	if self:IsInQueue(ids,false,bySource) then
 		local pos, data = self:IsInQueue(ids,true,bySource)
-		table.remove(self.QueueList,pos)
+		if pos and type(pos) == "number" then
+			table.remove(self.QueueList,pos)
+		end
 	end
 end
 
@@ -214,7 +216,6 @@ function Queue:GetIds(src)
 	local ip = GetPlayerEndpoint(src)
 
 	ids = (ids and ids[1]) and ids or (ip and {"ip:" .. ip} or false)
-	ids = ids ~= nil and ids or false
 
 	if ids and #ids > 1 then
 		for k,v in ipairs(ids) do
@@ -277,7 +278,9 @@ end
 
 function Queue:SetPos(ids,newPos)
 	local pos,data = self:IsInQueue(ids,true)
-	table.remove(self.QueueList,pos)
+	if pos and type(pos) == "number" then
+		table.remove(self.QueueList,pos)
+	end
 	table.insert(self.QueueList,newPos,data)
 end
 
@@ -394,8 +397,8 @@ Citizen.CreateThread(function()
 
 		if not pos or not data then
 			done(languages._err)
-			RemoveFromQueue(ids)
-			RemoveFromConnecting(ids)
+			Queue:RemoveFromQueue(ids)
+			Queue:RemoveFromConnecting(ids)
 			CancelEvent()
 			return
 		end
@@ -741,14 +744,14 @@ AddEventHandler("queue:playerConnecting",function(source,ids,name,setKickReason,
 										Card["body"][2]["items"][5]["actions"][1]["title"] = 'SEU ID DE LIBERAÇÃO: '..user_id
 										Card["body"][1]["isVisible"] = false
 										Card["body"][2]["isVisible"] = true 
-										vRP.createWeebHook(Webhooks.createAccount,"```ID DE LIBERAÇÃO: "..user_id.."\nNOME:"..name.." \nIP: "..GetPlayerEndpoint(source).."\n**Onde nos encontrou:** "..data.choice_set,3092790)
+										vRP.createWeebHook(Webhooks.createAccount,"```ID DE LIBERAÇÃO: "..user_id.."\nNOME:"..name.." \nIP: "..GetPlayerEndpoint(source).."\n**Onde nos encontrou:** "..data.choice_set)
 									end
-                                end                 
+                                end
                             end
                             Card["time"] = tostring(os.time()+2)
                         end
                         Card["clock"] = tostring(os.clock())
-                        deferrals.presentCard(Card, CardCallback) 
+                        deferrals.presentCard(Card, CardCallback)
 					end
 					if rows[1] then
                         Card["body"][1]["isVisible"] = false

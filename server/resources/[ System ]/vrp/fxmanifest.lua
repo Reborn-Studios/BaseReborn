@@ -7,9 +7,11 @@ dependencies {
     '/server:6116',
     '/onesync',
     'oxmysql',
+	'ox_lib'
 }
 
 shared_scripts {
+	'@ox_lib/init.lua',
 	"lib/utils.lua",
     'Reborn/locale.lua',
 	"Base_Config.lua",
@@ -26,6 +28,7 @@ server_scripts {
 }
 
 client_scripts {
+	"@PolyZone/client.lua",
 	"client-side/*",
 }
 
@@ -38,7 +41,6 @@ files {
 	"lib/utils.lua",
 	"lib/vehicles.lua",
 	"lib/Tools.lua",
-	"lib/Hofs.lua",
 }
 
 provide 'qb-core'

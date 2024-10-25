@@ -7,8 +7,8 @@ Webhooks = module("Reborn/webhooks")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-QBCore = {}
 vRP = {}
+QBCore = {}
 vRP.users = {}
 vRP.rusers = {}
 vRP.user_tables = {}
@@ -45,7 +45,7 @@ function vRP.registerDBDriver(name,on_init,on_prepare,on_query)
 
 		cached_prepares = nil
 		cached_queries = nil
-	end	
+	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- FORMAT
@@ -152,15 +152,6 @@ function vRP.getInventory(user_id)
 	end
 	return false
 end
-
-if GlobalState['Inventory'] == "will_inventory" then
-	vRP.getInventory = function(inventory)
-		if parseInt(inventory) > 0 then
-			inventory = 'content-'..inventory
-		end
-		return exports['will_inventory']:getInventory(inventory)
-	end
-end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- UPDATESELECTSKIN
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -227,7 +218,6 @@ end
 -- DROPPLAYER
 -----------------------------------------------------------------------------------------------------------------------------------------
 function vRP.rejoinServer(source,health,armour,coords)
-	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
 		local identity = vRP.getUserIdentity(user_id)
@@ -283,7 +273,6 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterServerEvent("baseModule:idLoaded")
 AddEventHandler("baseModule:idLoaded",function(source,user,model)
-	local source = source
 	local user_id = parseInt(user)
 	if not user_id then return end
 	if vRP.rusers[user_id] == nil then
@@ -292,7 +281,7 @@ AddEventHandler("baseModule:idLoaded",function(source,user,model)
 		vRP.user_tables[user_id] = resultData
 		vRP.user_sources[user_id] = source
 		vRP.users[source] = user_id
-		
+
 		if model ~= nil then
 			local first_login = Reborn.first_login()
 			TriggerClientEvent("Notify",source,"importante",first_login['Mensagem'],20000)
