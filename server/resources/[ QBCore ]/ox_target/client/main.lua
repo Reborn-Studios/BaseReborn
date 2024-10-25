@@ -27,6 +27,7 @@ local GetModelDimensions = GetModelDimensions
 local GetOffsetFromEntityInWorldCoords = GetOffsetFromEntityInWorldCoords
 local currentTarget = {}
 local currentMenu
+local menuChanged
 local menuHistory = {}
 local nearbyZones
 
@@ -205,7 +206,7 @@ local function startTargeting()
         nearbyZones, zonesChanged = utils.getNearbyZones(endCoords)
 
         local entityChanged = entityHit ~= lastEntity
-        local newOptions = (zonesChanged or entityChanged) and true
+        local newOptions = (zonesChanged or entityChanged or menuChanged) and true
 
         if entityHit > 0 and entityChanged then
             currentMenu = nil
@@ -300,11 +301,10 @@ local function startTargeting()
                     hasTarget = false
                     SendNuiMessage('{"event": "leftTarget"}')
                 end
-            elseif hasTarget ~= 1 and hidden ~= totalOptions then
+            elseif menuChanged or hasTarget ~= 1 and hidden ~= totalOptions then
                 hasTarget = options.size
 
-                if currentMenu then
-                    totalOptions += 1
+                if currentMenu and options.__global[1]?.name ~= 'builtin:goback' then
                     table.insert(options.__global, 1,
                         {
                             icon = 'fa-solid fa-circle-chevron-left',
@@ -321,6 +321,8 @@ local function startTargeting()
                     zones = zones,
                 }, { sort_keys = true }))
             end
+
+            menuChanged = false
         end
 
         if toggleHotkey and IsPauseMenuActive() then
@@ -425,8 +427,10 @@ RegisterNUICallback('select', function(data, cb)
             else
                 menuHistory[menuDepth + 1] = currentMenu
             end
-
+            menuChanged = true
             currentMenu = option.openMenu ~= 'home' and option.openMenu or nil
+
+            options:wipe()
         else
             state.setNuiFocus(false)
         end
@@ -434,7 +438,7 @@ RegisterNUICallback('select', function(data, cb)
         if option.onSelect then
             option.onSelect(option.qtarget and currentTarget.entity or getResponse(option))
         elseif option.export then
-            exports[option.resource][option.export](nil, getResponse(option))
+            exports[option.resource or zone.resource][option.export](nil, getResponse(option))
         elseif option.event then
             TriggerEvent(option.event, getResponse(option))
         elseif option.serverEvent then

@@ -90,6 +90,10 @@ exportHandler('AddTargetModel', function(models, options)
     api.addModel(models, convert(options))
 end)
 
+exportHandler('RemoveTargetModel',function(model)
+    api.removeModel(model)
+end)
+
 exportHandler('LabelText', function(models, options)
     -- 
 end)
