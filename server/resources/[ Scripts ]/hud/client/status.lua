@@ -1,18 +1,3 @@
-Citizen.CreateThread(function()
-    local ped = PlayerPedId()
-    while true do
-        Citizen.Wait(100)
-        SetRadarZoom(1100)
-    end
-end)
-
-Citizen.CreateThread(function()
-    while true do
-        Citizen.Wait(100)
-        SetBigmapActive(false, false)
-    end
-end)
-
 local lastHealth = nil
 Citizen.CreateThread(function()
     while true do
@@ -23,6 +8,8 @@ Citizen.CreateThread(function()
             updateHealthStatus()
             lastHealth = health
         end
+        SetRadarZoom(1100)
+        SetBigmapActive(false, false)
     end
 end)
 

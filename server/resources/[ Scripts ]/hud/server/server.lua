@@ -293,3 +293,4 @@ AddEventHandler('hud:server:EjectPlayer', function(table, velocity)
         end
     end
 end)
+

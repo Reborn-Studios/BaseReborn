@@ -34,17 +34,6 @@ function ShowHelpNotification(msg)
 end
 
 Citizen.CreateThread(function()
-    while true do
-        if editModeActive then
-            Citizen.Wait(0)
-            ShowHelpNotification(Config.SettingsLocale["esc_to_exit"])
-        else
-            Citizen.Wait(1000)
-        end
-    end
-end)
-
-Citizen.CreateThread(function()
     local minimap = RequestScaleformMovie("minimap")
     SetRadarBigmapEnabled(true, false)
     Wait(0)
@@ -270,10 +259,8 @@ Citizen.CreateThread(function()
                 })
                 if nitro[GetVehicleNumberPlateText(vehicle)] ~= nil then
                     SendNUIMessage({ type="set_status",       statustype = "nitro", value = nitro[GetVehicleNumberPlateText(vehicle)] })
-        
                 else
                     SendNUIMessage({ type="set_status",       statustype = "nitro", value = 0})
-        
                 end
                 alreadyInVehicle = true
             end
@@ -315,19 +302,6 @@ Citizen.CreateThread(function()
             end
         end
         Citizen.Wait(500)
-    end
-end)
-
-Citizen.CreateThread(function()
-    while true do
-        Citizen.Wait(1)
-        HideHudComponentThisFrame(6) -- VEHICLE_NAME
-        HideHudComponentThisFrame(7) -- AREA_NAME
-        HideHudComponentThisFrame(8) -- VEHICLE_CLASS
-        HideHudComponentThisFrame(9) -- STREET_NAME
-        HideHudComponentThisFrame(3) -- CASH
-        HideHudComponentThisFrame(4) -- MP_CASH
-        DisplayAmmoThisFrame(false)
     end
 end)
 
@@ -965,7 +939,7 @@ local currentweapon = nil
 Citizen.CreateThread(function()
     if Config.EnableAmmoHud then
         while true do
-            Citizen.Wait(200)
+            Citizen.Wait(500)
             local playerPed = PlayerPedId()
             local _, weaponHash = GetCurrentPedWeapon(playerPed)
             if IsPedArmed(playerPed, 7) then
@@ -1029,7 +1003,7 @@ Citizen.CreateThread(function()
         end
         SendNUIMessage({ type="toggle_muted",  value = true})
         SendNUIMessage({ type="set_status",statustype = "talking", value = v})
-        Citizen.Wait(400)
+        Citizen.Wait(500)
     end
 end)
 
