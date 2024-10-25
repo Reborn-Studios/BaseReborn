@@ -26,7 +26,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 					active[user_id] = nil
 					vRPclient._stopAnim(source,false)
 
-					if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
+					if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
 						vRPclient.updateHealth(source,20)
 					end
 				end
@@ -46,7 +46,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 				if active[user_id] == 0 then
 					active[user_id] = nil
 
-					if vRP.tryGetInventoryItem(user_id,"weed",1,true,slot) and vRP.tryGetInventoryItem(user_id,"silk",1,true) then
+					if vRP.tryGetInventoryItem(user_id,"weed",1,true) and vRP.tryGetInventoryItem(user_id,"silk",1,true) then
 						vRP.giveInventoryItem(user_id,"joint",1,true)
 					end
 				end
@@ -72,7 +72,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 				active[user_id] = nil
 				vRPclient._removeObjects(source)
 
-				if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
+				if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
 					vRP.weedTimer(user_id,2)
 					vRP.downgradeHunger(user_id,20)
 					vRP.downgradeThirst(user_id,15)
@@ -95,7 +95,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 				active[user_id] = nil
 				vRPclient._stopAnim(source,false)
 
-				if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
+				if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
 					vRP.chemicalTimer(user_id,2)
 					vRP.downgradeStress(user_id,50)
 					TriggerClientEvent("cleanEffectDrugs",source)
@@ -115,7 +115,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 				active[user_id] = nil
 				vRPclient._stopAnim(source,false)
 
-				if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
+				if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
 					vRP.chemicalTimer(user_id,2)
 					vRP.upgradeHunger(user_id,5)
 					vRP.downgradeThirst(user_id,10)
@@ -137,7 +137,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 				active[user_id] = nil
 				vRPclient._stopAnim(source,false)
 
-				if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
+				if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
 					vRP.chemicalTimer(user_id,2)
 					vRP.downgradeStress(user_id,3)
 					vRP.upgradeHunger(user_id,5)
@@ -160,7 +160,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 				active[user_id] = nil
 				vRPclient._stopAnim(source)
 
-				if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
+				if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
 					vRP.chemicalTimer(user_id,2)
 					vRP.upgradeThirst(user_id,5)
 					TriggerClientEvent("setMeth",source)
@@ -180,7 +180,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 				active[user_id] = nil
 				vRPclient._stopAnim(source)
 
-				if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
+				if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
 					vRP.chemicalTimer(user_id,2)
 					vRPclient.setArmour(source,2)
 					TriggerClientEvent("setMeth",source)
@@ -202,7 +202,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 				repeat
 					if active[user_id] == 0 then
 						active[user_id] = nil
-						if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
+						if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
 							vSURVIVAL._revivePlayer(nplayer,110)
 							TriggerClientEvent("resetBleeding",nplayer)
 							vRPclient._stopAnim(source)
@@ -222,7 +222,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 						active[user_id] = nil
 						vRPclient._removeObjects(source)
 
-						if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
+						if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
 							vRPclient.updateHealth(source,50)
 							TriggerClientEvent("resetBleeding",source)
 						end
@@ -246,7 +246,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 					active[user_id] = nil
 					vRPclient._stopAnim(source,false)
 
-					if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
+					if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
 						TriggerClientEvent("resetBleeding",source)
 					end
 				end
@@ -258,7 +258,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 	end
 
 	if itemName == "premiumgarage" then
-		if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
+		if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
 			vRP.execute("vRP/update_garages",{ id = parseInt(user_id) })
 			TriggerClientEvent("Notify",source,"negado","Voce adicionou uma vaga na garagem.",5000)
 		end
@@ -336,7 +336,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 							active[user_id] = nil
 							vSURVIVAL._reverseRevive(source)
 
-							if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
+							if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
 								vRP.upgradeThirst(nuser_id,10)
 								vRP.upgradeHunger(nuser_id,10)
 								vRP.chemicalTimer(nuser_id,1)
@@ -373,7 +373,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 		if GetResourceState("will_creator") == "started" then
 			TriggerClientEvent("will_creator:resetChar",source)
 		else
-			if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
+			if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
 				vRP.setUData(user_id,"vRP:spawnController",json.encode(0))
 				vRP.kick(user_id, "Você resetou sua aparência")  
 			end
@@ -386,7 +386,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 			return
 		end
 
-		if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
+		if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
 			vRP.setBonusDelivery(user_id,1)
 			TriggerClientEvent("Notify",source,"importante","O nível de experiência no <b>Delivery</b> aumentou.",5000)
 		end
@@ -398,7 +398,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 			return
 		end
 
-		if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
+		if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
 			vRP.setbonusPostOp(user_id,1)
 			TriggerClientEvent("Notify",source,"importante","O nível de experiência no <b>Entregador</b> aumentou.",5000)
 		end
@@ -415,7 +415,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 					if active[user_id] == 0 then
 						active[user_id] = nil
 
-						if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
+						if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
 							local check = vPLAYER.gsrCheck(nplayer)
 							if parseInt(check) > 0 then
 								TriggerClientEvent("Notify",source,"sucesso","Resultado positivo.",5000)
@@ -442,7 +442,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 					if active[user_id] == 0 then
 						active[user_id] = nil
 
-						if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
+						if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
 							local weed = vRP.weedReturn(nuser_id)
 							local chemical = vRP.chemicalReturn(nuser_id)
 							local alcohol = vRP.alcoholReturn(nuser_id)
@@ -498,7 +498,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 				active[user_id] = nil
 				vRPclient._stopAnim(source,false)
 
-				if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
+				if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
 					vRPclient.setArmour(source,100)
 				end
 			end
@@ -507,12 +507,12 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 	end
 
 	if itemName == "removedor" then
-		if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
+		if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
 			TriggerClientEvent("will_spray:removeClosestSpray",source)
 		end
 	end
 
-	if itemName == "GADGET_PARACHUTE" or item == "parachute" then
+	if itemName == "GADGET_PARACHUTE" or itemName == "parachute" then
 		active[user_id] = 10
 		TriggerClientEvent("Progress",source,10000,"Utilizando...")
 
@@ -520,7 +520,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 			if active[user_id] == 0 then
 				active[user_id] = nil
 
-				if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
+				if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
 					vRPclient.giveWeapons(source, {["GADGET_PARACHUTE"] = { ammo = 1 }})
 				end
 			end
@@ -551,7 +551,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 				vRPclient._playAnim(source,false,{"mini@repair","fixing_a_player"},true)
 				local taskResult = vTASKBAR.taskLockpick(source)
 				if taskResult then
-					if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
+					if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
 						TriggerClientEvent("vrp_inventory:repairTires",-1,vehNet)
 						TriggerClientEvent("will_garages_v2:repairVehicle",-1,vehNet,true)
 						TriggerClientEvent("Notify",source,"aviso","Carro arrumado com sucesso.",7000)
@@ -686,7 +686,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 				active[user_id] = nil
 				vRPclient._removeObjects(source)
 
-				if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
+				if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
 					vRP.upgradeStress(user_id,4)
 					TriggerClientEvent("setEnergetic",source,90,1.10)
 				end
@@ -706,7 +706,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 				active[user_id] = nil
 				vRPclient._removeObjects(source)
 
-				if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
+				if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
 					vRP.alcoholTimer(user_id,1)
 					vRP.upgradeThirst(user_id,20)
 					TriggerClientEvent("setDrunkTime",source,300)
@@ -727,7 +727,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 				active[user_id] = nil
 				vRPclient._removeObjects(source)
 
-				if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
+				if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
 					vRP.alcoholTimer(user_id,1)
 					vRP.upgradeThirst(user_id,20)
 					TriggerClientEvent("setDrunkTime",source,300)
@@ -748,7 +748,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 				active[user_id] = nil
 				vRPclient._removeObjects(source)
 
-				if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
+				if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
 					vRP.alcoholTimer(user_id,1)
 					vRP.upgradeThirst(user_id,20)
 					TriggerClientEvent("setDrunkTime",source,300)
@@ -769,7 +769,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 				active[user_id] = nil
 				vRPclient._removeObjects(source)
 
-				if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
+				if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
 					vRP.alcoholTimer(user_id,1)
 					vRP.upgradeThirst(user_id,20)
 					TriggerClientEvent("setDrunkTime",source,300)
@@ -789,7 +789,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 			if active[user_id] == 0 then
 				active[user_id] = nil
 				vRPclient._removeObjects(source)
-				if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
+				if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
 					vRP.alcoholTimer(user_id,1)
 					vRP.upgradeThirst(user_id,20)
 					TriggerClientEvent("setDrunkTime",source,300)
@@ -810,7 +810,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 				active[user_id] = nil
 				vRPclient._removeObjects(source)
 
-				if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
+				if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
 					vRP.upgradeThirst(user_id,25)
 					vRP.giveInventoryItem(user_id,"emptybottle",1)
 				end
@@ -830,7 +830,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 				active[user_id] = nil
 				vRPclient._removeObjects(source)
 
-				if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
+				if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
 					vRP.upgradeThirst(user_id,25)
 					vRP.chemicalTimer(user_id,1)
 					vRP.downgradeStress(user_id,25)
@@ -851,7 +851,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 				active[user_id] = nil
 				vRPclient._removeObjects(source)
 
-				if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
+				if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
 					vRP.upgradeThirst(user_id,5)
 					vRP.chemicalTimer(user_id,1)
 					vRP.downgradeStress(user_id,50)
@@ -872,7 +872,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 				active[user_id] = nil
 				vRPclient._removeObjects(source)
 
-				if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
+				if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
 					vRP.upgradeStress(user_id,4)
 					vRP.upgradeThirst(user_id,25)
 					vRPclient.downHealth(source,10)
@@ -894,7 +894,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 				active[user_id] = nil
 				vRPclient._removeObjects(source)
 
-				if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
+				if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
 					vRP.upgradeThirst(user_id,20)
 				end
 			end
@@ -913,7 +913,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 				active[user_id] = nil
 				vRPclient._removeObjects(source)
 
-				if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
+				if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
 					vRP.upgradeThirst(user_id,20)
 				end
 			end
@@ -964,7 +964,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 				active[user_id] = nil
 				vRPclient._removeObjects(source)
 
-				if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
+				if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
 					vRP.upgradeStress(user_id,2)
 					vRP.upgradeThirst(user_id,20)
 					TriggerClientEvent("setEnergetic",source,30,1.15)
@@ -985,7 +985,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 				active[user_id] = nil
 				vRPclient._removeObjects(source)
 
-				if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
+				if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
 					vRP.upgradeHunger(user_id,30)
 				end
 			end
@@ -1008,7 +1008,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 				vRPclient._removeObjects(source)
 				vRPclient._stopAnim(source,false)
 
-				if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
+				if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
 					vRP.giveInventoryItem(user_id,food,math.random(3),true)
 				end
 			end
@@ -1027,7 +1027,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 				active[user_id] = nil
 				vRPclient._removeObjects(source)
 
-				if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
+				if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
 					vRP.upgradeHunger(user_id,20)
 				end
 			end
@@ -1046,7 +1046,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 				active[user_id] = nil
 				vRPclient._removeObjects(source)
 
-				if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
+				if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
 					vRP.upgradeHunger(user_id,20)
 				end
 			end
@@ -1065,7 +1065,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 				active[user_id] = nil
 				vRPclient._removeObjects(source)
 
-				if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
+				if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
 					vRP.upgradeHunger(user_id,30)
 				end
 			end
@@ -1084,7 +1084,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 				active[user_id] = nil
 				vRPclient._removeObjects(source)
 
-				if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
+				if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
 					vRP.upgradeHunger(user_id,20)
 				end
 			end
@@ -1103,7 +1103,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 				active[user_id] = nil
 				vRPclient._removeObjects(source)
 
-				if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
+				if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
 					vRP.upgradeHunger(user_id,10)
 					vRP.downgradeStress(user_id,25)
 				end
@@ -1123,7 +1123,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 				active[user_id] = nil
 				vRPclient._removeObjects(source)
 
-				if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
+				if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
 					vRP.downgradeStress(user_id,8)
 					vRP.upgradeHunger(user_id,10)
 				end
@@ -1134,7 +1134,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 
 	if itemName == "backpackp" then
 		local exp = vRP.getBackpack(user_id)
-		if exp < 35 then
+		if exp < 25 then
 			if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
 				local BACKPACK_WEIGHT = 40
 				local BACKPACK_SLOTS = 60
@@ -1152,7 +1152,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 
 	if itemName == "backpackm" then
 		local exp = vRP.getBackpack(user_id)
-		if exp >= 35 and exp < 50 then
+		if exp >= 25 and exp < 50 then
 			if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
 				local BACKPACK_WEIGHT = 60
 				local BACKPACK_SLOTS = 75
@@ -1214,7 +1214,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 
 				local taskResult = vTASKBAR.taskTwo(source)
 				if taskResult then
-					if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
+					if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
 						TriggerClientEvent("vrp_inventory:repairTires",-1,vehNet)
 					end
 				end
@@ -1245,7 +1245,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 
 			local plateCheck = sanitizeString(vehPlate,"abcdefghijklmnopqrstuvwxyz0123456789",true)
 			if plateCheck and string.len(plateCheck) == 8 then
-				if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
+				if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
 					vRP.execute("vRP/update_plate_vehicle",{ user_id = parseInt(user_id), vehicle = tostring(vehModel), plate = string.upper(tostring(vehPlate)) })
 					TriggerClientEvent("Notify",source,"sucesso","Placa atualizada com sucesso.",5000)
 				end
@@ -1258,7 +1258,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 	end
 
 	if itemName == "premiumname" then
-		if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
+		if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
 			local newName = vRP.prompt(source,"Primeiro Nome (NOVO):","")
 			if newName == "" then
 				return
@@ -1273,37 +1273,37 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 	end
 
 	if itemName == "aio_box" then
-		if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
+		if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
 			TriggerClientEvent("will_battlepass:openLootbox",source,"aio_box")
 		end
 	end
 
 	if itemName == "vest_box" then
-		if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
+		if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
 			TriggerClientEvent("will_battlepass:openLootbox",source,"vest_box")
 		end
 	end
 
 	if itemName == "money_box" then
-		if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
+		if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
 			TriggerClientEvent("will_battlepass:openLootbox",source,"money_box")
 		end
 	end
 
 	if itemName == "weapon_box" then
-		if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
+		if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
 			TriggerClientEvent("will_battlepass:openLootbox",source,"weapon_box")
 		end
 	end
 
 	if itemName == "medkit_box" then
-		if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
+		if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
 			TriggerClientEvent("will_battlepass:openLootbox",source,"medkit_box")
 		end
 	end
 
 	if itemName == "vehicle_box" then
-		if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
+		if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
 			TriggerClientEvent("will_battlepass:openLootbox",source,"vehicle_box")
 		end
 	end
@@ -1330,7 +1330,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 							active[user_id] = nil
 							vRPclient._stopAnim(source,false)
 
-							if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
+							if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
 								TriggerClientEvent("vrp_admin:vehicleTuning",source)
 							end
 						end
@@ -1411,7 +1411,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 	if itemName == "premium01" then
 		local identity = vRP.getUserIdentity(user_id)
 		if identity then
-			if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
+			if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
 				if not vRP.getPremium(user_id) then
 					vRP.execute("vRP/set_premium",{ steam = identity.steam, premium = parseInt(os.time()), chars = 2, predays = 3, priority = 20 })
 				else
@@ -1424,7 +1424,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 	if itemName == "premium02" then
 		local identity = vRP.getUserIdentity(user_id)
 		if identity then
-			if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
+			if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
 				if not vRP.getPremium(user_id) then
 					vRP.execute("vRP/set_premium",{ steam = identity.steam, premium = parseInt(os.time()), chars = 2, predays = 7, priority = 30 })
 				else
@@ -1437,7 +1437,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 	if itemName == "premium03" then
 		local identity = vRP.getUserIdentity(user_id)
 		if identity then
-			if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
+			if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
 				if not vRP.getPremium(user_id) then
 
 					vRP.execute("vRP/set_premium",{ steam = identity.steam, premium = parseInt(os.time()), chars = 2, predays = 15, priority = 40 })
@@ -1451,7 +1451,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 	if itemName == "premium04" then
 		local identity = vRP.getUserIdentity(user_id)
 		if identity then
-			if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
+			if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
 				if not vRP.getPremium(user_id) then
 					vRP.execute("vRP/set_premium",{ steam = identity.steam, premium = parseInt(os.time()), chars = 2, predays = 30, priority = 50 })
 				else

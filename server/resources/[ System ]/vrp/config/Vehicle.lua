@@ -1,6 +1,6 @@
 local List = {}
 
-function convertVehs()
+local function convertVehs()
     if GetResourceState("will_garages_v2") == "started" then
         local vehs = exports['will_garages_v2']:getVehicleGlobal()
         for Name,v in pairs(vehs) do
@@ -14,7 +14,7 @@ function convertVehs()
             }
         end
     else
-        local vehs = module('vrp',"Reborn/Vehicles")
+        local vehs = module('vrp',"Reborn/Vehicles") or {}
         for _,v in pairs(vehs) do
             List[v.name] = {
                 Name = v.modelo,
