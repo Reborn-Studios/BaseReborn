@@ -5,22 +5,24 @@ Farms = {}
 --------##########################----------
 
 Farms.desmanche = {
-    IniciarServico = { 474.78,-1308.48,29.2 },                         -- Onde se inicia o serviço e verifica a existência de um carro
-    LocalDesmancharCarro = { 479.85,-1318.31,29.02 },                   -- Onde deve haver o carro que será desmanchado para poder continuar o desmanche
-    LocalFerramentas = { 473.81,-1314.05,29.2,119.06 },                  -- Local onde 'pegará' as ferramentas
-    AnuncioChassi = { 472.15,-1310.71,29.22,107.72 },                          -- Onde finalizará a missão para entregar o chassi e receber dinheiro e itens
-    Computador = { 472.15,-1310.71,29.22,107.72 },                        -- Local do computador
-    RestritoParaDesmanche = true,                                      -- É restrito para quem tiver só a permissão do desmanche? (TRUE/FALSE)
-    PermissaoDesmanche= 'Motoclub',                                   -- Se RestritoParaDesmanche for TRUE, aqui deverá ter a permissão que será verifiada.
+    [1] = {
+        IniciarServico = { 474.78,-1308.48,29.2 },                         -- Onde se inicia o serviço e verifica a existência de um carro
+        LocalDesmancharCarro = { 479.85,-1318.31,29.02 },                   -- Onde deve haver o carro que será desmanchado para poder continuar o desmanche
+        LocalFerramentas = { 473.81,-1314.05,29.2,119.06 },                  -- Local onde 'pegará' as ferramentas
+        AnuncioChassi = { 472.15,-1310.71,29.22,107.72 },                          -- Onde finalizará a missão para entregar o chassi e receber dinheiro e itens
+        Computador = { 472.15,-1310.71,29.22,107.72 },                        -- Local do computador
+        RestritoParaDesmanche = true,                                      -- É restrito para quem tiver só a permissão do desmanche? (TRUE/FALSE)
+        PermissaoDesmanche = 'Motoclub',                                   -- Se RestritoParaDesmanche for TRUE, aqui deverá ter a permissão que será verifiada.
 
-    PrecisaDeItem = false,                                             -- Precisa de item para iniciar o desmanche? (TRUE/FALSE)
-    ItemNecessario = 'detonador',                                      -- Qual item precisa para iniciar o desmanche?
-    QtdNecessaria = 0,                                                 -- Quantos itens precisará para iniciar o desmanche?
+        PrecisaDeItem = false,                                             -- Precisa de item para iniciar o desmanche? (TRUE/FALSE)
+        ItemNecessario = 'detonador',                                      -- Qual item precisa para iniciar o desmanche?
+        QtdNecessaria = 0,                                                 -- Quantos itens precisará para iniciar o desmanche?
 
-    Payment = {
-        ["copper"] = math.random(8,12),
-        ["aluminum"] = math.random(8,12),
-        ["glass"] = math.random(8,12),
+        Payment = {
+            ["copper"] = math.random(8,12),
+            ["aluminum"] = math.random(8,12),
+            ["glass"] = math.random(8,12),
+        }
     }
 }
 
