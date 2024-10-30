@@ -113,9 +113,15 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- SETFINES
 -----------------------------------------------------------------------------------------------------------------------------------------
-function vRP.setFines(user_id,price)
+function vRP.setFines(user_id,price,message)
 	local fines = vRP.getFines(user_id)
 	vRP.setUData(parseInt(user_id),"vRP:multas",json.encode(fines + parseInt(price)))
+	local hasExport = pcall(function()
+		return exports['bank']['AddTaxs']
+	end)
+	if hasExport then
+		exports['bank']:AddTaxs(user_id, "Prefeitura", price, message or "Motivo desconhecido")
+	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- GETFINES
