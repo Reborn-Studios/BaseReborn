@@ -229,14 +229,33 @@ end
 --			CREATIVE NETWORK -> VRP
 -------##########-------##########-------##########-------##########
 
-vRP.Source = vRP.getUserSource
-vRP.Passport = vRP.getUserId
-vRP.UserData = vRP.getUData
-vRP.Query = vRP.query
-vRP.Prepare = vRP.prepare
-vRP.Datatable = vRP.getUserDataTable
-vRP.HasPermission = vRP.hasPermission
-vRP.PaymentFull = vRP.tryFullPayment
+function vRP.Source(Passport)
+    return vRP.getUserSource(Passport)
+end
+
+function vRP.Passport(Source)
+    return vRP.getUserId(Source)
+end
+
+function vRP.UserData(Passport, Key)
+    return vRP.getUData(Passport, Key)
+end
+
+function vRP.Query(name, query)
+    return vRP.query(name, query)
+end
+
+function vRP.Prepare(name, query)
+    return vRP.prepare(name, query)
+end
+
+function vRP.Datatable(Passport)
+    return vRP.getUserDataTable(Passport)
+end
+
+function vRP.HasPermission(Passport, Permission)
+    return vRP.hasPermission(Passport, Permission)
+end
 
 function vRP.Identities(source)
     local Result = false
@@ -271,12 +290,75 @@ function vRP.UpdatePrison(Passport,Amount)
     vRP.updatePrison(Passport,Amount)
 end
 
-vRP.GiveBank = vRP.giveBankMoney
-vRP.RemoveBank = vRP.paymentBank
-vRP.GetBank = vRP.getBank
-vRP.GetFine = vRP.getFines
-vRP.GiveFine = vRP.setFines
-vRP.PaymentBank = vRP.paymentBank
-vRP.PaymentMoney = vRP.tryFullPayment
-vRP.PaymentFull = vRP.tryFullPayment
-vRP.WithdrawCash = vRP.withdrawCash
+function vRP.GiveBank(id, amount)
+    return vRP.giveBankMoney(id, amount)
+end
+
+function vRP.RemoveBank(id, amount)
+    return vRP.paymentBank(id, amount)
+end
+
+function vRP.GetBank(id)
+    return vRP.getBank(id)
+end
+
+function vRP.GetFine(id)
+    return vRP.getFines(id)
+end
+
+function vRP.GiveFine(id, amount)
+    return vRP.setFines(id, amount)
+end
+
+function vRP.PaymentBank(id, amount)
+    return vRP.paymentBank(id, amount)
+end
+
+function vRP.PaymentMoney(id, amount)
+    return vRP.tryFullPayment(id, amount)
+end
+
+function vRP.PaymentFull(id, amount)
+    return vRP.tryFullPayment(id, amount)
+end
+
+function vRP.WithdrawCash(id, amount)
+    return vRP.withdrawCash(id, amount)
+end
+
+-- ##########
+-- INVENTORY
+-- ##########
+
+function vRP.InventoryItemAmount(Passport, Item)
+    local Source = vRP.Source(Passport)
+    if Source then
+        if GetResourceState("ox_inventory") == "started" then
+            local itemData = exports.ox_inventory:GetItem(Source, Item, nil, false)
+            return { itemData.count, itemData.name }
+        else
+            local Inventory = vRP.Inventory(Passport) or {}
+            for k, v in pairs(Inventory) do
+                if splitString(Item, "-")[1] == splitString(v["item"], "-")[1] then
+                    return { v["amount"], v["item"] }
+                end
+            end
+        end
+    end
+    return { 0,"" }
+end
+
+function vRP.ConsultItem(Passport, Item, Amount)
+    if vRP.Source(Passport) then
+        if Amount > vRP.InventoryItemAmount(Passport,Item)[1] then
+            return false
+       --[[  elseif vRP.CheckDamaged(vRP.InventoryItemAmount(Passport,Item)[1]) then
+            return false ]]
+        end
+    end
+    return true
+end
+
+function vRP.Request(source,Message,Accept,Reject)
+	return vRP.request(source,Message,30)
+end
