@@ -1,25 +1,27 @@
 local Tunnel = module("vrp","lib/Tunnel")
 local Proxy = module("vrp","lib/Proxy")
 vRP = Proxy.getInterface("vRP")
-vRPclient = Tunnel.getInterface("vRP")
-drugs = {}
-Tunnel.bindInterface("drogas",drugs)
+Drugs = {}
+Tunnel.bindInterface("drogas",Drugs)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- FUNÇÕES
 -----------------------------------------------------------------------------------------------------------------------------------------
-function drugs.checkPermission(perm)
+function Drugs.checkPermission(perm)
 	local source = source
 	local user_id = vRP.getUserId(source)
-	return vRP.hasPermission(user_id,perm)
+	if vRP.hasPermission(user_id,perm) then
+		return true
+	end
+	TriggerClientEvent("Notify",source,"negado","Você não possui permissão para fazer isso.", 5000)
 end
 
-function drugs.checkPayment(id,farm)
+function Drugs.checkPayment(id,farm)
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
 		local src = Farms[farm].itens
 		if src[id].re ~= nil then
-			if vRP.computeInvWeight(user_id)+vRP.itemWeightList(src[id].item)*src[id].itemqtd <= vRP.getBackpack(user_id) then
+			if vRP.computeInvWeight(user_id) + vRP.itemWeightList(src[id].item) * src[id].itemqtd <= vRP.getBackpack(user_id) then
 				if vRP.tryGetInventoryItem(user_id,src[id].re,src[id].reqtd,false) then
 					vRP.giveInventoryItem(user_id,src[id].item,src[id].itemqtd,false)
 					return true
