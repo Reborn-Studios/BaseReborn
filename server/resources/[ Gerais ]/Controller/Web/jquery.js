@@ -50,6 +50,38 @@ $(document).ready(function () {
     if (event["data"]["freeze"] == false) {
       $("#freezeRadar").css("display", "none");
     }
+
+    if (event["data"]["name"] === "DeathScreen") {
+      if (event["data"]["payload"]) {
+        $("#deathscreen").fadeIn(500);
+      } else {
+        $("#deathscreen").fadeOut(500);
+      }
+    }
+    if (event["data"]["name"] === "UpdateDeathScreen") {
+      const minutes = Math.floor(event["data"]["payload"] / 60);
+      const seconds = event["data"]["payload"] - minutes * 60;
+
+      if (minutes > 0) {
+        if (minutes > 9) {
+          $(".timer1").html(minutes.toString()[0]);
+          $(".timer2").html(minutes.toString()[1]);
+        } else {
+          $(".timer1").html("0");
+          $(".timer2").html(minutes.toString());
+        }
+      } else {
+        $(".timer1").html("0");
+        $(".timer2").html("0");
+      }
+      if (seconds > 9) {
+        $(".timer3").html(seconds.toString()[0]);
+        $(".timer4").html(seconds.toString()[1]);
+      } else {
+        $(".timer3").html("0");
+        $(".timer4").html(seconds.toString());
+      }
+    }
   });
 
   document.onkeyup = function (data) {

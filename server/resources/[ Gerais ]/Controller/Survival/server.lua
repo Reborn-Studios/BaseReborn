@@ -17,6 +17,18 @@ local resetCoords = Config.Survival['reviveCoords']
 -- GOD
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterCommand("god",function(source,args,rawCommand)
+	if source == 0 then
+		local nplayer = vRP.getUserSource(parseInt(args[1]))
+		if nplayer then
+			SvTunnel.revivePlayer(nplayer,400)
+			TriggerClientEvent("resetBleeding",nplayer)
+			TriggerClientEvent("resetDiagnostic",nplayer)
+			print('Jogador revivido!')
+		else
+			print('Jogador não esta online!')
+		end
+		return
+	end
 	local user_id = vRP.getUserId(source)
 	if user_id then
 		if vRP.hasPermission(user_id,"moderador.permissao") then
@@ -91,7 +103,6 @@ end)
 
 function RevivePlayer(user_id, nplayer)
 	if vRP.hasPermission(user_id,"paramedico.permissao") or vRP.hasPermission(user_id,"suporte.permissao") then
-		local nuser_id = vRP.getUserId(nplayer)
 		if nplayer then
 			if SvTunnel.Death(nplayer) then
 				local source = vRP.getUserSource(user_id)
@@ -199,3 +210,40 @@ RegisterCommand("socorro",function(source,args,rawCommand)
 		end
 	end
 end)
+
+local answeredCalls = {}
+local description = "Me machuquei feio e estou precisando de ajuda!"
+
+function SvServer.callMedics()
+	local source = source
+    local user_id = vRP.getUserId(source)
+    local players = vRP.getUsersByPermission("paramedico.permissao")
+    if #players > 0 then
+        TriggerClientEvent("Notify",source,"sucesso","Chamado efetuado com sucesso",5000)
+        local x,y,z = vRPclient.getPositions(source)
+        local identity = vRP.getUserIdentity(user_id)
+        for k,v in pairs(players) do
+            local sourcecall = vRP.getUserSource(v)
+            if v and v ~= user_id then
+                TriggerClientEvent("chatMessage",sourcecall,identity.name.." "..identity.name2.." ("..user_id..")",{107,182,84},description)
+                local request = vRP.request(sourcecall,"Aceitar o chamado de <b>"..identity.name.." ("..description..")</b>?",30)
+                if request then
+                    TriggerClientEvent("NotifyPush",sourcecall,{ time = os.date("%H:%M:%S - %d/%m/%Y"), text = description, sprite = 358, code = 20, title = "Chamado", x = x, y = y, z = z, name = identity.name.." "..identity.name2, phone = identity.phone, rgba = {69,115,41} })
+                    if not answeredCalls[user_id] then
+                        local identitys = vRP.getUserIdentity(v)
+                        answeredCalls[user_id] = os.time() + 30
+                        vRPclient.playSound(source,"Event_Message_Purple","GTAO_FM_Events_Soundset")
+                        TriggerClientEvent("Notify",source,"importante","Chamado atendido por <b>"..identitys.name.." "..identitys.name2.."</b>, aguarde no local.",10000)
+                    else
+                        if answeredCalls[user_id] then
+                            TriggerClientEvent("Notify",sourcecall,"negado","Chamado já foi atendido por outra pessoa.",5000)
+                            vRPclient.playSound(sourcecall,"CHECKPOINT_MISSED","HUD_MINI_GAME_SOUNDSET")
+                        end
+                    end
+                end
+            end
+        end
+    else
+        TriggerClientEvent("Notify",source,"negado","Não tem medicos em serviço.",5000)
+    end
+end

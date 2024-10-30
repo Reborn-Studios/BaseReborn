@@ -18,10 +18,12 @@ local Death = false
 local finalizado = false
 local blockControls = false
 local Cooldown = GetGameTimer()
+local CallCooldown = 0
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADHEALTH
 -----------------------------------------------------------------------------------------------------------------------------------------
 CreateThread(function()
+	Wait(500)
 	SetPedMaxHealth(PlayerPedId(),400)
 	while true do
 		local timeDistance = 999
@@ -50,7 +52,6 @@ CreateThread(function()
 
 				if GetGameTimer() >= Cooldown then
 					Cooldown = GetGameTimer() + 1000
-
 					if deathtimer > 0 then
 						deathtimer = deathtimer - 1
 						SendNUIMessage({ name = "UpdateDeathScreen", payload = deathtimer })
@@ -66,6 +67,20 @@ CreateThread(function()
 					if GetPedInVehicleSeat(Vehicle,-1) == ped then
 						SetVehicleEngineOn(Vehicle,false,true,true)
 					end
+				end
+			end
+			if IsControlJustPressed(0,38) then
+				if CallCooldown <= 0 then
+					CallCooldown = 30
+					SvServer.callMedics()
+					CreateThread(function ()
+						while CallCooldown > 0 do
+							CallCooldown = CallCooldown - 1
+							Wait(1000)
+						end
+					end)
+				else
+					TriggerEvent("Notify","negado","Aguarde "..CallCooldown.." segundos para fazer o chamado novamente",5000)
 				end
 			end
 		end
