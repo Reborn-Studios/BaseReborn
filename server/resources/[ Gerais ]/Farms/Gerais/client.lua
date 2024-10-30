@@ -7,18 +7,14 @@ vRP = Proxy.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-cnVRP = {}
-Tunnel.bindInterface("products",cnVRP)
-vSERVER = Tunnel.getInterface("products")
+Server = Tunnel.getInterface("products")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
-local inLocate = Farms.init
-local inService = false
-local timeSelling = 0
-local inTimers = 30
 local inPed = nil
-local lastItem = nil
+local inTimers = 30
+local timeSelling = 0
+local inService = false
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PEDHASHS
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -171,15 +167,12 @@ local pedLocate = {
 	{ 442.01,-1481.85,29.3,74.78 },
 	{ 873.62,-1578.92,30.87,34.79 }
 }
-
-local callName = { "James","John","Robert","Michael","William","David","Richard","Charles","Joseph","Thomas","Christopher","Daniel","Paul","Mark","Donald","George","Kenneth","Steven","Edward","Brian","Ronald","Anthony","Kevin","Jason","Matthew","Gary","Timothy","Jose","Larry","Jeffrey","Frank","Scott","Eric","Stephen","Andrew","Raymond","Gregory","Joshua","Jerry","Dennis","Walter","Patrick","Peter","Harold","Douglas","Henry","Carl","Arthur","Ryan","Roger","Joe","Juan","Jack","Albert","Jonathan","Justin","Terry","Gerald","Keith","Samuel","Willie","Ralph","Lawrence","Nicholas","Roy","Benjamin","Bruce","Brandon","Adam","Harry","Fred","Wayne","Billy","Steve","Louis","Jeremy","Aaron","Randy","Howard","Eugene","Carlos","Russell","Bobby","Victor","Martin","Ernest","Phillip","Todd","Jesse","Craig","Alan","Shawn","Clarence","Sean","Philip","Chris","Johnny","Earl","Jimmy","Antonio","Mary","Patricia","Linda","Barbara","Elizabeth","Jennifer","Maria","Susan","Margaret","Dorothy","Lisa","Nancy","Karen","Betty","Helen","Sandra","Donna","Carol","Ruth","Sharon","Michelle","Laura","Sarah","Kimberly","Deborah","Jessica","Shirley","Cynthia","Angela","Melissa","Brenda","Amy","Anna","Rebecca","Virginia","Kathleen","Pamela","Martha","Debra","Amanda","Stephanie","Carolyn","Christine","Marie","Janet","Catherine","Frances","Ann","Joyce","Diane","Alice","Julie","Heather","Teresa","Doris","Gloria","Evelyn","Jean","Cheryl","Mildred","Katherine","Joan","Ashley","Judith","Rose","Janice","Kelly","Nicole","Judy","Christina","Kathy","Theresa","Beverly","Denise","Tammy","Irene","Jane","Lori","Rachel","Marilyn","Andrea","Kathryn","Louise","Sara","Anne","Jacqueline","Wanda","Bonnie","Julia","Ruby","Lois","Tina","Phyllis","Norma","Paula","Diana","Annie","Lillian","Emily","Robin" }
-local callName2 = { "Smith","Johnson","Williams","Jones","Brown","Davis","Miller","Wilson","Moore","Taylor","Anderson","Thomas","Jackson","White","Harris","Martin","Thompson","Garcia","Martinez","Robinson","Clark","Rodriguez","Lewis","Lee","Walker","Hall","Allen","Young","Hernandez","King","Wright","Lopez","Hill","Scott","Green","Adams","Baker","Gonzalez","Nelson","Carter","Mitchell","Perez","Roberts","Turner","Phillips","Campbell","Parker","Evans","Edwards","Collins","Stewart","Sanchez","Morris","Rogers","Reed","Cook","Morgan","Bell","Murphy","Bailey","Rivera","Cooper","Richardson","Cox","Howard","Ward","Torres","Peterson","Gray","Ramirez","James","Watson","Brooks","Kelly","Sanders","Price","Bennett","Wood","Barnes","Ross","Henderson","Coleman","Jenkins","Perry","Powell","Long","Patterson","Hughes","Flores","Washington","Butler","Simmons","Foster","Gonzales","Bryant","Alexander","Russell","Griffin","Diaz","Hayes" }
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADSERVICE
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
-		local timeDistance = 500
+		local timeDistance = 700
 		local ped = PlayerPedId()
 		local coords = GetEntityCoords(ped)
 		for k,inLocate in pairs(Farms.init) do
@@ -188,76 +181,63 @@ Citizen.CreateThread(function()
 				timeDistance = 4
 				DrawText3D(inLocate[1],inLocate[2],inLocate[3],"~g~E~w~  PEGAR LISTA DE CONTATOS")
 				if IsControlJustPressed(1,38) and not inService then
-					startthreaddelivery()
-					startthreadintimers()
-					timeselling()
 					inService = true
+					Startthreaddelivery()
+					Startthreadintimers()
+					Timeselling()
 					TriggerEvent("Notify","sucesso","Voce pegou a lista dos contatos, espere um pouco que jaja alguem te chama.",5000)
 				end
 			end
 		end
-		Citizen.Wait(timeDistance)
+		Wait(timeDistance)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADDELIVERY
 -----------------------------------------------------------------------------------------------------------------------------------------
-function startthreaddelivery()
-	Citizen.CreateThread(function()
-		while true do
-			local timeDistance = 500
-
-			if inService then
-				if inPed ~= nil and inTimers <= 0 then
-					local ped = PlayerPedId()
-					local coords = GetEntityCoords(ped)
-					local coordsPed = GetEntityCoords(inPed)
-					local distance = #(coords - coordsPed)
-
-					if distance <= 10 then
-						timeDistance = 4
-
-						if timeSelling > 0 then
-							DisableControlAction(1,23,true)
-							DrawText3D(coordsPed.x,coordsPed.y,coordsPed.z,"~w~AGUARDE  ~g~"..timeSelling.."~w~  SEGUNDOS")
-						else
-							DrawText3D(coordsPed.x,coordsPed.y,coordsPed.z,"~g~E~w~   VENDER")
-							if distance <= 2 then
-								if IsControlJustPressed(1,38) and vSERVER.checkAmount() and not IsPedInAnyVehicle(ped) then
-									timeSelling = 5
-								end
+function Startthreaddelivery()
+	CreateThread(function()
+		while inService do
+			local timeDistance = 700
+			if inPed ~= nil and inTimers <= 0 then
+				local ped = PlayerPedId()
+				local coords = GetEntityCoords(ped)
+				local coordsPed = GetEntityCoords(inPed)
+				local distance = #(coords - coordsPed)
+				if distance <= 10 then
+					timeDistance = 4
+					if timeSelling > 0 then
+						DisableControlAction(1,23,true)
+						DrawText3D(coordsPed.x,coordsPed.y,coordsPed.z,"~w~AGUARDE  ~g~"..timeSelling.."~w~  SEGUNDOS")
+					else
+						DrawText3D(coordsPed.x,coordsPed.y,coordsPed.z,"~g~E~w~   VENDER")
+						if distance <= 2 then
+							if IsControlJustPressed(1,38) and not IsPedInAnyVehicle(ped) and Server.checkAmount() then
+								timeSelling = 5
 							end
 						end
 					end
 				end
 			end
-			Citizen.Wait(timeDistance)
+			Wait(timeDistance)
 		end
 	end)
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADINTIMERS
 -----------------------------------------------------------------------------------------------------------------------------------------
-function startthreadintimers()
-	Citizen.CreateThread(function()
-		while true do
-			if inService and inTimers > 0 then
+function Startthreadintimers()
+	CreateThread(function()
+		while inService do
+			if inTimers > 0 then
 				inTimers = inTimers - 1
-
 				if inTimers == 20 and inPed ~= nil then
 					DeleteEntity(inPed)
 					inPed = nil
 				end
-
 				if inTimers <= 0 then
 					local mHash = GetHashKey(pedHashs[math.random(#pedHashs)])
-
-					RequestModel(mHash)
-					while not HasModelLoaded(mHash) do
-						RequestModel(mHash)
-						Citizen.Wait(10)
-					end
-					local x,y,z = nil
+					LoadModel(mHash)
 					local rand = math.random(#pedLocate)
 					inPed = CreatePed(4,mHash,pedLocate[rand][1],pedLocate[rand][2],pedLocate[rand][3]-1,pedLocate[rand][4],false,false)
 					SetEntityInvincible(inPed,true)
@@ -265,76 +245,45 @@ function startthreadintimers()
 					SetPedSuffersCriticalHits(inPed,false)
 					SetBlockingOfNonTemporaryEvents(inPed,true)
 					SetModelAsNoLongerNeeded(mHash)
-					x,y,z = pedLocate[rand][1], pedLocate[rand][2], pedLocate[rand][3]
-					vSERVER.sendNotify(x,y,z)
-					--TriggerEvent("NotifyPush",{ time = ("%H:%M:%S - %d/%m/%Y"), text = "Ola gostaria de estar comprando um produtinho.", code = 20, title = "Nova venda", x = pedLocate[rand][1], y = pedLocate[rand][2], z = pedLocate[rand][3], name = callName[math.random(#callName)].." "..callName2[math.random(#callName2)], rgba = {69,115,41} })
+					Server.sendNotify(pedLocate[rand][1], pedLocate[rand][2], pedLocate[rand][3])
 				end
 			end
-
-			Citizen.Wait(1000)
+			Wait(1000)
 		end
 	end)
 end
-
-CreateThread(function()
-	while true do
-		SetPedSuffersCriticalHits(PlayerPedId(),true)
-		Wait(1)
-	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- VRP_PRODUCTS:LASTITEM
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterNetEvent("vrp_products:lastItem")
-AddEventHandler("vrp_products:lastItem",function(status)
-	lastItem = status
-end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- TIMESELLING
 -----------------------------------------------------------------------------------------------------------------------------------------
-function timeselling()
-	Citizen.CreateThread(function()
-		while true do
+function Timeselling()
+	CreateThread(function()
+		while inService do
 			if timeSelling > 0 then
 				timeSelling = timeSelling - 1
-
 				local ped = PlayerPedId()
 				local coords = GetEntityCoords(ped)
 				local coordsPed = GetEntityCoords(inPed)
 				local distance = #(coords - coordsPed)
 
-				if timeSelling <= 0 then
-					RequestAnimDict("pickup_object")
-					while not HasAnimDictLoaded("pickup_object") do
-						RequestAnimDict("pickup_object")
-						Citizen.Wait(10)
-					end
-
-					TaskPlayAnim(inPed,"pickup_object","putdown_low",3.0,3.0,-1,48,10,0,0,0)
+				if timeSelling <= 0 and inPed then
+					LoadAnim("pickup_object")
+					TaskPlayAnim(inPed,"pickup_object","putdown_low",3.0,3.0,-1,48,10,false,false,false)
 					SetEntityInvincible(inPed,false)
 					FreezeEntityPosition(inPed,false)
 					TaskWanderStandard(inPed,10.0,10)
 					inTimers = math.random(10,20)
-
-					vSERVER.paymentMethod()
-
-					Citizen.Wait(math.random(2000,5000))
-
-					-- if (lastItem == "joint" or lastItem == "joint" or lastItem == "ecstasy" or lastItem == "lean" or lastItem == "meth") and math.random(100) >= 95 then
-					-- 	AddPlayerWeapon(inPed,GetHashKey("WEAPON_PISTOL"),200,true,true)
-					-- 	TaskShootAtEntity(inPed,ped,15000,GetHashKey("FIRING_PATTERN_FULL_AUTO"))
-					-- end
+					Server.paymentMethod()
+					Wait(math.random(2000,5000))
 				end
 
-				if distance >= 3 then
+				if distance >= 3 and inPed then
 					FreezeEntityPosition(inPed,false)
 					TaskWanderStandard(inPed,10.0,10)
 					timeSelling = 0
 					inTimers = 30
 				end
 			end
-
-			Citizen.Wait(1000)
+			Wait(1000)
 		end
 	end)
 end
@@ -347,39 +296,38 @@ function DrawText3D(x,y,z,text)
 	SetTextScale(0.35,0.35)
 	SetTextColour(255,255,255,100)
 	SetTextEntry("STRING")
-	SetTextCentre(1)
+	SetTextCentre(true)
 	AddTextComponentString(text)
 	DrawText(_x,_y)
 	local factor = (string.len(text)) / 400
 	DrawRect(_x,_y+0.0125,0.01+factor,0.03,0,0,0,100)
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		local will = 1000
 		if inService then
 			will = 4
-			drawTxT("PRESSIONE ~r~F7~w~ SE DESEJA FINALIZAR A ENTREGA",4,0.24,0.922,0.4,255,255,255,237)
+			DrawTxT("PRESSIONE ~r~F7~w~ SE DESEJA FINALIZAR A ENTREGA",4,0.24,0.922,0.4,255,255,255,237)
 			if IsControlJustPressed(1,168) then
 				inService = false
 				TriggerEvent("Notify","sucesso","Serviço finalizado.",3000)
-		
 				if inPed ~= nil then
 					DeleteEntity(inPed)
 					inTimers = 30
 				end
 			end
 		end
-		Citizen.Wait(will)
+		Wait(will)
 	end
 end)
 
-function drawTxT(text,font,x,y,scale,r,g,b,a)
+function DrawTxT(text,font,x,y,scale,r,g,b,a)
 	SetTextFont(font)
 	SetTextScale(scale,scale)
 	SetTextColour(r,g,b,a)
 	SetTextOutline()
-	SetTextCentre(1)
+	SetTextCentre(true)
 	SetTextEntry("STRING")
 	AddTextComponentString(text)
 	DrawText(x,y)
