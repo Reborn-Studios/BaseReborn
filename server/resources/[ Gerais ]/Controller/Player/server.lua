@@ -1051,3 +1051,24 @@ if GlobalState['Inventory'] == "ox_inventory" then
 		end
 	end)
 end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- TOW
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterCommand("rebocar",function(source,args,rawCommand)
+	local user_id = vRP.getUserId(source)
+	if user_id then
+		if vRP.hasPermission(user_id,"mecanico.permissao") then
+			if vRPclient.getHealth(source) > 101 then
+				ClientPlayer.towPlayer(source)
+			end
+		else
+			TriggerClientEvent("Notify",source,"importante","Somente trabalhadores do <b>Reboque</b> podem utilizar deste serviço.",5000)
+		end
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- TRYTOW
+-----------------------------------------------------------------------------------------------------------------------------------------
+function ServerPlayer.tryTow(vehid01,vehid02,mod)
+	TriggerClientEvent("vrp_towdriver:syncTow",-1,vehid01,vehid02,tostring(mod))
+end
