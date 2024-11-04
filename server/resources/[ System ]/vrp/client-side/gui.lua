@@ -389,7 +389,6 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CROUCH
 -----------------------------------------------------------------------------------------------------------------------------------------
-local Walk = nil
 local Crouch = false
 local Button = GetGameTimer()
 
@@ -398,24 +397,14 @@ RegisterCommand("keybindCrouch",function()
 	local Ped = PlayerPedId()
 	if GetGameTimer() >= Button and not IsPauseMenuActive() and not LocalPlayer["state"]["Buttons"] and not LocalPlayer["state"]["Commands"] and not LocalPlayer["state"]["Handcuff"] and not IsPedInAnyVehicle(Ped) and GetEntityHealth(Ped) > 100 and not LocalPlayer["state"]["Cancel"] and not IsPedReloading(Ped) then
 		Button = GetGameTimer() + 1000
+		Crouch = not Crouch
 		if Crouch then
-			Crouch = false
 			ResetPedStrafeClipset(Ped)
 			ResetPedMovementClipset(Ped,0.25)
-
-			if Walk and LoadMovement(Walk) then
-				SetPedMovementClipset(Ped,Walk,0.25)
-			end
 		else
 			if LoadMovement("move_ped_crouched") and LoadMovement("move_ped_crouched_strafing") then
 				SetPedStrafeClipset(Ped,"move_ped_crouched_strafing")
 				SetPedMovementClipset(Ped,"move_ped_crouched",0.25)
-				Crouch = true
-
-				while Crouch do
-					DisablePlayerFiring(PlayerPedId(),true)
-					Wait(1)
-				end
 			end
 		end
 	end
