@@ -548,7 +548,7 @@ AddEventHandler("queue:playerConnecting",function(source,ids,name,setKickReason,
     local steam = vRP.getSteam(source)
 	local maintenance = Reborn.maintenance()
 	if maintenance and maintenance.enabled then
-		if maintenance[steam] then
+		if maintenance.licenses[steam] then
 			return deferrals.done()
 		end
 		return deferrals.done(maintenance.text)
