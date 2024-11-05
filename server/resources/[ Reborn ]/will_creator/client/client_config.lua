@@ -337,11 +337,7 @@ function GetMaxValues(isSingle, key, push)
     local ped = PlayerPedId()
     for k, v in pairs(pedCategories) do
         if v.type == "hair" then
-            local hairQnt = GetNumberOfPedDrawableVariations(ped, v.id) - 1
-            if hairQnt < 70 then
-                hairQnt = 75
-            end
-            maxModelValues[k].item = hairQnt
+            maxModelValues[k].item = GetNumberOfPedDrawableVariations(ped, v.id) - 1
             maxModelValues[k].texture = 45
         end
 
