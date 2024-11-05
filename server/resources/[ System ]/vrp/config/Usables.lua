@@ -544,7 +544,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 
 	if itemName == "toolbox" then
 		if not vRPclient.inVehicle(source) then
-			local vehicle,vehNet = vRPclient.vehList(source,3)
+			local vehicle,vehNet = vRPclient.getNearVehicle(source,3)
 			if vehicle then
 				active[user_id] = 30
 				vRPclient.stopActived(source)
@@ -1206,7 +1206,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 
 	if itemName == "tires" then
 		if not vRPclient.inVehicle(source) then
-			local vehicle,vehNet = vRPclient.vehList(source,3)
+			local vehicle,vehNet = vRPclient.getNearVehicle(source,3)
 			if vehicle then
 				active[user_id] = 30
 				vRPclient.stopActived(source)

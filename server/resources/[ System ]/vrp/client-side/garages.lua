@@ -42,7 +42,9 @@ function tvRP.getNearVehicle(radius)
 			veh = _veh
 		end
 	end
-	return veh
+	if DoesEntityExist(veh) then
+		return veh, VehToNet(veh)
+	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- INVEHICLE

@@ -671,7 +671,7 @@ RegisterNetEvent("vrp_player:EnterTrunk")
 AddEventHandler("vrp_player:EnterTrunk",function()
 	local ped = PlayerPedId()
 	if not inTrunk then
-		local vehicle = vRP.vehList(11)
+		local vehicle = vRP.getNearVehicle(11)
 		if DoesEntityExist(vehicle) then
 			local trunk = GetEntityBoneIndexByName(vehicle,"boot")
 			if trunk ~= -1 then
@@ -693,7 +693,7 @@ AddEventHandler("vrp_player:EnterTrunk",function()
 			end
 		end
 	else
-		local vehicle = vRP.vehList(11)
+		local vehicle = vRP.getNearVehicle(11)
 		local trunk = GetEntityBoneIndexByName(vehicle,"boot")
 		if trunk ~= -1 then
 			local coords = GetEntityCoords(ped)

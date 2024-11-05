@@ -105,7 +105,7 @@ RegisterCommand("vidros",function(source,args,rawCommand)
 	local user_id = vRP.getUserId(source)
 	if user_id then
 		if vRPclient.getHealth(source) > 101 and not Player(source).state.Handcuff then
-			local vehicle,vehNet = vRPclient.vehList(source,7)
+			local vehicle,vehNet = vRPclient.getNearVehicle(source,7)
 			if vehicle then
 				TriggerClientEvent("vrp_player:syncWins",-1,vehNet,args[1])
 			end
@@ -259,8 +259,10 @@ local function getPlate(user_id,args)
 					TriggerClientEvent("Notify",source,"importante","<b>Passaporte:</b> "..plateSave[args[1]][1].."<br><b>RG:</b> "..string.upper(args[1]).."<br><b>Nome:</b> "..plateSave[args[1]][2].."<br><b>Telefone:</b> "..plateSave[args[1]][3],25000)
 				end
 			else
-				local vehicle,vehNet,vehPlate = vRPclient.vehList(source,7)
+				local vehicle,vehNet = vRPclient.getNearVehicle(source,7)
 				if vehicle then
+					local NetworkVeh = NetworkGetEntityFromNetworkId(vehNet)
+					local vehPlate = GetVehicleNumberPlateText(NetworkVeh)
 					local plateUser = vRP.getVehiclePlate(vehPlate)
 					if plateUser then
 						local identity = vRP.getUserIdentity(plateUser)
@@ -456,11 +458,15 @@ local function removeVehicle(source)
 	if user_id then
 		if vRP.hasPermission(user_id,"policia.permissao") or vRP.hasPermission(user_id,"paramedico.permissao") or vRP.hasPermission(user_id,"admin.permissao") or vRP.getInventoryItemAmount(user_id,"rope") >= 1 then
 			if vRPclient.getHealth(source) > 101 and not vRPclient.inVehicle(source) then
-				local vehicle,vehNet,vehPlate,vehName,vehLock = vRPclient.vehList(source,11)
-				if vehicle and vehLock ~= 2 then
-					local nplayer = vRPclient.nearestPlayer(source,11)
-					if nplayer then
-						ClientPlayer.removeVehicle(nplayer)
+				local vehicle,vehNet = vRPclient.getNearVehicle(source,11)
+				if vehicle then
+					local networkVeh = NetworkGetEntityFromNetworkId(vehNet)
+                	local vehLock = GetVehicleDoorLockStatus(networkVeh)
+					if vehLock ~= 2 then
+						local nplayer = vRPclient.nearestPlayer(source,11)
+						if nplayer then
+							ClientPlayer.removeVehicle(nplayer)
+						end
 					end
 				end
 			end
@@ -473,11 +479,15 @@ local function putVehicle(source, seat)
 	if user_id then
 		if vRP.hasPermission(user_id,"policia.permissao") or vRP.hasPermission(user_id,"paramedico.permissao") or vRP.hasPermission(user_id,"admin.permissao") or vRP.getInventoryItemAmount(user_id,"rope") >= 1 then
 			if vRPclient.getHealth(source) > 101 and not Player(source).state.Handcuff and not vRPclient.inVehicle(source) then
-				local vehicle,vehNet,vehPlate,vehName,vehLock = vRPclient.vehList(source,11)
-				if vehicle and vehLock ~= 2 then
-					local nplayer = vRPclient.nearestPlayer(source,2)
-					if nplayer then
-						ClientPlayer.putVehicle(nplayer)
+				local vehicle,vehNet = vRPclient.getNearVehicle(source,11)
+				if vehicle then
+					local networkVeh = NetworkGetEntityFromNetworkId(vehNet)
+                	local vehLock = GetVehicleDoorLockStatus(networkVeh)
+					if vehLock ~= 2 then
+						local nplayer = vRPclient.nearestPlayer(source,2)
+						if nplayer then
+							ClientPlayer.putVehicle(nplayer)
+						end
 					end
 				end
 			end
@@ -841,7 +851,7 @@ RegisterCommand('sequestro',function(source,args,rawCommand)
 	if nplayer then
 		if Player(nplayer).state.Handcuff then
 			if GetVehiclePedIsIn(GetPlayerPed(source)) == 0 then
-				local vehicle = vRPclient.vehList(source,7)
+				local vehicle = vRPclient.getNearVehicle(source,7)
 				if vehicle then
 					if ClientPlayer.getVehicleClass(source,vehicle) then
 						vRPclient.setMalas(nplayer)
