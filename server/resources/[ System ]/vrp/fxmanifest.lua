@@ -43,6 +43,7 @@ files {
 	"lib/Tools.lua",
 }
 
+provide 'taskbar'
 provide 'qb-core'
 provide 'es_extended'
 provide 'spawnmanager'
