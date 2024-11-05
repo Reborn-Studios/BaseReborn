@@ -346,7 +346,7 @@ RegisterNetEvent("vrp_player:SeatPlayer")
 AddEventHandler("vrp_player:SeatPlayer",function(Index)
 	local Ped = PlayerPedId()
 	local Vehicle = GetVehiclePedIsUsing(Ped)
-	if IsEntityAVehicle(vehicle) and IsPedInAnyVehicle(Ped) then
+	if Vehicle and DoesEntityExist(Vehicle) and IsPedInAnyVehicle(Ped) then
 		if Index == "0" then
 			if IsVehicleSeatFree(Vehicle,-1) then
 				SetPedIntoVehicle(Ped,Vehicle,-1)
