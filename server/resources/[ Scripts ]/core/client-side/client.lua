@@ -223,14 +223,6 @@ CreateThread(function()
 		for _,model in next,SUPPRESSED_MODELS do
 			SetVehicleModelIsSuppressed(GetHashKey(model),true)
 		end
-		-- REMOVE PICKUPS
-		RemoveAllPickupsOfType("PICKUP_WEAPON_KNIFE")
-		RemoveAllPickupsOfType("PICKUP_WEAPON_PISTOL")
-		RemoveAllPickupsOfType("PICKUP_WEAPON_MINISMG")
-		RemoveAllPickupsOfType("PICKUP_WEAPON_MICROSMG")
-		RemoveAllPickupsOfType("PICKUP_WEAPON_PUMPSHOTGUN")
-		RemoveAllPickupsOfType("PICKUP_WEAPON_CARBINERIFLE")
-		RemoveAllPickupsOfType("PICKUP_WEAPON_SAWNOFFSHOTGUN")
 		Wait(1000)
 	end
 end)
@@ -316,8 +308,15 @@ CreateThread(function()
 		DisableControlAction(1,204,true)	-- TAB
 		DisableControlAction(1,211,true)	-- TAB
 		DisableControlAction(1,349,true)	-- TAB
-		-- DisablePlayerVehicleRewards(PlayerId())
-
+		DisablePlayerVehicleRewards(PlayerId())
+		-- REMOVE PICKUPS
+		RemoveAllPickupsOfType("PICKUP_WEAPON_KNIFE")
+		RemoveAllPickupsOfType("PICKUP_WEAPON_PISTOL")
+		RemoveAllPickupsOfType("PICKUP_WEAPON_MINISMG")
+		RemoveAllPickupsOfType("PICKUP_WEAPON_MICROSMG")
+		RemoveAllPickupsOfType("PICKUP_WEAPON_PUMPSHOTGUN")
+		RemoveAllPickupsOfType("PICKUP_WEAPON_CARBINERIFLE")
+		RemoveAllPickupsOfType("PICKUP_WEAPON_SAWNOFFSHOTGUN")
 		-- DANO AO PERSONAGEM
 		SetPedSuffersCriticalHits(PlayerPedId(),true)
 		Wait(0)
