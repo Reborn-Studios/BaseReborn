@@ -21,14 +21,18 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- GET USER ID AND STEAMHEX
 -----------------------------------------------------------------------------------------------------------------------------------------	
-function WallServer.getInfos(sourceplayer)
-	if sourceplayer ~= nil and sourceplayer ~= 0 then
-		local user_id = vRP.getUserId(sourceplayer)
-		if user_id then
-			local userIdentity = vRP.getUserIdentity(user_id)
-			return user_id, userIdentity
+function WallServer.getInfos()
+	local players = {}
+	local users = vRP.getUsers()
+	for id,source in pairs(users) do
+		local userIdentity = vRP.getUserIdentity(id)
+		if userIdentity and userIdentity.name then
+			players[source] = { name = userIdentity.name.." "..userIdentity.name2, id = id }
+		else
+			players[source] = { name = "Indefinido", id = id }
 		end
 	end
+	return players
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- REPORT LOG WEBHOOK

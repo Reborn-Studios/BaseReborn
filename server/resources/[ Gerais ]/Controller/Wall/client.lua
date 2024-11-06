@@ -14,14 +14,14 @@ local showIds = false
 local function startPlayersThread()
 	CreateThread(function()
 		while showIds do
-			for _, id in ipairs(GetActivePlayers()) do
-				if id == -1 or id == nil then return end
-				local pid, userIdentity = WallServer.getInfos(GetPlayerServerId(id))
-				if pid == -1 then
-					return
-				end
-				if players[id] ~= pid or not players[id] then
-					players[id] = { id = pid, name = userIdentity.name.." "..userIdentity.name2 }
+			players = WallServer.getInfos()
+			for i,playerId in ipairs(GetActivePlayers()) do
+				local nplayer = GetPlayerServerId(playerId)
+				if not players[nplayer] then
+					players[nplayer] = {
+						id = "None",
+						name = "None"
+					}
 				end
 			end
 			Wait(Config.Wall['threadTime'] or 5000)
@@ -32,30 +32,31 @@ end
 local function initWallThread()
 	CreateThread(function()
 		while showIds do
-			for k, id in ipairs(GetActivePlayers()) do
-				if (NetworkIsPlayerActive(id)) then
+			for source, v in pairs(players) do
+				local playerId = GetPlayerFromServerId(source)
+				if (NetworkIsPlayerActive(playerId)) then
+					local playerPed = GetPlayerPed(playerId)
 					local x1, y1, z1 = table.unpack(GetEntityCoords(PlayerPedId(), true))
-					local x2, y2, z2 = table.unpack(GetEntityCoords(GetPlayerPed(id), true))
+					local x2, y2, z2 = table.unpack(GetEntityCoords(playerPed, true))
 					local distance = math.floor(GetDistanceBetweenCoords(x1, y1, z1, x2, y2, z2, true))
 					if distance < Config.Wall['distance'] then
-						if GetPlayerPed(id) ~= -1 and players[id] then
-							local playerName = GetPlayerName(id)
-							if playerName == nil or playerName == "" or playerName == -1 then
-								playerName = "Sem STEAM"
-							end
-							local playerHealth = GetEntityHealth(GetPlayerPed(id))
+						if playerPed ~= -1 then
+							local playerHealth = GetEntityHealth(playerPed)
 							if playerHealth <= 101 then
 								playerHealth = 0
 							end
-							local playerArmour = GetPedArmour(GetPlayerPed(id))
+							local playerArmour = GetPedArmour(playerPed)
 							if playerArmour <= 1 then
 								playerArmour = 0
 							end
-							local playerHealthPercent = (playerHealth / GetPedMaxHealth(GetPlayerPed(id))) * 100
+							local playerHealthPercent = (playerHealth / GetPedMaxHealth(playerPed)) * 100
 							local playerArmourPercent = playerArmour
 							playerHealthPercent = math.floor(playerHealthPercent)
 							playerArmourPercent = math.floor(playerArmourPercent)
-							DrawWallText3D(x2, y2, z2+1, "~p~ID: ~w~" .. players[id].id .. "\n~o~NOME:~w~ "..(players[id].name).. "\n~g~VIDA:~w~ "..playerHealth.. " (" .. playerHealthPercent .. "%)\n~r~COLETE:~w~ "..playerArmour.. " (" .. playerArmourPercent .. "%)\n~b~STEAM:~w~ " .. playerName, 255, 255, 255)
+							DrawWallText3D(x2, y2, z2 + 1.2, "~p~ID: ~w~"..v.id.."\n~b~SOURCE:~w~ "..source.."\n~o~NOME:~w~ "..(v.name).. "\n~g~VIDA:~w~ "..playerHealth.. " (" .. playerHealthPercent .. "%)\n~r~COLETE:~w~ "..playerArmour.." ("..playerArmourPercent.."%)", 255, 255, 255)
+							DrawLine(x1, y1, z1, x2, y2, z2, 245, 50, 50, 240)
+						else
+							DrawWallText3D(x2, y2, z2 + 1.2, "\n~r~BUGADO\nID: ~w~"..v.id.."\n~r~SOURCE:~w~ "..source, 255, 255, 255)
 						end
 					end
 				end
