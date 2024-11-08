@@ -1,11 +1,4 @@
 -----------------------------------------------------------------------------------------------------------------------------------------
--- VRP
------------------------------------------------------------------------------------------------------------------------------------------
-local Tunnel = module("vrp","lib/Tunnel")
-local Proxy = module("vrp","lib/Proxy")
-vRP = Proxy.getInterface("vRP")
-vRPC = Tunnel.getInterface("vRP")
------------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
 CodeServer = {}
@@ -14,33 +7,25 @@ Tunnel.bindInterface("tencode",CodeServer)
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
 local codes = {
-	[10] = {
-		text = "Confronto em andamento",
-		blip = 6
-	},
 	[13] = {
 		text = "Oficial ferido",
-		blip = 1
+		blip = 1,
+		color = { 205,52,56 }
 	},
 	[20] = {
 		text = "Localização",
-		blip = 38
+		blip = 38,
+		color = { 55,55,55 }
 	},
 	[32] = {
 		text = "Homem suspeito",
-		blip = 83
-	},
-	[38] = {
-		text = "Parando veículo suspeito",
-		blip = 61
-	},
-	[50] = {
-		text = "Acidente de trânsito",
-		blip = 77
+		blip = 83,
+		color = { 12,212,212 }
 	},
 	[78] = {
 		text = "Reforço solicitado",
-		blip = 4
+		blip = 4,
+		color = { 55,55,205 }
 	}
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -59,9 +44,9 @@ function CodeServer.sendCode(code)
 				local nplayer = vRP.getUserSource(v)
 				if nplayer then
 					if code ~= 13 then
-						vRPC.playSound(nplayer,"Event_Start_Text","GTAO_FM_Events_Soundset")
+						vRPclient.playSound(nplayer,"Event_Start_Text","GTAO_FM_Events_Soundset")
 					end
-					TriggerClientEvent("NotifyPush",nplayer,{ code = code, title = codes[parseInt(code)]["text"], x = coords["x"], y = coords["y"], z = coords["z"], name = identity["name"].." "..identity["name2"], time = "Recebido às "..os.date("%H:%M"), blipColor = codes[parseInt(code)]["blip"], rgba = {205,52,56} })
+					TriggerClientEvent("NotifyPush",nplayer,{ code = code, title = codes[parseInt(code)]["text"], x = coords["x"], y = coords["y"], z = coords["z"], name = identity["name"].." "..identity["name2"], time = "Recebido às "..os.date("%H:%M"), blipColor = codes[parseInt(code)]["blip"], rgba = codes[parseInt(code)]["color"] })
 				end
 			end)
 		end

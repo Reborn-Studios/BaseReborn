@@ -1,10 +1,4 @@
 -----------------------------------------------------------------------------------------------------------------------------------------
--- VRP
------------------------------------------------------------------------------------------------------------------------------------------
-local Tunnel = module("vrp","lib/Tunnel")
-local Proxy = module("vrp","lib/Proxy")
-vRP = Proxy.getInterface("vRP")
------------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
 HPClient = {}
@@ -24,7 +18,7 @@ AddEventHandler("gameEventTriggered",function(event,args)
 		if IsEntityAPed(data.victim) then
 			local ped = PlayerPedId()
 			if data.victim == ped then
-				if GetEntityHealth(ped) > 110 and not IsPedInAnyVehicle(ped) then
+				if GetEntityHealth(ped) > 110 and not IsPedInAnyVehicle(ped,false) then
 					if not damaged.vehicle and HasEntityBeenDamagedByAnyVehicle(ped) then
 						ClearEntityLastDamageEntity(ped)
 						damaged.vehicle = true
@@ -37,7 +31,7 @@ AddEventHandler("gameEventTriggered",function(event,args)
 						bleeding = bleeding + 1
 					end
 
-					if not damaged.taser and IsPedBeingStunned(ped) then
+					if not damaged.taser and IsPedBeingStunned(ped,0) then
 						ClearEntityLastDamageEntity(ped)
 						damaged.taser = true
 					end
@@ -106,7 +100,7 @@ AddEventHandler("drawInjuries",function(ped,injuries)
 				break
 			end
 			for k,v in pairs(injuries) do
-				local x,y,z = table.unpack(GetPedBoneCoords(GetPlayerPed(GetPlayerFromServerId(ped)),k))
+				local x,y,z = table.unpack(GetPedBoneCoords(GetPlayerPed(GetPlayerFromServerId(ped)),k,0.0,0.0,0.0))
 				DrawBase3D(x,y,z,"~w~"..string.upper(v))
 			end
 			counter = counter + 1
@@ -133,7 +127,7 @@ CreateThread(function()
 	while true do
 		local timeDistance = 1000
 		local ped = PlayerPedId()
-		if not IsPedInAnyVehicle(ped) then
+		if not IsPedInAnyVehicle(ped,false) then
 			local coords = GetEntityCoords(ped)
 			for k,v in pairs(Config.Hospital['services']) do
 				local distance = #(coords - vector3(v.init[1],v.init[2],v.init[3]))
@@ -154,7 +148,7 @@ CreateThread(function()
 										end
 										DoScreenFadeOut(1000)
 										Wait(1000)
-										SetEntityCoords(ped,bed[1],bed[2],bed[3])
+										SetEntityCoords(ped,bed[1],bed[2],bed[3],false,false,false,false)
 										Wait(500)
 										SvClient.SetPedInBed()
 										SvClient.startCure()

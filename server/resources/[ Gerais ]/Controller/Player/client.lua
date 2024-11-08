@@ -1,11 +1,4 @@
 -----------------------------------------------------------------------------------------------------------------------------------------
--- VRP
------------------------------------------------------------------------------------------------------------------------------------------
-local Tunnel = module("vrp","lib/Tunnel")
-local Proxy = module("vrp","lib/Proxy")
-vRP = Proxy.getInterface("vRP")
-vRPclient = Tunnel.getInterface("vRP")
------------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
 PlvRP = {}
@@ -49,7 +42,7 @@ CreateThread(function()
 	while true do
 		local timeDistance = 500
 		local ped = PlayerPedId()
-		if IsPedInAnyVehicle(ped) and not IsPedOnAnyBike(ped) then
+		if IsPedInAnyVehicle(ped,false) and not IsPedOnAnyBike(ped) then
 			local veh = GetVehiclePedIsUsing(ped)
 			if GetPedInVehicleSeat(veh,0) == ped then
 				timeDistance = 4
@@ -301,7 +294,7 @@ RegisterKeyMapping("keybindcarry","Carregar o Cidadao","keyboard","h")
 RegisterCommand("vtuning",function(source,args)
 	local ped = PlayerPedId()
 	local Vehicle = GetVehiclePedIsUsing(ped)
-	if IsEntityAVehicle(vehicle) then
+	if IsEntityAVehicle(Vehicle) then
 		local Engine = GetVehicleMod(Vehicle,11)
 		if Engine ~= -1 then
 			exports["dynamic"]:AddButton("Motor","Modelo instalado: <yellow>"..Engine.."</yellow>","","",false,false)
@@ -346,7 +339,7 @@ RegisterNetEvent("vrp_player:SeatPlayer")
 AddEventHandler("vrp_player:SeatPlayer",function(Index)
 	local Ped = PlayerPedId()
 	local Vehicle = GetVehiclePedIsUsing(Ped)
-	if Vehicle and DoesEntityExist(Vehicle) and IsPedInAnyVehicle(Ped) then
+	if Vehicle and DoesEntityExist(Vehicle) and IsPedInAnyVehicle(Ped,false) then
 		if Index == "0" then
 			if IsVehicleSeatFree(Vehicle,-1) then
 				SetPedIntoVehicle(Ped,Vehicle,-1)
@@ -404,11 +397,11 @@ function PlvRP.toggleMalas()
 	if IsEntityAVehicle(vehicle) then
 		if mala then
 			AttachEntityToEntity(ped,vehicle,GetEntityBoneIndexByName(vehicle,"bumper_r"),0.6,-0.4,-0.1,60.0,-90.0,180.0,false,false,false,true,2,true)
-			SetEntityVisible(ped,false)
+			SetEntityVisible(ped,false,false)
 			SetEntityInvincible(ped,false) --mqcu
 		else
 			DetachEntity(ped,true,true)
-			SetEntityVisible(ped,true)
+			SetEntityVisible(ped,true,false)
 			SetEntityInvincible(ped,false)
 			SetPedToRagdoll(ped,2000,2000,0,false,false,false)
 		end
@@ -625,7 +618,7 @@ CreateThread(function()
 		while true do
 			local timeDistance = 500
 			local ped = PlayerPedId()
-			if DoesEntityExist(ped) and GetEntityHealth(ped) > 101 and not IsPedInAnyVehicle(ped) then
+			if DoesEntityExist(ped) and GetEntityHealth(ped) > 101 and not IsPedInAnyVehicle(ped,false) then
 				if not holster and CheckWeapon(ped) then
 					timeDistance = 4
 					if not IsEntityPlayingAnim(ped,"amb@world_human_sunbathe@female@back@idle_a","idle_a",3) then
@@ -678,7 +671,7 @@ AddEventHandler("vrp_player:EnterTrunk",function()
 				local coords = GetEntityCoords(ped)
 				local coordsEnt = GetWorldPositionOfEntityBone(vehicle,trunk)
 				local distance = #(coords - coordsEnt)
-				if distance <= 3.0 and not IsPedInAnyVehicle(ped) then
+				if distance <= 3.0 and not IsPedInAnyVehicle(ped,false) then
 					if GetVehicleDoorAngleRatio(vehicle,5) < 0.9 and GetVehicleDoorsLockedForPlayer(vehicle,PlayerId()) ~= 1 then
 						SetCarBootOpen(vehicle)
 						SetEntityVisible(ped,false,false)
@@ -687,7 +680,7 @@ AddEventHandler("vrp_player:EnterTrunk",function()
 						inTrunk = true
 						StartTrunkThread()
 						Wait(500)
-						SetVehicleDoorShut(vehicle,5)
+						SetVehicleDoorShut(vehicle,5,false)
 					end
 				end
 			end
@@ -707,9 +700,9 @@ AddEventHandler("vrp_player:EnterTrunk",function()
 					DetachEntity(ped,false,false)
 					SetEntityVisible(ped,true,false)
 					local VehTrunk = GetOffsetFromEntityInWorldCoords(ped,0.0,-1.5,-0.75)
-					SetEntityCoords(ped,VehTrunk.x,VehTrunk.y,VehTrunk.z)
+					SetEntityCoords(ped,VehTrunk.x,VehTrunk.y,VehTrunk.z,false,false,false,false)
 					Wait(500)
-					SetVehicleDoorShut(vehicle,5)
+					SetVehicleDoorShut(vehicle,5,false)
 				end
 			end
 		end
@@ -728,9 +721,9 @@ AddEventHandler("vrp_player:CheckTrunk",function()
 			DetachEntity(ped,false,false)
 			SetEntityVisible(ped,true,false)
 			local VehTrunk = GetOffsetFromEntityInWorldCoords(ped,0.0,-1.5,-0.75)
-			SetEntityCoords(ped,VehTrunk.x,VehTrunk.y,VehTrunk.z)
+			SetEntityCoords(ped,VehTrunk.x,VehTrunk.y,VehTrunk.z,false,false,false,false)
 			Wait(500)
-			SetVehicleDoorShut(vehicle,5)
+			SetVehicleDoorShut(vehicle,5,false)
 		end
 	end
 end)
@@ -741,6 +734,7 @@ function StartTrunkThread()
 			local timeDistance = 1000
 			local ped = PlayerPedId()
 			local vehicle = GetEntityAttachedTo(ped)
+			local pedOffset = GetOffsetFromEntityInWorldCoords(ped,0.0,-1.5,-0.75)
 			if DoesEntityExist(vehicle) then
 				timeDistance = 4
 				DisableControlAction(1,73,true)
@@ -771,15 +765,15 @@ function StartTrunkThread()
 					inTrunk = false
 					DetachEntity(ped,false,false)
 					SetEntityVisible(ped,true,false)
-					SetEntityCoords(ped,GetOffsetFromEntityInWorldCoords(ped,0.0,-1.5,-0.75))
+					SetEntityCoords(ped,pedOffset.x,pedOffset.y,pedOffset.z,false,false,false,false)
 					Wait(500)
-					SetVehicleDoorShut(vehicle,5)
+					SetVehicleDoorShut(vehicle,5,false)
 				end
 			else
 				inTrunk = false
 				DetachEntity(ped,false,false)
 				SetEntityVisible(ped,true,false)
-				SetEntityCoords(ped,GetOffsetFromEntityInWorldCoords(ped,0.0,-1.5,-0.75))
+				SetEntityCoords(ped,pedOffset.x,pedOffset.y,pedOffset.z,false,false,false,false)
 			end
 			Wait(timeDistance)
 		end
@@ -799,15 +793,15 @@ RegisterCommand("sequestro2",function(source,args)
 	local ped = PlayerPedId()
 	local random,npc = FindFirstPed()
 	repeat
-		local distancia = GetDistanceBetweenCoords(GetEntityCoords(ped),GetEntityCoords(npc),true)
-		if not IsPedAPlayer(npc) and distancia <= 3 and not IsPedInAnyVehicle(npc) then
+		local distancia = #(GetEntityCoords(ped) - GetEntityCoords(npc))
+		if not IsPedAPlayer(npc) and distancia <= 3 and not IsPedInAnyVehicle(npc,false) then
 			local vehicle = vRP.getNearestVehicle(7)
 			if IsEntityAVehicle(vehicle) then
 				if PlvRP.getVehicleClass(vehicle) then
 					if sequestrado then
 						AttachEntityToEntity(sequestrado,vehicle,GetEntityBoneIndexByName(vehicle,"bumper_r"),0.6,-1.2,-0.6,60.0,-90.0,180.0,false,false,false,true,2,true)
 						DetachEntity(sequestrado,true,true)
-						SetEntityVisible(sequestrado,true)
+						SetEntityVisible(sequestrado,true,false)
 						SetEntityInvincible(sequestrado,false)
 						Citizen.InvokeNative(0xAD738C3085FE7E11,sequestrado,true,true)
 						ClearPedTasksImmediately(sequestrado)
@@ -815,7 +809,7 @@ RegisterCommand("sequestro2",function(source,args)
 					elseif not sequestrado then
 						Citizen.InvokeNative(0xAD738C3085FE7E11,npc,true,true)
 						AttachEntityToEntity(npc,vehicle,GetEntityBoneIndexByName(vehicle,"bumper_r"),0.6,-0.4,-0.1,60.0,-90.0,180.0,false,false,false,true,2,true)
-						SetEntityVisible(npc,false)
+						SetEntityVisible(npc,false,false)
 						SetEntityInvincible(npc,true)
 						sequestrado = npc
 						complet = true
@@ -857,12 +851,13 @@ CreateThread(function()
 	while true do
 		local ped = PlayerPedId()
 		local closestVehicle,Distance = getClosestVeh()
-		if Distance < 6.1 and not IsPedInAnyVehicle(ped) then
+		if Distance < 6.1 and not IsPedInAnyVehicle(ped,false) then
 			Vehicle.Coords = GetEntityCoords(closestVehicle)
-			Vehicle.Dimensions = GetModelDimensions(GetEntityModel(closestVehicle),First,Second)
+			Vehicle.Dimensions = GetModelDimensions(GetEntityModel(closestVehicle))
 			Vehicle.Vehicle = closestVehicle
 			Vehicle.Distance = Distance
-			if GetDistanceBetweenCoords(GetEntityCoords(closestVehicle) + GetEntityForwardVector(closestVehicle), GetEntityCoords(ped), true) > GetDistanceBetweenCoords(GetEntityCoords(closestVehicle) + GetEntityForwardVector(closestVehicle) * -1, GetEntityCoords(ped), true) then
+			local pedCoords = GetEntityCoords(ped)
+			if #(Vehicle.Coords + GetEntityForwardVector(closestVehicle) - pedCoords) > #(Vehicle.Coords + GetEntityForwardVector(closestVehicle) * -1 - pedCoords) then
 				Vehicle.IsInFront = false
 			else
 				Vehicle.IsInFront = true
@@ -879,14 +874,15 @@ CreateThread(function()
 		Wait(1000)
 		if Vehicle.Vehicle ~= nil then
 			local ped = PlayerPedId()
-			if IsControlPressed(0,244) and GetEntityHealth(ped) > 100 and IsVehicleSeatFree(Vehicle.Vehicle,-1) and not IsEntityInAir(ped) and not IsPedBeingStunned(ped) and not IsEntityAttachedToEntity(ped,Vehicle.Vehicle) and not (GetEntityRoll(Vehicle.Vehicle) > 75.0 or GetEntityRoll(Vehicle.Vehicle) < -75.0) then
+			if IsControlPressed(0,244) and GetEntityHealth(ped) > 100 and IsVehicleSeatFree(Vehicle.Vehicle,-1) and not IsEntityInAir(ped) and not IsPedBeingStunned(ped,0) and not IsEntityAttachedToEntity(ped,Vehicle.Vehicle) and not (GetEntityRoll(Vehicle.Vehicle) > 75.0 or GetEntityRoll(Vehicle.Vehicle) < -75.0) then
 				RequestAnimDict('missfinale_c2ig_11')
 				TaskPlayAnim(ped,'missfinale_c2ig_11','pushcar_offcliff_m',2.0,-8.0,-1,35,0,false,false,false)
 				NetworkRequestControlOfEntity(Vehicle.Vehicle)
+				local vehBone = GetPedBoneIndex(6286,0)
 				if Vehicle.IsInFront then
-					AttachEntityToEntity(ped,Vehicle.Vehicle,GetPedBoneIndex(6286),0.0,Vehicle.Dimensions.y*-1+0.1,Vehicle.Dimensions.z+1.0,0.0,0.0,180.0,0.0,false,false,true,false,true)
+					AttachEntityToEntity(ped,Vehicle.Vehicle,vehBone,0.0,Vehicle.Dimensions.y*-1+0.1,Vehicle.Dimensions.z+1.0,0.0,0.0,180.0,false,false,false,true,0,true)
 				else
-					AttachEntityToEntity(ped,Vehicle.Vehicle,GetPedBoneIndex(6286),0.0,Vehicle.Dimensions.y-0.3,Vehicle.Dimensions.z+1.0,0.0,0.0,0.0,0.0,false,false,true,false,true)
+					AttachEntityToEntity(ped,Vehicle.Vehicle,vehBone,0.0,Vehicle.Dimensions.y-0.3,Vehicle.Dimensions.z+1.0,0.0,0.0,0.0,false,false,false,true,0,true)
 				end
 				while true do
 					Wait(5)
@@ -1039,7 +1035,7 @@ AddEventHandler("gameEventTriggered",function(event,args)
 						killerSource = GetPlayerServerId(NetworkGetPlayerIndexFromPed(data.attacker))
 					end
                     alreadyDead = true
-					TriggerServerEvent("logplayerDied",killerSource,getWeaponHashName(data.weapon))
+					TriggerServerEvent("logplayerDied",killerSource,getWeaponHashName(tostring(data.weapon)))
 					CreateThread(function()
 						while alreadyDead do
 							if GetEntityHealth(ped) > 102 then
@@ -1146,7 +1142,7 @@ CreateThread(function()
 	while true do
 		local timeDistance = 999
 		local ped = PlayerPedId()
-		if not IsPedInAnyVehicle(ped) then
+		if not IsPedInAnyVehicle(ped,false) then
 			local coords = GetEntityCoords(ped)
 			for k,v in pairs(teleport) do
 				local distance = #(coords - vector3(v[1],v[2],v[3]))
@@ -1156,7 +1152,7 @@ CreateThread(function()
 					if IsControlJustPressed(1,38) then
 						DoScreenFadeOut(1000)
 						Wait(1200)
-						SetEntityCoords(ped,v[4],v[5],v[6])
+						SetEntityCoords(ped,v[4],v[5],v[6],false,false,false,false)
 						Wait(1200)
 						DoScreenFadeIn(1000)
 					end
@@ -1175,7 +1171,7 @@ CreateThread(function()
         if IsPauseMenuActive() then
             timeDistance = 1
             SetRadarAsExteriorThisFrame()
-            SetRadarAsInteriorThisFrame("h4_fake_islandx",vec(4700.0,-5145.0),0,0)
+            SetRadarAsInteriorThisFrame("h4_fake_islandx",4700.0,-5145.0,0,0)
         end
         Wait(timeDistance)
     end
@@ -1188,9 +1184,9 @@ local blockedVehs = Config.Geral['driftBlocked']
 CreateThread(function()
     while true do
         local ped = PlayerPedId()
-        local vehicle = GetVehiclePedIsIn(PlayerPedId())
+        local vehicle = GetVehiclePedIsIn(PlayerPedId(),false)
         local timeDistance = 1000
-        if IsPedInAnyVehicle(ped) then
+        if IsPedInAnyVehicle(ped,false) then
             local speed = GetEntitySpeed(vehicle)*2.236936
             if GetPedInVehicleSeat(vehicle,-1) == ped and not blockedVehs[GetEntityModel(vehicle)] then
                 if speed <= 100.0 then
@@ -1214,7 +1210,7 @@ local towed = nil
 
 function PlvRP.towPlayer()
 	local vehicle = GetPlayersLastVehicle()
-	if IsVehicleModel(vehicle,GetHashKey("energytruckmec")) and not IsPedInAnyVehicle(PlayerPedId()) then
+	if IsVehicleModel(vehicle,GetHashKey("flatbed")) and not IsPedInAnyVehicle(PlayerPedId(),false) then
 		towed = vRP.getNearVehicle(11)
 		if DoesEntityExist(vehicle) and DoesEntityExist(towed) then
 			if tow then
@@ -1238,11 +1234,11 @@ RegisterNetEvent("vrp_towdriver:syncTow")
 AddEventHandler("vrp_towdriver:syncTow",function(vehid01,vehid02,mod)
 	if NetworkDoesNetworkIdExist(vehid01) and NetworkDoesNetworkIdExist(vehid02) then
 		local vehicle = NetToEnt(vehid01)
-		local towed = NetToEnt(vehid02)
+		towed = NetToEnt(vehid02)
 		if DoesEntityExist(vehicle) and DoesEntityExist(towed) then
 			if mod == "in" then
 				local min,max = GetModelDimensions(GetEntityModel(towed))
-				AttachEntityToEntity(towed,vehicle,GetEntityBoneIndexByName(vehicle,"bodyshell"),0,-2.2,0.4-min.z,0,0,0,1,1,0,1,0,1)
+				AttachEntityToEntity(towed,vehicle,GetEntityBoneIndexByName(vehicle,"bodyshell"),0,-2.2,0.4-min.z,0,0,0,true,true,false,true,0,true)
 			elseif mod == "out" then
 				AttachEntityToEntity(towed,vehicle,20,-0.5,-10.0,-0.2,0.0,0.0,0.0,false,false,true,false,20,true)
 				DetachEntity(towed,false,false)

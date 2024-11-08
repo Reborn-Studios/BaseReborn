@@ -37,8 +37,9 @@ body {
 }
 
 #midCode div:hover {
-  color: #4a380c;
-  background: #fec026;
+  color: #1c052b;
+  font-weight: bold;
+  background: #5109a3;
 }
 
 #midCode div:last-child {

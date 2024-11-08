@@ -1,12 +1,4 @@
 -----------------------------------------------------------------------------------------------------------------------------------------
--- VRP
------------------------------------------------------------------------------------------------------------------------------------------
-local Tunnel = module("vrp","lib/Tunnel")
-local Proxy = module("vrp","lib/Proxy")
-local Webhooks = module("Reborn/webhooks")
-vRP = Proxy.getInterface("vRP")
-vRPclient = Tunnel.getInterface("vRP")
------------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
 HPServer = {}
@@ -178,9 +170,13 @@ local function getTreatment(user_id,nplayer)
 	if vRP.hasPermission(user_id,"paramedico.permissao") then
 		if nplayer then
 			if not SVClient.deadPlayer(nplayer) then
+				local source = vRP.getUserSource(user_id)
+				vRPclient.playAnim(source,false,{ "amb@prop_human_parking_meter@female@idle_a","idle_a_female" },true)
+				Wait(3000)
 				SVClient.startCure(nplayer)
 				TriggerClientEvent("resetBleeding",nplayer)
 				TriggerClientEvent("resetDiagnostic",nplayer)
+				vRPclient._stopAnim(source)
 				TriggerClientEvent("Notify",source,"sucesso","O tratamento começou.",5000)
 				vRP.createWeebHook(Webhooks.webhooktratamento,"```prolog\n[ID]: "..user_id.."\n[DEU TRATAMENTO PARA:]: "..nplayer.." "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
 			end

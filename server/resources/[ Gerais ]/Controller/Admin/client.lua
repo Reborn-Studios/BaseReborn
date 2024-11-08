@@ -1,8 +1,8 @@
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VRP
 -----------------------------------------------------------------------------------------------------------------------------------------
-local Tunnel = module("vrp","lib/Tunnel")
-local Proxy = module("vrp","lib/Proxy")
+Tunnel = module("vrp","lib/Tunnel") or {}
+Proxy = module("vrp","lib/Proxy") or {}
 vRP = Proxy.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
@@ -16,7 +16,7 @@ AdmSERVER = Tunnel.getInterface("Admin")
 function AdminClient.teleportWay()
 	local ped = PlayerPedId()
 	local veh = GetVehiclePedIsUsing(ped)
-	if IsPedInAnyVehicle(ped) then
+	if IsPedInAnyVehicle(ped,false) then
 		ped = veh
     end
 
@@ -34,7 +34,7 @@ function AdminClient.teleportWay()
 			Wait(10)
 		end
 		Wait(20)
-		ground,z = GetGroundZFor_3dCoord(x,y,height)
+		ground,z = GetGroundZFor_3dCoord(x,y,height,false)
 		if ground then
 			z = z + 1.0
 			groundFound = true
@@ -64,20 +64,6 @@ function AdminClient.teleportLimbo()
 	SetEntityCoordsNoOffset(ped,x2,y2,z2+5,false,false,true)
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- SKIN
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterNetEvent("skinmenu")
-AddEventHandler("skinmenu",function(mhash)
-    while not HasModelLoaded(mhash) do
-        RequestModel(mhash)
-        Wait(10)
-    end
-    if HasModelLoaded(mhash) then
-        SetPlayerModel(PlayerId(),mhash)
-        SetModelAsNoLongerNeeded(mhash)
-    end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
 -- DELETENPCS
 -----------------------------------------------------------------------------------------------------------------------------------------
 function AdminClient.deleteNpcs(nDist)
@@ -88,7 +74,7 @@ function AdminClient.deleteNpcs(nDist)
 		local coordsPed = GetEntityCoords(PlayerPedId())
 		local distance = #(coords - coordsPed)
         local pDist = nDist or 10.0
-		if IsPedDeadOrDying(ped) and not IsPedAPlayer(ped) and distance < pDist then
+		if IsPedDeadOrDying(ped,false) and not IsPedAPlayer(ped) and distance < pDist then
 			TriggerServerEvent("tryDeleteEntity",PedToNet(ped))
 			finished = true
 		end
@@ -101,13 +87,13 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNetEvent("SpecMode")
 AddEventHandler("SpecMode", function(nsource)
+    local nped = GetPlayerPed(GetPlayerFromServerId(nsource))
     if not NetworkIsInSpectatorMode() and nsource then
-        local nped = GetPlayerPed(GetPlayerFromServerId(nsource))
         NetworkSetInSpectatorModeExtended(true,nped,true)
         TriggerEvent("Notify", "sucesso", "Você entrou no modo espectador.",4000)
     else
         TriggerEvent("rsh:ExcecaoSpec", false)
-        NetworkSetInSpectatorModeExtended(false)
+        NetworkSetInSpectatorModeExtended(false,nped,true)
         TriggerEvent("Notify", "negado", "Você saiu do modo espectador.",4000)
     end
 end)
@@ -124,7 +110,7 @@ RegisterKeyMapping("nc","Admin: Noclip","keyboard","o")
 RegisterNetEvent("vehtuning")
 AddEventHandler("vehtuning",function()
 	local ped = PlayerPedId()
-	local vehicle = GetVehiclePedIsIn(ped)
+	local vehicle = GetVehiclePedIsIn(ped,false)
 	if IsEntityAVehicle(vehicle) then
 		SetVehicleModKit(vehicle,0)
 		SetVehicleMod(vehicle,0,GetNumVehicleMods(vehicle,0)-1,false)
@@ -298,14 +284,14 @@ function DebugOn()
             drawTxtS(0.8, 0.64, 0.4,0.4,0.30, "Frame Time: " .. GetFrameTime(), 55, 155, 55, 255)
             drawTxtS(0.8, 0.66, 0.4,0.4,0.30, "Street: " .. currentStreetName, 55, 155, 55, 255)
 
-            DrawLine(pos,forPos, 255,0,0,115)
-            DrawLine(pos,backPos, 255,0,0,115)
-            DrawLine(pos,LPos, 255,255,0,115)
-            DrawLine(pos,RPos, 255,255,0,115)
-            DrawLine(forPos,forPos2, 255,0,255,115)
-            DrawLine(backPos,backPos2, 255,0,255,115)
-            DrawLine(LPos,LPos2, 255,255,255,115)
-            DrawLine(RPos,RPos2, 255,255,255,115)
+            DrawLine(pos.x,pos.y,pos.z,forPos.x,forPos.y,forPos.z,255,0,0,115)
+            DrawLine(pos.x,pos.y,pos.z,backPos.x,backPos.y,backPos.z,255,0,0,115)
+            DrawLine(pos.x,pos.y,pos.z,LPos.x,LPos.y,LPos.z,255,255,0,115)
+            DrawLine(pos.x,pos.y,pos.z,RPos.x,RPos.y,RPos.z,255,255,0,115)
+            DrawLine(forPos.x,forPos.y,forPos.z,forPos2.x,forPos2.y,forPos2.z,255,0,255,115)
+            DrawLine(backPos.x,backPos.y,backPos.z,backPos2.x,backPos2.y,backPos2.z, 255,0,255,115)
+            DrawLine(LPos.x,LPos.y,LPos.z,LPos2.x,LPos2.y,LPos2.z, 255,255,255,115)
+            DrawLine(RPos.x,RPos.y,RPos.z,RPos2.x,RPos2.y,RPos2.z, 255,255,255,115)
 
             getNPC()
             getVehicle()

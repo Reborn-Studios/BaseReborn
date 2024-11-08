@@ -1,12 +1,4 @@
 -----------------------------------------------------------------------------------------------------------------------------------------
--- VRP
------------------------------------------------------------------------------------------------------------------------------------------
-local Tunnel = module("vrp","lib/Tunnel")
-local Proxy = module("vrp","lib/Proxy")
-local Webhooks = module("Reborn/webhooks")
-vRP = Proxy.getInterface("vRP")
-vRPclient = Tunnel.getInterface("vRP")
------------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
 ServerPlayer = {}
@@ -850,7 +842,7 @@ RegisterCommand('sequestro',function(source,args,rawCommand)
 	local nplayer = vRPclient.nearestPlayer(source,5)
 	if nplayer then
 		if Player(nplayer).state.Handcuff then
-			if GetVehiclePedIsIn(GetPlayerPed(source)) == 0 then
+			if GetVehiclePedIsIn(GetPlayerPed(source),false) == 0 then
 				local vehicle = vRPclient.getNearVehicle(source,7)
 				if vehicle then
 					if ClientPlayer.getVehicleClass(source,vehicle) then

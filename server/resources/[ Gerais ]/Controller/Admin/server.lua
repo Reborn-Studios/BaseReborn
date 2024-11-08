@@ -1,9 +1,9 @@
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VRP
 -----------------------------------------------------------------------------------------------------------------------------------------
-local Tunnel = module("vrp","lib/Tunnel")
-local Proxy = module("vrp","lib/Proxy")
-local Webhooks = module("Reborn/webhooks")
+Tunnel = module("vrp","lib/Tunnel") or {}
+Proxy = module("vrp","lib/Proxy") or {}
+Webhooks = module("Reborn/webhooks") or {}
 vRP = Proxy.getInterface("vRP")
 vRPclient = Tunnel.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -55,12 +55,14 @@ end)
 -- SKIN
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterCommand('skin',function(source,args,rawCommand)
-	if HasPermission(source,"skin") then
-		local nplayer = vRP.getUserSource(tonumber(args[1]))
-		if nplayer then
-			TriggerClientEvent("skinmenu",nplayer,GetHashKey(args[2]))
-			TriggerClientEvent("Notify",source,"Modelo setado","Voce setou a skin <b>"..args[2].."</b> no passaporte <b>"..parseInt(args[1]).."</b>.",5000)
-		end
+    if HasPermission(source,"skin") then
+        local nplayer = vRP.getUserSource(tonumber(args[1]))
+        if nplayer then
+            local hash = GetHashKey(args[2])
+            vRPclient.Skin(nplayer,hash)
+            vRP.updateSelectSkin(tonumber(args[1]),hash)
+            TriggerClientEvent("Notify",source,"Modelo setado","Voce setou a skin <b>"..args[2].."</b> no passaporte <b>"..parseInt(args[1]).."</b>.",5000)
+        end
     end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -134,6 +136,33 @@ RegisterCommand("addtempcar",function(source,args,rawCommand)
 			exports['will_garages_v2']:addVehicle(args[1], args[2])
 			TriggerClientEvent("Notify",source,"importante","Adicionou o veiculo: <b>"..args[2].."</b> no ID:<b>"..args[1].."</b. por "..args[3].." dias",5000)
 			vRP.createWeebHook(Webhooks.webhookaddcar,"```prolog\n[ID]: "..user_id.."\n[ADICIONOU NO ID:]: "..args[1].." \n[CARRO]: "..args[2].." \n[DIAS]: "..args[3]..""..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
+		end
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- REMCAR
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterCommand("remcar",function(source,args,rawCommand)
+	local source = source
+	local user_id = vRP.getUserId(source)
+	if user_id then
+		if vRP.hasPermission(user_id,"admin.permissao") and args[1] and args[2] then
+			if tonumber(args[1]) and tonumber(args[1]) > 0 then
+				local consult = vRP.query("will/get_vehicle",{ user_id = args[1], vehicle = args[2] })
+				if consult and consult[1] then
+					exports['will_garages_v2']:remVehicle(parseInt(args[1]), args[2])
+					local nplayer = vRP.getUserSource(args[1])
+					if nplayer then
+						TriggerClientEvent("Notify",nplayer,"importante","Veiculo <b>"..args[2].."</b> retirado da sua garagem.",5000)
+					end
+					TriggerClientEvent("Notify",source,"importante","Removido o veiculo: <b>"..args[2].."</b> no ID:<b>"..args[1].."</b.",5000)
+					vRP.createWeebHook(Webhooks.webhookaddcar,"```prolog\n[ID]: "..user_id.."\n[REMOVEU DO ID]: "..args[1].." \n[CARRO]: "..args[2].." "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
+				else
+					TriggerClientEvent("Notify",source,"negado","Cidadão não possui este veiculo",5000)
+				end
+			else
+				TriggerClientEvent("Notify",source,"negado","Utilize /remcar (id) (veiculo)",5000)
+			end
 		end
 	end
 end)

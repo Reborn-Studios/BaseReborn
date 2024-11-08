@@ -1,10 +1,4 @@
 -----------------------------------------------------------------------------------------------------------------------------------------
--- VRP
------------------------------------------------------------------------------------------------------------------------------------------
-local Tunnel = module("vrp","lib/Tunnel")
-local Proxy = module("vrp","lib/Proxy")
-vRP = Proxy.getInterface("vRP")
------------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
 SvClient = {}
@@ -33,9 +27,9 @@ CreateThread(function()
 			if not Death then
 				Death = true
 				local coords = GetEntityCoords(ped)
-				NetworkResurrectLocalPlayer(coords,0.0)
+				NetworkResurrectLocalPlayer(coords.x,coords.y,coords.z,0.0,0,false)
 
-				SetFacialIdleAnimOverride(ped,"mood_sleeping_1")
+				SetFacialIdleAnimOverride(ped,"mood_sleeping_1","")
 				LocalPlayer["state"]:set("Invincible",true,false)
 				deathtimer = Config.Survival['deathTimer']
 
@@ -58,11 +52,11 @@ CreateThread(function()
 					end
 				end
 
-				if not IsEntityPlayingAnim(ped,"dead","dead_a",3) and not IsPedInAnyVehicle(ped) then
+				if not IsEntityPlayingAnim(ped,"dead","dead_a",3) and not IsPedInAnyVehicle(ped,false) then
 					TaskPlayAnim(ped,"dead","dead_a",8.0,8.0,-1,1,1,false,false,false)
 				end
 
-				if IsPedInAnyVehicle(ped) then
+				if IsPedInAnyVehicle(ped,false) then
 					local Vehicle = GetVehiclePedIsUsing(ped)
 					if GetPedInVehicleSeat(Vehicle,-1) == ped then
 						SetVehicleEngineOn(Vehicle,false,true,true)
@@ -214,7 +208,7 @@ function SvClient.SetPedInBed()
 		local object = GetClosestObjectOfType(x,y,z,0.9,v[1],false,false,false)
 		if DoesEntityExist(object) then
 			local x2,y2,z2 = table.unpack(GetEntityCoords(object))
-			SetEntityCoords(ped,x2,y2,z2+v[2])
+			SetEntityCoords(ped,x2,y2,z2+v[2],false,false,false,false)
 			SetEntityHeading(ped,GetEntityHeading(object)+v[3]-180.0)
 			vRP.playAnim(false,{"dead","dead_a"},true)
 		end

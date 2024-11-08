@@ -1,10 +1,4 @@
 -----------------------------------------------------------------------------------------------------------------------------------------
--- VRP
------------------------------------------------------------------------------------------------------------------------------------------
-local Tunnel = module("vrp","lib/Tunnel")
-local Proxy = module("vrp","lib/Proxy")
-vRP = Proxy.getInterface("vRP")
------------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
 local CodeServer = Tunnel.getInterface("tencode")
@@ -70,7 +64,7 @@ CreateThread(function()
 				end
 			end
 		end
-		if not IsPedInAnyVehicle(ped) and policeRadar then
+		if not IsPedInAnyVehicle(ped,false) and policeRadar then
 			policeRadar = false
 			SendNUIMessage({ radar = false })
 		end
