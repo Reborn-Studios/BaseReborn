@@ -1,7 +1,6 @@
 -----------------------------------------------------------------------------------------------------------------------------------------
--- VRP UTILS
+-- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------	
-local Tunnel = module("vrp", "lib/Tunnel")
 WallServer = Tunnel.getInterface("Wall")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
@@ -53,7 +52,19 @@ local function initWallThread()
 							local playerArmourPercent = playerArmour
 							playerHealthPercent = math.floor(playerHealthPercent)
 							playerArmourPercent = math.floor(playerArmourPercent)
-							DrawWallText3D(x2, y2, z2 + 1.2, "~p~ID: ~w~"..v.id.."\n~b~SOURCE:~w~ "..source.."\n~o~NOME:~w~ "..(v.name).. "\n~g~VIDA:~w~ "..playerHealth.. " (" .. playerHealthPercent .. "%)\n~r~COLETE:~w~ "..playerArmour.." ("..playerArmourPercent.."%)", 255, 255, 255)
+							local text = "~b~ID: ~w~"..v.id.." | ~b~SRC:~w~ "..source.."\n~b~NOME:~w~ "..(v.name)
+							if playerHealth > 101 then
+								text = text.."\n~b~VIDA:~w~ "..playerHealth.. " (" .. playerHealthPercent .. "%)"
+								if playerArmour > 0 then
+									text = text.." - ~b~("..playerArmourPercent.."%)~w~"
+								end
+							else
+								text = text.."\n~r~MORTO~w~"
+							end
+							if v.wall then
+								text = text.."\n~g~WALL ON~w~"
+							end
+							DrawWallText3D(x2, y2, z2 + 1.4, text, 255, 255, 255)
 							DrawLine(x1, y1, z1, x2, y2, z2, 245, 50, 50, 240)
 						else
 							DrawWallText3D(x2, y2, z2 + 1.2, "\n~r~BUGADO\nID: ~w~"..v.id.."\n~r~SOURCE:~w~ "..source, 255, 255, 255)
