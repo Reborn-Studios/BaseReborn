@@ -1,6 +1,4 @@
-   
-
- fx_version "bodacious"
+fx_version "bodacious"
 game "gta5"
 
 ui_page "web-side/index.html"
@@ -13,9 +11,3 @@ client_scripts {
 files {
 	"web-side/*"
 }
-
-
-
-
-
-              

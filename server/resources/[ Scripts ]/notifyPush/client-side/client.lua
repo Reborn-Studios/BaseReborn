@@ -1,7 +1,7 @@
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADFOCUS
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	SetNuiFocus(false,false)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -20,12 +20,8 @@ RegisterKeyMapping("notify","Abrir as notificações","keyboard","f3")
 RegisterNetEvent("NotifyPush")
 AddEventHandler("NotifyPush",function(data)
 	data.street = GetStreetNameFromHashKey(GetStreetNameAtCoord(data.x,data.y,data.z))
-
-
 	local blip = AddBlipForCoord(data.x,data.y,data.z)
-
 	if data.sprite == nil then data.sprite = 304 end
-	SetNewWaypoint(data.x, data.y)
 	SetBlipSprite(blip,data.sprite)
 	SetBlipAsShortRange(blip,true)
 	SetBlipColour(blip,5)
@@ -37,12 +33,11 @@ AddEventHandler("NotifyPush",function(data)
 		RemoveBlip(blip)
 	end)
 	SendNUIMessage({ action = "notify", data = data })
-
 	if parseInt(data.code) == 13 then
 		PlaySoundFrontend(-1,"Enter_Area","DLC_Lowrider_Relay_Race_Sounds")
-		Citizen.Wait(500)
+		Wait(500)
 		PlaySoundFrontend(-1,"Enter_Area","DLC_Lowrider_Relay_Race_Sounds")
-		Citizen.Wait(500)
+		Wait(500)
 		PlaySoundFrontend(-1,"Enter_Area","DLC_Lowrider_Relay_Race_Sounds")
 	elseif parseInt(data.code) == 10 then
 		PlaySoundFrontend(-1,"Lose_1st","GTAO_FM_Events_Soundset",false)
@@ -52,7 +47,7 @@ AddEventHandler("NotifyPush",function(data)
 		PlaySoundFrontend(-1,"Beep_Red","DLC_HEIST_HACKING_SNAKE_SOUNDS",false)
 	elseif parseInt(data.code) == 50 then
 		PlaySoundFrontend(-1,"OOB_Cancel","GTAO_FM_Events_Soundset",false)
-	elseif parseInt(data.code) == 72 then
+	elseif parseInt(data.code) == 78 then
 		PlaySoundFrontend(-1,"MP_IDLE_TIMER","HUD_FRONTEND_DEFAULT_SOUNDSET",false)
 	else
 		PlaySoundFrontend(-1,"Event_Message_Purple","GTAO_FM_Events_Soundset",false)

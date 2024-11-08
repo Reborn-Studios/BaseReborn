@@ -47,62 +47,54 @@ $(document).ready(function () {
 
 const addNotification = (data) => {
   if (list.length > 9) list.shift();
-  const html = `<div class="notification" style="background: rgba(${
-    data.rgba[0]
-  },${data.rgba[1]},${data.rgba[2]},0.7); border-left: rgba(${data.rgba[0]},${
-    data.rgba[1]
-  },${data.rgba[2]},1.0) 5px solid;">
+  const html = `<div class="notification" id="loc" data-x="${data.x}" data-y="${
+    data.y
+  }" style="background: rgba(${data.rgba[0]},${data.rgba[1]},${
+    data.rgba[2]
+  },0.7); border-left: rgba(${data.rgba[0]},${data.rgba[1]},${
+    data.rgba[2]
+  },1.0) 5px solid;">
         <div class="content">
             ${data.code === undefined ? "" : `<div class="code">QRU</div>`}
             <div class="titulo">${data.title}</div>
-
             ${
               data.street === undefined
                 ? ""
                 : `<div class="content-line"><i class="fa fa-arrow-right"></i>  ${data.street}</div>`
             }
-
             ${
               data.criminal === undefined
                 ? ""
                 : `<div class="content-line"><i class="fa fa-arrow-right"></i>  ${data.criminal}</div>`
             }
-
             ${
               data.name === undefined
                 ? ""
                 : `<div class="content-line"><i class="fa fa-arrow-right"></i>  ${data.name}</div>`
             }
-
             ${
               data.vehicle === undefined
                 ? ""
                 : `<div class="content-line"><i class="fa fa-arrow-right"></i>  ${data.vehicle}</div>`
             }
-
             ${
               data.time === undefined
                 ? ""
                 : `<div class="content-line"><i class="fa fa-arrow-right"></i>  ${data.time}</div>`
             }
         </div>
-
         <div class="buttons">
-            <div class="chamados" id="loc" data-x="${data.x}" data-y="${
-    data.y
-  }"><i class="fas fa-map-marker-alt fa-lg"></i></div>
+          <div class="chamados"><i class="fas fa-map-marker-alt fa-lg"></i></div>
             ${
               data.phone === undefined
                 ? ""
                 : `<div class="chamados" id="phone" data-phone="${data.phone}"><i class="fas fa-phone-alt"></i></div>`
             }
         </div>
-
         ${
           data.text === undefined ? "" : `<div class="texto">${data.text}</div>`
         }
     </div>`;
-
   list.push(html);
 
   if (!blocked) {
