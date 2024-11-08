@@ -1,3 +1,12 @@
+Services = {
+	-- Nome |    Coordenadas	| Permissao para colocar roupas | Permissao para salvar as roupas
+	[1] = { "Hospital", -443.36, -310.76, 34.91, "paramedico.permissao", "diretor.permissao" },
+	[2] = { "Hospital", -437.91, -308.26, 34.91, "paramedico.permissao", "diretor.permissao" },
+	[3] = { "Mecânica", 957.04, -965.33, 39.76, "mecanico.permissao", "lidermecanico.permissao" },
+	[4] = { "Policia", -1096.53,-826.13,26.83, "policia.permissao","comando.permissao" },
+	[5] = { "Policia", -1095.03,-829.31,26.83, "policia.permissao","comando.permissao" },
+}
+
 Presets = {
 	["Police"] = {
 		["Recruta"] = {

@@ -3,13 +3,7 @@
 -----------------------------------------------------------------------------------------------------------------------------------------
 local Tunnel = module("vrp","lib/Tunnel")
 local Proxy = module("vrp","lib/Proxy")
-vRPS = Tunnel.getInterface("vRP")
 vRP = Proxy.getInterface("vRP")
------------------------------------------------------------------------------------------------------------------------------------------
--- CONNECTION
------------------------------------------------------------------------------------------------------------------------------------------
-vSERVER = Tunnel.getInterface("dynamic")
-vINVENTORY = Tunnel.getInterface("inventory")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -72,7 +66,6 @@ end)
 RegisterCommand("globalFunctions",function()
 	if not LocalPlayer["state"]["Commands"] and not LocalPlayer["state"]["Handcuff"] and not LocalPlayer["state"]["Prison"] and not Dynamic and not IsPauseMenuActive() then
 		local Ped = PlayerPedId()
-		local Coords = GetEntityCoords(Ped)
 		if GetEntityHealth(Ped) > 100 then
 			if LocalPlayer["state"]["Premium"] then
 				exports["dynamic"]:AddButton("Vestir Premium","Vestir-se com as vestimentas guardadas.","player:Outfit","aplicarpre","wardrobe",true)
@@ -138,20 +131,6 @@ RegisterCommand("globalFunctions",function()
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- TENCODEFUNCTIONS
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("tencodeFunctions",function()
-	if (LocalPlayer["state"]["Police"]) and not IsPauseMenuActive() then
-		if not LocalPlayer["state"]["Commands"] and not LocalPlayer["state"]["Handcuff"] and not menuOpen then
-			exports["dynamic"]:AddButton("QTI","Deslocamento.","dynamic:Tencode","1",false,true)
-			exports["dynamic"]:AddButton("QTH","Localização.","dynamic:Tencode","2",false,true)
-			exports["dynamic"]:AddButton("QRR","Apoio com prioridade.","dynamic:Tencode","3",false,true)
-			exports["dynamic"]:AddButton("QRT","Oficial desmaiado/ferido.","dynamic:Tencode","4",false,true)
-			exports["dynamic"]:openMenu()
-		end
-	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
 -- EMERGENCYFUNCTIONS
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterCommand("emergencyFunctions",function()
@@ -160,7 +139,7 @@ RegisterCommand("emergencyFunctions",function()
 		if LocalPlayer["state"]["Police"] then
 			if GetEntityHealth(Ped) > 100 and not IsPedInAnyVehicle(Ped) then
 				exports["dynamic"]:AddButton("Anunciar Police","Fazer um anúncio para todos os moradores.","dynamic:EmergencyAnnounce","",false,true)
-				
+
 				exports["dynamic"]:AddButton("Carregar","Carregar a pessoa mais próxima.","inventory:Carry","","player",true)
 				exports["dynamic"]:AddButton("Colocar no Veículo","Colocar no veículo mais próximo.","player:cvFunctions","cv","player",true)
 				exports["dynamic"]:AddButton("Remover do Veículo","Remover do veículo mais próximo.","player:cvFunctions","rv","player",true)
@@ -206,5 +185,4 @@ end)
 -- KEYMAPPING
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterKeyMapping("globalFunctions","Abrir menu principal.","keyboard","F9")
-RegisterKeyMapping("tencodeFunctions","Abrir menu de chamados policiais.","keyboard","F4")
 RegisterKeyMapping("emergencyFunctions","Abrir menu de emergencial.","keyboard","F10")
