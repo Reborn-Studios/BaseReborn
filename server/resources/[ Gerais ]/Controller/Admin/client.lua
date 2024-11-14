@@ -283,6 +283,7 @@ function DebugOn()
             drawTxtS(0.8, 0.62, 0.4,0.4,0.30, "Speed: " .. GetEntitySpeed(GetPlayerPed(-1)), 55, 155, 55, 255)
             drawTxtS(0.8, 0.64, 0.4,0.4,0.30, "Frame Time: " .. GetFrameTime(), 55, 155, 55, 255)
             drawTxtS(0.8, 0.66, 0.4,0.4,0.30, "Street: " .. currentStreetName, 55, 155, 55, 255)
+            drawTxtS(0.8, 0.68, 0.4,0.4,0.30, "Rotation: " .. GetEntityRotation(GetPlayerPed(-1)), 55, 155, 55, 255)
 
             DrawLine(pos.x,pos.y,pos.z,forPos.x,forPos.y,forPos.z,255,0,0,115)
             DrawLine(pos.x,pos.y,pos.z,backPos.x,backPos.y,backPos.z,255,0,0,115)

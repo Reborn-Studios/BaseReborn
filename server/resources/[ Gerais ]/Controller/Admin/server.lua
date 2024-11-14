@@ -143,7 +143,6 @@ end)
 -- REMCAR
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterCommand("remcar",function(source,args,rawCommand)
-	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
 		if vRP.hasPermission(user_id,"admin.permissao") and args[1] and args[2] then
@@ -156,7 +155,7 @@ RegisterCommand("remcar",function(source,args,rawCommand)
 						TriggerClientEvent("Notify",nplayer,"importante","Veiculo <b>"..args[2].."</b> retirado da sua garagem.",5000)
 					end
 					TriggerClientEvent("Notify",source,"importante","Removido o veiculo: <b>"..args[2].."</b> no ID:<b>"..args[1].."</b.",5000)
-					vRP.createWeebHook(Webhooks.webhookaddcar,"```prolog\n[ID]: "..user_id.."\n[REMOVEU DO ID]: "..args[1].." \n[CARRO]: "..args[2].." "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
+					vRP.createWeebHook(Webhooks.webhookaddcar,"```prolog\n[ID]: "..user_id.."\n[REMOVEU DO ID]: "..args[1].." \n[VEICULO]: "..args[2].." "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
 				else
 					TriggerClientEvent("Notify",source,"negado","Cidadão não possui este veiculo",5000)
 				end
@@ -348,7 +347,7 @@ end)
 -- GROUP
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterCommand("group",function(source,args,rawCommand)
-	if source == 0 then
+	if source == 0 and args[1] and args[2] then
 		vRP.addUserGroup(parseInt(args[1]),tostring(args[2]))
 		print("O cidadão foi setado como " ..args[2])
 		return
@@ -356,25 +355,30 @@ RegisterCommand("group",function(source,args,rawCommand)
 	local user_id = vRP.getUserId(source)
 	if user_id then
 		if HasPermission(source,"group") then
-			if args[2] == "Owner" and not vRP.hasPermission(user_id,"Owner") then
-				return
-			else
-				local kgroup = vRP.getGroup(tostring(args[2]))
-				if kgroup == nil then
-					TriggerClientEvent("Notify",source,"negado","O grupo não existe",5000)
-					return
-				end
-				if kgroup._config and kgroup._config.gtype and kgroup._config.gtype == "job" then
-					local group = vRP.getUserGroupByType(parseInt(args[1]),"job")
-					if group then
-						vRP.removePermission(parseInt(args[1]),group)
-						vRP.execute("vRP/del_group",{ user_id = parseInt(args[1]), permiss = group })
+			if args[1] then
+				if args[2] then
+					if args[2] == "Owner" and not vRP.hasPermission(user_id,"Owner") then
+						return
 					end
-				end
-				if not vRP.hasPermission(parseInt(args[1]),tostring(args[2])) then
-					vRP.addUserGroup(parseInt(args[1]),tostring(args[2]))
-					TriggerClientEvent("Notify",source,"sucesso","O cidadão foi setado como " ..(args[2]).." ",5000)
-					vRP.createWeebHook(Webhooks.webhookset,"```prolog\n[ID]: "..user_id.." \n[SETOU]: "..args[1].." \n [GROUP]: "..args[2].." "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
+					local kgroup = vRP.getGroup(tostring(args[2]))
+					if kgroup == nil then
+						TriggerClientEvent("Notify",source,"negado","O grupo não existe",5000)
+						return
+					end
+					if kgroup._config and kgroup._config.gtype and kgroup._config.gtype == "job" then
+						local group = vRP.getUserGroupByType(parseInt(args[1]),"job")
+						if group then
+							vRP.removePermission(parseInt(args[1]),group)
+							vRP.execute("vRP/del_group",{ user_id = parseInt(args[1]), permiss = group })
+						end
+					end
+					if not vRP.hasPermission(parseInt(args[1]),tostring(args[2])) then
+						vRP.addUserGroup(parseInt(args[1]),tostring(args[2]))
+						TriggerClientEvent("Notify",source,"sucesso","O cidadão foi setado como " ..(args[2]).." ",5000)
+						vRP.createWeebHook(Webhooks.webhookset,"```prolog\n[ID]: "..user_id.." \n[SETOU]: "..args[1].." \n [GROUP]: "..args[2].." "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
+					end
+				elseif parseInt(args[1]) > 0 then
+					TriggerClientEvent("AdminControl:showUserGroups",source,parseInt(args[1]),vRP.getUserGroups(parseInt(args[1])))
 				end
 			end
 		end
@@ -423,6 +427,15 @@ RegisterCommand("tptome",function(source,args,rawCommand)
 		if HasPermission(source,"tptome") and parseInt(args[1]) > 0 then
 			local nplayer = vRP.getUserSource(parseInt(args[1]))
 			if nplayer then
+				local AdminBucket = GetPlayerRoutingBucket(source)
+				local UserBucket = GetPlayerRoutingBucket(nplayer)
+				if UserBucket ~= AdminBucket then
+					if vRP.request(source,"Cidadão esta no bucket "..UserBucket..". Deseja puxa-lo para seu bucket?",20) then
+						SetPlayerRoutingBucket(nplayer, AdminBucket)
+					else
+						return
+					end
+				end
 				vRPclient.teleport(nplayer,vRPclient.getPositions(source))
 			end
 		end
@@ -453,6 +466,15 @@ RegisterCommand("tpto",function(source,args,rawCommand)
 	if HasPermission(source,"tpto") and parseInt(args[1]) > 0 then
 		local nplayer = vRP.getUserSource(parseInt(args[1]))
 		if nplayer then
+			local AdminBucket = GetPlayerRoutingBucket(source)
+			local UserBucket = GetPlayerRoutingBucket(nplayer)
+			if UserBucket ~= AdminBucket then
+				if vRP.request(source,"Cidadão esta no bucket "..UserBucket..". Deseja ir?",20) then
+					SetPlayerRoutingBucket(source, UserBucket)
+				else
+					return
+				end
+			end
 			vRPclient.teleport(source,vRPclient.getPositions(nplayer))
 		end
 	end

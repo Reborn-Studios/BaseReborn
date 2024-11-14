@@ -77,6 +77,8 @@ CreateThread(function()
 					TriggerEvent("Notify","negado","Aguarde "..CallCooldown.." segundos para fazer o chamado novamente",5000)
 				end
 			end
+		elseif GetEntityHealth(ped) > 101 and Death then
+			exports["Controller"]:Revive(GetEntityHealth(ped))
 		end
 		Wait(timeDistance)
 	end
@@ -86,25 +88,19 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 exports("Revive",function(Health)
 	local Ped = PlayerPedId()
-
 	SetEntityHealth(Ped,Health)
 	SetEntityInvincible(Ped,false)
 	LocalPlayer["state"]:set("Invincible",false,false)
-
 	if Death then
 		Death = false
 		deathtimer = 0
-
 		ClearPedTasks(Ped)
 		ClearFacialIdleAnimOverride(Ped)
 		NetworkSetFriendlyFireOption(true)
-
 		SendNUIMessage({ name = "DeathScreen", payload = false })
-
-		Death = false
 		TriggerServerEvent("pma-voice:toggleMute",false)
 		ClearPedBloodDamage(ped)
-		SetEntityHealth(ped,400)
+		SetEntityHealth(ped,Health)
 		SetEntityInvincible(ped,false)
 	end
 end)
