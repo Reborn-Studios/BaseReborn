@@ -322,11 +322,15 @@ function ServerPlayer.cuffToggle()
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		if vRPclient.getHealth(source) > 101 and not Player(source).state.Handcuff and poCuff[user_id] == nil then
+		if vRPclient.getHealth(source) > 101 and not Player(source).state.Handcuff and poCuff[source] == nil then
 			if not vRPclient.inVehicle(source) then
-				if vRP.hasPermission(user_id,"policia.permissao") or vRP.hasPermission(user_id,"admin.permissao") then
+				if vRP.hasPermission(user_id,"policia.permissao") or vRP.hasPermission(user_id,"admin.permissao") or vRP.getInventoryItemAmount(user_id,"handcuff") >= 1 then
 					local nplayer = vRPclient.nearestPlayer(source,1.2)
 					if nplayer and not vRPclient.inVehicle(nplayer) then
+						poCuff[source] = true
+						poCuff[nplayer] = true
+						Player(nplayer)["state"]["Commands"] = true
+						Player(source)["state"]["Commands"] = true
 						if Player(nplayer).state.Handcuff then
 							ClientPlayer.toggleCarry(nplayer,source)
 							vRPclient._playAnim(source,false,{"mp_arresting","a_uncuff"},false)
@@ -336,9 +340,12 @@ function ServerPlayer.cuffToggle()
 								vRPclient._stopAnim(nplayer,false)
 								TriggerClientEvent("vrp_sound:source",nplayer,"uncuff",0.5)
 								TriggerClientEvent("vrp_sound:source",source,"uncuff",0.5)
+								Player(nplayer)["state"]["Commands"] = false
+								Player(source)["state"]["Commands"] = false
+								poCuff[source] = nil
+								poCuff[nplayer] = nil
 							end)
 						else
-							poCuff[user_id] = true
 							ClientPlayer.toggleCarry(nplayer,source)
 							TriggerClientEvent("vrp_sound:source",source,"cuff",0.5)
 							TriggerClientEvent("vrp_sound:source",nplayer,"cuff",0.5)
@@ -348,8 +355,11 @@ function ServerPlayer.cuffToggle()
 								ClientPlayer.toggleHandcuff(nplayer)
 								ClientPlayer.toggleCarry(nplayer,source)
 								vRPclient._stopAnim(source,false)
+								Player(nplayer)["state"]["Commands"] = false
+								Player(source)["state"]["Commands"] = false
+								poCuff[source] = nil
+								poCuff[nplayer] = nil
 							end)
-							poCuff[user_id] = nil
 						end
 					end
 				end
