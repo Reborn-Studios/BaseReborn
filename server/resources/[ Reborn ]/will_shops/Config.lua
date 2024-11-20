@@ -117,16 +117,16 @@ local shopsProducts = {
     },
     ['Ammunation'] = {
         ["GADGET_PARACHUTE"] = 475,
-        ["hatchet"] = 975,
-        ["bat"] = 975,
-        ["battleaxe"] = 975,
-        ["golfclub"] = 975,
-        ["hammer"] = 725,
-        ["machete"] = 975,
-        ["poolcue"] = 975,
-        ["stonehatchet"] = 975,
-        ["knuckle"] = 975,
-        ["flashlight"] = 675
+        ["WEAPON_HATCHET"] = 975,
+        ["WEAPON_BAT"] = 975,
+        ["WEAPON_BATTLEAXE"] = 975,
+        ["WEAPON_GOLFCLUB"] = 975,
+        ["WEAPON_HAMMER"] = 725,
+        ["WEAPON_MACHETE"] = 975,
+        ["WEAPON_POOLCUE"] = 975,
+        ["WEAPON_STONE_HATCHET"] = 975,
+        ["WEAPON_KNUCKLE"] = 975,
+        ["WEAPON_FLASHLIGHT"] = 675
     },
     ['Skinshop'] = {
         ["arms"] = 50,
