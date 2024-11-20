@@ -75,6 +75,7 @@ function vRP.insertPermission(user_id,perm)
 		Player(nplayer)["state"]["Mechanic"] = true
 		TriggerEvent("vrp_blipsystem:serviceEnter",nplayer,"Mecanico",51)
 	elseif vRP.hasPermission(user, "admin.permissao") then
+		Player(nplayer)["state"]["Admin"] = true
 		lib.addPrincipal(nplayer, "group.admin")
 		lib.addPrincipal(vRP.getSteam(nplayer), "group.admin")
 	end
@@ -95,6 +96,7 @@ function vRP.removePermission(user_id,perm)
 		elseif vRP.hasPermission(user, "mecanico.permissao") then
 			Player(nplayer)["state"]["Mechanic"] = false
 		elseif vRP.hasPermission(user, "admin.permissao") then
+			Player(nplayer)["state"]["Admin"] = false
 			lib.removePrincipal(nplayer, "group.admin")
 			lib.removePrincipal(vRP.getSteam(nplayer), "group.admin")
 		end
