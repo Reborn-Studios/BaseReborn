@@ -1,0 +1,72 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
+body {
+  background: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  word-break: normal;
+  background: transparent;
+}
+
+h6 {
+  font-size: 16px;
+  font-family: "Roboto", sans-serif;
+  font-weight: bolder;
+}
+
+.andares {
+  overflow-y: scroll;
+  max-height: 300px;
+  border-radius: 15px;
+}
+
+.andares::-webkit-scrollbar {
+  display: none;
+}
+
+.andares {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.container {
+  color: white !important;
+  align-items: center !important;
+  vertical-align: middle !important;
+  text-align: center !important;
+  position: absolute;
+  top: 50%;
+  right: 25%;
+  border-radius: 15px;
+  width: auto;
+  transform: translate(25%, -50%);
+  display: flex;
+  flex-direction: column;
+  background: rgba(24, 24, 24, 0.6);
+}
+
+.andar {
+  margin: 5px;
+  border-radius: 5px;
+  padding: 10px 25px;
+  font-size: 16px;
+  font-family: "Roboto", sans-serif;
+  font-weight: bold;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.2s;
+  width: calc(100% - 10px);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.andar:hover {
+  color: white;
+  background-color: black;
+  transform: scale(1.03);
+}
