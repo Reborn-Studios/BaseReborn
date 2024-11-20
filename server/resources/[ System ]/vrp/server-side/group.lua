@@ -37,6 +37,28 @@ function vRP.getUserGroupByType(user_id,gtype)
     return nil
 end
 
+function ConvertGroupPerm(perms)
+    for k,perm in pairs(perms) do
+        if CONVERT_GROUPS[perm] then
+            return CONVERT_GROUPS[perm]
+        end
+    end
+end
+
+function vRP.getJobFromGroup(group)
+	if group and groups[group] then
+		if groups[group]._config and groups[group]._config.grade then
+			local Job = ConvertGroupPerm(groups[group])
+			if Job then
+				return {
+					[Job] = groups[group]._config.grade
+				}
+			end
+		end
+	end
+	return { [group] = "0" }
+end
+
 function vRP.getGroup(group)
 	if group and groups[group] then
 		return groups[group]

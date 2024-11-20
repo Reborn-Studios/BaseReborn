@@ -14,6 +14,9 @@ function Server.registerGarage(data)
     local source = source
 	local garagesGlobal = GlobalState['GaragesGlobal'] or {}
 	local garageSize = #garagesGlobal + 1
+    if data.payment == 0 then
+        data.payment = false
+    end
 	garagesGlobal[garageSize] = {
 		name = data.name,
 		payment = data.payment,

@@ -439,6 +439,59 @@ QBShared.Jobs = {
 	},
 }
 
+local ALIAS_GROUPS = {}
+CONVERT_GROUPS = {
+    ['policia.permissao'] = "police",
+    ['paramedico.permissao'] = "ambulance",
+    ['mecanico.permissao'] = "mechanic",
+}
+
+CreateThread(function ()
+	local groups = module('vrp',"Reborn/Groups") or {}
+	for Group, perms in pairs(groups) do
+		local joined = false
+		for i,value in pairs(perms) do
+			if type(value) == "string" then
+				for perm,job in pairs(CONVERT_GROUPS) do
+					if value == perm then
+						if QBShared.Jobs[job] and groups[Group]._config and groups[Group]._config.grade then
+							local GroupGrade = groups[Group]._config.grade
+							if QBShared.Jobs[job].grades then
+								joined = true
+								QBShared.Jobs[job].grades[GroupGrade] = {
+									name = groups[Group]._config.title or Group,
+									payment = groups[Group]._config.salary or 0
+								}
+								ALIAS_GROUPS[Group] = {
+									job = job,
+									grade = GroupGrade
+								}
+							end
+						end
+					end
+				end
+			end
+		end
+		if not joined then
+			QBCore.Shared.Jobs[Group] = {
+                label = perms._config and perms._config.title or k,
+                defaultDuty = true,
+                offDutyPay = false,
+                grades = {
+                    ['0'] = {
+                        name = perms._config and perms._config.title or k,
+                        payment = perms._config and perms._config.salary or 0
+                    }
+                }
+            }
+		end
+	end
+end)
+
+function GetQBGroups()
+	return ALIAS_GROUPS
+end
+
 QBShared.Gangs = {}
 
 QBShared.Items = {}
