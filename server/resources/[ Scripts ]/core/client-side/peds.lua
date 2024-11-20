@@ -271,6 +271,19 @@ exports("AddPed", function(Data)
 	end
 	table.insert(List,Data)
 end)
+
+exports("RemovePed", function(Data)
+	for Number = 1,#List do
+		local Distance = #(vec3(Data.Coords[1],Data.Coords[2],Data.Coords[3]) - vec3(List[Number]["Coords"][1],List[Number]["Coords"][2],List[Number]["Coords"][3]))
+		if Distance <= 1.0 then
+			if DoesEntityExist(localPeds[Number]) then
+				DeleteEntity(localPeds[Number])
+			end
+			table.remove(List,Number)
+			return
+		end
+	end
+end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADLIST
 -----------------------------------------------------------------------------------------------------------------------------------------
