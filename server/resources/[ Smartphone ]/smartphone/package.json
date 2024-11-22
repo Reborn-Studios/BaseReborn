@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "axios": "^0.26.1",
+    "fs": "^0.0.1-security",
+    "nock": "^13.2.4"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "token": "",
+  "client": {
+    "bankType": "fleeca",
+    "uploadServer": "http://26.15.228.69:8000/",
+    "videoServer": "ws://brooklynrp.online:8080/",
+    "case": "iphonexs",
+    "isAndroid": true,
+
+    "allowUnsafeURL": false,
+    "useGameClock": true,
+    "phone_template": "XXX-XXX",
+    "backgroundURL": "https://i.pinimg.com/736x/7f/11/3c/7f113c30afa95a1b680457ee6805e135.jpg",
+    "db_driver": "oxmysql",
+    "disabledApps": ["paypal"]
+  },
+  "call_mode": "pma-voice",
+  "webhookURL": "https://discord.com/api/webhooks/997570912780030032/C-Ayn9ukNyxSUjaDmJfVlFSq42PNKQdd-FBI-jsGWCDCHp9rBaGCf7vztkhYFB4dEBzg",
+  "instagram_verify": "Admin",
+  "moderator": "Admin",
+  "item": "celular",
+  "apps": {
+    "calculator": "https://celularautenticacaofivem.xyz/imagens/calculator.webp",
+    "notes": "https://celularautenticacaofivem.xyz/imagens/notes.webp",
+    "settings": "https://celularautenticacaofivem.xyz/imagens/settings.webp",
+    "contacts": "https://celularautenticacaofivem.xyz/imagens/contacts.webp",
+    "sms": "https://celularautenticacaofivem.xyz/imagens/sms.webp",
+    "gallery": "https://celularautenticacaofivem.xyz/imagens/gallery.webp",
+    "phone": "https://celularautenticacaofivem.xyz/imagens/phone.webp",
+    "facetime": "https://celularautenticacaofivem.xyz/imagens/facetime.webp"
+  },
+  "services": []
+}
