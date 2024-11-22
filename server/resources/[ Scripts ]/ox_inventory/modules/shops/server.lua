@@ -29,7 +29,7 @@ local function setupShopItems(id, shopType, shopName, groups)
 				slot = i,
 				weight = Item.weight,
 				count = slot.count,
-				price = (server.randomprices and (not slot.currency or slot.currency == 'dollars')) and (math.ceil(slot.price * (math.random(80, 120)/100))) or slot.price or 0,
+				price = slot.price or 0,
 				metadata = slot.metadata,
 				license = slot.license,
 				currency = slot.currency,
@@ -258,6 +258,14 @@ lib.callback.register('ox_inventory:buyItem', function(source, data)
 					currency = currency,
 				}) then return false end
 
+				local AllShops = GlobalState['Will_Shops'] or {}
+				if GetResourceState('will_shops') == 'started' and AllShops[shopType] then
+					if not exports['will_shops']:checkStock(shopType,fromData.name,count) then
+						return false, false, { type = 'error', description = "Sem estoque" }
+					end
+					exports['will_shops']:bougthProduct(vRP.getUserId(source), shopType, fromData.name,count, price, "Item adquirido: "..fromData.name.." - x"..count)
+				end
+
 				Inventory.SetSlot(playerInv, fromItem, count, metadata, data.toSlot)
 				playerInv.weight = newWeight
 				removeCurrency(playerInv, currency, price)
@@ -275,7 +283,6 @@ lib.callback.register('ox_inventory:buyItem', function(source, data)
 						lib.logger(playerInv.owner, 'buyItem', ('"%s" %s'):format(playerInv.label, message:lower()), ('shop:%s'):format(shop.label))
 					end
 				end
-
 				return true, {data.toSlot, playerInv.items[data.toSlot], shop.items[data.fromSlot].count and shop.items[data.fromSlot], playerInv.weight}, { type = 'success', description = message }
 			end
 

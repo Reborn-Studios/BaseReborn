@@ -38,7 +38,11 @@ CreateThread(function()
 				timeDistance = 4
 				DrawText3D(v['buy_products_coords'].x,v['buy_products_coords'].y,v['buy_products_coords'].z,"~g~[E]~w~ Abrir loja")
 				if IsControlJustPressed(0,38) then
-					openShop(k)
+					if GetResourceState("ox_inventory") ~= "started" then
+						openShop(k)
+					else
+						exports.ox_inventory:openInventory('shop', { type = k, id = 1 })
+					end
 				end
 			elseif jobDis <= 2.0 then
 				timeDistance = 4

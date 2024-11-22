@@ -189,3 +189,52 @@ function request(source,text)
     end
     return vRP.request(source,text,30)
 end
+
+--#####################
+--## SYNC OX_INVENTORY
+--#####################
+
+local AllShops = Config.Shops
+
+local function registerShop(ShopId, data)
+    local products = {}
+    for item,price in pairs(data) do
+        table.insert(products, {
+            name = item,
+            price = price,
+        })
+    end
+    exports.ox_inventory:RegisterShop(ShopId, {
+        name = splitString(ShopId,"_")[1],
+        inventory = products,
+        locations = {
+            Config.Shops[ShopId]['buy_products_coords'],
+        },
+    })
+end
+
+local function refreshShops()
+    for ShopId,data in pairs(AllShops) do
+        registerShop(ShopId, data['products'])
+    end
+end
+
+AddStateBagChangeHandler("Will_Shops","",function (_,_,value)
+    AllShops = value
+    if GetResourceState("ox_inventory") == "started" then
+        refreshShops()
+    end
+end)
+
+AddStateBagChangeHandler("Will_Shops_Products","",function (_,_,value)
+    for ShopId,data in pairs(value) do
+        registerShop(ShopId, data)
+    end
+end)
+
+AddEventHandler("onResourceStart",function(rs)
+	if rs == "ox_inventory" then
+        Wait(1000)
+		refreshShops()
+	end
+end)
