@@ -28,6 +28,14 @@ function getUserIdentity(user_id)
 end
 
 function hasPermission(user_id, perm)
+    if type(perm) == "table" then
+        for k,v in pairs(perm) do
+            if hasPermission(user_id, k) then
+                return true
+            end
+        end
+        return false
+    end
     return vRP.hasPermission(user_id, perm)
 end
 

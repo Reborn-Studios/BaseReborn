@@ -104,7 +104,19 @@ function CreateGarage()
             garage.name = input[1]
             garage.type = input[2]
             garage.payment = input[3] or false
-            garage.perms = input[4] or false
+            local Groups = {}
+            local SelectedGroups = input[4]
+            if type(SelectedGroups) == "table" then
+                for _,ndata in pairs(SelectedGroups) do
+                    local Perms = json.decode(ndata)
+                    for group,grade in pairs(Perms) do
+                        Groups[group] = tonumber(grade)
+                    end
+                end
+            else
+                Groups = nil
+            end
+            garage.perms = Groups
             garage.map = input[5]
             lib.showTextUI('Posicione o blip',{
                 position = "right-center",

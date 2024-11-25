@@ -50,14 +50,6 @@ function Server.deleteGarage(id)
     GlobalState:set("GaragesGlobal", garagesGlobal, true)
 end
 
-local function rapidjsonArrayToTable(json_array)
-    local spawns = {}
-    for i = 1, #json_array do
-        table.insert(spawns, json_array[i])
-    end
-    return spawns
-end
-
 AddEventHandler('onServerResourceStart', function(resourceName)
     if resourceName == 'will_garages_v2' or resourceName == GetCurrentResourceName() then
         Wait(1000)
