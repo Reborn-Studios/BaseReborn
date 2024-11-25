@@ -11,8 +11,9 @@ Farms.desmanche = {
         LocalFerramentas = { 473.81,-1314.05,29.2,119.06 },                  -- Local onde 'pegará' as ferramentas
         AnuncioChassi = { 472.15,-1310.71,29.22,107.72 },                          -- Onde finalizará a missão para entregar o chassi e receber dinheiro e itens
         Computador = { 472.15,-1310.71,29.22,107.72 },                        -- Local do computador
+        LocalPecas = { 474.78,-1318.03,29.21 },
         RestritoParaDesmanche = true,                                      -- É restrito para quem tiver só a permissão do desmanche? (TRUE/FALSE)
-        PermissaoDesmanche = 'Motoclub',                                   -- Se RestritoParaDesmanche for TRUE, aqui deverá ter a permissão que será verifiada.
+        PermissaoDesmanche = 'motoclub.permissao',                                   -- Se RestritoParaDesmanche for TRUE, aqui deverá ter a permissão que será verifiada.
 
         PrecisaDeItem = false,                                             -- Precisa de item para iniciar o desmanche? (TRUE/FALSE)
         ItemNecessario = 'detonador',                                      -- Qual item precisa para iniciar o desmanche?
@@ -23,7 +24,7 @@ Farms.desmanche = {
             ["aluminum"] = math.random(8,12),
             ["glass"] = math.random(8,12),
         }
-    }
+    },
 }
 
 --------##########################----------
@@ -31,7 +32,7 @@ Farms.desmanche = {
 --------##########################----------
 
 Farms.cocaina = {
-    locais = { 
+    locais = {
         { ['id'] = 1, ['x'] = -1105.13, ['y'] = 4952.35, ['z'] = 218.65, ['text'] = "colocar a cocaína na vasilha", ['perm'] = "Azuis" }, -- Cocaina PASTA
         { ['id'] = 2, ['x'] = -1106.4, ['y'] = 4951.23, ['z'] = 218.68, ['text'] = "espalhar a cocaína", ['perm'] = "Azuis" }, -- Cocaina PRODUZIR
         { ['id'] = 3, ['x'] = -1111.81, ['y'] = 4942.2, ['z'] = 218.65, ['text'] = "embalar cocaína", ['perm'] = "Azuis" },
@@ -82,29 +83,55 @@ Farms.meta = {
 --------##########################----------
 
 Farms.lavagem = {
-	perm = "Vanilla",
-    locais = {
-        [1] = vector3(1138.23,-3196.95,-39.66),
-        [2] = vector3(1136.12,-3197.2,-39.66),
-        [3] = vector3(1125.87,-3196.9,-39.66),
-        [4] = vector3(1122.21,-3197.79,-40.39),
-        [5] = vector3(1116.73,-3195.7,-40.4),
+    [1] = {
+        perm = "vanilla.permissao",
+        locais = {
+            [1] = vector3(1138.23,-3196.95,-39.66),
+            [2] = vector3(1136.12,-3197.2,-39.66),
+            [3] = vector3(1125.87,-3196.9,-39.66),
+            [4] = vector3(1119.96,-3198.50,-40.95),
+            [5] = vector3(1115.76,-3196.52,-41.05),
+        },
+        offset = {
+            [1] = { rot = vector3(180.0, 180.0, 0.0), coords = vector3(0.0, 0.0, 0.0) },
+            [2] = { rot = vector3(180.0, 180.0, -90.0), coords = vector3(0.0, 0.0, 0.0) }
+        },
+        dinheiro_sujo = {
+            min_money = 10000,
+            max_money = 1000000,
+            porcentagem = 90,
+        }
     },
-	dinheiro_sujo = {
-		min_money = 50000,
-		max_money = 1000000,
-		porcentagem = 90,
-	}
+    --[[ [2] = {
+        perm = "cassino.permissao",
+        locais = {
+            [1] = vector3(459.37,3260.87,37.62),
+            [2] = vector3(458.2,3262.47,37.62),
+            [3] = vector3(450.54,3268.69,38.26),
+            [4] = vector3(454.93,3269.07,37.62),
+            [5] = vector3(461.09,3266.74,38.09),
+        },
+        offset = {
+            [1] = { rot = vector3(0, 0, 144), coords = vector3(-1.34, 1.11, 0.42) },
+            [2] = { rot = vector3(0.0, 0.0, -36.8), coords = vector3(0.33, 0.71, -1.1) }
+        },
+        dinheiro_sujo = {
+            min_money = 10000,
+            max_money = 1000000,
+            porcentagem = 90,
+        }
+    } ]]
 }
+
 
 --------##########################----------
 ------      ENTREGA DE DROGAS      ---------
 --------##########################----------
 
-Farms.init = { 
+Farms.init = {
 	{ 19.79,-1601.41,29.38 },
 	{ 1336.68,-114.69,120.4 },
-} 
+}
 
 Farms.itemList = {
 	{ item = "cocaine", priceMin = 650, priceMax = 800, randMin = 3, randMax = 5 },

@@ -1,20 +1,21 @@
-local Tunnel = module("vrp","lib/Tunnel")
-local Proxy = module("vrp","lib/Proxy")
-local Webhooks = module("Reborn/webhooks")
+Tunnel = module("vrp","lib/Tunnel")
+Proxy = module("vrp","lib/Proxy")
+Webhooks = module("Reborn/webhooks")
 vRP = Proxy.getInterface("vRP")
-Rbn = {}
-Tunnel.bindInterface("Desmanche", Rbn)
+vRPclient = Tunnel.getInterface("vRP")
+
+Desmanche = {}
+Tunnel.bindInterface("Desmanche", Desmanche)
 ------------------------------------------------------
 -- CONFIG 
 ------------------------------------------------------
 local iniciado = {}
 
 -- FUNÇÃO VERIFICAR PERMISSÃO DO DESMANCHE
-function Rbn.CheckPerm(index)
+function Desmanche.CheckPerm(index)
     local source = source
     local user_id = vRP.getUserId(source)
-	local RestritoParaDesmanche = Farms.desmanche[index].RestritoParaDesmanche
-    if RestritoParaDesmanche then
+    if Farms.desmanche[index].RestritoParaDesmanche then
 		local PermissaoDesmanche = Farms.desmanche[index].PermissaoDesmanche
         if vRP.hasPermission(user_id, PermissaoDesmanche) and not iniciado[index] then
 			iniciado[index] = true
@@ -28,12 +29,12 @@ function Rbn.CheckPerm(index)
 end
 
 -- FUNÇÃO DESBLOQUEAR DESMANCHE
-function Rbn.backIniciado(index)
+function Desmanche.backIniciado(index)
 	iniciado[index] = false
 end
 
 -- FUNÇÃO PRA VERIFICAR SE POSSUI O ITEM
-function Rbn.CheckItem(index)
+function Desmanche.CheckItem(index)
     local source = source
     local user_id = vRP.getUserId(source)
 	local PrecisaDeItem = Farms.desmanche[index].PrecisaDeItem
@@ -49,7 +50,7 @@ function Rbn.CheckItem(index)
 end
 
 -- FUNÇÃO PARA GERAR O PAGAMENTO E OS ITENS
-function Rbn.GerarPagamento(placa, nomeFeio, nomeBonito, index)
+function Desmanche.GerarPagamento(placa, nomeFeio, nomeBonito, index)
     local source = source
     local user_id = vRP.getUserId(source)
     local identity = vRP.getUserIdentity(user_id)
@@ -62,7 +63,7 @@ function Rbn.GerarPagamento(placa, nomeFeio, nomeBonito, index)
 		end
 		iniciado[index] = false
 		local multas = pagamento / 2
-		vRP.setFines(puser_id,multas,"Desmanche do veiculo: "..nomeBonito)
+		vRP.setFines(puser_id,multas)
 		local nsource = vRP.getUserSource(puser_id)
 		if nsource then
 			if GetResourceState("ld_smartbank") == "started" then

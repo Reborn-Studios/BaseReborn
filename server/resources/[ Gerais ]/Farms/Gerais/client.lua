@@ -1,10 +1,4 @@
 -----------------------------------------------------------------------------------------------------------------------------------------
--- VRP
------------------------------------------------------------------------------------------------------------------------------------------
-local Tunnel = module("vrp","lib/Tunnel")
-local Proxy = module("vrp","lib/Proxy")
-vRP = Proxy.getInterface("vRP")
------------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
 Server = Tunnel.getInterface("products")
@@ -258,7 +252,7 @@ end
 function Timeselling()
 	CreateThread(function()
 		while inService do
-			if timeSelling > 0 then
+			if timeSelling > 0 and inPed then
 				timeSelling = timeSelling - 1
 				local ped = PlayerPedId()
 				local coords = GetEntityCoords(ped)

@@ -1,6 +1,5 @@
-local Tunnel = module("vrp","lib/Tunnel")
-Drugs = Tunnel.getInterface("drogas")
 InProcess = false
+Drugs = Tunnel.getInterface("drogas")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- LOCAIS
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -221,15 +220,4 @@ function DrawTxt(text,font,x,y,scale,r,g,b,a)
 	SetTextEntry("STRING")
 	AddTextComponentString(text)
 	DrawText(x,y)
-end
-
-function LoadModel(model)
-	if type(model) ~= "number" then
-		model = GetHashKey(model)
-	end
-	while not HasModelLoaded(model) do
-        RequestModel(model)
-        Citizen.Wait(10)
-    end
-	return true
 end
