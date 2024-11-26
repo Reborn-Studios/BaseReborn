@@ -2,9 +2,9 @@ GlobalState["AllPeds"] = {}
 
 AddEventHandler('onServerResourceStart', function(resourceName)
     if resourceName == 'core' or resourceName == GetCurrentResourceName() then
-        if resourceName == GetCurrentResourceName() then
-            GlobalState["AllPeds"] = GetControlFile("peds")
-        end
+        Wait(1000)
+        local AllPeds = GetControlFile("peds") or {}
+        GlobalState:set("AllPeds",AllPeds,true)
     end
 end)
 
