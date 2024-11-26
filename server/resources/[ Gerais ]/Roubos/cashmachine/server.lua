@@ -110,14 +110,14 @@ function cmVRP.startRegister(x,y,z)
 		Wait(1500)
 	until active[user_id] == 0 or #(GetEntityCoords(playerPed) - vector3(x,y,z)) > 2.0 or GetEntityHealth(playerPed) <= 100
 		active[user_id] = nil
-		Citizen.Wait(500)
+		Wait(500)
 		vRPclient._removeObjects(source)
 		vRP.wantedTimer(user_id,15)
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADTIMERS
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		if parseInt(machineGlobal) > 0 then
 			machineGlobal = parseInt(machineGlobal) - 1
@@ -138,12 +138,12 @@ Citizen.CreateThread(function()
 		for k,v in pairs(active) do
 			if active[k] > 0 then
 				active[k] = active[k] - 1
-				if active[user_id] == 0 then
-					active[user_id] = nil
+				if active[k] == 0 then
+					active[k] = nil
 				end
 			end
 		end
-		Citizen.Wait(1000)
+		Wait(1000)
 	end
 end)
 
