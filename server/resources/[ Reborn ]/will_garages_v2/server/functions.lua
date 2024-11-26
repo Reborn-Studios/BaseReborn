@@ -29,6 +29,9 @@ end
 
 function hasPermission(user_id, perm)
     if type(perm) == "table" then
+        if not next(perm) then
+            return true
+        end
         for k,v in pairs(perm) do
             if hasPermission(user_id, k) then
                 return true
