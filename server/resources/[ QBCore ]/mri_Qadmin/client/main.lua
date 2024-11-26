@@ -50,10 +50,10 @@ RegisterCommand("*adminpanel", function()
 end, false)
 RegisterKeyMapping("*adminpanel", "(mri-Qadmin)", "keyboard", Config.AdminPanelKey)
 
-RegisterCommand("*noclip", function()
+--[[ RegisterCommand("*noclip", function()
     TriggerServerEvent("mri_Qadmin:server:RequestNoClip")
 end, false)
-RegisterKeyMapping("*noclip", Lang:t("commands.noclip").."(mri-Qadmin)", "keyboard", Config.NoClipKey)
+RegisterKeyMapping("*noclip", Lang:t("commands.noclip").."(mri-Qadmin)", "keyboard", Config.NoClipKey) ]]
 
 RegisterCommand("*showNames", function()
     if Config.EnableNames then
