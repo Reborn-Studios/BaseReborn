@@ -104,6 +104,7 @@ AddEventHandler("cashRegister:robberyMachine",function(status)
 	for k,v in pairs(registerCoords) do
 		local distance = #(coordsPed - vector3(v[1],v[2],v[3]))
 		if distance <= 2.0 then
+			TriggerEvent("Notify","negado","Caixinha vazio",5000)
 			return
 		end
 	end
@@ -111,9 +112,8 @@ AddEventHandler("cashRegister:robberyMachine",function(status)
 	local coords = GetEntityCoords(object)
 	if vSERVER.cashRegister(coords.x,coords.y,coords.z) then
 		robberyStatus = true
-		SetEntityHeading(ped,GetEntityHeading(object)-360.0)
 		SetPedComponentVariation(ped,5,45,0,2)
-		vSERVER.startRegister(coords.x,coords.y,coords.z)
+		vSERVER.startRegister(coordsPed.x,coordsPed.y,coordsPed.z)
 		robberyStatus = false
 	end
 end)

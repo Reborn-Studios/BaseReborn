@@ -94,19 +94,21 @@ end
 
 function cmVRP.startRegister(x,y,z)
 	local source = source
+	local ROBBERY_TIME = 15
 	local user_id = vRP.getUserId(source)
 	table.insert(registerTimers,{ x,y,z,120 })
-	active[user_id] = 15
+	active[user_id] = ROBBERY_TIME
 	TriggerClientEvent("cashRegister:updateRegister",-1,registerTimers)
 	vRPclient._playAnim(source,false,{"oddjobs@shop_robbery@rob_till","loop"},true)
-	TriggerClientEvent("Progress",source,15000,"Utilizando...")
+	TriggerClientEvent("Progress",source,ROBBERY_TIME * 1000,"Roubando...")
 	cmVRP.callPolice(x,y,z)
+	local playerPed = GetPlayerPed(source)
 	repeat
-		if tonumber(active[user_id]) > 0 and tonumber(active[user_id]) <= 30 then
+		if tonumber(active[user_id]) > 0 and tonumber(active[user_id]) <= ROBBERY_TIME then
 			vRP.giveInventoryItem(user_id,"dollars2",math.random(200,500),true)
 		end
-		Citizen.Wait(1500)
-	until active[user_id] == 0
+		Wait(1500)
+	until active[user_id] == 0 or #(GetEntityCoords(playerPed) - vector3(x,y,z)) > 2.0 or GetEntityHealth(playerPed) <= 100
 		active[user_id] = nil
 		Citizen.Wait(500)
 		vRPclient._removeObjects(source)
