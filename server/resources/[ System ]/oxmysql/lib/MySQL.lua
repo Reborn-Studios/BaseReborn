@@ -1,17 +1,28 @@
 local promise = promise
 local Await = Citizen.Await
-local GetCurrentResourceName = GetCurrentResourceName()
+local resourceName = GetCurrentResourceName()
 local GetResourceState = GetResourceState
+
+local options = {
+	return_callback_errors = false
+}
+
+for i = 1, GetNumResourceMetadata(resourceName, 'mysql_option') do
+	local option = GetResourceMetadata(resourceName, 'mysql_option', i - 1)
+	options[option] = true
+end
 
 local function await(fn, query, parameters)
 	local p = promise.new()
+
 	fn(nil, query, parameters, function(result, error)
 		if error then
 			return p:reject(error)
 		end
 
 		p:resolve(result)
-	end, GetCurrentResourceName, true)
+	end, resourceName, true)
+
 	return Await(p)
 end
 
@@ -23,6 +34,7 @@ local function safeArgs(query, parameters, cb, transaction)
 
 	if queryType == 'number' then
 		query = queryStore[query]
+		assert(query, "First argument received invalid query store reference")
 	elseif transaction then
 		if queryType ~= 'table' then
 			error(("First argument expected table, received '%s'"):format(query))
@@ -60,7 +72,7 @@ local oxmysql = exports.oxmysql
 local mysql_method_mt = {
 	__call = function(self, query, parameters, cb)
 		query, parameters, cb = safeArgs(query, parameters, cb, self.method == 'transaction')
-		return oxmysql[self.method](nil, query, parameters, cb, GetCurrentResourceName, false)
+		return oxmysql[self.method](nil, query, parameters, cb, resourceName, options.return_callback_errors)
 	end
 }
 
@@ -136,40 +148,8 @@ MySQL.ready = setmetatable({
 	end,
 })
 
+function MySQL.startTransaction(cb)
+	return oxmysql:startTransaction(cb, resourceName)
+end
+
 _ENV.MySQL = MySQL
-
---[[
-exports.oxmysql:query (previously exports.oxmysql:execute)
-MySQL.Async.fetchAll = MySQL.query
-MySQL.Sync.fetchAll = MySQL.query.await
-
-
-exports.oxmysql:scalar
-MySQL.Async.fetchScalar = MySQL.scalar
-MySQL.Sync.fetchScalar = MySQL.scalar.await
-
-
-exports.oxmysql:single
-MySQL.Async.fetchSingle = MySQL.single
-MySQL.Sync.fetchSingle = MySQL.single.await
-
-
-exports.oxmysql:insert
-MySQL.Async.insert = MySQL.insert
-MySQL.Sync.insert = MySQL.insert.await
-
-
-exports.oxmysql:update
-MySQL.Async.execute = MySQL.update
-MySQL.Sync.execute = MySQL.update.await
-
-
-exports.oxmysql:transaction
-MySQL.Async.transaction = MySQL.transaction
-MySQL.Sync.transaction = MySQL.transaction.await
-
-
-exports.oxmysql:prepare
-MySQL.Async.prepare = MySQL.prepare
-MySQL.Sync.prepare = MySQL.prepare.await
---]]
