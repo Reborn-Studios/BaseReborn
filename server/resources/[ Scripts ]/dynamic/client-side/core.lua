@@ -124,8 +124,13 @@ RegisterCommand("globalFunctions",function()
 
 			exports["dynamic"]:AddButton("Propriedades","Marcar/Desmarcar propriedades no mapa.","will_homes:blips","","others",false)
 			exports["dynamic"]:AddButton("Desbugar","Recarregar o personagem.","player:Debug","","others",true)
+			if GetResourceState("will_login") == "started" then
+				exports["dynamic"]:AddButton("Referencias","Abrir menu de referencias.","will_login:openMyReferences","","others",true)
+			end
 			exports["dynamic"]:SubMenu("Outros","Todas as funções do personagem.","others")
-
+			if GetResourceState("will_battlepass") == "started" then
+				exports["dynamic"]:AddButton("Passe de Batalha","Abrir o passe de batalha.","will_battlepass:open","",false,false)
+			end
 			exports["dynamic"]:openMenu()
 		end
 	end
