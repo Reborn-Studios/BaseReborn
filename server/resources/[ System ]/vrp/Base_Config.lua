@@ -24,7 +24,7 @@ GlobalState['Basics'] = {
     ['ServerName'] = GetConvar('sv_hostname', "Reborn Studios"),
     ['Discord'] = GetConvar('Discord', "https://discord.gg/8unYr9MUdx"),
     ['ServerStore'] = "",
-    ['Whitelist'] = true,
+    ['Whitelist'] = false,
     ['Debug'] = false
 }
 

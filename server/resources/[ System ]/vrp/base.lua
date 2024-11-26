@@ -300,6 +300,9 @@ AddEventHandler("baseModule:idLoaded",function(source,user,model)
 			end
 			vRP.user_tables[user_id].backpack = 5
 			TriggerEvent("Reborn:newPlayer",user_id)
+			if not GlobalState['Basics']['Whitelist'] then
+				TriggerClientEvent("will_login:LoginMenu",source)
+			end
 			SetTimeout(5000,function()
 				for k,v in pairs(first_login['Itens']) do
 					vRP.giveInventoryItem(user_id,k,v)
