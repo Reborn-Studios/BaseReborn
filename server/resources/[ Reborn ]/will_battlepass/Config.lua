@@ -305,3 +305,9 @@ Config.notify = function(msg, source)
 		TriggerEvent("Notify", messages[msg][2], messages[msg][1], 5000)
 	end
 end
+
+if not IsDuplicityVersion() then
+	RegisterNetEvent("will_battlepass:open",function ()
+		ExecuteCommand(Config.Command)
+	end)
+end
