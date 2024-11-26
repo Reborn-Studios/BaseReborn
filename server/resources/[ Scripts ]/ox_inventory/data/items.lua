@@ -1771,4 +1771,10 @@ return {
 			image = "roupas.png",
 		}
 	},
+
+	["radio_jammer"] = {
+		label = "Radio Jammer",
+		weight = 10000,
+		description = "Bloqueie sinais de radio",
+	},
 }
