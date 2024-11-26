@@ -8,11 +8,13 @@ function Client.openMainMenu()
         title = 'Controle de configurações',
         position = 'top-right',
         options = {
-            {label = 'Elevadores', description = 'Criar elevador'},
-            {label = 'Garagens', description = 'Criar garagem'},
-            {label = 'NPCS', description = 'Criar Npcs'},
-            {label = 'Safezones', description = 'Criar Safezones'},
-            {label = 'Baus', description = 'Criar Baus'},
+            {label = 'Elevadores', description = 'Gerenciar elevadores'},
+            {label = 'Garagens', description = 'Gerenciar garagens'},
+            {label = 'NPCS', description = 'Gerenciar Npcs'},
+            {label = 'Safezones', description = 'Gerenciar Safezones'},
+            {label = 'Baus', description = 'Gerenciar Baus'},
+            {label = 'Frequencia Radios', description = 'Gerenciar Frequencias de radio'},
+            -- {label = 'Lojas de roupas', description = 'Gerenciar Lojas de roupas'},
         }
     }, function(selected, scrollIndex, args)
         if selected == 1 then
@@ -25,6 +27,10 @@ function Client.openMainMenu()
             ExecuteCommand(Config.Commands["safezones"]['command'])
         elseif selected == 5 then
             ExecuteCommand(Config.Commands["stashes"]['command'])
+        elseif selected == 6 then
+            ExecuteCommand(Config.Commands["radio"]['command'])
+        elseif selected == 7 then
+            ExecuteCommand(Config.Commands["skinshop"]['command'])
         end
     end)
     lib.showMenu('admin_menu_control')

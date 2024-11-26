@@ -32,7 +32,15 @@ Config.Commands = {
 	['elevators'] = {
 		['command'] = "elevadores",
 		['perm'] = "owner.permissao"
-	}
+	},
+	['radio'] = {
+		['command'] = "radiofreqs",
+		['perm'] = "owner.permissao"
+	},
+	-- ['skinshop'] = {
+	-- 	['command'] = "skinshop",
+	-- 	['perm'] = "owner.permissao"
+	-- }
 }
 
 Config.DefaultStash = {

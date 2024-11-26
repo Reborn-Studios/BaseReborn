@@ -1,0 +1,17 @@
+[
+  {
+    "freq": 1,
+    "name": "Emergencia Geral",
+    "groups": { "police": true, "ambulance": true }
+  },
+  {
+    "freq": 190,
+    "name": "Policia",
+    "groups": { "police": true }
+  },
+  {
+    "freq": 192,
+    "name": "Hospital",
+    "groups": { "ambulance": true }
+  }
+]

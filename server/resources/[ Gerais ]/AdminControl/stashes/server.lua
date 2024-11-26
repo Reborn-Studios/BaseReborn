@@ -115,6 +115,7 @@ end
 
 AddEventHandler("onResourceStart",function(rs)
     if rs == "ox_inventory" then
+        Wait(500)
         exports.ox_inventory:registerHook('swapItems', function(payload)
             local title = nil
             local webhook = nil
