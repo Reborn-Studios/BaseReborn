@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link rel="stylesheet" href="main.css" />
+  </head>
+  <body>
+    <img class="characterimg" src="./img/character.png" />
+    <div class="firstScreen" style="display: block">
+      <div class="loginMenu" style="display: none">
+        <div class="titleSide">
+          <div class="subTitle">Primeira Etapa</div>
+          <div class="Title">CADASTRO DE <span>USUARIO</span></div>
+        </div>
+        <div class="loginBox">
+          <div class="textinfo">
+            Informações do usuário <span> Digite</span>
+          </div>
+          <div class="codeinputBox" id="name_container">
+            <input type="text" id="name_input" required="required" />
+            <span>Nome...</span>
+            <div class="pasteButton">
+              <i class="fa-solid fa-user"></i>
+            </div>
+          </div>
+          <div class="codeinputBox" id="email_container">
+            <input type="text" id="email_input" required="required" />
+            <span>Email...</span>
+            <div class="pasteButton">
+              <i class="fa-solid fa-envelope"></i>
+            </div>
+          </div>
+          <div class="codeinputBox" id="phone_container">
+            <input
+              type="tel"
+              id="phone_input"
+              maxlength="16"
+              required="required"
+            />
+            <span>WhatsApp...</span>
+            <div class="pasteButton">
+              <i class="fa-solid fa-phone"></i>
+            </div>
+          </div>
+          <div class="codeinputBox" id="birthdate_container">
+            <input
+              type="tel"
+              id="birth_input"
+              required="required"
+              maxlength="10"
+            />
+            <span>01/01/2000</span>
+            <div class="pasteButton">
+              <i class="fa-solid fa-calendar-days"></i>
+            </div>
+          </div>
+          <div class="textinfo">
+            Onde nos encontrou? <span> Selecione</span>
+          </div>
+          <div class="selectWhere">
+            <select id="findwhere">
+              <option value="fivem">Lista FiveM</option>
+              <option value="season">Ultima Season</option>
+              <option value="tiktok">TikTok</option>
+              <option value="others">Outros</option>
+            </select>
+          </div>
+          <div class="nextButton" onclick="nextStep()">PROXIMO</div>
+        </div>
+      </div>
+      <div class="discordMenu" style="display: none">
+        <div class="titleSide">
+          <div class="subTitle">Segunda Etapa</div>
+          <div class="Title">CONEXÃO AO <span>DISCORD</span></div>
+          <div class="titleInfo">
+            Siga as instruções para se conectar ao discord
+          </div>
+        </div>
+        <div class="discordBox">
+          <div class="firstStep">
+            <div class="textinfo">
+              <b>1° PASSO:</b>
+            </div>
+            <div class="stepInfo">
+              Copie o Token abaixo e cole na sala de whitelist do Discord
+            </div>
+            <div class="stepBox" onclick="copyToken()">
+              <span style="font-size: 1vw">SEU TOKEN</span>
+              <span id="token">1</span>
+              <i class="fa-solid fa-copy"></i>
+            </div>
+          </div>
+          <div class="secondStep">
+            <div class="textinfo">
+              <b>2° PASSO:</b>
+            </div>
+            <div class="stepInfo">Entre em nosso Discord</div>
+            <div class="stepBox" onclick="openDiscord()">
+              <span style="font-size: 1vw">DISCORD</span>
+              <i class="fa-brands fa-discord"></i>
+            </div>
+          </div>
+          <div class="nextButton" onclick="openReferenceMenu()">CONFIRMAR</div>
+        </div>
+      </div>
+      <div class="referenceMenu" style="display: none">
+        <div class="titleSide">
+          <div class="subTitle">Terceira Etapa</div>
+          <div class="Title">SISTEMA DE <span>REFERENCIA</span></div>
+          <div class="titleInfo">
+            Se você tiver um codigo de convite, insira-o que o dono receberá uma
+            conquista
+          </div>
+        </div>
+        <div class="referencesBox">
+          <div class="textinfo">
+            Codigo de Referencia <span>Codigo de Amigo</span>
+          </div>
+          <div class="codeinputBox">
+            <input type="text" id="code_input" required="required" />
+            <span>Codigo...</span>
+            <div class="pasteButton">
+              <i class="fa-solid fa-barcode"></i>
+            </div>
+          </div>
+          <div class="codeAcceptButton" onclick="accept(true)">CONFIRMAR</div>
+          <div class="nocodeText">Você não tem um codigo de referencia</div>
+          <div class="nocodeButton" onclick="accept()">Não tenho um codigo</div>
+        </div>
+        <div class="infoSide">
+          <div class="infoBox">
+            <i class="fa-solid fa-circle-info"></i>
+            <div class="infobottomText">
+              Informação 1<br /><span
+                >Se você tiver um codigo, insira com cuidado, codigos com erros
+                não serão resgatados</span
+              >
+            </div>
+          </div>
+          <div class="infoBox">
+            <i class="fa-solid fa-circle-info"></i>
+            <div class="infobottomText">
+              Informação 2<br /><span
+                >Se você não tiver um codigo, use: Não tenho um codigo.</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="vehicleMenu" style="display: none">
+        <div class="titleSide">
+          <div class="subTitle">Quarta Etapa</div>
+          <div class="Title">VEICULO <span>GRATIS</span></div>
+          <div class="titleInfo">Escolha o seu veiculo VIP gratuitamente</div>
+        </div>
+        <div class="vehiclesContainer">
+          <div class="vehicleBox">
+            <div>
+              <div class="textinfo">Mercedes GT63 <span>5 dias</span></div>
+              <div class="nocodeButton" onclick="rewardVehicle('mercedesgt63')">
+                Resgatar
+              </div>
+            </div>
+            <img
+              src="http://212.18.114.101/imagens/mercedesgt63.png"
+              alt="Mercedes GT63"
+            />
+          </div>
+          <div class="vehicleBox">
+            <div>
+              <div class="textinfo">Range Rover <span>7 dias</span></div>
+              <div class="nocodeButton" onclick="rewardVehicle('rangerover')">
+                Resgatar
+              </div>
+            </div>
+            <img
+              src="http://212.18.114.101/imagens/rangerover.png"
+              alt="Range Rover"
+            />
+          </div>
+          <div class="vehicleBox">
+            <div>
+              <div class="textinfo">Yamaha R1 <span>10 dias</span></div>
+              <div class="nocodeButton" onclick="rewardVehicle('r1')">
+                Resgatar
+              </div>
+            </div>
+            <img src="http://212.18.114.101/imagens/r1.png" alt="Yamaha R1" />
+          </div>
+        </div>
+        <div class="infoSide">
+          <div class="infoBox">
+            <i class="fa-solid fa-circle-info"></i>
+            <div class="infobottomText">
+              Informação<br /><span
+                >O veiculo escolhido é por tempo limitado. Após os dias o
+                veículo sera recolhido!</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="twoScreen" style="display: none">
+      <div class="titleSide">
+        <div class="subTitle">REBORN STUDIOS</div>
+        <div class="Title">SISTEMA DE <span>REFERENCIA</span></div>
+        <div class="titleInfo">
+          Convide novas pessoas para nossa cidade com seu codigo de referência e
+          você ganhará recompensas
+        </div>
+      </div>
+      <div class="myCodeSide">
+        <div class="myCodeInfo">
+          <p>Seu código de referencia</p>
+          <p>Resgate esse codigo e ganhe.</p>
+        </div>
+        <div class="mycodeinputBox">
+          <div class="mycodeBox">NO DATA LOADİNG</div>
+          <div class="copyButton" onclick="copy()">
+            <i class="fa-solid fa-copy"></i>
+            Copiar
+          </div>
+        </div>
+      </div>
+      <div class="prizeSides">
+        <div class="prizeSide"></div>
+      </div>
+      <div class="bigPrizeSide">
+        <div class="imgbg">
+          <div
+            class="bigprizeimg"
+            style="background-image: url(./img/money.png)"
+          ></div>
+        </div>
+        <div class="bigprizerightside">
+          <div class="bigPrizeText">
+            RECOMPENSAS<br /><span
+              >Se você alcançou o maximo de recompensas, você ganhará o valor
+              total seguinte</span
+            >
+          </div>
+          <div class="bigprizpriceeside">
+            <div class="bigPrizePrice">$150.000</div>
+            <div class="collectButton" onclick="collect()">Coletar</div>
+          </div>
+        </div>
+      </div>
+      <div class="exitBox" onclick="CloseMenu()">
+        Sair
+        <div>
+          <i class="fa-solid fa-xmark"></i>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="nui://game/ui/jquery.js" type="text/javascript"></script>
+  <script src="https://cdn.jsdelivr.net/gh/cferdinandi/saferInnerHTML@1/dist/saferInnerHTML.polyfills.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="./js.js"></script>
+</html>
