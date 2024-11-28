@@ -1,5 +1,7 @@
 # COMANDOS ADM
 
+`/adm` - Painel de admin <br>
+`/adm2` - Painel de configurações <br>
 `/item (item) (quantidade)` - Pegar item <br>
 `/itemall (item) (quantidade)` - Dar item para todos do server <br>
 `/skin (id) (model)` - Setar modelo no ped <br>

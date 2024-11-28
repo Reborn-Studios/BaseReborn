@@ -8,7 +8,11 @@
 
 ### Empregos:
 
-`[ Reborn ] > will_shops > Config.lua > (levelRewards)`
+`[ Reborn ] > will_jobs > Config.lua > (levelRewards)`
+
+### Compra de veiculos:
+
+`[ Reborn ] > will_conce_v2 > config.lua > config.veiculos`
 
 ## Locais
 
@@ -37,7 +41,7 @@
 
 ### Adicionar garagens/veiculos:
 
-`/addgarage` - Comando para criar garagem dentro do jogo
+`/addgarage` ou `/garagens` - Comando para criar garagem dentro do jogo
 
 `[ Reborn ] > will_garages_v2 > Garages.lua / Vehicles.lua`
 
@@ -48,11 +52,22 @@
 ### Alterar Baús:
 
 > Baú so aparece para quem tiver com o grupo correto
+
+> Criação com `/stashes` ou em
+
 > `[ Scripts ] > ox_inventory > data > stashes.lua`
 
 ### Documentação do inventario:
 
 https://overextended.dev/ox_inventory
+
+### Painel de facção
+
+`[ Reborn ] > ld_factions > config > config.lua`
+
+### Rotas e crafts
+
+`[ Reborn ] > ld_routes > config.lua`
 
 ### Webhooks
 
