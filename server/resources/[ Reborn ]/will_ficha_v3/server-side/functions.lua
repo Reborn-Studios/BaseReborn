@@ -147,9 +147,9 @@ function execute(name, data)
     vRP.execute(name, data)
 end
 
-RegisterCommand("outprison", function(source, args)
+RegisterCommand("remprisao", function(source, args)
     local user_id = getUserId(source)
-    if user_id and args[1] then
+    if user_id and vRP.hasPermission(user_id,"admin.permissao") and args[1] then
         local nuser_id = parseInt(args[1])
         local nplayer = getUserSource(nuser_id)
         local ped = GetPlayerPed(nplayer)
@@ -157,9 +157,9 @@ RegisterCommand("outprison", function(source, args)
         TriggerClientEvent('prisioneiro',nplayer,false)
         SetEntityCoords(ped,x,y,z)
         vRP.setUData(parseInt(nuser_id),"vRP:prisao",-1)
+	    vRP.execute("vRP/set_prison",{ user_id = nuser_id, prison = 0, locate = 1 })
     end
 end)
-
 
 AddEventHandler("vRP:playerSpawn",function(user_id,source)
     Citizen.Wait(3000)

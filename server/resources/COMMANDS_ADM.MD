@@ -50,6 +50,7 @@
 `/car (veiculo)` - Spawnar veiculo <br>
 `/dv` - Deletar veiculo proximo <br>
 `/fix` - Reparar veiculo proximo <br>
+`/remprisao ()` - Retirar da prisao
 
 ### ARMAS BANDIDOS
 
