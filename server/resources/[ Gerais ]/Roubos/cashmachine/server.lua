@@ -13,7 +13,7 @@ Tunnel.bindInterface("cashmachine",cmVRP)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
-local machineGlobal = 1200
+local machineGlobal = 0
 local machineStart = false
 local registerTimers = {}
 local active = {}
@@ -104,11 +104,11 @@ function cmVRP.startRegister(x,y,z)
 	cmVRP.callPolice(x,y,z)
 	local playerPed = GetPlayerPed(source)
 	repeat
-		if tonumber(active[user_id]) > 0 and tonumber(active[user_id]) <= ROBBERY_TIME then
+		if parseInt(active[user_id]) > 0 and parseInt(active[user_id]) <= ROBBERY_TIME then
 			vRP.giveInventoryItem(user_id,"dollars2",math.random(200,500),true)
 		end
 		Wait(1500)
-	until active[user_id] == 0 or #(GetEntityCoords(playerPed) - vector3(x,y,z)) > 2.0 or GetEntityHealth(playerPed) <= 100
+	until parseInt(active[user_id]) == 0 or #(GetEntityCoords(playerPed) - vector3(x,y,z)) > 2.0 or GetEntityHealth(playerPed) <= 100
 		active[user_id] = nil
 		Wait(500)
 		vRPclient._removeObjects(source)
