@@ -888,7 +888,7 @@ AddEventHandler('gameEventTriggered', function(event, data)
 	end
 end)
 
-RegisterCommand('e', function(source, args, raw) EmoteCommandStart(source, args, raw) end, false)
+-- RegisterCommand('e', function(source, args, raw) EmoteCommandStart(source, args, raw) end, false)
 RegisterCommand('emote', function(source, args, raw) EmoteCommandStart(source, args, raw) end, false)
 
 function EmoteCommandStart(source, args, raw)
