@@ -62,6 +62,11 @@ CreateThread(function()
 						SetVehicleEngineOn(Vehicle,false,true,true)
 					end
 				end
+			else
+				SetEntityHealth(ped,101)
+				if not IsEntityPlayingAnim(ped,"dead","dead_a",3) and not IsPedInAnyVehicle(ped,false) then
+					TaskPlayAnim(ped,"dead","dead_a",8.0,8.0,-1,1,1,false,false,false)
+				end
 			end
 			if IsControlJustPressed(0,38) then
 				if CallCooldown <= 0 then
