@@ -410,7 +410,7 @@ RegisterCommand("ungroup",function(source,args,rawCommand)
 	if user_id then
 		if HasPermission(source,"ungroup") then
 			if vRP.hasPermission(parseInt(args[1]),tostring(args[2])) then
-				vRP.removePermission(parseInt(args[1]),tostring(args[2]))
+				vRP.removeUserGroup(parseInt(args[1]),tostring(args[2]))
 				vRP.execute("vRP/del_group",{ user_id = parseInt(args[1]), permiss = tostring(args[2]) })
 				TriggerClientEvent("Notify",source,"sucesso","O cidadão foi retirado de " ..(args[2])..".",5000)
 				vRP.createWeebHook(Webhooks.webhookunset,"```prolog\n[ID]: "..user_id.." \n[TIROU SET DE]: "..args[1].." \n [GROUP]: "..args[2].." "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
