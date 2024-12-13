@@ -25,6 +25,19 @@ function tvRP.updateWeapons(weapons)
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- UPDATECUSTOMIZATION
+-----------------------------------------------------------------------------------------------------------------------------------------
+function tvRP.updateCustomization(customization)
+	local source = source
+	local user_id = vRP.getUserId(source)
+	if user_id then
+		local data = vRP.getUserDataTable(user_id)
+		if data then
+			data.customization = customization
+		end
+	end
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- MATHLEGTH
 -----------------------------------------------------------------------------------------------------------------------------------------
 function tvRP.mathLegth(n)
@@ -151,6 +164,9 @@ AddEventHandler("vRP:playerSpawn",function(user_id,source)
 		end
 		if data.weaps then
 			vRPclient.giveWeapons(source,data.weaps,true)
+		end
+		if data.customization then
+			vRPclient.setCustomization(source,data.customization)
 		end
 		TriggerClientEvent("statusHunger",source,data.hunger)
 		TriggerClientEvent("statusThirst",source,data.thirst)

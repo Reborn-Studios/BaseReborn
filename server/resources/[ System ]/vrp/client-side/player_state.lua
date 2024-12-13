@@ -129,7 +129,7 @@ function tvRP.getDrawableTextures(part,drawable)
 	end
 end
 
-function tvRP.setCustomization(custom)
+function tvRP.setCustomization(custom, localApply)
 	local r = async()
 	CreateThread(function()
 		if custom then
@@ -176,6 +176,9 @@ function tvRP.setCustomization(custom)
 					end
 					TriggerEvent("reloadtattos")
 				end
+			end
+			if not localApply then
+				vRPserver._updateCustomization(custom)
 			end
 		end
 		r()

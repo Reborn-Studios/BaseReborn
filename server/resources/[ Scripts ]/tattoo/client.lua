@@ -65,7 +65,7 @@ function closeGuiLojaTattoo()
     local ped = PlayerPedId()
     local health = GetEntityHealth(ped)
     local armour = GetPedArmour(ped)
-    vRP.setCustomization(oldCustom)
+    vRP.setCustomization(oldCustom,true)
     src.applyTatto()
     vRP.setHealth(health)
     vRP.setArmour(armour)
@@ -146,7 +146,7 @@ function setNewCustom()
         idleCopy[l] = w
     end
 
-    vRP.setCustomization(idleCopy)
+    vRP.setCustomization(idleCopy,true)
 end
 
 
