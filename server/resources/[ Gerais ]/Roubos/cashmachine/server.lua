@@ -24,8 +24,8 @@ function cmVRP.startMachine()
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		local copAmount = vRP.numPermission("Police")
-		if parseInt(#copAmount) <= Config.cashMachine['cops'] then
+		local copAmount = vRP.getUsersByPermission("policia.permissao")
+		if #copAmount <= Config.cashMachine['cops'] then
 			TriggerClientEvent("Notify",source,"aviso","Sistema indisponível no momento, tente mais tarde.",5000)
 			return false
 		elseif parseInt(machineGlobal) > 0 then
@@ -77,7 +77,7 @@ end
 function cmVRP.cashRegister(x,y,z)
 	local source = source
 	local user_id = vRP.getUserId(source)
-	local copAmount = vRP.numPermission("Police")
+	local copAmount = vRP.getUsersByPermission("policia.permissao")
 	if #copAmount >= Config.cashMachine['cops'] then
 		vRPclient.stopActived(source)
 		if vRP.tryGetInventoryItem(user_id,"lockpick",1,true) then

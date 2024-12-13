@@ -64,6 +64,7 @@ AddEventHandler("vrp_cashmachine:machineRobbery",function()
 						FreezeEntityPosition(objectBomb,true)
 						SetEntityHeading(objectBomb,v[4])
 						SetModelAsNoLongerNeeded(mHash)
+						break
 					end
 				end
 			end
