@@ -58,7 +58,7 @@ function Desmanche.GerarPagamento(placa, nomeFeio, nomeBonito, index)
 	if puser_id and puser_id ~= user_id then
 		local pagamento = (vRP.vehiclePrice(nomeFeio) or 0) * 0.5 or 50000
 		vRP.giveInventoryItem(user_id,'dollars2',pagamento)
-		for k,v in pairs(Farms.desmanche['Payment']) do
+		for k,v in pairs(Farms.desmanche[index]['Payment']) do
 			vRP.giveInventoryItem(user_id,k,v)
 		end
 		iniciado[index] = false
