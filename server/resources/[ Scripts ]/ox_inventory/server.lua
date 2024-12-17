@@ -253,7 +253,7 @@ end
 ---@param invType string
 ---@param data string|number|table
 lib.callback.register('ox_inventory:openInventory', function(source, invType, data)
-	return openInventory(source, invType, data)
+	return openInventory(source, invType, data, true)
 end)
 
 ---@param netId number
