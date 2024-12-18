@@ -75,6 +75,13 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- NUMPERMISSION
 -----------------------------------------------------------------------------------------------------------------------------------------
+local JobsPermissions = {
+	['policia.permissao'] = "Police",
+	['paramedico.permissao'] = "Paramedic",
+	['mecanico.permissao'] = "Mechanic",
+	['admin.permissao'] = "Admin",
+}
+
 function vRP.insertPermission(user_id,perm)
 	local user = parseInt(user_id)
 	local nplayer = vRP.getUserSource(user)
@@ -82,24 +89,36 @@ function vRP.insertPermission(user_id,perm)
 	table.insert(permissions[user], { permiss = perm } )
 	if not nplayer then return end
 	Player(nplayer)["state"][perm] = true
+	local group = groups[perm]
+	if group then
+		for l,w in ipairs(group) do
+			if type(w) == "string" and JobsPermissions[w] then
+				if vRP.hasPermission(user, w) then
+					Player(nplayer)["state"][JobsPermissions[w]] = true
+				end
+				if JobsPermissions[w] == "Admin" then
+					lib.addPrincipal(nplayer, "group.admin")
+					lib.addPrincipal(vRP.getSteam(nplayer), "group.admin")
+				end
+			end
+		end
+		if group and group._config then
+			if group._config.gtype and group._config.gtype == "vip" then
+				Player(nplayer)["state"]["Premium"] = true
+			end
+		end
+	end
 	if groups[perm] and groups[perm]._config then
 		if groups[perm]._config.gtype and groups[perm]._config.gtype == "vip" then
 			Player(nplayer)["state"]["Premium"] = true
 		end
 	end
 	if vRP.hasPermission(user, "policia.permissao") then
-		Player(nplayer)["state"]["Police"] = true
 		TriggerEvent("vrp_blipsystem:serviceEnter",nplayer,"Policial",77)
 	elseif vRP.hasPermission(user, "paramedico.permissao") then
-		Player(nplayer)["state"]["Paramedic"] = true
 		TriggerEvent("vrp_blipsystem:serviceEnter",nplayer,"Paramedico",83)
 	elseif vRP.hasPermission(user, "mecanico.permissao") then
-		Player(nplayer)["state"]["Mechanic"] = true
 		TriggerEvent("vrp_blipsystem:serviceEnter",nplayer,"Mecanico",51)
-	elseif vRP.hasPermission(user, "admin.permissao") then
-		Player(nplayer)["state"]["Admin"] = true
-		lib.addPrincipal(nplayer, "group.admin")
-		lib.addPrincipal(vRP.getSteam(nplayer), "group.admin")
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -111,20 +130,23 @@ function vRP.removePermission(user_id,perm)
 	if nplayer then
 		TriggerEvent("vrp_blipsystem:serviceExit",nplayer)
 		Player(nplayer)["state"][perm] = false
-		if vRP.hasPermission(user, "policia.permissao") then
-			Player(nplayer)["state"]["Police"] = false
-		elseif vRP.hasPermission(user, "paramedico.permissao") then
-			Player(nplayer)["state"]["Paramedic"] = false
-		elseif vRP.hasPermission(user, "mecanico.permissao") then
-			Player(nplayer)["state"]["Mechanic"] = false
-		elseif vRP.hasPermission(user, "admin.permissao") then
-			Player(nplayer)["state"]["Admin"] = false
-			lib.removePrincipal(nplayer, "group.admin")
-			lib.removePrincipal(vRP.getSteam(nplayer), "group.admin")
-		end
-		if groups[perm] and groups[perm]._config then
-			if groups[perm]._config.gtype and groups[perm]._config.gtype == "vip" then
-				Player(nplayer)["state"]["Premium"] = false
+		local group = groups[perm]
+		if group then
+			for l,w in ipairs(group) do
+				if type(w) == "string" and JobsPermissions[w] then
+					if vRP.hasPermission(user, w) then
+						Player(nplayer)["state"][JobsPermissions[w]] = false
+					end
+					if JobsPermissions[w] == "Admin" then
+						lib.removePrincipal(nplayer, "group.admin")
+						lib.removePrincipal(vRP.getSteam(nplayer), "group.admin")
+					end
+				end
+			end
+			if group and group._config then
+				if group._config.gtype and group._config.gtype == "vip" then
+					Player(nplayer)["state"]["Premium"] = false
+				end
 			end
 		end
 	end
