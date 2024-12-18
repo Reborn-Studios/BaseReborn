@@ -17,6 +17,7 @@ local function syncNpcs()
                         label = 'Deletar Ped',
                         icon = 'fa-solid fa-trash',
                         action = function ()
+                            exports['target']:RemCircleZone(Ped.Model..Index)
                             TriggerServerEvent("AdminControl:deletePed",Index)
                         end,
                         tunnel = "server"

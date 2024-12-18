@@ -130,6 +130,7 @@ function CreateGarage()
             })
             local blipCds = GetBlipCoords()
             garage.entrada.blip = { blipCds.x, blipCds.y, blipCds.z }
+            Wait(1000)
             if garage.type == "painel" then
                 local vehsPos = getVehicleCoords()
                 if not vehsPos then return end
