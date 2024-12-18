@@ -41,6 +41,16 @@ function vRP.upgradeThirst(user_id,amount)
 		end
 
 		TriggerClientEvent("statusThirst",source,data.thirst)
+		TriggerClientEvent("esx_status:onTick",source,{
+			{ name = "hunger", percent = data.hunger },
+			{ name = "thirst", percent = data.thirst },
+			{ name = "stress", percent = data.stress },
+		})
+		TriggerClientEvent("esx_status:add",source,"thirst",amount)
+		local Player = QBCore.Functions.GetPlayer(source)
+		if Player then
+			Player.Functions.SetMetaData("thirst", data.thirst)
+		end
 	end
 end
 
@@ -66,6 +76,16 @@ function vRP.upgradeHunger(user_id,amount)
 		end
 
 		TriggerClientEvent("statusHunger",source,data.hunger)
+		TriggerClientEvent("esx_status:onTick",source,{
+			{ name = "hunger", percent = data.hunger },
+			{ name = "thirst", percent = data.thirst },
+			{ name = "stress", percent = data.stress },
+		})
+		TriggerClientEvent("esx_status:add",source,"hunger",amount)
+		local Player = QBCore.Functions.GetPlayer(source)
+		if Player then
+			Player.Functions.SetMetaData("hunger", data.hunger)
+		end
 	end
 end
 
@@ -91,6 +111,16 @@ function vRP.downgradeThirst(user_id,amount)
 		end
 
 		TriggerClientEvent("statusThirst",source,data.thirst)
+		TriggerClientEvent("esx_status:onTick",source,{
+			{ name = "hunger", percent = data.hunger },
+			{ name = "thirst", percent = data.thirst },
+			{ name = "stress", percent = data.stress },
+		})
+		TriggerClientEvent("esx_status:remove",source,"thirst",amount)
+		local Player = QBCore.Functions.GetPlayer(source)
+		if Player then
+			Player.Functions.SetMetaData("thirst", data.thirst)
+		end
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -110,6 +140,16 @@ function vRP.downgradeHunger(user_id,amount)
 		end
 
 		TriggerClientEvent("statusHunger",source,data.hunger)
+		TriggerClientEvent("esx_status:onTick",source,{
+			{ name = "hunger", percent = data.hunger },
+			{ name = "thirst", percent = data.thirst },
+			{ name = "stress", percent = data.stress },
+		})
+		TriggerClientEvent("esx_status:remove",source,"hunger",amount)
+		local Player = QBCore.Functions.GetPlayer(source)
+		if Player then
+			Player.Functions.SetMetaData("hunger", data.hunger)
+		end
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -129,6 +169,11 @@ function vRP.upgradeStress(user_id,amount)
 		end
 
 		TriggerClientEvent("statusStress",source,data.stress)
+		TriggerClientEvent("esx_status:onTick",source,{
+			{ name = "hunger", percent = data.hunger },
+			{ name = "thirst", percent = data.thirst },
+			{ name = "stress", percent = data.stress },
+		})
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -148,6 +193,11 @@ function vRP.downgradeStress(user_id,amount)
 		end
 
 		TriggerClientEvent("statusStress",source,data.stress)
+		TriggerClientEvent("esx_status:onTick",source,{
+			{ name = "hunger", percent = data.hunger },
+			{ name = "thirst", percent = data.thirst },
+			{ name = "stress", percent = data.stress },
+		})
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
