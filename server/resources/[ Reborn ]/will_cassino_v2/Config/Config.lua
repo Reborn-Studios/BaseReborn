@@ -9,7 +9,7 @@ Tunnel = module("vrp","lib/Tunnel")
 Config.money = "fichas"
 
 -- will_shops
-Config.hasShops = true
+Config.hasShops = false
 
 -- Carro de exibição e npc em alguns lugares, caso não queira, deixar 'false'. 
 -- Recomendado retirar para otimizar um pouco mais.
