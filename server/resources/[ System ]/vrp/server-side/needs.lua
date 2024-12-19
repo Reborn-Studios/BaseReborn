@@ -49,7 +49,8 @@ function vRP.upgradeThirst(user_id,amount)
 		TriggerClientEvent("esx_status:add",source,"thirst",amount)
 		local Player = QBCore.Functions.GetPlayer(source)
 		if Player then
-			Player.Functions.SetMetaData("thirst", data.thirst)
+			Player.PlayerData.metadata["thirst"] = data.thirst
+			Player.Functions.UpdatePlayerData()
 		end
 	end
 end
@@ -84,7 +85,8 @@ function vRP.upgradeHunger(user_id,amount)
 		TriggerClientEvent("esx_status:add",source,"hunger",amount)
 		local Player = QBCore.Functions.GetPlayer(source)
 		if Player then
-			Player.Functions.SetMetaData("hunger", data.hunger)
+			Player.PlayerData.metadata["hunger"] = data.hunger
+			Player.Functions.UpdatePlayerData()
 		end
 	end
 end
@@ -119,7 +121,8 @@ function vRP.downgradeThirst(user_id,amount)
 		TriggerClientEvent("esx_status:remove",source,"thirst",amount)
 		local Player = QBCore.Functions.GetPlayer(source)
 		if Player then
-			Player.Functions.SetMetaData("thirst", data.thirst)
+			Player.PlayerData.metadata["thirst"] = data.thirst
+			Player.Functions.UpdatePlayerData()
 		end
 	end
 end
@@ -148,7 +151,8 @@ function vRP.downgradeHunger(user_id,amount)
 		TriggerClientEvent("esx_status:remove",source,"hunger",amount)
 		local Player = QBCore.Functions.GetPlayer(source)
 		if Player then
-			Player.Functions.SetMetaData("hunger", data.hunger)
+			Player.PlayerData.metadata["hunger"] = data.hunger
+			Player.Functions.UpdatePlayerData()
 		end
 	end
 end
