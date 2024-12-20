@@ -257,11 +257,15 @@ function vRP.HasPermission(Passport, Permission)
     return vRP.hasPermission(Passport, Permission)
 end
 
+function vRP.HasGroup(Passport, Permission)
+    return vRP.hasPermission(Passport, Permission)
+end
+
 function vRP.Identities(source)
     local Result = false
     local Identifiers = GetPlayerIdentifiers(source)
     for _, v in pairs(Identifiers) do
-        if string.find(v,BaseMode) then
+        if string.find(v,"steam") then
             local SplitName = splitString(v, ":")
             Result = SplitName[2]
             break
@@ -272,6 +276,14 @@ end
 
 function vRP.Inventory(Passport)
     return vRP.getInventory(Passport)
+end
+
+function vRP.InventoryWeight(id)
+    return vRP.computeInvWeight(id)
+end
+
+function vRP.GetWeight(id)
+    return vRP.getBackpack(id)
 end
 
 vRP.CharacterChosen = function(source,Passport,Model)
@@ -361,4 +373,8 @@ end
 
 function vRP.Request(source,Message,Accept,Reject)
 	return vRP.request(source,Message,30)
+end
+
+function vRP.GenerateItem(id,item,amount,notify)
+    return vRP.giveInventoryItem(id,item,amount,notify)
 end
