@@ -114,11 +114,14 @@ local function getStashName(id)
 end
 
 AddEventHandler("onResourceStart",function(rs)
-    if rs == "ox_inventory" then
+    if rs == "ox_inventory" or rs == GetCurrentResourceName() then
         Wait(500)
         exports.ox_inventory:registerHook('swapItems', function(payload)
             local title = nil
             local webhook = nil
+            if payload.toInventory == payload.fromInventory then
+                return true
+            end
             local user_id = vRP.getUserId(tonumber(payload.source))
             local toInvSplit = splitString(payload.toInventory,":")
             local fromInvSplit = splitString(payload.fromInventory,":")
@@ -150,7 +153,7 @@ AddEventHandler("onResourceStart",function(rs)
                     },
                     {
                         name = 'Quantidade',
-                        value = fromSlot.count,
+                        value = payload.count,
                         inline = true
                     },
                     {

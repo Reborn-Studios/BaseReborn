@@ -21,7 +21,7 @@ RegisterServerEvent("AdminControl:addPed",function (coords,heading,pedModel)
         local AllPeds = GlobalState["AllPeds"]
         local Data = {
             Distance = 50,
-            Coords = { coords.x, coords.y, coords.z, heading },
+            Coords = { coords.x, coords.y, coords.z, heading + 0.01 },
             Model = pedModel,
             anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
         }
