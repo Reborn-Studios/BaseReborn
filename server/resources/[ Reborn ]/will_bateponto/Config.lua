@@ -7,134 +7,103 @@ Config = {}
 Config.base = "creative"       -- vrpex / creative
 
 Config.data = {
-    [1] = {
-        loc = { -1071.08,-823.24,5.48 },
-        group = "Recruta",
-        paisanaGroup = "PaisanaRecruta",
-        blip = true,
-        webhook = "",
-        Anim = "Tablet"  -- Tablet ou Anim
+    ['Police'] = {
+        coords = {
+            {-579.25,-2161.59,6.72},
+            { -1071.08,-823.24,5.48 },
+            {927.13,-3180.89,7.49},
+            {-575.72,-2395.38,19.13},
+            {-1646.01,-869.32,9.78},
+            {-2084.96,-542.17,13.75},
+            {-218.51,1571.4,343.13},
+            {-341.55,-1406.11,31.96},
+            {-292.19,6122.03,34.41},
+        },
+        groups = {
+            [1] = {
+                group = "Recruta",
+                paisanaGroup = "PaisanaRecruta",
+            },
+            [2] = {
+                group = "Soldado",
+                paisanaGroup = "PaisanaSoldado",
+            },
+            [3] = {
+                group = "Cabo",
+                paisanaGroup = "PaisanaCabo",
+            },
+            [4] = {
+                group = "3Sargento",
+                paisanaGroup = "Paisana3Sargento",
+            },
+            [5] = {
+                group = "2Sargento",
+                paisanaGroup = "Paisana2Sargento",
+            },
+            [6] = {
+                group = "Sargento",
+                paisanaGroup = "PaisanaSargento",
+            },
+            [7] = {
+                group = "Sub.Tenente",
+                paisanaGroup = "PaisanaSub.Tenente",
+            },
+            [8] = {
+                group = "Tenente",
+                paisanaGroup = "PaisanaTenente",
+            },
+            [9] = {
+                group = "Major",
+                paisanaGroup = "PaisanaMajor",
+            },
+            [10] = {
+                group = "Capitao",
+                paisanaGroup = "PaisanaCapitao",
+            },
+            [11] = {
+                group = "Coronel",
+                paisanaGroup = "PaisanaCoronel",
+            },
+            [12] = {
+                group = "Delegado",
+                paisanaGroup = "PaisanaDelegado",
+            },
+        }
     },
-    [2] = {
-        loc = { -1071.08,-823.24,5.48 },
-        group = "Soldado",
-        paisanaGroup = "PaisanaSoldado",
-        webhook = "",
-        blip = false,
-        Anim = "Tablet"
+    ['Medic'] = {
+        coords = {
+            { -854.77,-2185.62,8.95 }
+        },
+        groups = {
+            [1] = {
+                group = "Enfermeiro",
+                paisanaGroup = "PaisanaEnfermeiro",
+            },
+            [2] = {
+                group = "Medico",
+                paisanaGroup = "PaisanaMedico",
+            },
+            [3] = {
+                group = "Diretor",
+                paisanaGroup = "PaisanaDiretor",
+            },
+        }
     },
-    [3] = {
-        loc = { -1071.08,-823.24,5.48 },
-        group = "Cabo",
-        paisanaGroup = "PaisanaCabo",
-        webhook = "",
-        blip = false,
-        Anim = "Tablet"
-    },
-    [4] = {
-        loc = { -1071.08,-823.24,5.48 },
-        group = "3Sargento",
-        paisanaGroup = "Paisana3Sargento",
-        webhook = "",
-        blip = false,
-        Anim = "Tablet"
-    },
-    [5] = {
-        loc = { -1071.08,-823.24,5.48 },
-        group = "2Sargento",
-        paisanaGroup = "Paisana2Sargento",
-        webhook = "",
-        blip = false,
-        Anim = "Tablet"
-    },
-    [6] = {
-        loc = { -1071.08,-823.24,5.48 },
-        group = "Sargento",
-        paisanaGroup = "PaisanaSargento",
-        webhook = "",
-        blip = false,
-        Anim = "Tablet"
-    },
-    [7] = {
-        loc = { -1071.08,-823.24,5.48 },
-        group = "Sub.Tenente",
-        paisanaGroup = "PaisanaSub.Tenente",
-        webhook = "",
-        blip = false,
-        Anim = ""
-    },
-    [8] = {
-        loc = { -1071.08,-823.24,5.48 },
-        group = "Tenente",
-        paisanaGroup = "PaisanaTenente",
-        webhook = "",
-        blip = false,
-        Anim = ""
-    },
-    [9] = {
-        loc = { -1071.08,-823.24,5.48 },
-        group = "Major",
-        paisanaGroup = "PaisanaMajor",
-        webhook = "",
-        blip = false,
-        Anim = ""
-    },
-    [10] = {
-        loc = { -1071.08,-823.24,5.48 },
-        group = "Capitao",
-        paisanaGroup = "PaisanaCapitao",
-        webhook = "",
-        blip = false,
-        Anim = ""
-    },
-    [11] = {
-        loc = { -1071.08,-823.24,5.48 },
-        group = "Coronel",
-        paisanaGroup = "PaisanaCoronel",
-        webhook = "",
-        blip = false,
-        Anim = ""
-    },
-    [12] = {
-        loc = { -432.41,-318.56,34.92 },
-        group = "Enfermeiro",
-        paisanaGroup = "PaisanaEnfermeiro",
-        webhook = "",
-        blip = false,
-        Anim = ""
-    },
-    [13] = {
-        loc = { -432.41,-318.56,34.92 },
-        group = "Medico",
-        paisanaGroup = "PaisanaMedico",
-        webhook = "",
-        blip = false,
-        Anim = ""
-    },
-    [14] = {
-        loc = { -432.41,-318.56,34.92 },
-        group = "Diretor",
-        paisanaGroup = "PaisanaDiretor",
-        webhook = "",
-        blip = false,
-        Anim = ""
-    },
-    [15] = {
-        loc = { 821.16,-932.98,26.47 },
-        group = "Mecanico",
-        paisanaGroup = "PaisanaMecanico",
-        webhook = "",
-        blip = false,
-        Anim = ""
-    },
-    [16] = {
-        loc = { 821.16,-932.98,26.47 },
-        group = "Mecanicolider",
-        paisanaGroup = "PaisanaMecanicolider",
-        webhook = "",
-        blip = false,
-        Anim = ""
-    },
+    ['Mechanic'] = {
+        coords = {
+            { 821.16,-932.98,26.47 }
+        },
+        groups = {
+            [1] = {
+                group = "Mecanico",
+                paisanaGroup = "PaisanaMecanico",
+            },
+            [2] = {
+                group = "Mecanicolider",
+                paisanaGroup = "PaisanaMecanicolider",
+            }
+        }
+    }
 }
 
 Config.func = {
@@ -189,28 +158,23 @@ Config.func = {
         end
         local date = os.date("%H:%M:%S - %d/%m/%Y") -- Get system time
         local embeds = {
-            { 
+            {
                 ["title"] = title,
                 ["type"] = name,
-    
                 ["thumbnail"] = {
-                ["url"] = logo
-                }, 
-    
+                    ["url"] = logo
+                },
                 ["fields"] = {
-                    { 
+                    {
                         ["name"] = text,
                         ["value"] = text2
                     }
                 },
-    
                 ["footer"] = { 
                     ["text"] = "Will - "..date,
                     ["icon_url"] = logo
                 },
-    
                 ["color"] =  color
-    
             }
         }
         PerformHttpRequest(webhook, function(Error, Content, Hand) end, 'POST', json.encode({username = name, embeds = embeds, avatar_url = avatar}), { ['Content-Type'] = 'application/json' })
