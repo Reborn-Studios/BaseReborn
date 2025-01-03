@@ -541,9 +541,6 @@ end
 AddEventHandler("queue:playerConnecting",function(source,ids,name,setKickReason,deferrals)
 	deferrals.defer()
 	local source = source
-	if not GlobalState['Basics']['Whitelist'] then
-		return deferrals.done()
-	end
     local languages = Reborn.Language()
     local steam = vRP.getSteam(source)
 	local maintenance = Reborn.maintenance()
@@ -558,7 +555,7 @@ AddEventHandler("queue:playerConnecting",function(source,ids,name,setKickReason,
     if multi_personagem['Enabled'] then
         if steam then
             if not rows[1] or not rows[1].banned then
-                if rows[1] and rows[1].whitelist then
+                if not GlobalState['Basics']['Whitelist'] or (rows[1] and rows[1].whitelist) then
                     deferrals.done()
                 else
 					local Card = {
