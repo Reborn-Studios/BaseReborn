@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="style.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <style>
+      .h-full.bg-cover .grid-cols-4 img {
+        width: 100%;
+        border-radius: 1rem !important;
+      }
+
+      .clock-text {
+        display: none;
+      }
+
+      .grid-cols-4:has(div[app]) {
+        bottom: unset !important;
+      }
+
+      .notification {
+        background: #121212 !important;
+        color: white;
+        opacity: 0.8;
+      }
+    </style>
+    <div id="root"></div>
+    <script src="index.js"></script>
+  </body>
+</html>

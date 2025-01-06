@@ -1,0 +1,108 @@
+{
+  "token": "MN295-YJCE4-K6F7S-M5PBE",
+  "client": {
+    "instagramLogo": "http://212.18.114.101/apps/instagram.webp",
+    "bankLogo": "http://212.18.114.101/apps/bank.png",
+    "tinderLogo": "http://212.18.114.101/apps/tinderlogo.png",
+    "tinderFlame": "http://212.18.114.101/apps/flame.png",
+    "twitterLogo": "http://212.18.114.101/apps/threa.png",
+    "apps": {
+      "calculator": "http://212.18.114.101/apps/calculator.webp",
+      "notes": "http://212.18.114.101/apps/notes.webp",
+      "settings": "http://212.18.114.101/apps/settings.webp",
+      "contacts": "http://212.18.114.101/apps/phone.webp",
+      "sms": "http://212.18.114.101/apps/sms.webp",
+      "gallery": "http://212.18.114.101/apps/photos.webp",
+      "phone": "http://212.18.114.101/apps/phone.webp",
+      "facetime": "https://rotbots.netlify.app/projects/smartphone/imagens/facetime.webp",
+      "instagram": "http://212.18.114.101/apps/instagram.webp",
+      "minesweeper": {
+        "name": "Campo Minado",
+        "icon": "http://212.18.114.101/apps/minado.webp"
+      },
+      "truco": "http://212.18.114.101/apps/Camada_2.webp",
+      "tinder": {
+        "name": "Tinder",
+        "icon": "http://212.18.114.101/apps/tinder.webp"
+      },
+      "olx": {
+        "name": "olx",
+        "icon": "http://212.18.114.101/apps/olx.webp"
+      },
+      "whatsapp": "http://212.18.114.101/apps/whatsapp.webp",
+      "tor": {
+        "name": "Deep Web",
+        "icon": "http://212.18.114.101/apps/tor.webp"
+      },
+      "bank": "http://212.18.114.101/apps/bank.png",
+      "twitter": {
+        "name": "Threads",
+        "icon": "http://212.18.114.101/apps/threads.png"
+      },
+      "weazel": {
+        "name": "News",
+        "icon": "http://212.18.114.101/apps/weazel.webp"
+      }
+    },
+    "bankType": "fleeca",
+    "uploadServer": "https://discord.com/api/webhooks/923007630149054524/9ZYMO3taYSCTgH-bE4Dsc07wb9EB7TODKQXGaZjJqxeA7riFZ6cqFYw32N_PCfcyDXDe",
+    "allowUnsafeURL": true,
+    "videoServer": "ws://212.18.114.101:8081/",
+    "case": "iphone14pro",
+    "isAndroid": false,
+    "useGameClock": false,
+    "phone_template": "XXX-XXX",
+    "backgroundURL": "",
+    "db_driver": "oxmysql",
+    "ringSound": "http://212.18.114.101/apps/ring.ogg",
+    "notificationSound": "http://212.18.114.101/apps/notification.ogg"
+  },
+  "exclusive": {
+    "weazel": {
+      "tags": ["Noticias", "Topics"],
+      "permission": "admin.permissao"
+    },
+    "casino": {
+      "maxBet": 10000
+    }
+  },
+  "call_mode": "pma-voice",
+  "webhookURL": "https://discord.com/api/webhooks/923007630149054524/9ZYMO3taYSCTgH-bE4Dsc07wb9EB7TODKQXGaZjJqxeA7riFZ6cqFYw32N_PCfcyDXDe",
+  "instagram_verify": ["admin.permissao", "perm.verificado"],
+  "weazel_tags": "admin.permissao",
+  "instagram_accounts": {
+    "*": 1,
+    "admin.permissao": 2
+  },
+  "moderator": "admin.permissao",
+  "item": "celular",
+  "tor_blocked": ["policia.permissao"],
+  "services": [
+    {
+      "name": "Prefeitura",
+      "number": "4002 8922",
+      "permission": "admin.permissao",
+      "dev": false
+    },
+    {
+      "name": "Policia",
+      "number": "190",
+      "permission": "policia.permissao",
+      "dev": false
+    },
+    {
+      "name": "Paramédico",
+      "number": "192",
+      "permission": "paramedico.permissao",
+      "dev": false
+    },
+    {
+      "name": "Mecânico",
+      "number": "0800 042",
+      "permission": "mecanico.permissao",
+      "dev": false
+    }
+  ],
+  "base": "vrpex",
+  "channel": "stable"
+}

@@ -295,7 +295,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 	end
 
 	if itemName == "celular" then
-		TriggerClientEvent("gcPhone:activePhone",source)
+		TriggerClientEvent("smartphone:activePhone",source)
 	end
 
 	if itemName == "adrenaline" then

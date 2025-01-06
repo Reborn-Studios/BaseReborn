@@ -241,7 +241,7 @@ return {
 		description = "Sem descrição",
 		weight = 190,
 		stack = false,
-		consume = 0,
+		--[[ consume = 0,
 		client = {
 			export = "lb-phone.UsePhoneItem",
 			remove = function()
@@ -250,7 +250,7 @@ return {
 			add = function()
 				TriggerEvent("lb-phone:itemAdded")
 			end
-		}
+		} ]]
 	},
 
 	["bucket"] = {
