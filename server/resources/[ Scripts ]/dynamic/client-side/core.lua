@@ -17,8 +17,8 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- SUBMENU
 -----------------------------------------------------------------------------------------------------------------------------------------
-exports("SubMenu",function(title,description,id)
-	SendNUIMessage({ addmenu = true, title = title, description = description, menuid = id })
+exports("SubMenu",function(title,description,id,icons)
+	SendNUIMessage({ addmenu = true, title = title, description = description, menuid = id, icons = icons })
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- OPENMENU
@@ -70,13 +70,13 @@ RegisterCommand("globalFunctions",function()
 			if LocalPlayer["state"]["Premium"] then
 				exports["dynamic"]:AddButton("Vestir Premium","Vestir-se com as vestimentas guardadas.","player:Outfit","aplicarpre","wardrobe",true)
 				exports["dynamic"]:AddButton("Guardar Premium","Salvar suas vestimentas do corpo.","player:Outfit","salvarpre","wardrobe",true)
-				exports["dynamic"]:SubMenu("Armário Premium","Colocar/Retirar roupas.","wardrobe")
+				exports["dynamic"]:SubMenu("Armário Premium","Colocar/Retirar roupas.","wardrobe","fa-light fa-clothes-hanger")
 			end
 
 			exports["dynamic"]:AddButton("Vestir","Vestir-se com as vestimentas guardadas.","player:Outfit","aplicar","wardrobe",true)
 			exports["dynamic"]:AddButton("Guardar","Salvar suas vestimentas do corpo.","player:Outfit","salvar","wardrobe",true)
 			exports["dynamic"]:AddButton("Remover","Remover suas vestimentas do corpo.","player:Outfit","remover","wardrobe",true)
-			exports["dynamic"]:SubMenu("Armário","Colocar/Retirar roupas.","wardrobe")
+			exports["dynamic"]:SubMenu("Armário","Colocar/Retirar roupas.","wardrobe","fa-light fa-clothes-hanger")
 
 			exports["dynamic"]:AddButton("Chapéu","Colocar/Retirar o chapéu.","player:Outfit","Hat","clothes",true)
 			exports["dynamic"]:AddButton("Máscara","Colocar/Retirar a máscara.","player:Outfit","Mask","clothes",true)
@@ -88,7 +88,7 @@ RegisterCommand("globalFunctions",function()
 			exports["dynamic"]:AddButton("Calça","Colocar/Retirar a calça.","player:Outfit","Pants","clothes",true)
 			exports["dynamic"]:AddButton("Sapatos","Colocar/Retirar o sapato.","player:Outfit","Shoes","clothes",true)
 			exports["dynamic"]:AddButton("Acessórios","Colocar/Retirar os acessórios.","player:Outfit","Accessory","clothes",true)
-			exports["dynamic"]:SubMenu("Roupas","Colocar/Retirar roupas.","clothes")
+			exports["dynamic"]:SubMenu("Roupas","Mudança de roupas rápidas.","clothes","fa-light fa-shirt")
 
 			local Vehicle = vRP.getNearVehicle(7)
 			local LastVehicle = GetLastDrivenVehicle()
@@ -101,7 +101,7 @@ RegisterCommand("globalFunctions",function()
 						exports["dynamic"]:AddButton("Colocar no Veículo","Colocar no veículo mais próximo.","player:cvFunctions","cv","closestpeds",true)
 						exports["dynamic"]:AddButton("Remover do Veículo","Remover do veículo mais próximo.","player:cvFunctions","rv","closestpeds",true)
 
-						exports["dynamic"]:SubMenu("Jogador","Pessoa mais próxima de você.","closestpeds")
+						exports["dynamic"]:SubMenu("Jogador","Pessoa mais próxima de você.","closestpeds","fa-light fa-user")
 					end
 				else
 					exports["dynamic"]:AddButton("Sentar no Motorista","Sentar no banco do motorista.","vrp_player:SeatPlayer","0","vehicle",false)
@@ -109,7 +109,7 @@ RegisterCommand("globalFunctions",function()
 					exports["dynamic"]:AddButton("Sentar em Outros","Sentar no banco do passageiro.","vrp_player:SeatPlayer","2","vehicle",false)
 					exports["dynamic"]:AddButton("Mexer nos Vidros","Levantar/Abaixar os vidros.","vrp_player:syncWins",Vehicle,"vehicle",false)
 
-					exports["dynamic"]:SubMenu("Veículo","Funções do veículo.","vehicle")
+					exports["dynamic"]:SubMenu("Veículo","Funções do veículo.","vehicle","fa-light fa-car")
 				end
 
 				exports["dynamic"]:AddButton("Porta do Motorista","Abrir porta do motorista.","vehcontrol:Doors","1","doors",true)
@@ -127,7 +127,9 @@ RegisterCommand("globalFunctions",function()
 			if GetResourceState("will_login") == "started" then
 				exports["dynamic"]:AddButton("Referencias","Abrir menu de referencias.","will_login:openMyReferences","","others",true)
 			end
-			exports["dynamic"]:SubMenu("Outros","Todas as funções do personagem.","others")
+			exports["dynamic"]:SubMenu("Outros","Todas as funções do personagem.","others","fa-light fa-sliders")
+			exports["dynamic"]:AddButton("Chamar Staff","Preciso de Suporte.","chamados:chamado","aplicar","chamado",true)
+			exports["dynamic"]:SubMenu("Chamados","Chamados Admin.","chamado","fa-solid fa-phone-volume")
 			if GetResourceState("will_battlepass") == "started" then
 				exports["dynamic"]:AddButton("Passe de Batalha","Abrir o passe de batalha.","will_battlepass:open","",false,false)
 			end
@@ -143,7 +145,8 @@ RegisterCommand("emergencyFunctions",function()
 		local Ped = PlayerPedId()
 		if LocalPlayer["state"]["Police"] then
 			if GetEntityHealth(Ped) > 100 and not IsPedInAnyVehicle(Ped) then
-				exports["dynamic"]:AddButton("Anunciar Police","Fazer um anúncio para todos os moradores.","dynamic:EmergencyAnnounce","",false,true)
+				exports["dynamic"]:AddButton("Anuncio Policia","Fazer um anúncio para todos os moradores.","dynamic:EmergencyAnnounce","",false,true)
+				exports["dynamic"]:AddButton("Computador","Computador de bordo policial.","police:Open","",false,false)
 
 				exports["dynamic"]:AddButton("Carregar","Carregar a pessoa mais próxima.","inventory:Carry","","player",true)
 				exports["dynamic"]:AddButton("Colocar no Veículo","Colocar no veículo mais próximo.","player:cvFunctions","cv","player",true)
@@ -151,7 +154,7 @@ RegisterCommand("emergencyFunctions",function()
 				exports["dynamic"]:AddButton("Remover Chapéu","Remover da pessoa mais próxima.","skinshop:Remove","Hat","player",true)
 				exports["dynamic"]:AddButton("Remover Máscara","Remover da pessoa mais próxima.","skinshop:Remove","Mask","player",true)
 				exports["dynamic"]:AddButton("Remover Óculos","Remover da pessoa mais próxima.","skinshop:Remove","Glasses","player",true)
-				exports["dynamic"]:SubMenu("Jogador","Pessoa mais próxima de você.","player")
+				exports["dynamic"]:SubMenu("Jogador","Pessoa mais próxima de você.","player","fa-light fa-user")
 				if Presets["Police"] then
 					for Name,data in pairs(Presets["Police"]) do
 						if LocalPlayer["state"][Name] then
@@ -159,9 +162,8 @@ RegisterCommand("emergencyFunctions",function()
 						end
 					end
 				end
-				exports["dynamic"]:SubMenu("Fardamentos","Todos os fardamentos policiais.","prePolice")
+				exports["dynamic"]:SubMenu("Fardamentos","Todos os fardamentos policiais.","prePolice","fa-light fa-shirt")
 			end
-			exports["dynamic"]:AddButton("Computador","Computador de bordo policial.","police:Open","",false,false)
 			exports["dynamic"]:openMenu()
 		elseif LocalPlayer["state"]["Paramedic"] then
 			if GetEntityHealth(Ped) > 100 and not IsPedInAnyVehicle(Ped) then
@@ -172,7 +174,7 @@ RegisterCommand("emergencyFunctions",function()
 				exports["dynamic"]:AddButton("Remover Chapéu","Remover da pessoa mais próxima.","skinshop:Remove","Hat","player",true)
 				exports["dynamic"]:AddButton("Remover Máscara","Remover da pessoa mais próxima.","skinshop:Remove","Mask","player",true)
 				exports["dynamic"]:AddButton("Remover Óculos","Remover da pessoa mais próxima.","skinshop:Remove","Glasses","player",true)
-				exports["dynamic"]:SubMenu("Jogador","Pessoa mais próxima de você.","player")
+				exports["dynamic"]:SubMenu("Jogador","Pessoa mais próxima de você.","player","fa-light fa-user")
 				if Presets["Paramedic"] then
 					for Name,data in pairs(Presets["Paramedic"]) do
 						if LocalPlayer["state"][Name] then
@@ -180,7 +182,7 @@ RegisterCommand("emergencyFunctions",function()
 						end
 					end
 				end
-				exports["dynamic"]:SubMenu("Fardamentos","Todos os fardamentos médicos.","preMedic")
+				exports["dynamic"]:SubMenu("Fardamentos","Todos os fardamentos médicos.","preMedic","fa-light fa-shirt")
 				exports["dynamic"]:openMenu()
 			end
 		end
