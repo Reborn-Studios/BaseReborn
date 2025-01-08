@@ -856,11 +856,11 @@ RegisterCommand('sequestro',function(source,args,rawCommand)
 				local vehicle = vRPclient.getNearVehicle(source,7)
 				if vehicle then
 					if ClientPlayer.getVehicleClass(source,vehicle) then
-						vRPclient.setMalas(nplayer)
+						ClientPlayer.setMalas(nplayer)
 					end
 				end
-			elseif vRPclient.isMalas(nplayer) then
-				vRPclient.setMalas(nplayer)
+			elseif ClientPlayer.isMalas(nplayer) then
+				ClientPlayer.setMalas(nplayer)
 			end
 		else
 			TriggerClientEvent("Notify",source,"aviso","A pessoa precisa estar algemada para colocar ou retirar do Porta-Malas.",4000)
