@@ -54,7 +54,11 @@ CreateThread(function()
                                     if veh then
                                         local VehPermitido,ClasseVeh = CheckClasse(veh)
                                         placa = GetVehicleNumberPlateText(veh)
-                                        nomeCarro = vRP.getModelName(veh)
+                                        if GetResourceState("will_garages_v2") == "started" then
+                                            nomeCarro = exports['will_garages_v2']:getModelName(veh)
+                                        else
+                                            nomeCarro = vRP.getModelName(veh)
+                                        end
                                         modeloCarro = GlobalState['VehicleGlobal'][nomeCarro] and GlobalState['VehicleGlobal'][nomeCarro].name or nomeCarro
                                         if VehPermitido then
                                             if nomeCarro then
