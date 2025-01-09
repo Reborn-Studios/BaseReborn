@@ -272,7 +272,7 @@ RegisterCommand("coins",function(source,args,rawCommand)
 		local user_id = vRP.getUserId(source)
 		local identity = vRP.getUserIdentity(parseInt(args[1]))
 		if identity then
-			vRP.addGmsId(args[1],args[2])
+			vRP.addGmsId(parseInt(args[1]),parseInt(args[2]))
 			TriggerClientEvent("Notify",source,"importante","Coins entregues para "..identity.name.." #"..args[1]..".",5000)
 			vRP.createWeebHook(Webhooks.webhookgems,"```prolog\n[ID]: "..user_id.."\n[PLAYER]: "..args[1].."\n[Coins]: "..args[2].." "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
 		end
