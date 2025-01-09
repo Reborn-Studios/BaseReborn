@@ -22,7 +22,16 @@ end
 
 RegisterNetEvent("radio:openSystem")
 AddEventHandler("radio:openSystem",function()
-	toggleRadio()
+	utils.requestAnimDict("cellphone@")
+    TaskPlayAnim(cache.ped, "cellphone@", "cellphone_text_read_base", 2.0, 3.0, -1, 49, 0, 0, 0, 0)
+
+    local color = colors[settings.frame]
+    prop = CreateObject(GetHashKey(color), 1.0, 1.0, 1.0, 1, 1, 0)
+    AttachEntityToEntity(prop, cache.ped, GetPedBoneIndex(cache.ped, 57005), 0.14, 0.01, -0.02, 110.0, 120.0, -15.0, 1, 0, 0, 0, 2, 1)
+
+    isOpen = true
+    ui.radioToggle(true, Config.CanMoveWhileRadioIsOpen or false)
+    bridge.opened()
 end)
 
 function toggleRadio()
