@@ -243,7 +243,7 @@ Config.workgarage = {
 		"police3",
     },
     ["Police"] = {
-        "police",
+        { model = "police", livery = 1, name = "Veiculo policial", photo = "policephoto", perm = "Coronel" },
 		"police2",
 		"police3"
     },
