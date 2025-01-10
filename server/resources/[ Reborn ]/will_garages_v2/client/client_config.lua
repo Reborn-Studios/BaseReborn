@@ -345,24 +345,41 @@ end
 
 local garagesGlobal = GlobalState['GaragesGlobal'] or {}
 
-AddStateBagChangeHandler("GaragesGlobal",nil,function(name,key,value)
+AddStateBagChangeHandler("GaragesGlobal","",function(name,key,value)
 	garagesGlobal = value
 end)
+
+local function getClosestBlip()
+	local coords = GetEntityCoords(PlayerPedId())
+	local closest = 0
+	local closestDistance = 1000
+	for k,v in pairs(garagesGlobal) do
+		local x,y,z = getBlip(v)
+		local distance = #(coords - vector3(x, y, z))
+		if distance < closestDistance then
+			closest = k
+			closestDistance = distance
+		end
+	end
+	return closest
+end
 
 Citizen.CreateThread(function()
 	while true do
 		local coords = GetEntityCoords(PlayerPedId())
-		local will = 700
-		for k,v in pairs(garagesGlobal) do
-			local x,y,z = getBlip(v)
+		local will = 1000
+		local closestBlip = getClosestBlip()
+		if closestBlip then
+			local x,y,z = getBlip(garagesGlobal[closestBlip])
 			local distance = #(coords - vector3(x, y, z))
 			if distance <= Config.blip_distance['Normal'] then
-				while distance <= Config.blip_distance['Normal'] do
+				local refreshTimer = GetGameTimer()
+				while distance <= Config.blip_distance['Normal'] and refreshTimer + 2000 > GetGameTimer() do
 					will = 4
 					distance = #(GetEntityCoords(PlayerPedId()) - vector3(x, y, z))
 					drawMark(x,y,z)
-					if IsControlJustPressed(0,38) then
-						pickGarage(k)
+					if IsControlJustPressed(0,38) and distance <= 2.0 then
+						pickGarage(closestBlip)
 					end
 					Citizen.Wait(will)
 				end

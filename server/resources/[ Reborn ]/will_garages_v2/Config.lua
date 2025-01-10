@@ -55,8 +55,8 @@ Config.collision_stop = {
 }
 
 Config.blip_distance = {
-    ['Normal'] = 3,                             -- Distancia do blip quando está a pé
-    ['Veiculo'] = 5                             -- Distancia do blip quando está de carro
+    ['Normal'] = 7.0,                             -- Distancia do blip quando está a pé
+    ['Veiculo'] = 9.0                             -- Distancia do blip quando está de carro
 }
 
 Config.vehicleTypes = {
