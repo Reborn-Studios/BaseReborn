@@ -12,7 +12,7 @@ local function createStash()
             { type = 'number', label = 'Slots', description = 'Numero de slots do bau' },
             { type = 'number', label = 'Peso', description = 'Peso do bau (Em gramas)', placeholder = "50000",  },
             { type = 'checkbox', label = 'Bau unico', description = 'Bau pessoal onde os itens sao particulares' },
-            { type = 'multi-select', label = 'Permissoes', description = "Selecione as permissoes", options = groups },
+            { type = 'multi-select', label = 'Permissoes', description = "Selecione as permissoes", options = groups, searchable = true },
             { type = 'input', label = 'Webhook', description = 'Controle de logs' },
         })
         if input then
@@ -31,7 +31,7 @@ local function createStash()
             data.slots = input[2] or Config.DefaultStash.slots
             data.weight = input[3] or Config.DefaultStash.weight
             data.owner = input[4]
-            data.webhook = input[5]
+            data.webhook = input[6]
             if next(Groups) then
                 data.groups = Groups
             end
@@ -66,51 +66,105 @@ end
 local function manageStash(index)
     local Stash = stashes[index]
     if Stash then
-        lib.registerMenu({
-            id = 'manage_stashe',
+        lib.registerContext({
+            id = 'admin_manage_stashe',
             title = 'Gerenciar Bau',
-            position = 'bottom-right',
+            menu = 'admin_stashes_list',
             options = {
-                { label = 'Deletar Bau', description = 'Deletar bau '..Stash.label },
-                { label = 'Gerenciar Bau', description = 'Alterar nome, slots e peso.' },
-                { label = 'Local do Bau', description = 'Alterar local do bau!' },
+                {
+                    title = "Editar Bau",
+                    description = "Editar nome, slots e peso",
+                    icon = 'fa-solid fa-pen-to-square',
+                    iconColor = 'yellow',
+                    onSelect = function()
+                        editStash(index)
+                    end
+                },
+                {
+                    title = "Editar local do bau",
+                    description = "Alterar local do bau",
+                    icon = 'fa-solid fa-location-dot',
+                    iconColor = 'green',
+                    onSelect = function()
+                        local coords = GetBlipCoords()
+                        if coords then
+                            Stash.coords = coords
+                            ServerControl.editStash(index,Stash)
+                        end
+                    end
+                },
+                {
+                    title = "Teleportar até bau",
+                    description = "Teleportar até o local do bau",
+                    icon = 'fa-solid fa-location-dot',
+                    iconColor = 'blue',
+                    onSelect = function()
+                        DoScreenFadeOut(500)
+                        while not IsScreenFadedOut() do
+                            Wait(10)
+                        end
+                        SetEntityCoords(PlayerPedId(),Stash.coords.x,Stash.coords.y,Stash.coords.z)
+                        DoScreenFadeIn(500)
+                    end
+                },
+                {
+                    title = "Deletar Bau",
+                    description = "Deletar bau "..Stash.label,
+                    icon = 'fa-solid fa-trash',
+                    iconColor = 'red',
+                    onSelect = function()
+                        ServerControl.deleteStash(index)
+                    end
+                },
             }
-        },
-        function(selected, scrollIndex, args)
-            if selected == 1 then
-                ServerControl.deleteStash(index)
-            elseif selected == 2 then
-                editStash(index)
-            elseif selected == 3 then
-                local coords = GetBlipCoords()
-                if coords then
-                    Stash.coords = coords
-                    ServerControl.editStash(index,Stash)
-                end
-            end
-        end)
-        lib.showMenu('manage_stashe')
+        })
+        lib.showContext('admin_manage_stashe')
     end
+end
+
+local function listStashes()
+    local options = {}
+    for k,v in pairs(stashes) do
+        table.insert(options,{
+            title = v.label,
+            description = "Slots: "..v.slots.." | Peso: "..v.weight.."g",
+            onSelect = function()
+                manageStash(k)
+            end
+        })
+    end
+    lib.registerContext({
+        id = 'admin_stashes_list',
+        title = 'Lista de Baus',
+        menu = 'admin_stashes_control',
+        options = options
+    })
+    lib.showContext('admin_stashes_list')
 end
 
 RegisterNetEvent("AdminControl:openStashes")
 AddEventHandler("AdminControl:openStashes",function()
-    lib.registerMenu({
-    id = 'admin_stashes_control',
-    title = 'Controle dos Baus',
-    position = 'bottom-right',
-    options = {
-        { label = 'Criar Bau', description = 'Crie um novo bau!' },
-        { label = 'Baus criados', values = stashes, description = 'Gerenciar baus criados!' },
-    }
-    }, function(selected, scrollIndex, args)
-        if selected == 1 then
-            createStash()
-        elseif selected == 2 then
-            manageStash(scrollIndex)
-        end
-    end)
-    lib.showMenu('admin_stashes_control')
+    lib.registerContext({
+        id = 'admin_stashes_control',
+        title = 'Controle dos Baus',
+        options = {
+            {
+                title = 'Registrar Bau',
+                description = 'Registrar um novo bau',
+                icon = 'toolbox',
+                iconColor = 'green',
+                onSelect = createStash
+            },
+            {
+                title = "Listar Baus",
+                description = "Listar todos os baus registrados",
+                icon = 'list',
+                iconColor = 'blue',
+                onSelect = listStashes
+            }
+        }
+    })
+    lib.showContext('admin_stashes_control')
 end)
 
 CreateThread(function()

@@ -23,6 +23,17 @@ function Server.registerElevator(data)
     end
 end
 
+function Server.updateElevator(index,data)
+    local source = source
+    local Elevators = GlobalState['Elevators']
+    if index and Elevators[index] then
+        Elevators[index] = data
+        EditControlFile("elevators",index,data)
+        GlobalState:set("Elevators",Elevators,true)
+        TriggerClientEvent("Notify",source,"sucesso","Elevador atualizado com sucesso!",5000)
+    end
+end
+
 function Server.deleteElevator(index)
     local source = source
     local Elevators = GlobalState['Elevators']

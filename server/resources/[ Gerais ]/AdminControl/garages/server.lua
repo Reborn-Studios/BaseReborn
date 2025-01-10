@@ -37,17 +37,47 @@ function Server.registerGarage(data)
     TriggerClientEvent("Notify",source,"sucesso","Garagem registrada com sucesso!",5000)
 end
 
+function Server.updateGarage(data)
+    local source = source
+	local garagesGlobal = GlobalState['GaragesGlobal'] or {}
+    local id = data.id
+    if data.payment == 0 then
+        data.payment = false
+    end
+    garagesGlobal[id].name = data.name
+    garagesGlobal[id].payment = data.payment
+    garagesGlobal[id].perm = data.perms
+    garagesGlobal[id].entrada = data.entrada
+    garagesGlobal[id].map = data.map
+    if data.type == "interior" then
+		garagesGlobal[id].interior = data.interior
+	else
+		garagesGlobal[id].spawns = data.spawns
+	end
+	GlobalState:set("GaragesGlobal", garagesGlobal, true)
+    local Garages = GetControlFile("garages")
+    for k,v in pairs(Garages) do
+        if v.id == id then
+            EditControlFile("garages",k,garagesGlobal[id])
+            break
+        end
+    end
+    TriggerClientEvent("Notify",source,"sucesso","Garagem editada com sucesso!",5000)
+end
+
 function Server.deleteGarage(id)
+    local source = source
     local Garages = GetControlFile("garages")
 	local garagesGlobal = GlobalState['GaragesGlobal'] or {}
     for k,v in pairs(Garages) do
         if v.id == id then
             RemoveControlFile("garages",k)
-            table.remove(garagesGlobal,v.id)
+            garagesGlobal[v.id] = nil
             break
         end
     end
     GlobalState:set("GaragesGlobal", garagesGlobal, true)
+    TriggerClientEvent("Notify",source,"sucesso","Garagem deletada com sucesso!",5000)
 end
 
 AddEventHandler('onServerResourceStart', function(resourceName)
@@ -56,7 +86,9 @@ AddEventHandler('onServerResourceStart', function(resourceName)
         local garagesGlobal = GlobalState['GaragesGlobal'] or {}
         local Garages = GetControlFile("garages")
         for Index,garage in pairs(Garages) do
-            garagesGlobal[tonumber(garage.id)] = garage
+            if tonumber(garage.id) then
+                garagesGlobal[tonumber(garage.id)] = garage
+            end
         end
         GlobalState:set("GaragesGlobal", garagesGlobal, true)
     end

@@ -25,6 +25,17 @@ function Server.setRadioFrequency(data)
     end
 end
 
+function Server.updateFrequency(index,data)
+    local source = source
+    local RadioFrequency = GlobalState['RadioFrequency']
+    if RadioFrequency[index] then
+        RadioFrequency[index] = data
+        GlobalState:set("RadioFrequency",RadioFrequency,true)
+        EditControlFile("frequency",index,RadioFrequency[index])
+        TriggerClientEvent("Notify",source,"sucesso","Frequencia de radio atualizado com sucesso!",5000)
+    end
+end
+
 function Server.deleteFrequency(index)
     local source = source
     local RadioFrequency = GlobalState['RadioFrequency']

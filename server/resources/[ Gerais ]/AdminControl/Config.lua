@@ -1,5 +1,6 @@
 Proxy = module("vrp","lib/Proxy")
 Tunnel = module("vrp","lib/Tunnel")
+Tools = module("vrp","lib/Tools")
 vRP = Proxy.getInterface("vRP")
 
 -----##########################################################-----
@@ -37,10 +38,14 @@ Config.Commands = {
 		['command'] = "radiofreqs",
 		['perm'] = "owner.permissao"
 	},
-	-- ['skinshop'] = {
-	-- 	['command'] = "skinshop",
-	-- 	['perm'] = "owner.permissao"
-	-- }
+	['skinshop'] = {
+		['command'] = "createskinshop",
+		['perm'] = "owner.permissao"
+	},
+	['farms'] = {
+		['command'] = "criarfarm",
+		['perm'] = "owner.permissao"
+	},
 }
 
 Config.DefaultStash = {

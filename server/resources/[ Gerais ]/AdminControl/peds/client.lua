@@ -3,42 +3,9 @@ local pedIndex = 1
 local createdPed = nil
 local pedModel = Config.PedHashs[pedIndex]
 
-local function syncNpcs()
-    for Index,Ped in pairs(AllPeds) do
-        exports['core']:AddPed(Ped)
-        if LocalPlayer.state["Admin"] then
-            exports['target']:AddCircleZone(Ped.Model..Index,vector3(Ped.Coords[1],Ped.Coords[2],Ped.Coords[3]),2.0,{
-                name = Ped.Model..Index,
-                heading = 3374176
-            },{
-                distance = 2.0,
-                options = {
-                    {
-                        label = 'Deletar Ped',
-                        icon = 'fa-solid fa-trash',
-                        action = function ()
-                            exports['target']:RemCircleZone(Ped.Model..Index)
-                            TriggerServerEvent("AdminControl:deletePed",Index)
-                        end,
-                        tunnel = "server"
-                    },
-                }
-            })
-        end
-    end
-end
-
-CreateThread(syncNpcs)
-
 AddStateBagChangeHandler("AllPeds","",function (_,_,value)
     if not value then return end
-    for k,v in pairs(AllPeds) do
-        if not value[k] then
-            exports['core']:RemovePed(v)
-        end
-    end
     AllPeds = value
-    syncNpcs()
 end)
 
 local function createLocalPed(model,coords,heading)
@@ -51,6 +18,74 @@ local function createLocalPed(model,coords,heading)
         SetModelAsNoLongerNeeded(model)
         return nped
     end
+end
+
+local function managePed(args)
+    local PedIndex = args.pedIndex
+    local ped = AllPeds[PedIndex]
+    local options = {
+        {
+            title = "Teleportar até o Ped",
+            description = "Va até o local",
+            icon = "location-dot",
+            iconColor = "#00ff00",
+            onSelect = function ()
+                DoScreenFadeOut(500)
+                Wait(500)
+                SetEntityCoords(PlayerPedId(),ped.Coords[1],ped.Coords[2],ped.Coords[3])
+                DoScreenFadeIn(500)
+            end
+        },
+        {
+            title = "Editar Ped",
+            description = "Editar",
+            icon = "pen-to-square",
+            iconColor = "#0000ff",
+            onSelect = function ()
+                TriggerServerEvent("AdminControl:deletePed",PedIndex)
+                Wait(500)
+                local PedData = GetPedCoords()
+                TriggerServerEvent("AdminControl:editPed",PedIndex,PedData.coords,PedData.heading,PedData.model)
+            end
+        },
+        {
+            title = "Deletar Ped",
+            description = "Deletar Ped",
+            icon = "trash",
+            iconColor = "#ff0000",
+            onSelect = function ()
+                TriggerServerEvent("AdminControl:deletePed",PedIndex)
+            end
+        },
+    }
+    lib.registerContext({
+        id = 'ped_manage',
+        title = 'Gerenciar Ped',
+        options = options
+    })
+    lib.showContext('ped_manage')
+end
+
+local function listPeds()
+    local options = {}
+    for Index,Ped in pairs(AllPeds) do
+        table.insert(options,
+        {
+            title = Index.." - "..Ped.Model,
+            description = "Gerenciar Ped",
+            arrow = true,
+            onSelect = managePed,
+            args = {
+                pedIndex = Index
+            }
+        })
+    end
+    lib.registerContext({
+        id = 'ped_list',
+        title = 'Lista de Peds',
+        options = options
+    })
+    lib.showContext('ped_list')
 end
 
 local function deletePed()
@@ -98,7 +133,7 @@ function GetPedCoords()
                 isAdding = false
                 deletePed()
                 local pedCoords = vector3(coords.x,coords.y,coords.z + 1.0)
-                TriggerServerEvent("AdminControl:addPed",pedCoords, heading, pedModel)
+                return {coords = pedCoords, heading = heading, model = pedModel}
             end
         end
         if IsDisabledControlJustPressed(0, 25) then
@@ -109,4 +144,28 @@ function GetPedCoords()
     until not isAdding
 end
 
-Client.getPedData = GetPedCoords
+function Client.getPedData()
+    lib.registerContext({
+        id = 'admin_peds_control',
+        title = 'Controle dos Peds',
+        options = {
+            {
+                title = 'Criar Ped',
+                icon = 'plus',
+                onSelect = function()
+                    local PedData = GetPedCoords()
+                    TriggerServerEvent("AdminControl:addPed",PedData.coords, PedData.heading, PedData.model)
+                end
+            },
+            {
+                title = 'Listar Peds',
+                icon = 'list',
+                arrow = true,
+                onSelect = function()
+                    listPeds()
+                end
+            }
+        }
+    })
+    lib.showContext('admin_peds_control')
+end

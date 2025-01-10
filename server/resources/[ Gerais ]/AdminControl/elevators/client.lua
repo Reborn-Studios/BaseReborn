@@ -89,7 +89,56 @@ local function deleteElevator(index)
     end
 end
 
-function Client.elevatorsControl()
+local function manageElevator(index)
+    local elevator = Elevators[index]
+    if elevator then
+        local options = {
+            {
+                title = 'Adicionar Andar',
+                description = 'Adicione um andar!',
+                icon = "square-plus",
+                onSelect = function()
+                    local floor = getFloor()
+                    if floor then
+                        table.insert(elevator.Floors, floor)
+                        ServerControl.updateElevator(index, elevator)
+                    end
+                end
+            },
+            {
+                title = 'Teleportar ao local',
+                description = 'Va até o local',
+                icon = "location-dot",
+                onSelect = function()
+                    DoScreenFadeOut(500)
+                    Wait(500)
+                    SetEntityCoords(PlayerPedId(), elevator.Floors[1]['Coords'].x, elevator.Floors[1]['Coords'].y, elevator.Floors[1]['Coords'].z)
+                    DoScreenFadeIn(500)
+                end
+            },
+            {
+                title = 'Deletar Elevador',
+                description = 'Deletar Elevador',
+                icon = "trash",
+                onSelect = function()
+                    deleteElevator(index)
+                end
+            }
+        }
+        lib.registerContext({
+            id = 'admin_elevators_manage',
+            title = 'Gerenciar Elevador',
+            menu = 'admin_elevators_list',
+            onBack = function()
+                lib.showContext('admin_elevators_list')
+            end,
+            options = options
+        })
+        lib.showContext('admin_elevators_manage')
+    end
+end
+
+local function listElevators()
     local values = {}
     for k,v in pairs(Elevators) do
         table.insert(values,{
@@ -97,22 +146,50 @@ function Client.elevatorsControl()
             value = k
         })
     end
-    lib.registerMenu({
+    local options = {}
+    for i = 1,#values do
+        table.insert(options,{
+            title = values[i].label,
+            description = 'Gerenciar Elevador',
+            icon = "map-pin",
+            arrow = true,
+            onSelect = function()
+                manageElevator(values[i].value)
+            end
+        })
+    end
+    lib.registerContext({
+        id = 'admin_elevators_list',
+        title = 'Listar Elevadores',
+        menu = 'admin_elevators_control',
+        onBack = function()
+            lib.showContext('admin_elevators_control')
+        end,
+        options = options
+    })
+    lib.showContext('admin_elevators_list')
+end
+
+function Client.elevatorsControl()
+    lib.registerContext({
         id = 'admin_elevators_control',
         title = 'Controle dos Elevadores',
-        position = 'bottom-right',
         options = {
-            { label = 'Criar Elevador', description = 'Crie um novo elevador!' },
-            { label = 'Deletar Elevador', values = values, description = 'Deletar elevadores criados!' },
+            {
+                title = 'Criar Elevador',
+                description = 'Crie um novo elevador!',
+                icon = "square-plus",
+                onSelect = createElevator
+            },
+            {
+                title = 'Listar Elevadores',
+                description = 'Liste os elevadores!',
+                icon = "list",
+                onSelect = listElevators
+            },
         }
-    }, function(selected, scrollIndex, args)
-        if selected == 1 then
-            createElevator()
-        elseif selected == 2 then
-            deleteElevator(scrollIndex)
-        end
-    end)
-    lib.showMenu('admin_elevators_control')
+    })
+    lib.showContext('admin_elevators_control')
 end
 
 local Functions = {

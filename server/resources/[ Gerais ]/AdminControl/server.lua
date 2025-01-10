@@ -10,7 +10,7 @@ function SaveControlFile(file,index,result)
     local data = json.decode(LoadResourceFile(GetCurrentResourceName(), 'data/'..file..'.json'))
     if data and data[index] == nil then
         data[index] = result
-        SaveResourceFile(GetCurrentResourceName(), 'data/'..file..'.json', json.encode(data), -1)
+        SaveResourceFile(GetCurrentResourceName(), 'data/'..file..'.json', json.encode(data, { indent = true }), -1)
     end
 end
 
@@ -18,7 +18,7 @@ function EditControlFile(file,index,result)
     local data = json.decode(LoadResourceFile(GetCurrentResourceName(), 'data/'..file..'.json'))
     if data and data[index] then
         data[index] = result
-        SaveResourceFile(GetCurrentResourceName(), 'data/'..file..'.json', json.encode(data), -1)
+        SaveResourceFile(GetCurrentResourceName(), 'data/'..file..'.json', json.encode(data, { indent = true }), -1)
     end
 end
 
@@ -26,7 +26,7 @@ function RemoveControlFile(file,index)
     local data = json.decode(LoadResourceFile(GetCurrentResourceName(), 'data/'..file..'.json'))
     if data and data[index] ~= nil then
         table.remove(data,index)
-        SaveResourceFile(GetCurrentResourceName(), 'data/'..file..'.json', json.encode(data), -1)
+        SaveResourceFile(GetCurrentResourceName(), 'data/'..file..'.json', json.encode(data, { indent = true }), -1)
     end
 end
 -----##########################################################-----

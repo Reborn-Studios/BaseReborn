@@ -87,30 +87,57 @@ function DeleteSafe(index)
     end
 end
 
+local function deleteSafes(values)
+    local options = {}
+    for k,v in pairs(values) do
+        table.insert(options,{
+            title = v.label,
+            description = 'Deletar safezone: '..v.label,
+            icon = 'trash',
+            iconColor = 'red',
+            onSelect = function ()
+                DeleteSafe(v.value)
+            end
+        })
+    end
+    lib.registerContext({
+        id = 'admin_delete_safezones_control',
+        title = 'Deletar Safezones',
+        menu = 'admin_safezones_control',
+        options = options,
+    })
+    lib.showContext('admin_delete_safezones_control')
+end
+
 function Client.showSafes()
     local values = {}
     for k,v in pairs(fields) do
         table.insert(values,{
             label = v.name,
-            value = v.id
+            value = k
         })
     end
-    lib.registerMenu({
+    lib.registerContext({
         id = 'admin_safezones_control',
         title = 'Controle das Safezones',
-        position = 'bottom-right',
+        menu = 'admin_safezones_control',
         options = {
-            { label = 'Criar Safezone', description = 'Crie uma nova area safe!' },
-            { label = 'Deletar Safezone', values = values, description = 'Deletar safezones criadas!' },
+            {
+                title = 'Criar Safezone',
+                description = 'Crie uma nova area safe!',
+                icon = 'shield',
+                onSelect = CreateSafe
+            },
+            {
+                title = 'Deletar Safezone',
+                description = 'Deletar safezones criadas!',
+                onSelect = function ()
+                    deleteSafes(values)
+                end
+            },
         }
-    }, function(selected, scrollIndex, args)
-        if selected == 1 then
-            CreateSafe()
-        elseif selected == 2 then
-            DeleteSafe(scrollIndex)
-        end
-    end)
-    lib.showMenu('admin_safezones_control')
+    })
+    lib.showContext('admin_safezones_control')
 end
 
 CreateThread(function()
@@ -148,7 +175,7 @@ CreateThread(function()
             timing = 4
             if not notified then
                 notified = true
-                lib.showTextUI('Você está na safezone',{
+                lib.showTextUI('SafeZone',{
                     position = "left-center",
                     icon = 'shield',
                     iconAnimation = "bounce",

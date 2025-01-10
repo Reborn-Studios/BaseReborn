@@ -3,37 +3,117 @@ Tunnel.bindInterface("AdminControl",Client)
 ServerControl = Tunnel.getInterface("AdminControl")
 
 function Client.openMainMenu()
-    lib.registerMenu({
+    lib.registerContext({
         id = 'admin_menu_control',
         title = 'Controle de configurações',
-        position = 'top-right',
         options = {
-            {label = 'Elevadores', description = 'Gerenciar elevadores'},
-            {label = 'Garagens', description = 'Gerenciar garagens'},
-            {label = 'NPCS', description = 'Gerenciar Npcs'},
-            {label = 'Safezones', description = 'Gerenciar Safezones'},
-            {label = 'Baus', description = 'Gerenciar Baus'},
-            {label = 'Frequencia Radios', description = 'Gerenciar Frequencias de radio'},
-            -- {label = 'Lojas de roupas', description = 'Gerenciar Lojas de roupas'},
+            {
+                title = 'Painel ADM',
+                description = 'Abrir painel ADM',
+                icon = "fa-solid fa-user-secret",
+                onSelect = function ()
+                    ExecuteCommand("adm")
+                end
+            },
+            {
+                title = 'Portas',
+                description = 'Gerenciar portas',
+                icon = "fa-solid fa-door-open",
+                onSelect = function ()
+                    if GetResourceState("ox_doorlock") then
+                        ExecuteCommand("doorlock")
+                    else
+                        TriggerEvent("Notify","negado","Você não tem o script de portas",5000)
+                    end
+                end
+            },
+            {
+                title = 'Elevadores',
+                description = 'Gerenciar elevadores',
+                icon = "fa-solid fa-elevator",
+                onSelect = function ()
+                    ExecuteCommand(Config.Commands["elevators"]['command'])
+                end
+            },
+            {
+                title = 'Garagens',
+                description = 'Gerenciar garagens',
+                icon = "fa-solid fa-warehouse",
+                onSelect = function ()
+                    if GetResourceState("will_conce_v2") then
+                        ExecuteCommand(Config.Commands["garages"]['command'])
+                    else
+                        TriggerEvent("Notify","negado","Você não tem a garagem da Reborn",5000)
+                    end
+                end
+            },
+            {
+                title = 'Concessionaria',
+                description = 'Gerenciar concessionaria',
+                icon="fa-solid fa-car",
+                onSelect = function ()
+                    if GetResourceState("will_conce_v2") then
+                        ExecuteCommand("admconce")
+                    else
+                        TriggerEvent("Notify","negado","Você não tem a concessionaria da Reborn",5000)
+                    end
+                end
+            },
+            {
+                title = 'NPCS',
+                description = 'Gerenciar Npcs',
+                icon="fa-solid fa-person",
+                onSelect = function ()
+                    ExecuteCommand(Config.Commands["peds"]['command'])
+                end
+            },
+            {
+                title = 'Safezones',
+                description = 'Gerenciar Safezones',
+                icon="fa-solid fa-shield",
+                onSelect = function ()
+                    ExecuteCommand(Config.Commands["safezones"]['command'])
+                end
+            },
+            {
+                title = 'Baus',
+                description = 'Gerenciar Baus',
+                icon="fa-solid fa-toolbox",
+                onSelect = function ()
+                    if GetResourceState("ox_inventory") then
+                        ExecuteCommand(Config.Commands["stashes"]['command'])
+                    else
+                        TriggerEvent("Notify","negado","Você não tem o ox_inventory",5000)
+                    end
+                end
+            },
+            {
+                title = 'Frequencia Radios',
+                description = 'Gerenciar Frequencias de radio',
+                icon="fa-solid fa-radio",
+                onSelect = function ()
+                    if GetResourceState("fd_radio_os") then
+                        ExecuteCommand(Config.Commands["radio"]['command'])
+                    else
+                        TriggerEvent("Notify","negado","Você não tem o fd_radio_os",5000)
+                    end
+                end
+            },
+            {
+                title = 'Lojas de roupas',
+                description = 'Gerenciar Lojas de roupas',
+                icon="fa-solid fa-shirt",
+                onSelect = function ()
+                    if GetResourceState("will_skinshop") then
+                        ExecuteCommand(Config.Commands["skinshop"]['command'])
+                    else
+                        TriggerEvent("Notify","negado","Você não tem o skinshop da Reborn",5000)
+                    end
+                end
+            },
         }
-    }, function(selected, scrollIndex, args)
-        if selected == 1 then
-            ExecuteCommand(Config.Commands["elevators"]['command'])
-        elseif selected == 2 then
-            ExecuteCommand(Config.Commands["garages"]['command'])
-        elseif selected == 3 then
-            ExecuteCommand(Config.Commands["peds"]['command'])
-        elseif selected == 4 then
-            ExecuteCommand(Config.Commands["safezones"]['command'])
-        elseif selected == 5 then
-            ExecuteCommand(Config.Commands["stashes"]['command'])
-        elseif selected == 6 then
-            ExecuteCommand(Config.Commands["radio"]['command'])
-        elseif selected == 7 then
-            ExecuteCommand(Config.Commands["skinshop"]['command'])
-        end
-    end)
-    lib.showMenu('admin_menu_control')
+    })
+    lib.showContext('admin_menu_control')
 end
 
 local function getCoordsFromCam(distance,coords)

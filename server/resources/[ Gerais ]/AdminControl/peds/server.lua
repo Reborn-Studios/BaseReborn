@@ -2,9 +2,9 @@ GlobalState["AllPeds"] = {}
 
 AddEventHandler('onServerResourceStart', function(resourceName)
     if resourceName == 'core' or resourceName == GetCurrentResourceName() then
-        Wait(1000)
-        local AllPeds = GetControlFile("peds") or {}
-        GlobalState:set("AllPeds",AllPeds,true)
+        if resourceName == GetCurrentResourceName() then
+            GlobalState["AllPeds"] = GetControlFile("peds")
+        end
     end
 end)
 
@@ -21,7 +21,7 @@ RegisterServerEvent("AdminControl:addPed",function (coords,heading,pedModel)
         local AllPeds = GlobalState["AllPeds"]
         local Data = {
             Distance = 50,
-            Coords = { coords.x, coords.y, coords.z, heading + 0.01 },
+            Coords = { coords.x, coords.y, coords.z, heading + 0.001 },
             Model = pedModel,
             anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
         }
@@ -30,6 +30,23 @@ RegisterServerEvent("AdminControl:addPed",function (coords,heading,pedModel)
         table.insert(AllPeds,Data)
         GlobalState:set("AllPeds",AllPeds,true)
         TriggerClientEvent("Notify",source,"sucesso","Npc adicionado com sucesso",5000)
+    end
+end)
+
+RegisterServerEvent("AdminControl:editPed",function (id,coords,heading,pedModel)
+    local source = source
+    if id and coords and pedModel then
+        local AllPeds = GlobalState["AllPeds"]
+        local Data = {
+            Distance = 50,
+            Coords = { coords.x, coords.y, coords.z, heading + 0.001 },
+            Model = pedModel,
+            anim = { "anim@heists@heist_corona@single_team","single_team_loop_boss" }
+        }
+        AllPeds[id] = Data
+        EditControlFile("peds",id,Data)
+        GlobalState:set("AllPeds",AllPeds,true)
+        TriggerClientEvent("Notify",source,"sucesso","Npc editado com sucesso",5000)
     end
 end)
 
