@@ -263,6 +263,30 @@ Config.locates = {
     },
 }
 
+Config.shopLocs = {}
+
+local function refreshLocates()
+    for Index,data in pairs(Config.locates) do
+        if data.coords then
+            table.insert(Config.shopLocs,data)
+        end
+    end
+    if GlobalState["Skinshops"] then
+        for Index,data in pairs(GlobalState["Skinshops"]) do
+            table.insert(Config.shopLocs,data)
+        end
+    end
+end
+
+CreateThread(refreshLocates)
+
+AddStateBagChangeHandler("Skinshops","",function (_,_,value)
+    if not value then return end
+    Config.shopLocs = {}
+    Wait(100)
+    refreshLocates()
+end)
+
 --------------------------------------------------
             -- *** NÃO ALTERAR *** --
 --------------------------------------------------

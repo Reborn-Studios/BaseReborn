@@ -11,9 +11,9 @@ CreateThread(function()
 		local ped = PlayerPedId()
 		if not IsPedInAnyVehicle(ped) and not changingClothes then
 			local coords = GetEntityCoords(ped)
-			for k,v in pairs(Config.locates) do
+			for k,v in pairs(Config.shopLocs) do
 				if v.coords then
-					local distance = #(coords - v.coords)
+					local distance = #(coords - vector3(v.coords.x,v.coords.y,v.coords.z))
 					if distance <= 2 then
 						timeDistance = 1
 						DrawMarker(27, v.coords.x, v.coords.y, v.coords.z-0.95,0,0,0,0,180.0,130.0,1.0,1.0,1.0,255,0,0,75,0,0,0,1)
