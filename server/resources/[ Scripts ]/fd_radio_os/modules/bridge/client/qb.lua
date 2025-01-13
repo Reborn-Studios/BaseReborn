@@ -77,8 +77,15 @@ if string.lower(Config.Framework) == 'qb' then
     end
 
     function bridge.checkRestrictedChannel(channel)
-        return (Config.WhitelistedAccess[channel][PlayerData.job.name]) or
-            Config.WhitelistedAccess[channel][PlayerData.gang.name]
+        if (Config.WhitelistedAccess[channel][PlayerData.job.name]) or
+            Config.WhitelistedAccess[channel][PlayerData.gang.name] then
+            return true
+        end
+        for group,v in pairs(Config.WhitelistedAccess[channel]) do
+            if LocalPlayer.state[group] then
+                return true
+            end
+        end
     end
 
     function bridge.getIdentifier()

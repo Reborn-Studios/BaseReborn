@@ -168,6 +168,16 @@ Config.DisableJammerForChannels = {
     [2] = true
 }
 
+CreateThread(function()
+    if GlobalState['RadioFrequency'] then
+        for Index,data in pairs(GlobalState['RadioFrequency']) do
+            Config.WhitelistedAccess[data.freq] = data.groups
+            Config.UseCustomChannelNames[data.freq] = data.name
+            Config.DisableJammerForChannels[data.freq] = data.disableJammer
+        end
+    end
+end)
+
 AddStateBagChangeHandler("RadioFrequency","",function (_,_,value)
     if value then
         for Freq,groups in pairs(Config.WhitelistedAccess) do
