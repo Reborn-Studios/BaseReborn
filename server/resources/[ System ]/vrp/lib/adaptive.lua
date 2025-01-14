@@ -487,7 +487,7 @@ local function requestQbGroups(groups)
 	end
 end
 
-RegisterServerEvent("Reborn:reloadInfos",function()
+RegisterNetEvent("Reborn:reloadInfos",function()
 	local groups = module('vrp',"Reborn/Groups")
 	requestQbGroups(groups)
 end)
