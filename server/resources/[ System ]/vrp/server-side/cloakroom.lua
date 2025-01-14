@@ -1,5 +1,3 @@
-local menus = {}
-
 function vRP.save_idle_custom(player,custom)
 	local r_idle = {}
 	local user_id = vRP.getUserId(player)
@@ -14,7 +12,6 @@ function vRP.save_idle_custom(player,custom)
 			data = {}
 			data.cloakroom_idle = custom
 		end
-		
 		for k,v in pairs(data.cloakroom_idle) do
 			r_idle[k] = v
 		end

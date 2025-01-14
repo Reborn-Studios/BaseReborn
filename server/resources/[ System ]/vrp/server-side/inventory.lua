@@ -1,8 +1,8 @@
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- ITEMLIST
 -----------------------------------------------------------------------------------------------------------------------------------------
-local items = module('vrp',"Reborn/Itemlist")
-local Webhooks = module("Reborn/webhooks")
+local items = module('vrp',"Reborn/Itemlist") or {}
+local Webhooks = module("Reborn/webhooks") or {}
 
 RegisterServerEvent("Reborn:reloadInfos",function() items = module('vrp',"Reborn/Itemlist") end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -116,14 +116,14 @@ function vRP.giveInventoryItemCustom(source,idname,amount,slot,notify,metadata)
 					initial = initial + 1
 				until data[tostring(initial)] == nil or (data[tostring(initial)] and data[tostring(initial)].item == idname)
 			else
-				initial = tonumber(slot)
+				initial = tonumber(slot) or 0
 			end
-			initial = tostring(initial)
+			local _initial = tostring(initial)
 
-			if data[initial] == nil then
-				data[initial] = { item = idname, amount = parseInt(amount) }
-			elseif data[initial] and data[initial].item == idname then
-				data[initial].amount = parseInt(data[initial].amount) + parseInt(amount)
+			if data[_initial] == nil then
+				data[_initial] = { item = idname, amount = parseInt(amount) }
+			elseif data[_initial] and data[_initial].item == idname then
+				data[_initial].amount = parseInt(data[_initial].amount) + parseInt(amount)
 			end
 
 			if notify and vRP.itemBodyList(idname) then
@@ -303,7 +303,7 @@ function vRP.storeChestItem(user_id,chestData,itemName,amount,chestWeight,slot)
 			if parseInt(amount) > 0 then
 				activedAmount[user_id] = parseInt(amount)
 			else
-				local inv = vRP.getInventory(user_id)
+				local inv = vRP.getInventory(user_id) or {}
 				if inv[slot] then
 					activedAmount[user_id] = parseInt(inv[slot].amount)
 				end
@@ -428,60 +428,8 @@ function vRP.updateHomePosition(user_id,x,y,z)
 end
 
 CreateThread(function()
-	if GlobalState['Inventory'] == "will_inventory" then
-        assert(GetResourceState("will_inventory") ~= "missing","will_inventory não encontrado, confira o resource ou altere GlobalState['Inventory']")
-		vRP.getInventory = function(inventory)
-			if tonumber(inventory) > 0 then
-				inventory = 'content-'..inventory
-			end
-			return exports['will_inventory']:getInventory(inventory)
-		end
-
-		vRP.getInventoryMaxWeight = function(user_id)
-			return exports['will_inventory']:getInvWeight(user_id) or 0
-		end
-
-		vRP.getInventoryWeight = function(inventory)
-			if parseInt(inventory) > 0 then
-				inventory = 'content-'..inventory
-			end
-			return exports['will_inventory']:computeInvWeight(inventory)
-		end
-
-		vRP.computeItemsWeight = function(itemslist)
-			local weight = 0
-			for k,v in pairs(itemslist) do
-				local name = v.name and v.name:lower() or ''
-				local item = items[v.item] or items[name]
-				if item then
-					weight = weight + (item.weight or 0) * parseInt(v.amount)
-				end
-			end
-			return weight
-		end
-
-		vRP.getBackpack = function(user_id)
-			return exports['will_inventory']:getInvWeight(user_id) or 0
-		end
-	end
-
 	if GlobalState['Inventory'] == "ox_inventory" then
         assert(GetResourceState("ox_inventory") ~= "missing","ox_inventario não encontrado, confira o resource ou altere GlobalState['Inventory']")
-		vRP.getInventory = function(user_id)
-			local nplayer = vRP.getUserSource(user_id)
-			if nplayer then
-				local userInv = exports.ox_inventory:GetInventory(nplayer)
-				if userInv then
-					local playerItems = userInv.items or {}
-					for k,v in pairs(playerItems) do
-						playerItems[k].item = v.name
-						playerItems[k].amount = v.count
-					end
-					return playerItems
-				end
-			end
-			return {}
-		end
 
 		vRP.getInventoryMaxWeight = function(user_id)
 			local nplayer = vRP.getUserSource(user_id)
@@ -491,7 +439,7 @@ CreateThread(function()
 			end
 		end
 
-		vRP.getInventoryWeight = function(inventory)
+		vRP.getInventoryWeight = function(user_id)
 			local nplayer = vRP.getUserSource(user_id)
 			if nplayer then
 				local inventory = exports.ox_inventory:GetInventory(nplayer)
@@ -509,6 +457,18 @@ CreateThread(function()
 				end
 			end
 			return weight
+		end
+	else
+		vRP.getInventoryWeight = function(id)
+			return vRP.computeInvWeight(id)
+		end
+
+		vRP.computeItemsWeight = function(citems)
+			return vRP.computeChestWeight(citems)
+		end
+
+		vRP.getInventoryMaxWeight = function(id)
+			return vRP.getBackpack(id)
 		end
 	end
 end)

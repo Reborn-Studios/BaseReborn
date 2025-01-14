@@ -1,9 +1,9 @@
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- vRP
 -----------------------------------------------------------------------------------------------------------------------------------------
-local Proxy = module("lib/Proxy")
-local Tunnel = module("lib/Tunnel")
-Webhooks = module("Reborn/webhooks")
+local Proxy = module("lib/Proxy") or {}
+local Tunnel = module("lib/Tunnel") or {}
+Webhooks = module("Reborn/webhooks") or {}
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -145,12 +145,30 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- GETINVENTORY
 -----------------------------------------------------------------------------------------------------------------------------------------
-function vRP.getInventory(user_id)
-	local data = vRP.user_tables[user_id]
-	if data then
-		return data.inventorys
+if GlobalState['Inventory'] == "ox_inventory" then
+	vRP.getInventory = function(user_id)
+		local nplayer = vRP.getUserSource(user_id)
+		if nplayer then
+			local userInv = exports.ox_inventory:GetInventory(nplayer)
+			if userInv then
+				local playerItems = userInv.items or {}
+				for k,v in pairs(playerItems) do
+					playerItems[k].item = v.name
+					playerItems[k].amount = v.count
+				end
+				return playerItems
+			end
+		end
+		return {}
 	end
-	return false
+else
+	function vRP.getInventory(user_id)
+		local data = vRP.user_tables[user_id]
+		if data then
+			return data.inventorys
+		end
+		return false
+	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- UPDATESELECTSKIN

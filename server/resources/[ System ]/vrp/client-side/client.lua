@@ -40,11 +40,11 @@ end
 --####--####--####--####--#
 
 tvRP.ClosestPeds = function(Radius)
-    return vRP.nearestPlayers(distance)
+    return vRP.nearestPlayers(Radius)
 end
 
 tvRP.ClosestPed = function(Radius)
-    return vRP.nearestPlayer(distance)
+    return vRP.nearestPlayer(Radius)
 end
 
 function tvRP.Players()

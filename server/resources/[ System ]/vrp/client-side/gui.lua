@@ -97,7 +97,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNUICallback("prompt",function(data,cb)
 	if data.act == "close" then
-		SetNuiFocus(false)
+		SetNuiFocus(false,false)
 		vRPserver._promptResult(data.result)
 	end
 end)
@@ -113,7 +113,7 @@ function tvRP.prompt(title,default_text)
 		vRPserver._promptResult(input[1])
 	else
 		SendNUIMessage({ act = "prompt", title = title, text = tostring(default_text) })
-		SetNuiFocus(true)
+		SetNuiFocus(true,false)
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------

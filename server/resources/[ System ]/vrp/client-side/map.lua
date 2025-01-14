@@ -1,4 +1,4 @@
-local Tools = module("vrp","lib/Tools")
+local Tools = module("vrp","lib/Tools") or {}
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- ADDBLIPS
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -134,7 +134,7 @@ CreateThread(function()
 			local px,py,pz = tvRP.getPositions()
 			if GetDistanceBetweenCoords(v.x,v.y,v.z,px,py,pz,true) <= v.visible_distance then
 				timeDistance = 4
-				DrawMarker(v.m,v.x,v.y,v.z,0,0,0,0,0,0,v.sx,v.sy,v.sz,v.r,v.g,v.b,v.a)
+				DrawMarker(v.m,v.x,v.y,v.z,0,0,0,0,0,0,v.sx,v.sy,v.sz,v.r,v.g,v.b,v.a,false,false,0,false,"","",false)
 			end
 		end
 		Wait(timeDistance)

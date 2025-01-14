@@ -190,9 +190,3 @@ function vRP.tryDeposit(user_id,amount)
         return false
     end
 end
-
-function vRP.giveMoney(user_id, amount)
-    if parseInt(amount) > 0 then
-        vRP.giveInventoryItem(user_id, "dollars", parseInt(amount))
-    end
-end

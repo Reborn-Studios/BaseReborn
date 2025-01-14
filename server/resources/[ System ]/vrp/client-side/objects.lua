@@ -193,7 +193,7 @@ end)
 -- GETCOORDSFROMCAM
 -----------------------------------------------------------------------------------------------------------------------------------------
 function GetCoordsFromCam(distance,coords)
-	local rotation = GetGameplayCamRot()
+	local rotation = GetGameplayCamRot(0)
 	local adjustedRotation = vector3((math.pi / 180) * rotation["x"],(math.pi / 180) * rotation["y"],(math.pi / 180) * rotation["z"])
 	local direction = vector3(-math.sin(adjustedRotation[3]) * math.abs(math.cos(adjustedRotation[1])),math.cos(adjustedRotation[3]) * math.abs(math.cos(adjustedRotation[1])),math.sin(adjustedRotation[1]))
 
@@ -222,7 +222,8 @@ function tvRP.objectCoords(model)
 
 	while objectProgress do
 		local cam = GetGameplayCamCoord()
-		local handle = StartExpensiveSynchronousShapeTestLosProbe(cam,GetCoordsFromCam(10.0,cam),-1,ped,4)
+		local cdsCam = GetCoordsFromCam(10.0,cam)
+		local handle = StartExpensiveSynchronousShapeTestLosProbe(cam.x,cam.y,cam.z,cdsCam.x,cdsCam.y,cdsCam.z,-1,ped,4)
 		local _,_,coords = GetShapeTestResult(handle)
 
 		SetEntityCoordsNoOffset(newObject,coords["x"],coords["y"],coords["z"],true,false,false)
@@ -256,7 +257,7 @@ function tvRP.objectCoords(model)
 
 	local headObject = GetEntityHeading(newObject)
 	local coordsObject = GetEntityCoords(newObject)
-	local _,GroundZ = GetGroundZFor_3dCoord(coordsObject["x"],coordsObject["y"],coordsObject["z"])
+	local _,GroundZ = GetGroundZFor_3dCoord(coordsObject["x"],coordsObject["y"],coordsObject["z"],false)
 
 	local newCoords = {
 		["x"] = coordsObject["x"],

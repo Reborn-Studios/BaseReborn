@@ -1,11 +1,11 @@
-local Proxy = module("vrp","lib/Proxy")
-local Tunnel = module("vrp","lib/Tunnel")
-local Webhooks = module("Reborn/webhooks")
-vRP = Proxy.getInterface("vRP")
-vTASKBAR = Tunnel.getInterface("taskbar")
-vSURVIVAL = Tunnel.getInterface("Survival")
-vPLAYER = Tunnel.getInterface("Player")
-vRPclient = Tunnel.getInterface("vRP")
+local Proxy = module("vrp","lib/Proxy") or {}
+local Tunnel = module("vrp","lib/Tunnel") or {}
+local Webhooks = module("Reborn/webhooks") or {}
+local vRP = Proxy.getInterface("vRP")
+local vTASKBAR = Tunnel.getInterface("taskbar")
+local vSURVIVAL = Tunnel.getInterface("Survival")
+local vPLAYER = Tunnel.getInterface("Player")
+local vRPclient = Tunnel.getInterface("vRP")
 
 local active = {}
 local Objects = {}

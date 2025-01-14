@@ -106,7 +106,7 @@ function tvRP.getWeapons()
 	local ammo_types = {}
 	for k,v in pairs(weapon_types) do
 		local hash = GetHashKey(v)
-		if HasPedGotWeapon(ped,hash) then
+		if HasPedGotWeapon(ped,hash,false) then
 			local weapon = {}
 			weapons[v] = weapon
 			local atype = GetPedAmmoTypeFromWeapon(ped,hash)

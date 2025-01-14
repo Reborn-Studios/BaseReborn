@@ -39,11 +39,14 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- UPDATEPRISON
 -----------------------------------------------------------------------------------------------------------------------------------------
-function vRP.updatePrison(user_id)
-	vRP.execute("vRP/rem_prison",{ user_id = user_id, prison = 1 })
+function vRP.updatePrison(user_id,amount)
+	if not amount or amount <= 0 then
+		amount = 1
+	end
+	vRP.execute("vRP/rem_prison",{ user_id = user_id, prison = amount })
 	local UserIdentity = vRP.getUserIdentity(user_id)
 	if UserIdentity then
-		UserIdentity["prison"] = UserIdentity["prison"] - 1
+		UserIdentity["prison"] = UserIdentity["prison"] - amount
 
 		if UserIdentity["prison"] < 0 then
 			UserIdentity["prison"] = 0

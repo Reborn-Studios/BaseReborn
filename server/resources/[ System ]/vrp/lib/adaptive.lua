@@ -446,8 +446,7 @@ CONVERT_GROUPS = {
     ['mecanico.permissao'] = "mechanic",
 }
 
-CreateThread(function ()
-	local groups = module('vrp',"Reborn/Groups") or {}
+local function requestQbGroups(groups)
 	for Group, perms in pairs(groups) do
 		local joined = false
 		for i,value in pairs(perms) do
@@ -486,6 +485,16 @@ CreateThread(function ()
             }
 		end
 	end
+end
+
+RegisterServerEvent("Reborn:reloadInfos",function()
+	local groups = module('vrp',"Reborn/Groups")
+	requestQbGroups(groups)
+end)
+
+CreateThread(function ()
+	local groups = module('vrp',"Reborn/Groups") or {}
+	requestQbGroups(groups)
 end)
 
 function GetQBGroups()

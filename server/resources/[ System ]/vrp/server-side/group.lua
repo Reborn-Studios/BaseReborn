@@ -179,6 +179,17 @@ function vRP.hasPermission(user,perm)
 			end
 		end
 	end
+	local nplayer = vRP.getUserSource(user_id)
+	if nplayer then
+		local Player = QBCore.Functions.GetPlayer(nplayer)
+		if Player and Player.PlayerData.job.name == perm then
+			return true
+		end
+		local xPlayer = ESX.GetPlayerFromId(nplayer)
+		if xPlayer and (xPlayer.job.name == perm or xPlayer.group == perm) then
+			return true
+		end
+	end
 	return false
 end
 

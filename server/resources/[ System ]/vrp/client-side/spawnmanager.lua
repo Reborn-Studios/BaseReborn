@@ -114,14 +114,14 @@ local function freezePlayer(id,freeze)
 
 	if not freeze then
 		if not IsEntityVisible(ped) then
-			SetEntityVisible(ped,true)
+			SetEntityVisible(ped,true,false)
 		end
 
 		FreezeEntityPosition(ped,false)
 		SetPlayerInvincible(player,false)
 	else
 		if IsEntityVisible(ped) then
-			SetEntityVisible(ped,false)
+			SetEntityVisible(ped,false,false)
 		end
 
 		FreezeEntityPosition(ped,true)

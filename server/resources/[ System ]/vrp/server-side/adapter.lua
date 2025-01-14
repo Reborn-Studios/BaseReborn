@@ -48,18 +48,6 @@ vRP.getItemWeight = function(item)
     return vRP.itemWeightList(item)
 end
 
-vRP.getInventoryWeight = function(id)
-    return vRP.computeInvWeight(id)
-end
-
-vRP.computeItemsWeight = function(items)
-    return vRP.computeChestWeight(items)
-end
-
-vRP.getInventoryMaxWeight = function(id)
-    return vRP.getBackpack(id)
-end
-
 -- IDENTITY
 
 vRP.getUserByRegistration = function(id)
