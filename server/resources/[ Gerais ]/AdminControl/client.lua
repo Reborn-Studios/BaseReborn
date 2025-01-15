@@ -111,6 +111,14 @@ function Client.openMainMenu()
                     end
                 end
             },
+            {
+                title = 'Blips',
+                description = 'Gerenciar blips no mapa',
+                icon="fa-solid fa-map-location-dot",
+                onSelect = function ()
+                    ExecuteCommand("blips")
+                end
+            },
         }
     })
     lib.showContext('admin_menu_control')
