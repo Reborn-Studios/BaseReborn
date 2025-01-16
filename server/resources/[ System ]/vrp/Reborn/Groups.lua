@@ -5,6 +5,10 @@ local groups = {
 		#############
 	 ]]
 	["Owner"] = {
+		_config = {
+			title = "Dono",
+			gtype = "staff"
+		},
 		"owner.permissao",
 		"admin.permissao",
 		"cas.permissao",
@@ -22,6 +26,10 @@ local groups = {
 		"diretor.permissao",
 	},
 	["Admin"] = {
+		_config = {
+			title = "Administrator",
+			gtype = "staff"
+		},
 		"admin.permissao",
 		"suporte.permissao",
 		"player.blips",
@@ -34,6 +42,10 @@ local groups = {
 		"adm.permissao"
 	},
 	["Mod"] = {
+		_config = {
+			title = "Moderador",
+			gtype = "staff"
+		},
 		"moderador.permissao",
 		"player.blips",
 		"player.spec",
@@ -44,6 +56,10 @@ local groups = {
 		"mod.permissao"
 	},
 	["Sup"] = {
+		_config = {
+			title = "Suporte",
+			gtype = "staff"
+		},
 		"suporte.permissao",
 		"mqcu.permissao",
 		"sup.permissao"
@@ -267,21 +283,21 @@ local groups = {
 		   MECANICO
 		#############
 	 ]]
-	["Mechanic"] = {
+	["Mecanico"] = {
 		_config = {
 			title = "Mecanico",
 		},
 		"mecanico.permissao",
 	},
-	["Mecanico"] = {
+	["MecanicoGerente"] = {
 		_config = {
-			title = "Mecanico L.",
+			title = "Mecanico Gerente",
 			gtype = "job",
 			salary = 5000
 		},
 		"mecanico.permissao",
 	},
-	["Mecanicolider"] = {
+	["MecanicoLider"] = {
 		_config = {
 			title = "Mecanico Lider",
 			gtype = "job",
@@ -296,6 +312,15 @@ local groups = {
 			gtype = "job",
 			salary = 5000
 		},
+		"bennys.permissao"
+	},
+	["BennysGerente"] = {
+		_config = {
+			title = "Bennys Gerente",
+			gtype = "job",
+			salary = 7000
+		},
+		"liderbennys.permissao",
 		"bennys.permissao"
 	},
 	["BennysLider"] = {
@@ -601,14 +626,24 @@ local groups = {
 do
 	local paisanaGroups = {}
 	for k,v in pairs(groups) do
-		if v._config and v._config.gtype and v._config.gtype == "job" then
-			paisanaGroups["Paisana"..k] = {
-				_config = {
-					title = "Paisana - "..v._config.title,
-					gtype = "job"
-				},
-				"sem.permissao"
-			}
+		if v._config and v._config.gtype then
+			if v._config.gtype == "job" then
+				paisanaGroups["Paisana"..k] = {
+					_config = {
+						title = "Paisana - "..v._config.title,
+						gtype = "job"
+					},
+					"sem.permissao"
+				}
+			elseif v._config.gtype == "staff" then
+				paisanaGroups["wait"..k] = {
+					_config = {
+						title = "Paisana - "..v._config.title,
+						gtype = "staff"
+					},
+					"sem.permissao"
+				}
+			end
 		end
 	end
 	for k,v in pairs(paisanaGroups) do
