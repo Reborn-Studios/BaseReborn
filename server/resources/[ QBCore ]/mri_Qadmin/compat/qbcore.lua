@@ -156,7 +156,24 @@ if (IsDuplicityVersion()) then
                 end
             end
         end,
-        GetVehiclesList = function() return QBCore.Shared.Vehicles end,
+        GetVehiclesList = function()
+            if GetResourceState("will_garages_v2") == "started" then
+                local VehicleList = {}
+                for veh,info in pairs(GlobalState['VehicleGlobal']) do
+                    VehicleList[veh] = {
+                        ['name'] = info.name,
+                        ['brand'] = info.name,
+                        ['model'] = info.name,
+                        ['price'] = info.price,
+                        ['category'] = info.type,
+                        ['hash'] = GetHashKey(veh),
+                        ['shop'] = 'pdm',
+                    }
+                end
+                return VehicleList
+            end
+            return QBCore.Shared.Vehicles
+        end,
         GetItemsList = function() return QBCore.Shared.Items end,
         -- GetItemsList = function() return exports.ox_inventory:Items() end,
         

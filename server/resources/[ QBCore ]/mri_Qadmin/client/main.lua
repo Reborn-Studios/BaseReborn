@@ -282,9 +282,16 @@ end)
 
 RegisterNetEvent("mri_Qadmin:client:ReceiveVehiclesInfo", function(VehiclesInfo)
     DebugTrace("Received vehicles page info")
+    local vehicles = {}
+    local allVehicles = GetAllVehicleModels()
+    for k,veh in pairs(allVehicles) do
+        if VehiclesInfo[veh] then
+            vehicles[veh] = VehiclesInfo[veh]
+        end
+    end
     SendNUIMessage({
         action = "vehiclesinfo",
-        vehiclesinfo = VehiclesInfo,
+        vehiclesinfo = vehicles,
     })
 end)
 
