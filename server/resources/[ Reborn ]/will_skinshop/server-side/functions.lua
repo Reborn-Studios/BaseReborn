@@ -154,7 +154,7 @@ CreateThread(function()
         RegisterCommand(command,function(source,args)
             local user_id = getUserId(source)
             if user_id and args[1] then
-                if vRP.getInventoryItemAmount(user_id, "roupas") >= 1 then
+                if vRP.hasPermission(user_id,"roupas.permissao") or vRP.getInventoryItemAmount(user_id, "roupas") >= 1 then
                     TriggerClientEvent(event,source,tonumber(args[1]),tonumber(args[2]))
                 else
                     TriggerClientEvent("Notify",source,"negado","Você não possui o item roupas",5000)

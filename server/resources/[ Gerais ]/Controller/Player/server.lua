@@ -293,7 +293,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 local admGroups = { "Owner", "Admin", "Mod", "Sup" }
 
-RegisterCommand("deus",function(source,args,rawCommand)
+RegisterCommand("staff",function(source,args,rawCommand)
 	local user_id = vRP.getUserId(source)
 	if user_id then
 		for k,adm in pairs(admGroups) do
@@ -402,7 +402,7 @@ function ServerPlayer.shotsFired()
 	local user_id = vRP.getUserId(source)
 	if user_id then
 		if shotFired[user_id] == nil then
-			if not vRP.hasPermission(user_id,"policia.permissao") then
+			if not vRP.hasPermission(user_id,"policiatiros.permissao") then
 				shotFired[user_id] = 30
 				local x,y,z = vRPclient.getPositions(source)
 				local comAmount = vRP.getUsersByPermission("policia.permissao")

@@ -220,6 +220,9 @@ function HPServer.paymentCheckin()
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
+		if vRP.hasPermission(user_id,"tratamentolivre.permissao") then
+			return true
+		end
 		local treatmentValue = Config.Hospital['treatmentValue']
 		if treatmentValue['freePolice'] and vRP.hasPermission(user_id,"policia.permissao") then
 			return true
