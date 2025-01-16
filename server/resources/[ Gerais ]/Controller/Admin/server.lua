@@ -406,6 +406,12 @@ end)
 -- UNGROUP
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterCommand("ungroup",function(source,args,rawCommand)
+	if source == 0 and args[1] and args[2] then
+		vRP.removeUserGroup(parseInt(args[1]),tostring(args[2]))
+		vRP.execute("vRP/del_group",{ user_id = parseInt(args[1]), permiss = tostring(args[2]) })
+		print("O cidadão foi retirado de " ..args[2])
+		return
+	end
 	local user_id = vRP.getUserId(source)
 	if user_id then
 		if HasPermission(source,"ungroup") then
