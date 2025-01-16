@@ -9,6 +9,7 @@ GlobalState['AllStashes'] = {}
 
 AddEventHandler('onServerResourceStart', function(resourceName)
     if resourceName == 'ox_inventory' or resourceName == GetCurrentResourceName() then
+        if GetResourceState("ox_inventory") == "missing" then return end
         local Stashes = GetControlFile("stashes")
         for Index,stash in pairs(Stashes) do
             exports.ox_inventory:RegisterStash(stash.id, stash.label, stash.slots, stash.weight, stash.owner, stash.groups, stash.coords)
@@ -116,6 +117,7 @@ end
 AddEventHandler("onResourceStart",function(rs)
     if rs == "ox_inventory" or rs == GetCurrentResourceName() then
         Wait(500)
+        if GetResourceState("ox_inventory") == "missing" then return end
         exports.ox_inventory:registerHook('swapItems', function(payload)
             local title = nil
             local webhook = nil

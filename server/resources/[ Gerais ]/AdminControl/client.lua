@@ -20,7 +20,7 @@ function Client.openMainMenu()
                 description = 'Gerenciar portas',
                 icon = "fa-solid fa-door-open",
                 onSelect = function ()
-                    if GetResourceState("ox_doorlock") then
+                    if GetResourceState("ox_doorlock") == "started" then
                         ExecuteCommand("doorlock")
                     else
                         TriggerEvent("Notify","negado","Você não tem o script de portas",5000)
@@ -40,7 +40,7 @@ function Client.openMainMenu()
                 description = 'Gerenciar garagens',
                 icon = "fa-solid fa-warehouse",
                 onSelect = function ()
-                    if GetResourceState("will_conce_v2") then
+                    if GetResourceState("will_conce_v2") == "started" then
                         ExecuteCommand(Config.Commands["garages"]['command'])
                     else
                         TriggerEvent("Notify","negado","Você não tem a garagem da Reborn",5000)
@@ -52,7 +52,7 @@ function Client.openMainMenu()
                 description = 'Gerenciar concessionaria',
                 icon="fa-solid fa-car",
                 onSelect = function ()
-                    if GetResourceState("will_conce_v2") then
+                    if GetResourceState("will_conce_v2") == "started" then
                         ExecuteCommand("admconce")
                     else
                         TriggerEvent("Notify","negado","Você não tem a concessionaria da Reborn",5000)
@@ -80,7 +80,7 @@ function Client.openMainMenu()
                 description = 'Gerenciar Baus',
                 icon="fa-solid fa-toolbox",
                 onSelect = function ()
-                    if GetResourceState("ox_inventory") then
+                    if GetResourceState("ox_inventory") == "started" then
                         ExecuteCommand(Config.Commands["stashes"]['command'])
                     else
                         TriggerEvent("Notify","negado","Você não tem o ox_inventory",5000)
@@ -92,7 +92,7 @@ function Client.openMainMenu()
                 description = 'Gerenciar Frequencias de radio',
                 icon="fa-solid fa-radio",
                 onSelect = function ()
-                    if GetResourceState("fd_radio_os") then
+                    if GetResourceState("fd_radio_os") == "started" then
                         ExecuteCommand(Config.Commands["radio"]['command'])
                     else
                         TriggerEvent("Notify","negado","Você não tem o fd_radio_os",5000)
@@ -104,7 +104,7 @@ function Client.openMainMenu()
                 description = 'Gerenciar Lojas de roupas',
                 icon="fa-solid fa-shirt",
                 onSelect = function ()
-                    if GetResourceState("will_skinshop") then
+                    if GetResourceState("will_skinshop") == "started" then
                         ExecuteCommand(Config.Commands["skinshop"]['command'])
                     else
                         TriggerEvent("Notify","negado","Você não tem o skinshop da Reborn",5000)

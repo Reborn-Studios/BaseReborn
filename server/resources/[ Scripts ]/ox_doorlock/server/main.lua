@@ -171,7 +171,7 @@ end)
 
 function RemoveItem(playerId, item, slot)
 	local player = GetPlayer(playerId)
-
+	if GetResourceState("ox_inventory") == "missing" then return end
 	if player then ox_inventory:RemoveItem(playerId, item, 1, nil, slot) end
 end
 
@@ -181,7 +181,7 @@ end
 ---@return string?
 function DoesPlayerHaveItem(player, items, removeItem)
 	local playerId = player.source or player.PlayerData.source
-
+	if GetResourceState("ox_inventory") == "missing" then return end
 	for i = 1, #items do
 		local item = items[i]
 		local itemName = item.name or item
