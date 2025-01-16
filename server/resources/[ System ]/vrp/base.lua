@@ -266,16 +266,31 @@ function vRP.rejoinServer(source,health,armour,coords)
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- RESET BACKPACK_WEIGHT
+-----------------------------------------------------------------------------------------------------------------------------------------
+function vRP.resetBackpackWeight(user_id)
+	local data = vRP.user_tables[user_id]
+	if data then
+		local first_login = Reborn.first_login()
+		data.backpack = first_login['DefaultBackpack'] or 10
+		if GetResourceState("ox_inventory") == "started" then
+			local nplayer = vRP.getUserSource(user_id)
+			if nplayer then
+				local BACKPACK_SLOTS = 50
+				exports.ox_inventory:SetMaxWeight(nplayer, data.backpack * 1000)
+				exports.ox_inventory:SetSlotCount(nplayer, BACKPACK_SLOTS)
+			end
+		end
+	end
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- CLEARINVENTORY
 -----------------------------------------------------------------------------------------------------------------------------------------
 function vRP.clearInventory(user_id)
-	local data = vRP.user_tables[user_id]
-	if not vRP.hasPermission(user_id, "vip.permissao") then
-		data.backpack = 5
+	if not vRP.hasPermission(user_id, "mochila.permissao") then
+		vRP.resetBackpackWeight(user_id)
 	end
 	vRP.user_tables[user_id].inventorys = {}
-	vRP.upgradeThirst(user_id,100)
-	vRP.upgradeHunger(user_id,100)
 	TriggerEvent("ld-inv:Server:ClearInventory", user_id)
 	TriggerEvent("ld-inv:Server:ClearWeapons", user_id)
 	if GetResourceState("ox_inventory") == "started" then
@@ -316,7 +331,7 @@ AddEventHandler("baseModule:idLoaded",function(source,user,model)
 			else
 				vRP.user_tables[user_id].skin = `mp_m_freemode_01`
 			end
-			vRP.user_tables[user_id].backpack = 5
+			vRP.user_tables[user_id].backpack = first_login['DefaultBackpack'] or 10
 			TriggerEvent("Reborn:newPlayer",user_id)
 			if not GlobalState['Basics']['Whitelist'] then
 				TriggerClientEvent("will_login:LoginMenu",source)

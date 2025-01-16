@@ -1,5 +1,5 @@
-local Proxy = module("lib/Proxy")
-local Tunnel = module("lib/Tunnel")
+local Proxy = module("lib/Proxy") or {}
+local Tunnel = module("lib/Tunnel") or {}
 Reborn = {}
 Proxy.addInterface("Reborn",Reborn)
 Tunnel.bindInterface("Reborn",Reborn)
@@ -64,6 +64,7 @@ Reborn.first_login = function()
             ['sandwich'] = 3,
             ['dollars'] = 10000,
         },
+        ['DefaultBackpack'] = 10,
         ['Groups'] = {
             --[id] = { 'grupos' }
             [1] = { "Owner", "Admin" },

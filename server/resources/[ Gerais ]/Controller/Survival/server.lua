@@ -148,6 +148,8 @@ function ResetPed(source)
 					vRPclient._clearWeapons(source)
 				end
 			end
+			vRP.upgradeThirst(user_id,100)
+			vRP.upgradeHunger(user_id,100)
 			Wait(2000)
 			vRPclient.teleport(source,resetCoords[1], resetCoords[2], resetCoords[3])
 			Wait(1000)

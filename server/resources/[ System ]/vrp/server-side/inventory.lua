@@ -341,7 +341,8 @@ end
 function vRP.getBackpack(user_id)
 	local data = vRP.getUserDataTable(user_id)
 	if data.backpack == nil then
-		data.backpack = 5
+		local first_login = Reborn.first_login()
+		data.backpack = first_login['DefaultBackpack'] or 10
 	end
 	return data.backpack
 end
