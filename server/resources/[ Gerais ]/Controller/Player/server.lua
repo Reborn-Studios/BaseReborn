@@ -6,6 +6,7 @@ Tunnel.bindInterface("Player",ServerPlayer)
 
 ClientPlayer = Tunnel.getInterface("Player")
 Skinshop = Tunnel.getInterface("will_skinshop")
+Reborn = Proxy.getInterface("Reborn")
 ----------------------------------------------------------------------------------------------------------------------------------------
 -- LOG - MORTE
 ----------------------------------------------------------------------------------------------------------------------------------------
@@ -291,25 +292,26 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- SERVICE
 -----------------------------------------------------------------------------------------------------------------------------------------
-local admGroups = { "Owner", "Admin", "Mod", "Sup" }
-
 RegisterCommand("staff",function(source,args,rawCommand)
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		for k,adm in pairs(admGroups) do
-			local waitGroup = "wait"..adm
-			if vRP.hasPermission(user_id,adm) then
-				vRP.removePermission(user_id,adm)
-				vRP.insertPermission(user_id,waitGroup)
-				TriggerClientEvent("Notify",source,"importante","Você saiu de serviço de "..adm,5000)
-				vRP.execute("vRP/upd_group",{ user_id = user_id, permiss = adm, newpermiss = waitGroup })
-				vRP.createWeebHook(Webhooks.servicedeus,"```prolog\n[ID]: "..user_id.." \n[PERDEU OS PODERES] "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
-			elseif vRP.hasPermission(user_id, waitGroup) then
-				vRP.removePermission(user_id, waitGroup)
-				vRP.insertPermission(user_id, adm)
-				TriggerClientEvent("Notify",source,"importante","Você entrou em serviço de "..adm,5000)
-				vRP.execute("vRP/upd_group",{ user_id = user_id, permiss = waitGroup, newpermiss = adm })
-				vRP.createWeebHook(Webhooks.servicedeus,"```prolog\n[ID]: "..user_id.." \n[GANHOU PODERES] "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
+		local groups = Reborn.groups()
+		for adm,v in pairs(groups) do
+			if v._config and v._config.gtype == "staff" and v[1] ~= "sem.permissao" then
+				local waitGroup = "wait"..adm
+				if vRP.hasPermission(user_id,adm) then
+					vRP.removePermission(user_id,adm)
+					vRP.insertPermission(user_id,waitGroup)
+					TriggerClientEvent("Notify",source,"importante","Você saiu de serviço de "..adm,5000)
+					vRP.execute("vRP/upd_group",{ user_id = user_id, permiss = adm, newpermiss = waitGroup })
+					vRP.createWeebHook(Webhooks.servicedeus,"```prolog\n[ID]: "..user_id.." \n[PERDEU OS PODERES] "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
+				elseif vRP.hasPermission(user_id, waitGroup) then
+					vRP.removePermission(user_id, waitGroup)
+					vRP.insertPermission(user_id, adm)
+					TriggerClientEvent("Notify",source,"importante","Você entrou em serviço de "..adm,5000)
+					vRP.execute("vRP/upd_group",{ user_id = user_id, permiss = waitGroup, newpermiss = adm })
+					vRP.createWeebHook(Webhooks.servicedeus,"```prolog\n[ID]: "..user_id.." \n[GANHOU PODERES] "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
+				end
 			end
 		end
 	end
