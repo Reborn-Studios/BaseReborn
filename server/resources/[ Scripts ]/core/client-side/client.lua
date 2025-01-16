@@ -247,6 +247,7 @@ CreateThread(function()
 	for weapon,damage in pairs(weaponsDamage) do
 		SetWeaponDamageModifier(GetHashKey(weapon),damage)
 	end
+	StartAudioScene("CHARACTER_CHANGE_IN_SKY_SCENE")
 	SetAudioFlag("DisableFlightMusic",true)
 	SetAudioFlag("PoliceScannerDisabled",true)
 	while true do
