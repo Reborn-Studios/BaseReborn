@@ -75,9 +75,18 @@ return {
 		-- 	id = 110, colour = 69, scale = 0.8
 		-- },
 		inventory = {
-			{ name = 'ammo-9', price = 5, },
-			{ name = 'WEAPON_KNIFE', price = 200 },
-			{ name = 'WEAPON_BAT', price = 100 },
+			{ name = 'WEAPON_KNIFE', price = 400 },
+			{ name = 'WEAPON_BAT', price = 800 },
+			{ name = 'GADGET_PARACHUTE', price = 800 },
+			{ name = 'WEAPON_HATCHET', price = 800 },
+			{ name = 'WEAPON_BATTLEAXE', price = 800 },
+			{ name = 'WEAPON_GOLFCLUB', price = 800 },
+			{ name = 'WEAPON_MACHETE', price = 800 },
+			{ name = 'WEAPON_HAMMER', price = 800 },
+			{ name = 'WEAPON_POOLCUE', price = 800 },
+			{ name = 'WEAPON_STONE_HATCHET', price = 800 },
+			{ name = 'WEAPON_FLASHLIGHT', price = 800 },
+			{ name = 'WEAPON_KNUCKLE', price = 800 },
 		}, locations = {
 			-- vec3(-662.180, -934.961, 21.829),
 			-- vec3(810.25, -2157.60, 29.62),
@@ -104,9 +113,6 @@ return {
 	PoliceArmoury = {
 		name = 'Arsenal',
 		groups = shared.police,
-		blip = {
-			id = 110, colour = 84, scale = 0.8
-		}, 
 		inventory = {
 			{ name = 'ammo-9', price = 5, },
 			{ name = 'ammo-rifle', price = 5, },
