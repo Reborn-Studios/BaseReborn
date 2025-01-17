@@ -42,6 +42,10 @@ function hasPermission(user_id, perm)
     return vRP.hasPermission(user_id, perm)
 end
 
+function hasGroup(user_id, perm, level)
+    return hasPermission(user_id, perm)
+end
+
 function paymentMethod(user_id, price)
     if Config.base == "creative" or Config.base == "summerz" then
         return vRP.paymentBank(parseInt(user_id),price)
