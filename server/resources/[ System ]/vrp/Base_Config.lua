@@ -11,7 +11,7 @@ Tunnel.bindInterface("Reborn",Reborn)
 Reborn.license = function()
     return {
         ['license'] = "Sua licença (Token) aqui",
-        ['ip'] = GetConvar('sv_listingIPOverride', "http://localhost/"),
+        ['ip'] = "http://localhost/",
         ['porta'] = "30120",
     }
 end
@@ -21,8 +21,9 @@ end
 --####----####----####----
 
 GlobalState['Basics'] = {
-    ['ServerName'] = GetConvar('sv_hostname', "Reborn Studios"),
-    ['Discord'] = GetConvar('Discord', "https://discord.gg/8unYr9MUdx"),
+    ['ServerName'] = "Reborn Studios",
+    ['Discord'] = "https://discord.gg/8unYr9MUdx",
+    ['CityLogo'] = "http://212.18.114.101/img/RebornLogo.png",
     ['ServerStore'] = "",
     ['Whitelist'] = false,
     ['Debug'] = false

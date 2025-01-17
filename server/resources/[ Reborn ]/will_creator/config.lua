@@ -26,7 +26,7 @@ Config.ServerName = GlobalState['Basics']['ServerName']
 -- Loja da cidade
 Config.ServerStore = GlobalState['Basics']['ServerStore']
 -- Imagem com fundo transparente
-Config.ServerLogo = "https://cdn.discordapp.com/attachments/815987015245889616/1243318638191181894/Logo_PNG.png?ex=66510a37&is=664fb8b7&hm=9a8fe37913c005543c5a918276186ed0348099650ecc089ebc70248893d3ab1c&"
+Config.ServerLogo = GlobalState['Basics']['CityLogo']
 Config.ServerDescription = "Reborn Studios é uma loja de serviços e produtos voltados ao FiveM. Focamos no diferencial e no atendimento ao cliente."
 -- Coordenadas na escolha do personagem
 Config.MulticharCoords = vector4(-1596.07, -1127.56, 1.26, 267.44)

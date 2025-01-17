@@ -65,9 +65,9 @@ Config.DefaultHudColors = {
 -------------------------------------------- Watermark hud --------------------------------------------
 Config.DisableWaterMarkTextAndLogo = false -- true - Disable watermark text and logo 
 Config.UseWaterMarkText = false -- if true text will be shown | if  false logo will be shown
-Config.WaterMarkText1 = "Adriatic" -- Top right server text
+Config.WaterMarkText1 = GlobalState['Basics']['ServerName'] -- Top right server text
 Config.WaterMarkText2 = "RP"  -- Top right server text
-Config.WaterMarkLogo = "./assets/images/logo.png" -- Logo url
+Config.WaterMarkLogo = GlobalState['Basics']['CityLogo'] -- Logo url
 Config.LogoWidth = "200px"
 Config.LogoHeight = "180px"
 Config.EnableId = false -- Determines if display server id or nor
