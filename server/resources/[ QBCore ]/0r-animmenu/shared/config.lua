@@ -1,6 +1,6 @@
 Config = {
     ServerCallbacks = {}, -- Don't edit or change
-    MenuKey = 'F4',
+    MenuKey = 'F3',
     MaxDistanceForAnimPos = 20.0,
     CancelWalk = true, -- Resets movement type when using the /e c command
     EnableXtoCancel = true,  -- Set this to false if you have something else on X (default X), and then just use /e c to cancel emotes.

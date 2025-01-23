@@ -892,6 +892,7 @@ end)
 RegisterCommand('emote', function(source, args, raw) EmoteCommandStart(source, args, raw) end, false)
 
 function EmoteCommandStart(source, args, raw)
+    if not CoreReady then return end
     if #args > 0 then
         local name = string.lower(args[1])
         if name == "c" then
