@@ -674,9 +674,10 @@ html {
 }
 
 .serverLogo {
-  position: relative;
+  position: absolute;
   top: 2rem;
-  left: 5rem;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .serverLogo img {

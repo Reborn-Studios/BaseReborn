@@ -31,6 +31,11 @@
   </head>
   <body>
     <div id="app">
+      <div class="hudLogo">
+        <div class="serverLogo" :style="{width:logoWidth, height:logoHeight}">
+          <img :src="WaterMarkLogo" />
+        </div>
+      </div>
       <transition name="fade" mode="out-in">
         <div class="settings" v-show="settingsOpen">
           <div class="dynamicStatus">
@@ -1560,25 +1565,6 @@
               </div>
             </div>
             <div class="rightTop-hud">
-              <div
-                v-if="!disableWaterMarkTextAndLogo"
-                class="classicHudDrag"
-                :style="positionsData['hud-logo'] || ''"
-                data-type="hud-logo"
-              >
-                <template v-if="UseWaterMarkText">
-                  <p class="serverNameDisplay" :style="text1Style">{{text1}}</p>
-                  <p class="serverNameBottom" :style="text2Style">{{text2}}</p>
-                </template>
-                <div
-                  v-else
-                  class="serverLogo"
-                  :style="{width:logoWidth, height:logoHeight}"
-                >
-                  <img :src="WaterMarkLogo" />
-                </div>
-              </div>
-
               <div class="moneyDisplay">
                 <div
                   class="ammoDisplayContainer classicHudDrag"
