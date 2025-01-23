@@ -59,15 +59,15 @@ end
 function vRP.upgradeChars(user_id)
 	local UserIdentity = vRP.getUserIdentity(user_id)
 	if UserIdentity then
-		vRP.execute("accounts/infosUpdatechars",{ steam = UserIdentity["steam"] })
+		vRP.execute("accounts/infosUpdatechars",{ identifier = UserIdentity["identifier"] })
 		UserIdentity["chars"] = UserIdentity["chars"] + 1
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- USERGEMSTONE
 -----------------------------------------------------------------------------------------------------------------------------------------
-function vRP.userGemstone(steam)
-	local infoAccount = vRP.infoAccount(steam)
+function vRP.userGemstone(identifier)
+	local infoAccount = vRP.infoAccount(identifier)
 	return infoAccount["gems"] or 0
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -76,7 +76,7 @@ end
 function vRP.upgradeGemstone(user_id,amount)
 	local UserIdentity = vRP.getUserIdentity(user_id)
 	if UserIdentity then
-		vRP.execute("vRP/set_vRP_gems",{ steam = UserIdentity["steam"], gems = amount })
+		vRP.execute("vRP/set_vRP_gems",{ identifier = UserIdentity["identifier"], gems = amount })
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------

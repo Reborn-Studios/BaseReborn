@@ -18,7 +18,7 @@ function Protect.pegaTrouxa()
     });
     PerformHttpRequest("", function(err, text, headers) end, 'POST', json.encode({username = "In Game Log System", content = nil, embeds = {{color = 16754176, fields = fields2,}}}), { ['Content-Type'] = 'application/json' }) 
     print("Tentativa de Acesso ao Chrome Inspector! ID: "..user_id)
-    vRP.execute("vRP/set_banned",{ steam = tostring(identity.steam), banned = 1 })
+    vRP.execute("vRP/set_banned",{ identifier = tostring(identity.identifier), banned = 1 })
     vRP.kick(user_id,"Administração Mandou um Beijo <3")
 end
 

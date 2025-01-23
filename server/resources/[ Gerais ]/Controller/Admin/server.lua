@@ -220,7 +220,8 @@ RegisterCommand("ban",function(source,args,rawCommand)
 		if HasPermission(source,"ban") and parseInt(args[1]) > 0 then
 			local identity = vRP.getUserIdentity(parseInt(args[1]))
 			if identity then
-				vRP.execute("vRP/set_banned",{ steam = tostring(identity.steam), banned = 1 })
+				vRP.kick(parseInt(args[1]), "Você foi banido do nosso servidor")
+				vRP.execute("vRP/set_banned",{ identifier = tostring(identity.identifier), banned = 1 })
 				TriggerClientEvent("Notify",source,"importante","Você baniu "..args[1]..".",5000)
 				vRP.createWeebHook(Webhooks.webhookban,"```prolog\n[ID]: "..user_id.." \n[BANIU]: "..args[1].." "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
 			end
@@ -298,7 +299,7 @@ RegisterCommand("unban",function(source,args,rawCommand)
 		if HasPermission(source,"unban") and parseInt(args[1]) > 0 then
 			local identity = vRP.getInformation(parseInt(args[1]))
 			if identity and identity[1] then
-				vRP.execute("vRP/set_banned",{ steam = tostring(identity[1].steam), banned = 0 })
+				vRP.execute("vRP/set_banned",{ identifier = tostring(identity[1].identifier), banned = 0 })
 				TriggerClientEvent("Notify",source,"importante","Você desbaniu "..args[1]..".",5000)
 				vRP.createWeebHook(Webhooks.webhookunban,"```prolog\n[ID]: "..user_id.." \n[DESBANIU]: "..args[1].." "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
 			end

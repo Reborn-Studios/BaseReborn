@@ -87,8 +87,8 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- ISBANNED
 -----------------------------------------------------------------------------------------------------------------------------------------
-function vRP.isBanned(steam)
-	local rows = vRP.getInfos(steam)
+function vRP.isBanned(identifier)
+	local rows = vRP.getInfos(identifier)
 	if rows[1] then
 		return rows[1].banned
 	end
@@ -96,8 +96,8 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- ISWHITELISTED
 -----------------------------------------------------------------------------------------------------------------------------------------
-function vRP.isWhitelisted(steam)
-	local rows = vRP.getInfos(steam)
+function vRP.isWhitelisted(identifier)
+	local rows = vRP.getInfos(identifier)
 	if rows[1] then
 		return rows[1].whitelist
 	end
@@ -345,7 +345,7 @@ AddEventHandler("baseModule:idLoaded",function(source,user,model)
 
 		local identity = vRP.getUserIdentity(user_id)
 		if identity then
-			vRP.rusers[user_id] = identity.steam
+			vRP.rusers[user_id] = identity.identifier
 		end
 
 		local registration = vRP.getUserRegistration(user_id)

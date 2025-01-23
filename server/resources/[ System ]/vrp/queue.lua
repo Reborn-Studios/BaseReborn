@@ -1,4 +1,4 @@
-vRP.prepare("vRP/get_priorityqueue","SELECT steam,priority FROM vrp_infos")
+vRP.prepare("vRP/get_priorityqueue","SELECT identifier,priority FROM vrp_infos")
 
 local Queue = {}
 local maxPlayers = 1024
@@ -22,8 +22,10 @@ function Queue:HexIdToSteamId(hexId)
 end
 
 function Queue:IsSteamRunning(src)
+	local baseIdentifier = GlobalState['Basics']['Identifier'] or "steam"
+	if baseIdentifier ~= "steam" then return true end
 	for k,v in ipairs(GetPlayerIdentifiers(src)) do
-		if string.sub(v,1,5) == "steam" then
+		if string.sub(v,1,5) == baseIdentifier then
 			return true
 		end
 	end
@@ -62,19 +64,20 @@ local function getPriority()
 	local pList = vRP.query("vRP/get_priorityqueue")
 
 	for i = 1,#pList do
-		priorityUsers[pList[i].steam] = pList[i].priority
+		priorityUsers[pList[i].identifier] = pList[i].priority
 	end	
 
 	return priorityUsers
 end
 
 function Queue:IsPriority(ids)
+	local baseIdentifier = GlobalState['Basics']['Identifier'] or "steam"
 	for k,v in ipairs(ids) do
 		v = string.lower(v)
 
 		priorityUsers = getPriority()
 
-		if string.sub(v,1,5) == "steam" and not priorityUsers[v] then
+		if string.find(v,baseIdentifier) and not priorityUsers[v] then
 			local steamid = self:HexIdToSteamId(v)
 			if priorityUsers[steamid] then
 				return priorityUsers[steamid] ~= nil and priorityUsers[steamid] or false
@@ -542,18 +545,18 @@ AddEventHandler("queue:playerConnecting",function(source,ids,name,setKickReason,
 	deferrals.defer()
 	local source = source
     local languages = Reborn.Language()
-    local steam = vRP.getSteam(source)
+    local identifier = vRP.getSteam(source)
 	local maintenance = Reborn.maintenance()
 	if maintenance and maintenance.enabled then
-		if maintenance.licenses[steam] then
+		if maintenance.licenses[identifier] then
 			return deferrals.done()
 		end
 		return deferrals.done(maintenance.text)
 	end
-	local rows = vRP.getInfos(steam)
+	local rows = vRP.getInfos(identifier)
     local multi_personagem = Reborn.multi_personagem()
     if multi_personagem['Enabled'] then
-        if steam then
+        if identifier then
             if not rows[1] or not rows[1].banned then
                 if not GlobalState['Basics']['Whitelist'] or (rows[1] and rows[1].whitelist) then
                     deferrals.done()
@@ -724,7 +727,7 @@ AddEventHandler("queue:playerConnecting",function(source,ids,name,setKickReason,
                                     if data.submitId == "copy_to_token" then
                                         os.execute(string.format('echo %s | clip',rows[1].id))
 									elseif data.submitId == "confirm_card" then
-										local newRows = vRP.getInfos(steam)
+										local newRows = vRP.getInfos(identifier)
 										if newRows[1].whitelist then
 											deferrals.done()
 										else
@@ -735,7 +738,7 @@ AddEventHandler("queue:playerConnecting",function(source,ids,name,setKickReason,
                                 end
                             else
                                 if data.choice_set then
-									local _rows,affected = vRP.query("vRP/create_user",{ steam = steam })
+									local _rows,affected = vRP.query("vRP/create_user",{ identifier = identifier })
 									if #affected > 0 then
 										local user_id = affected[1].id
 										Card["body"][2]["items"][5]["actions"][1]["title"] = 'SEU ID DE LIBERAÇÃO: '..user_id
@@ -758,10 +761,10 @@ AddEventHandler("queue:playerConnecting",function(source,ids,name,setKickReason,
                     deferrals.presentCard(Card, CardCallback)
                 end
             else
-                deferrals.done("Você foi banido da cidade. Sua steam: "..steam)
+                deferrals.done("Você foi banido da cidade. Seu identificaor: "..identifier)
             end
         else
-            deferrals.done("Ocorreu um problema de identificação da sua steam.")
+            deferrals.done("Ocorreu um problema de identificação.")
         end
     else
         local user_id = vRP.getUserIdByIdentifiers(source,ids)

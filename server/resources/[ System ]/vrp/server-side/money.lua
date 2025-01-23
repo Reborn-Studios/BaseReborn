@@ -4,7 +4,7 @@
 function vRP.addBank(user_id,amount,reason)
 	if amount > 0 then
 		local source = vRP.getUserSource(user_id)
-		Reborn.addMoney(source, amount, reason)
+		Reborn.addMoney(source, amount, reason, user_id)
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -13,7 +13,7 @@ end
 function vRP.setBank(user_id,amount,reason)
 	if amount >= 0 then
 		local source = vRP.getUserSource(user_id)
-		Reborn.setMoney(source, amount, reason)
+		Reborn.setMoney(source, amount, reason, user_id)
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -30,7 +30,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 function vRP.getBank(user_id)
 	local source = vRP.getUserSource(user_id)
-	return Reborn.getMoney(source)
+	return Reborn.getMoney(source,user_id)
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PAYMENTBANK
@@ -137,7 +137,7 @@ end
 function vRP.getGmsId(user_id)
 	local identity = vRP.getUserIdentity(user_id)
 	if identity then
-		local infos = vRP.query("vRP/get_vrp_infos",{ steam = identity.steam })
+		local infos = vRP.query("vRP/get_vrp_infos",{ identifier = identity.identifier })
 		if infos[1] then
 			return infos[1].gems
 		end
@@ -149,9 +149,9 @@ end
 function vRP.remGmsId(user_id,amount)
 	local identity = vRP.getUserIdentity(user_id)
 	if identity then
-		local infos = vRP.query("vRP/get_vrp_infos",{ steam = identity.steam })						
+		local infos = vRP.query("vRP/get_vrp_infos",{ identifier = identity.identifier })						
         if infos[1].gems >= amount then
-			vRP.execute("vRP/rem_vRP_gems",{ steam = identity.steam, gems = parseInt(amount) })
+			vRP.execute("vRP/rem_vRP_gems",{ identifier = identity.identifier, gems = parseInt(amount) })
 			return true
 		end
 		return false
@@ -163,7 +163,7 @@ end
 function vRP.addGmsId(user_id,amount)
 	local identity = vRP.getUserIdentity(user_id)
 	if identity then
-		vRP.execute("vRP/set_vRP_gems",{ steam = identity.steam, gems = parseInt(amount) })
+		vRP.execute("vRP/set_vRP_gems",{ identifier = identity.identifier, gems = parseInt(amount) })
 		return true
 	end
 end
@@ -173,7 +173,7 @@ end
 function vRP.getPremium(user_id)
 	local identity = vRP.getUserIdentity(user_id)
 	if identity then
-		local consult = vRP.getInfos(identity.steam)
+		local consult = vRP.getInfos(identity.identifier)
 		if consult[1] and os.time() >= (consult[1].premium+24*consult[1].predays*60*60) then
 			return false
 		else

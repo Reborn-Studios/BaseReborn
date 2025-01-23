@@ -25,6 +25,7 @@ GlobalState['Basics'] = {
     ['Discord'] = "https://discord.gg/8unYr9MUdx",
     ['CityLogo'] = "http://212.18.114.101/img/RebornLogo.png",
     ['ServerStore'] = "",
+    ['Identifier'] = "steam",                   -- "steam" / "license" / "discord" / "fivem"
     ['Whitelist'] = false,
     ['Debug'] = false
 }
@@ -237,7 +238,7 @@ Reborn.Language = function()
     return {
         joining = "Entrando...",
         connecting = "Conectando...",
-        err = "Não foi possível identificar sua Steam ou Social Club.",
+        err = "Não foi possível achar um identificador.",
         _err = "Você foi desconectado por demorar demais na fila.",
         pos = "Você é o %d/%d da fila, aguarde sua conexão",
         connectingerr = "Não foi possível adiciona-lo na fila.",

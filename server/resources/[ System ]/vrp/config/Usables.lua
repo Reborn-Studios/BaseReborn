@@ -1413,9 +1413,9 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 		if identity then
 			if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
 				if not vRP.getPremium(user_id) then
-					vRP.execute("vRP/set_premium",{ steam = identity.steam, premium = parseInt(os.time()), chars = 2, predays = 3, priority = 20 })
+					vRP.execute("vRP/set_premium",{ identifier = identity.identifier, premium = parseInt(os.time()), chars = 2, predays = 3, priority = 20 })
 				else
-					vRP.execute("vRP/update_premium",{ steam = identity.steam, predays = 3 })
+					vRP.execute("vRP/update_premium",{ identifier = identity.identifier, predays = 3 })
 				end
 			end
 		end
@@ -1426,9 +1426,9 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 		if identity then
 			if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
 				if not vRP.getPremium(user_id) then
-					vRP.execute("vRP/set_premium",{ steam = identity.steam, premium = parseInt(os.time()), chars = 2, predays = 7, priority = 30 })
+					vRP.execute("vRP/set_premium",{ identifier = identity.identifier, premium = parseInt(os.time()), chars = 2, predays = 7, priority = 30 })
 				else
-					vRP.execute("vRP/update_premium",{ steam = identity.steam, predays = 7 })
+					vRP.execute("vRP/update_premium",{ identifier = identity.identifier, predays = 7 })
 				end
 			end
 		end
@@ -1440,9 +1440,9 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 			if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
 				if not vRP.getPremium(user_id) then
 
-					vRP.execute("vRP/set_premium",{ steam = identity.steam, premium = parseInt(os.time()), chars = 2, predays = 15, priority = 40 })
+					vRP.execute("vRP/set_premium",{ identifier = identity.identifier, premium = parseInt(os.time()), chars = 2, predays = 15, priority = 40 })
 				else
-					vRP.execute("vRP/update_premium",{ steam = identity.steam, predays = 15 })
+					vRP.execute("vRP/update_premium",{ identifier = identity.identifier, predays = 15 })
 				end
 			end
 		end
@@ -1453,9 +1453,9 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 		if identity then
 			if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
 				if not vRP.getPremium(user_id) then
-					vRP.execute("vRP/set_premium",{ steam = identity.steam, premium = parseInt(os.time()), chars = 2, predays = 30, priority = 50 })
+					vRP.execute("vRP/set_premium",{ identifier = identity.identifier, premium = parseInt(os.time()), chars = 2, predays = 30, priority = 50 })
 				else
-					vRP.execute("vRP/update_premium",{ steam = identity.steam, predays = 30 })
+					vRP.execute("vRP/update_premium",{ identifier = identity.identifier, predays = 30 })
 				end
 			end
 		end

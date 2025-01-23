@@ -112,8 +112,8 @@ end
 --- @return table<string | string>
 function getCharacters(source)
     local chars = {}
-    local steam = getIdentifier(source)
-    local result = query("will_creator/get_characters",{ steam = steam })
+    local identifier = getIdentifier(source)
+    local result = query("will_creator/get_characters",{ identifier = identifier })
     for i = 1, (#result), 1 do
         local charData = getCharacter(result[i]["id"], result[i])
         table.insert(chars, charData)
@@ -127,8 +127,8 @@ end
 --- @return number
 function createCharacter(src, data, clothes)
     local identifier = getIdentifier(src)
-    execute("will_creator/create_characters",{ steam = identifier, name = data.firstname, name2 = data.lastname })
-    local consult = query("will_creator/lastCharacters",{ steam = identifier })
+    execute("will_creator/create_characters",{ identifier = identifier, name = data.firstname, name2 = data.lastname })
+    local consult = query("will_creator/lastCharacters",{ identifier = identifier })
     local id = parseInt(consult[1]["id"])
     if clothes and next(clothes) then
         vRP.setUData(id, "Clothings", json.encode(clothes))
@@ -343,7 +343,7 @@ CreateThread(function()
             ['chars'] = {
                 ['table'] = "vrp_users",
                 ['user_id'] = "id",
-                ['identifier'] = "steam",
+                ['identifier'] = "identifier",
                 ['name'] = "name",
                 ['name2'] = "name2",
             },
@@ -379,11 +379,11 @@ CreateThread(function()
     -- get char infos
     prepare("will_creator/get_user","SELECT * FROM "..dbColumns[Config.Base]['chars']['table'].." WHERE "..dbColumns[Config.Base]['chars']['user_id'].." = @id")
     -- get last id created
-    prepare("will_creator/lastCharacters","SELECT "..dbColumns[Config.Base]['chars']['user_id'].." FROM "..dbColumns[Config.Base]['chars']['table'].." WHERE "..dbColumns[Config.Base]['chars']['identifier'].." = @steam ORDER BY "..dbColumns[Config.Base]['chars']['user_id'].." DESC LIMIT 1")
+    prepare("will_creator/lastCharacters","SELECT "..dbColumns[Config.Base]['chars']['user_id'].." FROM "..dbColumns[Config.Base]['chars']['table'].." WHERE "..dbColumns[Config.Base]['chars']['identifier'].." = @identifier ORDER BY "..dbColumns[Config.Base]['chars']['user_id'].." DESC LIMIT 1")
     -- get chars with identifier
-    prepare("will_creator/get_characters","SELECT * FROM "..dbColumns[Config.Base]['chars']['table'].." WHERE "..dbColumns[Config.Base]['chars']['identifier'].." = @steam")
+    prepare("will_creator/get_characters","SELECT * FROM "..dbColumns[Config.Base]['chars']['table'].." WHERE "..dbColumns[Config.Base]['chars']['identifier'].." = @identifier")
     -- get max chars with identifier
     prepare("will_creator/countChars","SELECT "..dbColumns[Config.Base]['accounts']['chars'].." FROM "..dbColumns[Config.Base]['accounts']['table'].." WHERE "..dbColumns[Config.Base]['chars']['identifier'].." = @identifier")
     -- insert char infos
-    prepare("will_creator/create_characters","INSERT INTO "..dbColumns[Config.Base]['chars']['table'].."("..dbColumns[Config.Base]['chars']['identifier']..","..dbColumns[Config.Base]['chars']['name']..","..dbColumns[Config.Base]['chars']['name2']..") VALUES(@steam,@name,@name2)")
+    prepare("will_creator/create_characters","INSERT INTO "..dbColumns[Config.Base]['chars']['table'].."("..dbColumns[Config.Base]['chars']['identifier']..","..dbColumns[Config.Base]['chars']['name']..","..dbColumns[Config.Base]['chars']['name2']..") VALUES(@identifier,@name,@name2)")
 end)

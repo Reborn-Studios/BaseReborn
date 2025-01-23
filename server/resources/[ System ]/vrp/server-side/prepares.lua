@@ -1,20 +1,20 @@
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PREPARE USERS
 -----------------------------------------------------------------------------------------------------------------------------------------
-vRP.prepare("vRP/get_vrp_infos","SELECT * FROM vrp_infos WHERE steam = @steam")
-vRP.prepare("vRP/get_characters","SELECT id,registration,phone,name,name2,bank FROM vrp_users WHERE steam = @steam and deleted = 0")
+vRP.prepare("vRP/get_vrp_infos","SELECT * FROM vrp_infos WHERE identifier = @identifier")
+vRP.prepare("vRP/get_characters","SELECT id,registration,phone,name,name2,bank FROM vrp_users WHERE identifier = @identifier and deleted = 0")
 
 vRP.prepare("vRP/get_vrp_users","SELECT * FROM vrp_users WHERE id = @id")
 vRP.prepare("vRP/get_vrp_registration","SELECT id FROM vrp_users WHERE registration = @registration")
 vRP.prepare("vRP/get_vrp_phone","SELECT id FROM vrp_users WHERE phone = @phone")
-vRP.prepare("vRP/create_characters","INSERT INTO vrp_users(steam,name,name2) VALUES(@steam,@name,@name2)")
+vRP.prepare("vRP/create_characters","INSERT INTO vrp_users(identifier,name,name2) VALUES(@identifier,@name,@name2)")
 vRP.prepare("vRP/remove_characters","UPDATE vrp_users SET deleted = 1 WHERE id = @id")
 vRP.prepare("vRP/update_characters","UPDATE vrp_users SET registration = @registration, phone = @phone WHERE id = @id")
 vRP.prepare("characters/updatePhone","UPDATE vrp_users SET phone = @phone WHERE id = @id")
 vRP.prepare("vRP/rename_characters","UPDATE vrp_users SET name = @name, name2 = @name2 WHERE id = @id")
 vRP.prepare("vRP/add_identifier","INSERT INTO vrp_user_ids(identifier,user_id) VALUES(@identifier,@user_id)")
 vRP.prepare("vRP/userid_byidentifier","SELECT user_id FROM vrp_user_ids WHERE identifier = @identifier")
-vRP.prepare("vRP/create_user_id","INSERT INTO vrp_users(steam) VALUES(@steam); SELECT LAST_INSERT_ID() AS id")
+vRP.prepare("vRP/create_user_id","INSERT INTO vrp_users(identifier) VALUES(@identifier); SELECT LAST_INSERT_ID() AS id")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PREPARE BANK
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -24,9 +24,9 @@ vRP.prepare("vRP/del_bank","UPDATE vrp_users SET bank = bank - @bank WHERE id = 
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PREPARE vRP_USERS
 -----------------------------------------------------------------------------------------------------------------------------------------
-vRP.prepare("vRP/create_user","INSERT INTO vrp_infos(steam) VALUES(@steam); SELECT LAST_INSERT_ID() AS id")
-vRP.prepare("vRP/set_banned","UPDATE vrp_infos SET banned = @banned WHERE steam = @steam")
-vRP.prepare("vRP/set_whitelist","UPDATE vrp_infos SET whitelist = @whitelist WHERE steam = @steam")
+vRP.prepare("vRP/create_user","INSERT INTO vrp_infos(identifier) VALUES(@identifier); SELECT LAST_INSERT_ID() AS id")
+vRP.prepare("vRP/set_banned","UPDATE vrp_infos SET banned = @banned WHERE identifier = @identifier")
+vRP.prepare("vRP/set_whitelist","UPDATE vrp_infos SET whitelist = @whitelist WHERE identifier = @identifier")
 vRP.prepare("vRP/set_whitelist_id","UPDATE vrp_infos SET whitelist = @whitelist WHERE id = @id")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PREPARE vRP_USER_DATA
@@ -52,9 +52,9 @@ vRP.prepare("vRP/upd_group","UPDATE vrp_permissions SET permiss = @newpermiss WH
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PREPARE vRP_PRIORITY
 -----------------------------------------------------------------------------------------------------------------------------------------
-vRP.prepare("vRP/set_premium","UPDATE vrp_infos SET premium = @premium, chars = @chars, predays = @predays, priority = @priority WHERE steam = @steam")
-vRP.prepare("vRP/update_priority","UPDATE vrp_infos SET premium = 0, predays = 0, priority = 0 WHERE steam = @steam")
-vRP.prepare("vRP/update_premium","UPDATE vrp_infos SET predays = predays + @predays WHERE steam = @steam")
+vRP.prepare("vRP/set_premium","UPDATE vrp_infos SET premium = @premium, chars = @chars, predays = @predays, priority = @priority WHERE identifier = @identifier")
+vRP.prepare("vRP/update_priority","UPDATE vrp_infos SET premium = 0, predays = 0, priority = 0 WHERE identifier = @identifier")
+vRP.prepare("vRP/update_premium","UPDATE vrp_infos SET predays = predays + @predays WHERE identifier = @identifier")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PREPARE vRP_HOMES
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -104,6 +104,6 @@ vRP.prepare("vRP/resgate_prison","UPDATE vrp_users SET prison = 0 WHERE id = @us
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PREPARE vRP_GEMS
 -----------------------------------------------------------------------------------------------------------------------------------------
-vRP.prepare("vRP/set_vRP_gems","UPDATE vrp_infos SET gems = gems + @gems WHERE steam = @steam")
-vRP.prepare("vRP/rem_vRP_gems","UPDATE vrp_infos SET gems = gems - @gems WHERE steam = @steam")
+vRP.prepare("vRP/set_vRP_gems","UPDATE vrp_infos SET gems = gems + @gems WHERE identifier = @identifier")
+vRP.prepare("vRP/rem_vRP_gems","UPDATE vrp_infos SET gems = gems - @gems WHERE identifier = @identifier")
 vRP.prepare("vRP/set_rental_time","UPDATE vrp_vehicles SET premiumtime = @premiumtime WHERE user_id = @user_id AND vehicle = @vehicle")

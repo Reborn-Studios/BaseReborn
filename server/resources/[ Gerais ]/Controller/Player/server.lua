@@ -84,7 +84,7 @@ RegisterCommand("premium",function(source,args,rawCommand)
 	if user_id then
 		local identity = vRP.getUserIdentity(user_id)
 		if identity then
-			local consult = vRP.getInfos(identity.steam)
+			local consult = vRP.getInfos(identity.identifier)
 			if consult[1] and parseInt(os.time()) <= parseInt(consult[1].premium+24*consult[1].predays*60*60) then
 				TriggerClientEvent("Notify",source,"importante","Você ainda tem "..vRP.getTimers(parseInt(86400*consult[1].predays-(os.time()-consult[1].premium))).." de benefícios <b>Premium</b>.",5000)
 			end

@@ -1,7 +1,8 @@
 function GetIdentifier(source)
     local identifiers = GetPlayerIdentifiers(source)
+    local baseIdentifier = GlobalState['Basics']['Identifier'] or "steam"
     for _, identifier in ipairs(identifiers) do
-        if string.find(identifier, "steam:") then
+        if string.find(identifier, baseIdentifier..":") then
             return identifier
         end
     end
@@ -11,13 +12,13 @@ function GetToken(source)
     local whitelist = IsWhitelisted(source)
     if whitelist == nil then
         local identifier = GetIdentifier(source)
-        ExecuteSql("INSERT INTO `vrp_infos` (`steam`) VALUES('"..identifier.."');")
+        ExecuteSql("INSERT INTO `vrp_infos` (`steam`,`identifier`) VALUES('','"..identifier.."');")
         local affected = ExecuteSql("SELECT LAST_INSERT_ID() AS id;")
         if #affected > 0 then
             return affected[1].id
         end
     else
-        local rows = ExecuteSql("SELECT `id` FROM `vrp_infos` WHERE `steam` = '"..GetIdentifier(source).."'")
+        local rows = ExecuteSql("SELECT `id` FROM `vrp_infos` WHERE `identifier` = '"..GetIdentifier(source).."'")
         if rows[1] then
             return rows[1].id
         end
@@ -25,7 +26,7 @@ function GetToken(source)
 end
 
 function IsWhitelisted(source)
-    local rows = ExecuteSql("SELECT `whitelist` FROM `vrp_infos` WHERE `steam` = '"..GetIdentifier(source).."'")
+    local rows = ExecuteSql("SELECT `whitelist` FROM `vrp_infos` WHERE `identifier` = '"..GetIdentifier(source).."'")
 	if rows[1] then
 		return rows[1].whitelist
 	end
