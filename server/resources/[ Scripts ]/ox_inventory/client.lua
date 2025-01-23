@@ -406,6 +406,7 @@ end)
 
 local function canUseItem(isAmmo)
 	local ped = cache.ped
+	if GetEntityHealth(ped) <= 101 then return false end
 
 	return not usingItem
     and (not isAmmo or currentWeapon)
