@@ -210,7 +210,7 @@ vRP.addUserGroup = function(user, group)
     if groupData then
         TriggerEvent('vRP:playerJoinGroup',user,group,groupData._config and groupData._config.gtype)
     end
-    Reborn.setGroup(source, group)
+    Reborn.setGroup(source, group, false, user)
 end
 
 vRP.removeUserGroup = function(user,group)
@@ -219,7 +219,7 @@ vRP.removeUserGroup = function(user,group)
     if groupData then
         TriggerEvent('vRP:playerLeaveGroup',user,group,groupData._config and groupData._config.gtype)
     end
-    Reborn.remGroup(source,group)
+    Reborn.remGroup(source,group,user)
 end
 -------##########-------##########-------##########-------##########
 --			CREATIVE NETWORK -> VRP
@@ -260,8 +260,9 @@ end
 function vRP.Identities(source)
     local Result = false
     local Identifiers = GetPlayerIdentifiers(source)
+    local baseIdentifier = GlobalState['Basics']['Identifier'] or "steam"
     for _, v in pairs(Identifiers) do
-        if string.find(v,"steam") then
+        if string.find(v,baseIdentifier) then
             local SplitName = splitString(v, ":")
             Result = SplitName[2]
             break
