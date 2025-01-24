@@ -351,7 +351,7 @@ end)
 
 local function getClosestBlip()
 	local coords = GetEntityCoords(PlayerPedId())
-	local closest = 0
+	local closest = nil
 	local closestDistance = 1000
 	for k,v in pairs(garagesGlobal) do
 		local x,y,z = getBlip(v)
