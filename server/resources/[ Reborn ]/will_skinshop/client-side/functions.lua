@@ -16,7 +16,7 @@ CreateThread(function()
 					local distance = #(coords - vector3(v.coords.x,v.coords.y,v.coords.z))
 					if distance <= 2 then
 						timeDistance = 1
-						DrawMarker(27, v.coords.x, v.coords.y, v.coords.z-0.95,0,0,0,0,180.0,130.0,1.0,1.0,1.0,255,0,0,75,0,0,0,1)
+						DrawBase3D(v.coords.x, v.coords.y, v.coords.z,"clothes")
 						if IsControlJustPressed(0,38) and vSERVER.checkShares() then
 							if v.permission == nil or vSERVER.checkPermission(v.permission) then
 								openMenu(k)

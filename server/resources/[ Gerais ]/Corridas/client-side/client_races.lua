@@ -65,8 +65,7 @@ Citizen.CreateThread(function()
 					local distance = #(coords - vector3(v["init"][1],v["init"][2],v["init"][3]))
 					if distance <= 50 then
 						timeDistance = 4
-						DrawMarker(23,v["init"][1],v["init"][2],v["init"][3]-0.95,0,0,0,0,0,0,10.5,10.5,1.5,42,137,255,100,0,0,0,0)
-
+						DrawBase3D(v["init"][1],v["init"][2],v["init"][3],"races")
 						if IsControlJustPressed(1,38) and distance <= 5 and vsSERVER.checkTicket() then
 							vrSERVER.startRaces()
 							vrSERVER.callPolice(v["init"][1],v["init"][2],v["init"][3])

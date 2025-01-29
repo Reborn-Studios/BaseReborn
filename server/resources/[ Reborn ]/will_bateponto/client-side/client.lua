@@ -25,7 +25,7 @@ Citizen.CreateThread(function()
                     local distance = #(coords - vector3(coord[1],coord[2],coord[3]))
                     if distance <= 1.5 then
                         timeDistance = 4
-                        DrawMarker(21,coord[1],coord[2],coord[3]-0.6,0,0,0,0,0,0,0.4,0.4,0.4,255,0,0,125,1,0,0,0)
+						DrawBase3D(coord[1],coord[2],coord[3],"bate-ponto")
                         if IsControlJustPressed(1,38) then
                             if v.Anim == "Tablet" then
                                 Config.func.createTablet()

@@ -134,7 +134,7 @@ CreateThread(function()
 				local distance = #(coords - vector3(v.init[1],v.init[2],v.init[3]))
 				if distance <= 3 then
 					timeDistance = 4
-					DrawBase3D(v.init[1],v.init[2],v.init[3], "~g~E~w~   ATENDIMENTO")
+					DrawBase3D(v.init[1],v.init[2],v.init[3], "treatment")
 					if distance <= 1.5 and IsControlJustPressed(1,38) and HPServer.checkServices() then
 						if GetEntityHealth(ped) < maxHealth then
 							local checkBusy = 0

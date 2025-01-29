@@ -53,6 +53,24 @@ CreateThread(function()
 			event = "Bank"
 		}
 	})
+
+	while true do
+		local timeDistance = 500
+		local ped = PlayerPedId()
+		for Number,coord in pairs(Banks) do
+			local distance = #(GetEntityCoords(ped) - coord)
+			if distance <= 5.0 then
+				timeDistance = 1
+				DrawBase3D(coord.x,coord.y,coord.z,"bank")
+				if IsControlJustPressed(1,38) and distance <= 1.5 then
+					SetNuiFocus(true,true)
+					SendNUIMessage({ Action = "Open", name = LocalPlayer["state"]["Name"] })
+					vRP.playAnim(false,{"amb@prop_human_atm@male@idle_a","idle_a"},false)
+				end
+			end
+		end
+		Wait(timeDistance)
+	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- BANK

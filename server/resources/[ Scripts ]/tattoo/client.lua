@@ -205,7 +205,7 @@ CreateThread(function()
                     local distance = GetDistanceBetweenCoords(x,y,z,v2[1], v2[2], v2[3], true)
                     if distance < 10 then 
                         sleep = 4
-                        DrawMarker(27,v2[1],v2[2],v2[3]-0.95,0,0,0,0,180.0,130.0,1.0,1.0,1.0,255,0,0,75,0,0,0,1)
+                        DrawBase3D(v2[1],v2[2],v2[3],"tattoos")
                         if distance <=1 then 
                             if IsControlJustPressed(0, 38) then 
                                 in_loja = true

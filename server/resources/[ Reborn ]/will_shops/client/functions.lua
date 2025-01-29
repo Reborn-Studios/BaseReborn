@@ -34,9 +34,15 @@ CreateThread(function()
 				if IsControlJustPressed(0,38) then
 					openManagment(k)
 				end
-			elseif shopDis <= 2.0 then
+			elseif shopDis <= 6.0 then
 				timeDistance = 4
-				DrawText3D(v['buy_products_coords'].x,v['buy_products_coords'].y,v['buy_products_coords'].z,"~g~[E]~w~ Abrir loja")
+				if k:find("Conveniencia") then
+					DrawBase3D(v['buy_products_coords'].x,v['buy_products_coords'].y,v['buy_products_coords'].z,"department")
+				elseif k:find("Ammunation") then
+					DrawBase3D(v['buy_products_coords'].x,v['buy_products_coords'].y,v['buy_products_coords'].z,"ammunation")
+				else
+					DrawText3D(v['buy_products_coords'].x,v['buy_products_coords'].y,v['buy_products_coords'].z,"~g~[E]~w~ Abrir loja")
+				end
 				if IsControlJustPressed(0,38) then
 					if GetResourceState("ox_inventory") ~= "started" then
 						openShop(k)

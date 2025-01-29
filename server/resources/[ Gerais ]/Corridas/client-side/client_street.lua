@@ -46,7 +46,7 @@ Citizen.CreateThread(function()
 				local distance = #(coords - vector3(startX,startY,startZ))
 				if distance <= 100 then
 					timeDistance = 4
-					DrawMarker(23,startX,startY,startZ-0.8,0,0,0,0,0,0,25.0,25.0,1.0,255,0,0,50,0,0,0,0)
+					DrawBase3D(startX,startY,startZ,"races")
 					if distance <= 12.5 then
 						local vehicle = GetVehiclePedIsUsing(ped)
 						if IsControlJustPressed(1,38) and timeSeconds <= 0 and GetPedInVehicleSeat(vehicle,-1) == ped then

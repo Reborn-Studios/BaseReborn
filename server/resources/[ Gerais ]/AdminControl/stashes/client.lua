@@ -176,9 +176,7 @@ CreateThread(function()
             local distance = #(coords - vector3(stash.coords.x,stash.coords.y,stash.coords.z))
 			if distance <= 10.0 then
 				timeDistance = 4
-                DrawMarker(2, stash.coords.x,stash.coords.y,stash.coords.z-0.5, 0, 0, 0, 0, 0, 0, 0.2, 0.2, 0.2, 255, 255, 255, 180, false, true, 2, true) -- seta
-	            DrawMarker(25, stash.coords.x,stash.coords.y,stash.coords.z-1.00, 0, 0, 0, 0, 0, 0, 0.9, 0.9, 0.5, 255, 255, 255, 180, false, true, 2, true) -- baixo
-	            DrawMarker(25, stash.coords.x,stash.coords.y,stash.coords.z-1.00, 0, 0, 0, 0, 0, 0, 1.0, 1.0, 0.5, 19, 126, 138, 280, false, true, 2, true) -- baixo contorno azul
+                DrawBase3D(stash.coords.x,stash.coords.y,stash.coords.z,"chest")
                 if distance <= 2 and IsControlJustPressed(0,38) then
                     exports.ox_inventory:openInventory('stash', stash.id)
                 end

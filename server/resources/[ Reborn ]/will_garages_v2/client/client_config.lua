@@ -407,7 +407,7 @@ function getBlip(v)
 end
 
 function drawMark(x,y,z)
-	DrawMarker(36,x,y,z,0,0,0,0,0,0,1.0,1.0,1.0,55,200,0,200,0,0,0,1)
+	DrawBase3D(x,y,z,"garage")
 end
 
 --################--
