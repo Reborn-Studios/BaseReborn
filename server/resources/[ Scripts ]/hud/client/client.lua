@@ -458,7 +458,8 @@ end)
 
 function updateHealthStatus()
     local playerPed = PlayerPedId()
-    local val = (((GetEntityHealth(playerPed)-100) / 300) * 100)
+    local maxHealth = GetEntityMaxHealth(playerPed)
+    local val = (((GetEntityHealth(playerPed)-100) / (maxHealth - 100)) * 100)
     SendNUIMessage({
         type = "set_status",
         statustype = "health",

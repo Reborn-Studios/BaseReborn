@@ -9,6 +9,7 @@ local vRPclient = Tunnel.getInterface("vRP")
 
 local active = {}
 local Objects = {}
+local MaxHealth = GlobalState['Basics']['MaxHealth'] or 400
 
 RegisterServerEvent("ox_inventory:useItem")
 AddEventHandler("ox_inventory:useItem",function(source, itemName)
@@ -16,7 +17,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 	if vRPclient.getHealth(source) <= 101 then return end
 	Player(source)["state"]["Commands"] = true
 	if itemName == "analgesic" then
-		if vRPclient.getHealth(source) > 101 and vRPclient.getHealth(source) < 400 then
+		if vRPclient.getHealth(source) > 101 and vRPclient.getHealth(source) < MaxHealth then
 			active[user_id] = 6
 			TriggerClientEvent("Progress",source,6000,"Utilizando...")
 			vRPclient._playAnim(source,true,{"mp_suicide","pill"},true)
@@ -212,7 +213,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 				until active[user_id] == nil
 			end			
 		else
-			if vRPclient.getHealth(source) > 101 and vRPclient.getHealth(source) < 400 then
+			if vRPclient.getHealth(source) > 101 and vRPclient.getHealth(source) < MaxHealth then
 				active[user_id] = 30
 				TriggerClientEvent("Progress",source,30000,"Utilizando...")
 				vRPclient._createObjects(source,"amb@world_human_clipboard@male@idle_a","idle_c","v_ret_ta_firstaid",49,60309)
@@ -236,7 +237,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 	end
 
 	if itemName == "gauze" then
-		if vRPclient.getHealth(source) > 101 and vRPclient.getHealth(source) < 400 then
+		if vRPclient.getHealth(source) > 101 and vRPclient.getHealth(source) < MaxHealth then
 			active[user_id] = 3
 			TriggerClientEvent("Progress",source,3000,"Utilizando...")
 			vRPclient._playAnim(source,true,{"amb@world_human_clipboard@male@idle_a","idle_c"},true)

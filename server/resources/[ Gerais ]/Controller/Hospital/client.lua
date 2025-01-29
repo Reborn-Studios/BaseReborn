@@ -9,6 +9,7 @@ HPServer = Tunnel.getInterface("Hospital")
 -----------------------------------------------------------------------------------------------------------------------------------------
 local damaged = {}
 local bleeding = 0
+local maxHealth = GlobalState['Basics']['MaxHealth'] or 400
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PRESSEDDIAGNOSTIC
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -135,7 +136,7 @@ CreateThread(function()
 					timeDistance = 4
 					DrawBase3D(v.init[1],v.init[2],v.init[3], "~g~E~w~   ATENDIMENTO")
 					if distance <= 1.5 and IsControlJustPressed(1,38) and HPServer.checkServices() then
-						if GetEntityHealth(ped) < 400 then
+						if GetEntityHealth(ped) < maxHealth then
 							local checkBusy = 0
 							for _,bed in pairs(v.beds) do
 								checkBusy = checkBusy + 1
@@ -204,7 +205,7 @@ AddEventHandler('tratamento-macas',function()
 	repeat
 		SetEntityHealth(PlayerPedId(),GetEntityHealth(PlayerPedId())+3)
 		Wait(1500)
-	until GetEntityHealth(PlayerPedId()) >= 400 or GetEntityHealth(PlayerPedId()) <= 101
+	until GetEntityHealth(PlayerPedId()) >= maxHealth or GetEntityHealth(PlayerPedId()) <= 101
 	TriggerEvent("Notify","importante","Tratamento concluido.")
 	TriggerEvent("cancelando",false)
 	TriggerEvent("vrp_survival:desbugar")
@@ -230,7 +231,7 @@ AddEventHandler("tratamento",function()
 			if GetEntityHealth(ped) > 101 then
 				SetEntityHealth(ped,GetEntityHealth(ped)+3)
 			end
-		until GetEntityHealth(ped) >= 399 or GetEntityHealth(ped) <= 101
+		until GetEntityHealth(ped) >= maxHealth or GetEntityHealth(ped) <= 101
 			TriggerEvent("Notify","sucesso","Tratamento concluido.",8000)
 			tratamento = false
 			TriggerEvent("vrp_survival:desbugar")

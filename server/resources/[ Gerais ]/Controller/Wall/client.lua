@@ -48,7 +48,7 @@ local function initWallThread()
 							if playerArmour <= 1 then
 								playerArmour = 0
 							end
-							local playerHealthPercent = (playerHealth / GetPedMaxHealth(playerPed)) * 100
+							local playerHealthPercent = ((playerHealth - 100) / (GetPedMaxHealth(playerPed) - 100)) * 100
 							local playerArmourPercent = playerArmour
 							playerHealthPercent = math.floor(playerHealthPercent)
 							playerArmourPercent = math.floor(playerArmourPercent)

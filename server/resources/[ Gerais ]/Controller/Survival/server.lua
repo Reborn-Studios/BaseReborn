@@ -5,6 +5,7 @@ SvServer = {}
 Tunnel.bindInterface("Survival",SvServer)
 SvTunnel = Tunnel.getInterface("Survival")
 local resetCoords = Config.Survival['reviveCoords']
+local MaxHealth = GlobalState['Basics']['MaxHealth'] or 400
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- GOD
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -12,7 +13,7 @@ RegisterCommand("god",function(source,args,rawCommand)
 	if source == 0 then
 		local nplayer = vRP.getUserSource(parseInt(args[1]))
 		if nplayer then
-			SvTunnel.revivePlayer(nplayer,400)
+			SvTunnel.revivePlayer(nplayer,MaxHealth)
 			TriggerClientEvent("resetBleeding",nplayer)
 			TriggerClientEvent("resetDiagnostic",nplayer)
 			print('Jogador revivido!')
@@ -27,13 +28,13 @@ RegisterCommand("god",function(source,args,rawCommand)
 			if args[1] then
 				local nplayer = vRP.getUserSource(parseInt(args[1]))
 				if nplayer then
-					SvTunnel.revivePlayer(nplayer,400)
+					SvTunnel.revivePlayer(nplayer,MaxHealth)
 					TriggerClientEvent("resetBleeding",nplayer)
 					TriggerClientEvent("resetDiagnostic",nplayer)
 					vRP.createWeebHook(Webhooks.webhookgod,"```prolog\n[ID]: "..user_id.."\n[DEU GOD PARA:]: "..args[1].." "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
 				end
 			else
-				SvTunnel.revivePlayer(source,400)
+				SvTunnel.revivePlayer(source,MaxHealth)
 				TriggerClientEvent("resetBleeding",source)
 				TriggerClientEvent("resetDiagnostic",source)
 				vRP.createWeebHook(Webhooks.webhookgod,"```prolog\n[ID]: "..user_id.."\n[DEU GOD PARA SI MESMO]"..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
@@ -53,7 +54,7 @@ RegisterCommand("good",function(source,args,rawCommand)
 				if nplayer then
 					vRP.downgradeStress(user_id,100)
 					vRPclient.setArmour(nplayer,100)
-					SvTunnel.revivePlayer(nplayer,400)
+					SvTunnel.revivePlayer(nplayer,MaxHealth)
 					vRP.upgradeThirst(parseInt(args[1]),100)
 					vRP.upgradeHunger(parseInt(args[1]),100)
 					TriggerClientEvent("resetBleeding",nplayer)
@@ -64,7 +65,7 @@ RegisterCommand("good",function(source,args,rawCommand)
 				vRP.upgradeHunger(user_id,100)
 				vRPclient.setArmour(source,100)
 				vRP.downgradeStress(user_id,100)
-				SvTunnel.revivePlayer(source,400)
+				SvTunnel.revivePlayer(source,MaxHealth)
 				TriggerClientEvent("resetBleeding",source)
 				TriggerClientEvent("resetDiagnostic",source)
 			end

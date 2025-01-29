@@ -2410,11 +2410,11 @@ RegisterNetEvent("vrp_hospital:macas")
 AddEventHandler("vrp_hospital:macas",function()
 	local ped = PlayerPedId()
 	TriggerEvent("cancelando",true)
-
+	local maxHealth = GlobalState['Basics']['MaxHealth'] or 400
 	repeat
 		SetEntityHealth(ped,GetEntityHealth(ped)+1)
 		Wait(700)
-	until GetEntityHealth(ped) >= 400
+	until GetEntityHealth(ped) >= maxHealth
 		TriggerEvent("Notify","sucesso","Tratamento completo.",5000)
 		TriggerEvent("cancelando",false)
 		ClearPedBloodDamage(ped)

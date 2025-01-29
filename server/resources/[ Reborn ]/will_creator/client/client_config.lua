@@ -1,4 +1,4 @@
-maxHealth = 400
+maxHealth = GlobalState['Basics']['MaxHealth'] or 400
 
 -- #########################
 --      INITIATION

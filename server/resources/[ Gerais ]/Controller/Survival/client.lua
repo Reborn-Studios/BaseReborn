@@ -18,7 +18,7 @@ local CallCooldown = 0
 -----------------------------------------------------------------------------------------------------------------------------------------
 CreateThread(function()
 	Wait(500)
-	SetPedMaxHealth(PlayerPedId(),400)
+	SetPedMaxHealth(PlayerPedId(),GlobalState['Basics']['MaxHealth'] or 400)
 	while true do
 		local timeDistance = 999
 		local ped = PlayerPedId()
@@ -123,7 +123,8 @@ end)
 -- FINISHDEATH
 -----------------------------------------------------------------------------------------------------------------------------------------
 function SvClient.finishDeath()
-	exports["Controller"]:Revive(400)
+	local maxHealth = GlobalState['Basics']['MaxHealth'] or 400
+	exports["Controller"]:Revive(maxHealth)
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- Death
@@ -177,12 +178,13 @@ function SvClient.startCure()
 	cure = true
 	TriggerEvent("Notify","sucesso","O tratamento começou, espere o paramédico libera-lo.",3000)
 	if cure then
+		local maxHealth = GlobalState['Basics']['MaxHealth'] or 400
 		repeat
 			Wait(1000)
 			if GetEntityHealth(ped) > 101 then
 				SetEntityHealth(ped,GetEntityHealth(ped) + 1)
 			end
-		until GetEntityHealth(ped) >= 400 or GetEntityHealth(ped) <= 101
+		until GetEntityHealth(ped) >= maxHealth or GetEntityHealth(ped) <= 101
 			TriggerEvent("Notify","sucesso","Tratamento concluído.",3000)
 			Death = false
 			cure = false

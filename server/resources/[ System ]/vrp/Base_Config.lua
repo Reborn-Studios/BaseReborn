@@ -23,6 +23,7 @@ end
 GlobalState['Basics'] = {
     ['ServerName'] = "Reborn Studios",
     ['Discord'] = "https://discord.gg/8unYr9MUdx",
+    ['MaxHealth'] = 400,
     ['CityLogo'] = "http://212.18.114.101/img/RebornLogo.png",
     ['ServerStore'] = "",
     ['Identifier'] = "steam",                   -- "steam" / "license" / "discord" / "fivem"

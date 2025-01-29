@@ -19,10 +19,10 @@ CreateThread(function()
 	while true do
 		SetPlayerHealthRechargeMultiplier(cache.playerId,0.0)
 		SetPlayerHealthRechargeLimit(cache.playerId,0.0)
-
-		if GetEntityMaxHealth(cache.ped) ~= 400 then
-			SetEntityMaxHealth(cache.ped,400)
-			SetPedMaxHealth(cache.ped,400)
+		local maxHealth = GlobalState['Basics']['MaxHealth'] or 400
+		if GetEntityMaxHealth(cache.ped) ~= maxHealth then
+			SetEntityMaxHealth(cache.ped,maxHealth)
+			SetPedMaxHealth(cache.ped,maxHealth)
 		end
 
 		if GetPlayerMaxArmour(cache.ped) ~= 100 then
@@ -160,7 +160,7 @@ function tvRP.setCustomization(custom, localApply)
             end
 
 			ped = GetPlayerPed(-1)
-			SetPedMaxHealth(ped,400)
+			SetPedMaxHealth(ped,GlobalState['Basics']['MaxHealth'] or 400)
 
 			for k,v in pairs(custom) do
 				if k ~= "model" and k ~= "modelhash" then
