@@ -1505,6 +1505,17 @@ AddEventHandler("inventory:makeWater",function()
 	end
 end)
 
+RegisterServerEvent("objects:Guardar")
+AddEventHandler("objects:Guardar",function (Number)
+	local source = source
+	local user_id = vRP.getUserId(source)
+	local Object = Objects[Number]
+	if user_id and Object then
+		vRP.giveInventoryItem(user_id,Object.item,1,true)
+		TriggerClientEvent("objects:Remover",-1,Number)
+	end
+end)
+
 CreateThread(function()
 	while true do
 		for k,v in pairs(active) do

@@ -26,13 +26,14 @@ local function targetLabel(x,y,z,Number,item,mode)
 			name = "Objects:"..Number,
 			heading = 3374176
 		},{
-			shop = Number,
 			distance = 1.5,
 			options = {
 				{
-					event = "objects:Guardar",
+					action = function ()
+						TriggerEvent("objects:Guardar",Number)
+					end,
 					label = "Guardar",
-					tunnel = "shop"
+					tunnel = "client"
 				},{
 					event = "inventory:makeProducts",
 					label = "Produzir",
@@ -46,7 +47,6 @@ local function targetLabel(x,y,z,Number,item,mode)
 			name = "Objects:"..Number,
 			heading = 3374176
 		},{
-			shop = Number,
 			distance = 2.5,
 			options = {
 				{
@@ -72,13 +72,14 @@ local function targetLabel(x,y,z,Number,item,mode)
 			name = "Objects:"..Number,
 			heading = 3374176
 		},{
-			shop = Number,
 			distance = 1.5,
 			options = {
 				{
-					event = "objects:Guardar",
+					action = function ()
+						TriggerEvent("objects:Guardar",Number)
+					end,
 					label = "Guardar",
-					tunnel = "shop"
+					tunnel = "client"
 				}
 			}
 		})
@@ -87,17 +88,18 @@ local function targetLabel(x,y,z,Number,item,mode)
 			name = "Objects:"..Number,
 			heading = 3374176
 		},{
-			shop = Number,
 			distance = 1.5,
 			options = {
 				{
-					event = "objects:Guardar",
+					action = function ()
+						TriggerEvent("objects:Guardar",Number)
+					end,
 					label = "Guardar",
-					tunnel = "shop"
+					tunnel = "client"
 				},{
 					event = "vRP:Sentar",
 					label = "Sentar",
-					tunnel = "shop"
+					tunnel = "client"
 				}
 			}
 		})
@@ -106,13 +108,14 @@ local function targetLabel(x,y,z,Number,item,mode)
 			name = "Objects:"..Number,
 			heading = 3374176
 		},{
-			shop = Number,
 			distance = 1.5,
 			options = {
 				{
-					event = "objects:Guardar",
+					action = function ()
+						TriggerEvent("objects:Guardar",Number)
+					end,
 					label = "Guardar",
-					tunnel = "shop"
+					tunnel = "client"
 				},{
 					event = "shops:medicBag",
 					label = "Abrir",
@@ -257,12 +260,11 @@ function tvRP.objectCoords(model)
 
 	local headObject = GetEntityHeading(newObject)
 	local coordsObject = GetEntityCoords(newObject)
-	local _,GroundZ = GetGroundZFor_3dCoord(coordsObject["x"],coordsObject["y"],coordsObject["z"],false)
 
 	local newCoords = {
 		["x"] = coordsObject["x"],
 		["y"] = coordsObject["y"],
-		["z"] = GroundZ ~= 0.0 and GroundZ or coordsObject["z"]
+		["z"] = coordsObject["z"]
 	}
 
 	DeleteEntity(newObject)
