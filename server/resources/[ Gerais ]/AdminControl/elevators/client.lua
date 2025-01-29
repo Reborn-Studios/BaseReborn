@@ -287,7 +287,7 @@ CreateThread(function()
             if dist < 20 then
                 idleTime = 5
 				if dist < 10 and (GetGameTimer() >= GameTimer) then
-					DrawMarker(27, DrawCoords[i]['x'], DrawCoords[i]['y'], DrawCoords[i]['z'] - 0.95, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.75, 1.75, 0.0, 0, 0, 0, 70, false, false, 0, true )
+                    DrawBase3D(DrawCoords[i]['x'], DrawCoords[i]['y'], DrawCoords[i]['z'],"elevator")
                     if IsControlJustPressed(0, 38) then
                         if (GetGameTimer() >= GameTimer) then
                             Functions:open()

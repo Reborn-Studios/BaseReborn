@@ -1148,7 +1148,7 @@ CreateThread(function()
 				local distance = #(coords - vector3(v[1],v[2],v[3]))
 				if distance <= 1.5 then
 					timeDistance = 1
-					DrawBase3D(v[1],v[2],v[3],"~g~E~w~   "..v[7])
+					DrawBase3D(v[1],v[2],v[3],"elevator")
 					if IsControlJustPressed(1,38) then
 						DoScreenFadeOut(1000)
 						Wait(1200)
