@@ -153,8 +153,14 @@ lib.callback.register('ox_inventory:openShop', function(source, data)
 	return { label = left.label, type = left.type, slots = left.slots, weight = left.weight, maxWeight = left.maxWeight }, shop
 end)
 
-local function canAffordItem(inv, currency, price)
+local function canAffordItem(inv, currency, price, source)
 	local canAfford = price >= 0 and Inventory.GetItem(inv, currency, false, true) >= price
+	if not canAfford then
+		local bank = vRP.getBank(vRP.getUserId(source))
+		if bank and bank >= price then
+			canAfford = true
+		end
+	end
 
 	return canAfford or {
 		type = 'error',
@@ -162,8 +168,12 @@ local function canAffordItem(inv, currency, price)
 	}
 end
 
-local function removeCurrency(inv, currency, price)
-	Inventory.RemoveItem(inv, currency, price)
+local function removeCurrency(inv, currency, price, source)
+	local removedItem = Inventory.RemoveItem(inv, currency, price)
+	if removedItem then return true end
+	if currency == 'dollars' then
+		return vRP.paymentBank(vRP.getUserId(source), price)
+	end
 end
 
 local TriggerEventHooks = require 'modules.hooks.server'
@@ -185,7 +195,7 @@ lib.callback.register('ox_inventory:buyItem', function(source, data)
 	if data.toType == 'player' then
 		if data.count == nil then data.count = 1 end
 
-		local playerInv = Inventory(source)
+		local playerInv = Inventory(source) --[[@as OxInventory]]
 
 		if not playerInv or not playerInv.currentShop then return end
 
@@ -197,6 +207,18 @@ lib.callback.register('ox_inventory:buyItem', function(source, data)
 
 		local shop = shopId and Shops[shopType][shopId] or Shops[shopType]
 		local fromData = shop.items[data.fromSlot]
+		local fromItem = Items(fromData.name)
+
+		if data.toSlot == data.fromSlot then
+			local items = playerInv.items
+			for i = 1, playerInv.slots do
+				local slotData = items[i]
+				if not slotData then
+					data.toSlot = i
+					break
+				end
+			end
+		end
 		local toData = playerInv.items[data.toSlot]
 
 		if fromData then
@@ -220,7 +242,6 @@ lib.callback.register('ox_inventory:buyItem', function(source, data)
 			end
 
 			local currency = fromData.currency or 'dollars'
-			local fromItem = Items(fromData.name)
 
 			local result = fromItem.cb and fromItem.cb('buying', fromItem, playerInv, data.fromSlot, shop)
 			if result == false then return false end
@@ -229,7 +250,6 @@ lib.callback.register('ox_inventory:buyItem', function(source, data)
 
 			local metadata, count = Items.Metadata(playerInv, fromItem, fromData.metadata and table.clone(fromData.metadata) or {}, data.count)
 			local price = count * fromData.price
-
 			if toData == nil or (fromItem.name == toItem?.name and fromItem.stack and table.matches(toData.metadata, metadata)) then
 				local newWeight = playerInv.weight + (fromItem.weight + (metadata?.weight or 0)) * count
 
@@ -237,7 +257,7 @@ lib.callback.register('ox_inventory:buyItem', function(source, data)
 					return false, false, { type = 'error', description = locale('cannot_carry') }
 				end
 
-				local canAfford = canAffordItem(playerInv, currency, price)
+				local canAfford = canAffordItem(playerInv, currency, price, source)
 
 				if canAfford ~= true then
 					return false, false, canAfford
@@ -257,6 +277,8 @@ lib.callback.register('ox_inventory:buyItem', function(source, data)
 					totalPrice = price,
 					currency = currency,
 				}) then return false end
+				
+				if not removeCurrency(playerInv, currency, price, source) then return false end
 
 				local AllShops = GlobalState['Will_Shops'] or {}
 				if GetResourceState('will_shops') == 'started' and AllShops[shopType] then
@@ -265,10 +287,9 @@ lib.callback.register('ox_inventory:buyItem', function(source, data)
 					end
 					exports['will_shops']:bougthProduct(vRP.getUserId(source), shopType, fromData.name,count, price, "Item adquirido: "..fromData.name.." - x"..count)
 				end
-
-				Inventory.SetSlot(playerInv, fromItem, count, metadata, data.toSlot)
+				local amount = fromData.metadata and fromData.metadata.amount or 1
+				Inventory.SetSlot(playerInv, fromItem, count * amount, metadata, data.toSlot)
 				playerInv.weight = newWeight
-				removeCurrency(playerInv, currency, price)
 
 				if fromData.count then
 					shop.items[data.fromSlot].count = fromData.count - count
