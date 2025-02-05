@@ -373,14 +373,19 @@ CreateThread(function()
 		-- DisableControlAction(1,165,true)
 		-- REMOVE Q
 		DisableControlAction(0,44,true)
-		DisableControlAction(0,140,true)
 		DisableControlAction(0,257,true)
 		DisableControlAction(0,263,true)
 		DisableControlAction(1,192,true)	-- TAB
 		DisableControlAction(1,204,true)	-- TAB
 		DisableControlAction(1,211,true)	-- TAB
 		DisableControlAction(1,349,true)	-- TAB
-		-- DisablePlayerVehicleRewards(PlayerId())
+		DisablePlayerVehicleRewards(PlayerId())
+		-- Remove coronhada
+		if IsPedArmed(PlayerPedId(),6) then
+			DisableControlAction(1,140,true)
+			DisableControlAction(1,141,true)
+			DisableControlAction(1,142,true)
+		end
 
 		-- DANO AO PERSONAGEM
 		SetPedSuffersCriticalHits(PlayerPedId(),true)
