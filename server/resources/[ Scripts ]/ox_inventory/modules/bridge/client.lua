@@ -15,12 +15,16 @@ function client.hasGroup(group)
 			local groupRank = PlayerData.groups[name]
 			if groupRank and groupRank >= (rank or 0) then
 				return name, groupRank
+			elseif LocalPlayer.state[name] then
+				return name, "0"
 			end
 		end
 	else
 		local groupRank = PlayerData.groups[group]
 		if groupRank then
 			return group, groupRank
+		elseif LocalPlayer.state[group] then
+			return group, "0"
 		end
 	end
 end

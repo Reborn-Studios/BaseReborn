@@ -86,6 +86,8 @@ local groups = {
 		_config = {
 			title = "Coronel",
 			gtype = "job",
+			grade = "10",
+			isboss = true,
 			salary = 9000
 		},
 		"comando.permissao",
@@ -101,6 +103,7 @@ local groups = {
 		_config = {
 			title = "Capitao",
 			gtype = "job",
+			grade = "9",
 			salary = 8500
 		},
 		"policiamilitar.permissao",
@@ -115,6 +118,7 @@ local groups = {
 		_config = {
 			title = "Major",
 			gtype = "job",
+			grade = "8",
 			salary = 8000
 		},
 		"policiamilitar.permissao",
@@ -129,6 +133,7 @@ local groups = {
 		_config = {
 			title = "Tenente",
 			gtype = "job",
+			grade = "7",
 			salary = 7500
 		},
 		"policiamilitar.permissao",
@@ -143,6 +148,7 @@ local groups = {
 		_config = {
 			title = "Sub Tenente",
 			gtype = "job",
+			grade = "6",
 			salary = 7000
 		},
 		"policiamilitar.permissao",
@@ -157,6 +163,7 @@ local groups = {
 		_config = {
 			title = "Sargento",
 			gtype = "job",
+			grade = "5",
 			salary = 6500
 		},
 		"policiamilitar.permissao",
@@ -171,6 +178,7 @@ local groups = {
 		_config = {
 			title = "2° Sargento",
 			gtype = "job",
+			grade = "4",
 			salary = 6000
 		},
 		"policiamilitar.permissao",
@@ -185,6 +193,7 @@ local groups = {
 		_config = {
 			title = "3° Sargento",
 			gtype = "job",
+			grade = "3",
 			salary = 5500
 		},
 		"policiamilitar.permissao",
@@ -199,6 +208,7 @@ local groups = {
 		_config = {
 			title = "Cabo",
 			gtype = "job",
+			grade = "2",
 			salary = 5000
 		},
 		"policiamilitar.permissao",
@@ -213,6 +223,7 @@ local groups = {
 		_config = {
 			title = "Soldado",
 			gtype = "job",
+			grade = "1",
 			salary = 4500
 		},
 		"policiamilitar.permissao",
@@ -227,6 +238,7 @@ local groups = {
 		_config = {
 			title = "Recruta",
 			gtype = "job",
+			grade = "0",
 			salary = 4000
 		},
 		"policiamilitar.permissao",
@@ -242,10 +254,12 @@ local groups = {
 		   HOSPITAL
 		#############
 	 ]]
-	["Paramedic"] = {
+	["Paramedico"] = {
 		_config = {
 			title = "Paramedico",
-			gtype = "job"
+			gtype = "job",
+			grade = "0",
+			salary = 3000
 		},
 		"paramedico.permissao",
 		"polpar.permissao",
@@ -254,6 +268,7 @@ local groups = {
 		_config = {
 			title = "Enfermeiro",
 			gtype = "job",
+			grade = "1",
 			salary = 5000
 		},
 		"paramedico.permissao",
@@ -263,6 +278,7 @@ local groups = {
 		_config = {
 			title = "Medico",
 			gtype = "job",
+			grade = "2",
 			salary = 5500
 		},
 		"paramedico.permissao",
@@ -272,6 +288,8 @@ local groups = {
 		_config = {
 			title = "Diretor",
 			gtype = "job",
+			grade = "3",
+			isboss = true,
 			salary = 6000
 		},
 		"diretor.permissao",
@@ -286,6 +304,8 @@ local groups = {
 	["Mecanico"] = {
 		_config = {
 			title = "Mecanico",
+			gtype = "job",
+			grade = "0",
 		},
 		"mecanico.permissao",
 	},
@@ -293,6 +313,7 @@ local groups = {
 		_config = {
 			title = "Mecanico Gerente",
 			gtype = "job",
+			grade = "1",
 			salary = 5000
 		},
 		"mecanico.permissao",
@@ -301,6 +322,8 @@ local groups = {
 		_config = {
 			title = "Mecanico Lider",
 			gtype = "job",
+			grade = "2",
+			isboss = true,
 			salary = 7000
 		},
 		"mecanico.permissao",
@@ -310,6 +333,7 @@ local groups = {
 		_config = {
 			title = "Bennys",
 			gtype = "job",
+			grade = "0",
 			salary = 5000
 		},
 		"bennys.permissao"
@@ -318,6 +342,7 @@ local groups = {
 		_config = {
 			title = "Bennys Gerente",
 			gtype = "job",
+			grade = "1",
 			salary = 7000
 		},
 		"liderbennys.permissao",
@@ -327,6 +352,8 @@ local groups = {
 		_config = {
 			title = "Bennys L.",
 			gtype = "job",
+			grade = "2",
+			isboss = true,
 			salary = 7000
 		},
 		"liderbennys.permissao",

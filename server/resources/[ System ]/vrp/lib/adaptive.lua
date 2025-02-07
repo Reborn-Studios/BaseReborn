@@ -450,36 +450,42 @@ local function requestQbGroups(groups)
 	for Group, perms in pairs(groups) do
 		local joined = false
 		for i,value in pairs(perms) do
-			if type(value) == "string" then
-				for perm,job in pairs(CONVERT_GROUPS) do
-					if value == perm then
-						if QBShared.Jobs[job] and groups[Group]._config and groups[Group]._config.grade then
-							local GroupGrade = groups[Group]._config.grade
-							if QBShared.Jobs[job].grades then
-								joined = true
-								QBShared.Jobs[job].grades[GroupGrade] = {
-									name = groups[Group]._config.title or Group,
-									payment = groups[Group]._config.salary or 0
-								}
-								ALIAS_GROUPS[Group] = {
-									job = job,
-									grade = GroupGrade
-								}
-							end
-						end
-					end
+			if type(value) == "string" and CONVERT_GROUPS[value] then
+				local job = CONVERT_GROUPS[value]
+				if not QBShared.Jobs[job] then
+					QBShared.Jobs[job] = {
+						label = perms._config.title or Group,
+						defaultDuty = true,
+						offDutyPay = false,
+						grades = {}
+					}
+				end
+				if perms._config and perms._config.grade then
+					if not QBShared.Jobs[job].grades then QBShared.Jobs[job].grades = {} end
+					local GroupGrade = perms._config.grade
+					joined = true
+					QBShared.Jobs[job].grades[GroupGrade] = {
+						name = perms._config.title or Group,
+						payment = perms._config.salary or 0,
+						isboss = perms._config.isboss or nil,
+					}
+					ALIAS_GROUPS[Group] = {
+						job = job,
+						grade = GroupGrade
+					}
 				end
 			end
 		end
 		if not joined then
-			QBCore.Shared.Jobs[Group] = {
+			QBShared.Jobs[Group] = {
                 label = perms._config and perms._config.title or k,
                 defaultDuty = true,
                 offDutyPay = false,
                 grades = {
                     ['0'] = {
                         name = perms._config and perms._config.title or k,
-                        payment = perms._config and perms._config.salary or 0
+                        payment = perms._config and perms._config.salary or 0,
+						isboss = perms._config and perms._config.isboss or nil,
                     }
                 }
             }
@@ -493,6 +499,7 @@ RegisterNetEvent("Reborn:reloadInfos",function()
 end)
 
 CreateThread(function ()
+	Wait(500)
 	local groups = module('vrp',"Reborn/Groups") or {}
 	requestQbGroups(groups)
 end)
