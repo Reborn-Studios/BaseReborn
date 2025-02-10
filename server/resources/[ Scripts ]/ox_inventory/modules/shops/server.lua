@@ -154,7 +154,8 @@ lib.callback.register('ox_inventory:openShop', function(source, data)
 end)
 
 local function canAffordItem(inv, currency, price, source)
-	local canAfford = price >= 0 and Inventory.GetItem(inv, currency, false, true) >= price
+	if price == 0 then return true end
+	local canAfford = price > 0 and Inventory.GetItem(inv, currency, false, true) >= price
 	if not canAfford then
 		local bank = vRP.getBank(vRP.getUserId(source))
 		if bank and bank >= price then
@@ -169,6 +170,7 @@ local function canAffordItem(inv, currency, price, source)
 end
 
 local function removeCurrency(inv, currency, price, source)
+	if price == 0 then return true end
 	local removedItem = Inventory.RemoveItem(inv, currency, price)
 	if removedItem then return true end
 	if currency == 'dollars' then
