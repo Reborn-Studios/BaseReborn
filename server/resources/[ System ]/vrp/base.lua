@@ -333,7 +333,7 @@ AddEventHandler("baseModule:idLoaded",function(source,user,model)
 			end
 			vRP.user_tables[user_id].backpack = first_login['DefaultBackpack'] or 10
 			TriggerEvent("Reborn:newPlayer",user_id)
-			if not GlobalState['Basics']['Whitelist'] then
+			if not GlobalState['Basics']['Whitelist'] and GetResourceState("nation_creator") ~= "started" then
 				TriggerClientEvent("will_login:LoginMenu",source)
 			end
 			SetTimeout(5000,function()
