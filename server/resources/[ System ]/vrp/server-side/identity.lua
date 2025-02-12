@@ -3,7 +3,11 @@
 -----------------------------------------------------------------------------------------------------------------------------------------
 function vRP.getUserIdentity(user_id,refresh)
 	local source = vRP.getUserSource(user_id)
-	return Reborn.getIdentity(source,refresh)
+	local identity = Reborn.getIdentity(source,refresh,user_id)
+	if GetResourceState("lb-phone") == "started" and source then
+		identity.phone = exports["lb-phone"]:GetEquippedPhoneNumber(source) or ""
+	end
+	return identity
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- GETUSERREGISTRATION
