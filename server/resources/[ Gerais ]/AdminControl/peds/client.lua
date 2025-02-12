@@ -148,6 +148,7 @@ function Client.getPedData()
     lib.registerContext({
         id = 'admin_peds_control',
         title = 'Controle dos Peds',
+        menu = 'admin_menu_control',
         options = {
             {
                 title = 'Criar Ped',
