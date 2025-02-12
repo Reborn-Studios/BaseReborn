@@ -40,7 +40,7 @@ function Client.openMainMenu()
                 description = 'Gerenciar garagens',
                 icon = "fa-solid fa-warehouse",
                 onSelect = function ()
-                    if GetResourceState("will_conce_v2") == "started" then
+                    if GetResourceState("will_garages_v2") == "started" then
                         ExecuteCommand(Config.Commands["garages"]['command'])
                     else
                         TriggerEvent("Notify","negado","Você não tem a garagem da Reborn",5000)
