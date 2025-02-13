@@ -76,6 +76,10 @@ vRP.userPlayers = function()
     return vRP.getUsers()
 end
 
+vRP.Players = function()
+    return vRP.getUsers()
+end
+
 vRP.userSource = function(id)
     return vRP.getUserSource(id)
 end
@@ -237,6 +241,134 @@ function vRP.UserData(Passport, Key)
     return vRP.getUData(Passport, Key)
 end
 
+function vRP.GetHealth(source)
+    local Ped = GetPlayerPed(source)
+    if Ped then
+        return GetEntityHealth(Ped)
+    end
+end
+
+function vRP.ModelPlayer(source)
+    local GetPlayerPed = GetPlayerPed(source)
+    if GetEntityModel(GetPlayerPed) == GetHashKey("mp_f_freemode_01") then
+        return "mp_f_freemode_01"
+    elseif GetEntityModel(GetPlayerPed) == GetHashKey("mp_m_freemode_01") then
+        return "mp_m_freemode_01"
+    end
+end
+
+function vRP.SetArmour(source,Amount)
+    local GetPlayerPed = GetPlayerPed(source)
+    if GetPedArmour(GetPlayerPed) + Amount > 100 then
+        Amount = 100 - GetPedArmour(GetPlayerPed)
+    end
+    SetPedArmour(GetPlayerPed,GetPedArmour(GetPlayerPed) + Amount)
+end
+
+function vRP.Teleport(source,x,y,z)
+    local GetPlayerPed = GetPlayerPed(source)
+    SetEntityCoords(GetPlayerPed, x + 1.0E-4, y + 1.0E-4, z + 1.0E-4, false, false, false, false)
+end
+
+function vRP.GetEntityCoords(source)
+    local GetPlayerPed = GetPlayerPed(source)
+    return GetEntityCoords(GetPlayerPed)
+end
+
+function vRP.InsideVehicle(source)
+    local GetPlayerPed = GetPlayerPed(source)
+    if 0 == GetVehiclePedIsIn(GetPlayerPed, false) then
+        return false
+    end
+    return true
+end
+
+local Objects = {}
+
+function tvRP.CreateObject(Model,x,y,z,Weapon)
+    local Passport = vRP.Passport(source)
+    if Passport then
+        local spawnObjects = 0
+        local hash = GetHashKey(Model)
+        local object = CreateObject(hash,x,y,z,true,true,false)
+
+        while not DoesEntityExist(object) and spawnObjects <= 1000 do
+            spawnObjects = spawnObjects + 1
+            Wait(1)
+        end
+        local network = NetworkGetNetworkIdFromEntity(object)
+        if DoesEntityExist(object) then
+            if Weapon then
+                if not Objects[Passport] then
+                    Objects[Passport] = {}
+                end
+                Objects[Passport][Weapon] = network
+            else
+                if not Objects[Passport] then
+                    Objects[Passport] = {}
+                end
+                Objects[Passport][network] = true
+            end
+            return true,network
+        end
+    end
+    return false
+end
+
+RegisterServerEvent("DeleteObject")
+AddEventHandler("DeleteObject",function(index,value)
+    local source = source
+    local Passport = vRP.Passport(source)
+    if Passport then
+        if value and Objects[Passport] and Objects[Passport][value] then
+            index = Objects[Passport][value]
+            Objects[Passport][value] = nil
+        end
+    end
+    TriggerEvent("DeleteObjectServer",index)
+end)
+
+AddEventHandler("DeleteObjectServer",function(entIndex)
+    local NetworkGetEntityFromNetworkId = NetworkGetEntityFromNetworkId(entIndex)
+    if DoesEntityExist(NetworkGetEntityFromNetworkId) and not IsPedAPlayer(NetworkGetEntityFromNetworkId) and 3 == GetEntityType(NetworkGetEntityFromNetworkId) then
+        DeleteEntity(NetworkGetEntityFromNetworkId)
+    end
+end)
+
+AddEventHandler("DebugObjects",function(value)
+    if Objects[value] then
+        for k,v in pairs(Objects[value]) do
+            Objects[value][k] = nil
+            TriggerEvent("DeleteObjectServer", k)
+        end
+    end
+end)
+
+AddEventHandler("DebugWeapons",function(value)
+    if Objects[value] then
+        for k,v in pairs(Objects[value]) do
+            TriggerEvent("DeleteObjectServer", v)
+            Objects[value] = nil
+        end
+        Objects[value] = nil
+    end
+end)
+
+RegisterServerEvent("DeletePed")
+AddEventHandler("DeletePed",function(entIndex)
+    local NetworkGetEntityFromNetworkId = NetworkGetEntityFromNetworkId(entIndex)
+    if DoesEntityExist(NetworkGetEntityFromNetworkId) and not IsPedAPlayer(NetworkGetEntityFromNetworkId) and 1 == GetEntityType(NetworkGetEntityFromNetworkId) then
+        DeleteEntity(NetworkGetEntityFromNetworkId)
+    end
+end)
+
+RegisterServerEvent("CleanVehicle")
+AddEventHandler("CleanVehicle",function(entIndex)
+	if DoesEntityExist(NetworkGetEntityFromNetworkId(entIndex)) and not IsPedAPlayer(NetworkGetEntityFromNetworkId(entIndex)) and 2 == GetEntityType(NetworkGetEntityFromNetworkId(entIndex)) then
+		SetVehicleDirtLevel(NetworkGetEntityFromNetworkId(entIndex),0.0)
+	end
+end)
+
 function vRP.Query(name, query)
     return vRP.query(name, query)
 end
@@ -247,6 +379,10 @@ end
 
 function vRP.Datatable(Passport)
     return vRP.getUserDataTable(Passport)
+end
+
+function vRP.Kick(source,Reason)
+    DropPlayer(source,Reason)
 end
 
 function vRP.HasPermission(Passport, Permission)
@@ -299,6 +435,51 @@ function vRP.UpdatePrison(Passport,Amount)
     vRP.updatePrison(Passport,Amount)
 end
 
+function vRP.UpgradeChars(source)
+    local user_id = vRP.getUserd(source)
+	local UserIdentity = vRP.getUserIdentity(user_id)
+	if UserIdentity then
+		vRP.execute("accounts/infosUpdatechars",{ identifier = UserIdentity["identifier"] })
+		UserIdentity["chars"] = UserIdentity["chars"] + 1
+	end
+end
+
+function vRP.UserGemstone(License)
+    return vRP.userGemstone(License)
+end
+
+function vRP.UpgradeGemstone(Passport,Amount)
+    vRP.upgradeGemstone(Passport,Amount)
+end
+
+function vRP.UpgradeNames(Passport,Name,Name2)
+    vRP.upgradeNames(Passport,Name,Name2)
+end
+
+function vRP.UpgradePhone(Passport,Phone)
+    vRP.upgradePhone(Passport,Phone)
+end
+
+function vRP.PassportPlate(Plate)
+    return vRP.getVehiclePlate(Plate)
+end
+
+function vRP.UserPhone(Phone)
+    return vRP.getUserByPhone(Phone)
+end
+
+function vRP.GenerateString(Format)
+    return vRP.generateStringNumber(Format)
+end
+
+function vRP.GeneratePlate()
+    return vRP.genPlate()
+end
+
+function vRP.GeneratePhone()
+    return vRP.generatePhoneNumber()
+end
+
 function vRP.GiveBank(id, amount)
     return vRP.giveBankMoney(id, amount)
 end
@@ -307,16 +488,31 @@ function vRP.RemoveBank(id, amount)
     return vRP.paymentBank(id, amount)
 end
 
-function vRP.GetBank(id)
+function vRP.GetBank(source)
+    local id = vRP.getUserId(source)
     return vRP.getBank(id)
 end
 
-function vRP.GetFine(id)
+function vRP.GetFine(source)
+    local id = vRP.getUserId(source)
     return vRP.getFines(id)
 end
 
 function vRP.GiveFine(id, amount)
     return vRP.setFines(id, amount)
+end
+
+function vRP.RemoveFine(Passport,Amount)
+    local Fines = vRP.getFines(Passport)
+    local NewFines = Fines - Amount
+    if NewFines < 0 then
+        NewFines = 0
+    end
+    vRP.setFines(Passport, NewFines)
+end
+
+function vRP.PaymentGems(Passport,Amount)
+    return vRP.remGmsId(Passport,Amount)
 end
 
 function vRP.PaymentBank(id, amount)
@@ -325,6 +521,10 @@ end
 
 function vRP.PaymentMoney(id, amount)
     return vRP.tryFullPayment(id, amount)
+end
+
+function vRP.PaymentDirty(Passport,Amount)
+    return vRP.tryGetInventoryItem(Passport,"dollars2",Amount)
 end
 
 function vRP.PaymentFull(id, amount)
@@ -357,12 +557,34 @@ function vRP.InventoryItemAmount(Passport, Item)
     return { 0,"" }
 end
 
+function vRP.InventoryFull(Passport, Item)
+    if vRP.Source(Passport) then
+        local Inventory = vRP.Inventory(Passport) or {}
+        for k,v in pairs(Inventory) do
+            if v["item"] == Item then
+                return true
+            end
+        end
+    end
+    return false
+end
+
+function vRP.ItemAmount(Passport,Item)
+    if vRP.Source(Passport) then
+        local Inventory = vRP.Inventory(Passport) or {}
+        for k,v in pairs(Inventory) do
+            if splitString(v["item"], "-")[1] == splitString(Item, "-")[1] then
+                return v["amount"]
+            end
+        end
+    end
+    return 0
+end
+
 function vRP.ConsultItem(Passport, Item, Amount)
     if vRP.Source(Passport) then
         if Amount > vRP.InventoryItemAmount(Passport,Item)[1] then
             return false
-       --[[  elseif vRP.CheckDamaged(vRP.InventoryItemAmount(Passport,Item)[1]) then
-            return false ]]
         end
     end
     return true
@@ -372,6 +594,105 @@ function vRP.Request(source,Message,Accept,Reject)
 	return vRP.request(source,Message,30)
 end
 
+SURVIVAL = Tunnel.getInterface("Survival")
+
+function vRP.Revive(source,Health,Arena)
+	return SURVIVAL.revivePlayer(source,Health,Arena)
+end
+
 function vRP.GenerateItem(id,item,amount,notify)
     return vRP.giveInventoryItem(id,item,amount,notify)
+end
+
+function vRP.GiveItem(Passport,Item,Amount,Notify,Slot)
+    return vRP.giveInventoryItem(Passport,Item,Amount,Notify)
+end
+
+function vRP.TakeItem(Passport,Item,Amount,Notify,Slot)
+    return vRP.tryGetInventoryItem(Passport,Item,Amount,Notify)
+end
+
+function vRP.RemoveItem(Passport,Item,Amount,Notify)
+    vRP.removeInventoryItem(Passport,Item,Amount,Notify)
+end
+
+function vRP.MaxItens(Passport,Item,Amount)
+    return true
+end
+
+function vRP.TakeChest(Passport,Data,Amount,Slot,Target)
+    return vRP.tryChestItem(Passport,Data,Amount,Slot,Target)
+end
+
+function vRP.StoreChest(Passport,Data,Amount,Weight,Slot,Target)
+    return vRP.storeChestItem(Passport,Data,Amount,Weight,Slot,Target)
+end
+
+function vRP.UpdateChest(Passport,Data,Slot,Target,Amount)
+    return vRP.updateChest(Passport,Data,Slot,Target,Amount)
+end
+
+vRP.GetSrvData = function(key)
+    return vRP.getSData(key)
+end
+
+function vRP.SetSrvData(Key,Data)
+    return vRP.setSData(Key,Data)
+end
+
+function vRP.RemSrvData(Key)
+    vRP.setSData(Key,'[]')
+end
+
+function vRP.ClearInventory(Passport)
+    vRP.clearInventory(Passport)
+end
+
+function vRP.UpgradeThirst(Passport,Amount)
+    vRP.upgradeThirst(Passport,Amount)
+end
+
+function vRP.UpgradeHunger(Passport,Amount)
+    vRP.upgradeHunger(Passport,Amount)
+end
+
+function vRP.UpgradeStress(Passport,Amount)
+    vRP.upgradeStress(Passport,Amount)
+end
+
+function vRP.DowngradeThirst(Passport,Amount)
+    vRP.downgradeThirst(Passport,Amount)
+end
+
+function vRP.DowngradeHunger(Passport,Amount)
+    vRP.downgradeHunger(Passport,Amount)
+end
+
+function vRP.DowngradeStress(Passport,Amount)
+    vRP.downgradeStress(Passport,Amount)
+end
+
+-- ##########
+-- GROUPS
+-- ##########
+
+function vRP.NumPermission(Permission)
+    local Services = {}
+    local Amount = 0
+    for i,v in pairs(vRP.Players()) do
+        local Passport = vRP.Passport(v)
+        if vRP.HasGroup(Passport,Permission) then
+            Amount = Amount + 1
+            Services[Passport] = v
+        end
+    end
+    return Services,Amount
+end
+
+vRP.SetPermission = function(id,group)
+    return vRP.addUserGroup(id,group)
+end
+
+vRP.RemovePermission = function(id,group)
+    return vRP.removeUserGroup(id,group)
 end

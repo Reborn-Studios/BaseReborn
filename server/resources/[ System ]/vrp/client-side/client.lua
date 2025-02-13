@@ -71,6 +71,24 @@ function tvRP.SetHealth(Health)
 	vRP.setHealth(Health)
 end
 
+function tvRP.UpgradeHealth(Number)
+	local Ped = PlayerPedId()
+	local Health = GetEntityHealth(Ped)
+	if Health > 100 then
+		SetEntityHealth(Ped,Health + Number)
+	end
+end
+
+function tvRP.DowngradeHealth(Number)
+	local Ped = PlayerPedId()
+	local Health = GetEntityHealth(Ped)
+	SetEntityHealth(Ped,Health - Number)
+end
+
+function tvRP.PlayingAnim(Dict,Name)
+	return IsEntityPlayingAnim(PlayerPedId(),Dict,Name,3)
+end
+
 function tvRP.Skin(Hash)
 	if LoadModel(Hash) then
 		LocalPlayer["state"]:set("Invisible",true,false)
