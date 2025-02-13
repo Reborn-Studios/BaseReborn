@@ -667,3 +667,4 @@ end
 --###############--
 
 exports('vehList', will.vehList)
+exports('getModelName', getModelName)
