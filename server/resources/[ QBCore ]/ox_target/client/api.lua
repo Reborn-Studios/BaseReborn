@@ -277,7 +277,7 @@ local function addTarget(target, options, resource)
     end
 
     if checkNames[1] then
-        removeTarget(target, checkNames, resource, true)
+        removeTarget(target, checkNames, resource)
     end
 
     local num = #target
