@@ -295,7 +295,7 @@ api.addGlobalVehicle(convert({
         {
             icon = "fa-solid fa-car-rear",
             event = "player:CheckTrunk",
-            label = "Vasculhar Porta-Malas",
+            label = "Checar Porta-Malas",
             tunnel = "server"
         },
         {
