@@ -163,11 +163,11 @@ button:hover {
 
 /* LOGGED SCREENS */
 #logged {
-  display: none;
+  display: flex;
   z-index: 2;
 }
 #main-screen {
-  display: none;
+  display: flex;
   z-index: 2;
 }
 

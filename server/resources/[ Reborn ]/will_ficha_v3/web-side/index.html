@@ -14,58 +14,6 @@
       <div class="wrap">
         <img class="bg" src="./img/moldura.png" />
         <div id="notifications"></div>
-        <div id="login">
-          <div class="logo">
-            <img src="./img/logo.png" height="260px" width="260px" />
-          </div>
-          <div id="login-form">
-            <input
-              class="login-input"
-              id="login-user"
-              placeholder="Usuário"
-              value=""
-            />
-            <br />
-            <input
-              class="login-input"
-              id="login-password"
-              placeholder="Senha"
-              value=""
-              type="password"
-            />
-            <br />
-            <button id="login-button" onclick="login()">LOGIN</button>
-            <p class="forgot-password" onclick="toggleLoginScreen()">
-              Esqueci a senha
-            </p>
-          </div>
-          <div id="reset-password-form">
-            <input
-              id="new-username"
-              class="login-input"
-              placeholder="Novo Usuário"
-            />
-            <br />
-            <input
-              id="new-password"
-              class="login-input"
-              placeholder="Nova Senha"
-              type="password"
-            />
-            <br />
-            <input
-              id="confirm-new-password"
-              class="login-input"
-              placeholder="Confirme a senha"
-              type="password"
-            />
-            <br />
-            <button id="login-button" onclick="resetPassword()">
-              ALTERAR SENHA
-            </button>
-          </div>
-        </div>
-
         <div id="logged">
           <!-- MAIN SCREEN -->
           <div id="main-screen">
@@ -75,7 +23,12 @@
                 onclick="openNav()"
                 class="menu-icons action-icon"
               >
-                <i class="fas fa-bars fa-2x"></i>
+                <img
+                  src="./svg/bars.svg"
+                  alt="Bars"
+                  width="40px"
+                  height="40px"
+                />
               </div>
             </div>
 
@@ -84,10 +37,14 @@
               <div class="main-screen">
                 <div class="row">
                   <div class="close-table">
-                    <i
+                    <img
                       onclick="closeTablet()"
-                      class="fas fa-times fa-2x close-tablet action-icon"
-                    ></i>
+                      src="./svg/x-symbol.svg"
+                      width="40px"
+                      height="40px"
+                      alt="X"
+                      class="close-tablet"
+                    />
                   </div>
                   <div class="app-buttons">
                     <div
@@ -168,10 +125,13 @@
           <!-- BANCO DE INFORMAÇÕES -->
           <div id="database">
             <div class="return-icon">
-              <i
+              <img
                 onclick="backScreen('database')"
-                class="fas fa-arrow-left fa-2x action-icon"
-              ></i>
+                src="svg/back-arrow.svg"
+                height="40px"
+                width="40px"
+                style="cursor: pointer"
+              /><br />
             </div>
             <div class="col container-content">
               <!-- MAIN SCREEN -->
@@ -199,7 +159,12 @@
                     <div id="db-status-top"></div>
                     <div id="db-status-bottom"></div>
                     <div id="take-photo" onclick="takePhoto()">
-                      <i class="fas fa-camera fa-lg"></i>
+                      <img
+                        src="./svg/camera.svg"
+                        alt="Camera"
+                        width="20px"
+                        height="20px"
+                      />
                     </div>
                   </div>
                   <div id="data-information">
@@ -443,7 +408,12 @@
           <div id="nav-bar-content">
             <div id="user-avatar">
               <div class="user-take-photo" onclick="userTakePhoto()">
-                <i class="fas fa-camera fa-lg"></i>
+                <img
+                  src="./svg/camera.svg"
+                  alt="Camera"
+                  width="20px"
+                  height="20px"
+                />
               </div>
             </div>
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"
