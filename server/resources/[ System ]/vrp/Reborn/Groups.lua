@@ -648,6 +648,15 @@ local groups = {
 		},
 		"advogado.permissao"
 	},
+	-- QBCore Gang
+	["LostMCRecruit"] = {
+		_config = {
+			title = 'The Lost MC',
+			gtype = "gang",
+			grade = "0"
+		},
+		"lostmc.permissao"
+    },
 }
 
 do

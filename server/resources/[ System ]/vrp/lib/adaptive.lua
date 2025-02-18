@@ -441,54 +441,146 @@ QBShared.Jobs = {
 
 local ALIAS_GROUPS = {}
 CONVERT_GROUPS = {
-    ['policia.permissao'] = "police",
-    ['paramedico.permissao'] = "ambulance",
-    ['mecanico.permissao'] = "mechanic",
+    ['policia.permissao'] = {
+		["job"] = "police",
+		["label"] = "Police",
+	},
+    ['paramedico.permissao'] = {
+		["job"] = "ambulance",
+		["label"] = "EMS",
+	},
+    ['mecanico.permissao'] = {
+		["job"] = "mechanic",
+		["label"] = "Mechanic",
+	},
+    ['bennys.permissao'] = {
+		["job"] = "bennys",
+		["label"] = "Bennys",
+	},
+	['lostmc.permissao'] = {
+		["job"] = "lostmc",
+		["label"] = "The Lost MC",
+	}
 }
 
 local function requestQbGroups(groups)
 	for Group, perms in pairs(groups) do
-		local joined = false
-		for i,value in pairs(perms) do
-			if type(value) == "string" and CONVERT_GROUPS[value] then
-				local job = CONVERT_GROUPS[value]
-				if not QBShared.Jobs[job] then
-					QBShared.Jobs[job] = {
-						label = perms._config.title or Group,
-						defaultDuty = true,
-						offDutyPay = false,
-						grades = {}
-					}
-				end
-				if perms._config and perms._config.grade then
-					if not QBShared.Jobs[job].grades then QBShared.Jobs[job].grades = {} end
-					local GroupGrade = perms._config.grade
-					joined = true
-					QBShared.Jobs[job].grades[GroupGrade] = {
-						name = perms._config.title or Group,
-						payment = perms._config.salary or 0,
-						isboss = perms._config.isboss or nil,
-					}
-					ALIAS_GROUPS[Group] = {
-						job = job,
-						grade = GroupGrade
-					}
+		if not Group:find("Paisana") then
+			local joined = false
+			for i,value in pairs(perms) do
+				if type(value) == "string" and CONVERT_GROUPS[value] then
+					local job = CONVERT_GROUPS[value]["job"]
+					if not ESX.Jobs[job] then
+						ESX.Jobs[job] = {
+							label = CONVERT_GROUPS[value]["label"],
+							name = job,
+							grades = {}
+						}
+					end
+					if perms._config then
+						if perms._config.gtype then
+							if perms._config.gtype == "job" then
+								if not QBShared.Jobs[job] then
+									QBShared.Jobs[job] = {
+										label = CONVERT_GROUPS[value]["label"],
+										defaultDuty = true,
+										offDutyPay = false,
+										grades = {}
+									}
+								end
+							elseif perms._config.gtype == "gang" then
+								if not QBShared.Gangs[job] then
+									QBShared.Gangs[job] = {
+										label = CONVERT_GROUPS[value]["label"],
+										grades = {
+											['0'] = { name = 'Recruit' },
+											['1'] = { name = 'Enforcer' },
+											['2'] = { name = 'Shot Caller' },
+											['3'] = { name = 'Boss', isboss = true },
+										},
+									}
+								end
+							end
+							if perms._config.grade then
+								joined = true
+								local GroupGrade = perms._config.grade
+								if perms._config.gtype == "job" then
+									if not QBShared.Jobs[job].grades then QBShared.Jobs[job].grades = {} end
+									QBShared.Jobs[job].grades[GroupGrade] = {
+										name = perms._config.title or Group,
+										payment = perms._config.salary or 0,
+										isboss = perms._config.isboss or nil,
+									}
+								elseif perms._config.gtype == "gang" then
+									QBShared.Gangs[job].grades[GroupGrade] = {
+										name = perms._config.title or Group,
+										isboss = perms._config.isboss or nil,
+									}
+								end
+								local grade_name = Group
+								if perms._config.isboss then
+									grade_name = "boss"
+								end
+								ESX.Jobs[job].grades[GroupGrade] = {
+									job_name = job,
+									name = grade_name,
+									grade = tonumber(GroupGrade),
+									label = perms._config.title or Group,
+									salary = perms._config.salary or 0,
+									skin_male = {},
+									skin_female = {}
+								}
+								ALIAS_GROUPS[Group] = {
+									job = job,
+									grade = GroupGrade
+								}
+							end
+						end
+					end
 				end
 			end
-		end
-		if not joined then
-			QBShared.Jobs[Group] = {
-                label = perms._config and perms._config.title or k,
-                defaultDuty = true,
-                offDutyPay = false,
-                grades = {
-                    ['0'] = {
-                        name = perms._config and perms._config.title or k,
-                        payment = perms._config and perms._config.salary or 0,
-						isboss = perms._config and perms._config.isboss or nil,
-                    }
-                }
-            }
+			if not joined then
+				if perms._config and perms._config.gtype == "job" then
+					QBShared.Jobs[Group] = {
+						label = perms._config and perms._config.title or k,
+						defaultDuty = true,
+						offDutyPay = false,
+						grades = {
+							['0'] = {
+								name = perms._config and perms._config.title or k,
+								payment = perms._config and perms._config.salary or 0,
+								isboss = perms._config and perms._config.isboss or nil,
+							}
+						}
+					}
+				elseif perms._config and perms._config.gtype == "gang" then
+					if not QBShared.Gangs[Group] then
+						QBShared.Gangs[Group] = {
+							label = perms._config and perms._config.title or k,
+							grades = {
+								['0'] = { name = perms._config and perms._config.title or k,isboss = perms._config and perms._config.isboss or nil, },
+							},
+						}
+					end
+				end
+				ESX.Jobs[Group] = {}
+				ESX.Jobs[Group].label = perms._config and perms._config.title or Group
+				ESX.Jobs[Group].name = Group
+				local grade_name = Group
+				if perms._config and perms._config.isboss then
+					grade_name = "boss"
+				end
+				ESX.Jobs[Group].grades = {
+					['0'] = {
+						job_name = Group,
+						name = grade_name,
+						grade = 0,
+						label = perms._config and perms._config.title or k,
+						salary = perms._config and perms._config.salary or 0,
+						skin_male = {}, skin_female = {}
+					}
+				}
+			end
 		end
 	end
 end
@@ -499,7 +591,6 @@ RegisterNetEvent("Reborn:reloadInfos",function()
 end)
 
 CreateThread(function ()
-	Wait(500)
 	local groups = module('vrp',"Reborn/Groups") or {}
 	requestQbGroups(groups)
 end)
