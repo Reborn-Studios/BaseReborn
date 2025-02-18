@@ -20,23 +20,23 @@ end
 -- TASKTWO
 -----------------------------------------------------------------------------------------------------------------------------------------
 function Taskbar.taskTwo()
-	return lib.skillCheck({ { areaSize = 40, speedMultiplier = 1.5 }, { areaSize = 40, speedMultiplier = 1.75 } }, BUTTONS_TO_PRESS)
+	return lib.skillCheck({ { areaSize = 40, speedMultiplier = 0.75 }, { areaSize = 40, speedMultiplier = 1 } }, BUTTONS_TO_PRESS)
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- TASKTHREE
 -----------------------------------------------------------------------------------------------------------------------------------------
 function Taskbar.taskThree()
-    return lib.skillCheck({ { areaSize = 40, speedMultiplier = 1.5 }, { areaSize = 40, speedMultiplier = 1.75 }, { areaSize = 40, speedMultiplier = 2 } }, BUTTONS_TO_PRESS)
+    return lib.skillCheck({ { areaSize = 40, speedMultiplier = 0.75 }, { areaSize = 40, speedMultiplier = 1 }, { areaSize = 40, speedMultiplier = 1.25 } }, BUTTONS_TO_PRESS)
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- TASKMECHANIC
 -----------------------------------------------------------------------------------------------------------------------------------------
 function Taskbar.taskMechanic()
     return lib.skillCheck({
-        { areaSize = 30, speedMultiplier = 1 },
-        { areaSize = 40, speedMultiplier = 1.5 },
-        { areaSize = 50, speedMultiplier = 1.75 },
-        { areaSize = 60, speedMultiplier = 2 },
+        { areaSize = 30, speedMultiplier = 0.75 },
+        { areaSize = 40, speedMultiplier = 1.0 },
+        { areaSize = 50, speedMultiplier = 1.25 },
+        { areaSize = 60, speedMultiplier = 1.5 },
     }, BUTTONS_TO_PRESS)
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -45,7 +45,7 @@ end
 function Taskbar.taskTyre()
     return lib.skillCheck({
         { areaSize = 50, speedMultiplier = 0.75 },
-        { areaSize = 40, speedMultiplier = 1.25 },
+        { areaSize = 40, speedMultiplier = 1.0 },
     }, BUTTONS_TO_PRESS)
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -81,7 +81,7 @@ end
 function Taskbar.stealTrunk()
     return lib.skillCheck({
         { areaSize = 60, speedMultiplier = 1 },
-        { areaSize = 50, speedMultiplier = 1.25 },
+        { areaSize = 50, speedMultiplier = 1 },
         { areaSize = 40, speedMultiplier = 1.5 },
         { areaSize = 30, speedMultiplier = 1.5 },
     }, BUTTONS_TO_PRESS)
@@ -98,8 +98,8 @@ end
 exportHandler("taskbar","taskThree", function()
     return lib.skillCheck({
         { areaSize = 40, speedMultiplier = 1 },
-        { areaSize = 40, speedMultiplier = 1.5 },
-        { areaSize = 40, speedMultiplier = 1.5 }
+        { areaSize = 40, speedMultiplier = 1 },
+        { areaSize = 40, speedMultiplier = 1 }
     }, BUTTONS_TO_PRESS)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
