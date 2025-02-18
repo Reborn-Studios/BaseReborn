@@ -144,7 +144,7 @@ return {
 	Reciclagem = {
         name = 'Reciclagem',
         inventory = {
-            { name = 'dollars', price = 1, currency = 'plastic', amount = 110	 },
+            { name = 'dollars', price = 1, currency = 'plastic', metadata = { amount = 110 } },
         },
         locations = {
 			vector3(-428.79,-1728.35,19.79),
@@ -170,7 +170,7 @@ return {
 	CassinoSell = {
         name = 'Venda de fichas',
         inventory = {
-            { name = 'dollars', price = 1, amount = 1, currency = 'fichas', },
+            { name = 'dollars', price = 1, currency = 'fichas', },
         },
         locations = {
 			vector3(950.15,35.42,71.84),
