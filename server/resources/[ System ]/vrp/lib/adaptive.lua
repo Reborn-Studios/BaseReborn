@@ -470,7 +470,7 @@ local function requestQbGroups(groups)
 			for i,value in pairs(perms) do
 				if type(value) == "string" and CONVERT_GROUPS[value] then
 					local job = CONVERT_GROUPS[value]["job"]
-					if not ESX.Jobs[job] then
+					if ESX.Jobs and not ESX.Jobs[job] then
 						ESX.Jobs[job] = {
 							label = CONVERT_GROUPS[value]["label"],
 							name = job,
@@ -521,19 +521,21 @@ local function requestQbGroups(groups)
 								if perms._config.isboss then
 									grade_name = "boss"
 								end
-								ESX.Jobs[job].grades[GroupGrade] = {
-									job_name = job,
-									name = grade_name,
-									grade = tonumber(GroupGrade),
-									label = perms._config.title or Group,
-									salary = perms._config.salary or 0,
-									skin_male = {},
-									skin_female = {}
-								}
-								ALIAS_GROUPS[Group] = {
-									job = job,
-									grade = GroupGrade
-								}
+								if ESX.Jobs then
+									ESX.Jobs[job].grades[GroupGrade] = {
+										job_name = job,
+										name = grade_name,
+										grade = tonumber(GroupGrade),
+										label = perms._config.title or Group,
+										salary = perms._config.salary or 0,
+										skin_male = {},
+										skin_female = {}
+									}
+									ALIAS_GROUPS[Group] = {
+										job = job,
+										grade = GroupGrade
+									}
+								end
 							end
 						end
 					end
@@ -563,23 +565,25 @@ local function requestQbGroups(groups)
 						}
 					end
 				end
-				ESX.Jobs[Group] = {}
-				ESX.Jobs[Group].label = perms._config and perms._config.title or Group
-				ESX.Jobs[Group].name = Group
-				local grade_name = Group
-				if perms._config and perms._config.isboss then
-					grade_name = "boss"
-				end
-				ESX.Jobs[Group].grades = {
-					['0'] = {
-						job_name = Group,
-						name = grade_name,
-						grade = 0,
-						label = perms._config and perms._config.title or k,
-						salary = perms._config and perms._config.salary or 0,
-						skin_male = {}, skin_female = {}
+				if ESX.Jobs then
+					ESX.Jobs[Group] = {}
+					ESX.Jobs[Group].label = perms._config and perms._config.title or Group
+					ESX.Jobs[Group].name = Group
+					local grade_name = Group
+					if perms._config and perms._config.isboss then
+						grade_name = "boss"
+					end
+					ESX.Jobs[Group].grades = {
+						['0'] = {
+							job_name = Group,
+							name = grade_name,
+							grade = 0,
+							label = perms._config and perms._config.title or k,
+							salary = perms._config and perms._config.salary or 0,
+							skin_male = {}, skin_female = {}
+						}
 					}
-				}
+				end
 			end
 		end
 	end
