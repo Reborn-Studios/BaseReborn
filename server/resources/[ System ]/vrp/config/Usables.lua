@@ -1207,21 +1207,24 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 
 	if itemName == "tires" then
 		if not vRPclient.inVehicle(source) then
-			local vehicle,vehNet = vRPclient.getNearVehicle(source,3)
-			if vehicle then
-				active[user_id] = 30
-				vRPclient.stopActived(source)
-				vRPclient._playAnim(source,false,{"anim@amb@clubhouse@tutorial@bkr_tut_ig3@","machinic_loop_mechandplayer"},true)
+			local tyreStatus,Tyre,Network,Plate,TyreHealth = vRPclient.tyreStatus(source)
+			if tyreStatus then
+				local Vehicle = NetworkGetEntityFromNetworkId(Network)
+				if DoesEntityExist(Vehicle) and not IsPedAPlayer(Vehicle) and GetEntityType(Vehicle) == 2 and TyreHealth ~= 1000.0 then
+					active[user_id] = 30
+					vRPclient.stopActived(source)
+					vRPclient._playAnim(source,false,{"anim@amb@clubhouse@tutorial@bkr_tut_ig3@","machinic_loop_mechandplayer"},true)
 
-				local taskResult = vTASKBAR.taskTwo(source)
-				if taskResult then
-					if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
-						TriggerClientEvent("vrp_inventory:repairTires",-1,vehNet)
+					local taskResult = vTASKBAR.taskTwo(source)
+					if taskResult then
+						if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
+							TriggerClientEvent("inventory:repairTyre",-1,Network,Tyre,Plate)
+						end
 					end
-				end
 
-				vRPclient._stopAnim(source,false)
-				active[user_id] = nil
+					vRPclient._stopAnim(source,false)
+					active[user_id] = nil
+				end
 			end
 		end
 	end
@@ -1513,6 +1516,40 @@ AddEventHandler("objects:Guardar",function (Number)
 	if user_id and Object then
 		vRP.giveInventoryItem(user_id,Object.item,1,true)
 		TriggerClientEvent("objects:Remover",-1,Number)
+	end
+end)
+
+RegisterServerEvent("inventory:RemoveTyres")
+AddEventHandler("inventory:RemoveTyres",function (VehNet,Tyre,vehPlate)
+	local source = source
+	local Passport = vRP.Passport(source)
+	if Passport and not active[Passport] then
+		local Vehicle = NetworkGetEntityFromNetworkId(VehNet)
+		if DoesEntityExist(Vehicle) and not IsPedAPlayer(Vehicle) and GetEntityType(Vehicle) == 2 then
+			if vRP.PassportPlate(vehPlate) then
+				Player(source)["state"]["Buttons"] = true
+				vRPclient.playAnim(source,false,{"anim@amb@clubhouse@tutorial@bkr_tut_ig3@","machinic_loop_mechandplayer"},true)
+
+				if vTASKBAR.taskTwo(source) then
+					active[Passport] = os.time() + 10
+					TriggerClientEvent("Progress",source,"Removendo",10000)
+
+					repeat
+						if os.time() >= parseInt(active[Passport]) then
+							active[Passport] = nil
+							if DoesEntityExist(Vehicle) and not IsPedAPlayer(Vehicle) and GetEntityType(Vehicle) == 2 then
+								TriggerClientEvent("inventory:explodeTyres",source,VehNet,vehPlate,Tyre)
+								vRP.GenerateItem(Passport,"tires",1,true)
+							end
+						end
+						Wait(100)
+					until not active[Passport]
+				end
+
+				Player(source)["state"]["Buttons"] = false
+				vRPclient.Destroy(source)
+			end
+		end
 	end
 end)
 

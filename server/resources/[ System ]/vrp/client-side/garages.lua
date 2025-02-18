@@ -142,6 +142,99 @@ function tvRP.vehicleName()
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- TYRE STATUS
+-----------------------------------------------------------------------------------------------------------------------------------------
+local tyreOptions = {}
+local tyreList = {
+	["wheel_lf"] = 0,
+	["wheel_rf"] = 1,
+	["wheel_lm"] = 2,
+	["wheel_rm"] = 3,
+	["wheel_lr"] = 4,
+	["wheel_rr"] = 5
+}
+
+function tvRP.tyreStatus()
+	local Ped = PlayerPedId()
+	if not IsPedInAnyVehicle(Ped) then
+		local Vehicle = vRP.ClosestVehicle(7)
+		if IsEntityAVehicle(Vehicle) then
+			local Coords = GetEntityCoords(Ped)
+
+			for Index,Tyre in pairs(tyreList) do
+				local Selected = GetEntityBoneIndexByName(Vehicle,Index)
+				if Selected ~= -1 then
+					local CoordsWheel = GetWorldPositionOfEntityBone(Vehicle,Selected)
+					local Distance = #(Coords - CoordsWheel)
+					if Distance <= 1.0 then
+						return true,Tyre,VehToNet(Vehicle),GetVehicleNumberPlateText(Vehicle),GetTyreHealth(Vehicle,Tyre)
+					end
+				end
+			end
+		end
+	end
+	return false
+end
+
+RegisterNetEvent("inventory:repairTyre")
+AddEventHandler("inventory:repairTyre",function(Network,Tyres,Plate)
+	if NetworkDoesNetworkIdExist(Network) then
+		local Vehicle = NetToEnt(Network)
+		if DoesEntityExist(Vehicle) then
+			if GetVehicleNumberPlateText(Vehicle) == Plate then
+				for i = 0,7 do
+					if GetTyreHealth(Vehicle,i) ~= 1000.0 then
+						SetVehicleTyreBurst(Vehicle,i,true,1000.0)
+					end
+				end
+				SetVehicleTyreFixed(Vehicle,Tyres)
+			end
+		end
+	end
+end)
+
+RegisterNetEvent("inventory:explodeTyres")
+AddEventHandler("inventory:explodeTyres",function(Network,Plate,Tyre)
+	if NetworkDoesNetworkIdExist(Network) then
+		local Vehicle = NetToEnt(Network)
+		if DoesEntityExist(Vehicle) then
+			if GetVehicleNumberPlateText(Vehicle) == Plate then
+				SetVehicleTyreBurst(Vehicle,Tyre,true,1000.0)
+			end
+		end
+	end
+end)
+
+CreateThread(function()
+	while GetResourceState("ox_target") ~= "started" do
+		Wait(100)
+	end
+	for k,Tyre in pairs(tyreList) do
+		table.insert(tyreOptions,
+			{
+				canInteract = function (entity, distance, coords, name, bone)
+					local Coords = GetEntityCoords(PlayerPedId())
+					local Wheel = GetEntityBoneIndexByName(entity,k)
+					if Wheel ~= -1 then
+						local cWheel = GetWorldPositionOfEntityBone(entity,Wheel)
+						local Distance = #(Coords - cWheel)
+						if Distance <= 1.0 and GetTyreHealth(entity,Tyre) == 1000.0 then
+							return true
+						end
+					end
+				end,
+				items = "WEAPON_WRENCH",
+				icon = "fa-solid fa-circle-xmark",
+				onSelect = function (data)
+					TriggerServerEvent("inventory:RemoveTyres",VehToNet(data.entity),Tyre,GetVehicleNumberPlateText(data.entity))
+				end,
+				label = "Retirar Pneu",
+			}
+		)
+	end
+	exports.ox_target:addGlobalVehicle(tyreOptions)
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- VEHICLEMODEL
 -----------------------------------------------------------------------------------------------------------------------------------------
 function tvRP.vehicleModel(vehModel)
