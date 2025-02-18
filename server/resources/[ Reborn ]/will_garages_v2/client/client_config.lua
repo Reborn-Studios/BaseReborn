@@ -60,6 +60,7 @@ function applyModifies(nveh,engine,fuel,tuning,vehDoors,vehWindows,vehTyres,vnam
 	else
 		vehicleMods(nveh,tuning)
 	end
+	TriggerEvent("vehiclekeys:client:SetOwner", GetVehicleNumberPlateText(nveh))
 end
 
 --######################--
@@ -261,19 +262,17 @@ end)
 --##  TRANCAR CARRO   ##--
 --######################--
 
-Citizen.CreateThread(function()
-	while true do
-		local timeDistance = 500
-		if cooldown <= 0 then
-			timeDistance = 4
-			if IsControlJustPressed(1,182) then
-				TriggerServerEvent("will_garages_v2:vehicleLock")
-				cooldown = 2
-			end
-		end
-		Citizen.Wait(timeDistance)
+local Button = GetGameTimer()
+
+RegisterCommand("LockVehicle",function()
+	if GetResourceState("qb-vehiclekeys") == "started" then return end
+	if GetGameTimer() >= Button then
+		TriggerServerEvent("will_garages_v2:vehicleLock")
+		Button = GetGameTimer() + 1000
 	end
 end)
+
+RegisterKeyMapping("LockVehicle","Trancar/destrancar veiculo","keyboard","l")
 
 --############################--
 --##    VEICULOS PROXIMOS   ##--
