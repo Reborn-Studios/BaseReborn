@@ -49,11 +49,13 @@ RegisterCommand("dv",function(source,args,rawCommand)
 	local user_id = getUserId(source)
 	if hasPermission(user_id,ADMIN_PERMISSION) then
         if args[1] then
-            local vehicles = vCLIENT.getNearVehicles(parseInt(args[1])) or {}
-            if #vehicles > 0 then
+            local vehicles = vCLIENT.getNearVehicles(source,parseInt(args[1])) or {}
+            if next(vehicles) then
                 for veh,dist in pairs(vehicles) do
                     vCLIENT.deleteVehicle(source,veh,true)
                 end
+                local x,y,z = table.unpack(GetEntityCoords(GetPlayerPed(source)))
+                SendDiscord("ID: "..user_id, "Deu DV Area nas coordenadas: "..tD(x)..", "..tD(y)..", "..tD(z))
             end
         else
             local vehicle = vCLIENT.getNearVehicle(source,12)
