@@ -76,3 +76,12 @@ local function removeVehicles()
 end
 
 CreateThread(removeVehicles)
+
+RegisterNetEvent("will_login:checkRegister")
+AddEventHandler("will_login:checkRegister",function (source)
+    local idf = GetIdentifier(source)
+    local rst = ExecuteSql("SELECT * FROM `will_login` WHERE identifier = '"..idf.."'")
+    if not rst or not rst[1] then
+        TriggerClientEvent("will_login:LoginMenu",source)
+    end
+end)

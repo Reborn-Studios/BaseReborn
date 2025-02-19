@@ -333,15 +333,13 @@ AddEventHandler("baseModule:idLoaded",function(source,user,model)
 			end
 			vRP.user_tables[user_id].backpack = first_login['DefaultBackpack'] or 10
 			TriggerEvent("Reborn:newPlayer",user_id)
-			if not GlobalState['Basics']['Whitelist'] and GetResourceState("nation_creator") ~= "started" then
-				TriggerClientEvent("will_login:LoginMenu",source)
-			end
 			SetTimeout(5000,function()
 				for k,v in pairs(first_login['Itens']) do
 					vRP.giveInventoryItem(user_id,k,v)
 				end
 			end)
 		end
+		TriggerEvent("will_login:checkRegister",source)
 
 		local identity = vRP.getUserIdentity(user_id)
 		if identity then
