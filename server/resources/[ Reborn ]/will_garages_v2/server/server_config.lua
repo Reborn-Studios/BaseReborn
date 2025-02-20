@@ -629,6 +629,11 @@ end)
 
 -- ## exports['will_garages_v2']:remVehicle(user_id, vehicle)
 
+exports('setVehSpawned',function(source, vehName, plate, vehid)
+    local user_id = getUserId(source)
+    will.setVehSpawned(user_id, vehName, plate, vehid)
+end)
+
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PREPARES
 -----------------------------------------------------------------------------------------------------------------------------------------

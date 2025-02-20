@@ -112,7 +112,6 @@ CreateThread(function()
 end)
 
 function startThread()
-    print(#Houses)
     CreateThread(function()
         Wait(1000)
         if not Config.targetScript then
@@ -382,3 +381,11 @@ end
 formatNumber = function(n)
     return tostring(math.floor(n)):reverse():gsub("(%d%d%d)","%1,"):gsub(",(%-?)$","%1"):reverse()
 end
+
+exports("MarkProperty",function (id)
+    if Houses[id] then
+        local coords = Houses[id].coords.house_in
+        SetNewWaypoint(coords.x,coords.y)
+        TriggerEvent("Notify","sucesso","Localização marcada.",5000)
+    end
+end)
