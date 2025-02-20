@@ -40,7 +40,7 @@ end
 function ConvertGroupPerm(perms)
     for k,perm in pairs(perms) do
         if CONVERT_GROUPS[perm] then
-            return CONVERT_GROUPS[perm]
+            return CONVERT_GROUPS[perm]["job"]
         end
     end
 end
