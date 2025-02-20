@@ -14,7 +14,9 @@ dependencies {
 shared_scripts {
 	'@ox_lib/init.lua',
 	"lib/utils.lua",
-    'Reborn/locale.lua',
+	'locale.lua',
+	'locales/*.lua',
+	'shared/locale.lua',
 	"Base_Config.lua",
 	"Esx-Qbcore.lua",
 	"lib/adaptive.lua"
@@ -34,6 +36,7 @@ client_scripts {
 }
 
 files {
+	"imports.lua",
 	"Reborn/*",
 	"web-side/*",
 	"web-side/**/*",
