@@ -25,7 +25,7 @@ files {
 	"nui/index.html",
 	"nui/fonts/*.ttf",
 	"nui/interiors/*.png",
-	"nui/bg2.png",
+	"nui/bg.png",
 	"nui/style.css",
 	"nui/jquery.js",
 }
