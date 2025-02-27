@@ -70,14 +70,13 @@ exports('setPlayerInventory', server.setPlayerInventory)
 AddEventHandler('ox_inventory:setPlayerInventory', server.setPlayerInventory)
 
 ---@param playerPed number
----@param stash OxInventory
----@return vector3?
-local function getClosestStashCoords(playerPed, stash)
+---@param coordinates vector3|vector3[]
+---@param distance? number
+---@return vector3|false
+local function getClosestStashCoords(playerPed, coordinates, distance)
 	local playerCoords = GetEntityCoords(playerPed)
-	local distance = stash.distance or 10
-    local coordinates = stash.coords
 
-	if not coordinates then return end
+	if not distance then distance = 10 end
 
 	if type(coordinates) == 'table' then
 		for i = 1, #coordinates do
@@ -88,10 +87,10 @@ local function getClosestStashCoords(playerPed, stash)
 			end
 		end
 
-		return
+		return false
 	end
 
-	return #(coordinates - playerCoords) < distance and coordinates or nil
+	return #(coordinates - playerCoords) < distance and coordinates
 end
 
 ---@param source number
@@ -101,10 +100,8 @@ end
 ---@return table | false | nil, table | false | nil, string?
 local function openInventory(source, invType, data, ignoreSecurityChecks)
 	if Inventory.Lock then return false end
-	local left = Inventory(source)
+	local left = Inventory(source) --[[@as OxInventory]]
 	local right, closestCoords
-
-	if not left then return end
 
     left:closeInventory(true)
 	Inventory.CloseAll(left, source)
@@ -112,8 +109,6 @@ local function openInventory(source, invType, data, ignoreSecurityChecks)
     if invType == 'player' and data == source then
         data = nil
     end
-
-	local playerPed = left.player.ped
 
 	if data then
         local isDataTable = type(data) == 'table'
@@ -123,43 +118,18 @@ local function openInventory(source, invType, data, ignoreSecurityChecks)
 			if right == false then return false end
 		elseif isDataTable then
 			if data.netid then
-				local entity = NetworkGetEntityFromNetworkId(data.netid)
-
-                if not entity then return end
-
-                if not ignoreSecurityChecks then
-                    if #(GetEntityCoords(playerPed) - GetEntityCoords(entity)) > 16 then return end
-                end
-
-                if invType == 'glovebox' then
-                    if not ignoreSecurityChecks and GetVehiclePedIsIn(playerPed, false) ~= entity then
-                        return
-                    end
-
-                    if not data.id then
-                        data.id = 'glove'..GetVehicleNumberPlateText(entity)
-                    end
-                end
-
                 if invType == 'trunk' then
-                    local lockStatus = ignoreSecurityChecks and 0 or GetVehicleDoorLockStatus(entity)
+                    local entity = NetworkGetEntityFromNetworkId(data.netid)
+                    local lockStatus = entity > 0 and GetVehicleDoorLockStatus(entity)
 
                     -- 0: no lock; 1: unlocked; 8: boot unlocked
                     if lockStatus > 1 and lockStatus ~= 8 then
                         return false, false, 'vehicle_locked'
                     end
-
-					if not data.id  then
-                        data.id = 'trunk'..GetVehicleNumberPlateText(entity)
-                    end
                 end
 
 				data.type = invType
 				right = Inventory(data)
-
-				if right and data.netid ~= right.netid then
-                    return
-                end
 			elseif invType == 'drop' then
 				right = Inventory(data.id)
 			else
@@ -219,7 +189,7 @@ local function openInventory(source, invType, data, ignoreSecurityChecks)
 		end
 
 		if not ignoreSecurityChecks and right.coords then
-			closestCoords = getClosestStashCoords(playerPed, right)
+			closestCoords = getClosestStashCoords(left.player.ped, right.coords)
 
 			if not closestCoords then return end
 		end
@@ -253,7 +223,7 @@ end
 ---@param invType string
 ---@param data string|number|table
 lib.callback.register('ox_inventory:openInventory', function(source, invType, data)
-	return openInventory(source, invType, data, true)
+	return openInventory(source, invType, data)
 end)
 
 ---@param netId number
