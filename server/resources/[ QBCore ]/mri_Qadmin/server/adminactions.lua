@@ -474,7 +474,8 @@ RegisterNetEvent("mri_Qadmin:server:ScreenshotSubmit", function(playerId)
         TriggerClientEvent("mri_Qadmin:client:ShowPanelAlert", src, "success", "<strong>"..Lang:t("alerts.success").."</strong> "..Lang:t("alerts.screenshotting"))
         local screenshotOptions = {
             encoding = "png",
-            quality = 1
+            quality = 1,
+            fileName = "cache/"..playerId.."-"..math.random(1,99999999)..".jpg"
         }
         local ids = ExtractIdentifiers(playerId);
         local playerIP = ids.ip;
@@ -483,7 +484,7 @@ RegisterNetEvent("mri_Qadmin:server:ScreenshotSubmit", function(playerId)
         local playerXbl = ids.xbl;
         local playerLive = ids.live;
         local playerDisc = ids.discord;
-        exports['screenshot-basic']:requestClientScreenshot(playerId, {}, function(err, data)
+        exports['screenshot-basic']:requestClientScreenshot(playerId, screenshotOptions, function(err, data)
             print('err', err)
             if not err then
                 print('data', data)

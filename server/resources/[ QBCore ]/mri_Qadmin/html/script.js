@@ -3047,7 +3047,7 @@ AdminPanel.ResetLogViewer = function () {
         "</td><td>" +
         item.from +
         "</td><td>" +
-        AdminPanel.MdToHtml(item.message) +
+        item.message +
         "</td></tr>"
     );
   });
