@@ -52,7 +52,7 @@ function applyModifies(nveh,engine,fuel,tuning,vehDoors,vehWindows,vehTyres,vnam
 		end
 	end
 	if GetResourceState("will_tunners") == "started" then
-		exports['will_tunners']:SetVehicleProp(nveh,tuning)
+		exports['will_tunners']:SetVehicleProp(nveh,tuning or {})
 	elseif GetResourceState("ld_tunners") == "started" then
 		if tuning then
 			TriggerServerEvent("ld_tunners:applyMods", nveh, tuning)
