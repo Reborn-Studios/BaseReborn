@@ -4640,6 +4640,20 @@ const Qs = {
 function eo(e$) {
   return new Promise((e0) => setTimeout(e0, e$));
 }
+
+async function uploadToCatbox(fileUrl) {
+  const formData = new FormData();
+  formData.append("reqtype", "urlupload");
+  formData.append("url", fileUrl);
+  formData.append("userhash", "7df65496863436c4d38169363");
+  const response = await fetch("https://catbox.moe/user/api.php", {
+    method: "POST",
+    body: formData,
+  });
+  const data = await response.text();
+  return data.includes("https") ? data : { error: data };
+}
+
 var to = {
   async upload(e$, e0) {
     var e8;
@@ -4663,7 +4677,8 @@ var to = {
       );
     {
       let e6 = await e1.json();
-      return null != (e8 = e6.url) ? e8 : e6.attachments[0].url;
+      let urlResponse = await uploadToCatbox(e6.attachments[0].url);
+      return null != (e8 = e6.url) ? e8 : urlResponse;
     }
   },
   async uploadVideo(e$) {
