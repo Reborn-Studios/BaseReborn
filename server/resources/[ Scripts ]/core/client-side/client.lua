@@ -242,7 +242,6 @@ local weaponsDamage = {
 }
 
 CreateThread(function()
-	Wait(500)
 	local npcControl = Reborn.npcControl()
 	for weapon,damage in pairs(weaponsDamage) do
 		SetWeaponDamageModifier(GetHashKey(weapon),damage)
@@ -253,7 +252,9 @@ CreateThread(function()
 	while true do
 		-- NPC CONTROL
 		SetPedDensityMultiplierThisFrame(npcControl['PedDensity'])
+		SetScenarioPedDensityMultiplierThisFrame(npcControl['PedDensity'],npcControl['PedDensity'])
 		SetVehicleDensityMultiplierThisFrame(npcControl['VehicleDensity'])
+		SetRandomVehicleDensityMultiplierThisFrame(npcControl['VehicleDensity'])
 		SetParkedVehicleDensityMultiplierThisFrame(npcControl['ParkedVehicle'])
 
 		-- REMOVE HUD COMPONENTS
