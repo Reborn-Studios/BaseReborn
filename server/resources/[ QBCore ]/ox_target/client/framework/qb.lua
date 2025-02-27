@@ -24,6 +24,7 @@ if not usingOxInventory then
     setPlayerItems()
 end
 
+RegisterNetEvent('QBCore:Client:OnPlayerLoaded')
 AddEventHandler('QBCore:Client:OnPlayerLoaded', function()
     playerData = QBCore.Functions.GetPlayerData()
     if not usingOxInventory then setPlayerItems() end

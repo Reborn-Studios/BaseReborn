@@ -21,7 +21,6 @@ Citizen.CreateThread(function()
     while PA == nil do Citizen.Wait(0) end
     while not CoreReady do Citizen.Wait(0) end
     while not next(GetPlayerData()) do Citizen.Wait(0) end
-    print("Table is ready.")
     -- General
     PA2.General = {}
     for i = 1, #PA.General do
@@ -203,7 +202,6 @@ Citizen.CreateThread(function()
     })
     lastReady = true
     while not lastReady do Citizen.Wait(0) end
-    print("Menu ready.")
     menuReady = true
     Citizen.Wait(500)
     SendNUIMessage({action = "setData", categories = categories, animations = data, favs = favoriteAnimations, quicks = quickAnimations, pKey = Config.QuickPrimaryKey})

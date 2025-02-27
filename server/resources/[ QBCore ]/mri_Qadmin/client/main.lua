@@ -36,7 +36,6 @@ CreateThread(function()
     if NT == 1 then NT = true elseif NT == 0 then NT = false end
     local theme = GetResourceKvpInt("mri_Qadmin:setting:theme") or 2
     AdminPanel.Settings = {DarkMode = DM, SeeThrough = ST, Notifications = NT, Theme = theme}
-    print("Configurações do painel admin carregadas! [Discord .mur4i]")
 end)
 
 local curLocation = {}
