@@ -306,7 +306,12 @@ function getTunning(user_id,veiculo,vehPlate)
     if GetResourceState("will_tunners") == "started" then
         tunagem = getSData("custom:"..vehPlate)
     elseif GetResourceState("ld_tunners") == "started" then
-        tunagem = getSData("mods:"..vehPlate)
+        local vehTunning = getSData("mods:"..vehPlate)
+        if vehTunning == "" then
+            tunagem = false
+        else
+            tunagem = vehTunning
+        end
     elseif Config.base == "creative" then
     	tunagem = getSData("custom:"..user_id..":"..veiculo)
 	elseif Config.base == "vrpex" then
@@ -323,7 +328,7 @@ function getTunning(user_id,veiculo,vehPlate)
         end
 	end
     if type(tunagem) == 'string' then tunagem = json.decode(tunagem) end
-	return (tunagem or {})
+	return tunagem
 end
 
 --########## Permissão das casas ##########
