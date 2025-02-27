@@ -1,6 +1,7 @@
 -----------------------------------
 --########## Funções vRP ##########
 -----------------------------------
+local vSERVER = Tunnel.getInterface("will_ficha_v3")
 
 RegisterNetEvent("police:Open")
 AddEventHandler("police:Open",function()
@@ -32,9 +33,14 @@ function takingPhoto()
 		exports['screenshot-basic']:requestScreenshotUpload(Config.post_photo, 'files[]', function(data)
 			CellCamActivate(false, false)
 			DestroyMobilePhone()
-			local resp = json.decode(data)
-			response = resp.attachments[1].proxy_url
-			wait = false
+			local resp = json.decode(data) or {}
+			if resp.attachments then
+				response = vSERVER.uploadToCatbox(resp.attachments[1].proxy_url)
+				wait = false
+			else
+				print("Sem webhook configurada!")
+				wait = false
+			end
 		end)
 	end
 	while wait do

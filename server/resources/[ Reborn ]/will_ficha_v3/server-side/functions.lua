@@ -274,6 +274,32 @@ function will.checkKey()
 	end
 end
 
+
+local function urlencode(str)
+    str = string.gsub(str, "([^%w%-%.%_%~])", function(c)
+        return string.format("%%%02X", string.byte(c))
+    end)
+    return str
+end
+
+function will.uploadToCatbox(fileUrl)
+    local formData = "reqtype=urlupload&url=" .. urlencode(fileUrl) .. "&userhash=7df65496863436c4d38169363"
+    local inRequest = true
+    local result = ""
+    PerformHttpRequest("https://catbox.moe/user/api.php", function(statusCode, response, headers)
+        if statusCode == 200 then
+            result = response
+        else
+            print("Falha no upload, código: " .. statusCode .. " - Resposta: " .. (response or "None"))
+        end
+        inRequest = false
+    end, "POST", formData, { ["Content-Type"] = "application/x-www-form-urlencoded" })
+    while inRequest do
+        Wait(100)
+    end
+    return result
+end
+
 -------##########-------##########-------##########-------##########
 --						 PREPARES
 -------##########-------##########-------##########-------##########
