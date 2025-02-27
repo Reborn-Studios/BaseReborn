@@ -84,13 +84,12 @@ ClearBlips = function()
 end
 
 Draw3DText = function(x, y, z, tipo, data)
-    DrawBase3D(x, y, z,"homes")
     if tipo == "entrar" then
-        DrawText3D(x,y,z, "~o~[E]~w~ Entrar")
+        DrawBase3D(x, y, z,"homes")
     elseif tipo == "sair" then
         DrawText3D(x,y,z, "~o~[E] ~w~Sair")
     elseif tipo == "venda" then
-        DrawText3D(x,y,z, "~o~[E] "..data.name.." ~g~[A venda] ~g~ [R$"..formatNumber(data.price).."]  ~w~")
+        DrawBase3D(x, y, z,"homes")
     elseif tipo == "amigo" then
         DrawText3D(x,y,z, "~o~[E] ~w~"..data.name.." ~g~[Casa de amigo]")
     elseif tipo == "bau" then
