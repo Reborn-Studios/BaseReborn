@@ -17,7 +17,7 @@ Config.imgDiret = Reborn.images().."/"                          --Reborn.images(
 Config.vehicle_db = "vrp_vehicles"                              -- Banco de dados de veiculos
 Config.differentPlate = true
 
-Config.openPainel = "opainel"
+Config.openPainel = "mdt"
 
 Config.ld_smartbank = true
 
@@ -72,7 +72,7 @@ Config.hookPrisao = ""                                          -- Webhook ao pr
 
 Config.hookMulta = ""                                           -- Webhook ao multar alguem
 
-Config.post_photo = "https://discord.com/api/webhooks/923007630149054524/9ZYMO3taYSCTgH-bE4Dsc07wb9EB7TODKQXGaZjJqxeA7riFZ6cqFYw32N_PCfcyDXDe"                                          -- Webhook para registrar a foto
+Config.post_photo = "https://discord.com/api/webhooks/1330976859319439381/nlIB4iaSaPSZIcJTtK1ljkIr_RKUp2O12HgA-NPaFOOBAiUJAZkZxJxcWWp4rKKbtBvC"                                          -- Webhook para registrar a foto
 
 ----#######################----
 --##[ Codigo serviceTimel ]##--
