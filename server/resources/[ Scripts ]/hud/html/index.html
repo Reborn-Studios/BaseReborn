@@ -1567,16 +1567,6 @@
             <div class="rightTop-hud">
               <div class="moneyDisplay">
                 <div
-                  class="ammoDisplayContainer classicHudDrag"
-                  :style="positionsData['hud-ammo'] || ''"
-                  data-type="hud-ammo"
-                  v-show="displayAmmoHud && enableAmmoHud || (editAllModeActive || editModeActive && enableAmmoHud) "
-                >
-                  <img src="./assets/images/ammo-icon.png" />
-                  <p class="ammoDisplay">{{ammo}}</p>
-                  <p class="maxAmmoDisplay">{{max_ammo}}</p>
-                </div>
-                <div
                   class="weaponDisplayContainer classicHudDrag"
                   :style="positionsData['hud-weapon'] || ''"
                   data-type="hud-weapon"
@@ -1587,6 +1577,16 @@
                     :src="'./assets/weapons/'+weaponImage+'.png'"
                   />
                   <img v-else src="./assets/weapons/appistol.png" />
+                </div>
+                <div
+                  class="ammoDisplayContainer classicHudDrag"
+                  :style="positionsData['hud-ammo'] || ''"
+                  data-type="hud-ammo"
+                  v-show="displayAmmoHud && enableAmmoHud || (editAllModeActive || editModeActive && enableAmmoHud) "
+                >
+                  <img src="./assets/images/ammo-icon.png" />
+                  <p class="ammoDisplay">{{ammo}}</p>
+                  <p class="maxAmmoDisplay">{{max_ammo}}</p>
                 </div>
                 <div
                   class="job classicHudDrag"
