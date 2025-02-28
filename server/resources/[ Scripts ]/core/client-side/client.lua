@@ -813,3 +813,20 @@ CreateThread(function()
         Wait(30000)
     end
 end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- DELETE AREA OF VEHICLES
+-----------------------------------------------------------------------------------------------------------------------------------------
+local vehsArea = {
+	vector3(42.06,-867.74,30.5),
+	vector3(129.39,-1074.69,29.2),
+	vector3(236.64,-779.95,30.67),
+}
+
+CreateThread(function ()
+	while true do
+		for k,cds in pairs(vehsArea) do
+			ClearAreaOfVehicles(cds.x,cds.y,cds.z,50.0,false,false,false,false,false)
+		end
+		Wait(3000)
+	end
+end)
