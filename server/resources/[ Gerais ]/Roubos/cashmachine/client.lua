@@ -1,26 +1,69 @@
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VRP
 -----------------------------------------------------------------------------------------------------------------------------------------
-local Tunnel = module("vrp","lib/Tunnel")
-local Proxy = module("vrp","lib/Proxy")
+Tunnel = module("vrp","lib/Tunnel")
+Proxy = module("vrp","lib/Proxy")
 vRP = Proxy.getInterface("vRP")
------------------------------------------------------------------------------------------------------------------------------------------
--- CONNECTION
------------------------------------------------------------------------------------------------------------------------------------------
-cmVRP = {}
-Tunnel.bindInterface("cashmachine",cmVRP)
 vSERVER = Tunnel.getInterface("cashmachine")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
-local machineStart = false
+local objectBomb = nil
 local machineTimer = 0
 local machinePosX = 0.0
 local machinePosY = 0.0
 local machinePosZ = 0.0
-local objectBomb = nil
-local machines = Config.cashMachine['locs']
+local registerCoords = {}
+local machineStart = false
+local machines = { "prop_atm_02", "prop_atm_03", "prop_fleeca_atm" }
 
+CreateThread(function ()
+	Wait(1000)
+	exports['ox_target']:addModel(machines,{
+		{
+			canInteract = function()
+				return not LocalPlayer.state.Police
+			end,
+			event = 'vrp_cashmachine:machineRobbery',
+			icon = 'fa-solid fa-cash-register',
+			label = "Roubar",
+			tunnel = "client"
+		}
+	})
+
+	exports['ox_target']:addModel({ GetHashKey("prop_till_01") },{
+		{
+			canInteract = function()
+				return not LocalPlayer.state.Police
+			end,
+			icon = "fa-solid fa-cash-register",
+			event = "cashRegister:robberyMachine",
+			label = "Roubar",
+			tunnel = "client"
+		}
+	})
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- MACHINETIMER
+-----------------------------------------------------------------------------------------------------------------------------------------
+local function startthreadmachinestart()
+	CreateThread(function()
+		while machineStart do
+			if machineTimer > 0 then
+				machineTimer = machineTimer - 1
+				if machineTimer <= 0 then
+					machineStart = false
+					if objectBomb and DoesEntityExist(objectBomb) then
+						TriggerServerEvent("tryDeleteEntity",ObjToNet(objectBomb))
+					end
+					vSERVER.stopMachine(machinePosX,machinePosY,machinePosZ)
+					AddExplosion(machinePosX,machinePosY,machinePosZ,2,100.0,true,false,1.0)
+				end
+			end
+			Wait(1000)
+		end
+	end)
+end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADMACHINES
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -28,43 +71,38 @@ RegisterNetEvent("vrp_cashmachine:machineRobbery")
 AddEventHandler("vrp_cashmachine:machineRobbery",function()
 	local ped = PlayerPedId()
 	if not machineStart then
-		if not IsPedInAnyVehicle(ped) then
+		if not IsPedInAnyVehicle(ped,false) then
 			local coords = GetEntityCoords(ped)
 			for k,v in pairs(machines) do
-				local distance = #(coords - vector3(v[1],v[2],v[3]))
-				if distance <= 0.6 then
-					if vSERVER.startMachine() then
-						machinePosX = v[1]
-						machinePosY = v[2]
-						machinePosZ = v[3]
-						SetEntityHeading(ped,v[4])
-						TriggerEvent("cancelando",true)
-						SetEntityCoords(ped,v[1],v[2],v[3]-1)
-						vRP._playAnim(false,{"anim@amb@clubhouse@tutorial@bkr_tut_ig3@","machinic_loop_mechandplayer"},true)
-
-						Citizen.Wait(10000)
-						startthreadmachinestart()
+				local object = GetClosestObjectOfType(coords.x,coords.y,coords.z,1.5,GetHashKey(v),false,false,false)
+				if object and DoesEntityExist(object) then
+					if vSERVER.startMachine(coords.x,coords.y,coords.z) then
+						local bombCds = GetEntityCoords(object)
 						machineStart = true
+						machinePosX,machinePosY,machinePosZ = bombCds.x,bombCds.y,bombCds.z
+
+						-- Plant bomb
+						SetEntityHeading(ped,GetEntityHeading(object))
+						TriggerEvent("cancelando",true)
+						SetEntityCoords(ped,machinePosX,machinePosY,machinePosZ,false,false,false,false)
+						vRP._playAnim(false,{"anim@amb@clubhouse@tutorial@bkr_tut_ig3@","machinic_loop_mechandplayer"},true)
+						Wait(5000)
+						startthreadmachinestart()
 						vRP.removeObjects()
 						TriggerEvent("cancelando",false)
-						machineTimer = math.random(30,40)
-						vSERVER.callPolice(machinePosX,machinePosY,machinePosZ)
 
+						machineTimer = Config.cashMachine['atm']['timeToExplode']
+						vSERVER.callPolice(machinePosX,machinePosY,machinePosZ,"ATM")
+
+						-- Create Bomb
 						local mHash = GetHashKey("prop_c4_final_green")
-
-						RequestModel(mHash)
-						while not HasModelLoaded(mHash) do
-							RequestModel(mHash)
-							Citizen.Wait(10)
-						end
-
-						local coords = GetOffsetFromEntityInWorldCoords(ped,0.0,0.23,0.0)
-						objectBomb = CreateObjectNoOffset(mHash,coords.x,coords.y,coords.z-0.23,true,false,false)
+						LoadModel(mHash)
+						local bombCoords = GetOffsetFromEntityInWorldCoords(object,0.0,-0.2,0.7)
+						objectBomb = CreateObjectNoOffset(mHash,bombCoords.x,bombCoords.y,bombCoords.z,true,false,false)
 						SetEntityAsMissionEntity(objectBomb,true,true)
 						FreezeEntityPosition(objectBomb,true)
-						SetEntityHeading(objectBomb,v[4])
+						SetEntityHeading(objectBomb,GetEntityHeading(object))
 						SetModelAsNoLongerNeeded(mHash)
-						break
 					end
 				end
 			end
@@ -72,56 +110,23 @@ AddEventHandler("vrp_cashmachine:machineRobbery",function()
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- MACHINETIMER
------------------------------------------------------------------------------------------------------------------------------------------
-function startthreadmachinestart()
-	Citizen.CreateThread(function()
-		while true do
-			if machineStart and machineTimer > 0 then
-				machineTimer = machineTimer - 1
-				if machineTimer <= 0 then
-					machineStart = false
-					TriggerServerEvent("tryDeleteEntity",ObjToNet(objectBomb))
-					vSERVER.stopMachine(machinePosX,machinePosY,machinePosZ)
-					AddExplosion(machinePosX,machinePosY,machinePosZ,2,100.0,true,false,true)
-				end
-			end
-			Citizen.Wait(1000)
-		end
-	end)
-end
-
------------------------------------------------------------------------------------------------------------------------------------------
 -- CASHREGISTER
 -----------------------------------------------------------------------------------------------------------------------------------------
-local registerCoords = {}
-local robberyStatus = false
-
 RegisterNetEvent("cashRegister:robberyMachine")
-AddEventHandler("cashRegister:robberyMachine",function(status)
-	if robberyStatus then return end
+AddEventHandler("cashRegister:robberyMachine",function()
 	local ped = PlayerPedId()
 	local coordsPed = GetEntityCoords(ped)
 	for k,v in pairs(registerCoords) do
 		local distance = #(coordsPed - vector3(v[1],v[2],v[3]))
 		if distance <= 2.0 then
-			TriggerEvent("Notify","negado","Caixinha vazio",5000)
 			return
 		end
 	end
-	local object = GetClosestObjectOfType(coordsPed,0.4,GetHashKey("prop_till_01"),0,0,0)
-	local coords = GetEntityCoords(object)
-	if vSERVER.cashRegister(coords.x,coords.y,coords.z) then
-		robberyStatus = true
+	if vSERVER.cashRegister(coordsPed.x,coordsPed.y,coordsPed.z) then
 		SetPedComponentVariation(ped,5,45,0,2)
-		vSERVER.startRegister(coordsPed.x,coordsPed.y,coordsPed.z)
-		robberyStatus = false
 	end
 end)
 
------------------------------------------------------------------------------------------------------------------------------------------
--- UPDATEREGISTER
------------------------------------------------------------------------------------------------------------------------------------------
 RegisterNetEvent("cashRegister:updateRegister")
 AddEventHandler("cashRegister:updateRegister",function(status)
 	registerCoords = status

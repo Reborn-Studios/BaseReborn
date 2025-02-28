@@ -1,43 +1,37 @@
 -----------------------------------------------------------------------------------------------------------------------------------------
--- VRP
------------------------------------------------------------------------------------------------------------------------------------------
-local Tunnel = module("vrp","lib/Tunnel")
-local Proxy = module("vrp","lib/Proxy")
-vRP = Proxy.getInterface("vRP")
-vRPclient = Tunnel.getInterface("vRP")
------------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-cnVRP = {}
-Tunnel.bindInterface("joalheria",cnVRP)
+Jewelry = {}
+Tunnel.bindInterface("joalheria",Jewelry)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
-local jewelryStatus = false
+GlobalState['JewelryStatus'] = false
 local jewelryDrawer = {}
 local jewelryTimer = 0
 local jewelryCooldown = 0
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- JEWELRYUPDATESTATUS
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.jewelryUpdateStatus(status)
-	TriggerClientEvent("vrp_jewelry:jewelryFunctionStart",-1,status)
-	jewelryStatus = status
+function Jewelry.jewelryUpdateStatus(status)
+	GlobalState:set("JewelryStatus",status,true)
+	TriggerEvent("doors:doorsStatistics",17,not status)
+	exports.ox_doorlock:setDoorState(1, not status)
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- JEWELRYCHECKITENS
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.jewelryCheckItens()
+function Jewelry.jewelryCheckItens()
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		if jewelryCooldown > 0 then
-			TriggerClientEvent("Notify",source,"aviso","Aguarde "..vRP.getTimers(parseInt(jewelryCooldown)),5000)
+		if jewelryCooldown > os.time() then
+			TriggerClientEvent("Notify",source,"aviso","Aguarde "..vRP.getTimers(jewelryCooldown - os.time()),5000)
 			return false
 		end
 
-		local copAmount = vRP.numPermission("Police")
-		if parseInt(#copAmount) <= Config.jewelry['cops'] then
+		local copAmount = vRP.getUsersByPermission("policia.permissao")
+		if #copAmount <= Config.jewelry['cops'] then
 			TriggerClientEvent("Notify",source,"aviso","Sistema indisponível no momento, tente mais tarde.",5000)
 			return false
 		end
@@ -45,77 +39,51 @@ function cnVRP.jewelryCheckItens()
 		if vRP.getInventoryItemAmount(user_id,"c4") >= 1 and vRP.getInventoryItemAmount(user_id,"bluecard") >= 1 then
 			vRP.removeInventoryItem(user_id,"bluecard",1)
 			vRP.removeInventoryItem(user_id,"c4",1)
-			jewelryCooldown = 7200
+			jewelryCooldown = os.time() + 7200
 			jewelryTimer = 2700
-
-			for k,v in pairs(copAmount) do
-				local player = vRP.getUserSource(v)
-				async(function()
-					TriggerClientEvent("NotifyPush",player,{ time = os.date("%H:%M:%S - %d/%m/%Y"), text = "Esta ocorrendo um roubo a joalheria aqui!", code = 20, title = "Roubo a Joalheria", x = -1311.87, y = -829.86, z = 17.15, rgba = {170,80,25} })
-				end)
-			end
-
+			CashMachine.callPolice(-1311.87, -829.86, 17.15,"Joalheria")
 			return true
 		else
-			TriggerClientEvent("Notify",source,"aviso","Voce nao possui <b>c4</b> ou um <b>cartao azul</b>.",5000)
+			TriggerClientEvent("Notify",source,"aviso","Voce nao possui <b>c4</b> e um <b>cartao azul</b>.",5000)
 		end
-
 		return false
 	end
 end
------------------------------------------------------------------------------------------------------------------------------------------
--- OPENDRAWER
------------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.openDrawer(number)
-	local source = source
-	if source then
-		jewelryPayment(source, number)
-	end
-end
 
-function jewelryPayment(source, number)
+RegisterNetEvent("robberys:jewelry")
+AddEventHandler("robberys:jewelry",function(number)
+	local source = source
 	local user_id = vRP.getUserId(source)
-	if jewelryDrawer[number] or not jewelryStatus then
+	if jewelryDrawer[number] or not GlobalState['JewelryStatus'] then
 		return
 	else
 		jewelryDrawer[number] = true
 		TriggerClientEvent("cancelando",source,true)
 		vRPclient.playAnim(source,false,{"oddjobs@shop_robbery@rob_till","loop"},true)
-		Citizen.Wait(20000)
+		Wait(10000)
 		Config.jewelry.itens(user_id)
 		TriggerClientEvent("cancelando",source,false)
 		vRPclient._removeObjects(source)
 	end
-end
-
-RegisterNetEvent("robberys:jewelry")
-AddEventHandler("robberys:jewelry",function(data)
-	local source = source
-	jewelryPayment(source, data)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- JEWELRYTIMERS
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
-		if jewelryStatus and jewelryTimer > 0 then
+		if GlobalState['JewelryStatus'] and jewelryTimer > 0 then
 			jewelryTimer = jewelryTimer - 1
 			if jewelryTimer <= 0 then
 				jewelryDrawer = {}
-				cnVRP.jewelryUpdateStatus(false)
-				TriggerEvent("doors:doorsStatistics",17,true)
+				Jewelry.jewelryUpdateStatus(false)
 			end
 		end
-
-		if jewelryCooldown > 0 then
-			jewelryCooldown = jewelryCooldown - 1
-		end
-		Citizen.Wait(1000)
+		Wait(1000)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PLAYERSPAWN
 -----------------------------------------------------------------------------------------------------------------------------------------
 AddEventHandler("vRP:playerSpawn",function(user_id,source)
-	TriggerClientEvent("vrp_jewelry:jewelryFunctionStart",source,bankStatus)
+	TriggerClientEvent("vrp_jewelry:jewelryFunctionStart",source)
 end)

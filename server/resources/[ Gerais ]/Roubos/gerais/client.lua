@@ -1,15 +1,7 @@
 -----------------------------------------------------------------------------------------------------------------------------------------
--- VRP
------------------------------------------------------------------------------------------------------------------------------------------
-local Tunnel = module("vrp","lib/Tunnel")
-local Proxy = module("vrp","lib/Proxy")
-vRP = Proxy.getInterface("vRP")
------------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-robRP = {}
-Tunnel.bindInterface("Roubos",robRP)
-vgSERVER = Tunnel.getInterface("Roubos")
+Roubos = Tunnel.getInterface("Roubos")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -49,26 +41,26 @@ AddEventHandler("robbery:startRobbery",function(data)
 	if service and not startRobbery then
 		local ped = PlayerPedId()
 		local coords = GetEntityCoords(ped)
-		if vgSERVER.checkPolice(service,coords) then
+		if Roubos.checkPolice(service,coords) then
 			local v = vars[service]
 			robberyId = service
 			startRobbery = true
 			robberyTimer = v.time
+			RobThread()
 			TriggerEvent("cancelando",true)
 			TriggerEvent("Progress",parseInt(v.time)*1000,"Roubando...")
 			SetPedComponentVariation(ped,5,45,0,2)
 		end
 	end
 end)
------------------------------------------------------------------------------------------------------------------------------------------
--- THREADTIMERS
------------------------------------------------------------------------------------------------------------------------------------------
-CreateThread(function()
-	while true do
-		if startRobbery then
+
+function RobThread()
+	CreateThread(function()
+		while startRobbery do
 			local ped = PlayerPedId()
 			local distance = #(GetEntityCoords(ped) - vector3(vars[robberyId].x,vars[robberyId].y,vars[robberyId].z))
 			if distance > vars[robberyId].distance or GetEntityHealth(ped) <= 101 then
+				TriggerEvent("cancelando",false)
 				startRobbery = false
 			end
 			if robberyTimer > 0 then
@@ -76,10 +68,10 @@ CreateThread(function()
 				if robberyTimer <= 0 then
 					startRobbery = false
 					TriggerEvent("cancelando",false)
-					vgSERVER.paymentMethod(robberyId)
+					Roubos.paymentMethod(robberyId)
 				end
 			end
+			Wait(1000)
 		end
-		Wait(1000)
-	end
-end)
+	end)
+end

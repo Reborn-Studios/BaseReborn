@@ -188,18 +188,6 @@ AddEventHandler("target:animDeitar",function(data)
 	end
 end)
 
-api.addModel({ GetHashKey("prop_till_01") },convert({
-    options = {
-        {
-            icon = "fa-solid fa-cash-register",
-            event = "cashRegister:robberyMachine",
-            label = "Roubar",
-            tunnel = "client"
-        }
-    },
-    distance = 0.75
-}))
-
 api.addModel({ 684586828,577432224,-206690185,-1587184881,666561306,218085040,-58485588,-1426008804,-228596739,1437508529,-1096777189,1511880420,-468629664,1143474856,-2096124444,682791951,-115771139,1329570871,-130812911, },convert({
     options = {
         {
@@ -329,6 +317,9 @@ CreateThread(function()
                 action = function()
                     TriggerServerEvent("robberys:jewelry", "1")
                 end,
+                canInteract = function ()
+                    return GlobalState['JewelryStatus']
+                end,
                 label = "Roubar",
                 tunnel = "server"
             }
@@ -345,6 +336,9 @@ CreateThread(function()
                 icon = "fa-solid fa-ring",
                 action = function()
                     TriggerServerEvent("robberys:jewelry", "2")
+                end,
+                canInteract = function ()
+                    return GlobalState['JewelryStatus']
                 end,
                 label = "Roubar",
                 tunnel = "server"
@@ -363,6 +357,9 @@ CreateThread(function()
                 action = function()
                     TriggerServerEvent("robberys:jewelry", "3")
                 end,
+                canInteract = function ()
+                    return GlobalState['JewelryStatus']
+                end,
                 label = "Roubar",
                 tunnel = "server"
             }
@@ -379,6 +376,9 @@ CreateThread(function()
                 icon = "fa-solid fa-ring",
                 action = function()
                     TriggerServerEvent("robberys:jewelry", "4")
+                end,
+                canInteract = function ()
+                    return GlobalState['JewelryStatus']
                 end,
                 label = "Roubar",
                 tunnel = "server"
@@ -397,6 +397,9 @@ CreateThread(function()
                 action = function()
                     TriggerServerEvent("robberys:jewelry", "5")
                 end,
+                canInteract = function ()
+                    return GlobalState['JewelryStatus']
+                end,
                 label = "Roubar",
                 tunnel = "server"
             }
@@ -413,6 +416,9 @@ CreateThread(function()
                 icon = "fa-solid fa-ring",
                 action = function()
                     TriggerServerEvent("robberys:jewelry", "6")
+                end,
+                canInteract = function ()
+                    return GlobalState['JewelryStatus']
                 end,
                 label = "Roubar",
                 tunnel = "server"
@@ -431,6 +437,9 @@ CreateThread(function()
                 action = function()
                     TriggerServerEvent("robberys:jewelry", "7")
                 end,
+                canInteract = function ()
+                    return GlobalState['JewelryStatus']
+                end,
                 label = "Roubar",
                 tunnel = "server"
             }
@@ -447,6 +456,9 @@ CreateThread(function()
                 icon = "fa-solid fa-ring",
                 action = function()
                     TriggerServerEvent("robberys:jewelry", "8")
+                end,
+                canInteract = function ()
+                    return GlobalState['JewelryStatus']
                 end,
                 label = "Roubar",
                 tunnel = "server"
@@ -465,6 +477,9 @@ CreateThread(function()
                 action = function()
                     TriggerServerEvent("robberys:jewelry", "9")
                 end,
+                canInteract = function ()
+                    return GlobalState['JewelryStatus']
+                end,
                 label = "Roubar",
                 tunnel = "server"
             }
@@ -481,6 +496,9 @@ CreateThread(function()
                 icon = "fa-solid fa-ring",
                 action = function()
                     TriggerServerEvent("robberys:jewelry", "10")
+                end,
+                canInteract = function ()
+                    return GlobalState['JewelryStatus']
                 end,
                 label = "Roubar",
                 tunnel = "server"
@@ -499,6 +517,9 @@ CreateThread(function()
                 action = function()
                     TriggerServerEvent("robberys:jewelry", "11")
                 end,
+                canInteract = function ()
+                    return GlobalState['JewelryStatus']
+                end,
                 label = "Roubar",
                 tunnel = "server"
             }
@@ -515,6 +536,9 @@ CreateThread(function()
                 icon = "fa-solid fa-ring",
                 action = function()
                     TriggerServerEvent("robberys:jewelry", "12")
+                end,
+                canInteract = function ()
+                    return GlobalState['JewelryStatus']
                 end,
                 label = "Roubar",
                 tunnel = "server"
@@ -533,6 +557,9 @@ CreateThread(function()
                 action = function()
                     TriggerServerEvent("robberys:jewelry", "13")
                 end,
+                canInteract = function ()
+                    return GlobalState['JewelryStatus']
+                end,
                 label = "Roubar",
                 tunnel = "server"
             }
@@ -549,6 +576,9 @@ CreateThread(function()
                 icon = "fa-solid fa-ring",
                 action = function()
                     TriggerServerEvent("robberys:jewelry", "14")
+                end,
+                canInteract = function ()
+                    return GlobalState['JewelryStatus']
                 end,
                 label = "Roubar",
                 tunnel = "server"
@@ -567,6 +597,9 @@ CreateThread(function()
                 action = function()
                     TriggerServerEvent("robberys:jewelry", "15")
                 end,
+                canInteract = function ()
+                    return GlobalState['JewelryStatus']
+                end,
                 label = "Roubar",
                 tunnel = "server"
             }
@@ -583,6 +616,9 @@ CreateThread(function()
                 icon = "fa-solid fa-ring",
                 action = function()
                     TriggerServerEvent("robberys:jewelry", "16")
+                end,
+                canInteract = function ()
+                    return GlobalState['JewelryStatus']
                 end,
                 label = "Roubar",
                 tunnel = "server"
@@ -601,6 +637,9 @@ CreateThread(function()
                 action = function()
                     TriggerServerEvent("robberys:jewelry", "17")
                 end,
+                canInteract = function ()
+                    return GlobalState['JewelryStatus']
+                end,
                 label = "Roubar",
                 tunnel = "server"
             }
@@ -617,6 +656,9 @@ CreateThread(function()
                 icon = "fa-solid fa-ring",
                 action = function()
                     TriggerServerEvent("robberys:jewelry", "18")
+                end,
+                canInteract = function ()
+                    return GlobalState['JewelryStatus']
                 end,
                 label = "Roubar",
                 tunnel = "server"
@@ -635,6 +677,9 @@ CreateThread(function()
                 action = function()
                     TriggerServerEvent("robberys:jewelry", "19")
                 end,
+                canInteract = function ()
+                    return GlobalState['JewelryStatus']
+                end,
                 label = "Roubar",
                 tunnel = "server"
             }
@@ -651,6 +696,9 @@ CreateThread(function()
                 icon = "fa-solid fa-ring",
                 action = function()
                     TriggerServerEvent("robberys:jewelry", "20")
+                end,
+                canInteract = function ()
+                    return GlobalState['JewelryStatus']
                 end,
                 label = "Roubar",
                 tunnel = "server"
