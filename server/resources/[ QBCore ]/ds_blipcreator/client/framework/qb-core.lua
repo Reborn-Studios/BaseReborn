@@ -4,12 +4,15 @@ function GetPlayer()
 	return QB.Functions.GetPlayerData()
 end
 
-RegisterNetEvent('QBCore:Client:OnJobUpdate', function()
-	TriggerEvent('ds_blipcreator:setBlips',blips)
+CreateThread(function()
+	while GetPlayer() == nil do
+		Wait(1000)
+	end
+	TriggerServerEvent('ds_blipcreator:getBlips')
 end)
 
-RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
-	TriggerServerEvent('ds_blipcreator:getBlips')
+RegisterNetEvent('QBCore:Client:OnJobUpdate', function()
+	TriggerEvent('ds_blipcreator:setBlips',blips)
 end)
 
 local groups = { 'job', 'gang' }

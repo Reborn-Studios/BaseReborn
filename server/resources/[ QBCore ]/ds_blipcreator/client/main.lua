@@ -1,5 +1,3 @@
-TriggerServerEvent('ds_blipcreator:getBlips')
-
 local function createblip(blip)
 	blip.zone = GetLabelText(GetNameOfZone(blip.coords.x, blip.coords.y, blip.coords.z))
 	if not blip.hideUi and (blip.groups == nil or IsPlayerInGroup(blip.groups)) then
