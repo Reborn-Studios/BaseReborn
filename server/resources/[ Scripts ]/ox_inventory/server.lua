@@ -129,6 +129,8 @@ local function openInventory(source, invType, data, ignoreSecurityChecks)
         data = nil
     end
 
+	local playerPed = left.player.ped
+
 	if data then
         local isDataTable = type(data) == 'table'
 
@@ -143,12 +145,6 @@ local function openInventory(source, invType, data, ignoreSecurityChecks)
 
 				if not ignoreSecurityChecks then
 					if #(GetEntityCoords(playerPed) - GetEntityCoords(entity)) > 16 then return end
-				end
-
-				if invType == 'glovebox' then
-					if not ignoreSecurityChecks and GetVehiclePedIsIn(playerPed, false) ~= entity then
-						return
-					end
 				end
 
 				if invType == 'trunk' then
