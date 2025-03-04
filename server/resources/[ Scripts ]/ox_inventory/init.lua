@@ -77,7 +77,7 @@ if IsDuplicityVersion() then
 else
     PlayerData = {}
     client = {
-        autoreload = GetConvarInt('inventory:autoreload', 0) == 1,
+        autoreload = GetConvarInt('inventory:autoreload', 1) == 1,
         screenblur = GetConvarInt('inventory:screenblur', 1) == 1,
         keys = json.decode(GetConvar('inventory:keys', '')) or { 'OEM_3', 'HOME', 'TAB' },
         enablekeys = json.decode(GetConvar('inventory:enablekeys', '[249]')),
