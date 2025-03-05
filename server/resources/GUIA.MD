@@ -95,7 +95,7 @@
 `/tptome (id)` - Puxar player <br>
 `/tpto (id)` - Ir para o player <br>
 `/tpway` - Ir até a marcaão do mapa <br>
-`/group (id) (grupo)` - Setar grupo em um usuario <br>
+`/group (id) (grupo?)` - Setar grupo em um usuario <br>
 `/ungroup (id) (grupo)` - Retirar grupo de um usuario <br>
 `/rg (id)` - Informaçoes do ID <br>
 `/rg2 (id)` - Setagem do ID <br>
@@ -127,6 +127,12 @@
 `/dv` - Deletar veiculo proximo <br>
 `/fix` - Reparar veiculo proximo <br>
 `/remprisao (id)` - Retirar da prisao<br>
+`/kickall` - Kickar todos os players <br>
+`/addcar (id) (veiculo)` - Adicionar veiculo para o jogador <br>
+`/remcar (id) (veiculo)` - Remover veiculo do jogador <br>
+`/addtempcar (id) (veiculo) (dias)` - Adicionar veiculo temporario para o jogador <br>
+`/coins (id) (quantidade)` - Adicionar coins para o jogador <br>
+`/money (id) (quantidade)` - Adicionar money para o jogador <br>
 
 ### ARMAS
 

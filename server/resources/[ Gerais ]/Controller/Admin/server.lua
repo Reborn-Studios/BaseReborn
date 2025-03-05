@@ -185,15 +185,15 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- BUCKETS
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("gobucket",function(source,args)
+RegisterCommand("mundo",function(source,args)
 	if args[1] and HasPermission(source,"gobucket") then
 		SetPlayerRoutingBucket(source,parseInt(args[1]))
 	end
 end)
 
-RegisterCommand("getbucket",function(source,args)
+RegisterCommand("meumundo",function(source,args)
 	local bucket = GetPlayerRoutingBucket(source)
-	TriggerClientEvent("Notify",source,"aviso","Você esta no bucket "..bucket,5000)
+	TriggerClientEvent("Notify",source,"aviso","Você esta no mundo "..bucket,5000)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- KICK
