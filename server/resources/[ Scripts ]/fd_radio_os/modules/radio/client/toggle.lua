@@ -22,6 +22,7 @@ end
 
 RegisterNetEvent("radio:openSystem")
 AddEventHandler("radio:openSystem",function()
+    close()
 	utils.requestAnimDict("cellphone@")
     TaskPlayAnim(cache.ped, "cellphone@", "cellphone_text_read_base", 2.0, 3.0, -1, 49, 0, 0, 0, 0)
 
