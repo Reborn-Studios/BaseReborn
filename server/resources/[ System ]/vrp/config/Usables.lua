@@ -1483,7 +1483,11 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 			end
 		end
 	end
-	
+
+	if itemName == "grafite" then
+		TriggerClientEvent('will_spray:spray', source)
+	end
+
 	Player(source)["state"]["Commands"] = false
 end)
 
