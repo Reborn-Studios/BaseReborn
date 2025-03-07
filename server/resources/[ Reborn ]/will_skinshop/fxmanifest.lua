@@ -1,15 +1,13 @@
 fx_version "bodacious"
 game "gta5"
-
 author "Reborn Studios"
 
-ui_page "web-side/index.html"
+ui_page "web-side/dist/index.html"
 
 client_scripts {
 	"@vrp/lib/utils.lua",
 	"Config.lua",
 	"client-side/*"
-	
 }
 
 server_scripts {
@@ -19,6 +17,7 @@ server_scripts {
 }
 
 files {
-	"web-side/*",
-	"web-side/assets/*"
+	"web-side/dist/*",
+	"web-side/dist/assets/*",
+	"web-side/dist/categories/*"
 }

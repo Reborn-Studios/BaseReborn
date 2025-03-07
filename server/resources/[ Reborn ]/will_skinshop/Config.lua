@@ -8,13 +8,34 @@ vRP = Proxy.getInterface("vRP")
 
 Config = {}
 
+Config.Mysql = "oxmysql"
+
 -- Diretório das imagens
 Config.imageDirect = "http://212.18.114.101/clothes/"
+
+Config.defaultValues = {
+    ["arms"] = { defaultImage = Config.imageDirect.."male/8/15.png", category = "principal" },
+	["backpack"] = { defaultImage = Config.imageDirect.."male/8/15.png", category = "others" },
+	["tshirt"] = { defaultImage = Config.imageDirect.."male/8/15.png", category = "principal" },
+	["torso"] = { defaultImage = Config.imageDirect.."male/11/1.png", category = "principal" },
+	["pants"] = { defaultImage = Config.imageDirect.."male/4/2.png", category = "principal" },
+	["shoes"] = { defaultImage = Config.imageDirect.."male/6/2.png", category = "principal" },
+	["vest"] = { defaultImage = Config.imageDirect.."male/9/1.png", category = "others" },
+	["mask"] = { defaultImage = Config.imageDirect.."male/1/1.png", category = "principal" },
+	["hat"] = { defaultImage = Config.imageDirect.."male/p0/2.png", category = "accessory" },
+	["glass"] = { defaultImage = Config.imageDirect.."male/p1/1.png", category = "accessory" },
+	["ear"] = { defaultImage = Config.imageDirect.."male/p2/10.png", category = "accessory" },
+	["watch"] = { defaultImage = Config.imageDirect.."male/p6/2.png", category = "accessory" },
+	["bracelet"] = { defaultImage = Config.imageDirect.."male/p6/2.png", category = "accessory" },
+	["accessory"] = { defaultImage = Config.imageDirect.."male/7/2.png", category = "accessory" },
+	["decals"] = { defaultImage = Config.imageDirect.."male/8/15.png", category = "others" }
+}
+
+Config.defaultClothPrice = 50
 
 -- Definição de preços  
 Config.clothPrices = {
     -- Preço de todos itens
-    ['all'] = 50,
     ['torso'] = {
         -- Ex: (Apenas a jaqueta 14 de textura 1 esta com preço de R$250)
         ['14'] = {
@@ -39,10 +60,7 @@ Config.vipClothes = {
 }
 
 -- Possui script empresas da Reborn?
-Config.will_shops = true
-
--- Possui Advanced Inventory da Reborn?
-Config.will_inventory = false
+Config.will_shops = false
 
 --[[***************
 
@@ -263,33 +281,10 @@ Config.locates = {
     },
 }
 
-Config.shopLocs = {}
-
-local function refreshLocates()
-    for Index,data in pairs(Config.locates) do
-        if data.coords then
-            table.insert(Config.shopLocs,data)
-        end
-    end
-    if GlobalState["Skinshops"] then
-        for Index,data in pairs(GlobalState["Skinshops"]) do
-            table.insert(Config.shopLocs,data)
-        end
-    end
-end
-
-CreateThread(refreshLocates)
-
-AddStateBagChangeHandler("Skinshops","",function (_,_,value)
-    if not value then return end
-    Config.shopLocs = {}
-    Wait(100)
-    refreshLocates()
-end)
-
 --------------------------------------------------
             -- *** NÃO ALTERAR *** --
 --------------------------------------------------
+
 Config.clothingCategorys = {
 	["arms"] = { type = "variation", id = 3 },
 	["backpack"] = { type = "variation", id = 5 },
