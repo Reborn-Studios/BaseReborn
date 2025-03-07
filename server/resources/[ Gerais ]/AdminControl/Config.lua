@@ -39,7 +39,7 @@ Config.Commands = {
 		['perm'] = "owner.permissao"
 	},
 	['skinshop'] = {
-		['command'] = "createskinshop",
+		['command'] = "admSkinshop",
 		['perm'] = "owner.permissao"
 	},
 	['farms'] = {
