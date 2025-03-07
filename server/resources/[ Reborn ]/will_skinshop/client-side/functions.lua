@@ -19,7 +19,7 @@ CreateThread(function()
 					local distance = #(coords - shopCoords)
 					if distance <= 2 then
 						timeDistance = 1
-						DrawText3D(shopCoords.x, shopCoords.y, shopCoords.z, "~p~[Loja de Roupa]\n~w~~b~[E]~w~ PARA ACESSAR")
+						DrawBase3D(shopCoords.x, shopCoords.y, shopCoords.z, "clothes")
 						if IsControlJustPressed(0,38) and vSERVER.checkShares() then
 							if v.permission == nil or vSERVER.checkPermission(v.permission) then
 								OpenMenu(k)

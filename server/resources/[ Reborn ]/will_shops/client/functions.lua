@@ -485,8 +485,7 @@ function skinshopThread(locs,shop)
 				local distance = #(coords - vector3(v[1],v[2],v[3]))
 				if distance <= 5 then
 					timeDistance = 4
-					-- DrawMarker(27,v[1],v[2],v[3]-0.95,0,0,0,0,180.0,130.0,1.0,1.0,1.0,255,0,0,75,0,0,0,1)
-                    DrawText3D2(v[1],v[2],v[3], "~p~[Loja de Roupa]\n~w~~b~[E]~w~ PARA ACESSAR")
+					DrawBase3D(v[1],v[2],v[3],"clothes")
 					if IsControlJustPressed(1,38) then
 						timeDistance = 1000
 						TriggerEvent("will_skinshop:openShop",shop)
