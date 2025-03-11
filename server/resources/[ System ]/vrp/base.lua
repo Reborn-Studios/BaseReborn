@@ -339,7 +339,9 @@ AddEventHandler("baseModule:idLoaded",function(source,user,model)
 				end
 			end)
 		end
-		TriggerEvent("will_login:checkRegister",source)
+		if GetResourceState("nation_creator") ~= "started" then
+			TriggerEvent("will_login:checkRegister",source)
+		end
 
 		local identity = vRP.getUserIdentity(user_id)
 		if identity then
