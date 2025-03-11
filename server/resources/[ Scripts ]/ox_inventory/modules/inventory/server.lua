@@ -93,10 +93,13 @@ end
 
 local GetVehicleNumberPlateText = GetVehicleNumberPlateText
 
-function getVehicleChest(vehicleHash)
+function getVehicleChest(vehicleHash, type)
 	local vehicleGlobal = VehicleGlobal()
 	for k,v in pairs(vehicleGlobal) do
 		if GetHashKey(k) == vehicleHash then
+			if type == "glovebox" then
+				return v.Glovebox or v.Weight / 10
+			end
 			return v.Weight
 		end
 	end
@@ -170,7 +173,7 @@ local function loadInventoryData(data, player, ignoreSecurityChecks)
 			end
 
 			local model, class = lib.callback.await('ox_inventory:getVehicleData', source, data.netid)
-			local VehicleStorage = getVehicleChest(model)
+			local VehicleStorage = getVehicleChest(model, data.type)
 			local storage = VehicleStorage and { 21, VehicleStorage * 1000 } or Vehicles[data.type].models[model] or Vehicles[data.type][class]
             local dbId
 
