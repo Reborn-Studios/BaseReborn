@@ -650,7 +650,7 @@ AddEventHandler("player:Outfit",function(Mode)
 			TriggerClientEvent("Notify",source,"verde","Roupas Removidas",3000)
 		end
 	else
-		TriggerClientEvent("will_skinshop:set"..Mode,source)
+		TriggerClientEvent("skinshop:set"..Mode,source)
 	end
 end)
 
@@ -662,7 +662,7 @@ AddEventHandler("skinshop:Remove",function(Mode)
 		local nplayer = vRPclient.nearestPlayer(source,2)
 		if nplayer then
 			if vRP.hasPermission(user_id,"policia.permissao") or vRP.hasPermission(user_id,"paramedico.permissao") then
-				TriggerClientEvent("will_skinshop:set"..Mode,nplayer)
+				TriggerClientEvent("skinshop:set"..Mode,nplayer)
 			end
 		end
 	end
