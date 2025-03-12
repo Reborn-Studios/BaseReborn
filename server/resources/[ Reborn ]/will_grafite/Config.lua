@@ -1,18 +1,31 @@
-local Webhooks = module("Reborn/webhooks")
+local Webhooks = module("Reborn/webhooks") or {}
+
+-----##########################################################-----
+--###          CONFIG
+-----##########################################################-----
 
 Config = {
+
     SPRAY_PERSIST_DAYS = 2,                 -- Duração do spray (dias)
-    
+
+    OPEN_COMMAND = "spray",
+
     PERMISS = nil,                          -- Permissão para usar o comando
 
     WEBHOOK = Webhooks.webhookgrafite,
 
-    NECESSARY = {                           
+    NECESSARY = {
         item = "grafite",                      -- Item necessario para o realizar o spray
         amount = 1,
 
         item_remove = "removedor",               -- Item necessario para o remover o spray
         amount_remove = 1
+    },
+
+    -- Cores: https://docs.fivem.net/docs/game-references/blips/#blip-colors
+    GROUPS_COLOR = {
+        ['Mafia'] = 1,
+        ['Bahamas'] = 17,
     },
 
     Blacklist = {                           -- Palavras proibidas
@@ -38,21 +51,9 @@ Config = {
         BLACKLISTED = 'Esta palavra está proibida.',
         NEED_PERMISS = 'Você não tem permissão.'
     },
-    
+
     Keys = {
         CANCEL = { code = 23 },
-    },
-    Timers = {
-        Piece       = 30, -- seconds
-        Tag         = 10, -- seconds
-        Overwrite   = 30, -- seconds
-    },
-    RenderMax       = 2,    -- requires a gfx ("texture_1") per item in steam folder.
-
-    Scaleforms = {
-        Sharpness = -1.0, -- -1.0 for semi-transparent background, 1.0 for solid black background.
-        Width     = 0.4,  -- effects overall dui frame width.
-        Height    = 0.2,  -- effects overall dui frame height.
     },
 }
 
@@ -120,13 +121,21 @@ FONTS = {
 
 function Notifys(source,message)
     if source == nil then source = source end
-    TriggerClientEvent("Notify",source,"aviso",message)
+    if IsDuplicityVersion() then
+        TriggerClientEvent("Notify",source,"aviso",message,5000)
+    else
+        TriggerEvent("Notify","aviso",message,5000)
+    end
 end
 
 
 --[[
-Usar o evento para deletar o spray:
+-- Usar o evento para deletar o spray:
 
 TriggerClientEvent("will_spray:removeClosestSpray",source)
+
+-- Evento para abrir painel do spray:
+
+TriggerClientEvent('will_spray:spray', source)
 
 ]]
