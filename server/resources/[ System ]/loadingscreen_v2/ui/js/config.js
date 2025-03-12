@@ -62,11 +62,6 @@ Config = {
 
   Musics: [
     {
-      title: "L8 NITE CREEPIN",
-      image: "../musics/music1.png",
-      audio: "../musics/music1.mp3",
-    },
-    {
       title: "Connor Price - Violet",
       image: "../musics/music2.jpg",
       audio: "../musics/music2.mp3",
