@@ -304,10 +304,12 @@ RegisterNetEvent("AdminControl:openGarages")
 AddEventHandler("AdminControl:openGarages",function(garages)
     local values = {}
     for k,v in pairs(garages) do
-        table.insert(values,{
-            label = v.name,
-            value = v.id
-        })
+        if v.name and v.id then
+            table.insert(values,{
+                label = v.name,
+                value = v.id
+            })
+        end
     end
     lib.registerContext({
         id = 'admin_garages_control',
