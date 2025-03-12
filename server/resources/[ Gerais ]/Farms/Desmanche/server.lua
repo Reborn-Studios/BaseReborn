@@ -1,8 +1,8 @@
 Tunnel = module("vrp","lib/Tunnel")
 Proxy = module("vrp","lib/Proxy")
-Webhooks = module("Reborn/webhooks")
 vRP = Proxy.getInterface("vRP")
 vRPclient = Tunnel.getInterface("vRP")
+Webhooks = module("Reborn/webhooks")
 
 Desmanche = {}
 Tunnel.bindInterface("Desmanche", Desmanche)
@@ -55,10 +55,10 @@ function Desmanche.GerarPagamento(placa, nomeFeio, nomeBonito, index)
     local user_id = vRP.getUserId(source)
     local identity = vRP.getUserIdentity(user_id)
 	local puser_id = vRP.getVehiclePlate(placa)
-	if puser_id and puser_id ~= user_id then
+	if puser_id and puser_id ~= user_id then		-- Não é possivel desmanchar veiculo proprio
 		local pagamento = (vRP.vehiclePrice(nomeFeio) or 0) * 0.5 or 50000
 		vRP.giveInventoryItem(user_id,'dollars2',pagamento)
-		for k,v in pairs(Farms.desmanche[index]['Payment']) do
+		for k,v in pairs(Farms.desmanche['Payment']) do
 			vRP.giveInventoryItem(user_id,k,v)
 		end
 		iniciado[index] = false
@@ -74,5 +74,11 @@ function Desmanche.GerarPagamento(placa, nomeFeio, nomeBonito, index)
 		TriggerClientEvent("vrp_sound:source",source,'coin',0.3)
 		TriggerClientEvent('Notify', source, 'sucesso', 'Você recebeu <b>R$'..vRP.format(pagamento)..'</b> pelo desmanche de um <b>'..nomeBonito..' ('.. nomeFeio..' - PLACA [' .. placa .. '])</b>.', 5000)
 		vRP.createWeebHook(Webhooks.hookdesmanche,"```prolog\n[PASSAPORTE]: "..user_id.." \n[NOME]: "..identity.name.." "..identity.name2.." \n[DESMANCHOU]: "..nomeBonito.."  \n[PLACA]: ".. placa .." \n[RECEBEU]: ".. vRP.format(pagamento) .." "..os.date("\n[Data]: %d/%m/%y \n[Hora]: %H:%M:%S").." \r```")
+	elseif not puser_id then			-- Veiculo de NPC
+		for k,v in pairs(Farms.desmanche['Payment']) do
+			vRP.giveInventoryItem(user_id,k,v)
+		end
+		TriggerClientEvent('Notify', source, 'sucesso', 'Você recebeu os materiais pelo desmanche de um <b>'..nomeBonito..' ('.. nomeFeio..' - PLACA [' .. placa .. '])</b>.', 5000)
+		vRP.createWeebHook(Webhooks.hookdesmanche,"```prolog\n[PASSAPORTE]: "..user_id.." \n[NOME]: "..identity.name.." "..identity.name2.." \n[DESMANCHOU VEICULO NPC]: "..nomeBonito.."  \n[PLACA]: ".. placa .." \n[RECEBEU OS ITENS] "..os.date("\n[Data]: %d/%m/%y \n[Hora]: %H:%M:%S").." \r```")
     end
 end

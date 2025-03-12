@@ -206,7 +206,7 @@ function Startthreaddelivery()
 					else
 						DrawText3D(coordsPed.x,coordsPed.y,coordsPed.z,"~g~E~w~   VENDER")
 						if distance <= 2 then
-							if IsControlJustPressed(1,38) and not IsPedInAnyVehicle(ped) and Server.checkAmount() then
+							if IsControlJustPressed(1,38) and not IsPedInAnyVehicle(ped,false) and Server.checkAmount() then
 								timeSelling = 5
 							end
 						end

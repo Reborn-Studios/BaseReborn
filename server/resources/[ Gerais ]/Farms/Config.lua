@@ -11,7 +11,7 @@ Farms.desmanche = {
         LocalFerramentas = { 473.81,-1314.05,29.2,119.06 },                  -- Local onde 'pegará' as ferramentas
         AnuncioChassi = { 472.15,-1310.71,29.22,107.72 },                          -- Onde finalizará a missão para entregar o chassi e receber dinheiro e itens
         Computador = { 472.15,-1310.71,29.22,107.72 },                        -- Local do computador
-        LocalPecas = { 474.78,-1318.03,29.21 },
+        LocalPecas = { 474.78,-1318.03,29.21 },                             -- Local de entrega das peças
         RestritoParaDesmanche = true,                                      -- É restrito para quem tiver só a permissão do desmanche? (TRUE/FALSE)
         PermissaoDesmanche = 'motoclub.permissao',                                   -- Se RestritoParaDesmanche for TRUE, aqui deverá ter a permissão que será verifiada.
 
@@ -32,16 +32,46 @@ Farms.desmanche = {
 --------##########################----------
 
 Farms.cocaina = {
-    locais = {
-        { ['id'] = 1, ['x'] = -1105.13, ['y'] = 4952.35, ['z'] = 218.65, ['text'] = "colocar a cocaína na vasilha", ['perm'] = "Azuis" }, -- Cocaina PASTA
-        { ['id'] = 2, ['x'] = -1106.4, ['y'] = 4951.23, ['z'] = 218.68, ['text'] = "espalhar a cocaína", ['perm'] = "Azuis" }, -- Cocaina PRODUZIR
-        { ['id'] = 3, ['x'] = -1111.81, ['y'] = 4942.2, ['z'] = 218.65, ['text'] = "embalar cocaína", ['perm'] = "Azuis" },
+    [1] = {
+        perm = "Azuis",
+        locais = {
+            -- Cocaina PASTA
+            {
+                ['id'] = 1,
+                ['x'] = -1105.13,
+                ['y'] = 4952.35,
+                ['z'] = 218.65,
+                ['rotation'] = vec3(180.0, 180.0, 60.5),
+                ['sceneCds'] = vec3(-1104.63, 4952.15, 218.00),
+                ['text'] = "colocar a cocaína na vasilha",
+            },
+            -- Cocaina ESPALHAR
+            {
+                ['id'] = 2,
+                ['x'] = -1106.4,
+                ['y'] = 4951.23,
+                ['z'] = 218.68,
+                ['rotation'] = vec3(180.0, 180.0, 240.0),
+                ['sceneCds'] = vec3(-1107.1, 4949.43, 218.03),
+                ['text'] = "espalhar a cocaína",
+            },
+            -- Cocaina EMBALAR
+            {
+                ['id'] = 3,
+                ['x'] = -1111.81,
+                ['y'] = 4942.2,
+                ['z'] = 218.65,
+                ['rotation'] = vec3(180.0, 180.0, 60.5),
+                ['sceneCds'] = vec3(-1106.58, 4947.08, 217.65),
+                ['text'] = "embalar cocaína",
+            },
+        },
+        itens = {
+            [1] = { ['re'] = nil, ['reqtd'] = nil, ['item'] = "cocaempo", ['itemqtd'] = 10 },
+            [2] = { ['re'] = "cocaempo", ['reqtd'] = 10, ['item'] = "pastadecoca", ['itemqtd'] = 10 },
+            [3] = { ['re'] = "pastadecoca", ['reqtd'] = 10, ['item'] = "cocaine", ['itemqtd'] = 20 },
+        }
     },
-    itens = {
-        [1] = { ['re'] = nil, ['reqtd'] = nil, ['item'] = "cocaempo", ['itemqtd'] = 10 },
-        [2] = { ['re'] = "cocaempo", ['reqtd'] = 10, ['item'] = "pastadecoca", ['itemqtd'] = 10 },
-        [3] = { ['re'] = "pastadecoca", ['reqtd'] = 10, ['item'] = "cocaine", ['itemqtd'] = 20 },
-    }
 }
 
 --------##########################----------
@@ -49,15 +79,26 @@ Farms.cocaina = {
 --------##########################----------
 
 Farms.maconha = {
-    locais = { 
-        { ['id'] = 1, ['x'] = 99.78, ['y'] = 6344.38, ['z'] = 31.38, ['text'] = "colher a Sativa", ['perm'] = "Vermelhos" }, 
-        { ['id'] = 2, ['x'] = 101.95, ['y'] = 6353.35, ['z'] = 31.38, ['text'] = "colher a Índica", ['perm'] = "Vermelhos" }, 
-        { ['id'] = 3, ['x'] =  116.47, ['y'] = 6362.53, ['z'] = 32.79, ['text'] = "preparar a bucha", ['perm'] = "Vermelhos" },
-    },
-    itens = {
-        [1] = { ['re'] = nil, ['reqtd'] = nil, ['item'] = "folhademaconha", ['itemqtd'] = 10 },
-        [2] = { ['re'] = "folhademaconha", ['reqtd'] = 10, ['item'] = "maconhamacerada", ['itemqtd'] = 10 },
-        [3] = { ['re'] = "maconhamacerada", ['reqtd'] = 10, ['item'] = "weed", ['itemqtd'] = 20 },
+    [1] = {
+        perm = "Vermelhos",
+        locais = {
+            { ['id'] = 1, ['x'] = 99.78, ['y'] = 6344.38, ['z'] = 31.38, ['text'] = "colher a Sativa" },
+            { ['id'] = 2, ['x'] = 101.95, ['y'] = 6353.35, ['z'] = 31.38, ['text'] = "colher a Índica" },
+            {
+                ['id'] = 3,
+                ['x'] =  116.47,
+                ['y'] = 6362.53,
+                ['z'] = 32.79,
+                ['rotation'] = vec3(180.0, 180.0, 300.0),
+                ['sceneCds'] = vec3(117.24, 6363.01, 31.32),
+                ['text'] = "preparar a bucha",
+            },
+        },
+        itens = {
+            [1] = { ['re'] = nil, ['reqtd'] = nil, ['item'] = "folhademaconha", ['itemqtd'] = 10 },
+            [2] = { ['re'] = "folhademaconha", ['reqtd'] = 10, ['item'] = "maconhamacerada", ['itemqtd'] = 10 },
+            [3] = { ['re'] = "maconhamacerada", ['reqtd'] = 10, ['item'] = "weed", ['itemqtd'] = 20 },
+        }
     }
 }
 
@@ -66,15 +107,42 @@ Farms.maconha = {
 --------##########################----------
 
 Farms.meta = {
-    locais = {
-        { ['id'] = 1, ['x'] = 1493.17, ['y'] = 6390.24, ['z'] = 21.26, ['text'] = "colocar os ingredientes", ['perm'] = "Verdes" },
-        { ['id'] = 2, ['x'] = 1504.89, ['y'] = 6393.25, ['z'] = 20.79, ['text'] = "quebrar metanfetamina", ['perm'] = "Verdes" }, 
-        { ['id'] = 3, ['x'] = 1500.67, ['y'] = 6394.03, ['z'] = 20.79, ['text'] = "embalar metanfetamina", ['perm'] = "Verdes" },
-    },
-    itens = {
-        [1] = { ['re'] = nil, ['reqtd'] = nil, ['item'] = "acidobateria", ['itemqtd'] = 10 },
-        [2] = { ['re'] = "acidobateria", ['reqtd'] = 10, ['item'] = "methliquid", ['itemqtd'] = 10 },
-        [3] = { ['re'] = "methliquid", ['reqtd'] = 10, ['item'] = "meth", ['itemqtd'] = 20 },
+    [1] = {
+        perm = "Verdes",
+        locais = {
+            {
+                ['id'] = 1,
+                ['x'] = 1493.17,
+                ['y'] = 6390.24,
+                ['z'] = 21.26,
+                ['rotation'] = vec3(180.0, 180.0, 180.0),
+                ['sceneCds'] = vec3(1498.17, 6392.24, 20.86),
+                ['text'] = "colocar os ingredientes",
+            },
+            {
+                ['id'] = 2,
+                ['x'] = 1504.89,
+                ['y'] = 6393.25,
+                ['z'] = 20.79,
+                ['rotation'] = vec3(180.0, 180.0, 168.0),
+                ['sceneCds'] = vec3(1501.29, 6392.25, 19.79),
+                ['text'] = "quebrar metanfetamina",
+            },
+            {
+                ['id'] = 3,
+                ['x'] = 1500.67,
+                ['y'] = 6394.03,
+                ['z'] = 20.79,
+                ['rotation'] = vec3(180.0, 180.0, 168.0),
+                ['sceneCds'] = vec3(1495.37, 6393.63, 19.79),
+                ['text'] = "embalar metanfetamina",
+            },
+        },
+        itens = {
+            [1] = { ['re'] = nil, ['reqtd'] = nil, ['item'] = "acidobateria", ['itemqtd'] = 10 },
+            [2] = { ['re'] = "acidobateria", ['reqtd'] = 10, ['item'] = "methliquid", ['itemqtd'] = 10 },
+            [3] = { ['re'] = "methliquid", ['reqtd'] = 10, ['item'] = "meth", ['itemqtd'] = 20 },
+        }
     }
 }
 
@@ -102,25 +170,6 @@ Farms.lavagem = {
             porcentagem = 90,
         }
     },
-    --[[ [2] = {
-        perm = "cassino.permissao",
-        locais = {
-            [1] = vector3(459.37,3260.87,37.62),
-            [2] = vector3(458.2,3262.47,37.62),
-            [3] = vector3(450.54,3268.69,38.26),
-            [4] = vector3(454.93,3269.07,37.62),
-            [5] = vector3(461.09,3266.74,38.09),
-        },
-        offset = {
-            [1] = { rot = vector3(0, 0, 144), coords = vector3(-1.34, 1.11, 0.42) },
-            [2] = { rot = vector3(0.0, 0.0, -36.8), coords = vector3(0.33, 0.71, -1.1) }
-        },
-        dinheiro_sujo = {
-            min_money = 10000,
-            max_money = 1000000,
-            porcentagem = 90,
-        }
-    } ]]
 }
 
 

@@ -59,7 +59,7 @@ CreateThread(function()
                                         else
                                             nomeCarro = vRP.getModelName(veh)
                                         end
-                                        modeloCarro = GlobalState['VehicleGlobal'][nomeCarro] and GlobalState['VehicleGlobal'][nomeCarro].name or nomeCarro
+                                        modeloCarro = GlobalState['VehicleGlobal'] and GlobalState['VehicleGlobal'][nomeCarro] and GlobalState['VehicleGlobal'][nomeCarro].name or nomeCarro
                                         if VehPermitido then
                                             if nomeCarro then
                                                 if DesmancheServer.CheckItem(index) then
@@ -74,6 +74,7 @@ CreateThread(function()
                                                     SetVehicleDoorsLocked(veh, 4)
                                                 else
                                                     TriggerEvent('Notify', 'negado', 'Você necessita de um <b>'..Farms.desmanche.ItemNecessario..'</b> para iniciar o serviço.', 6000)
+                                                    DesmancheServer.backIniciado(index)
                                                 end
                                             else
                                                 TriggerEvent('Notify', 'negado', 'Esse veículo não pode ser desmanchado.', 6000)
@@ -87,6 +88,7 @@ CreateThread(function()
                                         end
                                     else
                                         TriggerEvent('Notify', 'negado', 'Não há nenhum carro próximo para ser desmanchado.', 4000)
+                                        DesmancheServer.backIniciado(index)
                                     end
                                 else
                                     TriggerEvent('Notify', 'negado', 'Você não tem permissao para fazer isso.', 4000)
@@ -260,7 +262,7 @@ CreateThread(function()
                 if index then
                     DesmancheServer.backIniciado(index)
                 end
-                etapa = 0 
+                etapa = 0
                 PosVeh = {}
                 PecasRemovidas = {}
                 qtdPecasRemovidas = 0
