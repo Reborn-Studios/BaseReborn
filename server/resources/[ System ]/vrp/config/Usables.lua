@@ -1486,6 +1486,10 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 		exports['will_grafite']:OpenGrafite(source)
 	end
 
+	if itemName == "drugtable" then
+		TriggerClientEvent("will_drugsales:useTable", source, "prop_protest_table_01")
+	end
+
 	Player(source)["state"]["Commands"] = false
 end)
 

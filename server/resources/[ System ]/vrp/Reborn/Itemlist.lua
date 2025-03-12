@@ -1396,6 +1396,13 @@ local weapons = {
 		description = "Empunhadura para armas pequenas e grandes",
 		weight = 1.0
 	},
+	["drugtable"] = {
+		index = "drugtable",
+		name = "Mesa de drogas",
+		type = "use",
+		weight = 5.0,
+		description = "Mesa para venda de drogas"
+	},
 }
 
 CreateThread(function()
