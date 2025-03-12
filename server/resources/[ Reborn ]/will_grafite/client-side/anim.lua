@@ -1,6 +1,24 @@
-textSpray = "REBORN"
+TEXT_SPRAY = "REBORN"
 local cancelado = false
 local last_hp = nil
+local SprayBlips = {}
+
+function AddBlip(index,x,y,z,group)
+    if index and Config.GROUPS_COLOR[group] then
+        if SprayBlips[index] and DoesBlipExist(SprayBlips[index]) then
+            RemoveBlip(SprayBlips[index])
+            SprayBlips[index] = nil
+        end
+        local color = Config.GROUPS_COLOR[group] or 0
+        SprayBlips[index] = AddBlipForRadius(x, y, z, 25.0)
+        SetBlipColour(SprayBlips[index],color)
+        SetBlipAsShortRange(SprayBlips[index],true)
+
+        BeginTextCommandSetBlipName("STRING")
+        AddTextComponentString('Grafite - '..group)
+        EndTextCommandSetBlipName(SprayBlips[index])
+    end
+end
 
 function StartAnim(time, animDict, animName, flag, finish, cancel, opts)
     cancelado = false
@@ -9,14 +27,14 @@ function StartAnim(time, animDict, animName, flag, finish, cancel, opts)
     if animDict then
         while (not HasAnimDictLoaded(animDict)) do
             RequestAnimDict(animDict)
-            Citizen.Wait(100)
+            Wait(100)
         end
         TaskPlayAnim(ped, animDict, animName, opts.speedIn or 1.0, opts.speedOut or 1.0, -1, flag, 0, 0, 0, 0 )
     end
     last_hp = GetEntityHealth(ped)
     local timeLeft = time
     while true do
-        Citizen.Wait(4)
+        Wait(4)
         timeLeft = timeLeft - (GetFrameTime() * 1000)
         if timeLeft <= 0 then
             break

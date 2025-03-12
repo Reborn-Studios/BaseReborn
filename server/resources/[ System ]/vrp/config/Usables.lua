@@ -508,9 +508,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 	end
 
 	if itemName == "removedor" then
-		if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
-			TriggerClientEvent("will_spray:removeClosestSpray",source)
-		end
+		TriggerClientEvent("will_spray:removeClosestSpray",source)
 	end
 
 	if itemName == "GADGET_PARACHUTE" or itemName == "parachute" then
@@ -1485,7 +1483,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 	end
 
 	if itemName == "grafite" then
-		TriggerClientEvent('will_spray:spray', source)
+		exports['will_grafite']:OpenGrafite(source)
 	end
 
 	Player(source)["state"]["Commands"] = false
