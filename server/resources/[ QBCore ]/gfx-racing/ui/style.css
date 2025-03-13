@@ -1,0 +1,80 @@
+.vectortextside-active .race-reward-contain {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  bottom: 4.6vh;
+  gap: 0.4vh;
+  position: absolute;
+  width: -moz-fit-content;
+  width: fit-content;
+  height: 2.5vh;
+  right: 2.2vh;
+  padding-left: 0.5vh;
+  padding-right: 0.5vh;
+  background: #FE3968;
+  border-radius: 1px;
+}
+.vectortextside-active .race-reward-contain img {
+  width: 1.5vh;
+  -o-object-fit: scale-down;
+     object-fit: scale-down;
+}
+.vectortextside-active .race-reward-contain p {
+  font-family: "Gilroy";
+  font-style: normal;
+  font-weight: 800;
+  font-size: 0.9vh;
+  letter-spacing: 0.11em;
+  color: #FFFFFF;
+}
+.vectortextside-active .vectorfield-contain {
+  display: flex;
+  flex-direction: row;
+}
+.vectortextside-active .vectorfield-contain .vectorfiled img {
+  width: 4vh !important;
+}
+.vectortextside-active .vectorfield-contain .vectortextside {
+  top: 50% !important;
+  transform: translateY(-50%);
+  background: #FE3968 !important;
+  border: 1.31169px solid #341719 !important;
+  border-radius: 1px !important;
+}
+.vectortextside-active .racejoin-way {
+  position: absolute;
+  top: 4vh;
+  left: 10vh;
+  width: 15vh;
+  height: 15vh;
+  background-image: url(images/vectorforracejoin.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.vectortextside-active .racejoin-way .racejoin-way-join {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding-left: 2vh;
+  padding-right: 2vh;
+  right: -2vh;
+  bottom: 0vh;
+  height: 3vh;
+  background: rgba(254, 57, 104, 0.99);
+  border: 1px solid #812234;
+  box-shadow: 0px 0px 16px #C72F4D;
+}
+.vectortextside-active .racejoin-way .racejoin-way-join p {
+  position: relative;
+  font-family: "Gilroy";
+  font-style: normal;
+  font-weight: 800;
+  font-size: 10.6163px;
+  line-height: 13px;
+  /* identical to box height */
+  color: #FFFFFF;
+  text-shadow: 0px 0px 9px rgba(0, 0, 0, 0.15);
+}/*# sourceMappingURL=style.css.map */

@@ -1,0 +1,1884 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>GTA V MAP</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="docs/images/favicon.ico"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+      integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+      crossorigin=""
+    />
+    <script
+      src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+      integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+      crossorigin=""
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+  </head>
+  <style>
+    @font-face {
+      font-family: Proxima Nova;
+      src: url("fonts/proxima_nova.otf");
+    }
+
+    @font-face {
+      font-family: "gilroy";
+      src: url("fonts/gilroy.otf");
+    }
+
+    @font-face {
+      font-family: "gilroyLight";
+      src: url("fonts/Gilroy-Light.otf");
+    }
+
+    @font-face {
+      font-family: "Opinion Pro Cn";
+      src: url("fonts/opinionpro.otf");
+    }
+
+    @font-face {
+      font-family: "JoyrideALT";
+      src: url("fonts/JoyrideALT.otf");
+    }
+
+    @font-face {
+      font-family: "JoyrideEXT";
+      src: url("fonts/JoyrideEXT.otf");
+    }
+
+    @font-face {
+      font-family: "JoyrideSTD";
+      src: url("fonts/JoyrideSTD.otf");
+    }
+
+    @font-face {
+      font-family: "JoyrideWIDE";
+      src: url("fonts/JoyrideWIDE.otf");
+    }
+
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    ::-webkit-calendar-picker-indicator {
+      filter: invert(31%) sepia(83%) saturate(2257%) hue-rotate(326deg)
+        brightness(102%) contrast(99%);
+    }
+
+    html {
+      background: transparent !important;
+    }
+
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .box {
+      position: absolute;
+      top: 0;
+      z-index: 9999;
+      text-align: center;
+      width: 150px;
+      left: 50%;
+      margin-left: -75px;
+      /* half of the width */
+      background-color: red;
+    }
+
+    #map {
+      height: 95%;
+      width: 95%;
+      border-radius: 0.4vw;
+      z-index: 1;
+    }
+
+    .bottommap {
+      position: absolute;
+      bottom: 0;
+      height: 20%;
+      width: 100%;
+      border-top-left-radius: 0.3vw;
+      border-top-right-radius: 0.3vw;
+      z-index: 9999;
+      background: rgba(0, 0, 0, 0.452);
+    }
+
+    #descriptionmap {
+      position: absolute;
+      bottom: 2vh;
+      left: 2vh;
+      z-index: 9999;
+      width: 30%;
+      height: 10%;
+      background: #101112a5;
+      border-top-right-radius: 5px;
+      border-bottom-right-radius: 5px;
+      border-left: 5px solid #fe3968;
+    }
+
+    #desc-side-map {
+      position: absolute;
+      bottom: 2vh;
+      right: 2vh;
+      z-index: 9999;
+      width: 20%;
+      height: 10%;
+      background: #10111246;
+    }
+
+    #desc-side-remaining {
+      position: absolute;
+      bottom: 8.5vh;
+      right: 2vh;
+      z-index: 9999;
+      width: 10%;
+      height: 7%;
+    }
+
+    * {
+      user-select: none;
+      scroll-behavior: smooth;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    ::-webkit-scrollbar {
+      display: none;
+    }
+
+    .topnav-PlayerName {
+      color: #d3d3d3;
+      font-size: 3vh;
+      font-family: Proxima Nova;
+    }
+
+    .topnav-desc {
+      color: #a7a7a7;
+      font-size: 1.5vh;
+      font-family: Proxima Nova;
+    }
+
+    .borderright {
+      border-right: 1px solid #cdcdcd;
+    }
+
+    strong {
+      color: #c0c0c0;
+      font-family: Proxima Nova;
+      font-size: 1.7vh;
+    }
+
+    h1 {
+      color: gray;
+      font-family: Proxima Nova;
+      font-size: 1.5vh;
+    }
+
+    .playermoney {
+      color: white;
+      font-family: Proxima Nova;
+      font-size: 2.5vh;
+    }
+
+    p {
+      font-size: 2.3vh;
+      font-family: Proxima Nova;
+      color: #b8b8b8;
+      font-weight: 650;
+    }
+
+    .selectedMain {
+      background: linear-gradient(91.87deg, #fe3968 1.49%, #e1365f 96.38%);
+    }
+
+    .selectedMain > p {
+      color: white;
+    }
+
+    .itemlist {
+      transition: all 0.5s ease-in-out;
+    }
+
+    .itemlist:hover > p {
+      color: white;
+    }
+
+    .itemlist:hover {
+      background: linear-gradient(91.87deg, #fe3968 1.49%, #e1365f 96.38%);
+    }
+
+    .selectedMain .activeraces {
+      font-style: normal;
+      font-weight: 700;
+      font-size: 17.0926px;
+      line-height: 20px;
+      font-family: Proxima Nova;
+      letter-spacing: 0.11em;
+
+      color: #ffffff;
+    }
+
+    .race-title {
+      font-family: Proxima Nova;
+      font-style: normal;
+      font-weight: 700;
+      font-size: 1vh;
+      line-height: 11px;
+      letter-spacing: 0.11em;
+      color: #808080;
+    }
+
+    .race-name {
+      font-family: "Opinion Pro Cn";
+      font-style: normal;
+      font-weight: 700;
+      font-size: 2.2vh;
+      letter-spacing: 0.11em;
+      color: #d3d3d3;
+    }
+
+    .race-time {
+      font-family: Proxima Nova;
+      font-style: normal;
+      font-weight: 700;
+      font-size: 1vh;
+      line-height: 11px;
+      letter-spacing: 0.11em;
+      color: #808080;
+    }
+
+    .race-time p {
+      color: rgb(212, 206, 206);
+      font-family: Proxima Nova;
+      font-style: normal;
+      font-weight: 700;
+      font-size: 1vh;
+      line-height: 11px;
+      letter-spacing: 0.11em;
+    }
+
+    .history-race-title {
+      font-family: Proxima Nova;
+      font-style: normal;
+      font-weight: 700;
+      font-size: 1vh;
+      line-height: 11px;
+      letter-spacing: 0.11em;
+      color: #a64159;
+    }
+
+    .history-race-name {
+      font-family: "Opinion Pro Cn";
+      font-style: normal;
+      font-weight: 700;
+      font-size: 2.2vh;
+      letter-spacing: 0.11em;
+      color: #d3d3d3;
+    }
+
+    .history-race-time {
+      font-family: Proxima Nova;
+      font-style: normal;
+      font-weight: 700;
+      font-size: 1vh;
+      line-height: 11px;
+      letter-spacing: 0.11em;
+      color: #a64159;
+    }
+
+    .history-race-time p {
+      color: #b9b7b7;
+      font-family: Proxima Nova;
+      font-style: normal;
+      font-weight: 700;
+      font-size: 1vh;
+      line-height: 11px;
+      letter-spacing: 0.11em;
+    }
+
+    .playerRaceRank {
+      color: white;
+      font-size: 2vh;
+    }
+
+    .playerRaceRank span {
+      font-size: 1vh;
+    }
+
+    .history-empty-text {
+      font-family: "Opinion Pro Cn";
+      font-style: normal;
+      font-weight: 700;
+      font-size: 1.9vh;
+      letter-spacing: 0.11em;
+      color: rgba(255, 255, 255, 0.49);
+    }
+
+    .topracers {
+      background: rgba(217, 217, 217, 0.04);
+      border: 0.701439px solid #3f3f3f;
+      backdrop-filter: blur(8.41727px);
+    }
+
+    .topracers-indextext {
+      font-family: "Opinion Pro Cn";
+      font-style: normal;
+      font-weight: 700;
+      font-size: 11.5714px;
+      letter-spacing: 0.11em;
+      font-size: 1.3vh;
+      color: #bababa;
+    }
+
+    .borderright-topracers {
+      border-right: 1px solid rgb(87, 86, 86);
+    }
+
+    .rankdiv {
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 28% 100%);
+      color: #ffdee6;
+      font-size: 1.9vh;
+      background: #fe3968;
+      font-family: "Opinion Pro Cn";
+    }
+
+    .ranking-index-div {
+      background: #fe3968;
+    }
+
+    .ranking-playerinfo-playername {
+      font-family: "Opinion Pro Cn";
+      font-style: normal;
+      font-weight: 700;
+      font-size: 1.3vh;
+      letter-spacing: 0.11em;
+      color: #ffffff;
+    }
+
+    .ranking-playerinfo-playerwinvalue {
+      font-family: "Opinion Pro Cn";
+      font-style: normal;
+      font-weight: 700;
+      font-size: 1.5vh;
+      letter-spacing: 0.11em;
+      color: #ffffff;
+    }
+
+    .nottop5 {
+      background: #424242 !important;
+    }
+
+    .playername {
+      font-family: "gilroy";
+      font-style: normal;
+      font-weight: 600;
+      font-size: 2.5vh;
+      color: #d3d3d3;
+    }
+
+    .desc {
+      font-family: Proxima Nova;
+      font-size: 1.2vh;
+      font-style: normal;
+      font-weight: 300;
+      font-size: 1vh;
+      color: #a7a7a7;
+    }
+
+    #circle {
+      object-fit: cover;
+    }
+
+    .pink {
+      font-family: "gilroy";
+      font-style: normal;
+      font-weight: 800;
+      font-size: 1vh;
+      color: #dc355d;
+    }
+
+    .player-statictics:hover {
+      background: #2e2f30;
+    }
+
+    .createracetext {
+      font-family: "Gilroy";
+      font-style: normal;
+      font-weight: 800;
+      font-size: 1.2vh;
+      /* identical to box height */
+
+      letter-spacing: 0.11em;
+
+      color: #878687;
+    }
+
+    .createrace {
+      background: #4e4d4e;
+    }
+
+    .createrace:hover {
+      background: #dc355d;
+    }
+
+    .createrace:hover > p {
+      color: white;
+    }
+
+    .leavebtn {
+      filter: drop-shadow(0px 0px 27.2256px rgba(226, 73, 110, 0.6));
+      color: white;
+      font-family: "Gilroy";
+      font-style: normal;
+      font-weight: 600;
+      font-size: 1.3vh;
+      text-align: center;
+      letter-spacing: 0.185em;
+      color: #ffcfdb;
+      transition: 0.2s color;
+      background: #dc355d;
+      border-radius: 0.2vw;
+    }
+
+    .leavebtn:hover {
+      background: rgba(141, 55, 76, 0.6);
+    }
+
+    .createracebutton {
+      background-color: #e2345d;
+      filter: drop-shadow(0px 0px 27.2256px rgba(226, 73, 110, 0.6));
+      color: white;
+      font-family: "Gilroy";
+      font-style: normal;
+      font-weight: 800;
+      font-size: 2.3vh;
+      text-align: center;
+      letter-spacing: 0.185em;
+      color: #ffcfdb;
+      border-radius: 0.2vw;
+      transition: 0.2s color;
+    }
+
+    .createracebutton:hover {
+      color: white;
+    }
+
+    .createracetitle {
+      font-family: JoyrideWIDE;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 2.8vh;
+      text-align: center;
+
+      color: #ffffff;
+    }
+
+    .createracedesc {
+      font-family: "gilroyLight";
+      font-style: normal;
+
+      font-weight: 300;
+      font-size: 1.8vh;
+
+      color: rgba(255, 255, 255, 0.55);
+    }
+
+    .playerlength {
+      font-family: "Gilroy";
+      font-style: normal;
+      font-weight: 800;
+      font-size: 1.2vh;
+      line-height: 12px;
+      color: #fe4370;
+      text-shadow: 0px 0px 35px rgba(255, 255, 255, 0.45);
+    }
+
+    .input-desc {
+      font-family: "Gilroy";
+      font-style: normal;
+      font-weight: 800;
+      font-size: 1vh;
+      line-height: 12px;
+      color: rgb(213, 213, 213);
+      text-shadow: 0px 0px 35px rgba(255, 255, 255, 0.45);
+    }
+
+    input[type="range"] {
+      color: #ef233c;
+      --thumb-height: 1.125em;
+      --track-height: 0.125em;
+      --track-color: rgba(0, 0, 0, 0.2);
+      --brightness-hover: 110%;
+      --brightness-down: 80%;
+      --clip-edges: 0.125em;
+    }
+
+    input[type="range"].win10-thumb {
+      color: #fe3968;
+
+      --thumb-height: 1.375em;
+      --thumb-width: 1vh;
+      --clip-edges: 0.0125em;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      html {
+        background-color: #000;
+      }
+
+      html::before {
+        background: radial-gradient(circle at center, #101112, #000);
+      }
+
+      input[type="range"] {
+        color: #fe3968;
+        --track-color: #fe3968;
+      }
+
+      input[type="range"].win10-thumb {
+        color: #3a86ff;
+      }
+    }
+
+    /* === range commons === */
+    input[type="range"] {
+      position: relative;
+      background: #fff0;
+      overflow: hidden;
+    }
+
+    input[type="range"]:disabled {
+      filter: grayscale(1);
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    /* === WebKit specific styles === */
+    input[type="range"],
+    input[type="range"]::-webkit-slider-runnable-track,
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      transition: all ease 100ms;
+      height: var(--thumb-height);
+    }
+
+    input[type="range"]::-webkit-slider-runnable-track,
+    input[type="range"]::-webkit-slider-thumb {
+      position: relative;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      --thumb-radius: calc((var(--thumb-height) * 0.5) - 1px);
+      --clip-top: calc(
+        (var(--thumb-height) - var(--track-height)) * 0.5 - 0.5px
+      );
+      --clip-bottom: calc(var(--thumb-height) - var(--clip-top));
+      --clip-further: calc(100% + 1px);
+      --box-fill: calc(-100vmax - var(--thumb-width, var(--thumb-height))) 0 0
+        100vmax currentColor;
+
+      width: var(--thumb-width, var(--thumb-height));
+      background: linear-gradient(currentColor 0 0) scroll no-repeat left center /
+        50% calc(var(--track-height) + 1px);
+      background-color: currentColor;
+      box-shadow: var(--box-fill);
+      border-radius: var(--thumb-width, var(--thumb-height));
+
+      filter: brightness(100%);
+      clip-path: polygon(
+        100% -1px,
+        var(--clip-edges) -1px,
+        0 var(--clip-top),
+        -100vmax var(--clip-top),
+        -100vmax var(--clip-bottom),
+        0 var(--clip-bottom),
+        var(--clip-edges) 100%,
+        var(--clip-further) var(--clip-further)
+      );
+    }
+
+    input[type="range"]:hover::-webkit-slider-thumb {
+      filter: brightness(var(--brightness-hover));
+    }
+
+    input[type="range"]:active::-webkit-slider-thumb {
+      filter: brightness(var(--brightness-down));
+    }
+
+    input[type="range"]::-webkit-slider-runnable-track {
+      background: linear-gradient(var(--track-color) 0 0) scroll no-repeat
+        center / 100% calc(var(--track-height) + 1px);
+    }
+
+    input[type="range"]:disabled::-webkit-slider-thumb {
+      cursor: not-allowed;
+    }
+
+    /* === Firefox specific styles === */
+    input[type="range"],
+    input[type="range"]::-moz-range-track,
+    input[type="range"]::-moz-range-thumb {
+      appearance: none;
+      transition: all ease 100ms;
+      height: var(--thumb-height);
+    }
+
+    input[type="range"]::-moz-range-track,
+    input[type="range"]::-moz-range-thumb,
+    input[type="range"]::-moz-range-progress {
+      background: #fff0;
+    }
+
+    input[type="range"]::-moz-range-thumb {
+      background: currentColor;
+      border: 0;
+      width: var(--thumb-width, var(--thumb-height));
+    }
+
+    input[type="range"]::-moz-range-track {
+      width: 100%;
+      background: var(--track-color);
+    }
+
+    input[type="range"]::-moz-range-progress {
+      appearance: none;
+      background: currentColor;
+      transition-delay: 30ms;
+    }
+
+    input[type="range"]::-moz-range-track,
+    input[type="range"]::-moz-range-thumb,
+    input[type="range"]::-moz-range-progress {
+      filter: brightness(100%);
+    }
+
+    input[type="range"]:hover::-moz-range-thumb,
+    input[type="range"]:hover::-moz-range-progress {
+      filter: brightness(var(--brightness-hover));
+    }
+
+    input[type="range"]:active::-moz-range-thumb,
+    input[type="range"]:active::-moz-range-progress {
+      filter: brightness(var(--brightness-down));
+    }
+
+    input[type="range"]:disabled::-moz-range-thumb {
+      cursor: not-allowed;
+    }
+
+    .counter {
+      font-size: 3vh;
+      color: white;
+    }
+
+    .leaderboard-rank {
+      font-family: "Joyride";
+      font-style: italic;
+      font-weight: 400;
+      font-size: 1.5vh;
+      line-height: 17px;
+      text-align: center;
+
+      color: #ffffff;
+
+      opacity: 0.45;
+    }
+
+    .leaderboard-rank-user {
+      font-family: "Joyride";
+      font-style: italic;
+      font-weight: 400;
+      font-size: 1.5vh;
+      line-height: 17px;
+      text-align: center;
+      color: #fd3a69;
+
+      text-shadow: 0px 0px 10px #fd3a69;
+    }
+
+    .leaderboard-rank-top {
+      font-family: "JoyrideWIDE";
+      font-style: normal;
+      font-weight: 600;
+      font-size: 3.6vh;
+      line-height: 62px;
+      /* identical to box height */
+
+      color: #ffffff;
+    }
+
+    .leaderboard-rank-users {
+      font-family: "Joyride";
+      font-style: normal;
+      font-weight: 600;
+      font-size: 1.9vh;
+      /* identical to box height */
+
+      color: #ffffff;
+    }
+
+    .leaderboardprocces {
+      font-family: "JoyrideWIDE";
+      font-style: normal;
+      font-weight: 600;
+      font-size: 3.6vh;
+      color: #ffffff;
+    }
+
+    .leaderboardtimeest {
+      font-family: "JoyrideWIDE";
+      font-style: normal;
+      font-weight: 800;
+      font-size: 1.6vh;
+      /* identical to box height */
+
+      color: #262626;
+    }
+
+    .leaderboardtimeestlap {
+      font-family: "JoyrideWIDE";
+      font-style: normal;
+      font-weight: 600;
+      font-size: 1.4vh;
+
+      color: #ffffff;
+    }
+
+    .leadimg {
+      overflow: hidden;
+    }
+
+    .leadimg img {
+      width: 100%;
+      height: 100%;
+    }
+
+    .notificationcontainer p {
+      color: #fd3a69;
+      font-family: "Joyride";
+      font-size: 1vh;
+      font-weight: 500;
+    }
+
+    .showfirstpick {
+      z-index: 9999;
+      width: 8vw;
+      height: 5vh;
+    }
+
+    .vectorfiled {
+    }
+
+    .vectorfiled img {
+      width: 3vh;
+    }
+
+    .vectortextside {
+      position: absolute;
+      left: 1.9vh;
+      background: #585858;
+      width: 10vh;
+      height: 3vh;
+      padding-left: 2.4vh;
+      padding-right: 2.2vh;
+      display: flex;
+      align-items: center;
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 8% 31%);
+      z-index: -1;
+    }
+
+    .vectortextside p {
+      font-family: "Opinion Pro Cn" !important;
+      color: white;
+      font-size: 1.6vh;
+    }
+    .delet {
+      font-size: 1.9vh;
+      color: #808080;
+    }
+    .delet:hover {
+      color: #fd3a69;
+    }
+  </style>
+
+  <body>
+    <div
+      class="w-screen h-[25%] absolute justify-center items-end flex notifmain"
+      style="display: none"
+    >
+      <div class="w-[100%] h-fit flex flex-col justify-center items-end">
+        <div
+          class="w-[40vh] h-full overflow-auto notificationbg relative"
+        ></div>
+      </div>
+    </div>
+    <div
+      class="countdowndiv w-screen h-screen flex justify-center"
+      style="display: none"
+    >
+      <div class="w-[30%] h-[20%] mt-5 flex justify-center items-center">
+        <p class="counter">3</p>
+      </div>
+    </div>
+    <div
+      class="flex w-screen h-screen items-center flex-col leaderboardpage"
+      style="display: none"
+    >
+      <div class="w-[95%] h-[15%] flex justify-between items-end mt-5">
+        <div class="w-[20%] h-[40%] text-white flex items-center gap-2">
+          <p class="leaderboard-rank-top">04</p>
+          <div
+            class="w-[0.4vh] h-[7.5vh]"
+            style="transform: rotate(15.15deg); background: #ffffff"
+          ></div>
+          <p
+            style="font-family: 'JoyrideWIDE'"
+            class="self-start ml-1 leaderboard-rank-users"
+          >
+            05
+          </p>
+        </div>
+        <div class="w-[20%] h-full flex flex-col">
+          <div
+            class="w-full h-1/3 flex items-center justify-end leaderboardprocces"
+          >
+            99%
+          </div>
+          <div
+            class="w-full h-1/3 text-white flex items-center justify-end text-3xl"
+          >
+            <div
+              class="w-[40%] h-[60%] flex items-center justify-center bg-[#ECECEC] text-[1.8vh]"
+            >
+              <p class="leaderboardtimeest">05:47.55</p>
+            </div>
+          </div>
+          <div class="w-full h-1/3 flex justify-end leaderboardtimeestlap">
+            LAP 1/2
+          </div>
+        </div>
+      </div>
+      <div class="w-[95%] h-[40%] flex mt-4">
+        <div class="w-[18%] h-[70%] playerlistleaderboard">
+          <div class="w-full h-1/5 flex justify-center items-center gap-3">
+            <div
+              class="w-[20%] h-full flex justify-center items-center text-white"
+            >
+              <p class="leaderboard-rank">01</p>
+            </div>
+            <div
+              class="w-full h-[80%] flex gap-1 items-center"
+              style="border: 0.1vh solid rgb(155, 155, 155); border-radius: 5px"
+            >
+              <div class="w-[0.1vh] h-[80%] bg-white"></div>
+              <div
+                class="w-[22.5%] h-full object-scale-down ml-2 bg-[url(./images/user-default.png)] bg-center bg-cover bg-no-repeat"
+                style="clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%)"
+              ></div>
+              <p class="text-[1.5vh] w-[50%] h-full flex items-center">
+                Fizzfau
+              </p>
+              <p
+                class="text-[1.3vh] w-[20%] h-full flex items-center justify-center"
+              >
+                13km
+              </p>
+            </div>
+          </div>
+          <div class="w-full h-1/5 flex justify-center items-center gap-3">
+            <div
+              class="w-[20%] h-full flex justify-center items-center text-white"
+            >
+              <p class="leaderboard-rank">02</p>
+            </div>
+            <div
+              class="w-full h-[80%] flex gap-1 items-center"
+              style="border: 0.1vh solid rgb(155, 155, 155); border-radius: 5px"
+            >
+              <div class="w-[0.1vh] h-[80%] bg-white"></div>
+              <div
+                class="w-[22.5%] h-full object-scale-down ml-2 bg-[url(./images/user-default.png)] bg-center bg-cover bg-no-repeat"
+                style="clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%)"
+              ></div>
+              <p class="text-[1.5vh] w-[50%] h-full flex items-center">
+                Fizzfau
+              </p>
+              <p
+                class="text-[1.3vh] w-[20%] h-full flex items-center justify-center"
+              >
+                13km
+              </p>
+            </div>
+          </div>
+          <div class="w-full h-1/5 flex justify-center items-center gap-3">
+            <div
+              class="w-[20%] h-full flex justify-center items-center text-white"
+            >
+              <p class="leaderboard-rank">03</p>
+            </div>
+            <div
+              class="w-full h-[80%] flex gap-1 items-center"
+              style="border: 0.1vh solid rgb(155, 155, 155); border-radius: 5px"
+            >
+              <div class="w-[0.1vh] h-[80%] bg-white"></div>
+              <div
+                class="w-[22.5%] h-full object-scale-down ml-2 bg-[url(./images/user-default.png)] bg-center bg-cover bg-no-repeat"
+                style="clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%)"
+              ></div>
+              <p class="text-[1.5vh] w-[50%] h-full flex items-center">
+                Fizzfau
+              </p>
+              <p
+                class="text-[1.3vh] w-[20%] h-full flex items-center justify-center"
+              >
+                13km
+              </p>
+            </div>
+          </div>
+          <div class="w-full h-1/5 flex justify-center items-center gap-3">
+            <div
+              class="w-[20%] h-full flex justify-center items-center text-white"
+            >
+              <p class="leaderboard-rank">04</p>
+            </div>
+            <div
+              class="w-full h-[80%] flex gap-1 items-center"
+              style="border: 0.1vh solid rgb(155, 155, 155); border-radius: 5px"
+            >
+              <div class="w-[0.1vh] h-[80%] bg-white"></div>
+              <div
+                class="w-[22.5%] h-full object-scale-down ml-2 bg-[url(./images/user-default.png)] bg-center bg-cover bg-no-repeat"
+                style="clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%)"
+              ></div>
+              <p class="text-[1.5vh] w-[50%] h-full flex items-center">
+                Fizzfau
+              </p>
+              <p
+                class="text-[1.3vh] w-[20%] h-full flex items-center justify-center"
+              >
+                13km
+              </p>
+            </div>
+          </div>
+          <div class="w-full h-1/5 flex justify-center items-center gap-3">
+            <div
+              class="w-[20%] h-full flex justify-center items-center text-white"
+            >
+              <p class="leaderboard-rank">05</p>
+            </div>
+            <div
+              class="w-full h-[80%] flex gap-1 items-center"
+              style="border: 0.1vh solid rgb(155, 155, 155); border-radius: 5px"
+            >
+              <div class="w-[0.1vh] h-[80%] bg-white"></div>
+              <div
+                class="w-[22.5%] h-full object-scale-down ml-2 bg-[url(./images/user-default.png)] bg-center bg-cover bg-no-repeat"
+                style="clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%)"
+              ></div>
+              <p class="text-[1.5vh] w-[50%] h-full flex items-center">
+                Fizzfau
+              </p>
+              <p
+                class="text-[1.3vh] w-[20%] h-full flex items-center justify-center"
+              >
+                13km
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="flex w-screen h-screen items-center bg-no-repeat bg-cover bg-center flex-col screen"
+      style="background-image: url(./images/racing-bg.png); display: none"
+    >
+      <div
+        class="header flex w-[90%] h-[16vh] mt-[2vh] justify-center gap-4 items-center"
+        style="border-bottom: 1px solid #575757"
+      >
+        <div class="w-1/5 h-[80%] flex items-center">
+          <div
+            class="h-[90%] w-[10vh] justify-center items-center overflow-hidden"
+            style="
+              background: radial-gradient(
+                171.83% 450.15% at 50% 50%,
+                rgba(155, 155, 155, 0.09) 0%,
+                rgba(90, 90, 90, 0.09) 100%
+              );
+              border: 1px solid gray;
+            "
+          >
+            <div
+              class="w-full h-full bg-no-repeat bg-center bg-cover playerimagetop"
+              style="background-image: url(./images/user-default.png)"
+            ></div>
+          </div>
+          <div class="h-[90%] w-[20vh] ml-4 flex justify-center flex-col">
+            <h1 class="topnav-PlayerName">xx ROLEPLAY</h1>
+            <h1 class="topnav-desc">Talha Osman Hasimoglu</h1>
+          </div>
+        </div>
+        <div
+          direction="right"
+          class="w-[90vh] h-[50%] flex flex-wrap flex-row"
+          style="
+            border-radius: 5px;
+            filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+            border: 1px solid gray;
+          "
+        >
+          <div class="w-[80%] h-full flex items-center">
+            <div
+              class="w-[7vh] h-[60%] flex justify-center items-center borderright"
+            >
+              <img src="./images/exclamation.png" />
+            </div>
+            <div class="w-[90%] h-[80%] flex items-center ml-3 annountcement">
+              <h1><strong>Anuncios:</strong> Não há anuncios!</h1>
+            </div>
+          </div>
+        </div>
+        <div class="w-1/6 h-[80%] flex justify-end">
+          <div class="h-full w-[40%] flex justify-end mr-2 items-center">
+            <img src="./images/dollar-sign.png" />
+          </div>
+          <div class="h-full w-auto flex max-w-[60%] justify-end items-center">
+            <p class="playermoney">$345.897</p>
+          </div>
+        </div>
+      </div>
+      <div
+        class="w-[90%] h-full flex flex-col items-center mt-12 gap-6 topbttns"
+      >
+        <div class="w-full h-[5vh] flex items-end justify-center">
+          <div
+            class="w-[50%] h-[100%] flex justify-center items-center"
+            style="
+              background: rgba(241, 241, 241, 0.99);
+              backdrop-filter: blur(5.616px);
+              border-radius: 0.3vw;
+            "
+          >
+            <div
+              class="w-[12%] h-[80%] flex justify-center items-center itemlist home borderright selectedMain"
+              onclick="Select('home')"
+              id="home"
+              style="
+                border-top-left-radius: 0.3vw;
+                border-bottom-left-radius: 0.3vw;
+              "
+            >
+              <p>INICIO</p>
+            </div>
+            <div
+              class="w-[20%] h-[80%] flex justify-center items-center itemlist racers borderright"
+              onclick="Select('racers')"
+              id="racers"
+            >
+              <p>CORREDORES</p>
+            </div>
+            <div
+              class="w-[16%] h-[80%] flex justify-center items-center itemlist races borderright"
+              onclick="Select('races')"
+              id="races"
+            >
+              <p>CORRIDAS</p>
+            </div>
+            <div
+              class="w-[16%] h-[80%] flex justify-center items-center exit itemlist"
+              id="exit"
+              onclick="Select('exit')"
+              style="
+                border-top-right-radius: 0.3vw;
+                border-bottom-right-radius: 0.3vw;
+              "
+            >
+              <p>SAIR</p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="w-full h-[85%] flex justify-center items-end gap-2 mainracers"
+          style="display: none"
+        >
+          <div
+            class="w-[40%] h-[95%] bg-black-900 flex items-center flex-col gap-2"
+            style="background: rgba(239, 239, 239, 0.08)"
+          >
+            <div class="w-[92.5%] h-[6vh] flex items-end justify-between">
+              <div
+                class="title-border w-[11.25vw] h-[3vh] flex gap-3 items-center"
+                style="background: #fe3968"
+              >
+                <i
+                  class="fas fa-trophy ml-2"
+                  style="color: white; font-size: 1.6vh"
+                ></i>
+                <p
+                  class="activeraces"
+                  style="color: white; font-weight: 500; font-size: 1.2vh"
+                >
+                  TOP CORREDORES
+                </p>
+              </div>
+            </div>
+            <div class="w-[100%] h-[4vh] flex justify-end">
+              <div
+                class="w-[85%] h-full flex topracers justify-center items-center"
+              >
+                <div
+                  class="w-1/4 h-[70%] flex justify-center items-center borderright-topracers topracers-indextext"
+                >
+                  JOGADOR
+                </div>
+                <div
+                  class="w-1/4 h-[70%] flex justify-center items-center borderright-topracers topracers-indextext"
+                >
+                  GANHOU
+                </div>
+                <div
+                  class="w-1/4 h-[70%] flex justify-center items-center borderright-topracers topracers-indextext"
+                >
+                  PERDEU
+                </div>
+                <div
+                  class="w-1/4 h-[70%] flex justify-center items-center topracers-indextext"
+                >
+                  DISTANCIA
+                </div>
+              </div>
+              <div class="w-[3.5%] h-full"></div>
+            </div>
+            <div class="flex flex-wrap overflow-auto gap-2 w-[92.5%] h-[48vh]">
+              <div class="w-full h-full overflow-auto ranklistpage">
+                <!--  auto generated -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="w-full h-[85%] flex justify-center items-end gap-2 mainpage"
+        >
+          <div
+            class="w-[25%] h-[95%] flex flex-col items-center gap-2"
+            style="background: rgba(239, 239, 239, 0.08)"
+          >
+            <!-- left container -->
+            <div
+              class="w-full h-full flex flex-col items-center gap-2 leftcontainer-main"
+            >
+              <div class="w-[92.5%] h-[6vh] flex items-end justify-between">
+                <div
+                  class="title-border w-[11.25vw] h-[3vh] flex gap-3 items-center"
+                  style="background: #fe3968"
+                >
+                  <i
+                    class="fas fa-flag ml-2"
+                    style="color: white; font-size: 1.6vh"
+                  ></i>
+                  <p
+                    class="activeraces"
+                    style="color: white; font-weight: 500; font-size: 1.2vh"
+                  >
+                    CORRIDAS ATIVAS
+                  </p>
+                </div>
+                <div
+                  class="w-[7vw] h-[3vh] flex justify-center items-center createrace"
+                  onclick="OpenCreateRace()"
+                >
+                  <p class="createracetext">CRIAR CORRIDA</p>
+                </div>
+              </div>
+              <div
+                class="w-[92.5%] h-[50vh] overflow-menu flex flex-wrap overflow-auto gap-2"
+              >
+                <div class="w-full h-full overflow-auto activelist">
+                  <!-- auto generate -->
+                </div>
+              </div>
+            </div>
+            <div
+              class="w-full h-full flex flex-col items-center justify-center gap-5 routes-leftcontainer"
+              style="display: none"
+            >
+              <div class="w-[87%] h-[6vh] flex items-end justify-between">
+                <div
+                  class="title-border w-[11.25vw] h-[3vh] flex gap-3 items-center"
+                  style="background: #fe3968"
+                >
+                  <i
+                    class="fas fa-flag ml-2"
+                    style="color: white; font-size: 1.6vh"
+                  ></i>
+                  <p
+                    class="activeraces"
+                    style="color: white; font-weight: 500; font-size: 1.2vh"
+                  >
+                    SUAS ROTAS
+                  </p>
+                </div>
+                <div
+                  class="w-[40%] h-[3vh] flex justify-center items-center"
+                  style="background: #4e4d4e"
+                >
+                  <input
+                    type="text"
+                    placeholder="Route Name!"
+                    id="routename"
+                    class="w-full h-full ml-2"
+                    style="
+                      opacity: 50%;
+                      font-family: Proxima Nova;
+                      color: white;
+                      font-size: 1vw;
+                      background-color: transparent;
+                      outline: none;
+                    "
+                  />
+                </div>
+              </div>
+              <div class="w-[90%] h-[39vh]">
+                <div
+                  class="w-full h-full overflow-menu flex flex-wrap overflow-auto gap-2"
+                >
+                  <div
+                    class="w-full h-full overflow-menu overflow-auto routesmenu"
+                  ></div>
+                </div>
+              </div>
+              <div class="w-[90%] h-[7vh] flex items-center gap-1">
+                <div
+                  class="createracebutton createroute w-[80%] h-full flex justify-center items-center"
+                  onclick="CreateRoute()"
+                >
+                  CRIAR ROTA
+                </div>
+                <div
+                  class="backbutton w-[19%] h-full flex justify-center items-center"
+                  onclick="Back('routepage')"
+                  style="
+                    background-color: #e2345d;
+                    font-size: 3vh;
+                    color: white;
+                    border-radius: 0.2vw;
+                  "
+                >
+                  <i class="fas fa-angle-left"></i>
+                </div>
+              </div>
+            </div>
+            <div
+              class="w-full h-full flex flex-col items-center gap-5 createraceleftcontainer"
+              style="display: none"
+            >
+              <div class="w-[87%] h-[6vh] flex items-end">
+                <div
+                  class="title-border w-[11.25vw] h-[3vh] flex gap-3 items-center"
+                  style="background: #fe3968"
+                >
+                  <i
+                    class="fas fa-flag ml-2"
+                    style="color: white; font-size: 1.6vh"
+                  ></i>
+                  <p
+                    class="activeraces"
+                    style="color: white; font-weight: 500; font-size: 1.2vh"
+                  >
+                    CRIAR UMA CORRIDA
+                  </p>
+                </div>
+              </div>
+              <div class="w-[90%] h-[35vh] flex flex-col gap-4 items-center">
+                <div class="w-full h-[30%] flex flex-col gap-1 items-end">
+                  <div class="w-full h-[25%] flex items-center givename">
+                    <div class="w-[8%] h-full flex justify-start items-center">
+                      <img src="./images/required.png" />
+                    </div>
+                    <p style="color: white">DAR NOME A CORRIDA</p>
+                  </div>
+                  <div class="w-[91.5%] h-[75%] flex">
+                    <p
+                      style="
+                        white-space: normal !important;
+                        text-overflow: clip !important;
+                        font-family: Opinion Pro Cn;
+                        font-size: 1.4vh;
+                        color: rgba(255, 255, 255, 0.55);
+                        font-weight: 550;
+                      "
+                    >
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                      Ad libero voluptates nesciunt enim blanditiis quia
+                      accusamus eaque doloribus facilis placeat.
+                    </p>
+                  </div>
+                </div>
+                <div class="w-full h-[30%] flex flex-col gap-1 items-end">
+                  <div class="w-full h-[25%] flex items-center setreward">
+                    <div class="w-[8%] h-full flex justify-center items-center">
+                      <img src="./images/required.png" />
+                    </div>
+                    <p style="color: white">RECOMPENSA</p>
+                  </div>
+                  <div class="w-[91.5%] h-[75%] flex">
+                    <p
+                      style="
+                        white-space: normal !important;
+                        text-overflow: clip !important;
+                        font-family: Opinion Pro Cn;
+                        font-size: 1.4vh;
+                        color: rgba(255, 255, 255, 0.55);
+                        font-weight: 550;
+                      "
+                    >
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                      Ad libero voluptates nesciunt enim blanditiis quia
+                      accusamus eaque doloribus facilis placeat.
+                    </p>
+                  </div>
+                </div>
+                <div class="w-full h-[30%] flex flex-col gap-1 items-end">
+                  <div class="w-full h-[25%] flex items-center othersettings">
+                    <div class="w-[8%] h-full flex justify-center items-center">
+                      <img src="./images/required.png" />
+                    </div>
+                    <p style="color: white">OUTRAS CONFIGURAÇÕES</p>
+                  </div>
+                  <div class="w-[91.5%] h-[75%] flex">
+                    <p
+                      style="
+                        white-space: normal !important;
+                        text-overflow: clip !important;
+                        font-family: Opinion Pro Cn;
+                        font-size: 1.4vh;
+                        color: rgba(255, 255, 255, 0.55);
+                        font-weight: 550;
+                      "
+                    >
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                      Ad libero voluptates nesciunt enim blanditiis quia
+                      accusamus eaque doloribus facilis placeat.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="w-[90%] h-[7vh] flex items-center gap-1">
+                <div
+                  class="createracebutton w-[80%] h-full flex justify-center items-center"
+                  onclick="CreateRace()"
+                >
+                  CRIAR CORRIDA
+                </div>
+                <div
+                  class="backbutton w-[19%] h-full flex justify-center items-center"
+                  onclick="Back('createrace')"
+                  style="
+                    background-color: #e2345d;
+                    font-size: 3vh;
+                    color: white;
+                    border-radius: 0.2vw;
+                  "
+                >
+                  <i class="fas fa-angle-left"></i>
+                </div>
+              </div>
+              <h1 class="text-xs mt-6 text-slate-950">
+                Powered by Reborn Studios!
+              </h1>
+            </div>
+          </div>
+          <div class="w-[70%] h-[95%]">
+            <!-- create race page -->
+            <div
+              class="racerspage w-full h-full flex justify-center items-center"
+              style="background: rgba(35, 35, 35, 0.845); display: none"
+            >
+              <div class="w-[90%] h-[80%] flex flex-col gap-1">
+                <div class="flex flex-col w-full h-[10vh]">
+                  <div class="w-full h-[6vh] createracetitle flex items-end">
+                    CRIAR UMA CORRIDA
+                  </div>
+                  <div class="w-full h-[4vh] createracedesc">
+                    aqui você pode registrar sua conta
+                  </div>
+                </div>
+                <div class="w-full h-[33vh] flex gap-2 flex-col">
+                  <div class="w-full h-[7vh] flex">
+                    <div
+                      class="w-[80%] h-full flex flex-col"
+                      style="
+                        background: rgba(255, 255, 255, 0.01);
+                        border-radius: 0.2vw;
+                      "
+                    >
+                      <div
+                        class="w-full h-1/2 flex items-end ml-7"
+                        style="
+                          font-family: 'Proxima Nova';
+                          font-style: normal;
+                          font-weight: 300;
+                          font-size: 1.4vh;
+
+                          color: #8b8b8b;
+                        "
+                      >
+                        Nome da Corrida
+                      </div>
+                      <div class="w-full h-1/2 flex ml-7">
+                        <input
+                          type="text"
+                          class="w-[40%] bg-inherit border-transparent outline-0 nameval"
+                          onchange="ChangeInput('text',this.value)"
+                          required
+                          minlength="3"
+                          maxlength="15"
+                          size="15"
+                          placeholder="GFX"
+                          style="color: #676767; font-family: Gilroy"
+                        />
+                      </div>
+                    </div>
+                    <div
+                      class="w-[10%] h-full flex justify-center items-center"
+                      id="checklist-name"
+                    >
+                      <img src="./images/bg-required.png" />
+                    </div>
+                  </div>
+
+                  <div class="w-full h-[7vh] flex">
+                    <div
+                      class="w-[80%] h-full flex flex-col"
+                      style="
+                        background: rgba(255, 255, 255, 0.01);
+                        border-radius: 0.2vw;
+                      "
+                    >
+                      <div
+                        class="w-full h-1/2 flex items-end ml-7"
+                        style="
+                          font-family: 'Proxima Nova';
+                          font-style: normal;
+                          font-weight: 300;
+                          font-size: 1.4vh;
+
+                          color: #8b8b8b;
+                        "
+                      >
+                        Recompensas de corridas
+                      </div>
+                      <div class="w-full h-1/2 flex ml-7">
+                        <input
+                          type="number"
+                          class="w-[40%] bg-inherit border-transparent outline-0 priceval"
+                          onchange="ChangeInput('number',this.value)"
+                          onfocus="this.value=''"
+                          oninput="validity.valid||(value='');"
+                          pattern="[0-9]"
+                          required
+                          minlength="3"
+                          maxlength="15"
+                          size="15"
+                          placeholder="$"
+                          style="color: #d4af2a; font-family: Gilroy"
+                        />
+                      </div>
+                    </div>
+                    <div
+                      class="w-[10%] h-full flex justify-center items-center"
+                      id="checklist-reward"
+                    >
+                      <img src="./images/bg-required.png" />
+                    </div>
+                  </div>
+
+                  <div class="w-full h-[7vh] flex">
+                    <div
+                      class="w-[80%] h-full flex flex-col"
+                      style="
+                        background: rgba(255, 255, 255, 0.01);
+                        border-radius: 0.2vw;
+                      "
+                    >
+                      <div
+                        class="w-full h-1/2 flex items-end ml-7"
+                        style="
+                          font-family: 'Proxima Nova';
+                          font-style: normal;
+                          font-weight: 300;
+                          font-size: 1.4vh;
+
+                          color: #8b8b8b;
+                        "
+                      >
+                        Tempo de corrida
+                      </div>
+                      <div class="w-full h-1/2 flex ml-7">
+                        <!-- <input type="number" class="w-[40%] bg-inherit border-transparent outline-0 " onchange="ChangeInput('number',this.value)"  onfocus="this.value=''" oninput="validity.valid||(value='');" pattern="[0-9]" required minlength="3" maxlength="15" size="15" placeholder="$" style="color: #D4AF2A; font-family: Gilroy"> -->
+                        <input
+                          type="datetime-local"
+                          class="w-[25%] bg-inherit border-transparent outline-0"
+                          style="
+                            color: #676767;
+                            font-family: Gilroy;
+                            font-size: 1.4vh;
+                          "
+                          onchange="ChangeInput('date')"
+                          id="meeting-time"
+                          name="meeting-time"
+                        />
+                      </div>
+                    </div>
+                    <div
+                      class="w-[10%] h-full flex justify-center items-center"
+                      id="checklist-date"
+                    >
+                      <img src="./images/bg-required.png" />
+                    </div>
+                  </div>
+
+                  <div class="w-full h-[7vh] flex">
+                    <div
+                      class="w-[80%] h-full flex flex-col gap-4"
+                      style="
+                        background: rgba(255, 255, 255, 0.01);
+                        border-radius: 0.2vw;
+                      "
+                    >
+                      <div
+                        class="w-full h-1/2 flex items-end ml-7"
+                        style="
+                          font-family: 'Proxima Nova';
+                          font-style: normal;
+                          font-weight: 300;
+                          font-size: 1.4vh;
+                          color: #8b8b8b;
+                        "
+                      >
+                        Numero de corredores (Maximo de 10)
+                      </div>
+                      <div class="w-full h-1/2 flex ml-7 gap-2 items-center">
+                        <input
+                          type="range"
+                          id="range"
+                          onchange="ChangeInput('range',this.value)"
+                          class="win10-thumb w-[20vh] h-[10%]"
+                          min="1"
+                          max="10"
+                          value="1"
+                          step="1"
+                        />
+                        <div
+                          class="playerlength w-[10vh] h-[2.5vh] flex justify-center items-center"
+                        >
+                          1
+                          <h1 class="input-desc">&nbsp;Corredores</h1>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="w-[10%] h-full flex justify-center items-center"
+                      id="checklist-range"
+                    >
+                      <img src="./images/bg-required.png" />
+                    </div>
+                  </div>
+
+                  <div
+                    class="w-full h-[7vh] flex opacity-80 hover:opacity-100 selectroute"
+                    onclick="SelectRoute()"
+                  >
+                    <div
+                      class="w-[80%] h-full flex flex-col gap-4 bg-cover bg-no-repeat bg-[url(./images/reference-map.png)]"
+                    ></div>
+                    <div
+                      class="w-[10%] h-full flex justify-center items-center"
+                    >
+                      <img src="./images/selectroute-bg.png" />
+                    </div>
+                  </div>
+                </div>
+                <!-- <h1 class="text-xs mt-15 text-slate-950">Your preferences are automatically saved (22.18)</h1> -->
+              </div>
+            </div>
+            <!-- map page -->
+            <div
+              class="mappage w-full h-full flex justify-center items-center"
+              style="background: rgba(35, 35, 35, 0.845); display: none"
+            >
+              <div id="map"></div>
+            </div>
+            <!-- home page  -->
+            <div class="homepage w-full h-full flex gap-2">
+              <div
+                class="w-[60%] h-full flex flex-col justify-between items-center gap-2"
+              >
+                <div
+                  class="w-full h-[75%] flex flex-col justify-between items-center gap-1"
+                  style="background: rgba(239, 239, 239, 0.08)"
+                >
+                  <div class="w-[92.5%] h-[6vh] flex items-end">
+                    <div
+                      class="title-border w-[11.25vw] h-[3vh] flex gap-3 items-center"
+                      style="background: #fe3968"
+                    >
+                      <i
+                        class="fas fa-trophy ml-2"
+                        style="color: white; font-size: 1.6vh"
+                      ></i>
+                      <p
+                        class="activeraces"
+                        style="color: white; font-weight: 500; font-size: 1.2vh"
+                      >
+                        TOP 5 CORREDORES
+                      </p>
+                    </div>
+                  </div>
+                  <div class="w-[100%] h-[4vh] flex justify-end">
+                    <div
+                      class="w-[85%] h-full flex topracers justify-center items-center"
+                    >
+                      <div
+                        class="w-1/4 h-[70%] flex justify-center items-center borderright-topracers topracers-indextext"
+                      >
+                        CORREDOR
+                      </div>
+                      <div
+                        class="w-1/4 h-[70%] flex justify-center items-center borderright-topracers topracers-indextext"
+                      >
+                        VITORIA
+                      </div>
+                      <div
+                        class="w-1/4 h-[70%] flex justify-center items-center borderright-topracers topracers-indextext"
+                      >
+                        DERROTA
+                      </div>
+                      <div
+                        class="w-1/4 h-[70%] flex justify-center items-center topracers-indextext"
+                      >
+                        DISTANCIA
+                      </div>
+                    </div>
+                    <div class="w-[3.5%] h-full"></div>
+                  </div>
+                  <div
+                    class="flex flex-wrap overflow-auto gap-2 w-[92.5%] h-[34vh]"
+                  >
+                    <div class="w-full h-full overflow-auto ranklistmain"></div>
+                  </div>
+                </div>
+
+                <div
+                  class="w-[100%] h-[15vh] flex gap-3 justify-center items-center"
+                  style="background: rgba(239, 239, 239, 0.08)"
+                >
+                  <div
+                    class="w-fit flex h-full justify-center ms-5 items-center"
+                  >
+                    <div
+                      class="w-[11vh] h-[10vh] flex justify-center items-center bg-cover bg-center overflow-hidden"
+                      style="
+                        border-radius: 8vh;
+                        background-image: url(./images/player-info-bg.png);
+                      "
+                    >
+                      <div
+                        class="w-[65%] h-[68%] overflow-hidden playerinfoimg"
+                        style="border-radius: 8vh"
+                      >
+                        <img src="./images/user-default.png" />
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="w-[29%] h-full flex justify-center ms-4 flex-col gap-1 maindesc"
+                  >
+                    <p class="playername">xx Roleplay</p>
+                    <p class="desc">Talha Osman Hasimoglu</p>
+                    <div class="w-full h-1/5 flex gap-1">
+                      <div class="w-[1.5vh] h-full flex items-center">
+                        <img src="./images/circle.png" id="circle" />
+                      </div>
+                      <div
+                        class="w-full h-full flex items-center incomingracetext"
+                      >
+                        <p
+                          style="
+                            font-size: 1vh;
+                            color: #dc355d;
+                            font-family: 'gilroy';
+                          "
+                        >
+                          7 horas para iniciar!
+                        </p>
+                      </div>
+                    </div>
+                    <div
+                      class="w-[80%] h-[20%] flex justify-center items-center leavebtn"
+                    >
+                      Sair
+                    </div>
+                  </div>
+                  <div
+                    class="w-[40%] h-[90%] flex flex-col ms-8 gap-2 items-center"
+                    style="background: #19191a"
+                  >
+                    <div class="w-[90%] h-[20%] mt-1 flex player-statictics">
+                      <div
+                        class="w-1/2 h-full flex items-center ml-2"
+                        style="
+                          font-size: 1.1vh;
+                          font-family: gilroy;
+                          color: #868686;
+                        "
+                      >
+                        <i class="fas fa-trophy"></i>&nbsp; Vitorias/Derrotas
+                      </div>
+                      <div
+                        class="w-1/2 h-full flex items-center justify-end mr-2"
+                        id="userstats-wl"
+                        style="
+                          font-size: 1.1vh;
+                          font-family: gilroy;
+                          color: #fe3968;
+                        "
+                      >
+                        62/10
+                      </div>
+                    </div>
+                    <div class="w-[90%] h-[20%] flex player-statictics">
+                      <div
+                        class="w-1/2 h-full flex items-center ml-2"
+                        style="
+                          font-size: 1.1vh;
+                          font-family: gilroy;
+                          color: #868686;
+                        "
+                      >
+                        <i class="fas fa-hashtag"></i>&nbsp; Numero de Corridas
+                      </div>
+                      <div
+                        class="w-1/2 h-full flex items-center justify-end mr-2"
+                        id="userstats-games"
+                        style="
+                          font-size: 1.1vh;
+                          font-family: gilroy;
+                          color: #fe3968;
+                        "
+                      >
+                        72
+                      </div>
+                    </div>
+                    <div class="w-[90%] h-[20%] flex player-statictics">
+                      <div
+                        class="w-1/2 h-full flex items-center ml-2"
+                        style="
+                          font-size: 1.1vh;
+                          font-family: gilroy;
+                          color: #868686;
+                        "
+                      >
+                        <i class="fas fa-car"></i>&nbsp; Veiculo favorito
+                      </div>
+                      <div
+                        class="w-1/2 h-full flex items-center justify-end mr-2"
+                        id="userstats-favcar"
+                        style="
+                          font-size: 1.1vh;
+                          font-family: gilroy;
+                          color: #fe3968;
+                        "
+                      >
+                        Lotus Emira (& Evija)
+                      </div>
+                    </div>
+                    <div class="w-[90%] h-[20%] flex player-statictics">
+                      <div
+                        class="w-1/2 h-full flex items-center ml-2"
+                        style="
+                          font-size: 1.1vh;
+                          font-family: gilroy;
+                          color: #868686;
+                        "
+                      >
+                        <i class="fas fa-clock"></i>&nbsp; Ultima Corrida
+                      </div>
+                      <div
+                        class="w-1/2 h-full flex items-center justify-end mr-2"
+                        id="userstats-lastrace"
+                        style="
+                          font-size: 1.1vh;
+                          font-family: gilroy;
+                          color: #fe3968;
+                        "
+                      >
+                        SERIES GFX7
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="w-[40%] h-full bg-no-repeat bg-cover flex flex-col items-center gap-2"
+                style="background-image: url(./images/history-bg.png)"
+              >
+                <div class="w-[92.5%] h-[6vh] flex items-end">
+                  <div
+                    class="title-border w-[11.25vw] h-[3vh] flex gap-3 items-center"
+                    style="background: #fe3968"
+                  >
+                    <i
+                      class="fas fa-trophy ml-2"
+                      style="color: white; font-size: 1.6vh"
+                    ></i>
+                    <p
+                      class="activeraces"
+                      style="color: white; font-weight: 500; font-size: 1.2vh"
+                    >
+                      HISTORICO DE CORRIDA
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="w-[92.5%] h-[50vh] overflow-menu overflow-auto gap-2 racehistory"
+                >
+                  <div
+                    class="w-full h-[18%] bg-[url('./images/race-history-bg.png')] bg-no-repeat bg-cover flex justify-center items-center history-epty"
+                    style="display: none"
+                  >
+                    <p class="history-empty-text">Historico não encontrado!</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="./mapconfig.js"></script>
+    <script src="./javascript.js"></script>
+  </body>
+</html>
