@@ -1777,4 +1777,15 @@ return {
 		weight = 10000,
 		description = "Bloqueie sinais de radio",
 	},
+
+	["drugtable"] = {
+		label = "Mesa de drogas",
+		weight = 5000,
+		stack = true,
+		close = true,
+		description = "Mesa para venda de drogas",
+		client = {
+			image = "drugtable.png",
+		}
+	},
 }

@@ -902,6 +902,13 @@ local itens = {
 		type = "use",
 		weight = 0.75
 	},
+	["drugtable"] = {
+		index = "drugtable",
+		name = "Mesa de drogas",
+		type = "use",
+		weight = 5.0,
+		description = "Mesa para venda de drogas"
+	},
 }
 
 local weapons = {
@@ -1395,13 +1402,6 @@ local weapons = {
 		type = "component_grip",
 		description = "Empunhadura para armas pequenas e grandes",
 		weight = 1.0
-	},
-	["drugtable"] = {
-		index = "drugtable",
-		name = "Mesa de drogas",
-		type = "use",
-		weight = 5.0,
-		description = "Mesa para venda de drogas"
 	},
 }
 
