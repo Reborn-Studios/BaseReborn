@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
+    <script src="nui://game/ui/jquery.js" type="text/javascript"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <title>will_drugsales</title>
+  </head>
+  <body>
+    <div
+      id="npcSellMenu"
+      style="display: none"
+      class="w-[100vw] h-[85vh] flex justify-center items-end opacity-90"
+    >
+      <div class="bg-zinc-800 p-2 text-zinc-300 rounded">
+        <h1 class="font-bold text-center text-xl">Oferta do cidadão</h1>
+        <p id="npcTalk" class="bg-zinc-700 p-1 m-1"></p>
+        <div class="flex flex-col gap-3 p-1">
+          <div>
+            <label
+              for="price"
+              class="block text-sm font-medium leading-6 text-zinc-300"
+              >Preço</label
+            >
+            <div class="relative mt-2 rounded-md shadow-sm">
+              <div
+                class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3"
+              >
+                <span class="text-zinc-500 sm:text-sm">$</span>
+              </div>
+              <input
+                type="text"
+                name="price"
+                id="drugprice"
+                class="block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-zinc-900 ring-1 ring-inset ring-zinc-300 placeholder:text-zinc-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                placeholder="0.00"
+              />
+            </div>
+          </div>
+          <div class="flex justify-between gap-2">
+            <button
+              onclick="trySellDrug()"
+              class="w-full bg-green-700 p-3 hover:bg-green-800 transition-all rounded"
+            >
+              Confirmar
+            </button>
+            <button
+              onclick="closeNpcMenu()"
+              class="w-full bg-red-700 p-3 hover:bg-red-800 transition-all rounded"
+            >
+              Cancelar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      style="display: none"
+      id="tableDrugsMenu"
+      class="w-[100vw] h-[100vh] flex items-center justify-end"
+    >
+      <div class="bg-zinc-800 flex flex-col mr-2 rounded p-1">
+        <h1 class="text-xl p-2 text-zinc-300 font-bold text-center">
+          Gerencie os itens na mesa
+        </h1>
+        <div
+          id="tableSellItems"
+          class="flex flex-col gap-2 m-1 max-h-[50vh] overflow-auto"
+        >
+          <div
+            class="flex border hover:bg-zinc-900 hover:cursor-pointer transition-all"
+          >
+            <img
+              src="http://212.18.114.101/imagens/cocaine.png"
+              alt="cocaine"
+              class="w-[5vw] bg-zinc-900"
+            />
+            <div class="mx-2 text-zinc-400">
+              <h2 class="font-semibold text-lg">Cocaina</h2>
+              <p class="text-sm">
+                Mesa: <span class="text-blue-400 font-semibold">6</span>
+              </p>
+              <p class="text-sm">
+                Inventario: <span class="text-blue-400 font-semibold">20</span>
+              </p>
+            </div>
+          </div>
+          <div
+            class="flex border hover:bg-zinc-900 hover:cursor-pointer transition-all"
+          >
+            <img
+              src="http://212.18.114.101/imagens/meth.png"
+              alt="meth"
+              class="w-[5vw] bg-zinc-900"
+            />
+            <div class="mx-2 text-zinc-400">
+              <h2 class="font-semibold text-lg">Metanfetamina</h2>
+              <p class="text-sm">
+                Mesa: <span class="text-blue-400 font-semibold">0</span>
+              </p>
+              <p class="text-sm">
+                Inventario: <span class="text-blue-400 font-semibold">0</span>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="m-1">
+          <label
+            for="quantity"
+            class="block text-sm font-medium leading-6 text-zinc-300"
+            >Quantidade</label
+          >
+          <div class="relative mt-2 rounded-md shadow-sm">
+            <input
+              type="text"
+              name="quantity"
+              id="drugquantity"
+              class="block w-full rounded-md border-0 py-1.5 pl-2 pr-20 text-zinc-900 ring-1 ring-inset ring-zinc-300 placeholder:text-zinc-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              placeholder="0"
+            />
+          </div>
+        </div>
+        <span
+          class="text-red-500 font-bold text-center transition-all"
+          style="display: none"
+          id="invalidMessage"
+          >Quantidade inválida</span
+        >
+        <div class="flex justify-between m-1 font-semibold gap-2 text-zinc-200">
+          <button
+            onclick="addToTable()"
+            class="border border-zinc-200 hover:bg-zinc-950 px-3 py-1"
+          >
+            Adicionar
+          </button>
+          <button
+            onclick="remFromTable()"
+            class="border border-zinc-200 hover:bg-zinc-700 px-3 py-1"
+          >
+            Remover
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      style="display: none"
+      id="buyProductsTable"
+      class="w-[100vw] h-[100vh] flex items-center justify-center"
+    >
+      <div class="bg-zinc-800 flex flex-col mr-2 rounded p-1">
+        <h1 class="text-3xl p-2 text-zinc-300 font-bold text-center">
+          Mesa de produtos
+        </h1>
+        <div
+          id="tableItems"
+          class="flex flex-wrap gap-2 m-1 max-h-[60vh] max-w-[50vw] justify-center overflow-auto"
+        >
+          <div class="flex border border-zinc-500 transition-all">
+            <img
+              src="http://212.18.114.101/imagens/meth.png"
+              alt="meth"
+              class="w-[5vw] bg-zinc-900 object-contain"
+            />
+            <div class="m-2 text-zinc-400">
+              <h2 class="font-semibold text-lg w-fit">Metanfetamina</h2>
+              <div class="w-[9vw]">
+                <label
+                  for="quantity"
+                  class="text-sm font-medium leading-6 text-zinc-300"
+                  >Quantidade</label
+                >
+                <div class="flex gap-1 items-center rounded-md">
+                  <input
+                    type="text"
+                    name="quantity"
+                    id="drugquantity"
+                    class="rounded-md w-1/3 border-0 py-1 pl-2 text-zinc-900 placeholder:text-zinc-400"
+                    placeholder="0"
+                  />
+                  <p>/20</p>
+                </div>
+              </div>
+              <div class="flex items-center justify-between">
+                <button
+                  onclick="buyProduct('meth')"
+                  class="bg-green-600 hover:bg-green-700 p-1 rounded text-zinc-300 my-2 font-semibold w-1/2"
+                >
+                  Comprar
+                </button>
+                <div class="text-lg">R$200</div>
+              </div>
+            </div>
+          </div>
+          <div class="flex border border-zinc-500 transition-all">
+            <img
+              src="http://212.18.114.101/imagens/meth.png"
+              alt="meth"
+              class="w-[5vw] bg-zinc-900 object-contain"
+            />
+            <div class="m-2 text-zinc-400">
+              <h2 class="font-semibold text-lg w-fit">Metanfetamina</h2>
+              <div class="w-[9vw]">
+                <label
+                  for="quantity"
+                  class="text-sm font-medium leading-6 text-zinc-300"
+                  >Quantidade</label
+                >
+                <div class="flex gap-1 items-center rounded-md">
+                  <input
+                    type="text"
+                    name="quantity"
+                    id="drugquantity"
+                    class="rounded-md w-1/3 border-0 py-1 pl-2 text-zinc-900 placeholder:text-zinc-400"
+                    placeholder="0"
+                  />
+                  <p>/20</p>
+                </div>
+              </div>
+              <div class="flex items-center justify-between">
+                <button
+                  onclick="buyProduct('meth')"
+                  class="bg-green-600 hover:bg-green-700 p-1 rounded text-zinc-300 my-2 font-semibold w-1/2"
+                >
+                  Comprar
+                </button>
+                <div class="text-lg">R$200</div>
+              </div>
+            </div>
+          </div>
+          <div class="flex border border-zinc-500 transition-all">
+            <img
+              src="http://212.18.114.101/imagens/meth.png"
+              alt="meth"
+              class="w-[5vw] bg-zinc-900 object-contain"
+            />
+            <div class="m-2 text-zinc-400">
+              <h2 class="font-semibold text-lg w-fit">Metanfetamina</h2>
+              <div class="w-[9vw]">
+                <label
+                  for="quantity"
+                  class="text-sm font-medium leading-6 text-zinc-300"
+                  >Quantidade</label
+                >
+                <div class="flex gap-1 items-center rounded-md">
+                  <input
+                    type="text"
+                    name="quantity"
+                    id="drugquantity"
+                    class="rounded-md w-1/3 border-0 py-1 pl-2 text-zinc-900 placeholder:text-zinc-400"
+                    placeholder="0"
+                  />
+                  <p>/20</p>
+                </div>
+              </div>
+              <div class="flex items-center justify-between">
+                <button
+                  onclick="buyProduct('meth')"
+                  class="bg-green-600 hover:bg-green-700 p-1 rounded text-zinc-300 my-2 font-semibold w-1/2"
+                >
+                  Comprar
+                </button>
+                <div class="text-lg">R$200</div>
+              </div>
+            </div>
+          </div>
+          <div class="flex border border-zinc-500 transition-all">
+            <img
+              src="http://212.18.114.101/imagens/meth.png"
+              alt="meth"
+              class="w-[5vw] bg-zinc-900 object-contain"
+            />
+            <div class="m-2 text-zinc-400">
+              <h2 class="font-semibold text-lg w-fit">Metanfetamina</h2>
+              <div class="w-[9vw]">
+                <label
+                  for="quantity"
+                  class="text-sm font-medium leading-6 text-zinc-300"
+                  >Quantidade</label
+                >
+                <div class="flex gap-1 items-center rounded-md">
+                  <input
+                    type="text"
+                    name="quantity"
+                    id="drugquantity"
+                    class="rounded-md w-1/3 border-0 py-1 pl-2 text-zinc-900 placeholder:text-zinc-400"
+                    placeholder="0"
+                  />
+                  <p>/20</p>
+                </div>
+              </div>
+              <div class="flex items-center justify-between">
+                <button
+                  onclick="buyProduct('meth')"
+                  class="bg-green-600 hover:bg-green-700 p-1 rounded text-zinc-300 my-2 font-semibold w-1/2"
+                >
+                  Comprar
+                </button>
+                <div class="text-lg">R$200</div>
+              </div>
+            </div>
+          </div>
+          <div class="flex border border-zinc-500 transition-all">
+            <img
+              src="http://212.18.114.101/imagens/meth.png"
+              alt="meth"
+              class="w-[5vw] bg-zinc-900 object-contain"
+            />
+            <div class="m-2 text-zinc-400">
+              <h2 class="font-semibold text-lg w-fit">Metanfetamina</h2>
+              <div class="w-[9vw]">
+                <label
+                  for="quantity"
+                  class="text-sm font-medium leading-6 text-zinc-300"
+                  >Quantidade</label
+                >
+                <div class="flex gap-1 items-center rounded-md">
+                  <input
+                    type="text"
+                    name="quantity"
+                    id="drugquantity"
+                    class="rounded-md w-1/3 border-0 py-1 pl-2 text-zinc-900 placeholder:text-zinc-400"
+                    placeholder="0"
+                  />
+                  <p>/20</p>
+                </div>
+              </div>
+              <div class="flex items-center justify-between">
+                <button
+                  onclick="buyProduct('meth')"
+                  class="bg-green-600 hover:bg-green-700 p-1 rounded text-zinc-300 my-2 font-semibold w-1/2"
+                >
+                  Comprar
+                </button>
+                <div class="text-lg">R$200</div>
+              </div>
+            </div>
+          </div>
+          <div class="flex border border-zinc-500 transition-all">
+            <img
+              src="http://212.18.114.101/imagens/meth.png"
+              alt="meth"
+              class="w-[5vw] bg-zinc-900 object-contain"
+            />
+            <div class="m-2 text-zinc-400">
+              <h2 class="font-semibold text-lg w-fit">Metanfetamina</h2>
+              <div class="w-[9vw]">
+                <label
+                  for="quantity"
+                  class="text-sm font-medium leading-6 text-zinc-300"
+                  >Quantidade</label
+                >
+                <div class="flex gap-1 items-center rounded-md">
+                  <input
+                    type="text"
+                    name="quantity"
+                    id="drugquantity"
+                    class="rounded-md w-1/3 border-0 py-1 pl-2 text-zinc-900 placeholder:text-zinc-400"
+                    placeholder="0"
+                  />
+                  <p>/20</p>
+                </div>
+              </div>
+              <div class="flex items-center justify-between">
+                <button
+                  onclick="buyProduct('meth')"
+                  class="bg-green-600 hover:bg-green-700 p-1 rounded text-zinc-300 my-2 font-semibold w-1/2"
+                >
+                  Comprar
+                </button>
+                <div class="text-lg">R$200</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="script.js" type="text/javascript"></script>
+  </body>
+</html>
