@@ -23,16 +23,16 @@ function cnVRP.checkBateponto(Index)
                 vRP.addUserGroup(user_id,v.paisanaGroup)
                 TriggerEvent("vrp_blipsystem:serviceExit",source)
                 vCLIENT.exit(source)
-                if v.webhook then
-                    Config.func.sendDiscord(v.webhook,8923574, "Bate ponto","ID:"..user_id,"Saiu de serviço")
+                if Config.data[Index].webhook then
+                    Config.func.sendDiscord(Config.data[Index].webhook,8923574, "Bate ponto","ID:"..user_id,"Saiu de serviço")
                 end
                 break
             elseif vRP.hasGroup(user_id,v.paisanaGroup) then
                 vRP.addUserGroup(user_id,v.group)
                 TriggerEvent("vrp_blipsystem:serviceEnter",source,"Policial",77)
                 vCLIENT.enter(source)
-                if v.webhook then
-                    Config.func.sendDiscord(v.webhook,12422,"Bate ponto","ID:"..user_id,"Entrou em serviço")
+                if Config.data[Index].webhook then
+                    Config.func.sendDiscord(Config.data[Index].webhook,12422,"Bate ponto","ID:"..user_id,"Entrou em serviço")
                 end
                 break
             end

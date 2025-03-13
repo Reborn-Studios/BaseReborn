@@ -8,16 +8,15 @@ description 'https://discord.gg/4YDS7mW6UE'
 version '1.0.1'
 
 client_scripts {
-	"@vrp/lib/utils.lua",
 	"client/*"
 }
 
 server_scripts {
-	"@vrp/lib/utils.lua",
 	"server/*",
 }
 
 shared_script {
+	"@vrp/lib/utils.lua",
 	"config.lua",
 	"functions.lua"
 }

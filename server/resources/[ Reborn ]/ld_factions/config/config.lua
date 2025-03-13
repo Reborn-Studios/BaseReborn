@@ -1,6 +1,4 @@
--------------------------------------------------------------------------------------------------------------------------
--- SUA LICENÇA
--------------------------------------------------------------------------------------------------------------------------
+local Webhooks = module("Reborn/webhooks") or {}
 orgsConfig = {}
 
 orgsConfig.blackList = 3 --tempo da blacklist
@@ -8,13 +6,13 @@ orgsConfig.PermAdmin = "admin.permissao"
 orgsConfig.debug = false
 orgsConfig.summerz = false
 orgsConfig.webhook = {
-	demote = "https://discord.com/api/webhooks/902945190522806342/6n8j-FuJZ2DC5EjX_6tV0sVkcRBMt7H2z3BZbjeJwQ_00hy8HLK-LGgRHcOK619L1G-B",
-	invite = "https://discord.com/api/webhooks/902945190522806342/6n8j-FuJZ2DC5EjX_6tV0sVkcRBMt7H2z3BZbjeJwQ_00hy8HLK-LGgRHcOK619L1G-B",
-	leaveOrg = "https://discord.com/api/webhooks/902945190522806342/6n8j-FuJZ2DC5EjX_6tV0sVkcRBMt7H2z3BZbjeJwQ_00hy8HLK-LGgRHcOK619L1G-B",
-	promote = "https://discord.com/api/webhooks/902945190522806342/6n8j-FuJZ2DC5EjX_6tV0sVkcRBMt7H2z3BZbjeJwQ_00hy8HLK-LGgRHcOK619L1G-B",
-	bankDeposit = "https://discord.com/api/webhooks/902945190522806342/6n8j-FuJZ2DC5EjX_6tV0sVkcRBMt7H2z3BZbjeJwQ_00hy8HLK-LGgRHcOK619L1G-B",
-	bankWithdraw = "https://discord.com/api/webhooks/902945190522806342/6n8j-FuJZ2DC5EjX_6tV0sVkcRBMt7H2z3BZbjeJwQ_00hy8HLK-LGgRHcOK619L1G-B",
-	reward = "https://discord.com/api/webhooks/902945190522806342/6n8j-FuJZ2DC5EjX_6tV0sVkcRBMt7H2z3BZbjeJwQ_00hy8HLK-LGgRHcOK619L1G-B"
+	demote = Webhooks.webhookdemote,
+	invite = Webhooks.webhookinvite,
+	leaveOrg = Webhooks.webhookleaveorg,
+	promote = Webhooks.webhookpromote,
+	bankDeposit = Webhooks.webhookbankdeposit,
+	bankWithdraw = Webhooks.webhookbankwithdraw,
+	reward = Webhooks.webhookreward
 }
 
 -- até o lider editar os pagamentos mensais/diários, o padrão que vem por facção é definido aqui

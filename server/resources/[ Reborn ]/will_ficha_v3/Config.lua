@@ -1,4 +1,4 @@
-local Webhooks = module("Reborn/webhooks")
+local Webhooks = module("Reborn/webhooks") or {}
 Proxy = module("vrp","lib/Proxy")
 Tunnel = module("vrp","lib/Tunnel")
 vRP = Proxy.getInterface("vRP")
@@ -66,11 +66,11 @@ Config.serviceTime = {                                          -- Configuraçã
 ----##[ Webhooks ]##----
 ----################----
 
-Config.hookManagment = ""                                       -- Webhook para o gerenciamento dos policias
+Config.hookManagment = Webhooks.webhookmdtmanage                                       -- Webhook para o gerenciamento dos policias
 
-Config.hookPrisao = ""                                          -- Webhook ao prender alguem
+Config.hookPrisao = Webhooks.webhookprison                                          -- Webhook ao prender alguem
 
-Config.hookMulta = ""                                           -- Webhook ao multar alguem
+Config.hookMulta = Webhooks.webhookmulta                                           -- Webhook ao multar alguem
 
 Config.post_photo = "https://discord.com/api/webhooks/1330976859319439381/nlIB4iaSaPSZIcJTtK1ljkIr_RKUp2O12HgA-NPaFOOBAiUJAZkZxJxcWWp4rKKbtBvC"                                          -- Webhook para registrar a foto
 

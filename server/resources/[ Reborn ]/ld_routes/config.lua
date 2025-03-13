@@ -1,3 +1,4 @@
+local Webhooks = module("Reborn/webhooks") or {}
 config = {}
 
 config.animType = 1
@@ -23,7 +24,7 @@ config.main = {
 				["image"] = "ammo-9",
 				["amount"] = 1,
 				["destroy"] = true, --se os itens necessários pra fazer devem ser gastos ou não
-				["webhook"] = 'https://discord.com/api/webhooks/SEUWEBHOOK',
+				["webhook"] = Webhooks.webhookroutes,
 				["police_chance"] = 0, --chance de avisar a policia
 				["require"] = {
 					["capsule"] = 3,
@@ -34,7 +35,7 @@ config.main = {
 				["image"] = "ammo-45",
 				["amount"] = 1,
 				["destroy"] = true,
-				["webhook"] = 'https://discord.com/api/webhooks/SEUWEBHOOK',
+				["webhook"] = Webhooks.webhookroutes,
 				["police_chance"] = 0,
 				["require"] = {
 					["capsule"] = 5,
@@ -45,7 +46,7 @@ config.main = {
 				["image"] = "ammo-rifle2",
 				["amount"] = 1,
 				["destroy"] = true,
-				["webhook"] = 'https://discord.com/api/webhooks/SEUWEBHOOK',
+				["webhook"] = Webhooks.webhookroutes,
 				["police_chance"] = 0,
 				["require"] = {
 					["capsule"] = 7,
@@ -56,7 +57,7 @@ config.main = {
 				["image"] = "ammo-rifle",
 				["amount"] = 1,
 				["destroy"] = true,
-				["webhook"] = 'https://discord.com/api/webhooks/SEUWEBHOOK',
+				["webhook"] = Webhooks.webhookroutes,
 				["police_chance"] = 0,
 				["require"] = {
 					["capsule"] = 7,
@@ -67,7 +68,7 @@ config.main = {
 				["image"] = "ammo-shotgun",
 				["amount"] = 1,
 				["destroy"] = true,
-				["webhook"] = 'https://discord.com/api/webhooks/SEUWEBHOOK',
+				["webhook"] = Webhooks.webhookroutes,
 				["police_chance"] = 0,
 				["require"] = {
 					["capsule"] = 5,
@@ -84,7 +85,7 @@ config.main = {
 						['gunpowder'] = { quantidade_min = 2, quantidade_max = 4 }, --itens que vem realizar a ação
 					},
 					porcentagem_policia = 0,
-					webhook = 'https://discord.com/api/webhooks/SEUWEBHOOK'
+					webhook = Webhooks.webhookroutes
 				},
 			},
 			["collectCoords"] = {
@@ -168,7 +169,7 @@ config.main = {
 						['elastic'] = { quantidade_min = 1, quantidade_max = 1, pagamento_min = 200, pagamento_max = 250, police_multiplier = 0.5 },
 					},
 					porcentagem_policia = 0,
-					webhook = 'https://discord.com/api/webhooks/SEUWEBHOOK'
+					webhook = Webhooks.webhookroutes
 				},
 				['Cobre'] = {
 					image = 'copper',
@@ -176,7 +177,7 @@ config.main = {
 						['copper'] = { quantidade_min = 2, quantidade_max = 4, pagamento_min = 200, pagamento_max = 250, police_multiplier = 0.5 }, 
 					},
 					porcentagem_policia = 0,
-					webhook = 'https://discord.com/api/webhooks/SEUWEBHOOK'
+					webhook = Webhooks.webhookroutes
 				},
 				['Latinha'] = {
 					image = 'metalcan',
@@ -184,7 +185,7 @@ config.main = {
 						['metalcan'] = { quantidade_min = 2, quantidade_max = 4, pagamento_min = 200, pagamento_max = 250, police_multiplier = 0.5 }, 
 					},
 					porcentagem_policia = 0,
-					webhook = 'https://discord.com/api/webhooks/SEUWEBHOOK'
+					webhook = Webhooks.webhookroutes
 				}, ]]
 			},
 			["deliveryCoords"] = {
@@ -273,7 +274,7 @@ config.main = {
 				["image"] = "WEAPON_PISTOL",
 				["amount"] = 1,
 				["destroy"] = true, --se os itens necessários pra fazer devem ser gastos ou não
-				["webhook"] = 'https://discord.com/api/webhooks/SEUWEBHOOK',
+				["webhook"] = Webhooks.webhookroutes,
 				["police_chance"] = 0, --chance de avisar a policia
 				["require"] = {
 					["aluminum"] = 15,
@@ -284,7 +285,7 @@ config.main = {
 				["image"] = "WEAPON_PISTOL_MK2",
 				["amount"] = 1,
 				["destroy"] = true,
-				["webhook"] = 'https://discord.com/api/webhooks/SEUWEBHOOK',
+				["webhook"] = Webhooks.webhookroutes,
 				["police_chance"] = 0,
 				["require"] = {
 					["aluminum"] = 15,
@@ -295,7 +296,7 @@ config.main = {
 				["image"] = "WEAPON_SMG_MK2",
 				["amount"] = 1,
 				["destroy"] = true,
-				["webhook"] = 'https://discord.com/api/webhooks/SEUWEBHOOK',
+				["webhook"] = Webhooks.webhookroutes,
 				["police_chance"] = 0,
 				["require"] = {
 					["aluminum"] = 20,
@@ -306,7 +307,7 @@ config.main = {
 				["image"] = "WEAPON_MICROSMG",
 				["amount"] = 1,
 				["destroy"] = true,
-				["webhook"] = 'https://discord.com/api/webhooks/SEUWEBHOOK',
+				["webhook"] = Webhooks.webhookroutes,
 				["police_chance"] = 0,
 				["require"] = {
 					["aluminum"] = 20,
@@ -317,7 +318,7 @@ config.main = {
 				["image"] = "WEAPON_MINISMG",
 				["amount"] = 1,
 				["destroy"] = true,
-				["webhook"] = 'https://discord.com/api/webhooks/SEUWEBHOOK',
+				["webhook"] = Webhooks.webhookroutes,
 				["police_chance"] = 0,
 				["require"] = {
 					["aluminum"] = 20,
@@ -328,7 +329,7 @@ config.main = {
 				["image"] = "WEAPON_ASSAULTRIFLE",
 				["amount"] = 1,
 				["destroy"] = true,
-				["webhook"] = 'https://discord.com/api/webhooks/SEUWEBHOOK',
+				["webhook"] = Webhooks.webhookroutes,
 				["police_chance"] = 0,
 				["require"] = {
 					["aluminum"] = 25,
@@ -339,7 +340,7 @@ config.main = {
 				["image"] = "WEAPON_ASSAULTRIFLE_MK2",
 				["amount"] = 1,
 				["destroy"] = true,
-				["webhook"] = 'https://discord.com/api/webhooks/SEUWEBHOOK',
+				["webhook"] = Webhooks.webhookroutes,
 				["police_chance"] = 0,
 				["require"] = {
 					["aluminum"] = 25,
@@ -350,7 +351,7 @@ config.main = {
 				["image"] = "WEAPON_CARBINERIFLE",
 				["amount"] = 1,
 				["destroy"] = true,
-				["webhook"] = 'https://discord.com/api/webhooks/SEUWEBHOOK',
+				["webhook"] = Webhooks.webhookroutes,
 				["police_chance"] = 0,
 				["require"] = {
 					["aluminum"] = 25,
@@ -361,7 +362,7 @@ config.main = {
 				["image"] = "WEAPON_CARBINERIFLE_MK2",
 				["amount"] = 1,
 				["destroy"] = true,
-				["webhook"] = 'https://discord.com/api/webhooks/SEUWEBHOOK',
+				["webhook"] = Webhooks.webhookroutes,
 				["police_chance"] = 0,
 				["require"] = {
 					["aluminum"] = 25,
@@ -378,7 +379,7 @@ config.main = {
 						['aluminum'] = { quantidade_min = 2, quantidade_max = 4 }, --itens que vem realizar a ação
 					},
 					porcentagem_policia = 0,
-					webhook = 'https://discord.com/api/webhooks/SEUWEBHOOK'
+					webhook = Webhooks.webhookroutes
 				},
 			},
 			["collectCoords"] = {
@@ -476,7 +477,7 @@ config.main = {
 				["image"] = "lockpick",
 				["amount"] = 1,
 				["destroy"] = true, --se os itens necessários pra fazer devem ser gastos ou não
-				["webhook"] = 'https://discord.com/api/webhooks/SEUWEBHOOK',
+				["webhook"] = Webhooks.webhookroutes,
 				["police_chance"] = 0, --chance de avisar a policia
 				["require"] = {
 					["aluminum"] = 8,
@@ -487,7 +488,7 @@ config.main = {
 				["image"] = "blackcard",
 				["amount"] = 1,
 				["destroy"] = true,
-				["webhook"] = 'https://discord.com/api/webhooks/SEUWEBHOOK',
+				["webhook"] = Webhooks.webhookroutes,
 				["police_chance"] = 0,
 				["require"] = {
 					["plastic"] = 5,
@@ -498,7 +499,7 @@ config.main = {
 				["image"] = "bluecard",
 				["amount"] = 1,
 				["destroy"] = true,
-				["webhook"] = 'https://discord.com/api/webhooks/SEUWEBHOOK',
+				["webhook"] = Webhooks.webhookroutes,
 				["police_chance"] = 0,
 				["require"] = {
 					["plastic"] = 5,
@@ -509,7 +510,7 @@ config.main = {
 				["image"] = "c4",
 				["amount"] = 1,
 				["destroy"] = true,
-				["webhook"] = 'https://discord.com/api/webhooks/SEUWEBHOOK',
+				["webhook"] = Webhooks.webhookroutes,
 				["police_chance"] = 0,
 				["require"] = {
 					["aluminum"] = 8,
@@ -523,7 +524,7 @@ config.main = {
 				["image"] = "vest",
 				["amount"] = 1,
 				["destroy"] = true,
-				["webhook"] = 'https://discord.com/api/webhooks/SEUWEBHOOK',
+				["webhook"] = Webhooks.webhookroutes,
 				["police_chance"] = 0,
 				["require"] = {
 					["aluminum"] = 5,
@@ -535,7 +536,7 @@ config.main = {
 				["image"] = "handcuff",
 				["amount"] = 1,
 				["destroy"] = true,
-				["webhook"] = 'https://discord.com/api/webhooks/SEUWEBHOOK',
+				["webhook"] = Webhooks.webhookroutes,
 				["police_chance"] = 0,
 				["require"] = {
 					["aluminum"] = 12,
@@ -545,7 +546,7 @@ config.main = {
 				["image"] = "rope",
 				["amount"] = 1,
 				["destroy"] = true,
-				["webhook"] = 'https://discord.com/api/webhooks/SEUWEBHOOK',
+				["webhook"] = Webhooks.webhookroutes,
 				["police_chance"] = 0,
 				["require"] = {
 					["tecido"] = 20,
@@ -555,7 +556,7 @@ config.main = {
 				["image"] = "hood",
 				["amount"] = 1,
 				["destroy"] = true,
-				["webhook"] = 'https://discord.com/api/webhooks/SEUWEBHOOK',
+				["webhook"] = Webhooks.webhookroutes,
 				["police_chance"] = 0,
 				["require"] = {
 					["tecido"] = 15,
@@ -571,7 +572,7 @@ config.main = {
 						['aluminum'] = { quantidade_min = 3, quantidade_max = 5 }, --itens que vem realizar a ação
 					},
 					porcentagem_policia = 0,
-					webhook = 'https://discord.com/api/webhooks/SEUWEBHOOK'
+					webhook = Webhooks.webhookroutes
 				},
 				['Plastico e Tecido'] = { --Nome que aparece na nui
 					image = 'plastic', --Imagem que aparece na nui
@@ -580,7 +581,7 @@ config.main = {
 						['plastic'] = { quantidade_min = 2, quantidade_max = 4 }, --itens que vem realizar a ação
 					},
 					porcentagem_policia = 0,
-					webhook = 'https://discord.com/api/webhooks/SEUWEBHOOK'
+					webhook = Webhooks.webhookroutes
 				},
 				['Itens complementares'] = { --Nome que aparece na nui
 					image = 'eletronics', --Imagem que aparece na nui
@@ -590,7 +591,7 @@ config.main = {
 						['glass'] = { quantidade_min = 1, quantidade_max = 3 }, --itens que vem realizar a ação
 					},
 					porcentagem_policia = 0,
-					webhook = 'https://discord.com/api/webhooks/SEUWEBHOOK'
+					webhook = Webhooks.webhookroutes
 				},
 			},
 			["collectCoords"] = {
@@ -689,7 +690,7 @@ config.main = {
 				["image"] = "toolbox",
 				["amount"] = 1,
 				["destroy"] = true,
-				["webhook"] = 'https://discord.com/api/webhooks/SEUWEBHOOK',
+				["webhook"] = Webhooks.webhookroutes,
 				["police_chance"] = 0,
 				["require"] = {
 					["aluminum"] = 10,
@@ -706,7 +707,7 @@ config.main = {
 						['aluminum'] = { quantidade_min = 3, quantidade_max = 5 }, --itens que vem realizar a ação
 					},
 					porcentagem_policia = 0,
-					webhook = 'https://discord.com/api/webhooks/SEUWEBHOOK'
+					webhook = Webhooks.webhookroutes
 				},
 			},
 			["collectCoords"] = {

@@ -240,11 +240,11 @@ function vRP.createWeebHook(webhook,message)
                         description = message,
                         author = {
                             name = GlobalState['Basics']['ServerName'],
-                            icon_url = 'https://cdn.discordapp.com/attachments/929192133011841074/956001692917321778/rbn.png'
+                            icon_url = GlobalState['Basics']['CityLogo']
                         },
                         footer = {
                             text = os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S"),
-                            icon_url = "https://cdn.discordapp.com/attachments/929192133011841074/956001692917321778/rbn.png"
+                            icon_url = GlobalState['Basics']['CityLogo']
                         },
                         color = 3092790
                     }

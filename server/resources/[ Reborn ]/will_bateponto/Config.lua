@@ -1,6 +1,7 @@
 Proxy = module("vrp","lib/Proxy")
 Tunnel = module("vrp","lib/Tunnel")
 vRP = Proxy.getInterface("vRP")
+local Webhooks = module("Reborn/webhooks") or {}
 
 Config = {}
 
@@ -8,6 +9,7 @@ Config.base = "creative"       -- vrpex / creative
 
 Config.data = {
     ['Police'] = {
+        webhook = Webhooks.webhooktogglepolice,
         coords = {
             {-579.25,-2161.59,6.72},
             { -1071.08,-823.24,5.48 },
@@ -71,6 +73,7 @@ Config.data = {
         }
     },
     ['Medic'] = {
+        webhook = Webhooks.webhooktogglemedic,
         coords = {
             { -854.77,-2185.62,8.95 }
         },
@@ -90,6 +93,7 @@ Config.data = {
         }
     },
     ['Mechanic'] = {
+        webhook = Webhooks.webhooktogglemechanic,
         coords = {
             { 821.16,-932.98,26.47 }
         },

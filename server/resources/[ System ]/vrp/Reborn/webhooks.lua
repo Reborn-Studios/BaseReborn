@@ -1,17 +1,23 @@
 local Webhooks = {
+	-- LOGIN
 	createAccount = "",
+	webhookjoins = "",
+	webhookadminwl = "",
+	webhookunwl = "",
+	webhookexit = "",
+	-- ADMIN
 	webhookadmin = "",
 	webhookkick = "",
 	webhookgive = "",
 	webhookban = "",
-	webhookadminwl = "",
-	webhookunwl = "",
 	webhookaddcar = "",
 	webhookgems = "",
 	webhookunban = "",
 	webhookset = "",
 	webhookunset = "",
 	webhooklimparinv = "",
+	webhookids = "",
+	-- MEDIC
 	webhooktratamento = "",
 	webhookdiagnostico = "",
 	webhooklinkdeath = "",
@@ -19,13 +25,17 @@ local Webhooks = {
 	webhookgod = "",
 	webhookreviver = "",
 	webhooksocorro = "",
-	webhookids = "",
+	-- OTHERS
 	webhookraces = "",
 	hookdesmanche = "",
 	rouboshook = "",
-	webhookjoins = "",
-	colocouitens = "",
-	retiradadeitens = "",
+	webhookairdrop = "",
+	webhookgrafite = "",
+	webhookcassino = "",
+	webhooklavagem = "",
+	webhookselldrugs = "",
+	-- BANK
+	webhookbank = "",
 	webhooksacar = "",
 	webhooktransferir = "",
 	webhookfatura = "",
@@ -33,21 +43,37 @@ local Webhooks = {
 	webhooksacou = "",
 	webhookdepositou = "",
 	webhooksalario = "",
+	-- VEHICLES
 	webhookcomprar = "",
 	webhookrobberycar = "",
-	webhookexit = "",
-	webhooklavagem = "",
-	webhookcassino = "",
 	webhookgarage = "",
-	webhookgrafite = "",
-	webhookbank = "",
+	-- INVENTORY
+	colocouitens = "",
+	retiradadeitens = "",
 	webhookportamalas =  "",
 	webhookportaluvas =  "",
 	webhookbaucasas =  "",
 	webhookdropItem =  "",
 	webhookrevistar =  "",
 	webhookpickupItem =  "",
-	webhookairdrop = "",
+	-- MDT
+	webhookmdtmanage = "",
+	webhookprison = "",
+	webhookmulta = "",
+	-- ROTAS
+	webhookroutes = "",
+	-- PAINEL FAC
+	webhookdemote = "",
+	webhookinvite = "",
+	webhookleaveorg = "",
+	webhookpromote = "",
+	webhookbankdeposit = "",
+	webhookbankwithdraw = "",
+	webhookreward = "",
+	-- BATE PONTO
+	webhooktogglepolice = "",
+	webhooktogglemedic = "",
+	webhooktogglemechanic = "",
 }
 
 return Webhooks
