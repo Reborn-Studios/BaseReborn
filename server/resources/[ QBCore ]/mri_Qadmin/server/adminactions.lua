@@ -666,6 +666,7 @@ RegisterServerEvent("mri_Qadmin:server:GiveItem", function(targetId, item, amoun
                     targetPlayer = QBCore.Functions.GetPlayerByCitizenId(tonumber(targetId))
                 end
                 if targetPlayer then
+                    amount = tonumber(amount) or 1
                     targetPlayer.Functions.AddItem(item, amount)
                     TriggerEvent("qb-log:server:CreateLog", "adminactions", "Set Gang", "red", "**STAFF MEMBER " .. GetPlayerName(src) .. "** gave " .. item .. " (x" .. amount .. ") to " .. GetPlayerName(targetPlayer.PlayerData.source), false)
                     TriggerClientEvent("mri_Qadmin:client:ShowPanelAlert", src, "success", "<strong>"..Lang:t("alerts.success").."</strong> "..Lang:t("alerts.gaveItem", {value = item}))
