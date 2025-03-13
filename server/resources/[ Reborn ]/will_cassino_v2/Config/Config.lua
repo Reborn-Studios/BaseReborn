@@ -1,5 +1,6 @@
 Config = {}
 Tunnel = module("vrp","lib/Tunnel")
+Webhooks = module("Reborn/webhooks") or {}
 
 --            ///////////////\\\\\\\\\\\\\\
 --                   CASSINO JOGOS
@@ -22,7 +23,7 @@ Config.npc = true
 Config.car = "t20"
 Config.carCoords = { 935.08, 42.41, 72.53 }
 
-Config.webhookgames = ""
+Config.webhookgames = Webhooks.webhookcassino
 
 --#############################
 --         Lucky Wheel

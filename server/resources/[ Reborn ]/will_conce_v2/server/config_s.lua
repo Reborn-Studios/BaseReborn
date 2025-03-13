@@ -1,8 +1,9 @@
 
 
 cfg_s = {}
+Webhooks = module("Reborn/webhooks") or {}
 
-cfg_s.webhook_comprar = ""
+cfg_s.webhook_comprar = Webhooks.webhookcomprar
 cfg_s.webhookaddcar = ""
 
 cfg_s.rent_time = 3

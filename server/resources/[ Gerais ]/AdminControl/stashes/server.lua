@@ -3,6 +3,8 @@ local stashesWebhooks = {
     ['get_drop'] = Webhooks.webhookpickupItem,
     ['send_drop'] = Webhooks.webhookdropItem,
     ['homes'] = Webhooks.webhookbaucasas,
+    ['trunk'] = Webhooks.webhookportamalas,
+    ['glovebox'] = Webhooks.webhookportaluvas,
 }
 
 GlobalState['AllStashes'] = {}
@@ -114,9 +116,12 @@ local function getStashName(id)
     return id
 end
 
+local loaded = false
 AddEventHandler("onResourceStart",function(rs)
     if rs == "ox_inventory" or rs == GetCurrentResourceName() then
         Wait(500)
+        if loaded then return end
+        loaded = true
         if GetResourceState("ox_inventory") == "missing" then return end
         exports.ox_inventory:registerHook('swapItems', function(payload)
             local title = nil
@@ -142,6 +147,20 @@ AddEventHandler("onResourceStart",function(rs)
             elseif payload.toType == "player" and payload.fromType == "player" then
                 webhook = stashesWebhooks['inspect']
                 title = ("ID (%s) PEGOU DO ID (%s)"):format(vRP.getUserId(payload["toInventory"]), vRP.getUserId(payload["fromInventory"]))
+            elseif payload.toType == "trunk" or payload.fromType == "trunk" then
+                webhook = stashesWebhooks['trunk']
+                if payload.toType == "trunk" then
+                    title = ("ID (%s) COLOCOU NO PORTA-MALAS (%s)"):format(user_id, payload["toInventory"])
+                else
+                    title = ("ID (%s) PEGOU DO PORTA-MALAS (%s)"):format(user_id, payload["fromInventory"])
+                end
+            elseif payload.toType == "glovebox" or payload.fromType == "glovebox" then
+                webhook = stashesWebhooks['glovebox']
+                if payload.toType == "glovebox" then
+                    title = ("ID (%s) COLOCOU NO PORTA-LUVAS (%s)"):format(user_id, payload["toInventory"])
+                else
+                    title = ("ID (%s) PEGOU DO PORTA-LUVAS (%s)"):format(user_id, payload["fromInventory"])
+                end
             else
                 -- print(json.encode(payload, { indent = true }))
             end

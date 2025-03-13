@@ -34,7 +34,6 @@ local Webhooks = {
 	webhookdepositou = "",
 	webhooksalario = "",
 	webhookcomprar = "",
-	webhookvender = "",
 	webhookrobberycar = "",
 	webhookexit = "",
 	webhooklavagem = "",
@@ -48,6 +47,7 @@ local Webhooks = {
 	webhookdropItem =  "",
 	webhookrevistar =  "",
 	webhookpickupItem =  "",
+	webhookairdrop = "",
 }
 
 return Webhooks

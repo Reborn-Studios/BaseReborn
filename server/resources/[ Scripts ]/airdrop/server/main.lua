@@ -49,7 +49,7 @@ function Server.getSupply()
                     vRP.giveInventoryItem(Passport,v[1], v[2],true);
                 end
                 TriggerClientEvent('Notify', -1, 'amarelo', 'O jogador: <b>' ..identity["name"]..' '..identity["name2"].. '</b> coletou todos os suprimentos do Air Drop.',5000)
-                SendWebhookMessage(Index.Main.webhook[1],"```prolog\n[ID]: "..Passport.." "..identity["name"].." "..identity["name2"].." \n[===========REVINDICOU O AIR SUPPLY==========]\n[ITENS]: "..json.encode(itens)..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
+                vRP.createWeebHook(Webhooks.webhookairdrop,"```prolog\n[ID]: "..Passport.." "..identity["name"].." "..identity["name2"].." \n[===========REVINDICOU O AIR SUPPLY==========]\n[ITENS]: "..json.encode(itens)..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
             end
         else
             TriggerClientEvent('Notify',source,"vermelho",'Esse airdrop já foi coletado.',5000);
@@ -73,13 +73,6 @@ end
 function Server.finish()
     vCLIENT.finishEvent(-1);
     itens.loot = {};
-end
-
-function SendWebhookMessage(webhook, message)
-    if webhook ~= nil and webhook ~= '' then
-        PerformHttpRequest(webhook, function(err, text, headers)
-        end, 'POST', json.encode({ content = message }), { ['Content-Type'] = 'application/json' })
-    end
 end
 
 RegisterCommand('airdrop', function(source, args, rawCmd)
