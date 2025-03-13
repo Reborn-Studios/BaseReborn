@@ -218,3 +218,21 @@ CREATE TABLE IF NOT EXISTS `will_homes` (
 	`tax` INT(11) NOT NULL DEFAULT '1572029150',
 	PRIMARY KEY (`id`) USING BTREE
 ) COLLATE='utf8mb4_general_ci' ENGINE=InnoDB AUTO_INCREMENT=1;
+
+CREATE TABLE IF NOT EXISTS `will_skinshops` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `coords` LONGTEXT NOT NULL COLLATE 'utf8mb3_general_ci',
+  `permission` VARCHAR(50) NOT NULL DEFAULT '0' COLLATE 'utf8mb3_general_ci',
+  `blockedCategories` LONGTEXT NOT NULL COLLATE 'utf8mb3_general_ci',
+  INDEX `id` (`id`) USING BTREE
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS `will_clothes` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `category` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb3_general_ci',
+  `model` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb3_general_ci',
+  `texture` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb3_general_ci',
+  `price` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb3_general_ci',
+  `isVip` CHAR(50) NULL DEFAULT 'false' COLLATE 'utf8mb3_general_ci',
+  INDEX `id` (`id`) USING BTREE
+) ENGINE=InnoDB;
