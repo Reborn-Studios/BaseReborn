@@ -49,19 +49,16 @@ end
 GFX.GetPlayerCharacterName = function(source)
     if not source then return print("unknown source") end
     if Config.Framework == "new-qb" or Config.Framework == "old-qb" then
-        charinfo = GFX.Framework.Functions.GetPlayer(source).PlayerData.charinfo
-        return charinfo.firstname..' '..charinfo.lastname
+        local Player = GFX.Framework.Functions.GetPlayer(source)
+        if Player then
+            local charinfo = Player.PlayerData.charinfo
+            return charinfo.firstname..' '..charinfo.lastname
+        else
+            return ""
+        end
     elseif Config.Framework == "esx" then
         return GFX.GetPlayerCharacterNameESX(source)
     end
-end
-
-GFX.GetPlayerCharacterNameESX = function(source)
-    identifier = GFX.GetPlayerIdentifier(source)
-    local result = GFX.ExecuteSql("SELECT * FROM users WHERE identifier = '"..identifier.."'")
-    if result[1] then 
-        return result[1].firstname..' '..result[1].lastname 
-    end;
 end
 
 GFX.GetPlayerIdentifier = function(source)

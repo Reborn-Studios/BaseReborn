@@ -123,13 +123,6 @@ AddEventHandler("gfx-racing-SetRaceLeaderBoard", function(id,checkstatus, km, di
     TriggerClientEvent("gfx-racing:SetRaceLeaderBoard", src, GFX.RaceLeaderBoard[id])
 end)
 
-RegisterServerEvent("esx:playerLoaded")
-AddEventHandler("esx:playerLoaded",function(playerId, xPlayer, isNew)
-    if playerId then
-        GFX.GetPlayer(playerId)
-    end
-end)
-
 RegisterServerEvent("QBCore:Server:OnPlayerUnload")
 AddEventHandler("QBCore:Server:OnPlayerUnload", function(source)
     local user = GFX.GetUser(source)

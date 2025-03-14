@@ -448,7 +448,7 @@ end
 
 Citizen.CreateThread(function()
     while vSERVER.getUserID() == nil do
-		Citizen.Wait(100)
+		Citizen.Wait(1000)
 	end
     local data = vSERVER.getVehData()
     if not data then
