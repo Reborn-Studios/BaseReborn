@@ -632,12 +632,10 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 						vRP.createWeebHook(Webhooks.webhookrobberycar,"```prolog\n[ID]: "..user_id.."\n[ROUBOU VEICULO]: "..vRP.vehicleName(vehName).."\n[LOCAL]: "..GetEntityCoords(GetPlayerPed(source))..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
 					end
 					TriggerClientEvent("Notify",source,"sucesso","Veiculo roubado com sucesso.",7000)
-					if math.random(100) >= 50 then
-						TriggerEvent("setPlateEveryone",vehPlate)
-						local networkVeh = NetworkGetEntityFromNetworkId(vehNet)
-						TriggerClientEvent("vrp_sound:source",source,"unlock",0.3)
-						SetVehicleDoorsLocked(networkVeh,1)   -- Destrancado
-					end
+					TriggerEvent("setPlateEveryone",vehPlate)
+					local networkVeh = NetworkGetEntityFromNetworkId(vehNet)
+					TriggerClientEvent("vrp_sound:source",source,"unlock",0.3)
+					SetVehicleDoorsLocked(networkVeh,1)   -- Destrancado
 
 					if math.random(100) >= 15 then
 						local x,y,z = vRPclient.getPositions(source)

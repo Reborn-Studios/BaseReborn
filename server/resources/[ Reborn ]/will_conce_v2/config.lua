@@ -86,7 +86,6 @@ config.veiculos = {
         ['skyliner342'] = { nome = 'Skyline R342', valor = 470000, peso = 60 },
         ['subarubrz'] = { nome = 'Subaru BRZ', valor = 400000, peso = 60 },
         ['subaruimpreza'] = { nome = 'Subaru Impreza', valor = 430000, peso = 60 },
-        ['subaruimpreza'] = { nome = 'Subaru Impreza', valor = 430000, peso = 60 },
         ['toyotasupra2'] = { nome = 'Toyota Supra 2', valor = 380000, peso = 60 },
         ['urbandevil'] = { nome = 'Urban Devil', valor = 360000, peso = 40 },
         ['vwtouareg'] = { nome = 'VW Touareg', valor = 300000, peso = 60 },
