@@ -74,7 +74,7 @@ AddEventHandler("chamados:chamado",function()
 	if user_id then
 		TriggerClientEvent("dynamic:closeSystem",source)
 		local Admins = vRP.getUsersByPermission("suporte.permissao")
-		if #Admins > 0 then
+		if next(Admins) then
 			local description = vRP.prompt(source,"Descrição do seu chamado:","")
 			if description == "" or #description < 3 then
 				return
@@ -84,12 +84,12 @@ AddEventHandler("chamados:chamado",function()
 			local identity = vRP.getUserIdentity(user_id)
 			for k,v in pairs(Admins) do
 				local admSrc = vRP.getUserSource(v)
-				if v and v ~= user_id then
+				if admSrc and v ~= user_id then
 					TriggerClientEvent("chatMessage",admSrc,identity.name.." "..identity.name2.." ("..user_id..")",{107,182,84},description)
 					local request = vRP.request(admSrc,"Aceitar o chamado de <b>"..identity.name.." ("..description..")</b>?",30)
 					if request then
 						TriggerClientEvent("NotifyPush",admSrc,{ time = os.date("%H:%M:%S - %d/%m/%Y"), text = description, sprite = 358, code = 20, title = "Chamado", x = x, y = y, z = z, name = identity.name.." "..identity.name2, phone = identity.phone, rgba = {69,115,41} })
-						if not answeredCalls[user_id] then
+						if not answeredCalls[user_id] or answeredCalls[user_id] < os.time() then
 							local identitys = vRP.getUserIdentity(v)
 							answeredCalls[user_id] = os.time() + 30
 							vRPC.playSound(source,"Event_Message_Purple","GTAO_FM_Events_Soundset")
