@@ -180,6 +180,21 @@ return {
         }
     },
 
+	JewelrySell = {
+		name = 'Venda de itens',
+        inventory = {
+            { name = 'dollars', price = 1, currency = 'goldbar', metadata = { amount = 8500 } },
+            { name = 'dollars', price = 1, currency = 'watch', metadata = { amount = 6000 } },
+            { name = 'dollars', price = 1, currency = 'ring', metadata = { amount = 4500 } },
+        },
+		locations = {
+			vector3(1743.89,-1622.99,112.58),
+		},
+		targets = {
+			{ loc = vec3(1743.89,-1622.99,112.58), length = 2.5, width = 3.0, heading = 250.0, minZ = 111.5, maxZ = 113.5, distance = 4 }
+        }
+	},
+
 	--[[ 
 
 		Machine Shops
