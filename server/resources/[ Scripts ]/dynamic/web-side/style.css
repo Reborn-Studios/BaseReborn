@@ -20,6 +20,12 @@
     alternate backwards;
   animation: slide-in-right 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) alternate
     backwards;
+  background: linear-gradient(
+    270deg,
+    rgba(15, 15, 15, 0.8) 0%,
+    rgba(15, 15, 15, 0.65) 100%
+  );
+  border-radius: 1vw;
 }
 
 body {
@@ -45,12 +51,6 @@ body::after {
   z-index: -1;
   width: 100%;
   height: 100%;
-  background: rgb(0, 0, 0);
-  background: linear-gradient(
-    270deg,
-    rgba(15, 15, 15, 0.8) 0%,
-    rgba(15, 15, 15, 0.35) 100%
-  );
 }
 
 .btn {
