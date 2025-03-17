@@ -44,7 +44,7 @@ function takingPhoto()
 		end)
 	end
 	while wait do
-		Citizen.Wait(10)
+		Wait(10)
 	end
 	return response
 end
@@ -83,7 +83,7 @@ AddEventHandler("prisioneiro",function(status)
 	LocalPlayer.state:set("Prison",status,true)
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		local ped = PlayerPedId()
 		local coords = GetEntityCoords(ped)
@@ -101,7 +101,7 @@ Citizen.CreateThread(function()
 				ClearPedBloodDamage(ped)
 			end
 
-			if distance3 > 150 then
+			if distance3 > 250 then
 				local x,y,z = table.unpack(Config.coords_prison['Preso'])
 				SetEntityCoords(ped,x,y,z)
 			end
@@ -129,7 +129,7 @@ Citizen.CreateThread(function()
 					Config.drawText(x,y,z,"[~r~E~w~]  PARA ENTREGAR A CAIXA")
 					if IsControlJustPressed(0,38) then
 						reducaopenal = false
-						TriggerServerEvent("will_ficha_v3:diminuirpena1902")
+						TriggerServerEvent("will_ficha_v3:diminuirpena1903")
 						removeObjects()
 					end
 				end
@@ -151,7 +151,7 @@ Citizen.CreateThread(function()
                         playServiceAnim()
                         SetTimeout(15000,function()
                             removeObjects()
-							TriggerServerEvent("will_ficha_v3:diminuirpena1902")
+							TriggerServerEvent("will_ficha_v3:diminuirpena1903")
                             reducaopenal = false
 							prisonTimer = 0
 							TriggerEvent("cancelando",false)
@@ -160,11 +160,11 @@ Citizen.CreateThread(function()
                 end
             end
 		end
-		Citizen.Wait(will)
+		Wait(will)
 	end
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		local timeDistance = 1000
 		if reducaopenal then
@@ -214,6 +214,125 @@ Citizen.CreateThread(function()
 			DisableControlAction(0,311,true)
 			DisableControlAction(0,344,true)
 		end
-		Citizen.Wait(timeDistance)
+		Wait(timeDistance)
 	end
 end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- FUUGA DA PRISÃO
+-----------------------------------------------------------------------------------------------------------------------------------------
+local inLocates = {
+	{ 1772.89,2536.78,45.56,246.62 },
+	{ 1760.7,2519.03,45.56,260.79 },
+	{ 1758.27,2508.99,45.56,260.79 },
+	{ 1757.89,2507.81,45.56,255.12 },
+	{ 1737.37,2504.68,45.56,170.08 },
+	{ 1719.86,2502.73,45.56,260.79 },
+	{ 1706.99,2481.05,45.56,226.78 },
+	{ 1700.22,2474.79,45.56,229.61 },
+	{ 1679.53,2480.26,45.56,136.07 },
+	{ 1643.86,2490.76,45.56,187.09 },
+	{ 1635.7,2490.19,45.56,189.93 },
+	{ 1634.68,2490.11,45.56,181.42 },
+	{ 1622.39,2507.78,45.56,96.38 },
+	{ 1618.41,2521.4,45.56,141.74 },
+	{ 1609.77,2539.59,45.56,133.23 },
+	{ 1607.37,2541.43,45.56,102.05 },
+	{ 1606.28,2542.57,45.56,136.07 },
+	{ 1608.95,2567.03,45.56,48.19 },
+	{ 1624.83,2567.9,45.56,274.97 },
+	{ 1624.78,2567.15,45.56,263.63 },
+	{ 1629.9,2564.37,45.56,5.67 },
+	{ 1642.2,2565.22,45.56,2.84 },
+	{ 1643.98,2565.08,45.56,31.19 },
+	{ 1652.52,2564.39,45.56,2.84 },
+	{ 1665.09,2567.66,45.56,5.67 },
+	{ 1716.03,2568.78,45.56,85.04 },
+	{ 1715.95,2567.97,45.56,85.04 },
+	{ 1715.97,2567.13,45.56,85.04 },
+	{ 1768.78,2565.74,45.56,5.67 },
+	{ 1695.25,2506.62,45.56,53.86 },
+	{ 1630.53,2526.15,45.56,325.99 },
+	{ 1627.89,2543.56,45.56,226.78 },
+	{ 1636.13,2553.62,45.56,0.0 },
+	{ 1657.59,2549.32,45.56,138.9 },
+	{ 1649.73,2538.35,45.56,62.37 },
+	{ 1699.07,2535.87,45.56,153.08 },
+	{ 1699.63,2534.6,45.56,87.88 },
+	{ 1699.35,2532.08,45.56,93.55 }
+}
+
+local runAway = {
+	{ 1647.26,2763.14,45.76 },
+	{ 1565.97,2682.8,45.53 },
+	{ 1529.94,2585.13,45.53 },
+	{ 1535.6,2467.81,45.58 },
+	{ 1658.73,2390.01,45.51 },
+	{ 1763.9,2405.9,45.6 },
+	{ 1829.03,2473.42,45.31 },
+	{ 1851.78,2703.64,45.76 },
+	{ 1774.36,2767.32,45.66 }
+}
+
+local inSelect = 1
+local inTimer = GetGameTimer()
+local coordsLeaver = { 1816.94, 2602.66, 45.6 }
+
+if Config.fugaPrisao then
+	CreateThread(function()
+		SetNuiFocus(false,false)
+
+		while true do
+			local timeDistance = 999
+			if prison then
+				local ped = PlayerPedId()
+				local coords = GetEntityCoords(ped)
+				local distance = #(coords - vector3(inLocates[inSelect][1],inLocates[inSelect][2],inLocates[inSelect][3]))
+
+				if distance <= 150 then
+					timeDistance = 1
+					Config.drawText(inLocates[inSelect][1],inLocates[inSelect][2],inLocates[inSelect][3],"~g~E~w~   VASCULHAR")
+
+					if distance <= 1 and GetGameTimer() >= inTimer and IsControlJustPressed(1,38) and not IsPedInAnyVehicle(ped) then
+						inTimer = GetGameTimer() + 3000
+						SetEntityHeading(ped,inLocates[inSelect][4])
+						vRP.playAnim(false,{{"amb@prop_human_parking_meter@female@idle_a","idle_a_female"}},true)
+						SetEntityCoords(ped,inLocates[inSelect][1],inLocates[inSelect][2],inLocates[inSelect][3] - 1,1,0,0,0)
+						TriggerEvent('cancelando',true)
+						Wait(10000)
+						TriggerEvent('cancelando',false)
+						vSERVER.checkLocate()
+						vRP._stopAnim(false)
+						inSelect = math.random(#inLocates)
+					end
+				end
+			end
+			Wait(timeDistance)
+		end
+	end)
+
+	CreateThread(function()
+		while true do
+			local timeDistance = 999
+			if prison then
+				local ped = PlayerPedId()
+				local coords = GetEntityCoords(ped)
+				local distance = #(coords - vector3(coordsLeaver[1],coordsLeaver[2],coordsLeaver[3]))
+
+				if distance <= 5.0 then
+					timeDistance = 1
+					Config.drawText(coordsLeaver[1],coordsLeaver[2],coordsLeaver[3],"~g~E~w~   FUGIR")
+
+					if distance <= 2.0 and GetGameTimer() >= inTimer and IsControlJustPressed(1,38) then
+						inTimer = GetGameTimer() + 3000
+
+						if vSERVER.checkKey() then
+							local rand = math.random(#runAway)
+							SetEntityCoords(ped,runAway[rand][1],runAway[rand][2],runAway[rand][3],1,0,0,0)
+						end
+					end
+				end
+			end
+			Wait(timeDistance)
+		end
+	end)
+end

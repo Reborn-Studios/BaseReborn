@@ -79,26 +79,36 @@ function arrestPlayer(data)
     end
 end
 
+local playersOut = {}
+
+local function outPrison(user_id)
+    local nplayer = getUserSource(user_id)
+    if nplayer then
+        playersOut[user_id] = true
+        TriggerClientEvent('prisioneiro',nplayer,false)
+        local ped = GetPlayerPed(nplayer)
+        local x,y,z = table.unpack(Config.coords_prison['Solto'])
+        SetEntityCoords(ped,x,y,z)
+        vRP.execute("vRP/resgate_prison",{ user_id = user_id })
+    end
+end
+
 function reducePrison(source, time)
     local user_id = getUserId(source)
-    local consult, tempo
-    consult = vRP.getInformation(user_id)
-    tempo = consult[1].prison
-    if parseInt(tempo) <= 0 then
+    if playersOut[user_id] then
+        return "out"
+    end
+    local identity = vRP.getUserIdentity(user_id)
+    local tempo = parseInt(identity.prison)
+    if tempo <= 0 then
         TriggerClientEvent('prisioneiro',source,false)
-        vRP.setUData(parseInt(user_id),"vRP:prisao", -1)
         local ped = GetPlayerPed(source)
         local x,y,z = table.unpack(Config.coords_prison['Solto'])
         SetEntityCoords(ped,x,y,z)
     else
-        vRP.setUData(parseInt(user_id), "vRP:prisao", json.encode(parseInt(tempo) - time))
-        if Config.base == "creative" then
-            execute("vRP/rem_prison",{ user_id = parseInt(user_id), prison = time })
-        elseif Config.base == "summerz" then
-            vRP.updatePrison(user_id)
-        end
+        vRP.updatePrison(user_id, time)
         TriggerClientEvent('prisioneiro',source,true)
-        Config.notification(source,'Rest_prison',tempo)
+        Config.notification(source,'Rest_prison',tempo - time)
     end
     return tempo
 end
@@ -151,27 +161,38 @@ RegisterCommand("remprisao", function(source, args)
     local user_id = getUserId(source)
     if user_id and vRP.hasPermission(user_id,"admin.permissao") and args[1] then
         local nuser_id = parseInt(args[1])
-        local nplayer = getUserSource(nuser_id)
-        local ped = GetPlayerPed(nplayer)
-        local x,y,z = table.unpack(Config.coords_prison['Solto'])
-        TriggerClientEvent('prisioneiro',nplayer,false)
-        SetEntityCoords(ped,x,y,z)
-        vRP.setUData(parseInt(nuser_id),"vRP:prisao",-1)
-	    vRP.execute("vRP/set_prison",{ user_id = nuser_id, prison = 0, locate = 1 })
+        outPrison(nuser_id)
     end
 end)
 
+RegisterNetEvent("will_ficha_v3:diminuirpena1903")
+AddEventHandler("will_ficha_v3:diminuirpena1903",function()
+    local source = source
+	local user_id = getUserId(source)
+	if user_id then
+        local identity = vRP.getUserIdentity(user_id)
+		local tempo = parseInt(identity.prison)
+		if parseInt(tempo) > Config.serviceTime['Limite'] then
+			reducePrison(source, Config.serviceTime['Reduzir'])
+		else
+			Config.notification(source,'Limit_work')
+		end
+	end
+end)
+
 AddEventHandler("vRP:playerSpawn",function(user_id,source)
-    Citizen.Wait(3000)
+    Wait(3000)
     if source then
-        local value = vRP.getUData(parseInt(user_id),"vRP:prisao") or vRP.getInformation(user_id)[1].prison
-        local tempo = parseInt(json.decode(value)) or 0
-        if tempo > 0 then
-            local ped = GetPlayerPed(source)
-            local x,y,z = table.unpack(Config.coords_prison['Preso'])
-            SetEntityCoords(ped,x,y,z)
-            TriggerEvent("will_ficha_v3:reducePrison",source)
-            playerSpawn(source, tempo)
+        local identity = vRP.getUserIdentity(user_id)
+        if identity and identity.prison then
+            local tempo = parseInt(identity.prison) or 0
+            if tempo > 0 then
+                local ped = GetPlayerPed(source)
+                local x,y,z = table.unpack(Config.coords_prison['Preso'])
+                SetEntityCoords(ped,x,y,z)
+                TriggerEvent("will_ficha_v3:reducePrison",source)
+                playerSpawn(source, tempo)
+            end
         end
     end
 end)
@@ -231,26 +252,23 @@ function will.checkKey()
 	local user_id = getUserId(source)
 	if user_id then
 		local policeResult = vRP.getUsersByPermission(Config.permissions['Police']) or vRP.numPermission(Config.permissions['Police'])
-		if parseInt(#policeResult) <= 1 then
+		--[[ if parseInt(#policeResult) <= 1 then
 			TriggerClientEvent("Notify",source,"negado","Sistema indisponível no momento.",5000)
 			return false
-		end
+		end ]]
 		if vRP.getInventoryItemAmount(user_id,keyItem) >= 1 then
 			vRPclient._playAnim(source,false,{"amb@prop_human_parking_meter@female@idle_a","idle_a_female"},true)
 			local taskResult = vTASKBAR and vTASKBAR.taskTwo and vTASKBAR.taskTwo(source) or true
 			if taskResult then
 				if vRP.tryGetInventoryItem(user_id,keyItem,1,true) then
-					TriggerClientEvent('prisioneiro',source,false)
-					vRP.setUData(user_id,"vRP:prisao",-1)
-		
+                    outPrison(user_id)
 					for k,v in pairs(policeResult) do
 						async(function()
 							local player = getUserSource(parseInt(v))
 							TriggerClientEvent("Notify",player,"aviso","Recebemos a informação de um fugitivo da penitenciária.",15000)
 						end)
 					end
-					TriggerClientEvent("vrp_sysblips:ToogleProcurado",source,true)
-					TriggerClientEvent("vrp_sysblips:ToggleService",source,"Fugitivo",60)
+					TriggerClientEvent("vrp_blipsystem:serviceEnter",source,"Fugitivo",60)
 					TriggerClientEvent("Notify",source,"sucesso","Fuga iniciada, corra!",5000)
 					vRPclient._stopAnim(source,false)
 					return true
@@ -269,7 +287,6 @@ function will.checkKey()
 		else
 			TriggerClientEvent("Notify",source,"negado","Você não possui chave.",5000)
 		end
-
 		return false
 	end
 end

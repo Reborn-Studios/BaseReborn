@@ -19,6 +19,8 @@ Config.differentPlate = true
 
 Config.openPainel = "mdt"
 
+Config.fugaPrisao = true
+
 Config.ld_smartbank = true
 
 Config.debug = false
