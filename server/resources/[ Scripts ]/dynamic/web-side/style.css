@@ -20,12 +20,6 @@
     alternate backwards;
   animation: slide-in-right 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) alternate
     backwards;
-  background: linear-gradient(
-    270deg,
-    rgba(15, 15, 15, 0.8) 0%,
-    rgba(15, 15, 15, 0.65) 100%
-  );
-  border-radius: 1vw;
 }
 
 body {
@@ -65,8 +59,11 @@ body::after {
   position: relative;
   padding: 20px 20px 20px 15px;
   border-radius: 10px;
-  background: transparent;
-  background: rgb(255, 255, 255, 0.05);
+  background: linear-gradient(
+    270deg,
+    rgba(15, 15, 15, 0.8) 0%,
+    rgba(15, 15, 15, 0.65) 100%
+  );
   transition: all 0.5s;
 }
 
@@ -151,7 +148,11 @@ body::after {
 #goback {
   height: 10px;
   color: #ccc;
-  background: rgb(255, 255, 255, 0.05);
+  background: linear-gradient(
+    270deg,
+    rgba(15, 15, 15, 0.8) 0%,
+    rgba(15, 15, 15, 0.65) 100%
+  );
   border-radius: 10px;
 }
 
