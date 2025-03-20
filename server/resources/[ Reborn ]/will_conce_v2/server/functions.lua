@@ -32,7 +32,10 @@ function getUserIdentity(user_id)
     return identity
 end
 
-function tryPayment(user_id, price)
+function tryPayment(user_id, price, vip)
+    if vip then
+        return vRP.remGmsId(user_id, parseInt(price))
+    end
     if config.base == "cn" then
         return vRP.PaymentFull(user_id, parseInt(price))
     elseif config.base == "summerz" then

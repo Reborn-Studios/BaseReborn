@@ -65,23 +65,22 @@ local veiculos = config.veiculos
 
 cfg_s.buy_vehicle = function(user_id,category,vehicle,tuning)
     if user_id and category and vehicle and tuning then
+        local nplayer = getUserSource(user_id)
         if vRP.getFines(user_id) > 0 then
-            local nplayer = getUserSource(user_id)
 			TriggerClientEvent("Notify",nplayer,"aviso","Multas pendentes encontradas.",3000)
 			return false
 		end
         if veiculos[category][vehicle] then
-            if not veiculos[category][vehicle].vip then
-                local vehStock = query('will/get_estoque',{vehicle = vehicle})
-                local hasEstoque = vehStock and vehStock[1]
-                if not hasEstoque or (vehStock[1].estoque > 0) then
-                    local myVeh = query('will/get_vehicle',{user_id=user_id})
-                    local price = veiculos[category][vehicle].valor
-                    local nplayer = getUserSource(user_id)
-                    for k,v in pairs(myVeh) do
-                        if v.vehicle == vehicle then
-                            if not srv.checkRentSell(user_id,vehicle) then
-                                if request(nplayer,"Deseja comprar "..vehicle.." por R$"..price.."?",30) and checkMaxUserVehs(user_id) and tryPayment(user_id,price) then
+            local vehStock = query('will/get_estoque',{vehicle = vehicle})
+            local hasEstoque = vehStock and vehStock[1]
+            if not hasEstoque or (vehStock[1].estoque > 0) then
+                local myVeh = query('will/get_vehicle',{user_id=user_id})
+                local price = veiculos[category][vehicle].valor
+                for k,v in pairs(myVeh) do
+                    if v.vehicle == vehicle then
+                        if not srv.checkRentSell(user_id,vehicle) then
+                            if request(nplayer,"Deseja comprar "..vehicle.." por R$"..price.."?",30) and checkMaxUserVehs(user_id) then
+                                if tryPayment(user_id,price,veiculos[category][vehicle].vip) then
                                     execute('will/rem_rent',{user_id = user_id,vehicle = vehicle})
                                     addVehicle(user_id, vehicle)
                                     if hasEstoque then
@@ -91,14 +90,19 @@ cfg_s.buy_vehicle = function(user_id,category,vehicle,tuning)
                                     TriggerClientEvent('Notify',nplayer,"sucesso","Sua compra foi aprovada pelo nossso gerente!")
                                     webhook(cfg_s.webhook_comprar,'```[Concessionaria compra]\n[ID]:'..user_id.."\n[VALOR]:"..price.."[VEICULO]:"..vehicle..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").."\n```")
                                     return
+                                else
+                                    TriggerClientEvent('Notify',nplayer,'negado',"Você não possui dinheiro suficiente para comprar este veiculo!",5000)
+                                    return
                                 end
-                            else
-                                TriggerClientEvent('Notify',nplayer,'negado',"Você já possui este veiculo em sua garagem!")
-                                return
                             end
+                        else
+                            TriggerClientEvent('Notify',nplayer,'negado',"Você já possui este veiculo em sua garagem!")
+                            return
                         end
                     end
-                    if request(nplayer,"Deseja comprar "..vehicle.." por R$"..price.."?",30) and checkMaxUserVehs(user_id) and tryPayment(user_id,price) then
+                end
+                if request(nplayer,"Deseja comprar "..vehicle.." por R$"..price.."?",30) and checkMaxUserVehs(user_id) then
+                    if tryPayment(user_id,price,veiculos[category][vehicle].vip) then
                         if hasEstoque then
                             execute('will/att_estoque',{estoque = (vehStock[1].estoque - 1),vehicle = vehicle })
                         end
@@ -106,10 +110,10 @@ cfg_s.buy_vehicle = function(user_id,category,vehicle,tuning)
                         vRP.setSData('custom:'..user_id..":"..vehicle,json.encode(tuning))
                         TriggerClientEvent('Notify',nplayer,"sucesso","Sua compra foi aprovada pelo nossso gerente!")
                         webhook(cfg_s.webhook_comprar,'```[Concessionaria compra]\n[ID]:'..user_id.."\n[VALOR]:"..price.."[VEICULO]:"..vehicle..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").."\n```")
+                    else
+                        TriggerClientEvent('Notify',nplayer,'negado',"Você não possui dinheiro suficiente para comprar este veiculo!",5000)
                     end
                 end
-            else
-                TriggerClientEvent('Notify',nplayer,"negado","Para adquirir acesse nossa loja rebornshop!")
             end
         end
     end
@@ -130,23 +134,23 @@ cfg_s.rent_vehicle = function(user_id,categoria,vehicle)
     end
     if not checkVehicle(user_id,vehicle) then
         if veiculos[categoria][vehicle] then
-            if not veiculos[categoria][vehicle].vip then
-                local rent_price = parseInt(veiculos[categoria][vehicle].valor * config.rentPrice)
-                local myVeh = query('will/get_vehicle',{user_id=user_id})
-                for k,v in pairs(myVeh) do
-                    if v.vehicle == vehicle then
-                        TriggerClientEvent('Notify',source,'negado',"Você já possui este veiculo em sua garagem!")
-                        return
-                    end
+            local rent_price = parseInt(veiculos[categoria][vehicle].valor * config.rentPrice)
+            local myVeh = query('will/get_vehicle',{user_id=user_id})
+            for k,v in pairs(myVeh) do
+                if v.vehicle == vehicle then
+                    TriggerClientEvent('Notify',source,'negado',"Você já possui este veiculo em sua garagem!")
+                    return
                 end
-                local time = parseInt(os.time() + 24*cfg_s.rent_time*60*60)
-                if request(source,"Deseja alugar "..vehicle.." por R$"..rent_price.."?",30) and checkMaxUserVehs(user_id) and tryPayment(user_id,rent_price) then
+            end
+            local time = parseInt(os.time() + 24*cfg_s.rent_time*60*60)
+            if request(source,"Deseja alugar "..vehicle.." por R$"..rent_price.."?",30) and checkMaxUserVehs(user_id) then
+                if tryPayment(user_id,rent_price,veiculos[categoria][vehicle].vip) then
                     execute('will/add_rend',{user_id = user_id,vehicle = vehicle,time = time})
                     addVehicle(user_id, vehicle)
                     TriggerClientEvent('Notify',source,'sucesso',"Você alugou "..veiculos[categoria][vehicle].nome.." por R$"..rent_price.." dutante "..cfg_s.rent_time.." dias!")
+                else
+                    TriggerClientEvent('Notify',source,'negado',"Você não possui dinheiro suficiente para alugar este veiculo!",5000)
                 end
-            else
-                TriggerClientEvent('Notify',source,'negado',"Você não pode alugar este tipo de veiculo!")
             end
         end
     else
