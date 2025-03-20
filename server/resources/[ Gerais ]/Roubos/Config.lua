@@ -336,7 +336,7 @@ Config.gerais = {
 		["itens"] = {
 			{ ["item"] = "WEAPON_PISTOL", ["min"] = 1, ["max"] = 1 },
 			{ ["item"] = "WEAPON_SNSPISTOL", ["min"] = 1, ["max"] = 2 },
-			{ ["item"] = "WEAPON_PISTOL_AMMO", ["min"] = 50, ["max"] = 75 }
+			{ ["item"] = "ammo-9", ["min"] = 50, ["max"] = 75 }
 		}
 	},
 	[21] = {
@@ -353,7 +353,7 @@ Config.gerais = {
 		["itens"] = {
 			{ ["item"] = "WEAPON_PISTOL", ["min"] = 1, ["max"] = 1 },
 			{ ["item"] = "WEAPON_SNSPISTOL", ["min"] = 1, ["max"] = 2 },
-			{ ["item"] = "WEAPON_PISTOL_AMMO", ["min"] = 50, ["max"] = 75 }
+			{ ["item"] = "ammo-9", ["min"] = 50, ["max"] = 75 }
 		}
 	},
 	[22] = {
@@ -370,7 +370,7 @@ Config.gerais = {
 		["itens"] = {
 			{ ["item"] = "WEAPON_PISTOL", ["min"] = 1, ["max"] = 1 },
 			{ ["item"] = "WEAPON_SNSPISTOL", ["min"] = 1, ["max"] = 2 },
-			{ ["item"] = "WEAPON_PISTOL_AMMO", ["min"] = 50, ["max"] = 75 }
+			{ ["item"] = "ammo-9", ["min"] = 50, ["max"] = 75 }
 		}
 	},
 	[23] = {
@@ -387,7 +387,7 @@ Config.gerais = {
 		["itens"] = {
 			{ ["item"] = "WEAPON_PISTOL", ["min"] = 1, ["max"] = 1 },
 			{ ["item"] = "WEAPON_SNSPISTOL", ["min"] = 1, ["max"] = 2 },
-			{ ["item"] = "WEAPON_PISTOL_AMMO", ["min"] = 50, ["max"] = 75 }
+			{ ["item"] = "ammo-9", ["min"] = 50, ["max"] = 75 }
 		}
 	},
 	[24] = {
@@ -404,7 +404,7 @@ Config.gerais = {
 		["itens"] = {
 			{ ["item"] = "WEAPON_PISTOL", ["min"] = 1, ["max"] = 1 },
 			{ ["item"] = "WEAPON_SNSPISTOL", ["min"] = 1, ["max"] = 2 },
-			{ ["item"] = "WEAPON_PISTOL_AMMO", ["min"] = 50, ["max"] = 75 }
+			{ ["item"] = "ammo-9", ["min"] = 50, ["max"] = 75 }
 		}
 	},
 	[25] = {
@@ -421,7 +421,7 @@ Config.gerais = {
 		["itens"] = {
 			{ ["item"] = "WEAPON_PISTOL", ["min"] = 1, ["max"] = 1 },
 			{ ["item"] = "WEAPON_SNSPISTOL", ["min"] = 1, ["max"] = 2 },
-			{ ["item"] = "WEAPON_PISTOL_AMMO", ["min"] = 50, ["max"] = 75 }
+			{ ["item"] = "ammo-9", ["min"] = 50, ["max"] = 75 }
 		}
 	},
 	[26] = {
@@ -438,7 +438,7 @@ Config.gerais = {
 		["itens"] = {
 			{ ["item"] = "WEAPON_PISTOL", ["min"] = 1, ["max"] = 1 },
 			{ ["item"] = "WEAPON_SNSPISTOL", ["min"] = 1, ["max"] = 2 },
-			{ ["item"] = "WEAPON_PISTOL_AMMO", ["min"] = 50, ["max"] = 75 }
+			{ ["item"] = "ammo-9", ["min"] = 50, ["max"] = 75 }
 		}
 	},
 	[27] = {
@@ -455,7 +455,7 @@ Config.gerais = {
 		["itens"] = {
 			{ ["item"] = "WEAPON_PISTOL", ["min"] = 1, ["max"] = 1 },
 			{ ["item"] = "WEAPON_SNSPISTOL", ["min"] = 1, ["max"] = 2 },
-			{ ["item"] = "WEAPON_PISTOL_AMMO", ["min"] = 50, ["max"] = 75 }
+			{ ["item"] = "ammo-9", ["min"] = 50, ["max"] = 75 }
 		}
 	},
 	[28] = {
@@ -472,7 +472,7 @@ Config.gerais = {
 		["itens"] = {
 			{ ["item"] = "WEAPON_PISTOL", ["min"] = 1, ["max"] = 1 },
 			{ ["item"] = "WEAPON_SNSPISTOL", ["min"] = 1, ["max"] = 2 },
-			{ ["item"] = "WEAPON_PISTOL_AMMO", ["min"] = 50, ["max"] = 75 }
+			{ ["item"] = "ammo-9", ["min"] = 50, ["max"] = 75 }
 		}
 	},
 	[29] = {
@@ -489,7 +489,7 @@ Config.gerais = {
 		["itens"] = {
 			{ ["item"] = "WEAPON_PISTOL", ["min"] = 1, ["max"] = 1 },
 			{ ["item"] = "WEAPON_SNSPISTOL", ["min"] = 1, ["max"] = 2 },
-			{ ["item"] = "WEAPON_PISTOL_AMMO", ["min"] = 50, ["max"] = 75 }
+			{ ["item"] = "ammo-9", ["min"] = 50, ["max"] = 75 }
 		}
 	},
 	[30] = {
@@ -506,7 +506,7 @@ Config.gerais = {
 		["itens"] = {
 			{ ["item"] = "WEAPON_PISTOL", ["min"] = 1, ["max"] = 1 },
 			{ ["item"] = "WEAPON_SNSPISTOL", ["min"] = 1, ["max"] = 2 },
-			{ ["item"] = "WEAPON_PISTOL_AMMO", ["min"] = 50, ["max"] = 75 }
+			{ ["item"] = "ammo-9", ["min"] = 50, ["max"] = 75 }
 		}
 	},
 	[31] = {

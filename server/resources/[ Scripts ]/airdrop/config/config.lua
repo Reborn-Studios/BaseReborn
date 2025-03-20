@@ -35,7 +35,7 @@ Index.Main = {
     ['_reward'] = { -- recompensas do airdrop
         itens = {
             {'WEAPON_PISTOL_MK2', math.random(2, 4)},
-            {'WEAPON_PISTOL_AMMO', math.random(250, 750)},
+            {'ammo-9', math.random(250, 750)},
             {'dollars', math.random(250000, 300000)},
             {'backpackm', math.random(1, 4)},
             {'energetic', math.random(8,15)},
