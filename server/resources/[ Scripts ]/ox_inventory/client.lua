@@ -600,7 +600,8 @@ local function useSlot(slot, noAnim)
 					local newAmmo = currentAmmo + addAmmo
 
 					if newAmmo == currentAmmo then return end
-
+					local result = lib.callback.await('ox_inventory:updateWeapon', false, 'load', newAmmo, false, currentWeapon.metadata.specialAmmo)
+					if not result then return end
 					if cache.vehicle then
 						SetAmmoInClip(playerPed, currentWeapon.hash, newAmmo)
 
@@ -620,7 +621,6 @@ local function useSlot(slot, noAnim)
 						end)
 					end
 
-					lib.callback.await('ox_inventory:updateWeapon', false, 'load', newAmmo, false, currentWeapon.metadata.specialAmmo)
 				end)
 			elseif data.component then
 				local components = data.client.component
