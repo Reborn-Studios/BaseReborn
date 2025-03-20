@@ -182,17 +182,6 @@ return {
 		}
 	},
 
-	["pants"] = {
-		label = "Calças",
-		weight = 1000,
-		stack = true,
-		close = true,
-		description = "Calça estilosa para seu visual",
-		client = {
-			image = "pants.png",
-		}
-	},
-
 	["energetic"] = {
 		label = "Energético",
 		weight = 500,
@@ -230,9 +219,6 @@ return {
 			usetime = 2500,
 		},
 		description = "Sem descrição",
-		client = {
-			image = "hotdog.png",
-		}
 	},
 
 	["celular"] = {
@@ -543,9 +529,6 @@ return {
 			usetime = 2500,
 		},
 		description = "Sem descrição",
-		client = {
-			image = "fries.png",
-		}
 	},
 
 	["pager"] = {
@@ -680,17 +663,6 @@ return {
 		}
 	},
 
-	["tshirt"] = {
-		label = "Camisa",
-		weight = 1000,
-		stack = true,
-		close = true,
-		description = "Camisa estiloso para seu visual",
-		client = {
-			image = "tshirt.png",
-		}
-	},
-
 	["cigarette"] = {
 		label = "Cigarro",
 		weight = 100,
@@ -801,17 +773,6 @@ return {
 		}
 	},
 
-	["shoes"] = {
-		label = "Sapatos",
-		weight = 1000,
-		stack = true,
-		close = true,
-		description = "Sapato estiloso para seu visual",
-		client = {
-			image = "shoes.png",
-		}
-	},
-
 	["maconhamacerada"] = {
 		label = "Maconha Prensada",
 		weight = 300,
@@ -882,9 +843,6 @@ return {
 			usetime = 2500,
 		},
 		description = "Sem descrição",
-		client = {
-			image = "hamburger.png",
-		}
 	},
 
 	["cpuchip"] = {
@@ -994,17 +952,6 @@ return {
 		description = "Sem descrição",
 		client = {
 			image = "acidobateria.png",
-		}
-	},
-
-	["hat"] = {
-		label = "Chapéu",
-		weight = 1000,
-		stack = true,
-		close = true,
-		description = "Chapeu estiloso para seu visual",
-		client = {
-			image = "hat.png",
 		}
 	},
 
@@ -1298,9 +1245,6 @@ return {
 			usetime = 2500,
 		},
 		description = "Sem descrição",
-		client = {
-			image = "tacos.png",
-		}
 	},
 
 	["mouse"] = {
@@ -1428,9 +1372,6 @@ return {
 			usetime = 2500,
 		},
 		description = "Sem descrição",
-		client = {
-			image = "chocolate.png",
-		}
 	},
 
 	["compost"] = {
@@ -1455,17 +1396,6 @@ return {
 		}
 	},
 
-	["torso"] = {
-		label = "Jaqueta",
-		weight = 1000,
-		stack = true,
-		close = true,
-		description = "Jaqueta estilosa para seu visual",
-		client = {
-			image = "torso.png",
-		}
-	},
-
 	["donut"] = {
 		label = "Rosquinha",
 		weight = 200,
@@ -1481,9 +1411,6 @@ return {
 			usetime = 2500,
 		},
 		description = "Sem descrição",
-		client = {
-			image = "donut.png",
-		}
 	},
 
 	["backpackx"] = {
