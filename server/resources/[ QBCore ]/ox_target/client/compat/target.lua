@@ -94,6 +94,16 @@ exportHandler('RemoveTargetModel',function(model)
     api.removeModel(model)
 end)
 
+exportHandler('AddBoxZone',function (name, center, lenght, width, _, options, target)
+    return api.addBoxZone({
+        name = name,
+        coords = center,
+        radius = width,
+        debug = options.debugPoly,
+        options = convert(options),
+    })
+end)
+
 exportHandler('LabelText', function(models, options)
     -- 
 end)
