@@ -119,6 +119,14 @@ function Client.openMainMenu()
                     ExecuteCommand("blips")
                 end
             },
+            {
+                title = 'Criar rotas',
+                description = 'Criação de rotas',
+                icon="fa-solid fa-route",
+                onSelect = function ()
+                    ExecuteCommand("criarfarm")
+                end
+            },
         }
     })
     lib.showContext('admin_menu_control')
