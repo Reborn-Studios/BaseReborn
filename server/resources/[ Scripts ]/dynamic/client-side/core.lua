@@ -60,6 +60,11 @@ AddEventHandler("dynamic:closeSystem",function()
 		Dynamic = false
 	end
 end)
+
+RegisterNetEvent("dynamic:checkVipStatus")
+AddEventHandler("dynamic:checkVipStatus",function()
+	ExecuteCommand("premium")
+end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- GLOBALFUNCTIONS
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -71,6 +76,8 @@ RegisterCommand("globalFunctions",function()
 				exports["dynamic"]:AddButton("Vestir Premium","Vestir-se com as vestimentas guardadas.","player:Outfit","aplicarpre","wardrobe",true)
 				exports["dynamic"]:AddButton("Guardar Premium","Salvar suas vestimentas do corpo.","player:Outfit","salvarpre","wardrobe",true)
 				exports["dynamic"]:SubMenu("Armário Premium","Colocar/Retirar roupas.","wardrobe","fa-light fa-clothes-hanger")
+
+				exports["dynamic"]:AddButton("VIP status","Verificar VIP.","dynamic:checkVipStatus","","others",false)
 			end
 
 			exports["dynamic"]:AddButton("Vestir","Vestir-se com as vestimentas guardadas.","player:Outfit","aplicar","wardrobe",true)
