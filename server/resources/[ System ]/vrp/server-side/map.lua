@@ -115,11 +115,11 @@ function vRP.getTimers(seconds)
 	seconds = seconds - minutes * 60
 
 	if days > 0 then
-		return string.format("<b>%d Dias</b>, <b>%d Horas</b>, <b>%d Minutos</b> and <b>%d Segundos</b>",days,hours,minutes,seconds)
+		return string.format("<b>%d Dias</b>, <b>%d Horas</b>, <b>%d Minutos</b> e <b>%d Segundos</b>",days,hours,minutes,seconds)
 	elseif hours > 0 then
-		return string.format("<b>%d Horas</b>, <b>%d Minutos</b> and <b>%d Segundos</b>",hours,minutes,seconds)
+		return string.format("<b>%d Horas</b>, <b>%d Minutos</b> e <b>%d Segundos</b>",hours,minutes,seconds)
 	elseif minutes > 0 then
-		return string.format("<b>%d Minutos</b> and <b>%d Segundos</b>",minutes,seconds)
+		return string.format("<b>%d Minutos</b> e <b>%d Segundos</b>",minutes,seconds)
 	elseif seconds > 0 then
 		return string.format("<b>%d Segundos</b>",seconds)
 	end
