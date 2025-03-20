@@ -381,30 +381,6 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 		end
 	end
 
-	if itemName == "bonusDelivery" then
-		local myBonus = vRP.bonusDelivery(user_id)
-		if parseInt(myBonus) >= 100 then
-			return
-		end
-
-		if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
-			vRP.setBonusDelivery(user_id,1)
-			TriggerClientEvent("Notify",source,"importante","O nível de experiência no <b>Delivery</b> aumentou.",5000)
-		end
-	end
-
-	if itemName == "bonusPostOp" then
-		local myBonus = vRP.bonusPostOp(user_id)
-		if parseInt(myBonus) >= 100 then
-			return
-		end
-
-		if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
-			vRP.setbonusPostOp(user_id,1)
-			TriggerClientEvent("Notify",source,"importante","O nível de experiência no <b>Entregador</b> aumentou.",5000)
-		end
-	end
-
 	if itemName == "gsrkit" then
 		local nplayer = vRPclient.nearestPlayer(source,5)
 		if nplayer then
@@ -1233,7 +1209,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 		local vehicle = vRP.query("vRP/get_vehicles",{ user_id = parseInt(user_id), vehicle = tostring(vehModel) })
 		if vehicle[1] then
 			local vehPlate = vRP.prompt(source,"NOVA PLACA:","")
-			if vehPlate == "" or string.upper(vehPlate) == "CNVRP - RP" then
+			if vehPlate == "" then
 				return
 			end
 

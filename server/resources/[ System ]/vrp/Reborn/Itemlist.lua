@@ -58,18 +58,6 @@ local itens = {
 		name = "Cirurgia",
 		type = "use",
 		weight = 0.1
-	},	
-	["bonusDelivery"] = {
-		index = "bonusDelivery",
-		name = "+ Bonus Tacos",
-		type = "use",
-		weight = 0.5
-	},
-	["bonusPostOp"] = {
-		index = "bonusPostOp",
-		name = "+ Bonus Entregador",
-		type = "use",
-		weight = 0.5
 	},
 	["radio"] = {
 		index = "radio",

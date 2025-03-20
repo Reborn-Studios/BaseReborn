@@ -506,17 +506,6 @@ return {
 		}
 	},
 
-	["bonusPostOp"] = {
-		label = "+ Bonus Entregador",
-		weight = 500,
-		stack = true,
-		close = true,
-		description = "Sem descrição",
-		client = {
-			image = "bonusPostOp.png",
-		}
-	},
-
 	["premiumgarage"] = {
 		label = "+ 1 Garagem",
 		weight = 0,
@@ -1082,17 +1071,6 @@ return {
 		description = "Sem descrição",
 		client = {
 			image = "premium02.png",
-		}
-	},
-
-	["bonusDelivery"] = {
-		label = "+ Bonus Tacos",
-		weight = 500,
-		stack = true,
-		close = true,
-		description = "Sem descrição",
-		client = {
-			image = "bonusDelivery.png",
 		}
 	},
 
