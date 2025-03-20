@@ -143,11 +143,9 @@ function ResetPed(source)
 			TriggerClientEvent("resetDiagnostic",source)
 			TriggerClientEvent("vrp_survival:FadeOutIn",source)
 			Wait(1000)
-			if not vRP.hasPermission(user_id, "mochila.permissao") then
-				local clear = vRP.clearInventory(user_id)
-				if clear then
-					vRPclient._clearWeapons(source)
-				end
+			local clear = vRP.clearInventory(user_id)
+			if clear then
+				vRPclient._clearWeapons(source)
 			end
 			vRP.upgradeThirst(user_id,100)
 			vRP.upgradeHunger(user_id,100)
