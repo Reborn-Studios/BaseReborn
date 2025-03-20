@@ -5,6 +5,7 @@
 Tunnel = module("vrp","lib/Tunnel")
 Proxy = module("vrp","lib/Proxy")
 vRP = Proxy.getInterface("vRP")
+Reborn = Proxy.getInterface("Reborn")
 
 -----##########################################################-----
 --###          CONFIGS
@@ -24,7 +25,7 @@ Config.AcessToEveryone = true				-- Todos tem acesso para ver os premios (Nao co
 Config.ExclusiveBattlepass = false			-- Battlepass exclusivo para comprar
 Config.BattlepassPerm = "battlepass.perm"	-- Permissao que tera acesso ao battlepass
 
-Config.Images = "./images"					-- Diretorio das imagens
+Config.Images = Reborn.images()				-- Diretorio das imagens
 
 -----##########################################################-----
 
@@ -43,13 +44,13 @@ Config.LootboxesRewards = {
 	[1] = { -- aio
 		{ name = 'analgesic',			label = 'Analgesico',			amount = 1,			luck = 10 },
 		{ name = 'bandage',				label = 'Bandagem',				amount = 10,		luck = 30 },
-		{ name = 'militaryvest',		label = 'Colete militar',		amount = 3,			luck = 30 },
+		{ name = 'vest',				label = 'Colete',		amount = 3,			luck = 30 },
 		{ name = 'dollars',				label = 'R$60000',				amount = 60000,		luck = 15 },
 		{ name = 'dollars',				label = 'R$30000',				amount = 30000,		luck = 15 },
 	},
 	[2] = { -- vest
 		{ name = 'vest',				label = 'Colete',				amount = 4,			luck = 50 },
-		{ name = 'militaryvest',		label = 'Colete militar',		amount = 3,			luck = 50 },
+		{ name = 'vest',				label = 'Colete',		amount = 3,			luck = 50 },
 	},
 	[3] = { -- money
 		{ name = 'dollars',				label = 'R$20000',				amount = 30000,		luck = 40 },
@@ -67,7 +68,7 @@ Config.LootboxesRewards = {
 	[5] = { -- medical
 		{ name = 'bandage',				label = 'Bandagem',				amount = 10,		luck = 34 },
 		{ name = 'analgesic',			label = 'Analgesico',			amount = 5,			luck = 33 },
-		{ name = 'medkit',				label = 'Kit Médico',			amount = 3,			luck = 33 },
+		{ name = 'warfarin',			label = 'Kit Médico',			amount = 3,			luck = 33 },
 	},
 	[6] = { -- vehicle
 		{ name = 'bmwi8',				label = 'BMW I8',	   			amount = 1,			luck = 10 },
@@ -87,7 +88,7 @@ Config.LevelRewards = {
 
 	[1] = { title = 'DINHEIRO',				item = 'dollars',					amount = 20000,		type = 'money',			desc = 'GANHE R$20000' },
 	
-	[2] = { title = 'MOCHILA',				item = 'mochila',					amount = 1,			type = 'item',			desc = 'GANHE 1 MOCHILA' },
+	[2] = { title = 'MOCHILA',				item = 'backpackp',					amount = 1,			type = 'item',			desc = 'GANHE 1 MOCHILA' },
 	
 	[3] = { title = 'PISTOLA',				item = 'WEAPON_PISTOL',				amount = 1,			type = 'weapon',		desc = 'GANHE 1 PISTOLA' },
 	
@@ -97,7 +98,7 @@ Config.LevelRewards = {
 	
 	[6] = { title = 'DESERT EAGLE',			item = 'WEAPON_PISTOL50',			amount = 1,			type = 'weapon',		desc = 'GANHE UMA DESERT EAGLE' },
 	
-	[7] = { title = 'COLETE MILITAR',		item = 'militaryvest',				amount = 3,			type = 'item',			desc = 'GANHE 3 COLETE MILITAR' },
+	[7] = { title = 'Colete',				item = 'vest',						amount = 3,			type = 'item',			desc = 'GANHE 3 Colete' },
 	
 	[8] = { title = 'RIFLE MK2',			item = 'WEAPON_ASSAULTRIFLE',		amount = 1,			type = 'weapon',		desc = 'GANHE A ASSAULTRIFLE' },
 	
@@ -107,7 +108,7 @@ Config.LevelRewards = {
 
 	[11] = { title = 'DINHEIRO',			item = 'dollars',					amount = 20000,		type = 'money',			desc = 'GANHE R$20000' },
 	
-	[12] = { title = 'MOCHILA',				item = 'mochila',					amount = 1,			type = 'item',			desc = 'GANHE 1 MOCHILA' },
+	[12] = { title = 'MOCHILA',				item = 'backpackm',					amount = 1,			type = 'item',			desc = 'GANHE 1 MOCHILA' },
 	
 	[13] = { title = 'PISTOLA',				item = 'WEAPON_PISTOL',				amount = 1,			type = 'weapon',		desc = 'GANHE 1 PISTOLA' },
 	
@@ -117,7 +118,7 @@ Config.LevelRewards = {
 	
 	[16] = { title = 'DESERT EAGLE',		item = 'WEAPON_PISTOL50',			amount = 1,			type = 'weapon',		desc = 'GANHE UMA DESERT EAGLE' },
 	
-	[17] = {title = 'COLETE MILITAR',		item = 'militaryvest',				amount = 3,			type = 'item',			desc = 'GANHE 3 COLETE MILITAR'},
+	[17] = {title = 'Colete',				item = 'vest',						amount = 3,			type = 'item',			desc = 'GANHE 3 Colete'},
 	
 	[18] = { title = 'RIFLE MK2',			item = 'WEAPON_ASSAULTRIFLE',		amount = 1,			type = 'weapon',		desc = 'GANHE A ASSAULTRIFLE' },
 	
@@ -127,7 +128,7 @@ Config.LevelRewards = {
 
 	[21] = { title = 'DINHEIRO',			item = 'dollars',					amount = 20000,		type = 'money',			desc = 'GANHE R$20000' },
 	
-	[22] = { title = 'MOCHILA',				item = 'mochila',					amount = 1,			type = 'item',			desc = 'GANHE 1 MOCHILA' },
+	[22] = { title = 'MOCHILA',				item = 'backpackm',					amount = 1,			type = 'item',			desc = 'GANHE 1 MOCHILA' },
 	
 	[23] = { title = 'PISTOLA',				item = 'WEAPON_PISTOL',				amount = 1,			type = 'weapon',		desc = 'GANHE 1 PISTOLA' },
 	
@@ -137,7 +138,7 @@ Config.LevelRewards = {
 	
 	[26] = { title = 'DESERT EAGLE',		item = 'WEAPON_PISTOL50',			amount = 1,			type = 'weapon',		desc = 'GANHE UMA DESERT EAGLE' },
 	
-	[27] = {title = 'COLETE MILITAR',		item = 'militaryvest',				amount = 3,			type = 'item',			desc = 'GANHE 3 COLETE MILITAR'},
+	[27] = {title = 'Colete',				item = 'vest',						amount = 3,			type = 'item',			desc = 'GANHE 3 Colete'},
 	
 	[28] = { title = 'RIFLE MK2',			item = 'WEAPON_ASSAULTRIFLE',		amount = 1,			type = 'weapon',		desc = 'GANHE A ASSAULTRIFLE' },
 	
@@ -147,7 +148,7 @@ Config.LevelRewards = {
 
 	[31] = { title = 'DINHEIRO',			item = 'dollars',					amount = 20000,		type = 'money',			desc = 'GANHE R$20000' },
 	
-	[32] = { title = 'MOCHILA',				item = 'mochila',					amount = 1,			type = 'item',			desc = 'GANHE 1 MOCHILA' },
+	[32] = { title = 'MOCHILA',				item = 'backpackg',					amount = 1,			type = 'item',			desc = 'GANHE 1 MOCHILA' },
 	
 	[33] = { title = 'PISTOLA',				item = 'WEAPON_PISTOL',				amount = 1,			type = 'weapon',		desc = 'GANHE 1 PISTOLA' },
 	
@@ -157,7 +158,7 @@ Config.LevelRewards = {
 	
 	[36] = { title = 'DESERT EAGLE',		item = 'WEAPON_PISTOL50',			amount = 1,			type = 'weapon',		desc = 'GANHE UMA DESERT EAGLE' },
 	
-	[37] = {title = 'COLETE MILITAR',		item = 'militaryvest',				amount = 3,			type = 'item',			desc = 'GANHE 3 COLETE MILITAR'},
+	[37] = {title = 'Colete',				item = 'vest',						amount = 3,			type = 'item',			desc = 'GANHE 3 Colete'},
 	
 	[38] = { title = 'RIFLE MK2',			item = 'WEAPON_ASSAULTRIFLE',		amount = 1,			type = 'weapon',		desc = 'GANHE A ASSAULTRIFLE' },
 	
@@ -167,7 +168,7 @@ Config.LevelRewards = {
 
 	[41] = { title = 'DINHEIRO',			item = 'dollars',					amount = 20000,		type = 'money',			desc = 'GANHE R$20000' },
 	
-	[42] = { title = 'MOCHILA',				item = 'mochila',					amount = 1,			type = 'item',			desc = 'GANHE 1 MOCHILA' },
+	[42] = { title = 'MOCHILA',				item = 'backpackg',					amount = 1,			type = 'item',			desc = 'GANHE 1 MOCHILA' },
 	
 	[43] = { title = 'PISTOLA',				item = 'WEAPON_PISTOL',				amount = 1,			type = 'weapon',		desc = 'GANHE 1 PISTOLA' },
 	
@@ -177,7 +178,7 @@ Config.LevelRewards = {
 	
 	[46] = { title = 'DESERT EAGLE',		item = 'WEAPON_PISTOL50',			amount = 1,			type = 'weapon',		desc = 'GANHE UMA DESERT EAGLE' },
 	
-	[47] = {title = 'COLETE MILITAR',		item = 'militaryvest',				amount = 3,			type = 'item',			desc = 'GANHE 3 COLETE MILITAR'},
+	[47] = {title = 'Colete',				item = 'vest',						amount = 3,			type = 'item',			desc = 'GANHE 3 Colete'},
 	
 	[48] = { title = 'RIFLE MK2',			item = 'WEAPON_ASSAULTRIFLE',		amount = 1,			type = 'weapon',		desc = 'GANHE A ASSAULTRIFLE' },
 	
@@ -187,7 +188,7 @@ Config.LevelRewards = {
 
 	[51] = { title = 'DINHEIRO',			item = 'dollars',					amount = 20000,		type = 'money',			desc = 'GANHE R$20000' },
 	
-	[52] = { title = 'MOCHILA',				item = 'mochila',					amount = 1,			type = 'item',			desc = 'GANHE 1 MOCHILA' },
+	[52] = { title = 'MOCHILA',				item = 'backpackx',					amount = 1,			type = 'item',			desc = 'GANHE 1 MOCHILA' },
 	
 	[53] = { title = 'PISTOLA',				item = 'WEAPON_PISTOL',				amount = 1,			type = 'weapon',		desc = 'GANHE 1 PISTOLA' },
 	
@@ -197,7 +198,7 @@ Config.LevelRewards = {
 	
 	[56] = { title = 'DESERT EAGLE',		item = 'WEAPON_PISTOL50',			amount = 1,			type = 'weapon',		desc = 'GANHE UMA DESERT EAGLE' },
 	
-	[57] = {title = 'COLETE MILITAR',		item = 'militaryvest',				amount = 3,			type = 'item',			desc = 'GANHE 3 COLETE MILITAR'},
+	[57] = {title = 'Colete',				item = 'vest',						amount = 3,			type = 'item',			desc = 'GANHE 3 Colete'},
 	
 	[58] = { title = 'RIFLE MK2',			item = 'WEAPON_ASSAULTRIFLE',		amount = 1,			type = 'weapon',		desc = 'GANHE A ASSAULTRIFLE' },
 	
@@ -207,7 +208,7 @@ Config.LevelRewards = {
 
 	[61] = { title = 'DINHEIRO',			item = 'dollars',					amount = 20000,		type = 'money',			desc = 'GANHE R$20000' },
 	
-	[62] = { title = 'MOCHILA',				item = 'mochila',					amount = 1,			type = 'item',			desc = 'GANHE 1 MOCHILA' },
+	[62] = { title = 'MOCHILA',				item = 'backpackx',					amount = 1,			type = 'item',			desc = 'GANHE 1 MOCHILA' },
 	
 	[63] = { title = 'PISTOLA',				item = 'WEAPON_PISTOL',				amount = 1,			type = 'weapon',		desc = 'GANHE 1 PISTOLA' },
 	
@@ -217,7 +218,7 @@ Config.LevelRewards = {
 	
 	[66] = { title = 'DESERT EAGLE',		item = 'WEAPON_PISTOL50',			amount = 1,			type = 'weapon',		desc = 'GANHE UMA DESERT EAGLE' },
 	
-	[67] = {title = 'COLETE MILITAR',		item = 'militaryvest',				amount = 3,			type = 'item',			desc = 'GANHE 3 COLETE MILITAR'},
+	[67] = {title = 'Colete',				item = 'vest',						amount = 3,			type = 'item',			desc = 'GANHE 3 Colete'},
 	
 	[68] = { title = 'RIFLE MK2',			item = 'WEAPON_ASSAULTRIFLE',		amount = 1,			type = 'weapon',		desc = 'GANHE A ASSAULTRIFLE' },
 	
@@ -227,7 +228,7 @@ Config.LevelRewards = {
 
 	[71] = { title = 'DINHEIRO',			item = 'dollars',					amount = 20000,		type = 'money',			desc = 'GANHE R$20000' },
 	
-	[72] = { title = 'MOCHILA',				item = 'mochila',					amount = 1,			type = 'item',			desc = 'GANHE 1 MOCHILA' },
+	[72] = { title = 'MOCHILA',				item = 'backpackm',					amount = 1,			type = 'item',			desc = 'GANHE 1 MOCHILA' },
 	
 	[73] = { title = 'PISTOLA',				item = 'WEAPON_PISTOL',				amount = 1,			type = 'weapon',		desc = 'GANHE 1 PISTOLA' },
 	
@@ -237,7 +238,7 @@ Config.LevelRewards = {
 	
 	[76] = { title = 'DESERT EAGLE',		item = 'WEAPON_PISTOL50',			amount = 1,			type = 'weapon',		desc = 'GANHE UMA DESERT EAGLE' },
 	
-	[77] = {title = 'COLETE MILITAR',		item = 'militaryvest',				amount = 3,			type = 'item',			desc = 'GANHE 3 COLETE MILITAR'},
+	[77] = {title = 'Colete',				item = 'vest',						amount = 3,			type = 'item',			desc = 'GANHE 3 Colete'},
 	
 	[78] = { title = 'RIFLE MK2',			item = 'WEAPON_ASSAULTRIFLE',		amount = 1,			type = 'weapon',		desc = 'GANHE A ASSAULTRIFLE' },
 	
@@ -247,7 +248,7 @@ Config.LevelRewards = {
 
 	[81] = { title = 'DINHEIRO',			item = 'dollars',					amount = 20000,		type = 'money',			desc = 'GANHE R$20000' },
 	
-	[82] = { title = 'MOCHILA',				item = 'mochila',					amount = 1,			type = 'item',			desc = 'GANHE 1 MOCHILA' },
+	[82] = { title = 'MOCHILA',				item = 'backpackg',					amount = 1,			type = 'item',			desc = 'GANHE 1 MOCHILA' },
 	
 	[83] = { title = 'PISTOLA',				item = 'WEAPON_PISTOL',				amount = 1,			type = 'weapon',		desc = 'GANHE 1 PISTOLA' },
 	
@@ -257,7 +258,7 @@ Config.LevelRewards = {
 	
 	[86] = { title = 'DESERT EAGLE',		item = 'WEAPON_PISTOL50',			amount = 1,			type = 'weapon',		desc = 'GANHE UMA DESERT EAGLE' },
 	
-	[87] = {title = 'COLETE MILITAR',		item = 'militaryvest',				amount = 3,			type = 'item',			desc = 'GANHE 3 COLETE MILITAR'},
+	[87] = {title = 'Colete',				item = 'vest',						amount = 3,			type = 'item',			desc = 'GANHE 3 Colete'},
 	
 	[88] = { title = 'RIFLE MK2',			item = 'WEAPON_ASSAULTRIFLE',		amount = 1,			type = 'weapon',		desc = 'GANHE A ASSAULTRIFLE' },
 	
@@ -267,7 +268,7 @@ Config.LevelRewards = {
 
 	[91] = { title = 'DINHEIRO',			item = 'dollars',					amount = 20000,		type = 'money',			desc = 'GANHE R$20000' },
 	
-	[92] = { title = 'MOCHILA',				item = 'mochila',					amount = 1,			type = 'item',			desc = 'GANHE 1 MOCHILA' },
+	[92] = { title = 'MOCHILA',				item = 'backpackx',					amount = 1,			type = 'item',			desc = 'GANHE 1 MOCHILA' },
 	
 	[93] = { title = 'PISTOLA',				item = 'WEAPON_PISTOL',				amount = 1,			type = 'weapon',		desc = 'GANHE 1 PISTOLA' },
 	
@@ -277,7 +278,7 @@ Config.LevelRewards = {
 	
 	[96] = { title = 'DESERT EAGLE',		item = 'WEAPON_PISTOL50',			amount = 1,			type = 'weapon',		desc = 'GANHE UMA DESERT EAGLE' },
 	
-	[97] = {title = 'COLETE MILITAR',		item = 'militaryvest',				amount = 3,			type = 'item',			desc = 'GANHE 3 COLETE MILITAR'},
+	[97] = {title = 'Colete',				item = 'vest',						amount = 3,			type = 'item',			desc = 'GANHE 3 Colete'},
 	
 	[98] = { title = 'RIFLE MK2',			item = 'WEAPON_ASSAULTRIFLE',		amount = 1,			type = 'weapon',		desc = 'GANHE A ASSAULTRIFLE' },
 	
