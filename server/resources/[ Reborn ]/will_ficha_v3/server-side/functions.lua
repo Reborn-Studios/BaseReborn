@@ -114,14 +114,21 @@ function reducePrison(source, time)
 end
 
 function checkUserCnh(user_id)
-	local habilitacion = "NÃO POSSUI"
-	if hasPermission(user_id,"carteiraAB.permissao") then
-		habilitacion = "AB"
-	elseif hasPermission(user_id,"carteiraA.permissao") then
-		habilitacion = "A"
-	elseif hasPermission(user_id,"carteiraB.permissao") then
-		habilitacion = "B"
-	end
+    local consult = json.decode(vRP.getUData(user_id, "licenses")) or {}
+    local habilitacion = "NÃO POSSUI"
+    if next(consult) then
+        local maps = {
+            ['drive_a'] = "A",
+            ['drive_b'] = "B",
+            ['drive_c'] = "C",
+        }
+        habilitacion = ""
+        for license, v in pairs(consult) do
+            if maps[license] and v then
+                habilitacion = habilitacion..maps[license].." "
+            end
+        end
+    end
 	return habilitacion
 end
 

@@ -510,6 +510,18 @@ function QBCore.Player.GetOfflinePlayer(citizenid)
     return nil
 end
 
+function GetLicenses(PlayerData)
+    local consult = json.decode(vRP.getUData(PlayerData.citizenid, "licenses")) or {}
+    if consult and next(consult) then
+        return consult
+    end
+    return PlayerData.metadata['licences'] or {
+        ['driver'] = true,
+        ['business'] = false,
+        ['weapon'] = false
+    }
+end
+
 function QBCore.Player.CheckPlayerData(source, PlayerData)
     PlayerData = PlayerData or {}
     local Offline = true
@@ -571,11 +583,7 @@ function QBCore.Player.CheckPlayerData(source, PlayerData)
         ['hasRecord'] = false,
         ['date'] = nil
     }
-    PlayerData.metadata['licences'] = PlayerData.metadata['licences'] or {
-        ['driver'] = true,
-        ['business'] = false,
-        ['weapon'] = false
-    }
+    PlayerData.metadata['licences'] = GetLicenses(PlayerData)
     PlayerData.metadata['inside'] = PlayerData.metadata['inside'] or {
         house = nil,
         apartment = {
