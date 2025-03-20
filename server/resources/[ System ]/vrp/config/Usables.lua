@@ -1208,7 +1208,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 		end
 		local vehicle = vRP.query("vRP/get_vehicles",{ user_id = parseInt(user_id), vehicle = tostring(vehModel) })
 		if vehicle[1] then
-			local vehPlate = vRP.prompt(source,"NOVA PLACA:","")
+			local vehPlate = string.lower(vRP.prompt(source,"NOVA PLACA:",""))
 			if vehPlate == "" then
 				return
 			end
@@ -1245,6 +1245,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 				return
 			end
 			vRP.upgradeNames(user_id,newName,newLastName)
+			TriggerClientEvent("Notify",source,"sucesso","Nome atualizado com sucesso.",5000)
 		end
 	end
 
@@ -1307,7 +1308,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 							vRPclient._stopAnim(source,false)
 
 							if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
-								TriggerClientEvent("vrp_admin:vehicleTuning",source)
+								TriggerClientEvent("vehtuning",source)
 							end
 						end
 						Citizen.Wait(0)
@@ -1388,11 +1389,14 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 		local identity = vRP.getUserIdentity(user_id)
 		if identity then
 			if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
+				local GEMS_QUANTITY = 20
 				if not vRP.getPremium(user_id) then
 					vRP.execute("vRP/set_premium",{ identifier = identity.identifier, premium = parseInt(os.time()), chars = 2, predays = 3, priority = 20 })
 				else
 					vRP.execute("vRP/update_premium",{ identifier = identity.identifier, predays = 3 })
 				end
+				vRP.addGmsId(user_id, GEMS_QUANTITY)
+				TriggerClientEvent("Notify",source,"VIP","Você recebeu:<br>- "..GEMS_QUANTITY.." gemas<br>- Prioridade na fila de 20%<br>- Mais um slot de armário")
 			end
 		end
 	end
@@ -1401,11 +1405,14 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 		local identity = vRP.getUserIdentity(user_id)
 		if identity then
 			if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
+				local GEMS_QUANTITY = 40
 				if not vRP.getPremium(user_id) then
 					vRP.execute("vRP/set_premium",{ identifier = identity.identifier, premium = parseInt(os.time()), chars = 2, predays = 7, priority = 30 })
 				else
 					vRP.execute("vRP/update_premium",{ identifier = identity.identifier, predays = 7 })
 				end
+				vRP.addGmsId(user_id, GEMS_QUANTITY)
+				TriggerClientEvent("Notify",source,"VIP","Você recebeu:<br>- "..GEMS_QUANTITY.." gemas<br>- Prioridade na fila de 30%<br>- Mais um slot de armário")
 			end
 		end
 	end
@@ -1414,12 +1421,14 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 		local identity = vRP.getUserIdentity(user_id)
 		if identity then
 			if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
+				local GEMS_QUANTITY = 60
 				if not vRP.getPremium(user_id) then
-
 					vRP.execute("vRP/set_premium",{ identifier = identity.identifier, premium = parseInt(os.time()), chars = 2, predays = 15, priority = 40 })
 				else
 					vRP.execute("vRP/update_premium",{ identifier = identity.identifier, predays = 15 })
 				end
+				vRP.addGmsId(user_id, GEMS_QUANTITY)
+				TriggerClientEvent("Notify",source,"VIP","Você recebeu:<br>- "..GEMS_QUANTITY.." gemas<br>- Prioridade na fila de 40%<br>- Mais um slot de armário")
 			end
 		end
 	end
@@ -1428,11 +1437,14 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 		local identity = vRP.getUserIdentity(user_id)
 		if identity then
 			if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
+				local GEMS_QUANTITY = 80
 				if not vRP.getPremium(user_id) then
 					vRP.execute("vRP/set_premium",{ identifier = identity.identifier, premium = parseInt(os.time()), chars = 2, predays = 30, priority = 50 })
 				else
 					vRP.execute("vRP/update_premium",{ identifier = identity.identifier, predays = 30 })
 				end
+				vRP.addGmsId(user_id, GEMS_QUANTITY)
+				TriggerClientEvent("Notify",source,"VIP","Você recebeu:<br>- "..GEMS_QUANTITY.." gemas<br>- Prioridade na fila de 50%<br>- Mais um slot de armário")
 			end
 		end
 	end
