@@ -1,44 +1,36 @@
 -----------------------------------------------------------------------------------------------------------------------------------------
--- VRP
------------------------------------------------------------------------------------------------------------------------------------------
-local Tunnel = module("vrp","lib/Tunnel")
-local Proxy = module("vrp","lib/Proxy")
-local Webhooks = module("Reborn/webhooks")
-vRP = Proxy.getInterface("vRP")
-vRPclient = Tunnel.getInterface("vRP")
------------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-cRP = {}
-Tunnel.bindInterface("Races",cRP)
+Races = {}
+Tunnel.bindInterface("Races",Races)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- FINISHRACES
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cRP.finishRaces()
+function Races.finishRaces()
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		vRP.giveInventoryItem(user_id,"dollars2",math.random(Config.races['payment']['min'],Config.races['payment']['max']))
+		local payment = math.random(Config.races['payment']['min'],Config.races['payment']['max'])
+		vRP.giveInventoryItem(user_id,"dollars2",payment)
+		vRP.createWeebHook(Webhooks.webhookraces,"```prolog\n[ID]: "..user_id.."\n[Ganhou da corrida normal]: $"..payment..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- STARTRACES
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cRP.startRaces()
+function Races.startRaces()
 	local source = source
 	local user_id = vRP.getUserId(source)
-	local comAmount = vRP.numPermission("Police")
 	if user_id then
 		TriggerClientEvent("Notify",source,"importante","A policia foi acionada, corra!",5000)
 		vRP.createWeebHook(Webhooks.webhookraces,"```prolog\n[ID]: "..user_id.."\n[Iniciou corrida] "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
 	end
 end
-
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CALLPOLICE
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cRP.callPolice(x,y,z)
-	local copAmount = vRP.numPermission("Police")
+function Races.callPolice(x,y,z)
+	local copAmount = vRP.getUsersByPermission("policia.permissao")
 	for k,v in pairs(copAmount) do
 		local player = vRP.getUserSource(v)
 		async(function()

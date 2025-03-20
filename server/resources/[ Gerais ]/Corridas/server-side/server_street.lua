@@ -1,72 +1,71 @@
 -----------------------------------------------------------------------------------------------------------------------------------------
--- VRP
------------------------------------------------------------------------------------------------------------------------------------------
-local Tunnel = module("vrp","lib/Tunnel")
-local Proxy = module("vrp","lib/Proxy")
-vRP = Proxy.getInterface("vRP")
-vRPclient = Tunnel.getInterface("vRP")
------------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-cnVRP = {}
-Tunnel.bindInterface("Street",cnVRP)
-vsCLIENT = Tunnel.getInterface("Street")
+Explode = {}
+Tunnel.bindInterface("Street",Explode)
+ClientExplode = Tunnel.getInterface("Street")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
 local race = 1
-local totalRaces = 18
+local totalRaces = #Config.streetRace.races
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- STARTRACE
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.checkTicket()
+function Explode.checkTicket()
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
 		if vRP.wantedReturn(user_id) then
 			return false
 		end
-
 		if vRP.tryGetInventoryItem(user_id,"raceticket",1) then
 			TriggerEvent("vrp_blipsystem:serviceEnter",source,"Corredor",75)
 			vRP.upgradeStress(user_id,5)
 			return true
+		else
+			TriggerClientEvent("Notify",source,"negado","Você não possui um ticket de corrida",5000)
 		end
-		TriggerClientEvent("Notify",source,"negado","Você não possui ticket de corrida.",5000)
 		return false
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- STARTRACE
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.startRace()
-	local copAmount = vRP.numPermission("Police")
+function Explode.startRace()
+	local source = source
+	local user_id = vRP.getUserId(source)
+	local copAmount = vRP.getUsersByPermission("policia.permissao")
 	for k,v in pairs(copAmount) do
 		async(function()
 			TriggerClientEvent("Notify",v,"importante","Recebemos um relato de um corredor ilegal.",5000)
 		end)
 	end
-	return parseInt(race)
+	vRP.createWeebHook(Webhooks.webhookraces,"```prolog\n[ID]: "..user_id.."\n[Iniciou a corrida explosiva]: "..race..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
+	return race
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- RANDOMPOINT
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		race = math.random(totalRaces)
-		Citizen.Wait(5*60000)
+		Wait(5*60000)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PAYMENTMETHOD
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cnVRP.paymentMethod(vehPlate)
+function Explode.paymentMethod(vehPlate)
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
 		vRP.wantedTimer(user_id,300)
 		TriggerEvent("vrp_blipsystem:serviceExit",source)
-		vRP.giveInventoryItem(user_id,"dollars",parseInt(math.random(Config.streetRace['payment']['min'],Config.streetRace['payment']['min'])),true)
+		local payment = math.random(Config.streetRace['payment']['min'],Config.streetRace['payment']['min'])
+		vRP.giveInventoryItem(user_id,"dollars",payment,true)
+		TriggerClientEvent("vrp_sound:source",source,"coin",0.5)
+		vRP.createWeebHook(Webhooks.webhookraces,"```prolog\n[ID]: "..user_id.."\n[Ganhou da corrida explosiva]: $"..payment..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -75,10 +74,10 @@ end
 RegisterCommand("defusar",function(source,args,rawCommand)
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		if vRP.hasPermission(user_id,"Police") then
+		if vRP.hasPermission(user_id,"policia.permissao") then
 			local nplayer = vRPclient.nearestPlayer(source,10)
 			if nplayer then
-				vsCLIENT.defuseRace(nplayer)
+				ClientExplode.defuseRace(nplayer)
 			end
 		end
 	end
