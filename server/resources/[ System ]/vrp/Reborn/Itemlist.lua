@@ -1,6 +1,6 @@
 local itens = {
 	["cirurgia"] = {
-		index = "cirurgia",
+		index = "premiumpersonagem",
 		name = "Cirurgia",
 		type = "use",
 		weight = 0.1

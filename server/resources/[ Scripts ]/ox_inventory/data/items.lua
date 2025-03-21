@@ -1387,7 +1387,7 @@ return {
 		close = true,
 		description = "Sem descrição",
 		client = {
-			image = "cirurgia.png",
+			image = "premiumpersonagem.png",
 		}
 	},
 
