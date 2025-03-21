@@ -110,17 +110,33 @@ function tryPayment(user_id, price)
 	return vRP.tryFullPayment(user_id, parseInt(price))
 end
 
+local vipRewards = {
+    ['Diamante'] = 0.5,
+    ['Platina'] = 0.3,
+    ['Ouro'] = 0.2,
+    ['Prata'] = 0.1,
+    ['Bronze'] = 0.05
+}
+
 function giveUserMoney(user_id, money, job)
-    if Config.base == "cn" then
-        vRP.GiveBank(user_id, money)
-    elseif Config.base == "vrpex" then
-        vRP.giveMoneyBank(user_id, money)
-    else
-        vRP.addBank(user_id, money)
-    end
+    vRP.addBank(user_id, money)
     local nplayer = getUserSource(user_id)
     if nplayer then
         TriggerClientEvent("vrp_sound:source",nplayer,"coin",0.5)
+    end
+    if vRP.hasPermission(user_id,"vip.permissao") then
+        local userGroups = vRP.getUserGroups(user_id)
+        for group, v in pairs(userGroups) do
+            if vipRewards[group] then
+                local vipReward = math.ceil(money * vipRewards[group])
+                if vipReward > 0 then
+                    vRP.addBank(user_id, vipReward)
+                    if nplayer then
+                        Config.notify("Você ganhou R$"..vipReward.." de bônus por ser VIP "..group,"sucesso",nplayer)
+                    end
+                end
+            end
+        end
     end
 end
 
