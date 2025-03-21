@@ -1,5 +1,9 @@
 QBCore = exports["qb-core"]:GetCoreObject()
 
+RegisterNetEvent("Reborn:reloadInfos",function()
+    QBCore = exports["qb-core"]:GetCoreObject()
+end)
+
 -- SERVER COMPATIBILITY LAYER
 if (IsDuplicityVersion()) then
     SetTimeout(1000, function()
@@ -174,8 +178,12 @@ if (IsDuplicityVersion()) then
             end
             return QBCore.Shared.Vehicles
         end,
-        GetItemsList = function() return QBCore.Shared.Items end,
-        -- GetItemsList = function() return exports.ox_inventory:Items() end,
+        GetItemsList = function()
+            if GetResourceState("ox_inventory") == "started" then
+                return exports.ox_inventory:Items()
+            end
+            return QBCore.Shared.Items
+        end,
         
         GetCharacterIdentifier = function(targetId)
             local p = QBCore.Functions.GetPlayer(targetId)
