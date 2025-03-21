@@ -424,7 +424,44 @@ vRP.CharacterChosen = function(source,Passport,Model)
 end
 
 function vRP.Identity(Passport)
-    return vRP.getUserIdentity(Passport)
+    local identity = vRP.getUserIdentity(Passport)
+    return {
+        ['License'] = identity["license"],
+        ['Name'] = identity["name"],
+        ['Name2'] = identity["name2"],
+        ['Phone'] = identity["phone"],
+        ['Registration'] = identity["registration"],
+        ['Bank'] = identity["bank"],
+        ['Fines'] = identity["fines"],
+        ['Prison'] = identity["prison"],
+    }
+end
+
+function vRP.FullName(Passport)
+    local identity = vRP.getUserIdentity(Passport)
+    return identity["name"].." "..identity["name2"]
+end
+
+function vRP.GetPhone(Passport)
+    return vRP.getPhone(Passport)
+end
+
+function vRP.Account(License)
+    local userAccount = vRP.getInfos(License)
+    return {
+        ['License'] = userAccount["identifier"],
+        ['Chars'] = userAccount["chars"],
+        ['Premium'] = userAccount["premium"],
+        ['Whitelist'] = userAccount["whitelist"],
+        ['Gemstone'] = userAccount["gems"]
+    }
+end
+
+function vRP.GetUserHierarchy(user_id,gtype)
+    if gtype == "Premium" then
+        return vRP.getUserGroupByType(user_id,"vip")
+    end
+    return vRP.getUserGroupByType(user_id,"job")
 end
 
 function vRP.InitPrison(Passport,Amount)
@@ -512,6 +549,10 @@ function vRP.RemoveFine(Passport,Amount)
 end
 
 function vRP.PaymentGems(Passport,Amount)
+    return vRP.remGmsId(Passport,Amount)
+end
+
+function vRP.PaymentGemstone(Passport,Amount)
     return vRP.remGmsId(Passport,Amount)
 end
 
