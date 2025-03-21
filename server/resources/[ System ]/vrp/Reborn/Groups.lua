@@ -364,20 +364,31 @@ local groups = {
 		   VIPS
 		#############
 	 ]]
+	["Bronze"] = {
+		_config = {
+			title = "Bronze",
+			gtype = "vip",
+			salary = 2500
+		},
+		"vip.permissao",
+		"bronze.permissao"
+	},
 	["Prata"] = {
 		_config = {
 			title = "Prata",
 			gtype = "vip",
-			salary = 3000
+			salary = 5000
 		},
+		"vip.permissao",
 		"prata.permissao"
 	},
 	["Ouro"] = {
 		_config = {
 			title = "Ouro",
 			gtype = "vip",
-			salary = 4000
+			salary = 10000
 		},
+		"vip.permissao",
 		"ouro.permissao",
 		"mochila.permissao"
 	},
@@ -385,8 +396,9 @@ local groups = {
 		_config = {
 			title = "Platina",
 			gtype = "vip",
-			salary = 5500
+			salary = 15000
 		},
+		"vip.permissao",
 		"platina.permissao",
 		"pets.permissao",
 		"corarma.permissao",
@@ -400,8 +412,9 @@ local groups = {
 		_config = {
 			title = "Diamante",
 			gtype = "vip",
-			salary = 7500
+			salary = 25000
 		},
+		"vip.permissao",
 		"diamante.permissao",
 		"pets.permissao",
 		"corarma.permissao",
