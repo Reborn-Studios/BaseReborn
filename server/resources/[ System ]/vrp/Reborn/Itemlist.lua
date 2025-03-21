@@ -266,30 +266,6 @@ local itens = {
 		y = 5,
 		weight = 2.0
 	},
-	["premium01"] = {
-		index = "premium01",
-		name = "Premium 3D",
-		type = "use",
-		weight = 0.0
-	},
-	["premium02"] = {
-		index = "premium02",
-		name = "Premium 7D",
-		type = "use",
-		weight = 0.0
-	},
-	["premium03"] = {
-		index = "premium03",
-		name = "Premium 15D",
-		type = "use",
-		weight = 0.0
-	},
-	["premium04"] = {
-		index = "premium04",
-		name = "Premium 30D",
-		type = "use",
-		weight = 0.0
-	},
 	["premiumname"] = {
 		index = "premiumname",
 		name = "Mudar Nome",

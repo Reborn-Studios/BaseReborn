@@ -371,17 +371,6 @@ return {
 		}
 	},
 
-	["premium04"] = {
-		label = "Premium 30D",
-		weight = 0,
-		stack = true,
-		close = true,
-		description = "Sem descrição",
-		client = {
-			image = "premium04.png",
-		}
-	},
-
 	["camera"] = {
 		label = "Câmera",
 		weight = 2500,
@@ -500,17 +489,6 @@ return {
 		description = "Sem descrição",
 		client = {
 			image = "premiumgarage.png",
-		}
-	},
-
-	["premium01"] = {
-		label = "Premium 3D",
-		weight = 0,
-		stack = true,
-		close = true,
-		description = "Sem descrição",
-		client = {
-			image = "premium01.png",
 		}
 	},
 
@@ -726,17 +704,6 @@ return {
 		description = "Mochila para reforçar o peso",
 		client = {
 			image = "backpackm.png",
-		}
-	},
-
-	["premium03"] = {
-		label = "Premium 15D",
-		weight = 0,
-		stack = true,
-		close = true,
-		description = "Sem descrição",
-		client = {
-			image = "premium03.png",
 		}
 	},
 
@@ -1007,17 +974,6 @@ return {
 		description = "Sem descrição",
 		client = {
 			image = "tecido.png",
-		}
-	},
-
-	["premium02"] = {
-		label = "Premium 7D",
-		weight = 0,
-		stack = true,
-		close = true,
-		description = "Sem descrição",
-		client = {
-			image = "premium02.png",
 		}
 	},
 
