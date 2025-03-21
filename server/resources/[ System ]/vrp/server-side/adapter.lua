@@ -210,19 +210,11 @@ end
 
 vRP.addUserGroup = function(user, group)
     local source = vRP.getUserSource(parseInt(user))
-    local groupData = vRP.getGroup(group)
-    if groupData then
-        TriggerEvent('vRP:playerJoinGroup',user,group,groupData._config and groupData._config.gtype)
-    end
     Reborn.setGroup(source, group, false, user)
 end
 
 vRP.removeUserGroup = function(user,group)
     local source = vRP.getUserSource(parseInt(user))
-    local groupData = vRP.getGroup(group)
-    if groupData then
-        TriggerEvent('vRP:playerLeaveGroup',user,group,groupData._config and groupData._config.gtype)
-    end
     Reborn.remGroup(source,group,user)
 end
 -------##########-------##########-------##########-------##########
