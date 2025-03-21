@@ -12,9 +12,12 @@ local Objects = {}
 local MaxHealth = GlobalState['Basics']['MaxHealth'] or 400
 
 RegisterServerEvent("ox_inventory:useItem")
-AddEventHandler("ox_inventory:useItem",function(source, itemName)
+AddEventHandler("ox_inventory:useItem",function(source, itemName, rAmount)
 	local user_id = vRP.getUserId(source)
 	if vRPclient.getHealth(source) <= 101 then return end
+	if not rAmount or rAmount <= 0 then
+		rAmount = 1
+	end
 	Player(source)["state"]["Commands"] = true
 	if itemName == "analgesic" then
 		if vRPclient.getHealth(source) > 101 and vRPclient.getHealth(source) < MaxHealth then
@@ -1119,7 +1122,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 				end
 			end
 		else
-			TriggerClientEvent("Notify",source,"aviso","No momento você não pode usar essa mochila.",5000)
+			TriggerClientEvent("Notify",source,"aviso","Essa mochila é usada quando estiver com menos de 25 kilos.",5000)
 		end
 	end
 
@@ -1137,7 +1140,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 				end
 			end
 		else
-			TriggerClientEvent("Notify",source,"aviso","No momento você não pode usar essa mochila.",5000)
+			TriggerClientEvent("Notify",source,"aviso","Essa mochila é usada quando estiver com mais de 25 kilos e menos de 50 kilos.",5000)
 		end
 	end
 
@@ -1155,7 +1158,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 				end
 			end
 		else
-			TriggerClientEvent("Notify",source,"aviso","No momento você não pode usar essa mochila.",5000)
+			TriggerClientEvent("Notify",source,"aviso","Essa mochila é usada quando estiver com mais de 50 kilos e menos de 75 kilos.",5000)
 		end
 	end
 
@@ -1173,7 +1176,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 				end
 			end
 		else
-			TriggerClientEvent("Notify",source,"aviso","No momento você não pode usar essa mochila.",5000)
+			TriggerClientEvent("Notify",source,"aviso","Essa mochila é usada quando estiver com mais de 75 kilos e menos de 100 kilos.",5000)
 		end
 	end
 
@@ -1410,6 +1413,13 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName)
 
 	if itemName == "drugtable" then
 		TriggerClientEvent("will_drugsales:useTable", source, "prop_protest_table_01")
+	end
+
+	if itemName == "gemstone" then
+		if vRP.tryGetInventoryItem(user_id, itemName, rAmount, true) then
+			vRP.addGmsId(user_id, rAmount)
+			TriggerClientEvent("Notify", source, "sucesso", "Você usou <b>"..rAmount.."x Gemas</b>.", 5000)
+		end
 	end
 
 	Player(source)["state"]["Commands"] = false

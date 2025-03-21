@@ -285,7 +285,7 @@ local itens = {
 		weight = 0.0
 	},
 	["premiumplate"] = {
-		index = "plate",
+		index = "premiumplate",
 		name = "Placa Premium",
 		type = "use",
 		weight = 5.0
@@ -818,6 +818,13 @@ local itens = {
 		type = "use",
 		weight = 5.0,
 		description = "Mesa para venda de drogas"
+	},
+	["gemstone"] = {
+		index = "gemstone",
+		name = "Gemas",
+		type = "use",
+		weight = 0.0,
+		description = "Utilize para ganhar suas gemas"
 	},
 }
 

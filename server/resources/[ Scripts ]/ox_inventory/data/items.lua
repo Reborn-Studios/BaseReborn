@@ -1649,4 +1649,15 @@ return {
 			image = "drugtable.png",
 		}
 	},
+
+	["gemstone"] = {
+		label = "Gemas",
+		weight = 0,
+		stack = true,
+		close = true,
+		description = "Utilize para ganhar suas gemas",
+		client = {
+			image = "gemstone.png",
+		}
+	},
 }
