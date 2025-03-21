@@ -475,6 +475,5 @@ config.veiculos = {
         ['ferrariitalia'] = { nome = 'ferrariitalia', valor = 150, peso = 40, vip = true },
         ['lamborghinihuracan'] = { nome = 'lamborghinihuracan', valor = 150, peso = 40, vip = true },
         ['nissangtr'] = { nome = 'nissangtr', valor = 150, peso = 40, vip = true },
-        ['zentorno'] = { nome = 'zentorno', valor = 150, peso = 40, vip = true },
     }
 }

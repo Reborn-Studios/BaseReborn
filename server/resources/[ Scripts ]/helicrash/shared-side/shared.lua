@@ -68,12 +68,12 @@ Loots = {
     },{
         ["1"] = { item = "WEAPON_SMG_MK2", amount = 2 },
         ["2"] = { item = "ammo-9", amount = math.random(500,600) },
-        ["3"] = { item = "WEAPON_SMG_AMMO", amount = math.random(500,600) },
+        ["3"] = { item = "ammo-45", amount = math.random(500,600) },
         ["4"] = { item = "dollars", amount = math.random(4000,5000) }
     },{
         ["1"] = { item = "WEAPON_ASSAULTSMG", amount = 2 },
         ["2"] = { item = "vest", amount = 1 },
-        ["3"] = { item = "WEAPON_SMG_AMMO", amount = math.random(500,600) },
+        ["3"] = { item = "ammo-45", amount = math.random(500,600) },
         ["4"] = { item = "dollars", amount = math.random(4000,5000) }
     },{
         ["1"] = { item = "at_flashlight", amount = math.random(2,3) },

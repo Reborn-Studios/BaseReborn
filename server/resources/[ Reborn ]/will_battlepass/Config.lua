@@ -102,7 +102,7 @@ Config.LevelRewards = {
 	
 	[8] = { title = 'RIFLE MK2',			item = 'WEAPON_ASSAULTRIFLE',		amount = 1,			type = 'weapon',		desc = 'GANHE A ASSAULTRIFLE' },
 	
-	[9] = { title = 'MUNIÇÃO',				item = 'WEAPON_RIFLE_AMMO',			amount = 50,		type = 'item',			desc = 'GANHE 50 MUNIÇÃO DE RIFLE' },
+	[9] = { title = 'MUNIÇÃO',				item = 'ammo-rifle',			amount = 50,		type = 'item',			desc = 'GANHE 50 MUNIÇÃO DE RIFLE' },
 	
 	[10] = { title = 'LOOTBOX',				item = 'aio_box',					amount = 1,			type = 'item',			desc = 'GANHE 1 AIO LOOTBOX' },
 
@@ -122,7 +122,7 @@ Config.LevelRewards = {
 	
 	[18] = { title = 'RIFLE MK2',			item = 'WEAPON_ASSAULTRIFLE',		amount = 1,			type = 'weapon',		desc = 'GANHE A ASSAULTRIFLE' },
 	
-	[19] = { title = 'MUNIÇÃO',				item = 'WEAPON_RIFLE_AMMO',			amount = 50,		type = 'item',			desc = 'GANHE 50 MUNIÇÃO DE RIFLE' },
+	[19] = { title = 'MUNIÇÃO',				item = 'ammo-rifle',			amount = 50,		type = 'item',			desc = 'GANHE 50 MUNIÇÃO DE RIFLE' },
 	
 	[20] = { title = 'LOOTBOX',				item = 'aio_box',					amount = 1,			type = 'item',			desc = 'GANHE 1 AIO LOOTBOX' },
 
@@ -142,7 +142,7 @@ Config.LevelRewards = {
 	
 	[28] = { title = 'RIFLE MK2',			item = 'WEAPON_ASSAULTRIFLE',		amount = 1,			type = 'weapon',		desc = 'GANHE A ASSAULTRIFLE' },
 	
-	[29] = { title = 'MUNIÇÃO',				item = 'WEAPON_RIFLE_AMMO',			amount = 50,		type = 'item',			desc = 'GANHE 50 MUNIÇÃO DE RIFLE' },
+	[29] = { title = 'MUNIÇÃO',				item = 'ammo-rifle2',			amount = 50,		type = 'item',			desc = 'GANHE 50 MUNIÇÃO DE RIFLE' },
 	
 	[30] = { title = 'LOOTBOX',				item = 'aio_box',					amount = 1,			type = 'item',			desc = 'GANHE 1 AIO LOOTBOX' },
 
@@ -162,7 +162,7 @@ Config.LevelRewards = {
 	
 	[38] = { title = 'RIFLE MK2',			item = 'WEAPON_ASSAULTRIFLE',		amount = 1,			type = 'weapon',		desc = 'GANHE A ASSAULTRIFLE' },
 	
-	[39] = { title = 'MUNIÇÃO',				item = 'WEAPON_RIFLE_AMMO',			amount = 50,		type = 'item',			desc = 'GANHE 50 MUNIÇÃO DE RIFLE' },
+	[39] = { title = 'MUNIÇÃO',				item = 'ammo-rifle2',			amount = 50,		type = 'item',			desc = 'GANHE 50 MUNIÇÃO DE RIFLE' },
 	
 	[40] = { title = 'LOOTBOX',				item = 'aio_box',					amount = 1,			type = 'item',			desc = 'GANHE 1 AIO LOOTBOX' },
 
@@ -182,7 +182,7 @@ Config.LevelRewards = {
 	
 	[48] = { title = 'RIFLE MK2',			item = 'WEAPON_ASSAULTRIFLE',		amount = 1,			type = 'weapon',		desc = 'GANHE A ASSAULTRIFLE' },
 	
-	[49] = { title = 'MUNIÇÃO',				item = 'WEAPON_RIFLE_AMMO',			amount = 50,		type = 'item',			desc = 'GANHE 50 MUNIÇÃO DE RIFLE' },
+	[49] = { title = 'MUNIÇÃO',				item = 'ammo-rifle2',			amount = 50,		type = 'item',			desc = 'GANHE 50 MUNIÇÃO DE RIFLE' },
 	
 	[50] = { title = 'LOOTBOX',				item = 'aio_box',					amount = 1,			type = 'item',			desc = 'GANHE 1 AIO LOOTBOX' },
 
@@ -202,7 +202,7 @@ Config.LevelRewards = {
 	
 	[58] = { title = 'RIFLE MK2',			item = 'WEAPON_ASSAULTRIFLE',		amount = 1,			type = 'weapon',		desc = 'GANHE A ASSAULTRIFLE' },
 	
-	[59] = { title = 'MUNIÇÃO',				item = 'WEAPON_RIFLE_AMMO',			amount = 50,		type = 'item',			desc = 'GANHE 50 MUNIÇÃO DE RIFLE' },
+	[59] = { title = 'MUNIÇÃO',				item = 'ammo-rifle2',			amount = 50,		type = 'item',			desc = 'GANHE 50 MUNIÇÃO DE RIFLE' },
 	
 	[60] = { title = 'LOOTBOX',				item = 'aio_box',					amount = 1,			type = 'item',			desc = 'GANHE 1 AIO LOOTBOX' },
 
@@ -222,7 +222,7 @@ Config.LevelRewards = {
 	
 	[68] = { title = 'RIFLE MK2',			item = 'WEAPON_ASSAULTRIFLE',		amount = 1,			type = 'weapon',		desc = 'GANHE A ASSAULTRIFLE' },
 	
-	[69] = { title = 'MUNIÇÃO',				item = 'WEAPON_RIFLE_AMMO',			amount = 50,		type = 'item',			desc = 'GANHE 50 MUNIÇÃO DE RIFLE' },
+	[69] = { title = 'MUNIÇÃO',				item = 'ammo-rifle2',			amount = 50,		type = 'item',			desc = 'GANHE 50 MUNIÇÃO DE RIFLE' },
 	
 	[70] = { title = 'LOOTBOX',				item = 'aio_box',					amount = 1,			type = 'item',			desc = 'GANHE 1 AIO LOOTBOX' },
 
@@ -242,7 +242,7 @@ Config.LevelRewards = {
 	
 	[78] = { title = 'RIFLE MK2',			item = 'WEAPON_ASSAULTRIFLE',		amount = 1,			type = 'weapon',		desc = 'GANHE A ASSAULTRIFLE' },
 	
-	[79] = { title = 'MUNIÇÃO',				item = 'WEAPON_RIFLE_AMMO',			amount = 50,		type = 'item',			desc = 'GANHE 50 MUNIÇÃO DE RIFLE' },
+	[79] = { title = 'MUNIÇÃO',				item = 'ammo-rifle2',			amount = 50,		type = 'item',			desc = 'GANHE 50 MUNIÇÃO DE RIFLE' },
 	
 	[80] = { title = 'LOOTBOX',				item = 'aio_box',					amount = 1,			type = 'item',			desc = 'GANHE 1 AIO LOOTBOX' },
 
@@ -262,7 +262,7 @@ Config.LevelRewards = {
 	
 	[88] = { title = 'RIFLE MK2',			item = 'WEAPON_ASSAULTRIFLE',		amount = 1,			type = 'weapon',		desc = 'GANHE A ASSAULTRIFLE' },
 	
-	[89] = { title = 'MUNIÇÃO',				item = 'WEAPON_RIFLE_AMMO',			amount = 50,		type = 'item',			desc = 'GANHE 50 MUNIÇÃO DE RIFLE' },
+	[89] = { title = 'MUNIÇÃO',				item = 'ammo-rifle',			amount = 50,		type = 'item',			desc = 'GANHE 50 MUNIÇÃO DE RIFLE' },
 	
 	[90] = { title = 'LOOTBOX',				item = 'aio_box',					amount = 1,			type = 'item',			desc = 'GANHE 1 AIO LOOTBOX' },
 
@@ -282,7 +282,7 @@ Config.LevelRewards = {
 	
 	[98] = { title = 'RIFLE MK2',			item = 'WEAPON_ASSAULTRIFLE',		amount = 1,			type = 'weapon',		desc = 'GANHE A ASSAULTRIFLE' },
 	
-	[99] = { title = 'MUNIÇÃO',				item = 'WEAPON_RIFLE_AMMO',			amount = 50,		type = 'item',			desc = 'GANHE 50 MUNIÇÃO DE RIFLE' },
+	[99] = { title = 'MUNIÇÃO',				item = 'ammo-rifle',			amount = 50,		type = 'item',			desc = 'GANHE 50 MUNIÇÃO DE RIFLE' },
 	
 	[100] = { title = 'LOOTBOX',			item = 'aio_box',					amount = 1,			type = 'item',			desc = 'GANHE 1 AIO LOOTBOX' },
 	
