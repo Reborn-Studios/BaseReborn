@@ -826,6 +826,62 @@ local itens = {
 		weight = 0.0,
 		description = "Utilize para ganhar suas gemas"
 	},
+	["rottweiler"] = {
+		index = "rottweiler",
+		name = "Coleira de Rottweiler",
+		description = "Rottweiler Pet",
+		type = "use",
+		weight = 1.25,
+	},
+	["husky"] = {
+		index = "husky",
+		name = "Coleira de Husky",
+		description = "Husky Pet",
+		type = "use",
+		weight = 1.25,
+	},
+	["shepherd"] = {
+		index = "shepherd",
+		name = "Coleira de Shepherd",
+		description = "Shepherd Pet",
+		type = "use",
+		weight = 1.25,
+	},
+	["retriever"] = {
+		index = "retriever",
+		name = "Coleira de Retriever",
+		description = "Retriever Pet",
+		type = "use",
+		weight = 1.25,
+	},
+	["poodle"] = {
+		index = "poodle",
+		name = "Coleira de Poodle",
+		description = "Poodle Pet",
+		type = "use",
+		weight = 1.25,
+	},
+	["pug"] = {
+		index = "pug",
+		name = "Coleira de Pug",
+		description = "Pug Pet",
+		type = "use",
+		weight = 1.25,
+	},
+	["westy"] = {
+		index = "westy",
+		name = "Coleira de Westy",
+		description = "Westy Pet",
+		type = "use",
+		weight = 1.25,
+	},
+	["cat"] = {
+		index = "cat",
+		name = "Coleira de Gato",
+		description = "Gato Pet",
+		type = "use",
+		weight = 1.25,
+	},
 }
 
 local weapons = {
@@ -1319,6 +1375,65 @@ local weapons = {
 		type = "component_grip",
 		description = "Empunhadura para armas pequenas e grandes",
 		weight = 1.0
+	},
+	["WEAPON_BRICK"] = {
+		index = "brick",
+		name = "Tijolo",
+		type = "weapon",
+		weight = 0.5,
+	},
+	["WEAPON_COLTXM177"] = {
+		index = "coltxm177",
+		name = 'Colt Rifle M177',
+		weight = 3.40,
+		type = "weapon",
+		ammo = "rifleammo",
+	},
+	["WEAPON_FNFAL"] = {
+		index = "fnfal",
+		name = 'FN FAL Rifle',
+		weight = 3.50,
+		type = "weapon",
+		ammo = "rifleammo",
+	},
+	["WEAPON_FNSCAR"] = {
+		index = "fnscar",
+		name = 'FN Scar Rifle',
+		weight = 3.75,
+		type = "weapon",
+		ammo = "rifleammo"
+	},
+	["WEAPON_KARAMBIT"] = {
+		index = "karambit",
+		name = "Karambit",
+		type = "weapon",
+		weight = 0.75,
+	},
+	["WEAPON_KATANA"] = {
+		index = "katana",
+		name = "Katana",
+		type = "weapon",
+		weight = 1.75,
+	},
+	["WEAPON_NAILGUN"] = {
+		index = "nailgun",
+		name = "Nail Gun",
+		type = "weapon",
+		weight = 1.75,
+		ammo = "smgammo"
+	},
+	["WEAPON_PARAFAL"] = {
+		index = "parafal",
+		name = "Parafal Rifle",
+		type = "weapon",
+		weight = 3.55,
+		ammo = "rifleammo"
+	},
+	["WEAPON_SHOES"] = {
+		index = "shoes",
+		name = "Sapatos",
+		type = "weapon",
+		weight = 1.75,
 	},
 }
 
