@@ -715,6 +715,94 @@ return {
 			weight = 600,
 			throwable = true,
 		},
+
+		["WEAPON_BRICK"] = {
+			label = "Tijolo",
+			durability = 0.03,
+			weight = 500,
+			throwable = true,
+			client = {
+				image = "brick.png"
+			}
+		},
+
+		["WEAPON_COLTXM177"] = {
+			label = 'Colt Rifle M177',
+			weight = 3400,
+			durability = 0.03,
+			ammoname = 'ammo-rifle',
+			client = {
+				image = "coltxm177.png"
+			}
+		},
+
+		["WEAPON_FNFAL"] = {
+			label = 'FN FAL Rifle',
+			weight = 3500,
+			durability = 0.03,
+			ammoname = 'ammo-22',
+			client = {
+				image = "fnfal.png"
+			}
+		},
+
+		["WEAPON_FNSCAR"] = {
+			label = 'FN Scar Rifle',
+			weight = 3750,
+			durability = 0.03,
+			ammoname = 'ammo-rifle2',
+			client = {
+				image = "fnscar.png"
+			}
+		},
+
+		["WEAPON_KARAMBIT"] = {
+			label = "Karambit",
+			durability = 0.03,
+			weight = 750,
+			client = {
+				image = "karambit.png"
+			}
+		},
+
+		["WEAPON_KATANA"] = {
+			label = "Katana",
+			durability = 0.03,
+			weight = 1750,
+			client = {
+				image = "katana.png"
+			}
+		},
+
+		["WEAPON_NAILGUN"] = {
+			label = "Nail Gun",
+			durability = 0.03,
+			weight = 1750,
+			ammoname = 'ammo-45',
+			client = {
+				image = "nailgun.png"
+			}
+		},
+
+		["WEAPON_PARAFAL"] = {
+			label = 'Parafal Rifle',
+			weight = 3550,
+			durability = 0.03,
+			ammoname = 'ammo-rifle2',
+			client = {
+				image = "parafal.png"
+			}
+		},
+
+		["WEAPON_SHOES"] = {
+			label = "Sapatos",
+			durability = 0.03,
+			weight = 1750,
+			throwable = true,
+			client = {
+				image = "shoes.png"
+			}
+		},
 	},
 
 	Components = {
