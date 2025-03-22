@@ -88,13 +88,6 @@ vRP.prepare("vRP/rem_srv_data","DELETE FROM vrp_srv_data WHERE dkey = @dkey")
 vRP.prepare("vRP/update_garages","UPDATE vrp_users SET garage = garage + 1 WHERE id = @id")
 vRP.prepare("vRP/update_plate_vehicle","UPDATE vrp_vehicles SET plate = @plate WHERE user_id = @user_id AND vehicle = @vehicle")
 -----------------------------------------------------------------------------------------------------------------------------------------
--- PREPARE vRP_INVOICE
------------------------------------------------------------------------------------------------------------------------------------------
-vRP.prepare("vRP/add_invoice","INSERT INTO vrp_invoice(user_id,nuser_id,date,price,text) VALUES(@user_id,@nuser_id,@date,@price,@text)")
-vRP.prepare("vRP/get_invoice","SELECT * FROM vrp_invoice WHERE user_id = @user_id")
-vRP.prepare("vRP/get_myinvoice","SELECT * FROM vrp_invoice WHERE nuser_id = @nuser_id")
-vRP.prepare("vRP/del_invoice","DELETE FROM vrp_invoice WHERE id = @id AND user_id = @user_id")
------------------------------------------------------------------------------------------------------------------------------------------
 -- PREPARE vRP_PRISON
 -----------------------------------------------------------------------------------------------------------------------------------------
 vRP.prepare("vRP/set_prison","UPDATE vrp_users SET prison = prison + @prison, locate = @locate WHERE id = @user_id")

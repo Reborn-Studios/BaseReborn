@@ -21,22 +21,6 @@ CREATE TABLE `vrp_infos` (
 
 -- Exportação de dados foi desmarcado.
 
--- Copiando estrutura para tabela rbn_base.vrp_invoice
-CREATE TABLE IF NOT EXISTS `vrp_invoice` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL DEFAULT 0,
-  `nuser_id` int(11) NOT NULL DEFAULT 0,
-  `date` varchar(25) NOT NULL DEFAULT '0.0.0',
-  `price` int(11) NOT NULL DEFAULT 0,
-  `text` text NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `nuser_id` (`nuser_id`),
-  KEY `user_id` (`user_id`),
-  KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
-
--- Exportação de dados foi desmarcado.
-
 -- Copiando estrutura para tabela rbn_base.vrp_permissions
 CREATE TABLE IF NOT EXISTS `vrp_permissions` (
   `id` INT(11) UNSIGNED NOT NULL DEFAULT '0',
