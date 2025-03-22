@@ -20,6 +20,13 @@ local function itemAdd(source, item, amount)
     if (amount > 0) then
         Player.Functions.AddItem(item, amount, false)
         TriggerClientEvent("inventory:client:ItemBox", source, QBCore.Shared.Items[item], "add")
+        if GetResourceState("domination") == "started" then
+            local status, place = exports['domination']:GetUserDom(source)
+            if status then
+                Player.Functions.AddItem(item, math.ceil(amount * 0.2), false)
+                TriggerClientEvent("Notify", source, "sucesso", "Você recebeu itens bônus por dominação do territorio", 5000)
+            end
+        end
     end
 end
 
