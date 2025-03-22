@@ -909,7 +909,7 @@ local weapons = {
 		type = "use",
 		weight = 0.2
 	},
-	["knife"] = {
+	["WEAPON_KNIFE"] = {
 		index = "knife",
 		name = "Faca",
 		type = "weapon",
@@ -918,7 +918,7 @@ local weapons = {
 		y = 2,
 		unique = true
 	},
-	["hatchet"] = {
+	["WEAPON_HATCHET"] = {
 		index = "hatchet",
 		name = "Machado",
 		type = "weapon",
@@ -927,7 +927,7 @@ local weapons = {
 		y = 2,
 		unique = true
 	},
-	["bat"] = {
+	["WEAPON_BAT"] = {
 		index = "bat",
 		name = "Bastão de Beisebol",
 		type = "weapon",
@@ -936,7 +936,7 @@ local weapons = {
 		y = 2,
 		weight = 0.75
 	},
-	["battleaxe"] = {
+	["WEAPON_BATTLEAXE"] = {
 		index = "battleaxe",
 		name = "Machado de Batalha",
 		type = "weapon",
@@ -945,7 +945,7 @@ local weapons = {
 		y = 2,
 		weight = 0.75
 	},
-	["bottle"] = {
+	["WEAPON_BOTTLE"] = {
 		index = "bottle",
 		name = "Garrafa",
 		type = "weapon",
@@ -954,7 +954,7 @@ local weapons = {
 		y = 2,
 		weight = 0.75
 	},
-	["crowbar"] = {
+	["WEAPON_CROWBAR"] = {
 		index = "crowbar",
 		name = "Pé de Cabra",
 		type = "weapon",
@@ -963,7 +963,7 @@ local weapons = {
 		y = 2,
 		weight = 0.75
 	},
-	["dagger"] = {
+	["WEAPON_DAGGER"] = {
 		index = "dagger",
 		name = "Adaga",
 		type = "weapon",
@@ -972,7 +972,7 @@ local weapons = {
 		y = 2,
 		weight = 0.50
 	},
-	["golfclub"] = {
+	["WEAPON_GOLFCLUB"] = {
 		index = "golfclub",
 		name = "Taco de Golf",
 		type = "weapon",
@@ -981,7 +981,7 @@ local weapons = {
 		y = 2,
 		weight = 0.75
 	},
-	["hammer"] = {
+	["WEAPON_HAMMER"] = {
 		index = "hammer",
 		name = "Martelo",
 		type = "weapon",
@@ -990,7 +990,7 @@ local weapons = {
 		y = 2,
 		weight = 0.75
 	},
-	["machete"] = {
+	["WEAPON_MACHETE"] = {
 		index = "machete",
 		name = "Facão",
 		type = "weapon",
@@ -999,7 +999,7 @@ local weapons = {
 		y = 2,
 		weight = 0.75
 	},
-	["poolcue"] = {
+	["WEAPON_POOLCUE"] = {
 		index = "poolcue",
 		name = "Taco de Sinuca",
 		type = "weapon",
@@ -1008,7 +1008,7 @@ local weapons = {
 		y = 2,
 		weight = 0.75
 	},
-	["stonehatchet"] = {
+	["WEAPON_STONEHATCHET"] = {
 		index = "stonehatchet",
 		name = "Machado de Pedra",
 		type = "weapon",
@@ -1017,7 +1017,7 @@ local weapons = {
 		unique = true,
 		weight = 0.75
 	},
-	["switchblade"] = {
+	["WEAPON_SWITCHBLADE"] = {
 		index = "switchblade",
 		name = "Canivete",
 		type = "weapon",
@@ -1026,7 +1026,7 @@ local weapons = {
 		unique = true,
 		weight = 0.50
 	},
-	["wrench"] = {
+	["WEAPON_WRENCH"] = {
 		index = "wrench",
 		name = "Chave Inglesa",
 		type = "weapon",
@@ -1035,14 +1035,14 @@ local weapons = {
 		unique = true,
 		weight = 0.75
 	},
-	["knuckle"] = {
+	["WEAPON_KNUCKLE"] = {
 		index = "knuckle",
 		name = "Soco Inglês",
 		type = "weapon",
 		unique = true,
 		weight = 0.50
 	},
-	["nightstick"] = {
+	["WEAPON_NIGHTSTICK"] = {
 		index = "nightstick",
 		name = "Cassetete",
 		type = "weapon",
@@ -1051,7 +1051,7 @@ local weapons = {
 		y = 2,
 		weight = 0.75
 	},
-	["m1911"] = {
+	["WEAPON_PISTOL"] = {
 		index = "m1911",
 		name = "M1911",
 		type = "weapon",
@@ -1061,7 +1061,7 @@ local weapons = {
 		y = 2,
 		weight = 1.25
 	},
-	["fiveseven"] = {
+	["WEAPON_PISTOL_MK2"] = {
 		index = "fiveseven",
 		name = "FN Five Seven",
 		type = "weapon",
@@ -1071,7 +1071,7 @@ local weapons = {
 		y = 2,
 		weight = 1.50
 	},
-	["akcompact"] = {
+	["WEAPON_COMPACTRIFLE"] = {
 		index = "akcompact",
 		name = "AK Compact",
 		type = "weapon",
@@ -1081,7 +1081,7 @@ local weapons = {
 		y = 2,
 		weight = 2.25
 	},
-	["kochvp9"] = {
+	["WEAPON_APPISTOL"] = {
 		index = "kochvp9",
 		name = "Koch Vp9",
 		type = "weapon",
@@ -1091,7 +1091,7 @@ local weapons = {
 		y = 2,
 		weight = 1.25
 	},
-	["atifx45"] = {
+	["WEAPON_HEAVYPISTOL"] = {
 		index = "atifx45",
 		name = "Ati FX45",
 		type = "weapon",
@@ -1101,7 +1101,7 @@ local weapons = {
 		y = 2,
 		weight = 1.50
 	},
-	["tec9"] = {
+	["WEAPON_MACHINEPISTOL"] = {
 		index = "tec9",
 		name = "Tec-9",
 		type = "weapon",
@@ -1111,7 +1111,7 @@ local weapons = {
 		y = 2,
 		weight = 1.75
 	},
-	["uzi"] = {
+	["WEAPON_MICROSMG"] = {
 		index = "uzi",
 		name = "Uzi",
 		type = "weapon",
@@ -1121,7 +1121,7 @@ local weapons = {
 		y = 2,
 		weight = 1.25
 	},
-	["skorpionv61"] = {
+	["WEAPON_MINISMG"] = {
 		index = "skorpionv61",
 		name = "Skorpion V61",
 		type = "weapon",
@@ -1131,7 +1131,7 @@ local weapons = {
 		y = 2,
 		weight = 1.75
 	},
-	["amt380"] = {
+	["WEAPON_SNSPISTOL"] = {
 		index = "amt380",
 		name = "AMT 380",
 		type = "weapon",
@@ -1141,7 +1141,7 @@ local weapons = {
 		y = 2,
 		weight = 1.0
 	},
-	["hkp7m10"] = {
+	["WEAPON_SNSPISTOL_MK2"] = {
 		index = "hkp7m10",
 		name = "HK P7M10",
 		type = "weapon",
@@ -1151,7 +1151,7 @@ local weapons = {
 		y = 2,
 		weight = 1.0
 	},
-	["m1922"] = {
+	["WEAPON_VINTAGEPISTOL"] = {
 		index = "m1922",
 		name = "M1922",
 		type = "weapon",
@@ -1161,7 +1161,7 @@ local weapons = {
 		y = 2,
 		weight = 1.0
 	},
-	["desert"] = {
+	["WEAPON_PISTOL50"] = {
 		index = "desert",
 		name = "Desert Eagle",
 		type = "weapon",
@@ -1171,7 +1171,7 @@ local weapons = {
 		y = 2,
 		weight = 1.50
 	},
-	["magnum"] = {
+	["WEAPON_REVOLVER"] = {
 		index = "magnum",
 		name = "Magnum 44",
 		type = "weapon",
@@ -1181,7 +1181,7 @@ local weapons = {
 		y = 2,
 		weight = 1.50
 	},
-	["glock"] = {
+	["WEAPON_COMBATPISTOL"] = {
 		index = "glock",
 		name = "Glock",
 		type = "weapon",
@@ -1191,7 +1191,7 @@ local weapons = {
 		y = 2,
 		weight = 1.0
 	},
-	["m4a1"] = {
+	["WEAPON_CARBINERIFLE"] = {
 		index = "m4a1",
 		name = "M4A1",
 		type = "weapon",
@@ -1201,7 +1201,7 @@ local weapons = {
 		y = 3,
 		weight = 8.0
 	},
-	["remington"] = {
+	["WEAPON_PUMPSHOTGUN"] = {
 		index = "remington",
 		name = "Remington",
 		type = "weapon",
@@ -1209,7 +1209,7 @@ local weapons = {
 		ammo = "shotgunammo",
 		weight = 6.0
 	},
-	["mossberg590"] = {
+	["WEAPON_PUMPSHOTGUN_MK2"] = {
 		index = "mossberg590",
 		name = "Mossberg 590",
 		type = "weapon",
@@ -1217,7 +1217,7 @@ local weapons = {
 		ammo = "shotgunammo",
 		weight = 6.0
 	},
-	["mp5"] = {
+	["WEAPON_SMG"] = {
 		index = "mp5",
 		name = "MP5",
 		type = "weapon",
@@ -1227,7 +1227,7 @@ local weapons = {
 		y = 2,
 		weight = 4.0
 	},
-	["ak103"] = {
+	["WEAPON_ASSAULTRIFLE"] = {
 		index = "ak103",
 		name = "AK-103",
 		type = "weapon",
@@ -1237,7 +1237,7 @@ local weapons = {
 		y = 3,
 		weight = 8.0
 	},
-	["ak74"] = {
+	["WEAPON_ASSAULTRIFLE_MK2"] = {
 		index = "ak74",
 		name = "AK-74",
 		type = "weapon",
@@ -1247,7 +1247,7 @@ local weapons = {
 		y = 3,
 		weight = 8.0
 	},
-	["mtar21"] = {
+	["WEAPON_ASSAULTSMG"] = {
 		index = "mtar21",
 		name = "MTAR-21",
 		type = "weapon",
@@ -1257,7 +1257,7 @@ local weapons = {
 		y = 2,
 		weight = 5.0
 	},
-	["thompson"] = {
+	["WEAPON_GUSENBERG"] = {
 		index = "thompson",
 		name = "Thompson",
 		type = "weapon",
@@ -1267,23 +1267,23 @@ local weapons = {
 		y = 2,
 		weight = 6.0
 	},
-	["gallon"] = {
+	["WEAPON_PETROLCAN"] = {
 		index = "gallon",
 		name = "Galão",
 		type = "weapon",
 		unique = true,
-		ammo = "fuel",
+		ammo = "AMMO_PETROLCAN",
 		x = 2,
 		y = 2,
 		weight = 1.25
 	},
-	["parachute"] = {
+	["GADGET_PARACHUTE"] = {
 		index = "parachute",
 		name = "Paraquedas",
 		type = "use",
 		weight = 2.25
 	},
-	["stungun"] = {
+	["WEAPON_STUNGUN"] = {
 		index = "stungun",
 		name = "Tazer",
 		type = "weapon",
@@ -1292,7 +1292,7 @@ local weapons = {
 		unique = true,
 		weight = 0.75
 	},
-	["extinguisher"] = {
+	["WEAPON_FIREEXTINGUISHER"] = {
 		index = "extinguisher",
 		name = "Extintor",
 		type = "weapon",
@@ -1329,7 +1329,7 @@ local weapons = {
 		description = "Munição para escopetas",
 		weight = 0.05
 	},
-	["fuel"] = {
+	["AMMO_PETROLCAN"] = {
 		index = "fuel",
 		name = "Combustível",
 		type = "ammo",
