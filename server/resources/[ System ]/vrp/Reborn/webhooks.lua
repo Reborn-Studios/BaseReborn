@@ -34,6 +34,7 @@ local Webhooks = {
 	webhookcassino = "",
 	webhooklavagem = "",
 	webhookselldrugs = "",
+	webhhokdomination = "",
 	-- BANK
 	webhookbank = "",
 	webhooksacar = "",

@@ -670,6 +670,13 @@ local groups = {
 		},
 		"lostmc.permissao"
     },
+	-- Domination Groups
+	["Industria"] = {
+		_config = {
+			salary = 500
+		},
+		"industria.permissao"
+	},
 }
 
 do
