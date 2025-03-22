@@ -1660,4 +1660,92 @@ return {
 			image = "gemstone.png",
 		}
 	},
+
+	["cat"] = {
+		label = "Coleira de Gato",
+		weight = 1250,
+		stack = true,
+		close = true,
+		description = "Gato Pet",
+		client = {
+			image = "cat.png",
+		}
+	},
+
+	["poodle"] = {
+		label = "Coleira de Poodle",
+		weight = 1250,
+		stack = true,
+		close = true,
+		description = "Poodle Pet",
+		client = {
+			image = "poodle.png",
+		}
+	},
+
+	["shepherd"] = {
+		label = "Coleira de Shepherd",
+		weight = 1250,
+		stack = true,
+		close = true,
+		description = "Shepherd Pet",
+		client = {
+			image = "shepherd.png",
+		}
+	},
+
+	["retriever"] = {
+		label = "Coleira de Retriever",
+		weight = 1250,
+		stack = true,
+		close = true,
+		description = "Retriever Pet",
+		client = {
+			image = "retriever.png",
+		}
+	},
+
+	["westy"] = {
+		label = "Coleira de Westy",
+		weight = 1250,
+		stack = true,
+		close = true,
+		description = "Westy Pet",
+		client = {
+			image = "westy.png",
+		}
+	},
+
+	["husky"] = {
+		label = "Coleira de Husky",
+		weight = 1250,
+		stack = true,
+		close = true,
+		description = "Husky Pet",
+		client = {
+			image = "husky.png",
+		}
+	},
+
+	["pug"] = {
+		label = "Coleira de Pug",
+		weight = 1250,
+		stack = true,
+		close = true,
+		description = "Pug Pet",
+		client = {
+			image = "pug.png",
+		}
+	},
+
+	["rottweiler"] = {
+		label = "Coleira de Rottweiler",
+		weight = 1250,
+		stack = true,
+		close = true,
+		description = "Rottweiler Pet",
+		client = {
+			image = "rottweiler.png",
+		}
+	},
 }

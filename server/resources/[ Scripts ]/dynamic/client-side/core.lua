@@ -129,6 +129,14 @@ RegisterCommand("globalFunctions",function()
 				exports["dynamic"]:SubMenu("Portas","Portas do veículo.","doors")
 			end
 
+			if exports['Accessories']:MyPet() ~= nil then
+				exports["dynamic"]:AddButton("Seguir","Seguir o proprietário.","dynamic:animalFunctions","seguir","animal",false)
+				exports["dynamic"]:AddButton("Colocar no Veículo","Colocar o animal no veículo.","dynamic:animalFunctions","colocar","animal",false)
+				exports["dynamic"]:AddButton("Remover do Veículo","Remover o animal no veículo.","dynamic:animalFunctions","remover","animal",false)
+				exports["dynamic"]:AddButton("Deletar","Remover o animal.","dynamic:animalFunctions","deletar","animal",false)
+				exports["dynamic"]:SubMenu("Domésticos","Todas as funções dos animais domésticos.","animal","fa-solid fa-dog")
+			end
+
 			exports["dynamic"]:AddButton("Propriedades","Marcar/Desmarcar propriedades no mapa.","will_homes:blips","","others",false)
 			exports["dynamic"]:AddButton("Desbugar","Recarregar o personagem.","player:Debug","","others",true)
 			if GetResourceState("will_login") == "started" then

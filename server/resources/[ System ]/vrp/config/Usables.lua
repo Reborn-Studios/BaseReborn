@@ -1422,6 +1422,46 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName, rAmount)
 		end
 	end
 
+	if itemName == "rottweiler" then
+		TriggerClientEvent("dynamic:animalSpawn",source,"a_c_rottweiler")
+		vRPclient.playAnim(source,true,{"rcmnigel1c","hailing_whistle_waive_a"},false)
+	end
+
+	if itemName == "husky" then
+		TriggerClientEvent("dynamic:animalSpawn",source,"a_c_husky")
+		vRPclient.playAnim(source,true,{"rcmnigel1c","hailing_whistle_waive_a"},false)
+	end
+
+	if itemName == "shepherd" then
+		TriggerClientEvent("dynamic:animalSpawn",source,"a_c_shepherd")
+		vRPclient.playAnim(source,true,{"rcmnigel1c","hailing_whistle_waive_a"},false)
+	end
+
+	if itemName == "retriever" then
+		TriggerClientEvent("dynamic:animalSpawn",source,"a_c_retriever")
+		vRPclient.playAnim(source,true,{"rcmnigel1c","hailing_whistle_waive_a"},false)
+	end
+
+	if itemName == "poodle" then
+		TriggerClientEvent("dynamic:animalSpawn",source,"a_c_poodle")
+		vRPclient.playAnim(source,true,{"rcmnigel1c","hailing_whistle_waive_a"},false)
+	end
+
+	if itemName == "pug" then
+		TriggerClientEvent("dynamic:animalSpawn",source,"a_c_pug")
+		vRPclient.playAnim(source,true,{"rcmnigel1c","hailing_whistle_waive_a"},false)
+	end
+
+	if itemName == "westy" then
+		TriggerClientEvent("dynamic:animalSpawn",source,"a_c_westy")
+		vRPclient.playAnim(source,true,{"rcmnigel1c","hailing_whistle_waive_a"},false)
+	end
+
+	if itemName == "cat" then
+		TriggerClientEvent("dynamic:animalSpawn",source,"a_c_cat_01")
+		vRPclient.playAnim(source,true,{"rcmnigel1c","hailing_whistle_waive_a"},false)
+	end
+
 	Player(source)["state"]["Commands"] = false
 end)
 
