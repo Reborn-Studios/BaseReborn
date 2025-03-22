@@ -14,7 +14,8 @@ local function setPlayerItems()
     table.wipe(playerItems)
 
     for _, item in pairs(playerData.items) do
-        playerItems[item.name] = (playerItems[item.name] or 0) + (item.amount or 0)
+        local itemName = item.item or item.name
+        playerItems[itemName] = (playerItems[itemName] or 0) + (item.amount or 0)
     end
 end
 
