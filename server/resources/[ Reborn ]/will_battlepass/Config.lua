@@ -32,25 +32,26 @@ Config.Images = Reborn.images()				-- Diretorio das imagens
 -- name é o item do inventario e nome da imagem
 
 Config.Lootboxes = {
-	[1] =	{ title = 'AIO LOOTBOX',		name = 'aio_box',			type = 'item',		moneyPrice = 80000,		coinPrice = 15  },
-	[2] =	{ title = 'COLETE LOOTBOX',		name = 'vest_box',			type = 'item',		moneyPrice = nil,		coinPrice = 20  },
-	[3] =	{ title = 'DINHEIRO LOOTBOX',	name = 'money_box',			type = 'money',		moneyPrice = nil,		coinPrice = 20  },
-	[4] =	{ title = 'WEAPON LOOTBOX',		name = 'weapon_box',		type = 'item',		moneyPrice = nil,		coinPrice = 20  },
-	[5] =	{ title = 'MEDKIT LOOTBOX',		name = 'medkit_box',		type = 'item',		moneyPrice = nil,		coinPrice = 15  },
-	[6] =	{ title = 'VEHICLE LOOTBOX',	name = 'vehicle_box',		type = 'vehicle',	moneyPrice = nil,		coinPrice = 100 },
+	[1] =	{ title = 'AIO LOOTBOX',		name = 'aio_box',			type = 'item',		moneyPrice = 80000,		coinPrice = 3500  },
+	[2] =	{ title = 'COLETE LOOTBOX',		name = 'vest_box',			type = 'item',		moneyPrice = nil,		coinPrice = 5000  },
+	[3] =	{ title = 'DINHEIRO LOOTBOX',	name = 'money_box',			type = 'money',		moneyPrice = nil,		coinPrice = 5000  },
+	[4] =	{ title = 'WEAPON LOOTBOX',		name = 'weapon_box',		type = 'item',		moneyPrice = nil,		coinPrice = 7500  },
+	[5] =	{ title = 'MEDKIT LOOTBOX',		name = 'medkit_box',		type = 'item',		moneyPrice = nil,		coinPrice = 2500  },
+	[6] =	{ title = 'VEHICLE LOOTBOX',	name = 'vehicle_box',		type = 'vehicle',	moneyPrice = nil,		coinPrice = 17500 },
 }
 
 Config.LootboxesRewards = {
 	[1] = { -- aio
-		{ name = 'analgesic',			label = 'Analgesico',			amount = 1,			luck = 10 },
+		{ name = 'analgesic',			label = 'Analgesico',			amount = 5,			luck = 10 },
 		{ name = 'bandage',				label = 'Bandagem',				amount = 10,		luck = 30 },
-		{ name = 'vest',				label = 'Colete',		amount = 3,			luck = 30 },
+		{ name = 'vest',				label = 'Colete',				amount = 3,			luck = 30 },
 		{ name = 'dollars',				label = 'R$60000',				amount = 60000,		luck = 15 },
-		{ name = 'dollars',				label = 'R$30000',				amount = 30000,		luck = 15 },
+		{ name = 'warfarin',			label = 'Kit Médico',			amount = 2,			luck = 15 },
 	},
 	[2] = { -- vest
-		{ name = 'vest',				label = 'Colete',				amount = 4,			luck = 50 },
-		{ name = 'vest',				label = 'Colete',		amount = 3,			luck = 50 },
+		{ name = 'vest',				label = 'Colete',				amount = 4,			luck = 34 },
+		{ name = 'warfarin',			label = 'Kit Médico',			amount = 5,			luck = 33 },
+		{ name = 'adrenaline',			label = 'Adrenalina',			amount = 10,		luck = 33 },
 	},
 	[3] = { -- money
 		{ name = 'dollars',				label = 'R$20000',				amount = 30000,		luck = 40 },
