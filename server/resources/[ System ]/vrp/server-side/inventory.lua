@@ -213,6 +213,11 @@ function vRP.removeItemCustom(source,item,amount,slot,notify)
 	local user_id = vRP.getUserId(source)
 	local data = vRP.getInventory(user_id)
 	if data then
+		if type(slot) == "boolean" then
+			local backupslot = slot
+			slot = notify
+			notify = backupslot
+		end
 		if slot then
 			slot  = tostring(slot)
 			if data[slot] and data[slot].item == item and parseInt(data[slot].amount) >= parseInt(amount) then
