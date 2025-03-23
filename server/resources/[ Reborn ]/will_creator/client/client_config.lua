@@ -212,8 +212,8 @@ function applyCustomization(ped, data)
         SetPedHeadOverlay(ped, 3, data["ageing"].item, 1.0)
         SetPedHeadOverlayColor(ped, 3, 1, data["ageing"].texture, 0)
 
-        SetPedHeadOverlay(ped, 4, data["makeup"].item, data["makeup"].opacity and data["makeup"].opacity / 10 or 1.0)
-        SetPedHeadOverlayColor(ped, 4, 2, data["makeup"].texture, 0)
+        SetPedHeadOverlay(ped, 4, data["makeup"].item, data["makeup"].opacity and data["makeup"].opacity / 10 or 0.99)
+        SetPedHeadOverlayColor(ped, 4, 0, 0, 0)
     
         SetPedHeadOverlay(ped, 5, data["blush"].item, data["blush"].opacity and data["blush"].opacity / 10 or 1.0)
         SetPedHeadOverlayColor(ped, 5, 2, data["blush"].texture, 0)

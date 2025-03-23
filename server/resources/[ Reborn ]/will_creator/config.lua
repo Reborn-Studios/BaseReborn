@@ -12,7 +12,7 @@ Config = {}
 Config.Base = "creative"
 
 -- Usar sistema de chaves que fornecemos (Utilizado para liberar mais personagem para os jogadores)
-Config.UseKeySystem = true
+Config.UseKeySystem = false
 
 -- ####################
 --      MULTI CHAR

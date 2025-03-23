@@ -1252,6 +1252,13 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName, rAmount)
 		end
 	end
 
+	if itemName == "premiumpersonagem" then
+		if vRP.request(source,"Deseja adicionar +1 Personagem?",30) and vRP.tryGetInventoryItem(user_id,itemName,1,true) then
+			vRP.upgradeChars(user_id)
+			TriggerClientEvent("Notify",source,"sucesso","Relogue para criar seu outro personagem.",5000)
+		end
+	end
+
 	if itemName == "aio_box" then
 		if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
 			TriggerClientEvent("will_battlepass:openLootbox",source,"aio_box")

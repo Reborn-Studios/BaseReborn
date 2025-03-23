@@ -1,6 +1,7 @@
 --#########################
 ---##    VRP FUNCTIONS
 --#########################
+Reborn = Proxy.getInterface("Reborn")
 vRPclient = Tunnel.getInterface("vRP")
 
 function getUserId(source)
@@ -87,6 +88,18 @@ function updatePlayerMaxChars(code, identifier)
     return false
 end
 
+local function getUserJob(user_id)
+    local userJobs = vRP.query("vRP/get_perm",{ user_id = user_id })
+    local groups = Reborn.groups()
+    local job = "Desempregado"
+    for k,v in pairs(userJobs) do
+        if groups[v.perm] and groups[v.perm]._config and groups[v.perm]._config.gtype and groups[v.perm]._config.gtype == job then
+            job = groups[v.perm]._config.title or v.perm
+        end
+    end
+    return job
+end
+
 -- Pegar informaçoes de um personagem
 --- @param id: number -- ID do personagem
 --- @param data: table<string | string> -- Informaçoes do personagem
@@ -99,7 +112,7 @@ function getCharacter(id, data)
         id = result.id or result.user_id,
         name = result.name,
         lastname = result.name2 or result.firstname,
-        job = vRP.getUserGroupByType(id,"job") or "Desempregado",
+        job = getUserJob(id),
         cash = vRP.getInventoryItemAmount(id,"dollars"),
         bank = result.bank or vRP.getBankMoney(id),
         skin = userTablesSkin and userTablesSkin["skin"],
