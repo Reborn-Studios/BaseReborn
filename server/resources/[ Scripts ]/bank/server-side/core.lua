@@ -91,7 +91,7 @@ function Server.Home()
 		if check[1] then
 			yield = check[1].Monthly
 		end
-		local balance = vRP.Identity(Passport).bank
+		local balance = vRP.Identity(Passport).Bank
 		local transactions = Transactions(Passport)
 		return {
 			Passport = Passport,
@@ -125,7 +125,7 @@ function Server.Deposit(amount)
 			TriggerEvent("Discord","Deposito","**ID:** "..Passport.."\n**Depositou:** "..parseInt(amount).." \n**Horário:** "..os.date("%H:%M:%S"),3092790)
 		end
 		Active[Passport] = nil
-		local balance = vRP.Identity(Passport).bank
+		local balance = vRP.Identity(Passport).Bank
 		local transactions = Transactions(Passport)
 		return {balance = balance, transactions = transactions}
 	end
@@ -143,7 +143,7 @@ function Server.Withdraw(amount)
 			exports["bank"]:AddTransactions(Passport,"exit",amount)
 			TriggerEvent("Discord","Saque","**ID:** "..Passport.."\n**Sacou:** "..parseInt(amount).." \n**Horário:** "..os.date("%H:%M:%S"),3092790)
 		Active[Passport] = nil
-		local balance = vRP.Identity(Passport).bank
+		local balance = vRP.Identity(Passport).Bank
 		local transactions = Transactions(Passport)
 		return {balance = balance, transactions = transactions}
 	end
@@ -162,7 +162,7 @@ function Server.Transfer(ClosestPed,amount)
 				exports["bank"]:AddTransactions(ClosestPed,"entry",amount)
 			end
 		Active[Passport] = nil
-		local balance = vRP.Identity(Passport).bank
+		local balance = vRP.Identity(Passport).Bank
 		local transactions = Transactions(Passport)
 		return {balance = balance, transactions = transactions}
 	end
@@ -306,11 +306,11 @@ function Server.MakeInvoice(OtherPassport, value, reason)
 		Active[Passport] = true
 			local ClosestPed = vRP.Source(OtherPassport)
 			if ClosestPed then
-				if vRP.Request(ClosestPed,"Banco","<b>" .. vRP.Identity(Passport).name .. "	" .. vRP.Identity(Passport).name2 .. "</b> lhe enviou uma fatura de <b>R$" .. parseFormat(value) .. "</b>, deseja aceita-la?") then
+				if vRP.Request(ClosestPed,"Banco","<b>" .. vRP.Identity(Passport).Name .. "	" .. vRP.Identity(Passport).Name2 .. "</b> lhe enviou uma fatura de <b>R$" .. parseFormat(value) .. "</b>, deseja aceita-la?") then
 				local Received = OtherPassport
 				local Type = "received"
     			local Reason = reason
-				local Holder = vRP.Identity(Passport).name .. " " .. vRP.Identity(Passport).name2
+				local Holder = vRP.Identity(Passport).Name .. " " .. vRP.Identity(Passport).Name2
 				local Value = value
 				vRP.Query('invoices/Add',{ Passport = Passport,Received = Received,Type = Type,Reason = Reason,Holder = Holder ,Value = Value})
 				local Type = "sent"
@@ -404,7 +404,7 @@ exports("AddTransactions",function(Passport,Type,amount)
 		local Type = Type
 		local Date = os.date("%d/%m/%Y")
 		local Value = amount
-		local Balance = vRP.Identity(Passport).bank
+		local Balance = vRP.Identity(Passport).Bank
 		vRP.Query("transactions/Add", {Passport = Passport,Type = Type,Date = Date,Value = Value,Balance = Balance})
 	end
 end)
