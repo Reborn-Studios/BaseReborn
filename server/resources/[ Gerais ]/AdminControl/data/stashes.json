@@ -1,192 +1,192 @@
 [
-  {
-    "slots": 72,
-    "webhook": "",
-    "label": "Bau geral policial",
-    "weight": 50000,
-    "owner": false,
-    "id": "policelocker",
-    "groups": "police",
-    "coords": {
-      "x": -1077.9000244140626,
-      "y": -815.4000244140625,
-      "z": 11.03999996185302
-    }
-  },
-  {
-    "slots": 70,
-    "webhook": "",
-    "label": "Bau geral Hospital",
-    "weight": 70000,
-    "owner": false,
-    "id": "emslocker",
-    "groups": {
-      "ambulance": 0
+    {
+        "groups": "police",
+        "webhook": "",
+        "label": "Bau geral policial",
+        "owner": false,
+        "slots": 72,
+        "weight": 50000,
+        "coords": {
+            "z": 11.03999996185302,
+            "x": -1077.9000244140626,
+            "y": -815.4000244140625
+        },
+        "id": "policelocker"
     },
-    "coords": {
-      "x": -435.760009765625,
-      "y": -320.2200012207031,
-      "z": 34.91999816894531
-    }
-  },
-  {
-    "slots": 72,
-    "webhook": "",
-    "label": "Bau Vermelhos",
-    "weight": 50000,
-    "owner": false,
-    "id": "vermelhoslocker",
-    "groups": {
-      "Vermelhos": 0
+    {
+        "groups": {
+            "ambulance": 0
+        },
+        "webhook": "",
+        "label": "Bau geral Hospital",
+        "owner": false,
+        "slots": 70,
+        "weight": 70000,
+        "coords": {
+            "z": 34.91999816894531,
+            "x": -435.760009765625,
+            "y": -320.2200012207031
+        },
+        "id": "emslocker"
     },
-    "coords": {
-      "x": 1277.7900390625,
-      "y": -194.9799957275391,
-      "z": 105.08000183105468
-    }
-  },
-  {
-    "slots": 72,
-    "webhook": "",
-    "label": "Bau Azuis",
-    "weight": 50000,
-    "owner": false,
-    "id": "azuislocker",
-    "groups": {
-      "Azuis": 0
+    {
+        "coords": {
+            "z": 74.08049774169922,
+            "x": 1200.601318359375,
+            "y": -93.1059341430664
+        },
+        "webhook": "",
+        "groups": {
+            "Vermelhos": 0
+        },
+        "owner": false,
+        "slots": 72,
+        "weight": 50000,
+        "label": "Bau Vermelhos",
+        "id": "vermelhoslocker"
     },
-    "coords": {
-      "x": 2250.590087890625,
-      "y": 52.02000045776367,
-      "z": 251.4199981689453
-    }
-  },
-  {
-    "slots": 72,
-    "webhook": "",
-    "label": "Bau Verdes",
-    "weight": 50000,
-    "owner": false,
-    "id": "verdeslocker",
-    "groups": {
-      "Verdes": 0
+    {
+        "groups": {
+            "Azuis": 0
+        },
+        "webhook": "",
+        "label": "Bau Azuis",
+        "owner": false,
+        "slots": 72,
+        "weight": 50000,
+        "coords": {
+            "z": 251.4199981689453,
+            "x": 2250.590087890625,
+            "y": 52.02000045776367
+        },
+        "id": "azuislocker"
     },
-    "coords": {
-      "x": 1719.06005859375,
-      "y": 396.1499938964844,
-      "z": 245.27000427246098
-    }
-  },
-  {
-    "slots": 72,
-    "webhook": "",
-    "label": "Bau Bahamas",
-    "weight": 50000,
-    "owner": false,
-    "id": "bahamaslocker",
-    "groups": {
-      "Bahamas": 0
+    {
+        "groups": {
+            "Verdes": 0
+        },
+        "owner": false,
+        "label": "Bau Verdes",
+        "webhook": "",
+        "slots": 72,
+        "weight": 50000,
+        "coords": {
+            "z": 167.9485321044922,
+            "x": 1982.654541015625,
+            "y": 497.33544921875
+        },
+        "id": "verdeslocker"
     },
-    "coords": {
-      "x": -1884.3399658203128,
-      "y": 2069.889892578125,
-      "z": 145.5800018310547
-    }
-  },
-  {
-    "slots": 72,
-    "webhook": "",
-    "label": "Bau Mafia",
-    "weight": 50000,
-    "owner": false,
-    "id": "mafialocker",
-    "groups": {
-      "Mafia": 0
+    {
+        "groups": {
+            "Bahamas": 0
+        },
+        "webhook": "",
+        "label": "Bau Bahamas",
+        "owner": false,
+        "slots": 72,
+        "weight": 50000,
+        "coords": {
+            "z": 145.5800018310547,
+            "x": -1884.3399658203128,
+            "y": 2069.889892578125
+        },
+        "id": "bahamaslocker"
     },
-    "coords": {
-      "x": 575.3900146484375,
-      "y": -3121.570068359375,
-      "z": 18.77000045776367
-    }
-  },
-  {
-    "slots": 72,
-    "webhook": "",
-    "label": "Bau Milicia",
-    "weight": 50000,
-    "owner": false,
-    "id": "milicialocker",
-    "groups": {
-      "Milicia": 0
+    {
+        "groups": {
+            "Mafia": 0
+        },
+        "owner": false,
+        "label": "Bau Mafia",
+        "webhook": "",
+        "slots": 72,
+        "weight": 50000,
+        "coords": {
+            "z": 91.87953491210938,
+            "x": 3021.040283203125,
+            "y": 2987.83544921875
+        },
+        "id": "mafialocker"
     },
-    "coords": {
-      "x": 1392.1300048828126,
-      "y": 1134.0699462890626,
-      "z": 109.75
-    }
-  },
-  {
-    "slots": 72,
-    "webhook": "",
-    "label": "Bau Motoclub",
-    "weight": 50000,
-    "owner": false,
-    "id": "motoclublocker",
-    "groups": {
-      "Motoclub": 0
+    {
+        "groups": {
+            "Milicia": 0
+        },
+        "owner": false,
+        "label": "Bau Milicia",
+        "webhook": "",
+        "slots": 72,
+        "weight": 50000,
+        "coords": {
+            "z": 326.9752197265625,
+            "x": 889.584716796875,
+            "y": 1143.940673828125
+        },
+        "id": "milicialocker"
     },
-    "coords": {
-      "x": 977.219970703125,
-      "y": -104.02999877929688,
-      "z": 74.8499984741211
-    }
-  },
-  {
-    "slots": 72,
-    "webhook": "",
-    "label": "Bau Vanilla",
-    "weight": 50000,
-    "owner": false,
-    "id": "vanillalocker",
-    "groups": {
-      "Vanilla": 0
+    {
+        "groups": {
+            "Motoclub": 0
+        },
+        "webhook": "",
+        "label": "Bau Motoclub",
+        "owner": false,
+        "slots": 72,
+        "weight": 50000,
+        "coords": {
+            "z": 74.8499984741211,
+            "x": 977.219970703125,
+            "y": -104.02999877929688
+        },
+        "id": "motoclublocker"
     },
-    "coords": {
-      "x": 93.37000274658205,
-      "y": -1291.3399658203126,
-      "z": 29.27000045776367
-    }
-  },
-  {
-    "slots": 72,
-    "webhook": "",
-    "label": "Bau Hospital",
-    "weight": 50000,
-    "owner": false,
-    "id": "hospitallocker",
-    "groups": {
-      "ambulance": 0
+    {
+        "webhook": "",
+        "owner": false,
+        "groups": {
+            "Vanilla": 0
+        },
+        "coords": {
+            "z": 29.32162094116211,
+            "x": 90.03656005859375,
+            "y": -1290.8944091796876
+        },
+        "slots": 72,
+        "weight": 50000,
+        "label": "Bau Vanilla",
+        "id": "vanillalocker"
     },
-    "coords": {
-      "x": -465.80999755859377,
-      "y": -293.7799987792969,
-      "z": 34.91999816894531
-    }
-  },
-  {
-    "slots": 50,
-    "webhook": "",
-    "label": "Bau Comando Geral",
-    "id": "Registered-12",
-    "owner": false,
-    "weight": 50000,
-    "groups": {
-      "police": 10
+    {
+        "webhook": "",
+        "owner": false,
+        "groups": {
+            "ambulance": 0
+        },
+        "coords": {
+            "z": 35.38052368164062,
+            "x": 1139.909912109375,
+            "y": -1562.8282470703126
+        },
+        "slots": 72,
+        "weight": 50000,
+        "label": "Bau Hospital",
+        "id": "hospitallocker"
     },
-    "coords": {
-      "x": -1092.9873046875,
-      "y": -816.71044921875,
-      "z": 11.04
+    {
+        "webhook": "",
+        "owner": false,
+        "groups": {
+            "police": 10
+        },
+        "coords": {
+            "x": 48.3010139465332,
+            "y": -408.36669921875,
+            "z": 39.14365768432617
+        },
+        "slots": 50,
+        "weight": 50000,
+        "label": "Bau Comando Geral",
+        "id": "Registered-12"
     }
-  }
 ]

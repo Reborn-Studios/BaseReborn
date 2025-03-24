@@ -1,10 +1,10 @@
 return {
 	{
 		-- Coordenadas do baú
-		coords = vec3(-1077.9,-815.4,11.04),
+		coords = vec3(52.77,-437.65,39.15),
 		target = {
 			-- Coordenadas para abrir o target (olhinho)
-			loc = vec3(-1077.9,-815.4,10.54),
+			loc = vec3(52.77,-437.65,39.15),
 			-- Configurações padrões
 			length = 1.5,
 			width = 6.0,

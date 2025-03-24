@@ -159,12 +159,7 @@ function GetBlipCoords()
             DrawMarker(27, coords.x, coords.y, coords.z + 0.1, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.7, 0.7, 0.7, 25, 42, 255, 100, false, false, 0, true)
             if IsDisabledControlJustPressed(0, 24) then
                 isAdding = false
-			    local retval,cdz = GetGroundZFor_3dCoord(coords.x, coords.y, coords.z)
-                if retval then
-                    return vector3(coords.x,coords.y,cdz + 1.0)
-                else
-                    return vector3(coords.x,coords.y,coords.z + 1.0)
-                end
+                return vector3(coords.x,coords.y,coords.z + 1.0)
             end
         end
         if IsDisabledControlJustPressed(0, 25) then

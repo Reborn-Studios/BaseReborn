@@ -120,11 +120,12 @@ return {
 			{ name = 'WEAPON_NIGHTSTICK', price = 100 },
 			{ name = 'WEAPON_PISTOL', price = 500, metadata = { registered = true, serial = 'POL' } },
 			{ name = 'WEAPON_CARBINERIFLE', price = 1000, metadata = { registered = true, serial = 'POL' } },
+			{ name = 'WEAPON_PARAFAL', price = 1500, metadata = { registered = true, serial = 'POL' } },
 			{ name = 'WEAPON_STUNGUN', price = 500, metadata = { registered = true, serial = 'POL'} }
 		}, locations = {
-			vec3(-1106.21,-822.89,14.29)
+			vec3(73.02,-392.2,41.63)
 		}, targets = {
-			{ loc = vec3(-1106.21,-822.89,14.29), length = 0.5, width = 3.0, heading = 270.0, minZ = 30.5, maxZ = 32.0, distance = 6 }
+			{ loc = vec3(73.02,-392.2,41.63), length = 0.5, width = 3.0, heading = 270.0, minZ = 30.5, maxZ = 32.0, distance = 6 }
 		}
 	},
 	Pesca = {
