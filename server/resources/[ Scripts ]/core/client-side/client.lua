@@ -173,6 +173,7 @@ local Blips = {
 	{ -51.82,-1111.38,26.44,225,4,"Concessionaria",0.5 },
 	{ 94.53,-383.45,43.62 ,60,4,"Departamento Policial",0.6 },
 	{ -1082.31,-247.59,37.77,498,4,"Central de Empregos",0.5 },
+	{ -544.68,-205.63,38.3,483,4,"Jurídico", 0.7 },
 }
 
 CreateThread(function()

@@ -267,7 +267,7 @@ config.main = {
 		["name"] = 'Mafia', --nome na NUI
 		["customBlip"] = true, --ativar blip customizado ou apenas o normal do gta?
 		["coords"] = {
-			vec3(591.47,-3273.54,6.07), --coordenadas do blip
+			vec3(-2678.92,1330.06,140.89), --coordenadas do blip
 		},
 		["craft"] = { --configuração do craft
 			["WEAPON_PISTOL"] = {
