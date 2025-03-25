@@ -14493,8 +14493,10 @@ const ky = Sy(Ty, [["render", Ay]]),
             }),
             t.fetchLocale();
         }),
-        vt.on("radio:toggleRadio", (E) => {
+        vt.on("radio:toggleRadio", async (E) => {
           t.settings.isRadioShown = E.state;
+          await new Promise((T) => setTimeout(T, 400));
+          $(t).toggleOffState();
         }),
         (E, T) => {
           const M = Qn("tooltip"),
