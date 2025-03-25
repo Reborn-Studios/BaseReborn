@@ -2,6 +2,7 @@ CreateThread(function()
 	-- Check table
 	Wait(500)
 	prepare("homes/check_table","DESCRIBE will_homes")
+    prepare('will/get_all_homes',"SELECT * FROM will_homes")
 	local table = query("homes/check_table")
 	local hasHouseId = false
 	local hasTax = false
@@ -22,7 +23,6 @@ CreateThread(function()
 		execute("homes/put_tax")
 	end
 	Wait(500)
-    prepare('will/get_all_homes',"SELECT * FROM will_homes")
 	prepare("will/buy_home","INSERT IGNORE INTO will_homes(house_id,owner,name,friends,extends,tax) VALUES(@house_id,@owner,@name,@friends,@extends,@tax)")
     prepare("will/upd_taxhomes","UPDATE `will_homes` SET tax = @tax WHERE owner = @owner AND name = @home")
     prepare('will/update_friends',"UPDATE `will_homes` SET friends = @friends WHERE house_id = @id")
