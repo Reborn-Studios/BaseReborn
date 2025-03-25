@@ -26,7 +26,7 @@ function tryGetInventoryItem(user_id,item,amount)
 end
 
 function getUserGroup(user_id)
-    return vRP.getUserGroupByType(user_id,"job")
+    return vRP.getUserGroupByType(user_id,"job") or "None"
 end
 
 function hasPermission(user_id, perm)
