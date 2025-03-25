@@ -3,6 +3,7 @@
 -----------------------------------------------------------------------------------------------------------------------------------------
 function vRP.addBank(user_id,amount,reason)
 	if amount > 0 then
+		user_id = parseInt(user_id)
 		local source = vRP.getUserSource(user_id)
 		Reborn.addMoney(source, amount, reason, user_id)
 	end
@@ -12,6 +13,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 function vRP.setBank(user_id,amount,reason)
 	if amount >= 0 then
+		user_id = parseInt(user_id)
 		local source = vRP.getUserSource(user_id)
 		Reborn.setMoney(source, amount, reason, user_id)
 	end
@@ -21,6 +23,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 function vRP.delBank(user_id,amount,reason)
 	if amount > 0 then
+		user_id = parseInt(user_id)
 		local source = vRP.getUserSource(user_id)
 		Reborn.remMoney(source, amount, reason)
 	end
@@ -29,6 +32,7 @@ end
 -- GETBANK
 -----------------------------------------------------------------------------------------------------------------------------------------
 function vRP.getBank(user_id)
+	user_id = parseInt(user_id)
 	local source = vRP.getUserSource(user_id)
 	return Reborn.getMoney(source,user_id)
 end
@@ -37,6 +41,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 function vRP.paymentBank(user_id,amount)
 	if amount > 0 then
+		user_id = parseInt(user_id)
 		local consult = vRP.getInformation(user_id)
 		if consult[1] then
 			if consult[1].bank >= amount then
