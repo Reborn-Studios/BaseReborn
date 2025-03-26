@@ -51,6 +51,10 @@ RegisterNetEvent("ox_inventory:requestRevist",function(nplayer)
     local source = source
     if tonumber(nplayer) == nil then return end
     if Player(tonumber(nplayer)).state.Handcuff or GetEntityHealth(GetPlayerPed(tonumber(nplayer))) <= 101 then
+        if Player(tonumber(nplayer)).state.Police then
+            TriggerClientEvent("Notify",source,"negado","Você não pode revistar um policia",5000)
+            return
+        end
         exports.ox_inventory:forceOpenInventory(source, 'player', tonumber(nplayer))
     else
         TriggerClientEvent("Notify",source,"negado","A pessoa precisa estar algemada",5000)
