@@ -47,15 +47,14 @@ end
 --#########################
 
 -- Pegar identificador do jogador (Geralmente usado "steam" ou "licensa"). Utiliza-se para multichar
---- @param number
+--- @param source number
 --- @return string | number
 function getIdentifier(source)
     return vRP.getSteam(source)
 end
 
 -- Pegar maximo de personagens por jogador
---- @param source: number
---- @param user_id: number
+--- @param identifier string|number
 function getPlayerMaxChars(identifier)
     local maxValue = 0
     if Config.UseKeySystem then
@@ -73,9 +72,9 @@ function getPlayerMaxChars(identifier)
 end
 
 -- Aumentar numero de personagens do jogador com codigo
---- @param code: string
---- @param identifier: string
---- @return bool
+--- @param code string
+--- @param identifier? string
+--- @return boolean
 function updatePlayerMaxChars(code, identifier)
     local keys = json.decode(LoadResourceFile(GetCurrentResourceName(), 'keys.json'))
     if keys[code] ~= nil then
@@ -88,6 +87,8 @@ function updatePlayerMaxChars(code, identifier)
     return false
 end
 
+--- @param user_id number
+--- @return string
 local function getUserJob(user_id)
     local userJobs = vRP.query("vRP/get_perm",{ user_id = user_id })
     local groups = Reborn.groups()
@@ -101,8 +102,8 @@ local function getUserJob(user_id)
 end
 
 -- Pegar informaçoes de um personagem
---- @param id: number -- ID do personagem
---- @param data: table<string | string> -- Informaçoes do personagem
+--- @param id number -- ID do personagem
+--- @param data table<string | string> -- Informaçoes do personagem
 --- @return table<string | string>
 function getCharacter(id, data)
     local result = data or query("will_creator/get_user", { id = id })[1]
@@ -120,23 +121,43 @@ function getCharacter(id, data)
     }
 end
 
+local logged = {}
+
 -- Pegar informaçoes de todos personagens do jogador
---- @param source: number
+--- @param source number
 --- @return table<string | string>
 function getCharacters(source)
     local chars = {}
     local identifier = getIdentifier(source)
     local result = query("will_creator/get_characters",{ identifier = identifier })
     for i = 1, (#result), 1 do
-        local charData = getCharacter(result[i]["id"], result[i])
-        table.insert(chars, charData)
+        if logged[identifier] then
+            local nplayer = vRP.getUserSource(parseInt(result[i]["id"]))
+            DropPlayer(tostring(nplayer), "Você já está logado em outra conta. (Reinicie o jogo)")
+        else
+            local charData = getCharacter(result[i]["id"], result[i])
+            table.insert(chars, charData)
+        end
+    end
+    if not logged[identifier] then
+        logged[identifier] = true
     end
     return chars
 end
 
+AddEventHandler("playerDropped",function ()
+    local source = source
+    local identifier = getIdentifier(source)
+    Wait(5000)
+    if logged[identifier] then
+        logged[identifier] = nil
+    end
+end)
+
 -- Inserir informaçoes no banco de dados e retornar id
---- @param src: number (source)
---- @param data: table<string | string>
+--- @param src number (source)
+--- @param data table<string | string>
+--- @param clothes table<string | string>
 --- @return number
 function createCharacter(src, data, clothes)
     local identifier = getIdentifier(src)
@@ -158,8 +179,8 @@ function createCharacter(src, data, clothes)
 end
 
 -- Função chamada ao iniciar um personagem
---- @param source: number
---- @param user_id: number
+--- @param source number
+--- @param user_id number
 function onPlayCharacter(source,user_id)
     if Config.Base == "cn" then
         vRP.CharacterChosen(source, user_id, nil)
@@ -175,7 +196,7 @@ function onPlayCharacter(source,user_id)
 end
 
 -- Pegar roupas do personagem -> Aplica-se na função `applyClothes` no client_config
---- @param id: number
+--- @param user_id number
 --- @return table<string | string>
 function getClothes(user_id)
     local data = vRP.getUData(user_id, "Clothings")
@@ -197,34 +218,35 @@ function getClothes(user_id)
 end
 
 -- Pegar customização do personagem -> Aplica-se na função `applyCustomization` no client_config
---- @param id: number
---- @return table<string | string>
+--- @param id number
+--- @return table<string | string>,string
 function getBarber(id)
     local skins = query("will_creator/get_playerskins",{ user_id = id })
     if skins[1] then
         return json.decode(skins[1].skin), skins[1].model
     end
+    return {}, ""
 end
 
 -- Pegar tatuagens do personagem -> Aplica-se na função `customization` no client_config
---- @param id: number
+--- @param user_id number
 --- @return table<string | string>
 function getTattoos(user_id)
     local data = vRP.getUData(user_id,"vRP:tattoos")
     if data and data ~= '' then
-       local custom = json.decode(data)  
+       local custom = json.decode(data)
        return custom or {}
     end
     data = vRP.getUData(user_id,"Tattoos")
     if data and data ~= '' then
-       local custom = json.decode(data)  
+       local custom = json.decode(data)
        return custom or {}
     end
     return {}
 end
 
 -- Pega ultimas coordenadas do personagem
---- @param source: number
+--- @param source number
 --- @return table<string | number>
 function getUserLastCoords(source)
     local user_id = getUserId(source)
@@ -265,7 +287,6 @@ RegisterCommand("creator",function(source)
 end)
 
 RegisterCommand('addcode', function(source, args)
-    local source = source
     local user_id = getUserId(source)
     if vRP.hasPermission(user_id, "admin.permissao") or vRP.hasPermission(user_id, "Admin") then
         if args[1] then
