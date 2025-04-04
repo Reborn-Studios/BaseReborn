@@ -204,7 +204,7 @@ Config.locates = {
     {
         clothes = "all",
         permission = nil,
-        coords = vector3(105.66,-1303.04,28.8)
+        coords = vector3(101.02,-1311.25,21.14)
     },
     {
         clothes = "all",
