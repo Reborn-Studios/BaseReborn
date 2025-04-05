@@ -28,6 +28,7 @@
     fetch(l.href, c);
   }
 })();
+let firstOpen = false;
 function Oa(e, t) {
   const o = Object.create(null),
     i = e.split(",");
@@ -14495,8 +14496,11 @@ const ky = Sy(Ty, [["render", Ay]]),
         }),
         vt.on("radio:toggleRadio", async (E) => {
           t.settings.isRadioShown = E.state;
-          await new Promise((T) => setTimeout(T, 400));
-          $(t).toggleOffState();
+          if (E.state && !firstOpen) {
+            firstOpen = true;
+            await new Promise((T) => setTimeout(T, 400));
+            $(t).toggleOffState();
+          }
         }),
         (E, T) => {
           const M = Qn("tooltip"),
