@@ -17,7 +17,7 @@ config.main = {
 		["name"] = 'Milicia', --nome na NUI
 		["customBlip"] = true, --ativar blip customizado ou apenas o normal do gta?
 		["coords"] = {
-			vec3(1405.88,1137.7,109.75), --coordenadas do blip
+			vec3(897.84,1152.0,333.66), --coordenadas do blip
 		},
 		["craft"] = { --configuração do craft
 			["ammo-9"] = {
