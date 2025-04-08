@@ -413,7 +413,6 @@ CreateThread(function()
 
 						if IsControlJustPressed(1,38) and GetGameTimer() >= gameTimer then
 							gameTimer = GetGameTimer() + 1500
-							print(shop)
 							if isFuel then
 								if vSERVER.paymentFuel(isPrice,vehPlate,vehFuel,shop,isPrice * 4) then
 									TriggerServerEvent("engine:tryFuel",vehPlate,vehFuel)
