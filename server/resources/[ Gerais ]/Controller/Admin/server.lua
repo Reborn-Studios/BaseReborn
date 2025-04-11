@@ -110,7 +110,7 @@ end)
 RegisterCommand("addcar",function(source,args,rawCommand)
 	if HasPermission(source,"addcar") then
 		local user_id = vRP.getUserId(source)
-		if args[1] and args[2] then
+		if parseInt(args[1]) > 0 and args[2] then
 			vRP.execute("vRP/add_vehicle",{ user_id = parseInt(args[1]), vehicle = args[2], plate = vRP.generatePlateNumber(), phone = vRP.getPhone(args[1]), work = tostring(false) })
 			local nplayer = vRP.getUserSource(tonumber(args[1]))
 			if nplayer then
@@ -118,12 +118,14 @@ RegisterCommand("addcar",function(source,args,rawCommand)
 			end
 			TriggerClientEvent("Notify",source,"importante","Adicionou o veiculo: <b>"..args[2].."</b> no ID:<b>"..args[1].."</b.",5000)
 			vRP.createWeebHook(Webhooks.webhookaddcar,"```prolog\n[ID]: "..user_id.."\n[ADICIONOU NO ID:]: "..args[1].." \n[CARRO]: "..args[2].." "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
+		else
+			TriggerClientEvent("Notify",source,"aviso","Utilize /addcar (id) (veiculo)",5000)
 		end
 	end
 end)
 
--- `/addcar (id) (veiculo) (dias)`
--- Exemplo: /addcar 1 audir8 30
+-- `/addtempcar (id) (veiculo) (dias)`
+-- Exemplo: /addtempcar 1 audir8 30
 RegisterCommand("addtempcar",function(source,args,rawCommand)
 	if HasPermission(source,"addtempcar") then
 		local user_id = vRP.getUserId(source)
@@ -136,6 +138,8 @@ RegisterCommand("addtempcar",function(source,args,rawCommand)
 			exports['will_garages_v2']:addVehicle(args[1], args[2])
 			TriggerClientEvent("Notify",source,"importante","Adicionou o veiculo: <b>"..args[2].."</b> no ID:<b>"..args[1].."</b. por "..args[3].." dias",5000)
 			vRP.createWeebHook(Webhooks.webhookaddcar,"```prolog\n[ID]: "..user_id.."\n[ADICIONOU NO ID:]: "..args[1].." \n[CARRO]: "..args[2].." \n[DIAS]: "..args[3]..""..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
+		else
+			TriggerClientEvent("Notify",source,"aviso","Utilize /addtempcar (id) (veiculo) (dias)",5000)
 		end
 	end
 end)
