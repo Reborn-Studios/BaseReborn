@@ -1310,7 +1310,7 @@ const pF = {
           try {
             await i(pF.tables);
           } catch (l) {
-            console.error(e.message);
+            console.error(l.message);
           }
         }
 
@@ -4231,6 +4231,7 @@ pF.ready(async (c) => {
         k.bigint("post_id").nullable(),
         k.varchar("image").nullable(),
         k.varchar("content").nullable(),
+        k.varchar("comments").nullable(),
         k.bigint("created_at");
     }),
       await e.createIndex("profile_id"),
