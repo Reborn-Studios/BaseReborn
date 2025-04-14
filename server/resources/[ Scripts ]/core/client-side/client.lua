@@ -829,10 +829,17 @@ local vehsArea = {
 	vector3(236.64,-779.95,30.67),
 }
 
+local pedsArea = {
+	vector3(43.8,-869.46,30.38),
+}
+
 CreateThread(function ()
 	while true do
 		for k,cds in pairs(vehsArea) do
 			ClearAreaOfVehicles(cds.x,cds.y,cds.z,50.0,false,false,false,false,false)
+		end
+		for k,cds in pairs(pedsArea) do
+			ClearAreaOfPeds(cds.x,cds.y,cds.z,50.0,false)
 		end
 		Wait(3000)
 	end
