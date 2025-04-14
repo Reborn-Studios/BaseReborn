@@ -576,7 +576,10 @@ function Creative.MarketplaceAnnounce(data)
     local user_id = vRP.Passport(source)
     if user_id then
         if vRP.TakeItem(user_id, data["Item"], data["Amount"]) then
-            local id = #marketplaceList + 1
+            local id = 1
+            for k,v in ipairs(marketplaceList) do
+                id = v.Id + 1
+            end
             local name = data["Item"] 
             local key = data["Item"]  
             local price = data["Price"]
@@ -590,11 +593,11 @@ function Creative.MarketplaceAnnounce(data)
                 ['@owner_id'] = user_id
             })
             marketplaceList[id] = {
-                id = id,
+                Id = id,
                 user_id = user_id,
-                item = data["Item"],
-                amount = data["Amount"],
-                price = data["Price"]
+                Item = data["Item"],
+                Amount = data["Amount"],
+                Price = data["Price"]
             }
             TriggerClientEvent("pause:Notify", source, "Item anunciado com sucesso.")
             return true
