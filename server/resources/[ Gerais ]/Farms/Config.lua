@@ -33,7 +33,7 @@ Farms.desmanche = {
 
 Farms.cocaina = {
     [1] = {
-        perm = "Azuis",
+        perm = "azuis.permissao",
         locais = {
             -- Cocaina PASTA
             {
@@ -80,7 +80,7 @@ Farms.cocaina = {
 
 Farms.maconha = {
     [1] = {
-        perm = "Vermelhos",
+        perm = "vermelhos.permissao",
         locais = {
             { ['id'] = 1, ['x'] = 99.78, ['y'] = 6344.38, ['z'] = 31.38, ['text'] = "colher a Sativa" },
             { ['id'] = 2, ['x'] = 101.95, ['y'] = 6353.35, ['z'] = 31.38, ['text'] = "colher a Índica" },
@@ -108,7 +108,7 @@ Farms.maconha = {
 
 Farms.meta = {
     [1] = {
-        perm = "Verdes",
+        perm = "verdes.permissao",
         locais = {
             {
                 ['id'] = 1,
