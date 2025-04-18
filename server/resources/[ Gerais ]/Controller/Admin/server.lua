@@ -73,7 +73,7 @@ RegisterCommand("item",function(source,args,rawCommand)
 		if args[1] and args[2] then
 			if vRP.itemBodyList(args[1]) then
 				local user_id = vRP.getUserId(source)
-				vRP.giveInventoryItem(user_id,args[1],parseInt(args[2]), nil, true)
+				vRP.giveInventoryItem(user_id,args[1],tonumber(args[2]) or 1, nil, true)
 				vRP.createWeebHook(Webhooks.webhookgive,"```prolog\n[ID]: "..user_id.."\n[PEGOU]: "..args[1].." \n[QUANTIDADE]: "..parseInt(args[2]).." "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
 			else
 				TriggerClientEvent("Notify",source,"negado","Item inexistente",5000)
@@ -89,7 +89,7 @@ RegisterCommand("itemall",function(source,args,rawCommand)
 		if vRP.itemBodyList(args[1]) then
 			local users = vRP.getUsers()
 			for k,v in pairs(users) do
-				vRP.giveInventoryItem(parseInt(k),tostring(args[1]),parseInt(args[2]),nil,true)
+				vRP.giveInventoryItem(parseInt(k),tostring(args[1]),tonumber(args[2]) or 1,nil,true)
 			end
 		else
 			TriggerClientEvent("Notify",source,"negado","Item inexistente",5000)
@@ -360,14 +360,16 @@ RegisterCommand("group",function(source,args,rawCommand)
 	local user_id = vRP.getUserId(source)
 	if user_id then
 		if HasPermission(source,"group") then
-			if args[1] then
+			if args[1] and parseInt(args[1]) > 0 then
 				if args[2] then
 					if args[2] == "Owner" and not vRP.hasPermission(user_id,"Owner") then
 						return
 					end
 					local kgroup = vRP.getGroup(tostring(args[2]))
 					if kgroup == nil then
-						TriggerClientEvent("Notify",source,"negado","O grupo não existe",5000)
+						TriggerClientEvent("Notify",source,"negado","Este grupo não existe. Abrindo painel com todos grupos...",5000)
+						Wait(2000)
+						TriggerClientEvent("AdminControl:showUserGroups",source,parseInt(args[1]),vRP.getUserGroups(parseInt(args[1])))
 						return
 					end
 					if kgroup._config and kgroup._config.gtype and kgroup._config.gtype == "job" then
@@ -382,7 +384,7 @@ RegisterCommand("group",function(source,args,rawCommand)
 						TriggerClientEvent("Notify",source,"sucesso","O cidadão foi setado como " ..(args[2]).." ",5000)
 						vRP.createWeebHook(Webhooks.webhookset,"```prolog\n[ID]: "..user_id.." \n[SETOU]: "..args[1].." \n [GROUP]: "..args[2].." "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
 					end
-				elseif parseInt(args[1]) > 0 then
+				else
 					TriggerClientEvent("AdminControl:showUserGroups",source,parseInt(args[1]),vRP.getUserGroups(parseInt(args[1])))
 				end
 			end
