@@ -221,7 +221,7 @@ CREATE TABLE IF NOT EXISTS `will_clothes` (
   INDEX `id` (`id`) USING BTREE
 ) ENGINE=InnoDB;
 
-CREATE TABLE `pause_marketplace_itens` (
+CREATE TABLE IF NOT EXISTS `pause_marketplace_itens` (
 	`id` VARCHAR(20) NOT NULL COLLATE 'utf8mb4_general_ci',
 	`Name` VARCHAR(50) NOT NULL DEFAULT '0' COLLATE 'utf8mb4_general_ci',
 	`Key` VARCHAR(255) NOT NULL COLLATE 'utf8mb4_general_ci',
@@ -231,7 +231,7 @@ CREATE TABLE `pause_marketplace_itens` (
 	PRIMARY KEY (`id`) USING BTREE
 ) COLLATE='utf8mb4_general_ci' ENGINE=InnoDB;
 
-CREATE TABLE `pause_shopping` (
+CREATE TABLE IF NOT EXISTS `pause_shopping` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
 	`passport` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_general_ci',
 	`item_name` VARCHAR(100) NOT NULL COLLATE 'utf8mb4_general_ci',
