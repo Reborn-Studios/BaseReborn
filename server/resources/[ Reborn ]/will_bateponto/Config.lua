@@ -154,7 +154,7 @@ Config.func = {
         end
     end,
 
-    sendDiscord = function(webhook,  color, name, title, text, text2)
+    sendDiscord = function(webhook, title, text)
         vRP.createWeebHook(webhook, "```prolog\n"..title.." "..text.." "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
     end,
 }

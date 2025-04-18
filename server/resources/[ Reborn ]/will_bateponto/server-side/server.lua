@@ -12,6 +12,8 @@ vCLIENT = Tunnel.getInterface("will_bateponto")
 cnVRP = {}
 Tunnel.bindInterface("will_bateponto",cnVRP)
 
+local serviceTime = {}
+
 function cnVRP.checkBateponto(Index)
 	local source = source
 	local user_id = vRP.getUserId(source)
@@ -24,15 +26,16 @@ function cnVRP.checkBateponto(Index)
                 TriggerEvent("vrp_blipsystem:serviceExit",source)
                 vCLIENT.exit(source)
                 if Config.data[Index].webhook then
-                    Config.func.sendDiscord(Config.data[Index].webhook,8923574, "Bate ponto","ID:"..user_id,"Saiu de serviço")
+                    Config.func.sendDiscord(Config.data[Index].webhook,"ID:"..user_id,"Saiu de serviço - Tempo de serviço de "..minimalTimers(os.time() - parseInt(serviceTime[user_id])))
                 end
                 break
             elseif vRP.hasGroup(user_id,v.paisanaGroup) then
                 vRP.addUserGroup(user_id,v.group)
+                serviceTime[user_id] = os.time()
                 TriggerEvent("vrp_blipsystem:serviceEnter",source,"Policial",77)
                 vCLIENT.enter(source)
                 if Config.data[Index].webhook then
-                    Config.func.sendDiscord(Config.data[Index].webhook,12422,"Bate ponto","ID:"..user_id,"Entrou em serviço")
+                    Config.func.sendDiscord(Config.data[Index].webhook,"ID:"..user_id,"Entrou em serviço")
                 end
                 break
             end
