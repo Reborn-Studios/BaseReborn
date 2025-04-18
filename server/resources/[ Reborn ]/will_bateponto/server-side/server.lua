@@ -26,7 +26,11 @@ function cnVRP.checkBateponto(Index)
                 TriggerEvent("vrp_blipsystem:serviceExit",source)
                 vCLIENT.exit(source)
                 if Config.data[Index].webhook then
-                    Config.func.sendDiscord(Config.data[Index].webhook,"ID:"..user_id,"Saiu de serviço - Tempo de serviço de "..minimalTimers(os.time() - parseInt(serviceTime[user_id])))
+                    if parseInt(serviceTime[user_id]) > 0 then
+                        Config.func.sendDiscord(Config.data[Index].webhook,"ID:"..user_id,"Saiu de serviço \n[Tempo de serviço]: "..minimalTimers(os.time() - parseInt(serviceTime[user_id])))
+                    else
+                        Config.func.sendDiscord(Config.data[Index].webhook,"ID:"..user_id,"Saiu de serviço")
+                    end
                 end
                 break
             elseif vRP.hasGroup(user_id,v.paisanaGroup) then
