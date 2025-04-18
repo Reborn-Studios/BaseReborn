@@ -155,32 +155,6 @@ Config.func = {
     end,
 
     sendDiscord = function(webhook,  color, name, title, text, text2)
-        local logo = 'https://cdn.discordapp.com/attachments/796797155100327976/875550178264903730/unknown.png' -- Foto que ira aparecer ao lado da menssagem  
-        local avatar = 'https://cdn.discordapp.com/attachments/796797155100327976/875550178264903730/unknown.png' -- Avatar do WebHook
-        if title == nil or title == '' then
-            return nil
-        end
-        local date = os.date("%H:%M:%S - %d/%m/%Y") -- Get system time
-        local embeds = {
-            {
-                ["title"] = title,
-                ["type"] = name,
-                ["thumbnail"] = {
-                    ["url"] = logo
-                },
-                ["fields"] = {
-                    {
-                        ["name"] = text,
-                        ["value"] = text2
-                    }
-                },
-                ["footer"] = { 
-                    ["text"] = "Will - "..date,
-                    ["icon_url"] = logo
-                },
-                ["color"] =  color
-            }
-        }
-        PerformHttpRequest(webhook, function(Error, Content, Hand) end, 'POST', json.encode({username = name, embeds = embeds, avatar_url = avatar}), { ['Content-Type'] = 'application/json' })
+        vRP.createWeebHook(webhook, "```prolog\n"..title.." "..text.." "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
     end,
 }
