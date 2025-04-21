@@ -758,6 +758,7 @@ AddEventHandler("queue:playerConnecting",function(source,ids,name,setKickReason,
                         Card["body"][2]["isVisible"] = true
                         Card["body"][2]["items"][5]["actions"][1]["title"] = 'SEU ID DE LIBERAÇÃO: '..rows[1].id
                     end
+					Wait(3000)
                     deferrals.presentCard(Card, CardCallback)
                 end
             else

@@ -356,5 +356,11 @@ AddEventHandler("baseModule:idLoaded",function(source,user,model)
 		TriggerEvent("vRP:playerSpawn",user_id,source,true)
 		TriggerEvent("playerConnect",user_id,source, true)
 		TriggerClientEvent("hudActived",source,true)
+	else
+		DropPlayer(source,"Você já está conectado em outra conta.")
+		if vRP.user_sources[user_id] then
+			DropPlayer(vRP.user_sources[user_id],"Você conectou em outra conta.")
+		end
+		print("O jogador "..user_id.." tentou se conectar em duas contas.")
 	end
 end)
