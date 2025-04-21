@@ -120,10 +120,9 @@ local function upgradePremium(Passport)
     vRP.execute("vRP/update_premium",{ identifier = identity.identifier, predays = 30 })
 end
 
-function Creative.PremiumBuy(Data)
+function Creative.PremiumBuy(Data,Select)
     local Source = source
     local Passport = vRP.Passport(Source)
-    local identity = vRP.Identity(Passport)
     if Passport and tonumber(Data) then
         local PremiumType = nil
         for k,v in pairs(Premium) do
@@ -143,15 +142,16 @@ function Creative.PremiumBuy(Data)
                     setPremium(Passport)
                     if SelectedPremium["Selectables"] then
                         for _, Selectable in ipairs(SelectedPremium["Selectables"]) do
-                            if Selectable["Id"] == SelectedPremium then
-                                for _, Option in ipairs(Selectable["Options"]) do
-                                    local VehicleIndex = Option["Index"]
-                                    local RentalDays = Option["Amount"]
-                                    if VehicleIndex then
+                            if Select[Selectable["Id"]] then
+                                local data = Selectable["Options"][Select[Selectable["Id"]]]
+                                local VehicleIndex = data["Index"]
+                                local RentalDays = data["Amount"]
+                                if VehicleIndex then
+                                    if RentalDays then
                                         vRP.execute('will/add_rend',{ user_id = Passport, vehicle = VehicleIndex ,time = RentalDays })
-                                        addVehicle(Passport, VehicleIndex)
-                                        TriggerClientEvent("Notify", Source, "Sucesso", "Premium alugado com sucesso", 5000)
                                     end
+                                    addVehicle(Passport, VehicleIndex)
+                                    TriggerClientEvent("Notify", Source, "Sucesso", "Premium alugado com sucesso", 5000)
                                 end
                             end
                         end
