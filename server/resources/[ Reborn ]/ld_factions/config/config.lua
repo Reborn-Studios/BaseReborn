@@ -314,4 +314,30 @@ orgsConfig.List = {
 			},
 		}
 	},
+	["Hospital"] = {
+		config = {
+			maxMembers = 15, -- Maximo de Jogadores
+			listMetas = {}
+		},
+		
+		groups = {
+			["Diretor"] = { -- CARGO
+				prefix = "Diretor", -- PREFIX
+				leader = true, -- Se é lider ou não
+				tier = 4, -- Nivel do Cargo ( Para ter uma Ordem )
+			},
+			["Medico"] = { -- CARGO
+				prefix = "Medico", -- PREFIX
+				tier = 3, -- Nivel do Cargo ( Para ter uma Ordem )
+			},
+			["Enfermeiro"] = { -- CARGO
+				prefix = "Enfermeiro", -- PREFIX
+				tier = 2, -- Nivel do Cargo ( Para ter uma Ordem )
+			},
+			["Paramedico"] = { -- CARGO
+				prefix = "Paramedico", -- PREFIX
+				tier = 1, -- Nivel do Cargo ( Para ter uma Ordem )
+			},
+		}
+	},
 }
