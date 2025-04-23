@@ -5,9 +5,10 @@ USE `rbn_base`;
 -- Exportação de dados foi desmarcado.
 
 -- Copiando estrutura para tabela rbn_base.vrp_infos
-CREATE TABLE `vrp_infos` (
+CREATE TABLE IF NOT EXISTS `vrp_infos` (
 	`id` INT(12) NOT NULL AUTO_INCREMENT,
 	`steam` VARCHAR(50) NOT NULL COLLATE 'latin1_swedish_ci',
+  `identifier` VARCHAR(254) NULL DEFAULT '' COLLATE 'latin1_swedish_ci',
 	`whitelist` TINYINT(1) NULL DEFAULT '0',
 	`banned` TINYINT(1) NULL DEFAULT '0',
 	`gems` INT(11) NOT NULL DEFAULT '0',
