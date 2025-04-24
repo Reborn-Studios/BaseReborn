@@ -1,4 +1,5 @@
 Framework = {}
+local usingTable = false
 
 function CreateTable(model)
 	local mHash = GetHashKey(model)
@@ -14,10 +15,12 @@ function CreateTable(model)
 end
 
 RegisterNetEvent("will_drugsales:useTable",function(tableModel)
+	if usingTable then return end
 	if not CurrentZone and not Config.SellAnywhere then
 		Framework:Notify(Config.Locales["disable_zone"])
 		return
 	end
+	usingTable = true
 	local tableIndex = 1
 	local objectProgress = true
 	local aplicationObject = false
@@ -70,7 +73,7 @@ RegisterNetEvent("will_drugsales:useTable",function(tableModel)
 		["y"] = coordsObject["y"],
 		["z"] = GroundZ ~= 0.0 and GroundZ or coordsObject["z"]
 	}
-
+	usingTable = false
 	DeleteEntity(newObject)
 	if aplicationObject and OnAddTable() then
 		TriggerServerEvent("will_drugsales:setTable",Config.TableProps[tableIndex],newCoords,headObject)
