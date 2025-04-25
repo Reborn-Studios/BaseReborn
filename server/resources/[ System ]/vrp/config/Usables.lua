@@ -375,7 +375,9 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName, rAmount)
 
 	if itemName == "cirurgia" then
 		if GetResourceState("will_creator") == "started" then
-			TriggerClientEvent("will_creator:resetChar",source)
+			if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
+				TriggerClientEvent("will_creator:resetChar",source)
+			end
 		else
 			if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
 				vRP.setUData(user_id,"vRP:spawnController",json.encode(0))
