@@ -42,13 +42,7 @@ function hasPermission(user_id, perm)
 end
 
 function getPolicesByPermission()
-    if Config.base == "creative" or Config.base == "summerz" then
-        return vRP.numPermission("Police")
-    elseif Config.base == "cn" then
-        return vRP.NumPermission("Police")
-    else
-        return vRP.getUsersByPermission("policia.permissao")
-    end
+    return vRP.getUsersByPermission("policia.permissao")
 end
 
 function paymentMethod(user_id, price)
