@@ -27,6 +27,50 @@ CreateThread(function ()
     ]])
 end)
 
+local propCloths = {
+    [0] = "hat",
+    [1] = "glass",
+    [2] = "ear",
+    [6] = "watch",
+    [7] = "bracelet",
+}
+
+local varCloths = {
+    [1] = "mask",
+    [3] = "arms",
+    [4] = "pants",
+    [5] = "backpack",
+    [6] = "shoes",
+    [7] = "accessory",
+    [8] = "tshirt",
+    [9] = "vest",
+    [10] = "decals",
+    [11] = "torso",
+}
+
+local function parse_part(key)
+	if type(key) == "string" and string.sub(key,1,1) == "p" then
+		return true,tonumber(string.sub(key,2))
+	else
+		return false,tonumber(key)
+	end
+end
+
+local function convertClothes(clothes)
+    local custom = {}
+    for part,v in pairs(clothes) do
+        local isprop, index = parse_part(part)
+        if isprop then
+            if index and propCloths[index] then
+                custom[propCloths[index]] = { item = v[1], texture = v[2] }
+            end
+        elseif index and varCloths[index] then
+            custom[varCloths[index]] = { item = v[1], texture = v[2] }
+        end
+    end
+    return custom
+end
+
 RegisterServerEvent("Cloakrooms:applyPreset")
 AddEventHandler("Cloakrooms:applyPreset",function(perm)
     local source = source
@@ -79,7 +123,10 @@ AddEventHandler("Cloakrooms:applyPreset",function(perm)
                 local myClothes = vRPC.getCustomPlayer(source)
                 TriggerClientEvent("Notify",source,"sucesso","Roupas aplicadas.",5000)
                 vRP.setSData("RoupaOff:"..user_id,json.encode(myClothes))
-                vRPC._setCustomization(source,json.decode(consult[1].custom))
+                local preset = json.decode(consult[1].custom)
+                vRPC._setCustomization(source,preset)
+                TriggerClientEvent("skinshop:Apply",source,convertClothes(preset), true)
+                TriggerEvent("player:serverDebug")
             end
         end
     end

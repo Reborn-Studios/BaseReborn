@@ -339,6 +339,11 @@ AddEventHandler("player:Debug",function()
     reloadPlayer(source)
 end)
 
+RegisterServerEvent("player:serverDebug")
+AddEventHandler("player:serverDebug",function(source)
+    reloadPlayer(source)
+end)
+
 --#########################
 ---##      PREPARES
 --#########################
