@@ -15,22 +15,22 @@ Config.MenuCommand = "referencemenu"            -- Comando para abrir menu
 
 Config.Vehicles = {
     {
-        index = "rangerover",
-        image = "http://212.18.114.101/imagens/rangerover.png",
-        title = "Range Rover",
-        days = 7
+        index = "488",
+        image = "http://212.18.114.101/imagens/488.png",
+        title = "Ferrari 488",
+        days = 3
     },
     {
-        index = "mercedesgt63",
-        image = "http://212.18.114.101/imagens/mercedesgt63.png",
+        index = "gt63",
+        image = "http://212.18.114.101/imagens/gt63.png",
         title = "Mercedes GT63",
         days = 5
     },
     {
-        index = "r1",
-        image = "http://212.18.114.101/imagens/r1.png",
-        title = "Yamaha R1",
-        days = 10
+        index = "z8r",
+        image = "http://212.18.114.101/imagens/s1000rr.png",
+        title = "Z8 R",
+        days = 7
     }
 }
 
