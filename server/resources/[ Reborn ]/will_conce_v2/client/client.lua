@@ -9,6 +9,22 @@ local indexConce = nil
 local loadedVeh = false
 local inTestDrive = false
 
+local function loadVehicles()
+    local AllVehicles = {}
+    local AllVehicleModels = GetAllVehicleModels()
+    for k,v in pairs(AllVehicleModels) do
+        for category, models in pairs(config.veiculos) do
+            if not AllVehicles[category] then AllVehicles[category] = {} end
+            for model, _ in pairs(models) do
+                if string.lower(v) == string.lower(model) then
+                    AllVehicles[category][v] = config.veiculos[category][model]
+                end
+            end
+        end
+    end
+    return AllVehicles
+end
+
 Citizen.CreateThread(function()
     DoScreenFadeIn(500)
     while true do
@@ -28,7 +44,7 @@ Citizen.CreateThread(function()
                     SendNUIMessage({
                         action = "show",
                         ip = config.ip,
-                        vehicles = config.veiculos
+                        vehicles = loadVehicles()
                     })
                 end
             else

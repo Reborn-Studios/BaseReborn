@@ -239,12 +239,12 @@ Config.workgarage = {
     },
     ["Police_interior"] = {
         "police",
-		"police2",
+		"polmustang",
 		"police3",
     },
     ["Police"] = {
         { model = "police", livery = 1, name = "Veiculo policial", photo = "policephoto", perm = "Coronel" },
-		"police2",
+		"polmustang",
 		"police3"
     },
     ["Helipolice"] = {
