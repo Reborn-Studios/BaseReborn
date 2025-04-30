@@ -54,9 +54,18 @@ function applyModifies(nveh,engine,fuel,tuning,vehDoors,vehWindows,vehTyres,vnam
 	if GetResourceState("will_tunners") == "started" then
 		exports['will_tunners']:SetVehicleProp(nveh,tuning or {})
 	elseif GetResourceState("ld_tunners") == "started" then
-		if tuning then
-			TriggerServerEvent("ld_tunners:applyMods", nveh, tuning)
-		end
+		if tuning and next(tuning) then
+            local onlyLivery = true
+            for k, _ in pairs(tuning) do
+                if k ~= "livery" then
+                    onlyLivery = false
+                    break
+                end
+            end
+            if not onlyLivery then
+                TriggerEvent("ld_tunners:client:applyMods", nveh, tuning)
+            end
+        end
 	else
 		vehicleMods(nveh,tuning)
 	end
@@ -628,37 +637,24 @@ function will.vehList(radius)
 end
 
 function getModelName(vehicle)
-	local hasFound = false
 	local vehicleHash = GetEntityModel(vehicle)
 	local vehsGlobal = GlobalState['VehicleGlobal']
     for k,v in pairs(vehsGlobal) do
         if GetHashKey(k) == vehicleHash then
-			hasFound = true
             return k
         end
     end
-	if not hasFound then
-		local vehName = nil
-		local manufacturer = GetDisplayNameFromVehicleModel(vehicleHash)
-		if manufacturer ~= "CARNOTFOUND" then
-			if GetHashKey(manufacturer) == vehicleHash then
-				vehName = manufacturer
-			else
-				print('Veiculo não registrado')
-				print('Nome diferente no vehicles.meta:',manufacturer)
-				local makeName = GetMakeNameFromVehicleModel(vehicleHash)
-				if makeName ~= "CARNOTFOUND" and GetHashKey(makeName) == vehicleHash then
-					vehName = makeName
-				else
-					print('Make name:',makeName)
-				end
-			end
+	local vehName = nil
+    local AllVehicleModels = GetAllVehicleModels()
+	for i = 1, #AllVehicleModels do
+		if GetHashKey(AllVehicleModels[i]) == vehicleHash then
+			vehName = AllVehicleModels[i]
 		end
-		if vehName then
-			TriggerServerEvent("will_garages_v2:registerVehicle", vehName, GetVehicleType(vehicle))
-		end
-		return vehName
 	end
+	if vehName then
+		TriggerServerEvent("will_garages_v2:registerVehicle", vehName, GetVehicleType(vehicle))
+	end
+	return vehName
 end
 
 --###############--
