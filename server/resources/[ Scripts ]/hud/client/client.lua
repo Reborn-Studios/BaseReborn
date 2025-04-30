@@ -706,14 +706,14 @@ if Config.EnableSeatbelt then
                     toggle = true
                 })                
                 playSound("buckle")
-                Config.Notification(Config.Notifications["took_seatbelt"]["message"], Config.Notifications["took_seatbelt"]["type"])
+                -- Config.Notification(Config.Notifications["took_seatbelt"]["message"], Config.Notifications["took_seatbelt"]["type"])
             else
                 SendNUIMessage({
                     type="update_seatbelt",
                     toggle = false
                 })
                 playSound("unbuckle")
-                Config.Notification(Config.Notifications["took_off_seatbelt"]["message"], Config.Notifications["took_off_seatbelt"]["type"])
+                -- Config.Notification(Config.Notifications["took_off_seatbelt"]["message"], Config.Notifications["took_off_seatbelt"]["type"])
             end              
         end
     end)
@@ -738,14 +738,14 @@ if Config.EnableSeatbelt then
                     toggle = true
                 })                
                 playSound("buckle")
-                Config.Notification(Config.Notifications["took_seatbelt"]["message"], Config.Notifications["took_seatbelt"]["type"])
+                -- Config.Notification(Config.Notifications["took_seatbelt"]["message"], Config.Notifications["took_seatbelt"]["type"])
             else
                 SendNUIMessage({
                     type="update_seatbelt",
                     toggle = false
                 })
                 playSound("unbuckle")
-                Config.Notification(Config.Notifications["took_off_seatbelt"]["message"], Config.Notifications["took_off_seatbelt"]["type"])
+                -- Config.Notification(Config.Notifications["took_off_seatbelt"]["message"], Config.Notifications["took_off_seatbelt"]["type"])
             end              
         end
               				  
