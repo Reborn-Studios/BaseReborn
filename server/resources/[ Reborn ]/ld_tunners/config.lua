@@ -1,33 +1,46 @@
 Config = {}
 
 Config.Settings = {
-    colorandfitmentpricefrom = "cash", -- Escolha cash/card (cash = dinheiro da mão, card = dinheiro do banco)
+    colorAndFitmentPayMethod = "cash", -- Escolha cash/card (cash = dinheiro da mão, card = dinheiro do banco)
     keyCodes = {
-        driftMode = 21, -- Botão para freio de mão
-        popNbang = 74 -- Botão para ativar o pops'n'bangs no escapamento
+        driftMode = 21, -- Botão para freio de mão (padrão: SHIFT ESQUERDO)
+        popNbang = 74, -- Botão para ativar o pops'n'bangs no escapamento (padrão: H)
+        purge = 73 -- Botão para ativar o purgador no carro (padrão: X)
     },
     performanceMode = {
         torqValue = 16.0, -- Multiplicador de torque do veículo no modo performance
         engineValue = 16.0, -- Multiplicador de força do motor do veículo no modo performance
+        wastegate_increase = 0.5, -- Multiplicador de melhorias no carro com a wastegate
     },
     popNbang_time = math.random(1,150), -- caso aumente aqui, o popNbang será mais lento
+    purgeSize = 2, -- Tamanho do jato do purgador
     nitro = {
         multiplier = 1.10, -- Coeficiente de propulsão ao usar nitro (Recomendado não aumentar muito)
         time = 3000, -- Quanto tempo o nitro vai durar
         cooldown = 30000, -- Quanto devo para usar o nitro novamente
         keyCode = 38, -- Tecla para utilizar o nitro
     },
-    syncFitment = true, -- Ativar sincronização para todos os players sobre as montagens de roda (pode afetar a performance do script)
-    automaticTunningSync = false, -- Ativar sincronização das tunagens independente da garagem
+    syncFitment = true, -- Ativar sincronização para todos os players sobre as montagens de roda
+    automaticTunningSync = true, -- Ativar sincronização das tunagens independente da garagem
+    automaticTunningSyncType = 1, -- Modos de sincronização automática
+    automaticTunningSyncTimeCheck = 4000, -- Tempo que o script vai verificar se um carro novo está spawnado e sincronizar as tunagens
+
+    -- Sistema de ordens de serviço
+    serviceOrderMode = {
+        enabled = false, -- Ativar sistema de ordens de serviço (ao realizar a tunagem, a ordem é gerada e o mecânico aplica)
+        applyBonus = 0.5, -- Bônus de pagamento para ordens de serviço
+        applyPermission = "mecanico.permissao", -- Permissão necessária para aceitar ordens de serviço
+        expireTime = 3 -- Tempo em dias para remover as ordens que não foram utilizadas, do banco.
+    }
 }
 
 Config.Menus = {
     upgrades = {
-        brakes = { basePrice = 5000, increaseBy = 500 },
+        brakes = { basePrice = 5000, increaseBy = 500 }, -- caso não queira que requisite um item, basta apagar esse parâmetro, igual os exemplos abaixo.
         transmission = { basePrice = 5000, increaseBy = 500 },
         suspension = { basePrice = 5000, increaseBy = 500 },
         engine = { basePrice = 5000, increaseBy = 500 },
-        turbo = { basePrice = 5000 },
+        turbo = { basePrice = 5000, enabled = true }, -- caso queira desativar a tunagem de turbo, basta mudar o enabled para false
     },
     customization = {
         spoiler = { basePrice = 1500, increaseBy = 250 },
@@ -81,6 +94,9 @@ Config.Menus = {
         tuner_chip = { basePrice = 25000 },
         nitro = { basePrice = 15000 },
         popcorn = { basePrice = 15000 },
+        popcolor = { basePrice = 20000 },
+        wastegate = { basePrice = 30000 },
+        purge = { basePrice = 10000 },
     },
     paintBooth = {
         color = 500, 
@@ -103,7 +119,7 @@ Config.Locations = {
         coords = {
             vector3(835.4,-983.77,26.0),
             vector3(835.51,-975.3,26.0),
-            vector3(835.06,-967.17,26.01)
+            vector3(835.06,-967.17,26.01),
         },
         excludeMods = {}, -- vehicle, cosmetic, upgrades, wheel, paintbrush
         showBlip = false,
@@ -126,21 +142,23 @@ Config.Locations = {
     }
 }
 
+-- Menu de extras (geralmente para viaturas)
 Config.ExtraMenuLocations = {
     ["LSPD"] = {
-        permission = nil,
+        permission = "policia.permissão", -- permissão necessária para acessar
         coords = {
             vector3(455.23, -1020.47, 27.95)
         },
     } 
 }
 
+-- Configuração de mensagens
 Config.Locale = {
     ["open_mechanic_menu"] = "~INPUT_CONTEXT~ Abrir mecânica",
     ["open_extra_menu"] = "~INPUT_CONTEXT~ Abrir menu de extras",
     ["dont_have_money"] = "Você não possui dinheiro suficiente",
     ["dont_have_item"] = "Você não possui o item necessário",
-    ["popnbang_active"] = "Status do Pops'N'Bangs: %s",
+    ["popnbang_active"] = "Status do pops'N'bangs: %s",
     ["save_cancel"] = "Mudanças canceladas.",
     ["saved"] = "As mudanças foram aplicadas com sucesso!"
 }

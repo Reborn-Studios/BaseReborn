@@ -23,7 +23,7 @@ body {
     overflow-y: hidden;
     position: relative;
     gap: 2vh;
-    background: radial-gradient(circle at center, rgba(255, 255, 255, 0) 0%, rgba(47, 44, 64, 0.708) 100%);
+    background: radial-gradient(circle at center, rgba(255, 255, 255, 0) 0%, rgba(110, 110, 110, 0.048) 100%);
 }
 
 
@@ -510,7 +510,7 @@ body {
 }
 
 .menu-item[data-active="true"] {
-    background: radial-gradient(circle at center, rgba(73, 43, 131, 0.816) 0%, rgba(66, 53, 90, 0.656) 100%);/* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
+    background: radial-gradient(circle at center, rgba(189, 189, 189, 0.816) 0%, rgba(75, 74, 77, 0.656) 100%);/* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
     /* border: 1.5px solid rgba(255, 255, 255, 0.3); */
 }
 
@@ -801,7 +801,7 @@ div.color {
     min-width: 25vh;
     height: fit-content;
     position: absolute;
-    bottom: 35vh;
+    bottom: 38vh;
     left: 45vh;
     display: flex;
     padding: 2vh;

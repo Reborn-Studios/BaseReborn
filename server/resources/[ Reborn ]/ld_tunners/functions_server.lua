@@ -16,6 +16,13 @@ Citizen.CreateThread(function()
         return vRP.getUserId(source)
     end
 
+    GetPlayerName = function(source)
+        local user_id = GetUserId(source)
+        if user_id then
+            return vRP.getUserIdentity(user_id).name.." "..vRP.getUserIdentity(user_id).firstname
+        end
+    end
+
     GetMoney = function(source, type)
         local user_id = GetUserId(source)
         if type == "card" then
@@ -31,6 +38,15 @@ Citizen.CreateThread(function()
             vRP.tryPayment(user_id, amount)
         else
             vRP.tryGetInventoryItem(user_id, "dollars", amount)
+        end
+    end
+
+    GiveMoney = function(source, amount, type)
+        local user_id = GetUserId(source)
+        if type == "card" then
+            vRP.giveBank(user_id, amount)
+        else
+            vRP.giveInventoryItem(user_id, "dollars", amount)
         end
     end
 
@@ -52,17 +68,32 @@ Citizen.CreateThread(function()
         return vRP.getVehiclePlate(plate)
     end
 
-    local vehicleModsCache = {}
+    GenerateItemOrder = function(source, serial_name)
+        if exports.ox_inventory then
+            exports.ox_inventory:AddItem(source, "tunning_order", 1, {
+                serial = serial_name, 
+                description = "Ordem de serviço para aplicação de tunagem"
+            })
+        else
+            local generateFunc = (vRP.GenerateItem and vRP.GenerateItem) or (vRP.generateItem and vRP.generateItem) or nil
+            if generateFunc then generateFunc(GetUserId(source), "tunning_order-" .. serial_name, 1, true, false) end
+        end
+    end
 
     RegisterServerEvent("ld_tunners:saveVehicle")
     AddEventHandler("ld_tunners:saveVehicle", function(mods, plate, car)
         local user_id = GetUserByPlate(plate)
         if user_id then
-            vehicleModsCache[plate] = mods
+            
             MySQL.Async.execute("REPLACE INTO vrp_srv_data(dkey,dvalue) VALUES(@dkey,@dvalue)", {
-                ["@dkey"] = "mods:"..plate,
+                ["@dkey"] = "mods:" .. user_id .. ":" .. car,
                 ["@dvalue"] = json.encode(mods),
             })
+            
+            local cacheKey = user_id .. ":" .. car
+            if vehicleModsCache[cacheKey] then
+                vehicleModsCache[cacheKey] = nil
+            end
         end
     end)
 
@@ -72,27 +103,21 @@ Citizen.CreateThread(function()
         if user_id then
             local source = GetUserSource(user_id)
             if source then
-                if vehicleModsCache[plate] then
-                    TriggerClientEvent("ld_tunners:client:applyMods", source, entity, vehicleModsCache[plate])
+                local cacheKey = user_id .. ":" .. car_name
+                if vehicleModsCache[cacheKey] then
+                    TriggerClientEvent("ld_tunners:client:applyMods", source, entity, vehicleModsCache[cacheKey])
                 else
                     MySQL.Async.fetchAll("SELECT * FROM vrp_srv_data WHERE dkey = @key", {
-                        ["@key"] = "mods:"..plate
+                        ["@key"] = "mods:" .. user_id .. ":" .. car_name
                     }, function(result)
                         if #result > 0 then
                             local mods = json.decode(result[1].dvalue)
-                            vehicleModsCache[plate] = mods
+                            vehicleModsCache[cacheKey] = mods
                             TriggerClientEvent("ld_tunners:client:applyMods", source, entity, mods)
                         end
                     end)
                 end
             end
-        end
-    end)
-
-    RegisterServerEvent("ld_tunners:applyMods")
-    AddEventHandler("ld_tunners:applyMods",function(car_ent,tunning)
-        if car_ent then
-            TriggerClientEvent("ld_tunners:client:applyMods",source,car_ent,tunning)
         end
     end)
 end)
