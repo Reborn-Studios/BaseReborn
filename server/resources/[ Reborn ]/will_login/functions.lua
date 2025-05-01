@@ -70,7 +70,7 @@ local function removeVehicles()
     for k,v in pairs(db) do
         if tonumber(v.time) <= time then
             ExecuteSql('DELETE FROM will_rent WHERE user_id = "'..v.user_id..'" AND vehicle = "'..v.vehicle..'"')
-            ExecuteSql("DELETE FROM vrp_vehicles WHERE user_id = '"..v.user_id.."' AND vehicle = '"..v.vehicle.."'")
+            ExecuteSql("DELETE FROM vehicles WHERE user_id = '"..v.user_id.."' AND vehicle = '"..v.vehicle.."'")
         end
     end
 end

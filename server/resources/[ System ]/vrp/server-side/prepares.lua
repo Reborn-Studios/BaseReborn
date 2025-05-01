@@ -75,19 +75,19 @@ vRP.prepare("vRP/transfer_homes","UPDATE vrp_homes SET user_id = @nuser_id WHERE
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PREPARE vRP_GARAGES
 -----------------------------------------------------------------------------------------------------------------------------------------
-vRP.prepare("vRP/get_vehicle","SELECT * FROM vrp_vehicles WHERE user_id = @user_id")
-vRP.prepare("vRP/get_vehicle_plate","SELECT * FROM vrp_vehicles WHERE plate = @plate")
-vRP.prepare("vRP/get_vehicle_phone","SELECT * FROM vrp_vehicles WHERE phone = @phone")
-vRP.prepare("vRP/rem_vehicle","DELETE FROM vrp_vehicles WHERE user_id = @user_id AND vehicle = @vehicle")
-vRP.prepare("vRP/get_vehicles","SELECT * FROM vrp_vehicles WHERE user_id = @user_id AND vehicle = @vehicle")
-vRP.prepare("vRP/set_update_vehicles","UPDATE vrp_vehicles SET engine = @engine, body = @body, fuel = @fuel, doors = @doors, windows = @windows, tyres = @tyres WHERE user_id = @user_id AND vehicle = @vehicle")
-vRP.prepare("vRP/set_arrest","UPDATE vrp_vehicles SET arrest = @arrest, time = @time WHERE user_id = @user_id AND vehicle = @vehicle")
-vRP.prepare("vRP/move_vehicle","UPDATE vrp_vehicles SET user_id = @nuser_id WHERE user_id = @user_id AND vehicle = @vehicle")
-vRP.prepare("vRP/add_vehicle","INSERT IGNORE INTO vrp_vehicles(user_id,vehicle,plate,phone,work) VALUES(@user_id,@vehicle,@plate,@phone,@work)")
-vRP.prepare("vRP/con_maxvehs","SELECT COUNT(vehicle) as qtd FROM vrp_vehicles WHERE user_id = @user_id AND work = 'false'")
+vRP.prepare("vRP/get_vehicle","SELECT * FROM vehicles WHERE user_id = @user_id")
+vRP.prepare("vRP/get_vehicle_plate","SELECT * FROM vehicles WHERE plate = @plate")
+vRP.prepare("vRP/get_vehicle_phone","SELECT * FROM vehicles WHERE phone = @phone")
+vRP.prepare("vRP/rem_vehicle","DELETE FROM vehicles WHERE user_id = @user_id AND vehicle = @vehicle")
+vRP.prepare("vRP/get_vehicles","SELECT * FROM vehicles WHERE user_id = @user_id AND vehicle = @vehicle")
+vRP.prepare("vRP/set_update_vehicles","UPDATE vehicles SET engine = @engine, body = @body, fuel = @fuel, doors = @doors, windows = @windows, tyres = @tyres WHERE user_id = @user_id AND vehicle = @vehicle")
+vRP.prepare("vRP/set_arrest","UPDATE vehicles SET arrest = @arrest, time = @time WHERE user_id = @user_id AND vehicle = @vehicle")
+vRP.prepare("vRP/move_vehicle","UPDATE vehicles SET user_id = @nuser_id WHERE user_id = @user_id AND vehicle = @vehicle")
+vRP.prepare("vRP/add_vehicle","INSERT IGNORE INTO vehicles(user_id,vehicle,plate,phone,work) VALUES(@user_id,@vehicle,@plate,@phone,@work)")
+vRP.prepare("vRP/con_maxvehs","SELECT COUNT(vehicle) as qtd FROM vehicles WHERE user_id = @user_id AND work = 'false'")
 vRP.prepare("vRP/rem_srv_data","DELETE FROM vrp_srv_data WHERE dkey = @dkey")
 vRP.prepare("vRP/update_garages","UPDATE characters SET garage = garage + 1 WHERE id = @id")
-vRP.prepare("vRP/update_plate_vehicle","UPDATE vrp_vehicles SET plate = @plate WHERE user_id = @user_id AND vehicle = @vehicle")
+vRP.prepare("vRP/update_plate_vehicle","UPDATE vehicles SET plate = @plate WHERE user_id = @user_id AND vehicle = @vehicle")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PREPARE vRP_PRISON
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -100,4 +100,4 @@ vRP.prepare("vRP/resgate_prison","UPDATE characters SET prison = 0 WHERE id = @u
 -----------------------------------------------------------------------------------------------------------------------------------------
 vRP.prepare("vRP/set_vRP_gems","UPDATE accounts SET gems = gems + @gems WHERE identifier = @identifier")
 vRP.prepare("vRP/rem_vRP_gems","UPDATE accounts SET gems = gems - @gems WHERE identifier = @identifier")
-vRP.prepare("vRP/set_rental_time","UPDATE vrp_vehicles SET premiumtime = @premiumtime WHERE user_id = @user_id AND vehicle = @vehicle")
+vRP.prepare("vRP/set_rental_time","UPDATE vehicles SET premiumtime = @premiumtime WHERE user_id = @user_id AND vehicle = @vehicle")

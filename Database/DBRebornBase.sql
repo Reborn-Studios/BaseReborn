@@ -82,8 +82,8 @@ CREATE TABLE IF NOT EXISTS `accounts_ids` (
 
 -- Exportação de dados foi desmarcado.
 
--- Copiando estrutura para tabela rbn_base.vrp_vehicles
-CREATE TABLE IF NOT EXISTS `vrp_vehicles` (
+-- Copiando estrutura para tabela rbn_base.vehicles
+CREATE TABLE IF NOT EXISTS `vehicles` (
   `user_id` int(11) NOT NULL,
   `vehicle` varchar(100) NOT NULL,
   `plate` varchar(20) DEFAULT NULL,

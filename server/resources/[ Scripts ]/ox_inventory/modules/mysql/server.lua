@@ -30,7 +30,7 @@ Citizen.CreateThreadNow(function()
     elseif shared.framework == 'qb' then
         playerTable = 'characters'
         playerColumn = 'id'
-        vehicleTable = 'vrp_vehicles'
+        vehicleTable = 'vehicles'
         vehicleColumn = 'plate'
     elseif shared.framework == 'nd' then
         playerTable = 'nd_characters'

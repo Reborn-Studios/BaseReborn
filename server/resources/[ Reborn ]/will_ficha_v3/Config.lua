@@ -14,7 +14,7 @@ Config.base = "creative"                                        -- 'vrpex' / 'cr
 
 Config.imgDiret = Reborn.images().."/"                          --Reborn.images().."/"                               -- Diretorio das imagens dos veiculos
 
-Config.vehicle_db = "vrp_vehicles"                              -- Banco de dados de veiculos
+Config.vehicle_db = "vehicles"                              -- Banco de dados de veiculos
 Config.differentPlate = true
 
 Config.openPainel = "mdt"

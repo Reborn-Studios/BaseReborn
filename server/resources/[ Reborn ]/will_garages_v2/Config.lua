@@ -14,7 +14,7 @@ Config.base = "creative"                        -- vrpex / creative (v1 a v3) / 
 
 --### BANCO DE DADOS ###--
 Config.Mysql = "oxmysql"                        -- mysql-async // oxmysql // ghmattimysql
-Config.vehicleDB = "vrp_vehicles"               -- Tabela dos veiculos
+Config.vehicleDB = "vehicles"               -- Tabela dos veiculos
 
 Config.imgDiret = Reborn.images()               -- Diretorio de imagens para os carros
 

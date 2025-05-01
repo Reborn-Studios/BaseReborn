@@ -12,7 +12,7 @@ config.ip =  Reborn.images()
 
 basesVehDB = {
     ['vrpex'] = "vrp_user_vehicles",
-    ['creative'] = "vrp_vehicles",
+    ['creative'] = "vehicles",
     ['summerz'] = "summerz_vehicles",
     ['cn'] = "vehicles"
 }

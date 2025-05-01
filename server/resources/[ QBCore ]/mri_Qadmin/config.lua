@@ -31,7 +31,7 @@ Config.ReportCommand                        = "report"              -- The comma
 Config.MaxReportsPerPlayer                  = 2                     -- The maximum amount of reports a player can place
 Config.SaveTOJSON                           = true                  -- Whether to save reports and admichat to JSON onResourceStopped (server restarts etc) and load from JSON on resource start
 
-Config.DB.VehiclesTable                     = "vrp_vehicles"     -- Standards: player_vehicles   for QBCore  | user_vehicle   for ESX
+Config.DB.VehiclesTable                     = "vehicles"     -- Standards: player_vehicles   for QBCore  | user_vehicle   for ESX
 Config.DB.CharactersTable                   = "characters"             -- Standards: players           for QBCore  | users          for ESX
 Config.DB.BansTable                         = "bans"
 
