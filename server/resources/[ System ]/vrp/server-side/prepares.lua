@@ -12,8 +12,8 @@ vRP.prepare("vRP/remove_characters","UPDATE characters SET deleted = 1 WHERE id 
 vRP.prepare("vRP/update_characters","UPDATE characters SET registration = @registration, phone = @phone WHERE id = @id")
 vRP.prepare("characters/updatePhone","UPDATE characters SET phone = @phone WHERE id = @id")
 vRP.prepare("vRP/rename_characters","UPDATE characters SET name = @name, name2 = @name2 WHERE id = @id")
-vRP.prepare("vRP/add_identifier","INSERT INTO vrp_user_ids(identifier,user_id) VALUES(@identifier,@user_id)")
-vRP.prepare("vRP/userid_byidentifier","SELECT user_id FROM vrp_user_ids WHERE identifier = @identifier")
+vRP.prepare("vRP/add_identifier","INSERT INTO accounts_ids(identifier,user_id) VALUES(@identifier,@user_id)")
+vRP.prepare("vRP/userid_byidentifier","SELECT user_id FROM accounts_ids WHERE identifier = @identifier")
 vRP.prepare("vRP/create_user_id","INSERT INTO characters(identifier) VALUES(@identifier); SELECT LAST_INSERT_ID() AS id")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PREPARE BANK

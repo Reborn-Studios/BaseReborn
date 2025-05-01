@@ -73,8 +73,8 @@ CREATE TABLE IF NOT EXISTS `vrp_user_data` (
 
 -- Exportação de dados foi desmarcado.
 
--- Copiando estrutura para tabela rbn_base.vrp_user_ids
-CREATE TABLE IF NOT EXISTS `vrp_user_ids` (
+-- Copiando estrutura para tabela rbn_base.accounts_ids
+CREATE TABLE IF NOT EXISTS `accounts_ids` (
   `identifier` varchar(100) NOT NULL,
   `user_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`identifier`) USING BTREE
