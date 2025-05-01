@@ -1,4 +1,4 @@
-vRP.prepare("vRP/get_priorityqueue","SELECT identifier,priority FROM vrp_infos")
+vRP.prepare("vRP/get_priorityqueue","SELECT identifier,priority FROM accounts")
 
 local Queue = {}
 local maxPlayers = 1024

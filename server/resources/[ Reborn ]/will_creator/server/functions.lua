@@ -363,7 +363,7 @@ CreateThread(function()
     local dbColumns = {
         ['vrpex'] = {
             ['accounts'] = {
-                ['table'] = "vrp_infos",
+                ['table'] = "accounts",
                 ['chars'] = "chars"
             },
             ['chars'] = {
@@ -376,7 +376,7 @@ CreateThread(function()
         },
         ['creative'] = {
             ['accounts'] = {
-                ['table'] = "vrp_infos",
+                ['table'] = "accounts",
                 ['chars'] = "chars"
             },
             ['chars'] = {

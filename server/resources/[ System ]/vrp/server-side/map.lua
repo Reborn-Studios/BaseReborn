@@ -101,7 +101,7 @@ end
 -- GETUSERINFO
 -----------------------------------------------------------------------------------------------------------------------------------------
 function vRP.getInfos(identifier)
-	return vRP.query("vRP/get_vrp_infos",{ identifier = identifier })
+	return vRP.query("vRP/get_accounts",{ identifier = identifier })
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- GETTIMERS

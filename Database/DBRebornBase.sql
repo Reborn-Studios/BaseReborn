@@ -4,8 +4,8 @@ USE `rbn_base`;
 
 -- Exportação de dados foi desmarcado.
 
--- Copiando estrutura para tabela rbn_base.vrp_infos
-CREATE TABLE IF NOT EXISTS `vrp_infos` (
+-- Copiando estrutura para tabela rbn_base.accounts
+CREATE TABLE IF NOT EXISTS `accounts` (
 	`id` INT(12) NOT NULL AUTO_INCREMENT,
 	`steam` VARCHAR(50) NOT NULL COLLATE 'latin1_swedish_ci',
   `identifier` VARCHAR(254) NULL DEFAULT '' COLLATE 'latin1_swedish_ci',

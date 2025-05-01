@@ -1,7 +1,7 @@
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PREPARE USERS
 -----------------------------------------------------------------------------------------------------------------------------------------
-vRP.prepare("vRP/get_vrp_infos","SELECT * FROM vrp_infos WHERE identifier = @identifier")
+vRP.prepare("vRP/get_accounts","SELECT * FROM accounts WHERE identifier = @identifier")
 vRP.prepare("vRP/get_characters","SELECT id,registration,phone,name,name2,bank FROM vrp_users WHERE identifier = @identifier and deleted = 0")
 
 vRP.prepare("vRP/get_vrp_users","SELECT * FROM vrp_users WHERE id = @id")
@@ -24,10 +24,10 @@ vRP.prepare("vRP/del_bank","UPDATE vrp_users SET bank = bank - @bank WHERE id = 
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PREPARE vRP_USERS
 -----------------------------------------------------------------------------------------------------------------------------------------
-vRP.prepare("vRP/create_user","INSERT INTO vrp_infos(identifier) VALUES(@identifier); SELECT LAST_INSERT_ID() AS id")
-vRP.prepare("vRP/set_banned","UPDATE vrp_infos SET banned = @banned WHERE identifier = @identifier")
-vRP.prepare("vRP/set_whitelist","UPDATE vrp_infos SET whitelist = @whitelist WHERE identifier = @identifier")
-vRP.prepare("vRP/set_whitelist_id","UPDATE vrp_infos SET whitelist = @whitelist WHERE id = @id")
+vRP.prepare("vRP/create_user","INSERT INTO accounts(identifier) VALUES(@identifier); SELECT LAST_INSERT_ID() AS id")
+vRP.prepare("vRP/set_banned","UPDATE accounts SET banned = @banned WHERE identifier = @identifier")
+vRP.prepare("vRP/set_whitelist","UPDATE accounts SET whitelist = @whitelist WHERE identifier = @identifier")
+vRP.prepare("vRP/set_whitelist_id","UPDATE accounts SET whitelist = @whitelist WHERE id = @id")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PREPARE vRP_USER_DATA
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -52,10 +52,10 @@ vRP.prepare("vRP/upd_group","UPDATE vrp_permissions SET permiss = @newpermiss WH
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PREPARE vRP_PRIORITY
 -----------------------------------------------------------------------------------------------------------------------------------------
-vRP.prepare("vRP/set_premium","UPDATE vrp_infos SET premium = @premium, chars = @chars, predays = @predays, priority = @priority WHERE identifier = @identifier")
-vRP.prepare("vRP/update_priority","UPDATE vrp_infos SET premium = 0, predays = 0, priority = 0 WHERE identifier = @identifier")
-vRP.prepare("vRP/update_premium","UPDATE vrp_infos SET predays = predays + @predays WHERE identifier = @identifier")
-vRP.prepare("accounts/infosUpdatechars","UPDATE vrp_infos SET chars = chars + 1 WHERE identifier = @identifier")
+vRP.prepare("vRP/set_premium","UPDATE accounts SET premium = @premium, chars = @chars, predays = @predays, priority = @priority WHERE identifier = @identifier")
+vRP.prepare("vRP/update_priority","UPDATE accounts SET premium = 0, predays = 0, priority = 0 WHERE identifier = @identifier")
+vRP.prepare("vRP/update_premium","UPDATE accounts SET predays = predays + @predays WHERE identifier = @identifier")
+vRP.prepare("accounts/infosUpdatechars","UPDATE accounts SET chars = chars + 1 WHERE identifier = @identifier")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PREPARE vRP_HOMES
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -98,6 +98,6 @@ vRP.prepare("vRP/resgate_prison","UPDATE vrp_users SET prison = 0 WHERE id = @us
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PREPARE vRP_GEMS
 -----------------------------------------------------------------------------------------------------------------------------------------
-vRP.prepare("vRP/set_vRP_gems","UPDATE vrp_infos SET gems = gems + @gems WHERE identifier = @identifier")
-vRP.prepare("vRP/rem_vRP_gems","UPDATE vrp_infos SET gems = gems - @gems WHERE identifier = @identifier")
+vRP.prepare("vRP/set_vRP_gems","UPDATE accounts SET gems = gems + @gems WHERE identifier = @identifier")
+vRP.prepare("vRP/rem_vRP_gems","UPDATE accounts SET gems = gems - @gems WHERE identifier = @identifier")
 vRP.prepare("vRP/set_rental_time","UPDATE vrp_vehicles SET premiumtime = @premiumtime WHERE user_id = @user_id AND vehicle = @vehicle")
