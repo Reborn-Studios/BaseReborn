@@ -191,7 +191,9 @@ AddEventHandler("gameEventTriggered",function(eventName,args)
 	if eventName == "CEventNetworkPlayerEnteredVehicle" then
 		if args[1] == PlayerId() then
 			local vehPlate = GetVehicleNumberPlateText(args[2])
-			vehFuels[vehPlate] = vSERVER.vehicleFuel(vehPlate)
+			if vehPlate then
+				vehFuels[vehPlate] = vSERVER.vehicleFuel(vehPlate)
+			end
 		end
 	end
 end)
