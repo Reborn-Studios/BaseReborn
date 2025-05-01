@@ -22,8 +22,8 @@ CREATE TABLE IF NOT EXISTS `accounts` (
 
 -- Exportação de dados foi desmarcado.
 
--- Copiando estrutura para tabela rbn_base.vrp_permissions
-CREATE TABLE IF NOT EXISTS `vrp_permissions` (
+-- Copiando estrutura para tabela rbn_base.permissions
+CREATE TABLE IF NOT EXISTS `permissions` (
   `id` INT(11) UNSIGNED NOT NULL DEFAULT '0',
   `user_id` int(11) NOT NULL DEFAULT 0,
   `permiss` text NOT NULL

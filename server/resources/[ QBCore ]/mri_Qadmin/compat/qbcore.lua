@@ -197,7 +197,7 @@ if (IsDuplicityVersion()) then
             local jobs = QBCore.Shared.Jobs
             local list = {}
             for k,v in pairs(jobs) do
-                local res = MySQL.query.await("SELECT * FROM `vrp_permissions` WHERE `permiss` = ?", {k})
+                local res = MySQL.query.await("SELECT * FROM `permissions` WHERE `permiss` = ?", {k})
                 local JobEmployees = {}
                 for k2,v2 in pairs(res) do
                     local Player = nil

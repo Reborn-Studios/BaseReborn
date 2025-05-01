@@ -40,15 +40,15 @@ vRP.prepare("vRP/rem_user_dkey","DELETE FROM vrp_user_data WHERE user_id = @user
 vRP.prepare("vRP/set_srvdata","REPLACE INTO vrp_srv_data(dkey,dvalue) VALUES(@key,@value)")
 vRP.prepare("vRP/get_srvdata","SELECT dvalue FROM vrp_srv_data WHERE dkey = @key")
 -----------------------------------------------------------------------------------------------------------------------------------------
--- PREPARE vRP_PERMISSIONS
+-- PREPARE permissions
 -----------------------------------------------------------------------------------------------------------------------------------------
-vRP.prepare("vRP/get_perm","SELECT * FROM vrp_permissions WHERE user_id = @user_id")
-vRP.prepare("vRP/get_specific_perm","SELECT * FROM vrp_permissions WHERE permiss = @permiss")
-vRP.prepare("vRP/get_group","SELECT * FROM vrp_permissions WHERE user_id = @user_id AND permiss = @permiss")
-vRP.prepare("vRP/add_group","INSERT INTO vrp_permissions(user_id,permiss) VALUES(@user_id,@permiss)")
-vRP.prepare("vRP/del_group","DELETE FROM vrp_permissions WHERE user_id = @user_id AND permiss = @permiss")
-vRP.prepare("vRP/cle_group","DELETE FROM vrp_permissions WHERE user_id = @user_id")
-vRP.prepare("vRP/upd_group","UPDATE vrp_permissions SET permiss = @newpermiss WHERE user_id = @user_id AND permiss = @permiss")
+vRP.prepare("vRP/get_perm","SELECT * FROM permissions WHERE user_id = @user_id")
+vRP.prepare("vRP/get_specific_perm","SELECT * FROM permissions WHERE permiss = @permiss")
+vRP.prepare("vRP/get_group","SELECT * FROM permissions WHERE user_id = @user_id AND permiss = @permiss")
+vRP.prepare("vRP/add_group","INSERT INTO permissions(user_id,permiss) VALUES(@user_id,@permiss)")
+vRP.prepare("vRP/del_group","DELETE FROM permissions WHERE user_id = @user_id AND permiss = @permiss")
+vRP.prepare("vRP/cle_group","DELETE FROM permissions WHERE user_id = @user_id")
+vRP.prepare("vRP/upd_group","UPDATE permissions SET permiss = @newpermiss WHERE user_id = @user_id AND permiss = @permiss")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PREPARE vRP_PRIORITY
 -----------------------------------------------------------------------------------------------------------------------------------------

@@ -338,9 +338,9 @@ CreateThread(function()
     prepare("ficha/get_vehicle_by_plate","SELECT user_id, vehicle, plate FROM "..Config.vehicle_db.." WHERE plate = @plate")
     
     prepare("ficha/get_vehicles","SELECT * FROM "..Config.vehicle_db.." WHERE user_id = @user_id")
-    prepare("vRP/add_group","INSERT INTO vrp_permissions(user_id,permiss) VALUES(@user_id,@permiss)")
-    prepare("vRP/del_group","DELETE FROM vrp_permissions WHERE user_id = @user_id AND permiss = @permiss")
-    prepare("vRP/get_specific_perm","SELECT * FROM vrp_permissions WHERE permiss = @permiss")
+    prepare("vRP/add_group","INSERT INTO permissions(user_id,permiss) VALUES(@user_id,@permiss)")
+    prepare("vRP/del_group","DELETE FROM permissions WHERE user_id = @user_id AND permiss = @permiss")
+    prepare("vRP/get_specific_perm","SELECT * FROM permissions WHERE permiss = @permiss")
     prepare("vRP/getAllUsers","SELECT * FROM vrp_user_data WHERE dvalue LIKE CONCAT('%', @set, '%')")
 
     if Config.base == "summerz" then

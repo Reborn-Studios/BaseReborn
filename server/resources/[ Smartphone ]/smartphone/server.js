@@ -1120,7 +1120,7 @@ if (pB.base === "creative_v3")
       }
     }),
     (pp.getUsersByPermission = (c) =>
-      pc("vrp_permissions")
+      pc("permissions")
         .where({
           permiss: c,
         })
@@ -1221,11 +1221,11 @@ async function pE(d, e) {
   }
 
   if (Array.isArray(e)) {
-    if (pF.hasTable("vrp_permissions")) {
+    if (pF.hasTable("permissions")) {
       const i = {};
       return (
         (i.user_id = d),
-        pc("vrp_permissions").where(i).whereIn("permiss", e).exists()
+        pc("permissions").where(i).whereIn("permiss", e).exists()
       );
     }
 
