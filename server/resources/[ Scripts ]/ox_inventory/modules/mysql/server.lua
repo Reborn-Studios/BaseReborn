@@ -28,7 +28,7 @@ Citizen.CreateThreadNow(function()
         vehicleTable = 'owned_vehicles'
         vehicleColumn = 'plate'
     elseif shared.framework == 'qb' then
-        playerTable = 'vrp_users'
+        playerTable = 'characters'
         playerColumn = 'id'
         vehicleTable = 'vrp_vehicles'
         vehicleColumn = 'plate'
@@ -55,7 +55,7 @@ Citizen.CreateThreadNow(function()
         UNIQUE KEY `owner` (`owner`,`name`)
     )]])
 
-    MySQL.query("ALTER TABLE `vrp_users` ADD COLUMN IF NOT EXISTS inventory LONGTEXT COLLATE 'latin1_swedish_ci';")
+    MySQL.query("ALTER TABLE `characters` ADD COLUMN IF NOT EXISTS inventory LONGTEXT COLLATE 'latin1_swedish_ci';")
     if not success then
         
     else

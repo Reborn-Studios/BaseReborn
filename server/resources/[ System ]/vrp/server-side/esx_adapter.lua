@@ -387,7 +387,7 @@ end
 ------------------------------------------------------------------------------------------------------------------------
 
 local newPlayer = 'INSERT INTO `users` SET `accounts` = ?, `identifier` = ?, `group` = ?'
-local loadPlayer = 'SELECT * FROM `vrp_users` WHERE id = ?'
+local loadPlayer = 'SELECT * FROM `characters` WHERE id = ?'
 
 RegisterNetEvent('esx:onPlayerJoined')
 AddEventHandler('esx:onPlayerJoined', function()

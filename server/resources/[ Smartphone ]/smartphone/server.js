@@ -1352,7 +1352,7 @@ const pF = {
     },
 
     get users() {
-      return pc("vrp_users");
+      return pc("characters");
     },
 
     get contacts() {
@@ -1470,9 +1470,9 @@ const pF = {
                     );
                   } else {
                     if (
-                      (await pF.hasColumn("vrp_users", "phone")) &&
+                      (await pF.hasColumn("characters", "phone")) &&
                       (await pF.firstColumn(
-                        "vrp_users",
+                        "characters",
                         "name",
                         "nome",
                         "firstname",
@@ -1481,13 +1481,13 @@ const pF = {
                     ) {
                       if (
                         c == "phone" &&
-                        (await pF.hasColumn("vrp_users", "dphone"))
+                        (await pF.hasColumn("characters", "dphone"))
                       ) {
-                        e = await pc("vrp_users")
+                        e = await pc("characters")
                           .whereIn("phone", d)
                           .orWhereIn("dphone", d);
                       } else
-                        e = await pc("vrp_users").whereIn(
+                        e = await pc("characters").whereIn(
                           c == "user_id" ? "id" : c,
                           d
                         );
@@ -1805,7 +1805,7 @@ const pR = pQ;
     const f = pG[e],
       g = {};
     g.id = e;
-    const h = await pc("vrp_users").where(g).first();
+    const h = await pc("characters").where(g).first();
     if (!h) return;
 
     if (h.dphone) {
@@ -3129,7 +3129,7 @@ async function qy(d, e) {
       "vrp_characters",
       "vrp_characterdata",
       "vrp_user_identities",
-      "vrp_users",
+      "characters",
       "zusers",
       "drip_characters",
       "summerz_characters",
@@ -3348,7 +3348,7 @@ pF.ready(async () => {
         vrp_user_identities: "multas",
         summerz_characters: "fines",
         characters: "fines",
-        vrp_users: "fines",
+        characters: "fines",
       };
     const g = f;
 
@@ -5475,7 +5475,7 @@ const r7 = r6,
   r8 = [
     "nyo_character",
     "vrp_user_moneys",
-    "vrp_users",
+    "characters",
     "summerz_characters",
     "vrp_characters",
     "characters",
@@ -5518,22 +5518,22 @@ pF.ready(async (d) => {
 async function r9({ source: c, user_id: d }) {
   if (!Number.isInteger(d)) d = await pp.getUserId(c);
   return (
-    parseInt(await pc("vrp_users").where("id", d).first().pluck("paypal")) || 0
+    parseInt(await pc("characters").where("id", d).first().pluck("paypal")) || 0
   );
 }
 
 async function ra(d, e) {
   const f = {};
   f.paypal = e;
-  await pc("vrp_users").update(f).where("id", d);
+  await pc("characters").update(f).where("id", d);
 }
 
 async function rb(c, d) {
-  await pc("vrp_users").update().increment("paypal", d).where("id", c);
+  await pc("characters").update().increment("paypal", d).where("id", c);
 }
 
 async function rc(c, d) {
-  await pc("vrp_users").update().decrement("paypal", d).where("id", c);
+  await pc("characters").update().decrement("paypal", d).where("id", c);
 }
 
 exports("getPaypalBalance", (c) =>

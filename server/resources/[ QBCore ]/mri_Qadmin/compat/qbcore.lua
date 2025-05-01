@@ -64,7 +64,7 @@ if (IsDuplicityVersion()) then
                         playerRole = "admin"
                     end
 
-                    -- local lastOnlineResult = MySQL.query.await("SELECT last_updated FROM vrp_users WHERE user_id = ?", {Player.PlayerData.citizenid})
+                    -- local lastOnlineResult = MySQL.query.await("SELECT last_updated FROM characters WHERE user_id = ?", {Player.PlayerData.citizenid})
                     local lastOnlineResult = {}
                     local amountofVehicles = MySQL.query.await('SELECT COUNT(*) as count FROM `'..Config.DB.VehiclesTable..'` WHERE `user_id` = ?', {Player.PlayerData.citizenid})
                     local bank = Player.PlayerData.money.bank or "Unknown"

@@ -380,7 +380,7 @@ CreateThread(function()
                 ['chars'] = "chars"
             },
             ['chars'] = {
-                ['table'] = "vrp_users",
+                ['table'] = "characters",
                 ['user_id'] = "id",
                 ['identifier'] = "identifier",
                 ['name'] = "name",

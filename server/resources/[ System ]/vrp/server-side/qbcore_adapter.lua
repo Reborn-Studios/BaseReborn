@@ -436,7 +436,7 @@ function QBCore.Player.Login(source, citizenid, newData)
         local dataTable = json.decode(json.encode(newData))
         if citizenid then
             local UserData = {}
-            local PlayerData = MySQL.Sync.fetchSingle('SELECT * FROM vrp_users where id = ?', { citizenid })
+            local PlayerData = MySQL.Sync.fetchSingle('SELECT * FROM characters where id = ?', { citizenid })
             if PlayerData then
                 local group = vRP.getUserGroupByType(citizenid, "job")
                 UserData.citizenid = citizenid
@@ -477,7 +477,7 @@ end
 function QBCore.Player.GetOfflinePlayer(citizenid)
     if citizenid then
         local UserData = {}
-        local PlayerData = MySQL.Sync.prepare('SELECT * FROM vrp_users where id = ?', {citizenid})
+        local PlayerData = MySQL.Sync.prepare('SELECT * FROM characters where id = ?', {citizenid})
         if PlayerData then
             local group = vRP.getUserGroupByType(citizenid, "job")
             UserData.citizenid = citizenid

@@ -32,7 +32,7 @@ Config.MaxReportsPerPlayer                  = 2                     -- The maxim
 Config.SaveTOJSON                           = true                  -- Whether to save reports and admichat to JSON onResourceStopped (server restarts etc) and load from JSON on resource start
 
 Config.DB.VehiclesTable                     = "vrp_vehicles"     -- Standards: player_vehicles   for QBCore  | user_vehicle   for ESX
-Config.DB.CharactersTable                   = "vrp_users"             -- Standards: players           for QBCore  | users          for ESX
+Config.DB.CharactersTable                   = "characters"             -- Standards: players           for QBCore  | users          for ESX
 Config.DB.BansTable                         = "bans"
 
 Config.AnnounceBan                          = true                  -- Whether to announce bans in chat or not

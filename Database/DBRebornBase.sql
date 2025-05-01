@@ -41,8 +41,8 @@ CREATE TABLE IF NOT EXISTS `vrp_srv_data` (
 
 -- Exportação de dados foi desmarcado.
 
--- Copiando estrutura para tabela rbn_base.vrp_users
-CREATE TABLE IF NOT EXISTS `vrp_users` (
+-- Copiando estrutura para tabela rbn_base.characters
+CREATE TABLE IF NOT EXISTS `characters` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `steam` varchar(100) DEFAULT NULL,
   `registration` varchar(20) DEFAULT NULL,

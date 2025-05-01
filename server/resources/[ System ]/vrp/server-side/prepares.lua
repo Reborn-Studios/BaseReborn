@@ -2,25 +2,25 @@
 -- PREPARE USERS
 -----------------------------------------------------------------------------------------------------------------------------------------
 vRP.prepare("vRP/get_accounts","SELECT * FROM accounts WHERE identifier = @identifier")
-vRP.prepare("vRP/get_characters","SELECT id,registration,phone,name,name2,bank FROM vrp_users WHERE identifier = @identifier and deleted = 0")
+vRP.prepare("vRP/get_characters","SELECT id,registration,phone,name,name2,bank FROM characters WHERE identifier = @identifier and deleted = 0")
 
-vRP.prepare("vRP/get_vrp_users","SELECT * FROM vrp_users WHERE id = @id")
-vRP.prepare("vRP/get_vrp_registration","SELECT id FROM vrp_users WHERE registration = @registration")
-vRP.prepare("vRP/get_vrp_phone","SELECT id FROM vrp_users WHERE phone = @phone")
-vRP.prepare("vRP/create_characters","INSERT INTO vrp_users(identifier,name,name2) VALUES(@identifier,@name,@name2)")
-vRP.prepare("vRP/remove_characters","UPDATE vrp_users SET deleted = 1 WHERE id = @id")
-vRP.prepare("vRP/update_characters","UPDATE vrp_users SET registration = @registration, phone = @phone WHERE id = @id")
-vRP.prepare("characters/updatePhone","UPDATE vrp_users SET phone = @phone WHERE id = @id")
-vRP.prepare("vRP/rename_characters","UPDATE vrp_users SET name = @name, name2 = @name2 WHERE id = @id")
+vRP.prepare("vRP/get_vrp_users","SELECT * FROM characters WHERE id = @id")
+vRP.prepare("vRP/get_vrp_registration","SELECT id FROM characters WHERE registration = @registration")
+vRP.prepare("vRP/get_vrp_phone","SELECT id FROM characters WHERE phone = @phone")
+vRP.prepare("vRP/create_characters","INSERT INTO characters(identifier,name,name2) VALUES(@identifier,@name,@name2)")
+vRP.prepare("vRP/remove_characters","UPDATE characters SET deleted = 1 WHERE id = @id")
+vRP.prepare("vRP/update_characters","UPDATE characters SET registration = @registration, phone = @phone WHERE id = @id")
+vRP.prepare("characters/updatePhone","UPDATE characters SET phone = @phone WHERE id = @id")
+vRP.prepare("vRP/rename_characters","UPDATE characters SET name = @name, name2 = @name2 WHERE id = @id")
 vRP.prepare("vRP/add_identifier","INSERT INTO vrp_user_ids(identifier,user_id) VALUES(@identifier,@user_id)")
 vRP.prepare("vRP/userid_byidentifier","SELECT user_id FROM vrp_user_ids WHERE identifier = @identifier")
-vRP.prepare("vRP/create_user_id","INSERT INTO vrp_users(identifier) VALUES(@identifier); SELECT LAST_INSERT_ID() AS id")
+vRP.prepare("vRP/create_user_id","INSERT INTO characters(identifier) VALUES(@identifier); SELECT LAST_INSERT_ID() AS id")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PREPARE BANK
 -----------------------------------------------------------------------------------------------------------------------------------------
-vRP.prepare("vRP/set_bank","UPDATE vrp_users SET bank = @bank WHERE id = @id")
-vRP.prepare("vRP/add_bank","UPDATE vrp_users SET bank = bank + @bank WHERE id = @id")
-vRP.prepare("vRP/del_bank","UPDATE vrp_users SET bank = bank - @bank WHERE id = @id")
+vRP.prepare("vRP/set_bank","UPDATE characters SET bank = @bank WHERE id = @id")
+vRP.prepare("vRP/add_bank","UPDATE characters SET bank = bank + @bank WHERE id = @id")
+vRP.prepare("vRP/del_bank","UPDATE characters SET bank = bank - @bank WHERE id = @id")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PREPARE vRP_USERS
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -86,15 +86,15 @@ vRP.prepare("vRP/move_vehicle","UPDATE vrp_vehicles SET user_id = @nuser_id WHER
 vRP.prepare("vRP/add_vehicle","INSERT IGNORE INTO vrp_vehicles(user_id,vehicle,plate,phone,work) VALUES(@user_id,@vehicle,@plate,@phone,@work)")
 vRP.prepare("vRP/con_maxvehs","SELECT COUNT(vehicle) as qtd FROM vrp_vehicles WHERE user_id = @user_id AND work = 'false'")
 vRP.prepare("vRP/rem_srv_data","DELETE FROM vrp_srv_data WHERE dkey = @dkey")
-vRP.prepare("vRP/update_garages","UPDATE vrp_users SET garage = garage + 1 WHERE id = @id")
+vRP.prepare("vRP/update_garages","UPDATE characters SET garage = garage + 1 WHERE id = @id")
 vRP.prepare("vRP/update_plate_vehicle","UPDATE vrp_vehicles SET plate = @plate WHERE user_id = @user_id AND vehicle = @vehicle")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PREPARE vRP_PRISON
 -----------------------------------------------------------------------------------------------------------------------------------------
-vRP.prepare("vRP/set_prison","UPDATE vrp_users SET prison = prison + @prison, locate = @locate WHERE id = @user_id")
-vRP.prepare("vRP/rem_prison","UPDATE vrp_users SET prison = prison - @prison WHERE id = @user_id")
-vRP.prepare("vRP/fix_prison","UPDATE vrp_users SET prison = 1 WHERE id = @user_id")
-vRP.prepare("vRP/resgate_prison","UPDATE vrp_users SET prison = 0 WHERE id = @user_id")
+vRP.prepare("vRP/set_prison","UPDATE characters SET prison = prison + @prison, locate = @locate WHERE id = @user_id")
+vRP.prepare("vRP/rem_prison","UPDATE characters SET prison = prison - @prison WHERE id = @user_id")
+vRP.prepare("vRP/fix_prison","UPDATE characters SET prison = 1 WHERE id = @user_id")
+vRP.prepare("vRP/resgate_prison","UPDATE characters SET prison = 0 WHERE id = @user_id")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PREPARE vRP_GEMS
 -----------------------------------------------------------------------------------------------------------------------------------------

@@ -8,7 +8,7 @@ Functions.generateAllPrepares = function()
     Functions.prepare('ld_factions/orgs/GetOrgsInfo', " SELECT bank,description,permissions,historico FROM ld_orgs WHERE org = @org ")
     
     Functions.prepare('ld_factions/orgs/GetDataTable', " SELECT user_id,dvalue FROM vrp_user_data WHERE dkey = 'Datatable' ")
-    Functions.prepare('ld_factions/getLast', " SELECT * FROM vrp_users WHERE id = @id ")
+    Functions.prepare('ld_factions/getLast', " SELECT * FROM characters WHERE id = @id ")
 
     Functions.prepare('ld_factions/updatePerms', "UPDATE ld_orgs SET permissions = @permissions WHERE org = @org")
     Functions.prepare('ld_factions/updateBankAndHistoric', "UPDATE ld_orgs SET bank = @bank, historico = @historico WHERE org = @org")
@@ -35,7 +35,7 @@ Functions.generateAllPrepares = function()
     Functions.prepare('ld_factions/orgs/CreateOrgIfNotExist', " INSERT IGNORE INTO ld_orgs(org) VALUES (@org) ")
     Functions.prepare('ld_factions/orgs/GetOrgsInfo', " SELECT bank,description,permissions,historico FROM ld_orgs WHERE org = @org ")
     
-    Functions.prepare('ld_factions/getLast', " SELECT * FROM vrp_users WHERE id = @id ")
+    Functions.prepare('ld_factions/getLast', " SELECT * FROM characters WHERE id = @id ")
     
     Functions.prepare('ld_factions/updatePerms', "UPDATE ld_orgs SET permissions = @permissions WHERE org = @org")
     Functions.prepare('ld_factions/updateBankAndHistoric', "UPDATE ld_orgs SET bank = @bank, historico = @historico WHERE org = @org")

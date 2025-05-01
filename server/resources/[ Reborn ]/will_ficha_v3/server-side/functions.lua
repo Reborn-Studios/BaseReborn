@@ -347,8 +347,8 @@ CreateThread(function()
         prepare("ficha/insert_porte","ALTER TABLE `summerz_characters` ADD COLUMN IF NOT EXISTS porte VARCHAR(254) DEFAULT 'INAPTO' COLLATE 'latin1_swedish_ci';")
         prepare("ficha/update_porte","UPDATE summerz_characters SET porte = @porte WHERE id = @user_id")
     elseif Config.base == "creative" then
-        prepare("ficha/insert_porte","ALTER TABLE `vrp_users` ADD COLUMN IF NOT EXISTS porte VARCHAR(254) DEFAULT 'INAPTO' COLLATE 'latin1_swedish_ci';")
-        prepare("ficha/update_porte","UPDATE vrp_users SET porte = @porte WHERE id = @user_id")
+        prepare("ficha/insert_porte","ALTER TABLE `characters` ADD COLUMN IF NOT EXISTS porte VARCHAR(254) DEFAULT 'INAPTO' COLLATE 'latin1_swedish_ci';")
+        prepare("ficha/update_porte","UPDATE characters SET porte = @porte WHERE id = @user_id")
     else
         prepare("ficha/insert_porte","ALTER TABLE `vrp_user_identities` ADD COLUMN IF NOT EXISTS porte VARCHAR(254) DEFAULT 'INAPTO' COLLATE 'latin1_swedish_ci';")
         prepare("ficha/update_porte","UPDATE vrp_user_identities SET porte = @porte WHERE user_id = @user_id")
