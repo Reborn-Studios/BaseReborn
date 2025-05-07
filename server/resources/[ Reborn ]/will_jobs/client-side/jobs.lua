@@ -460,11 +460,13 @@ RegisterNetEvent("will_jobs:initFireman",function()
                         while GetNumberOfFiresInRange(x,y,z,15.0) > 0 do
                             Wait(1000)
                         end
-                        local distance = #(GetEntityCoords(ped) - vector3(x,y,z))
-                        removeAllBlips()
-                        locs = getLocs(jobConfigs, "collets")
-                        if distance <= 30.0 then
-                            paymentMethod()
+                        if inService then
+                            local distance = #(GetEntityCoords(ped) - vector3(x,y,z))
+                            removeAllBlips()
+                            locs = getLocs(jobConfigs, "collets")
+                            if distance <= 30.0 then
+                                paymentMethod()
+                            end
                         end
                     end
                 end

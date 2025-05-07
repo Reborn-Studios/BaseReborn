@@ -272,6 +272,7 @@ CreateThread(function()
 		HideHudComponentThisFrame(15)
 		HideHudComponentThisFrame(17)
 		HideHudComponentThisFrame(18)
+		-- / Roda de armas
 		-- HideHudComponentThisFrame(19)	-- WEAPON_WHEEL
 		HideHudComponentThisFrame(20)
 		HideHudComponentThisFrame(21)
@@ -359,6 +360,7 @@ CreateThread(function()
 		RemoveAllPickupsOfType(0xBDB6FFA5) -- PICKUP_WEAPON_FLASHLIGHT
 
 		-- DISABLE CONTROLS
+		-- / Roda de armas
 		-- BlockWeaponWheelThisFrame()
 		-- DisableControlAction(1,37,true)	-- TAB
 		-- DisableControlAction(1,157,true)
