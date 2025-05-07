@@ -36,11 +36,7 @@ function addVehicle(source)
     local user_id = getUserId(source)
     local vehicle = Config.car
     if user_id then
-        if GetResourceState('will_garages_v2') ~= 'missing' then
-            exports['will_garages_v2']:addVehicle(user_id, vehicle)
-        elseif Config.base == "creative" or Config.base == "vrpex" then
-            execute("vRP/add_vehicle",{ user_id = parseInt(user_id), vehicle = vehicle, plate = vRP.generatePlateNumber(), phone = vRP.getPhone(user_id), work = tostring(false) })
-        end
+        vRP.addUserVehicle(user_id,vehicle)
     end
 end
 

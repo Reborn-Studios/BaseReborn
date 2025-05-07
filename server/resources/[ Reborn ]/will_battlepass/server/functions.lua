@@ -29,7 +29,7 @@ function giveInventoryItem(user_id, item, amount)
 end
 
 function addVehicle(user_id, vehicle)
-    exports['will_garages_v2']:addVehicle(user_id, vehicle)
+    vRP.addUserVehicle(user_id,vehicle)
 end
 
 function prepare(name, query)

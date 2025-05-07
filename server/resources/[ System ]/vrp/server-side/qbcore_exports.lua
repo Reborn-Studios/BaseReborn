@@ -348,7 +348,7 @@ local function AddVehicle(source, vehicle, plate)
             vehicle,
             GetHashKey(vehicle),
             '{}',
-            plate,
+            vehPlate,
             0,
             'pillboxgarage'
         })

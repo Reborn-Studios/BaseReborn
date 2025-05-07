@@ -76,13 +76,5 @@ function request(source,text,time)
 end
 
 function addVehicle(user_id, vehicle)
-    if GetResourceState("will_garages_v2") == "started" then
-        exports['will_garages_v2']:addVehicle(user_id, vehicle)
-    elseif Config.base == "creative" then
-        local plate = vRP.generatePlateNumber()
-        local phone = vRP.getPhone(parseInt(user_id))
-        execute("will/add_vehicle",{ user_id = parseInt(user_id), vehicle = vehicle, plate = plate, phone = phone, work = 'false' })
-    else
-        execute('will/add_vehicle',{user_id = user_id,vehicle = vehicle, ipva = os.time() + 24*30*30})
-    end
+    vRP.addUserVehicle(user_id,vehicle)
 end

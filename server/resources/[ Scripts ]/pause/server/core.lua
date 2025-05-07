@@ -101,13 +101,7 @@ end
 -- PREMIUMBUY
 -----------------------------------------------------------------------------------------------------------------------------------------
 local function addVehicle(user_id, vehicle)
-    if GetResourceState("will_garages_v2") == "started" then
-        exports['will_garages_v2']:addVehicle(user_id, vehicle)
-    else
-        local plate = vRP.generatePlateNumber()
-        local phone = vRP.getPhone(parseInt(user_id))
-        execute("will/add_vehicle",{ user_id = parseInt(user_id), vehicle = vehicle, plate = plate, phone = phone, work = 'false' })
-    end
+    vRP.addUserVehicle(user_id,vehicle)
 end
 
 local function setPremium(Passport)

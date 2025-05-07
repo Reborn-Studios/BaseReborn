@@ -55,3 +55,28 @@ function vRP.vehicleType(vname)
 		end
 	end
 end
+
+function vRP.addUserVehicle(user_id, vehicle, vehPlate)
+	local plate = vehPlate or vRP.generatePlateNumber()
+	if GetResourceState("will_garages_v2") == "started" then
+		exports['will_garages_v2']:addVehicle(user_id, vehicle)
+	else
+		vRP.execute("vRP/add_vehicle",{ user_id = parseInt(user_id), vehicle = vehicle, plate = plate, phone = vRP.getPhone(user_id), work = tostring(false) })
+	end
+	local frameworkTables = Reborn.frameworkTables()
+	local playerId = vRP.getUserSource(user_id)
+	if not playerId then return	end
+	if frameworkTables['owned_vehicles'] then
+		exports["es_extended"]:addVehicle(playerId, vehicle, plate)
+	end
+	if frameworkTables['player_vehicles'] then
+		exports["qb-core"]:AddVehicle(playerId, vehicle, plate)
+	end
+end
+
+exports("addUserVehicle",function(source, vehicle)
+	local user_id = vRP.getUserId(source)
+	if user_id then
+		vRP.addUserVehicle(user_id, vehicle)
+	end
+end)

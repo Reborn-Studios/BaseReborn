@@ -523,7 +523,7 @@ RegisterNetEvent("mri_Qadmin:server:SaveCar", function(mods, vehicle, hash, plat
     local Player = Compat.GetPlayer(src)
     local result = MySQL.query.await("SELECT plate FROM `"..Config.DB.VehiclesTable.."` WHERE plate = ?", {plate})
     if result[1] == nil then
-        exports['will_garages_v2']:addVehicle(Player.getIdentifier(),vehicle.model)
+        exports['vrp']:addUserVehicle(src,vehicle.model)
         if QBCore then
             TriggerClientEvent("QBCore:Notify", src, Lang:t("notify.VehicleYours"), "success", 5000)
         end
