@@ -431,3 +431,12 @@ Config.InsideTrack = {
 	['maxBet'] = 100000,
 	['multiplier'] = 2
 }
+
+AddEventHandler("onResourceStart",function (rs)
+    if rs == "will_shops" then
+        Wait(5000)
+        if GetResourceState("will_shops") == "started" then
+            Config.hasShops = true
+        end
+    end
+end)
