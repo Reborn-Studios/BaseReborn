@@ -91,7 +91,7 @@ CreateThread(function()
 		if prison then
 			local distance1 = #(coords - Config.serviceTime['Caixa'].Pegar)
 			local distance2 = #(coords - Config.serviceTime['Caixa'].Entregar)
-            local distance3 = #(coords - vector3(servicosElec[numServices][1],servicosElec[numServices][2],servicosElec[numServices][3]))
+            local distance3 = #(coords - Config.coords_prison['Preso'])
 
 			if GetEntityHealth(ped) <= 100 then
 				removeObjects()
