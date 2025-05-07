@@ -14,10 +14,6 @@ exports('GetCoreObject', function()
     return QBCore
 end)
 
-exportHandler("qb-core","GetCoreObject", function()
-    return QBCore
-end)
-
 AddEventHandler("QBCore:GetObject",function(cb)
     cb(QBCore)
 end)
@@ -469,7 +465,7 @@ function QBCore.Player.Login(source, citizenid, newData)
         end
         return true
     else
-        QBCore.ShowError(GetCurrentResourceName(), 'ERROR QBCORE.PLAYER.LOGIN - NO SOURCE GIVEN!')
+        -- QBCore.ShowError(GetCurrentResourceName(), 'ERROR QBCORE.PLAYER.LOGIN - NO SOURCE GIVEN!')
         return false
     end
 end
@@ -694,7 +690,9 @@ end
 -- Save player info to database (make sure citizenid is the primary key in your database)
 
 function QBCore.Player.Save(source)
-    --[[ local ped = GetPlayerPed(source)
+    local frameworkTables = Reborn.frameworkTables()
+    if not frameworkTables['players'] then return end
+    local ped = GetPlayerPed(source)
     local pcoords = GetEntityCoords(ped)
     local PlayerData = QBCore.Players[source].PlayerData
     if PlayerData then
@@ -711,14 +709,16 @@ function QBCore.Player.Save(source)
             metadata = json.encode(PlayerData.metadata)
         })
         if GetResourceState('qb-inventory') ~= 'missing' then exports['qb-inventory']:SaveInventory(source) end
-        QBCore.ShowSuccess(GetCurrentResourceName(), PlayerData.name .. ' PLAYER SAVED!')
+        -- QBCore.ShowSuccess(GetCurrentResourceName(), PlayerData.name .. ' PLAYER SAVED!')
     else
-        QBCore.ShowError(GetCurrentResourceName(), 'ERROR QBCORE.PLAYER.SAVE - PLAYERDATA IS EMPTY!')
-    end ]]
+        -- QBCore.ShowError(GetCurrentResourceName(), 'ERROR QBCORE.PLAYER.SAVE - PLAYERDATA IS EMPTY!')
+    end
 end
 
 function QBCore.Player.SaveOffline(PlayerData)
-    --[[ if PlayerData then
+    local frameworkTables = Reborn.frameworkTables()
+    if not frameworkTables['players'] then return end
+    if PlayerData then
         MySQL.Async.insert('INSERT INTO players (citizenid, cid, license, name, money, charinfo, job, gang, position, metadata) VALUES (:citizenid, :cid, :license, :name, :money, :charinfo, :job, :gang, :position, :metadata) ON DUPLICATE KEY UPDATE cid = :cid, name = :name, money = :money, charinfo = :charinfo, job = :job, gang = :gang, position = :position, metadata = :metadata', {
             citizenid = PlayerData.citizenid,
             cid = tonumber(PlayerData.cid),
@@ -732,10 +732,10 @@ function QBCore.Player.SaveOffline(PlayerData)
             metadata = json.encode(PlayerData.metadata)
         })
         if GetResourceState('qb-inventory') ~= 'missing' then exports['qb-inventory']:SaveInventory(PlayerData, true) end
-        QBCore.ShowSuccess(GetCurrentResourceName(), PlayerData.name .. ' OFFLINE PLAYER SAVED!')
+        -- QBCore.ShowSuccess(GetCurrentResourceName(), PlayerData.name .. ' OFFLINE PLAYER SAVED!')
     else
-        QBCore.ShowError(GetCurrentResourceName(), 'ERROR QBCORE.PLAYER.SAVEOFFLINE - PLAYERDATA IS EMPTY!')
-    end ]]
+        -- QBCore.ShowError(GetCurrentResourceName(), 'ERROR QBCORE.PLAYER.SAVEOFFLINE - PLAYERDATA IS EMPTY!')
+    end
 end
 
 -- Delete character

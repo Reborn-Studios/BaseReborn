@@ -1,3 +1,7 @@
+exportHandler("qb-core","GetCoreObject", function()
+    return QBCore
+end)
+
 -- Add or change (a) method(s) in the QBCore.Functions table
 local function SetMethod(methodName, handler)
     if type(methodName) ~= "string" then
@@ -12,7 +16,7 @@ local function SetMethod(methodName, handler)
 end
 
 QBCore.Functions.SetMethod = SetMethod
-exports("SetMethod", SetMethod)
+exportHandler("qb-core","SetMethod", SetMethod)
 
 -- Add or change (a) field(s) in the QBCore table
 local function SetField(fieldName, data)
@@ -28,7 +32,7 @@ local function SetField(fieldName, data)
 end
 
 QBCore.Functions.SetField = SetField
-exports("SetField", SetField)
+exportHandler("qb-core", "SetField", SetField)
 
 -- Single add job function which should only be used if you planning on adding a single job
 local function AddJob(jobName, job)
@@ -48,7 +52,7 @@ local function AddJob(jobName, job)
 end
 
 QBCore.Functions.AddJob = AddJob
-exports('AddJob', AddJob)
+exportHandler("qb-core", 'AddJob', AddJob)
 
 -- Multiple Add Jobs
 local function AddJobs(jobs)
@@ -81,7 +85,7 @@ local function AddJobs(jobs)
 end
 
 QBCore.Functions.AddJobs = AddJobs
-exports('AddJobs', AddJobs)
+exportHandler("qb-core", 'AddJobs', AddJobs)
 
 -- Single Remove Job
 local function RemoveJob(jobName)
@@ -101,7 +105,7 @@ local function RemoveJob(jobName)
 end
 
 QBCore.Functions.RemoveJob = RemoveJob
-exports('RemoveJob', RemoveJob)
+exportHandler("qb-core", 'RemoveJob', RemoveJob)
 
 -- Single Update Job
 local function UpdateJob(jobName, job)
@@ -121,7 +125,7 @@ local function UpdateJob(jobName, job)
 end
 
 QBCore.Functions.UpdateJob = UpdateJob
-exports('UpdateJob', UpdateJob)
+exportHandler("qb-core", 'UpdateJob', UpdateJob)
 
 -- Single add item
 local function AddItem(itemName, item)
@@ -141,7 +145,7 @@ local function AddItem(itemName, item)
 end
 
 QBCore.Functions.AddItem = AddItem
-exports('AddItem', AddItem)
+exportHandler("qb-core", 'AddItem', AddItem)
 
 -- Single update item
 local function UpdateItem(itemName, item)
@@ -158,7 +162,7 @@ local function UpdateItem(itemName, item)
 end
 
 QBCore.Functions.UpdateItem = UpdateItem
-exports('UpdateItem', UpdateItem)
+exportHandler("qb-core", 'UpdateItem', UpdateItem)
 
 -- Multiple Add Items
 local function AddItems(items)
@@ -191,7 +195,7 @@ local function AddItems(items)
 end
 
 QBCore.Functions.AddItems = AddItems
-exports('AddItems', AddItems)
+exportHandler("qb-core", 'AddItems', AddItems)
 
 -- Single Remove Item
 local function RemoveItem(itemName)
@@ -211,7 +215,7 @@ local function RemoveItem(itemName)
 end
 
 QBCore.Functions.RemoveItem = RemoveItem
-exports('RemoveItem', RemoveItem)
+exportHandler("qb-core", 'RemoveItem', RemoveItem)
 
 -- Single Add Gang
 local function AddGang(gangName, gang)
@@ -231,7 +235,7 @@ local function AddGang(gangName, gang)
 end
 
 QBCore.Functions.AddGang = AddGang
-exports('AddGang', AddGang)
+exportHandler("qb-core", 'AddGang', AddGang)
 
 -- Multiple Add Gangs
 local function AddGangs(gangs)
@@ -264,7 +268,7 @@ local function AddGangs(gangs)
 end
 
 QBCore.Functions.AddGangs = AddGangs
-exports('AddGangs', AddGangs)
+exportHandler("qb-core", 'AddGangs', AddGangs)
 
 -- Single Remove Gang
 local function RemoveGang(gangName)
@@ -284,7 +288,7 @@ local function RemoveGang(gangName)
 end
 
 QBCore.Functions.RemoveGang = RemoveGang
-exports('RemoveGang', RemoveGang)
+exportHandler("qb-core", 'RemoveGang', RemoveGang)
 
 -- Single Update Gang
 local function UpdateGang(gangName, gang)
@@ -304,7 +308,7 @@ local function UpdateGang(gangName, gang)
 end
 
 QBCore.Functions.UpdateGang = UpdateGang
-exports('UpdateGang', UpdateGang)
+exportHandler("qb-core", 'UpdateGang', UpdateGang)
 
 local function GetCoreVersion(InvokingResource)
     local resourceVersion = GetResourceMetadata(GetCurrentResourceName(), 'version')
@@ -315,7 +319,7 @@ local function GetCoreVersion(InvokingResource)
 end
 
 QBCore.Functions.GetCoreVersion = GetCoreVersion
-exports('GetCoreVersion', GetCoreVersion)
+exportHandler("qb-core", 'GetCoreVersion', GetCoreVersion)
 
 local function ExploitBan(playerId, origin)
     local name = GetPlayerName(playerId)
@@ -332,4 +336,23 @@ local function ExploitBan(playerId, origin)
     TriggerEvent("qb-log:server:CreateLog", "anticheat", "Anti-Cheat", "red", name .. " has been banned for exploiting " .. origin, true)
 end
 
-exports('ExploitBan', ExploitBan)
+exportHandler("qb-core", 'ExploitBan', ExploitBan)
+
+local function AddVehicle(source, vehicle, plate)
+    local Player = QBCore.Functions.GetPlayer(source)
+    local vehPlate = plate or vRP.generatePlateNumber()
+    if Player then
+        MySQL.insert('INSERT INTO player_vehicles (license, citizenid, vehicle, hash, mods, plate, state, garage) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', {
+            Player.PlayerData.license,
+            Player.PlayerData.citizenid,
+            vehicle,
+            GetHashKey(vehicle),
+            '{}',
+            plate,
+            0,
+            'pillboxgarage'
+        })
+    end
+end
+
+exportHandler("qb-core", 'AddVehicle', AddVehicle)

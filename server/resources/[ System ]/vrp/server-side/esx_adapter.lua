@@ -403,10 +403,43 @@ end)
 function onPlayerJoined(playerId)
   local identifier = ESX.GetIdentifier(playerId)
   if identifier then
-    if not ESX.GetPlayerFromIdentifier(identifier) then
-      loadESXPlayer(identifier, playerId, false)
-    end
+      if ESX.GetPlayerFromIdentifier(identifier) then
+          DropPlayer(
+              playerId,
+              ("there was an error loading your character!\nError code: identifier-active-ingame\n\nThis error is caused by a player on this server who has the same identifier as you have. Make sure you are not playing on the same Rockstar account.\n\nYour Rockstar identifier: %s"):format(
+                  identifier
+              )
+          )
+      else
+          local result = MySQL.scalar.await("SELECT 1 FROM users WHERE identifier = ?", { identifier })
+          if result then
+              loadESXPlayer(identifier, playerId, false)
+          else
+              createESXPlayer(identifier, playerId)
+          end
+      end
   end
+end
+
+function createESXPlayer(identifier, playerId, data)
+  local accounts = {}
+  local initial = Reborn.segurity_code()
+  Config.StartingAccountMoney = { bank = initial['start_bank'] }
+  for account, money in pairs(Config.StartingAccountMoney) do
+      accounts[account] = money
+  end
+
+  local defaultGroup = "user"
+  if Core.IsPlayerAdmin(playerId) then
+      print(("[^2INFO^0] Player ^5%s^0 Has been granted admin permissions via ^5Ace Perms^7."):format(playerId))
+      defaultGroup = "admin"
+  end
+
+  local parameters = { json.encode(accounts), identifier, defaultGroup }
+
+  MySQL.prepare(newPlayer, parameters, function()
+      loadESXPlayer(identifier, playerId, true)
+  end)
 end
 
 --[[ if not Config.Multichar then
@@ -1161,3 +1194,10 @@ end)
 -- 		cb(v(...))
 -- 	end)
 -- end
+
+exportHandler("es_extended","addVehicle", function(playerId, model, vehPlate)
+  local xPlayer = ESX.GetPlayerFromId(playerId)
+  local plate = vehPlate or vRP.generatePlateNumber()
+  MySQL.insert('INSERT INTO owned_vehicles (owner, plate, vehicle) VALUES (?, ?, ?)', { xPlayer.identifier, plate, json.encode({model = joaat(model), plate = plate}) })
+end)
+-- exports['es_extended']:addVehicle(source, vehicle, vehPlate)
