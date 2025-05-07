@@ -32,8 +32,10 @@ function applyModifies(nveh,engine,fuel,tuning,vehDoors,vehWindows,vehTyres,vnam
 	end
 	if fuel then
 		SetVehicleFuelLevel(nveh,fuel+0.0)
+		Entity(nveh).state:set("fuel", fuel+0.0, true)
 	else
 		SetVehicleFuelLevel(nveh,100.0)
+		Entity(nveh).state:set("fuel", 100.0, true)
 	end
 	if vehWindows ~= nil and type(vehWindows) == "table" then
 		for k,v in pairs(vehWindows) do

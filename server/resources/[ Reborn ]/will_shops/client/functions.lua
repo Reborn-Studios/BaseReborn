@@ -192,7 +192,7 @@ AddEventHandler("gameEventTriggered",function(eventName,args)
 		if args[1] == PlayerId() then
 			local vehPlate = GetVehicleNumberPlateText(args[2])
 			if vehPlate then
-				vehFuels[vehPlate] = vSERVER.vehicleFuel(vehPlate)
+				vehFuels[vehPlate] = Entity(args[2]).state['fuel'] or vSERVER.vehicleFuel(vehPlate)
 			end
 		end
 	end
@@ -222,6 +222,7 @@ CreateThread(function()
 						local vehClasses = GetVehicleClass(vehicle)
 						vehFuels[vehPlate] = (vehFuels[vehPlate] - (floor(GetVehicleCurrentRpm(vehicle)) or 1.0) * (vehClass[vehClasses] or 1.0) / 10)
 						SetVehicleFuelLevel(vehicle,vehFuels[vehPlate])
+						Entity(vehicle).state:set("fuel", vehFuels[vehPlate], true)
 					end
 					if GetPedInVehicleSeat(vehicle,-1) == ped then
 						TriggerServerEvent("engine:tryFuel",vehPlate,vehFuels[vehPlate])
@@ -402,6 +403,7 @@ CreateThread(function()
 									vehFuels[vehPlate] = lastFuel
 								end
 								SetVehicleFuelLevel(vehicle,vehFuels[vehPlate])
+								Entity(vehicle).state:set("fuel", vehFuels[vehPlate], true)
 								StopAnimTask(ped,"timetable@gardener@filling_can","gar_ig_5_filling_can",2.0)
 								RemoveAnimDict("timetable@gardener@filling_can")
 								ClearPedTasks(ped)
@@ -424,6 +426,7 @@ CreateThread(function()
 									vehFuels[vehPlate] = lastFuel
 								end
 								SetVehicleFuelLevel(vehicle,vehFuels[vehPlate])
+								Entity(vehicle).state:set("fuel", vehFuels[vehPlate], true)
 								StopAnimTask(ped,"timetable@gardener@filling_can","gar_ig_5_filling_can",2.0)
 								RemoveAnimDict("timetable@gardener@filling_can")
 								SendNUIMessage({ fuel = false })
@@ -453,6 +456,7 @@ CreateThread(function()
 							vehFuels[vehPlate] = lastFuel
 						end
 						SetVehicleFuelLevel(vehicle,vehFuels[vehPlate])
+						Entity(vehicle).state:set("fuel", vehFuels[vehPlate], true)
 						StopAnimTask(ped,"timetable@gardener@filling_can","gar_ig_5_filling_can",2.0)
 						RemoveAnimDict("timetable@gardener@filling_can")
 						SendNUIMessage({ fuel = false })
