@@ -1,6 +1,6 @@
-local vehList = module('vrp',"Reborn/Vehicles") or {}
+local vehList = module('vrp',"config/Vehicles") or {}
 RegisterNetEvent("Reborn:reloadInfos",function()
-	vehList = module('vrp',"Reborn/Vehicles") or {}
+	vehList = module('vrp',"config/Vehicles") or {}
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- GETNEARVEHICLES
@@ -84,9 +84,9 @@ end
 function tvRP.getModelName(veh)
 	if IsEntityAVehicle(veh) then
 		local modelName = nil
-		for k, v in pairs(vehList) do
-			if v.hash == GetEntityModel(veh) then
-				modelName = v.name
+		for k,v in pairs(vehList) do
+			if GetHashKey(k) == GetEntityModel(veh) then
+				modelName = k
 			end
 		end
 		return modelName
@@ -98,10 +98,8 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 function tvRP.isVehicleBanned(veh)
 	if IsEntityAVehicle(veh) then
-		for k, v in pairs(vehList) do
-			if v.hash == GetEntityModel(veh) then
-				return v.banido
-			end
+		if vehList[GetEntityModel(veh)] then
+			return vehList[GetEntityModel(veh)].banned
 		end
 	end
 end
@@ -127,7 +125,7 @@ function tvRP.vehSitting()
 		local vehModel = GetEntityModel(nveh)
 		local vehPlate = GetVehicleNumberPlateText(nveh)
 		local vehNet = VehToNet(nveh)
-		return nveh,vehNet,vehPlate,vehList[vehModel][1]
+		return nveh,vehNet,vehPlate,tvRP.getModelName(nveh)
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -138,7 +136,7 @@ function tvRP.vehicleName()
 	if IsPedInAnyVehicle(ped) then
 		local nveh = GetVehiclePedIsUsing(ped)
 		local vehModel = GetEntityModel(nveh)
-		return vehList[vehModel][1]
+		return vehList[vehModel] and vehList[vehModel].name
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -238,13 +236,7 @@ end)
 -- VEHICLEMODEL
 -----------------------------------------------------------------------------------------------------------------------------------------
 function tvRP.vehicleModel(vehModel)
-	local modelName = nil
-	for k, v in pairs(vehList) do
-		if v.hash == vehModel then
-			modelName = v.name
-		end
-	end
-	return modelName
+	return vehList[vehModel] and vehList[vehModel].name
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- LASTVEHICLE

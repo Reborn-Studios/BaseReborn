@@ -1,7 +1,7 @@
 local List = {}
 
 local function convertItems()
-	local items = module('vrp',"Reborn/Itemlist") or {}
+	local items = module('vrp',"config/Itemlist") or {}
     for Item,v in pairs(items) do
         List[Item] = {
             ["Index"] = v.index,

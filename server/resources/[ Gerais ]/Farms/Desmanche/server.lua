@@ -2,7 +2,7 @@ Tunnel = module("vrp","lib/Tunnel")
 Proxy = module("vrp","lib/Proxy")
 vRP = Proxy.getInterface("vRP")
 vRPclient = Tunnel.getInterface("vRP")
-Webhooks = module("Reborn/webhooks")
+Webhooks = module("config/webhooks")
 
 Desmanche = {}
 Tunnel.bindInterface("Desmanche", Desmanche)

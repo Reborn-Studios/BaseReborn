@@ -590,12 +590,12 @@ local function requestQbGroups(groups)
 end
 
 RegisterNetEvent("Reborn:reloadInfos",function()
-	local groups = module('vrp',"Reborn/Groups")
+	local groups = module('vrp',"config/Groups")
 	requestQbGroups(groups)
 end)
 
 CreateThread(function ()
-	local groups = module('vrp',"Reborn/Groups") or {}
+	local groups = module('vrp',"config/Groups") or {}
 	requestQbGroups(groups)
 end)
 

@@ -1,4 +1,4 @@
-local Webhooks = module("Reborn/webhooks") or {}
+local Webhooks = module("config/webhooks") or {}
 config = {}
 
 config.animType = 1

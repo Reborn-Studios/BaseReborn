@@ -22,12 +22,19 @@ function module(rsc,path,refresh)
 	if module and not refresh then
 		return module
 	else
+		local oldPath = path
+		if oldPath == "cfg/groups" then
+			path = "config/groups"
+		end
 		local code = LoadResourceFile(rsc,path..".lua")
 		if code then
 			local f,err = load(code, rsc.."/"..path..".lua")
 			if f then
 				local ok,res = xpcall(f,debug.traceback)
 				if ok then
+					if oldPath == "cfg/groups" then
+						res = { groups = res }
+					end
 					modules[key] = res
 					return res
 				else

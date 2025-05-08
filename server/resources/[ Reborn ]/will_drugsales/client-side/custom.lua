@@ -107,7 +107,7 @@ if Config.Framework == 'vrp' then
 		end
 		local items = {}
 		local loaded, result = pcall(function()
-			return module('vrp',"Reborn/Itemlist")
+			return module('vrp',"config/Itemlist")
 		end)
 		if loaded then
 			items = result

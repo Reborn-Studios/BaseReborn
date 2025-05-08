@@ -1,7 +1,7 @@
 Tunnel = module("vrp","lib/Tunnel")
 Proxy = module("vrp","lib/Proxy")
 vRP = Proxy.getInterface("vRP")
-local Webhooks = module("Reborn/webhooks") or {}
+local Webhooks = module("config/webhooks") or {}
 
 -----##########################################################-----
 --###          CONFIGS

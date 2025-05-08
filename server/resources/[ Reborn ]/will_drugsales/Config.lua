@@ -1,4 +1,4 @@
-local Webhooks = module("Reborn/webhooks") or {}
+local Webhooks = module("config/webhooks") or {}
 local Proxy = module("vrp","lib/Proxy") or {}
 Reborn = Proxy.getInterface("Reborn")
 -----##########################################################-----

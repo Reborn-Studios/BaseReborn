@@ -1,6 +1,6 @@
 Config = {}
 Tunnel = module("vrp","lib/Tunnel")
-Webhooks = module("Reborn/webhooks") or {}
+Webhooks = module("config/webhooks") or {}
 
 --            ///////////////\\\\\\\\\\\\\\
 --                   CASSINO JOGOS

@@ -1,10 +1,10 @@
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- ITEMLIST
 -----------------------------------------------------------------------------------------------------------------------------------------
-local items = module('vrp',"Reborn/Itemlist") or {}
-local Webhooks = module("Reborn/webhooks") or {}
+local items = module('vrp',"config/Itemlist") or {}
+local Webhooks = module("config/webhooks") or {}
 
-RegisterServerEvent("Reborn:reloadInfos",function() items = module('vrp',"Reborn/Itemlist") end)
+RegisterServerEvent("Reborn:reloadInfos",function() items = module('vrp',"config/Itemlist") end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- ITEMDEFINITION
 -----------------------------------------------------------------------------------------------------------------------------------------

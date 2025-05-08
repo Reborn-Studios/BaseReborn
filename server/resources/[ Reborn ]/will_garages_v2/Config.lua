@@ -399,7 +399,7 @@ end
 -----##########################################################-----
 --###               DİSCORD WEBHOOK
 -----##########################################################-----
-local Webhooks = module("Reborn/webhooks")
+local Webhooks = module("config/webhooks")
 
 Config.Weebhok = Webhooks.webhookgarage
 Config.Botname = "Reborn Garage Log"

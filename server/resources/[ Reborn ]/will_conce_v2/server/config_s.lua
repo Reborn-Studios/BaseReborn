@@ -1,7 +1,7 @@
 
 
 cfg_s = {}
-Webhooks = module("Reborn/webhooks") or {}
+Webhooks = module("config/webhooks") or {}
 
 cfg_s.webhook_comprar = Webhooks.webhookcomprar
 cfg_s.webhookaddcar = ""

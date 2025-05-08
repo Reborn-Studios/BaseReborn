@@ -14,15 +14,15 @@ local function convertVehs()
             }
         end
     else
-        local vehs = module('vrp',"Reborn/Vehicles") or {}
-        for _,v in pairs(vehs) do
-            List[v.name] = {
-                Name = v.modelo,
-                Weight = tonumber(v.capacidade),
+        local vehs = module('vrp',"config/Vehicles") or {}
+        for k,v in pairs(vehs) do
+            List[k] = {
+                Name = v.name,
+                Weight = tonumber(v.weight) or 40,
                 Price = v.price,
-                Mode = v.tipo,
+                Mode = v.type,
                 Gemstone = v.Gemstone or 0,
-                Class = v.tipo,
+                Class = v.type,
             }
         end
     end

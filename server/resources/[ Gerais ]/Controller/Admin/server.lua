@@ -3,7 +3,7 @@
 -----------------------------------------------------------------------------------------------------------------------------------------
 Tunnel = module("vrp","lib/Tunnel") or {}
 Proxy = module("vrp","lib/Proxy") or {}
-Webhooks = module("Reborn/webhooks") or {}
+Webhooks = module("config/webhooks") or {}
 vRP = Proxy.getInterface("vRP")
 vRPclient = Tunnel.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
