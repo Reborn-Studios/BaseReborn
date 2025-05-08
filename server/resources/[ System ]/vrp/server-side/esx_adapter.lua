@@ -212,17 +212,85 @@ function ESX.TriggerServerCallback(name, requestId, source, cb, ...)
         print(('[^3WARNING^7] Server callback ^5"%s"^0 does not exist. ^1Please Check The Server File for Errors!'):format(name))
     end
 end
-  
+
+local function updateHealthAndArmorInMetadata(xPlayer)
+  local ped = GetPlayerPed(xPlayer.source)
+  xPlayer.setMeta("health", GetEntityHealth(ped))
+  xPlayer.setMeta("armor", GetPedArmour(ped))
+end
+
 function Core.SavePlayer(xPlayer, cb)
-    if cb then
-        cb()
-    end
+  if not xPlayer.spawned then
+    return cb and cb()
+  end
+
+  updateHealthAndArmorInMetadata(xPlayer)
+  local parameters <const> = {
+      json.encode(xPlayer.getAccounts(true)),
+      xPlayer.job.name,
+      xPlayer.job.grade,
+      xPlayer.group,
+      json.encode(xPlayer.getCoords()),
+      json.encode(xPlayer.getInventory(true)),
+      json.encode(xPlayer.getLoadout(true)),
+      json.encode(xPlayer.getMeta()),
+      xPlayer.identifier,
+  }
+
+  MySQL.prepare(
+      "UPDATE `users` SET `accounts` = ?, `job` = ?, `job_grade` = ?, `group` = ?, `position` = ?, `inventory` = ?, `loadout` = ?, `metadata` = ? WHERE `identifier` = ?",
+      parameters,
+      function(affectedRows)
+          if affectedRows == 1 then
+              print(('[^2INFO^7] Saved player ^5"%s^7"'):format(xPlayer.name))
+              TriggerEvent("esx:playerSaved", xPlayer.playerId, xPlayer)
+          end
+          if cb then
+              cb()
+          end
+      end
+  )
 end
 
 function Core.SavePlayers(cb)
-    if type(cb) == 'function' then
-        cb()
-    end
+  local xPlayers <const> = ESX.Players
+  if not next(xPlayers) then
+      return
+  end
+
+  local startTime <const> = os.time()
+  local parameters = {}
+
+  for _, xPlayer in pairs(ESX.Players) do
+      updateHealthAndArmorInMetadata(xPlayer)
+      parameters[#parameters + 1] = {
+          json.encode(xPlayer.getAccounts(true)),
+          xPlayer.job.name,
+          xPlayer.job.grade,
+          xPlayer.group,
+          json.encode(xPlayer.getCoords()),
+          json.encode(xPlayer.getInventory(true)),
+          json.encode(xPlayer.getLoadout(true)),
+          json.encode(xPlayer.getMeta()),
+          xPlayer.identifier,
+      }
+  end
+
+  MySQL.prepare(
+      "UPDATE `users` SET `accounts` = ?, `job` = ?, `job_grade` = ?, `group` = ?, `position` = ?, `inventory` = ?, `loadout` = ?, `metadata` = ? WHERE `identifier` = ?",
+      parameters,
+      function(results)
+          if not results then
+              return
+          end
+
+          if type(cb) == "function" then
+              return cb()
+          end
+
+          print(("[^2INFO^7] Saved ^5%s^7 %s over ^5%s^7 ms"):format(#parameters, #parameters > 1 and "players" or "player", ESX.Math.Round((os.time() - startTime) / 1000000, 2)))
+      end
+  )
 end
   
 function ESX.GetPlayers()
