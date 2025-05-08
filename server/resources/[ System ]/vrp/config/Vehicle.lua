@@ -2,7 +2,7 @@ local List = {}
 
 local function convertVehs()
     if GetResourceState("will_garages_v2") == "started" then
-        local vehs = exports['will_garages_v2']:getVehicleGlobal()
+        local vehs = GlobalState['VehicleGlobal']
         for Name,v in pairs(vehs) do
             List[Name] = {
                 Name = v.name,
@@ -29,6 +29,7 @@ local function convertVehs()
 end
 
 CreateThread(function()
+    Wait(500)
     convertVehs()
 end)
 

@@ -1,3 +1,6 @@
+local Proxy = module("vrp", "lib/Proxy")
+vRP = Proxy.getInterface("vRP")
+
 function GetIdentifier(source)
     local identifiers = GetPlayerIdentifiers(source)
     local baseIdentifier = GlobalState['Basics']['Identifier'] or "steam"
@@ -12,22 +15,21 @@ function GetToken(source)
     local whitelist = IsWhitelisted(source)
     if whitelist == nil then
         local identifier = GetIdentifier(source)
-        ExecuteSql("INSERT INTO `accounts` (`steam`,`identifier`) VALUES('','"..identifier.."');")
-        local affected = ExecuteSql("SELECT LAST_INSERT_ID() AS id;")
-        if #affected > 0 then
-            return affected[1].id
-        end
+        local token = vRP.generateToken()
+        local steam = vRP.getSteam(source)
+        ExecuteSql("INSERT INTO `accounts` (`steam`,`identifier`,`token`) VALUES('"..steam.."','"..identifier.."','"..token.."');")
+        return token
     else
-        local rows = ExecuteSql("SELECT `id` FROM `accounts` WHERE `identifier` = '"..GetIdentifier(source).."'")
-        if rows[1] then
-            return rows[1].id
+        local rows = ExecuteSql("SELECT `token` FROM `accounts` WHERE `identifier` = '"..GetIdentifier(source).."'")
+        if rows and rows[1] then
+            return rows[1].token
         end
     end
 end
 
 function IsWhitelisted(source)
     local rows = ExecuteSql("SELECT `whitelist` FROM `accounts` WHERE `identifier` = '"..GetIdentifier(source).."'")
-	if rows[1] then
+	if rows and rows[1] then
 		return rows[1].whitelist
 	end
 end

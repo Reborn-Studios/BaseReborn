@@ -725,7 +725,7 @@ AddEventHandler("queue:playerConnecting",function(source,ids,name,setKickReason,
                                     deferrals.done()
                                 else
                                     if data.submitId == "copy_to_token" then
-                                        os.execute(string.format('echo %s | clip',rows[1].id))
+                                        os.execute(string.format('echo %s | clip',rows[1].token))
 									elseif data.submitId == "confirm_card" then
 										local newRows = vRP.getInfos(identifier)
 										if newRows[1].whitelist then
@@ -738,13 +738,13 @@ AddEventHandler("queue:playerConnecting",function(source,ids,name,setKickReason,
                                 end
                             else
                                 if data.choice_set then
-									local _rows,affected = vRP.query("vRP/create_user",{ identifier = identifier })
+									local token = vRP.generateToken()
+									local _rows,affected = vRP.query("vRP/create_user",{ identifier = identifier, token = token })
 									if #affected > 0 then
-										local user_id = affected[1].id
-										Card["body"][2]["items"][5]["actions"][1]["title"] = 'SEU ID DE LIBERAÇÃO: '..user_id
+										Card["body"][2]["items"][5]["actions"][1]["title"] = 'SEU TOKEN DE LIBERAÇÃO: '..token
 										Card["body"][1]["isVisible"] = false
 										Card["body"][2]["isVisible"] = true 
-										vRP.createWeebHook(Webhooks.createAccount,"```ID DE LIBERAÇÃO: "..user_id.."\nNOME:"..name.." \nIP: "..GetPlayerEndpoint(source).."\n**Onde nos encontrou:** "..data.choice_set)
+										vRP.createWeebHook(Webhooks.createAccount,"```TOKEN DE LIBERAÇÃO: "..token.."\nNOME:"..name.." \nIP: "..GetPlayerEndpoint(source).."\n**Onde nos encontrou:** "..data.choice_set)
 									end
                                 end
                             end
@@ -756,7 +756,7 @@ AddEventHandler("queue:playerConnecting",function(source,ids,name,setKickReason,
 					if rows[1] then
                         Card["body"][1]["isVisible"] = false
                         Card["body"][2]["isVisible"] = true
-                        Card["body"][2]["items"][5]["actions"][1]["title"] = 'SEU ID DE LIBERAÇÃO: '..rows[1].id
+                        Card["body"][2]["items"][5]["actions"][1]["title"] = 'SEU TOKEN DE LIBERAÇÃO: '..rows[1].token
                     end
 					Wait(3000)
                     deferrals.presentCard(Card, CardCallback)

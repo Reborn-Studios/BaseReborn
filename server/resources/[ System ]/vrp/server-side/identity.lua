@@ -208,3 +208,27 @@ function vRP.generatePhoneNumber()
 
 	return phone
 end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- GENERATETOKEN
+-----------------------------------------------------------------------------------------------------------------------------------------
+function vRP.generateToken()
+	local account = nil
+	local token = ""
+
+	repeat
+		Citizen.Wait(0)
+		token = vRP.generateStringNumber("LLLDD")
+		account = vRP.getAccountByToken(token)
+	until not account
+
+	return token
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- ACCOUNTBYTOKEN
+-----------------------------------------------------------------------------------------------------------------------------------------
+function vRP.getAccountByToken(token)
+	local rows = vRP.query("vRP/get_account_by_token",{ token = token })
+	if rows[1] then
+		return rows[1].id
+	end
+end

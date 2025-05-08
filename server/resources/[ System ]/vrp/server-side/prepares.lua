@@ -24,10 +24,12 @@ vRP.prepare("vRP/del_bank","UPDATE characters SET bank = bank - @bank WHERE id =
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PREPARE vRP_USERS
 -----------------------------------------------------------------------------------------------------------------------------------------
-vRP.prepare("vRP/create_user","INSERT INTO accounts(identifier) VALUES(@identifier); SELECT LAST_INSERT_ID() AS id")
+vRP.prepare("vRP/create_user","INSERT INTO accounts(identifier,token) VALUES(@identifier,@token); SELECT LAST_INSERT_ID() AS id")
 vRP.prepare("vRP/set_banned","UPDATE accounts SET banned = @banned WHERE identifier = @identifier")
 vRP.prepare("vRP/set_whitelist","UPDATE accounts SET whitelist = @whitelist WHERE identifier = @identifier")
 vRP.prepare("vRP/set_whitelist_id","UPDATE accounts SET whitelist = @whitelist WHERE id = @id")
+vRP.prepare("vRP/get_account_by_token","SELECT * FROM accounts WHERE token = @token")
+vRP.prepare("vRP/set_token_whitelist","UPDATE accounts SET whitelist = @whitelist WHERE token = @token")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PREPARE vRP_USER_DATA
 -----------------------------------------------------------------------------------------------------------------------------------------
