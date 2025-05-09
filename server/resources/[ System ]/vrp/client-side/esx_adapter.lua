@@ -36,10 +36,6 @@ exports('getSharedObject', function()
 	return ESX
 end)
 
-RegisterNetEvent("esx:characterLoaded",function()
-    TriggerServerEvent("esx:onPlayerJoined")
-end)
-
 function ESX.SetTimeout(msec, cb)
     table.insert(Core.TimeoutCallbacks, {
         time = GetGameTimer() + msec,

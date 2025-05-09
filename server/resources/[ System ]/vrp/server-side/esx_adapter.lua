@@ -220,9 +220,6 @@ local function updateHealthAndArmorInMetadata(xPlayer)
 end
 
 function Core.SavePlayer(xPlayer, cb)
-  if not xPlayer.spawned then
-    return cb and cb()
-  end
 
   updateHealthAndArmorInMetadata(xPlayer)
   local parameters <const> = {
@@ -454,17 +451,21 @@ end
 
 ------------------------------------------------------------------------------------------------------------------------
 
-local newPlayer = 'INSERT INTO `users` SET `accounts` = ?, `identifier` = ?, `group` = ?'
-local loadPlayer = 'SELECT * FROM `characters` WHERE id = ?'
+local newPlayer = 'INSERT INTO `users` SET `accounts` = ?, `identifier` = ?, `group` = ?, `firstname` = ?, `lastname` = ?, `dateofbirth` = ?, `sex` = ?, `height` = ?'
+local loadPlayer = "SELECT `accounts`, `job`, `job_grade`, `group`, `position`, `inventory`, `skin`, `loadout`, `metadata` FROM `users` WHERE identifier = ?"
 
-RegisterNetEvent('esx:onPlayerJoined')
-AddEventHandler('esx:onPlayerJoined', function()
-  local _source = source
+AddEventHandler("esx:onPlayerJoined", function(src, data)
   while not next(ESX.Jobs) do
-    Wait(50)
+      Wait(50)
   end
-  if not ESX.Players[_source] then
-    onPlayerJoined(_source)
+
+  if not ESX.Players[src] then
+      local identifier = ESX.GetIdentifier(src)
+      if data then
+          createESXPlayer(identifier, src, data)
+      else
+          loadESXPlayer(identifier, src, false)
+      end
   end
 end)
 
@@ -503,7 +504,7 @@ function createESXPlayer(identifier, playerId, data)
       defaultGroup = "admin"
   end
 
-  local parameters = { json.encode(accounts), identifier, defaultGroup }
+  local parameters = { json.encode(accounts), identifier, defaultGroup, data.firstname, data.lastname, data.dateofbirth, data.sex, data.height }
 
   MySQL.prepare(newPlayer, parameters, function()
       loadESXPlayer(identifier, playerId, true)
@@ -532,13 +533,26 @@ end
 end ]]
 
 function loadESXPlayer(identifier, playerId, isNew)
-  local userData = {accounts = {}, inventory = {}, job = {}, loadout = {}, playerName = GetPlayerName(playerId), weight = 0}
+  local userData = {
+    accounts = {},
+    inventory = {},
+    loadout = {},
+    weight = 0,
+    identifier = identifier,
+    firstName = "John",
+    lastName = "Doe",
+    dateofbirth = "01/01/2000",
+    height = 120,
+    dead = false,
+    job = {}
+  }
   local user_id = nil
   while not user_id do
     user_id = vRP.getUserId(playerId)
     Wait(100)
   end
   local result = vRP.query("vRP/get_vrp_users", { id = user_id })
+  local result2 = MySQL.prepare.await(loadPlayer, { identifier })
   local myJob = nil
   local allJobs = Reborn.groups()
   local user_groups = vRP.getUserGroups(user_id)
@@ -639,8 +653,8 @@ function loadESXPlayer(identifier, playerId, isNew)
   end
 
   -- Loadout
-  if result.loadout and result.loadout ~= '' then
-    local loadout = json.decode(result.loadout)
+  if result2.loadout and result2.loadout ~= '' then
+    local loadout = json.decode(result2.loadout)
 
     for name, weapon in pairs(loadout) do
       local label = ESX.GetWeaponLabel(name)
@@ -688,39 +702,41 @@ function loadESXPlayer(identifier, playerId, isNew)
       userData.skin = {sex = 0}
     end
   end
+  -- Metadata
+  userData.metadata = (result2.metadata and result2.metadata ~= "") and json.decode(result2.metadata) or {}
 
   -- Identity
   if result.name and result.name ~= '' then
     userData.firstname = result.name
     userData.lastname = result.name2
     userData.playerName = userData.firstname .. ' ' .. userData.lastname
-    if result.dateofbirth then
+    if result2.dateofbirth then
       userData.dateofbirth = result.dateofbirth
     end
-    if result.sex then
+    if result2.sex then
       userData.sex = result.sex
     end
-    if result.height then
+    if result2.height then
       userData.height = result.height
     end
   end
 
   local xPlayer = Reborn.CreateExtendedPlayer(playerId, identifier, userData.group, userData.accounts, userData.inventory, userData.weight, userData.job,
-    userData.loadout, userData.playerName, userData.coords, user_id)
-  print(('[^2INFO ESX^0] Player ^5"%s" ^0has connected to the server. Identifier: ^5%s^7'):format(xPlayer.getName(), identifier))
+    userData.loadout, userData.playerName, userData.coords, userData.metadata, user_id)
+
   ESX.Players[playerId] = xPlayer
 
-  if userData.firstname then
-    xPlayer.set('firstName', userData.firstname)
-    xPlayer.set('lastName', userData.lastname)
-    if userData.dateofbirth then
-      xPlayer.set('dateofbirth', userData.dateofbirth)
+  if result2.firstname then
+    xPlayer.set('firstName', result2.firstname)
+    xPlayer.set('lastName', result2.lastname)
+    if result2.dateofbirth then
+      xPlayer.set('dateofbirth', result2.dateofbirth)
     end
-    if userData.sex then
-      xPlayer.set('sex', userData.sex)
+    if result2.sex then
+      xPlayer.set('sex', result2.sex)
     end
-    if userData.height then
-      xPlayer.set('height', userData.height)
+    if result2.height then
+      xPlayer.set('height', result2.height)
     end
   end
 
@@ -744,7 +760,7 @@ function loadESXPlayer(identifier, playerId, isNew)
   xPlayer.triggerEvent('esx:createMissingPickups', Core.Pickups)
 
   xPlayer.triggerEvent('esx:registerSuggestions', Core.RegisteredCommands)
-  -- print(('[^2INFO^0] Player ^5"%s" ^0has connected to the server. ID: ^5%s^7'):format(xPlayer.getName(), playerId))
+  print(('[^2INFO ESX^0] Player ^5"%s" ^0has connected to the server. Identifier: ^5%s^7'):format(xPlayer.getName(), identifier))
 end
 
 AddEventHandler('playerDropped', function(reason)

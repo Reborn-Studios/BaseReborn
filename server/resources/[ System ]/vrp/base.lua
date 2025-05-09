@@ -315,15 +315,18 @@ AddEventHandler("baseModule:idLoaded",function(source,user,model)
 		vRP.user_sources[user_id] = source
 		vRP.users[source] = user_id
 
+		local identity = vRP.getUserIdentity(user_id)
 		if model ~= nil then
 			local first_login = Reborn.first_login()
 			TriggerClientEvent("Notify",source,"importante",first_login['Mensagem'],20000)
 			vRP.user_tables[user_id].weaps = {}
 			vRP.user_tables[user_id].inventorys = {}
 			vRP.user_tables[user_id].health = GlobalState['Basics']['MaxHealth'] or 400
+			local skin = "m"
 			if model then
 				if model == "female" then
 					model = "mp_f_freemode_01"
+					skin = "f"
 				elseif model == "male" then
 					model = "mp_m_freemode_01"
 				end
@@ -338,12 +341,19 @@ AddEventHandler("baseModule:idLoaded",function(source,user,model)
 					vRP.giveInventoryItem(user_id,k,v)
 				end
 			end)
+			TriggerEvent("esx:onPlayerJoined",source,{
+                firstname = identity.name,
+                lastname = identity.name2,
+                dateofbirth = "01-01-2025",
+                sex = skin == "f" and 1 or 0,
+                height = 120,
+                skin = skin
+            })
 		end
 		if GetResourceState("nation_creator") ~= "started" then
 			TriggerEvent("will_login:checkRegister",source)
 		end
 
-		local identity = vRP.getUserIdentity(user_id)
 		if identity then
 			vRP.rusers[user_id] = identity.identifier
 		end

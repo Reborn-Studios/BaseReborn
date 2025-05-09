@@ -427,16 +427,32 @@ end
 -- Don't touch any of this unless you know what you are doing
 -- Will cause major issues!
 
+local function getCash(citizenid)
+    if GlobalState['Inventory'] == "ox_inventory" and GetResourceState("ox_inventory") == "started" then
+        local rows = vRP.getInformation(parseInt(citizenid))
+        if rows and rows[1] then
+            local Inventory = rows[1].inventory and json.decode(rows[1].inventory) or {}
+            for k,v in pairs(Inventory) do
+                if v.name == "dollars" then
+                    return tonumber(v.count) or 0
+                end
+            end
+        end
+    end
+    return vRP.getInventoryItemAmount(citizenid, "dollars") or 0
+end
+
 function QBCore.Player.Login(source, citizenid, newData)
     if source and source ~= '' then
         local dataTable = json.decode(json.encode(newData))
         if citizenid then
             local UserData = {}
+            Wait()
             local PlayerData = MySQL.Sync.fetchSingle('SELECT * FROM characters where id = ?', { citizenid })
             if PlayerData then
                 local group = vRP.getUserGroupByType(citizenid, "job")
                 UserData.citizenid = citizenid
-                UserData.money = { bank = PlayerData.bank, cash = vRP.getInventoryItemAmount(citizenid, "dollars") }
+                UserData.money = { bank = PlayerData.bank, cash = getCash(citizenid) }
                 UserData.job = {
                     name = group,
                     label = group,
@@ -477,7 +493,7 @@ function QBCore.Player.GetOfflinePlayer(citizenid)
         if PlayerData then
             local group = vRP.getUserGroupByType(citizenid, "job")
             UserData.citizenid = citizenid
-            UserData.money = { bank = PlayerData.bank, cash = vRP.getInventoryItemAmount(citizenid, "dollars") }
+            UserData.money = { bank = PlayerData.bank, cash = getCash(citizenid) }
             UserData.job = {
                 name = group,
                 label = group,
