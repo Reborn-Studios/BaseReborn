@@ -7,7 +7,7 @@ USE `rbn_base`;
 -- Copiando estrutura para tabela rbn_base.accounts
 CREATE TABLE IF NOT EXISTS `accounts` (
 	`id` INT(12) NOT NULL AUTO_INCREMENT,
-	`steam` VARCHAR(50) NOT NULL COLLATE 'latin1_swedish_ci',
+	`steam` VARCHAR(50) NULL DEFAULT NULL COLLATE 'latin1_swedish_ci',
   `identifier` VARCHAR(254) NULL DEFAULT '' COLLATE 'latin1_swedish_ci',
 	`whitelist` TINYINT(1) NULL DEFAULT '0',
 	`banned` TINYINT(1) NULL DEFAULT '0',
