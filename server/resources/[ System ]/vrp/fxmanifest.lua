@@ -1,7 +1,7 @@
 fx_version "bodacious"
 game "gta5"
 lua54 'yes'
-version '6.1.2'
+version '6.2.9'
 ui_page "web-side/index.html"
 
 dependencies {
@@ -37,7 +37,7 @@ client_scripts {
 
 files {
 	"imports.lua",
-	"Reborn/*",
+	"config/*",
 	"web-side/*",
 	"web-side/**/*",
 	"lib/Tunnel.lua",
