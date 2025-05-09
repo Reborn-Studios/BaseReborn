@@ -49,7 +49,7 @@ Reborn.multi_personagem = function()
     return {
         ['Enabled'] = true,
         ['Max_personagens'] = 1         -- Quantidade de personagens que todos conseguerem criar
-    }                                   -- Para aumentar de player especifico: Banco de dados > vrp_infos > chars
+    }                                   -- Para aumentar de player especifico: Banco de dados > accounts > chars
 end
 
 ----####----####----####----##
@@ -141,11 +141,13 @@ Reborn.changeIdentifier = function()
             ['ox_inventory'] = "owner",
             ['playerskins'] = "user_id",
             ['saved_skins'] = "user_id",
-            ['vrp_permissions'] = "user_id",
-            ['vrp_users'] = "id",
+            ['permissions'] = "user_id",
+            ['characters'] = "id",
             ['vrp_user_data'] = "user_id",
-            ['vrp_user_ids'] = "user_id",
-            ['vrp_vehicles'] = "user_id",
+            ['accounts_ids'] = "user_id",
+            ['users'] = "identifier",
+            ['players'] = "citizenid",
+            ['vehicles'] = "user_id",
             ['will_battlepass'] = "user_id",
             ['will_ficha'] = "user_id",
             ['will_homes'] = "owner",
@@ -166,18 +168,19 @@ Reborn.segurity_code = function()
         start_id = 1,                       -- Inicio dos Ids
         start_bank = 25000,                 -- Dinheiro inicial no banco
         db_tables = {
-            'vrp_infos',
-            'vrp_invoice',
-            'vrp_permissions',
+            'accounts',
+            'permissions',
             'vrp_srv_data',
-            'vrp_users',
+            'characters',
             'vrp_user_data',
-            'vrp_user_ids',
+            'accounts_ids',
             'smartbank_accounts',
             'smartbank_cards',
             'smartbank_fines',
             'smartbank_statements',
-            'vrp_vehicles',
+            'vehicles',
+            'users',
+            'players',
             'will_battlepass',
             'will_sprays',
             'will_ficha',
@@ -252,25 +255,41 @@ end
 --##  SIMILAR TABLES  ##--
 --####----####----####----
 
+Reborn.frameworkTables = function()
+    -- Usar tabelas das outras frameworks
+    return {
+        -- ESX
+        ['users'] = true,
+        ['owned_vehicles'] = true,
+
+        -- QBCore
+        ['players'] = true,
+        ['player_vehicles'] = true,
+    }
+end
+
 Reborn.dbSimilarTables = function()
     return {
 
         -- VRP
 
-        { ['Old'] = "vrp_user_vehicles", ['New'] = "vrp_vehicles",
+        { ['Old'] = "vrp_user_vehicles", ['New'] = "vehicles",
             ['Columns'] = {
                 ['detido'] = "arrest",
                 ['ipva'] = "time",
             }
         },
-        { ['Old'] = "vrp_user_identities", ['New'] = "vrp_users",
+        { ['Old'] = "vrp_vehicles", ['New'] = "vehicles" },
+        { ['Old'] = "vrp_user_identities", ['New'] = "characters",
             ['Columns'] = {
                 ['user_id'] = "id",
                 ['firstname'] = "name",
                 ['name'] = "name2",
             }
         },
-        { ['Old'] = "vrp_user_moneys", ['New'] = "vrp_users",
+        { ['Old'] = "vrp_infos", ['New'] = "accounts" },
+        { ['Old'] = "vrp_users", ['New'] = "characters" },
+        { ['Old'] = "vrp_user_moneys", ['New'] = "characters",
             ['Columns'] = {
                 ['user_id'] = "id",
                 ['wallet'] = "bank",
@@ -280,46 +299,16 @@ Reborn.dbSimilarTables = function()
         -- SUMMERZ
 
         { ['Old'] = "summerz_propertys", ['New'] = "vrp_homes" },
-        { ['Old'] = "summerz_vehicles", ['New'] = "vrp_vehicles",
+        { ['Old'] = "summerz_vehicles", ['New'] = "vehicles",
             ['Columns'] = {
                 ['tax'] = 'time',
             }
         },
-        { ['Old'] = "summerz_fidentity", ['New'] = "vrp_users" },
+        { ['Old'] = "summerz_fidentity", ['New'] = "characters" },
         { ['Old'] = "summerz_entitydata", ['New'] = "vrp_srv_data" },
         { ['Old'] = "summerz_playerdata", ['New'] = "vrp_user_data" },
-        { ['Old'] = "summerz_accounts", ['New'] = "vrp_infos" },
-        { ['Old'] = "summerz_characters", ['New'] = "vrp_users" },
-
-        -- ESX
-
-        -- { ['Old'] = "owned_vehicles", ['New'] = "vrp_vehicles",
-        --     ['Columns'] = {
-        --         ['owner'] = 'user_id',
-        --     }
-        -- },
-        -- { ['Old'] = "users", ['New'] = "vrp_users",
-        --     ['Columns'] = {
-        --         ['identifier'] = 'id',
-        --         ['firstname'] = 'name',
-        --         ['lastname'] = 'name2',
-        --         ['phone_number'] = 'phone',
-        --     }
-        -- },
-
-        -- -- QBCore
-        -- { ['Old'] = "owned_vehicles", ['New'] = "vrp_vehicles",
-        --     ['Columns'] = {
-        --         ['owner'] = 'user_id',
-        --     }
-        -- },
-        -- { ['Old'] = "players", ['New'] = "vrp_users",
-        --     ['Columns'] = {
-        --         ['citizenid'] = 'id',
-        --         ['cid'] = 'id',
-        --         ['money'] = 'bank',
-        --     }
-        -- },
+        { ['Old'] = "summerz_accounts", ['New'] = "accounts" },
+        { ['Old'] = "summerz_characters", ['New'] = "characters" },
     }
 end
 
