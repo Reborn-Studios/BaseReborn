@@ -505,10 +505,12 @@ function createESXPlayer(identifier, playerId, data)
   end
 
   local parameters = { json.encode(accounts), identifier, defaultGroup, data.firstname, data.lastname, data.dateofbirth, data.sex, data.height }
-
-  MySQL.prepare(newPlayer, parameters, function()
-      loadESXPlayer(identifier, playerId, true)
-  end)
+  local frameworkTables = Reborn.frameworkTables()
+  if frameworkTables['users'] then
+    MySQL.prepare(newPlayer, parameters, function()
+        loadESXPlayer(identifier, playerId, true)
+    end)
+  end
 end
 
 --[[ if not Config.Multichar then
@@ -552,7 +554,11 @@ function loadESXPlayer(identifier, playerId, isNew)
     Wait(100)
   end
   local result = vRP.query("vRP/get_vrp_users", { id = user_id })
-  local result2 = MySQL.prepare.await(loadPlayer, { identifier })
+  local result2 = {}
+  local frameworkTables = Reborn.frameworkTables()
+  if frameworkTables['users'] then
+    result2 = MySQL.prepare.await(loadPlayer, { identifier })
+  end
   local myJob = nil
   local allJobs = Reborn.groups()
   local user_groups = vRP.getUserGroups(user_id)
