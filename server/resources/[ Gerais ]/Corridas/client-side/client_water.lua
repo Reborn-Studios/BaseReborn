@@ -43,7 +43,7 @@ CreateThread(function()
 					timeDistance = 4
 					DrawMarker(1,startX,startY,startZ-5,0,0,0,0,0,0,50.0,50.0,100.0,255,0,0,100)
 					if distance <= 25 then
-						if IsControlJustPressed(1,38) then
+						if IsControlJustPressed(1,38) and ServerExplode.checkTicket() then
 							racePos = 1
 							inRace = true
 							raceSelect = ServerWater.raceSelect()

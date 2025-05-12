@@ -56,14 +56,17 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PAYMENTMETHOD
 -----------------------------------------------------------------------------------------------------------------------------------------
-function Explode.paymentMethod(vehPlate)
+function Explode.paymentMethod(raceSelect)
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
 		vRP.wantedTimer(user_id,300)
 		TriggerEvent("vrp_blipsystem:serviceExit",source)
 		local payment = math.random(Config.streetRace['payment']['min'],Config.streetRace['payment']['min'])
-		vRP.giveInventoryItem(user_id,"dollars",payment,true)
+		if raceSelect and Config.streetRace.races[raceSelect] and Config.streetRace.races[raceSelect]['payment'] then
+			payment = math.random(Config.streetRace.races[raceSelect]['payment']['min'],Config.streetRace.races[raceSelect]['payment']['max'])
+		end
+		vRP.giveInventoryItem(user_id,"dollars2",payment,true)
 		TriggerClientEvent("vrp_sound:source",source,"coin",0.5)
 		vRP.createWeebHook(Webhooks.webhookraces,"```prolog\n[ID]: "..user_id.."\n[Ganhou da corrida explosiva]: $"..payment..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
 	end

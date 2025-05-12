@@ -72,7 +72,7 @@ CreateThread(function()
 							blipRace[racePos] = nil
 						end
 						if racePos >= #race[raceSelect] then
-							ServerExplode.paymentMethod(GetVehicleNumberPlateText(GetVehiclePedIsUsing(ped)))
+							ServerExplode.paymentMethod(raceSelect)
 							PlaySoundFrontend(-1,"RACE_PLACED","HUD_AWARDS",false)
 							inRace = false
 							raceTime = 0
@@ -96,27 +96,29 @@ end)
 -- THREADRACETIME
 -----------------------------------------------------------------------------------------------------------------------------------------
 function initRaceThread()
-	while inRace do
-		if raceTime > 0 then
-			raceTime = raceTime - 1
-			if raceTime <= 0 or not IsPedInAnyVehicle(PlayerPedId(), false) then
-				TriggerServerEvent("vrp_streetrace:explosivePlayers")
-				for k,v in pairs(blipRace) do
-					if DoesBlipExist(blipRace[k]) then
-						RemoveBlip(blipRace[k])
-						blipRace[k] = nil
+	CreateThread(function()
+		while inRace do
+			if raceTime > 0 then
+				raceTime = raceTime - 1
+				if raceTime <= 0 or not IsPedInAnyVehicle(PlayerPedId(), false) then
+					TriggerServerEvent("vrp_streetrace:explosivePlayers")
+					for k,v in pairs(blipRace) do
+						if DoesBlipExist(blipRace[k]) then
+							RemoveBlip(blipRace[k])
+							blipRace[k] = nil
+						end
 					end
+					raceTime = 0
+					blipRace = {}
+					inRace = false
+					Wait(3000)
+					local coords = GetEntityCoords(GetPlayersLastVehicle())
+					AddExplosion(coords.x,coords.y,coords.z,2,1.0,true,true,1.0)
 				end
-				raceTime = 0
-				blipRace = {}
-				inRace = false
-				Wait(3000)
-				local coords = GetEntityCoords(GetPlayersLastVehicle())
-				AddExplosion(coords.x,coords.y,coords.z,2,1.0,true,true,1.0)
 			end
+			Wait(1000)
 		end
-		Wait(1000)
-	end
+	end)
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- TIMESECONDS

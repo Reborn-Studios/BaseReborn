@@ -14,11 +14,16 @@ Tunnel.bindInterface("Races",Races)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- FINISHRACES
 -----------------------------------------------------------------------------------------------------------------------------------------
-function Races.finishRaces()
+function Races.finishRaces(selected)
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		local payment = math.random(Config.races['payment']['min'],Config.races['payment']['max'])
+		local payment = 0
+		if selected and Config.races['runners'][selected] and Config.races['runners'][selected]['payment'] then
+			payment = math.random(Config.races['runners'][selected]['payment']['min'],Config.races['runners'][selected]['payment']['max'])
+		else
+			payment = math.random(Config.races['payment']['min'],Config.races['payment']['max'])
+		end
 		vRP.giveInventoryItem(user_id,"dollars2",payment)
 		vRP.createWeebHook(Webhooks.webhookraces,"```prolog\n[ID]: "..user_id.."\n[Ganhou da corrida normal]: $"..payment..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
 	end

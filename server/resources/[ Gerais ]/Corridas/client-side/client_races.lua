@@ -40,7 +40,7 @@ CreateThread(function()
 						if inCheckpoint >= #runners[inSelected]["coords"] then
 							if inLaps >= runners[inSelected]["laps"] then
 								PlaySoundFrontend(-1,"RACE_PLACED","HUD_AWARDS",false)
-								ServerRaces.finishRaces()
+								ServerRaces.finishRaces(inSelected)
 								inRunners = false
 							else
 								inCheckpoint = 1
@@ -59,7 +59,8 @@ CreateThread(function()
 					if distance <= 50 then
 						timeDistance = 4
 						DrawBase3D(v["init"][1],v["init"][2],v["init"][3],"races")
-						if IsControlJustPressed(1,38) and distance <= 5 then
+						DrawMarker(21,v["init"][1],v["init"][2],v["init"][3]+2.0,0,0,0,0,180.0,130.0,3.0,3.0,2.0,42,137,255,50,true,false,0,true)
+						if IsControlJustPressed(1,38) and distance <= 5 and ServerExplode.checkTicket() then
 							ServerRaces.startRaces()
 							ServerRaces.callPolice(v["init"][1],v["init"][2],v["init"][3])
 							inSelected = parseInt(k)
@@ -93,3 +94,16 @@ CreateThread(function()
 		Wait(timeDistance)
 	end
 end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- DWTEXT
+-----------------------------------------------------------------------------------------------------------------------------------------
+function DrwText(text,height)
+	SetTextFont(4)
+	SetTextScale(0.50,0.50)
+	SetTextColour(255,255,255,180)
+	SetTextOutline()
+	SetTextCentre(true)
+	SetTextEntry("STRING")
+	AddTextComponentString(text)
+	DrawText(0.5,height)
+end
