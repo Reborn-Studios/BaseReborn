@@ -673,7 +673,7 @@ AddEventHandler("vrp_player:EnterTrunk",function()
 				local distance = #(coords - coordsEnt)
 				if distance <= 3.0 and not IsPedInAnyVehicle(ped,false) then
 					if GetVehicleDoorAngleRatio(vehicle,5) < 0.9 and GetVehicleDoorsLockedForPlayer(vehicle,PlayerId()) ~= 1 then
-						SetCarBootOpen(vehicle)
+						SetVehicleDoorOpen(vehicle,5,false,false)
 						SetEntityVisible(ped,false,false)
 						Wait(750)
 						AttachEntityToEntity(ped,vehicle,-1,0.0,-2.2,0.5,0.0,0.0,0.0,false,false,false,false,20,true)
@@ -694,7 +694,7 @@ AddEventHandler("vrp_player:EnterTrunk",function()
 			local distance = #(coords - coordsEnt)
 			if distance <= 3.0 then
 				if DoesEntityExist(vehicle) then
-					SetCarBootOpen(vehicle)
+					SetVehicleDoorOpen(vehicle,5,false,false)
 					Wait(750)
 					inTrunk = false
 					DetachEntity(ped,false,false)
@@ -715,7 +715,7 @@ AddEventHandler("vrp_player:CheckTrunk",function()
 	if inTrunk then
 		local vehicle = GetEntityAttachedTo(ped)
 		if DoesEntityExist(vehicle) then
-			SetCarBootOpen(vehicle)
+			SetVehicleDoorOpen(vehicle,5,false,false)
 			Wait(750)
 			inTrunk = false
 			DetachEntity(ped,false,false)
@@ -760,7 +760,7 @@ function StartTrunkThread()
 				end
 
 				if IsControlJustPressed(1,38) then
-					SetCarBootOpen(vehicle)
+					SetVehicleDoorOpen(vehicle,5,false,false)
 					Wait(750)
 					inTrunk = false
 					DetachEntity(ped,false,false)
