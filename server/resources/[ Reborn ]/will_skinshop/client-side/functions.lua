@@ -343,3 +343,24 @@ function DrawText3D(x,y,z, text)
     AddTextComponentString(text)
     DrawText(_x,_y)
 end
+
+local Clothes = {
+	['torso'] = "jaqueta",
+	['vest'] = "colete",
+	['backpack'] = "mochila",
+	['tshirt'] = "camisa",
+	['pants'] = "calcas",
+	['shoes'] = "sapatos",
+	['arms'] = "maos",
+	['mask'] = "mascara",
+	['hat'] = "chapeu",
+	['glasses'] = "oculos",
+
+}
+RegisterCommand('vroupas', function()
+	local table = ''
+	for k,v in pairs(SkinData) do
+		table = table .. (Clothes[k] or k)  .. ' ' .. v['item'] .. ' ' .. v['texture'] .. '; '
+	end
+	vRP.prompt("Roupas", table)
+end)
