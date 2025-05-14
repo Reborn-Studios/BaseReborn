@@ -364,3 +364,7 @@ RegisterCommand('vroupas', function()
 	end
 	vRP.prompt("Roupas", table)
 end)
+
+exports("getClothes",function ()
+	return SkinData
+end)
