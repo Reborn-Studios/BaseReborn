@@ -59,7 +59,7 @@ function r(e$, e0) {
       })),
       (self[e0].moduleMap = {});
   }
-})("/dist/assets/");
+})("/dist/");
 const i = r(
     "Infinity,undefined,NaN,isFinite,isNaN,parseFloat,parseInt,decodeURI,decodeURIComponent,encodeURI,encodeURIComponent,Math,Number,Date,Array,Object,Boolean,String,RegExp,Map,Set,JSON,Intl,BigInt"
   ),
@@ -4577,7 +4577,7 @@ let Xs = [];
 function Ys() {
   var e$;
   if (Xs.length) return Xs;
-  let e0 = (e$) => So.asset("apps/" + e$);
+  let e0 = (e$) => So.asset("/apps/" + e$);
   return (Xs = [
     Ks("settings", "/settings", "", e0("settings.png"), !0),
     Ks("contacts", "/contacts", "", e0("phone.png"), !0),
@@ -4880,7 +4880,7 @@ const io = Ze({
       : (ro.start(),
         So.pusher.once("CONFIRM_SCREENSHOT", async () => {
           this.original = await ro.createBlob();
-          let e$ = new Audio(So.asset("stock/photo.ogg"));
+          let e$ = new Audio(So.asset("/stock/photo.ogg"));
           (e$.volume = 0.25),
             e$.play(),
             fetch("http://smartphone/screenshot", {
@@ -5112,13 +5112,13 @@ const Ao = {
     case: "iphonexs",
     allowUnsafeURL: !1,
     uploadServer: "",
-    ringSound: yo("stock/ring.mp3"),
-    dialSound: yo("stock/dial.mp3"),
-    notificationSound: yo("stock/notification.mp3"),
+    ringSound: yo("/stock/ring.mp3"),
+    dialSound: yo("/stock/dial.mp3"),
+    notificationSound: yo("/stock/notification.mp3"),
     instagramLogo:
       null != (e = globalThis.instagramLogo)
         ? e
-        : yo("apps/instagram_hand.png"),
+        : yo("/apps/instagram_hand.png"),
     blocks: [],
     currency: "R$",
   }),
@@ -5201,7 +5201,7 @@ const Ao = {
           ? (this.backgroundURL = e2.backgroundURL)
           : this.backgroundURL ||
             (this.backgroundURL =
-              e2.backgroundURL || yo("stock/wallpapers/default.webp"));
+              e2.backgroundURL || yo("/stock/wallpapers/default.webp"));
     }),
       (this.settings.zoom =
         parseInt(localStorage.getItem("smartphone@zoom")) || 100),
@@ -5210,7 +5210,7 @@ const Ao = {
         ((this.settings.case = "iphone14pro"),
         (this.settings.isAndroid = !1),
         (document.documentElement.style.fontFamily = "Roboto"),
-        (this.settings.backgroundURL = yo("stock/wallpapers/s20.webp")),
+        (this.settings.backgroundURL = yo("/stock/wallpapers/s20.webp")),
         (this.settings.bankType = "bb"),
         (this.identity = {
           name: "Will",
@@ -7763,7 +7763,7 @@ const Sc = {
 for (let kM in Sc)
   Sc[kM] = {
     name: Sc[kM],
-    url: So.asset(`stock/wallpapers/${kM}.webp`),
+    url: So.asset(`/stock/wallpapers/${kM}.webp`),
   };
 const Tc = rt(!1),
   Ec = {
@@ -9968,7 +9968,7 @@ const pp = tp(
                             {
                               key: 1,
                               class: "rounded-xl",
-                              src: e$.$asset("stock/maps.jpg"),
+                              src: e$.$asset("/stock/maps.jpg"),
                               onClick: (e$) => e2.updateGPS(e0.location),
                             },
                             null,
@@ -10888,11 +10888,11 @@ const rf = {
         e8 = rt(!0),
         e2 = rt(So.hasNotificationFor("whatsapp")),
         e3 = rt("true" == So.storage.get("whatsapp-sensitive")),
-        e1 = rt(So.asset("stock/user.svg"));
+        e1 = rt(So.asset("/stock/user.svg"));
       return (
         Tn(e3, (e$) => So.storage.set("whatsapp-sensitive", String(e$))),
         So.backend.wpp_getProfile().then((e$) => {
-          (e1.value = e$.avatarURL || So.asset("stock/user.svg")),
+          (e1.value = e$.avatarURL || So.asset("/stock/user.svg")),
             (e8.value = !!e$.read_receipts),
             (e0.value = !1);
         }),
@@ -11238,7 +11238,7 @@ const Rf = {
           id: e$,
           phone: e$,
           name: Bs(e$),
-          avatarURL: eN[e$] || So.asset("stock/user.svg"),
+          avatarURL: eN[e$] || So.asset("/stock/user.svg"),
           message: e0,
           unread: eV[null == e0 ? void 0 : e0.channel_id] || 0,
         };
@@ -11322,7 +11322,7 @@ const Rf = {
           },
           getAvatar: function (e$) {
             var e0;
-            return null != (e0 = eN[e$]) ? e0 : So.asset("stock/user.svg");
+            return null != (e0 = eN[e$]) ? e0 : So.asset("/stock/user.svg");
           },
         }
       );
@@ -12037,13 +12037,13 @@ const bm = {
           : (e9.value = {
               name: eN,
               unknown: !0,
-              avatarURL: So.asset("stock/user.svg"),
+              avatarURL: So.asset("/stock/user.svg"),
             })),
         So.getPlayerCoords().then((e$) => (e4.value = e$)),
         So.backend.wpp_getChat(eN).then((e$) => {
           (e9.value.id = e$.id),
             e$.name && (e9.value.name = e$.name),
-            (e9.value.avatarURL = e$.avatarURL || So.asset("stock/user.svg")),
+            (e9.value.avatarURL = e$.avatarURL || So.asset("/stock/user.svg")),
             (e6.value = e$.messages.map(eU)),
             Lt(() => eD(!0));
         });
@@ -12479,7 +12479,7 @@ const Xm = gm((e$, e0, e8, e2, e3, e1) => {
                         src:
                           null != (e8 = e2.chat.avatarURL)
                             ? e8
-                            : e$.$asset("stock/user.svg"),
+                            : e$.$asset("/stock/user.svg"),
                       },
                       null,
                       8,
@@ -12573,7 +12573,7 @@ const Xm = gm((e$, e0, e8, e2, e3, e1) => {
                 src:
                   null != (e6 = e2.chat.avatarURL)
                     ? e6
-                    : e$.$asset("stock/user.svg"),
+                    : e$.$asset("/stock/user.svg"),
               },
               null,
               8,
@@ -12731,7 +12731,7 @@ const Xm = gm((e$, e0, e8, e2, e3, e1) => {
                                     e0[13] ||
                                     (e0[13] = (...e$) =>
                                       e2.ajustSize && e2.ajustSize(...e$)),
-                                  src: "http://127.0.0.1/apps/maps.jpg",
+                                  src: "/stock/maps.jpg",
                                   alt: "",
                                 },
                                 null,
@@ -12907,7 +12907,7 @@ const Xm = gm((e$, e0, e8, e2, e3, e1) => {
   );
 });
 (bm.render = Xm), (bm.__scopeId = "data-v-21268b06");
-const Ym = rt(So.asset("stock/user.svg")),
+const Ym = rt(So.asset("/stock/user.svg")),
   Zm = rt(""),
   Qm = Ze([So.identity.phone]),
   eh = da(() => {
@@ -12964,7 +12964,7 @@ const Ym = rt(So.asset("stock/user.svg")),
           So.backend.wpp_createGroup(Zm.value.trim(), Ym.value, e0).then(() => {
             e2.back();
           }),
-            (Ym.value = So.asset("stock/user.svg")),
+            (Ym.value = So.asset("/stock/user.svg")),
             (Zm.value = ""),
             (Qm.length = 0),
             Qm.push(So.identity.phone);
@@ -14684,7 +14684,7 @@ const zb = Tb((e$, e0, e8, e2, e3, e1) => {
                                                 (e0[4] = (...e$) =>
                                                   e2.ajustSize &&
                                                   e2.ajustSize(...e$)),
-                                              src: "http://127.0.0.1/apps/maps.jpg",
+                                              src: "/stock/maps.jpg",
                                             },
                                             null,
                                             40,
@@ -15184,8 +15184,7 @@ const gg = {
           username: "will",
           bio: "aaaaaaaaaaaaaaaaaaa",
           verified: 1,
-          avatarURL:
-            "http://127.0.0.1/apps/0af557b7-83c5-4c8d-894e-30a0d224df21.jpg",
+          avatarURL: "/stock/user.jpg",
         }
       : {}
   ),
@@ -16809,7 +16808,7 @@ jv.render = function (e$, e0, e8, e2, e3, e1) {
               e0[1] ||
               (e0[1] = (...e$) => e2.takeSelfie && e2.takeSelfie(...e$)),
             class: "rounded-full w-64 h-64 p-1",
-            src: e2.avatarURL || e$.$asset("stock/user.jpg"),
+            src: e2.avatarURL || e$.$asset("/stock/user.jpg"),
           },
           null,
           8,
@@ -17108,7 +17107,7 @@ rx.render = function (e$, e0, e8, e2, e3, e1) {
                           src:
                             null != (e8 = e0.avatarURL)
                               ? e8
-                              : e$.$asset("stock/user.svg"),
+                              : e$.$asset("/stock/user.svg"),
                         },
                         null,
                         8,
@@ -19555,7 +19554,7 @@ Bk.render = function (e$, e0, e8, e2, e3, e1) {
                     {
                       key: 4,
                       class: "h-12 mx-auto",
-                      src: e$.$asset("stock/fleeca.png"),
+                      src: e$.$asset("/stock/fleeca.png"),
                       alt: "",
                     },
                     null,
@@ -19571,7 +19570,7 @@ Bk.render = function (e$, e0, e8, e2, e3, e1) {
                     {
                       key: 6,
                       class: "h-12 mt-4 mx-auto",
-                      src: e$.$asset("apps/cpbank.svg"),
+                      src: e$.$asset("/apps/cpbank.svg"),
                     },
                     null,
                     8,
@@ -19584,7 +19583,7 @@ Bk.render = function (e$, e0, e8, e2, e3, e1) {
                     {
                       key: 7,
                       class: "h-14 mt-2 mx-auto",
-                      src: e$.$asset("stock/picpay.svg"),
+                      src: e$.$asset("/stock/picpay.svg"),
                     },
                     null,
                     8,
@@ -19597,7 +19596,7 @@ Bk.render = function (e$, e0, e8, e2, e3, e1) {
                     {
                       key: 8,
                       class: "h-24 mx-auto",
-                      src: e$.$asset("apps/bdc.svg"),
+                      src: e$.$asset("/apps/bdc.svg"),
                     },
                     null,
                     8,
@@ -23441,7 +23440,7 @@ jT.render = function (e$, e0) {
         Pl(
           "img",
           {
-            src: e$.$asset("stock/tinder/flame.png", "tinderFlame"),
+            src: e$.$asset("/stock/tinder/flame.png", "tinderFlame"),
             class: "w-10",
             style: {
               filter:
@@ -23460,7 +23459,7 @@ jT.render = function (e$, e0) {
         Pl(
           "img",
           {
-            src: e$.$asset("stock/tinder/heart.png"),
+            src: e$.$asset("/stock/tinder/heart.png"),
             class: "w-10",
             style: {
               filter:
@@ -23480,7 +23479,7 @@ jT.render = function (e$, e0) {
         Pl(
           "img",
           {
-            src: e$.$asset("stock/tinder/chat.png"),
+            src: e$.$asset("/stock/tinder/chat.png"),
             class: "w-10",
             style: {
               filter:
@@ -23500,7 +23499,7 @@ jT.render = function (e$, e0) {
         Pl(
           "img",
           {
-            src: e$.$asset("stock/tinder/user.png"),
+            src: e$.$asset("/stock/tinder/user.png"),
             class: "w-10",
             style: {
               filter:
@@ -23684,7 +23683,7 @@ zT.render = function (e$, e0, e8, e2, e3, e1) {
                       Pl(
                         "img",
                         {
-                          src: e$.$asset("stock/tinder/redo.png"),
+                          src: e$.$asset("/stock/tinder/redo.png"),
                           class: "h-16",
                         },
                         null,
@@ -23703,7 +23702,7 @@ zT.render = function (e$, e0, e8, e2, e3, e1) {
                   Pl(
                     "img",
                     {
-                      src: e$.$asset("stock/tinder/refuse.png"),
+                      src: e$.$asset("/stock/tinder/refuse.png"),
                       class: "h-16",
                     },
                     null,
@@ -23721,7 +23720,7 @@ zT.render = function (e$, e0, e8, e2, e3, e1) {
                   Pl(
                     "img",
                     {
-                      src: e$.$asset("stock/tinder/star.png"),
+                      src: e$.$asset("/stock/tinder/star.png"),
                       class: "h-16",
                     },
                     null,
@@ -23739,7 +23738,7 @@ zT.render = function (e$, e0, e8, e2, e3, e1) {
                   Pl(
                     "img",
                     {
-                      src: e$.$asset("stock/tinder/like.png"),
+                      src: e$.$asset("/stock/tinder/like.png"),
                       class: "h-16",
                     },
                     null,
@@ -23755,7 +23754,7 @@ zT.render = function (e$, e0, e8, e2, e3, e1) {
             Pl(
               "img",
               {
-                src: e$.$asset("stock/tinder/heartbreak.svg"),
+                src: e$.$asset("/stock/tinder/heartbreak.svg"),
                 class: "mx-auto mt-56 px-24",
               },
               null,
@@ -23999,7 +23998,7 @@ const PE = sE((e$, e0, e8, e2, e3, e1) => {
               "img",
               {
                 class: "mx-auto mt-20 h-16",
-                src: e$.$asset("stock/tinder/logo.svg", "tinderLogo"),
+                src: e$.$asset("/stock/tinder/logo.svg", "tinderLogo"),
                 style: {
                   filter: "invert(0.4)",
                 },
@@ -24277,7 +24276,7 @@ const PE = sE((e$, e0, e8, e2, e3, e1) => {
             Pl(
               "img",
               {
-                src: e$.$asset("stock/tinder/logo.svg", "tinderLogo"),
+                src: e$.$asset("/stock/tinder/logo.svg", "tinderLogo"),
                 class: "mx-auto mt-32 w-5/12",
               },
               null,
@@ -24301,7 +24300,7 @@ const PE = sE((e$, e0, e8, e2, e3, e1) => {
                     style: {
                       filter: "grayscale(1) opacity(0.5)",
                     },
-                    src: e$.$asset("stock/tinder/flame.png", "tinderFlame"),
+                    src: e$.$asset("/stock/tinder/flame.png", "tinderFlame"),
                   },
                   null,
                   8,
@@ -24369,7 +24368,7 @@ const UE = IE((e$, e0, e8, e2, e3, e1) => {
             Pl(
               "img",
               {
-                src: e$.$asset("stock/tinder/dislike.svg"),
+                src: e$.$asset("/stock/tinder/dislike.svg"),
                 class: "w-2/3 mx-auto",
               },
               null,
@@ -24768,7 +24767,9 @@ const pR = QE((e$, e0, e8, e2, e3, e1) => {
             "img",
             {
               src:
-                null != (e6 = e2.chat.image) ? e6 : e$.$asset("stock/user.svg"),
+                null != (e6 = e2.chat.image)
+                  ? e6
+                  : e$.$asset("/stock/user.svg"),
               class: "w-16 h-16 rounded-full mx-auto",
             },
             null,
@@ -27473,7 +27474,7 @@ AL.render = function (e$, e0, e8, e2, e3, e1) {
                                   key: 0,
                                   class: "w-4",
                                   src: e$.$asset(
-                                    "apps/blaze.svg",
+                                    "/apps/blaze.svg",
                                     "casinoLogo"
                                   ),
                                   alt: "",
@@ -27530,7 +27531,7 @@ AL.render = function (e$, e0, e8, e2, e3, e1) {
                                       key: 0,
                                       class: "w-12",
                                       src: e$.$asset(
-                                        "apps/blaze.svg",
+                                        "/apps/blaze.svg",
                                         "casinoLogo"
                                       ),
                                       alt: "",
@@ -27671,7 +27672,7 @@ AL.render = function (e$, e0, e8, e2, e3, e1) {
               "img",
               {
                 class: "w-8",
-                src: e$.$asset("apps/blaze.svg", "casinoLogo"),
+                src: e$.$asset("/apps/blaze.svg", "casinoLogo"),
                 alt: "",
               },
               null,
@@ -28640,7 +28641,7 @@ qI.render = function (e$, e0, e8, e2, e3, e1) {
           "img",
           {
             class: "w-12 h-12",
-            src: e$.$asset("apps/blaze.svg", "casinoLogo"),
+            src: e$.$asset("/apps/blaze.svg", "casinoLogo"),
             alt: "",
           },
           null,
@@ -30345,7 +30346,7 @@ const cM = BO((e$, e0, e8, e2, e3, e1) => {
                     Pl(
                       "img",
                       {
-                        src: e$.$asset("apps/phone.png"),
+                        src: e$.$asset("/apps/phone.png"),
                         class: "w-8 rounded-xl",
                       },
                       null,

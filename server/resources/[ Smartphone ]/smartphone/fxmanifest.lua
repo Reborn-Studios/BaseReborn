@@ -15,5 +15,8 @@ ui_page 'index.html'
 files {
   'index.html',
   'index.js',
-  'style.css'
+  'style.css',
+  'assets/**/*',
+  'assets/**/*',
+  'assets/**/**/*',
 }
