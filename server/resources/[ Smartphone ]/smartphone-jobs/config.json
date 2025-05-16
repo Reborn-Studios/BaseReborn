@@ -1,0 +1,148 @@
+{
+  "locale": "pt-BR",
+  "currency": "BRL",
+  "uber": {
+    "pricing": {
+      "base": 8,
+      "per_km": 1237
+    },
+    "common_places": [
+      { "name": "Praça", "location": [156.9, -1012.25, 29.4] },
+      { "name": "Hospital", "location": [-454.38, -365.89, 32.94] },
+      { "name": "Mecânica", "location": [-360.99, -122.79, 37.99] },
+      { "name": "Departamento Policial", "location": [2526.21,-385.6,95.31] }
+    ],
+    "cancelable": 1
+  },
+  "food": {
+    "categories": [
+      { "id": 1, "name": "Restaurantes" },
+      { "id": 2, "name": "Bebidas" },
+      { "id": 3, "name": "Farmácias" }
+    ],
+    "stores": [
+      {
+        "id": 1,
+        "name": "7 Eleven 24h",
+        "icon": "https://ih1.redbubble.net/image.2320262164.4775/st,small,507x507-pad,600x600,f8f8f8.jpg",
+        "category_id": 1,
+        "price": 1,
+        "fee": 15,
+        "location": [29.0, -1342.89, 29.5],
+        "products": [
+          {
+            "id": 7,
+            "name": "Frango Frito",
+            "description": "Porção de 200gr de frango frito.",
+            "price": 14,
+            "section": "Lanches",
+            "image": "https://cdn.discordapp.com/attachments/1178023840358617158/1178069511858040922/chickenfries.png?ex=6574cdbb&is=656258bb&hm=a23347e9fc5fa7c12f9402a8379d42807396d9aeab9e8cb665de4e88da403bff&",
+            "items": {
+              "chickenfries": 1
+            }
+          },
+          {
+            "id": 8,
+            "name": "Cola",
+            "description": "",
+            "price": 6,
+            "section": "Bebidas",
+            "image": "https://cdn.discordapp.com/attachments/1178023840358617158/1178069511623151676/cola.png?ex=6574cdbb&is=656258bb&hm=c2e790881c0338bf092affed2fef911070baa2e455fde65b543577c1e20acd97&",
+            "items": {
+              "cola": 1
+            }
+          },
+          {
+            "id": 9,
+            "name": "Soda",
+            "description": "",
+            "price": 6,
+            "section": "Bebidas",
+            "image": "https://cdn.discordapp.com/attachments/1178023840358617158/1178069512088719464/soda.png?ex=6574cdbb&is=656258bb&hm=43dd7065561d15b021d23bc8ef472ee3b351fb685088646bcaed0283499cf4f3&",
+            "items": {
+              "soda": 1
+            }
+          },
+
+          {
+            "id": 101,
+            "name": "Chocolate",
+            "description": "",
+            "price": 5,
+            "section": "Doces",
+            "image": "https://cdn.discordapp.com/attachments/1178023840358617158/1178069945402265732/chocolate.png?ex=6574ce22&is=65625922&hm=b613242afe842bdefbecd63238dac4b8997d1867e4f24df0190d2843e4566984&",
+            "items": {
+              "chocolate": 1
+            }
+          },
+          {
+            "id": 10,
+            "name": "Água",
+            "description": "",
+            "price": 4,
+            "section": "Bebidas",
+            "image": "https://cdn.discordapp.com/attachments/1178023840358617158/1178069945016406126/water.png?ex=6574ce22&is=65625922&hm=b6a81b641a61d516fbf3a56eb092ab4ce2ed402df96a7cc0d5fd324ebaea7515&",
+            "items": {
+              "water": 1
+            }
+          },
+          {
+            "id": 205,
+            "name": "Energético",
+            "description": "",
+            "price": 10,
+            "section": "Bebidas",
+            "image": "https://cdn.discordapp.com/attachments/1178023840358617158/1178069945700077578/energetic.png?ex=6574ce22&is=65625922&hm=8bcab93357a0c74179f0881c5d72c986a5507526d9ce806771aab24f011ec30d&",
+            "items": {
+              "energetic": 1
+            }
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "name": "Burgershot",
+        "icon": "https://ih1.redbubble.net/image.2293502912.2530/flat,750x,075,f-pad,750x1000,f8f8f8.jpg",
+        "category_id": 1,
+        "price": 1,
+        "fee": 15,
+        "location": [-1183.71,-884.36,13.8],
+        "products": [
+          {
+            "id": 1,
+            "name": "Cheeseburguer",
+            "description": "Pão, hambúrguer, queijo cheddar, picles e ketckup.",
+            "price": 12,
+            "section": "Lanches",
+            "image": "https://d3sn2rlrwxy0ce.cloudfront.net/_800x600_crop_center-center_none/cheeseburger-thumb_2021-09-16-134559_ypzs.png?mtime=20210916094600&focal=none&tmtime=20210916095008",
+            "items": {
+              "hamburger": 1
+            }
+          },
+          {
+            "id": 2,
+            "name": "Baconburger",
+            "description": "Pão, hambúrguer, queijo cheddar, bacon e ketchup.",
+            "price": 14,
+            "section": "Lanches",
+            "image": "https://d3sn2rlrwxy0ce.cloudfront.net/_800x600_crop_center-center_none/cheeseburger-bacon-thumb_2021-09-16-134755_cxdp.png?mtime=20210916094756&focal=none&tmtime=20210916095009",
+            "items": {
+              "hamburger": 1
+            }
+          },
+          {
+            "id": 7,
+            "name": "Frango Frito",
+            "description": "Porção de 200gr de frango frito.",
+            "price": 14,
+            "section": "Lanches",
+            "image": "https://cdn.discordapp.com/attachments/1178023840358617158/1178069511858040922/chickenfries.png?ex=6574cdbb&is=656258bb&hm=a23347e9fc5fa7c12f9402a8379d42807396d9aeab9e8cb665de4e88da403bff&",
+            "items": {
+              "chickenfries": 1
+            }
+          }
+        ] 
+      }
+    ]
+  }
+}
