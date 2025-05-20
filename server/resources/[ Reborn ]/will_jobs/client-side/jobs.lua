@@ -36,12 +36,13 @@ local pedHashs = {
     "ig_clay",
     "a_f_m_eastsa_01"
 }
+passengers = {}
 --######################--
 --##  JOBS FUNCTIONS  ###--
 --######################--
 
 RegisterNetEvent("will_jobs:initGarbageman",function()
-    
+
     function JobFunctions:collectItem()
         createObjects("missfbi4prepp1","_bag_pickup_garbage_man")
         Wait(1000)
@@ -236,7 +237,20 @@ end)
 
 RegisterNetEvent("will_jobs:initDriver",function()
     local jobConfigs = Config.jobs[actualJob]
-    local passengers = {}
+
+    local function taskEnterBus(nped,vehicle,actualSeat)
+        local cooldown = 0
+        TaskEnterVehicle(nped,vehicle,-1,actualSeat,1.0,1,0)
+        while (GetIsTaskActive(nped,160) or not IsPedSittingInVehicle(nped,vehicle)) and cooldown < 3 do
+            Wait(1000)
+            cooldown = cooldown + 1
+        end
+        if not IsPedSittingInVehicle(nped,vehicle) then
+            SetPedFleeAttributes(nped,0,false)
+            SetEntityAsMissionEntity(nped,true,false)
+            TaskEnterVehicle(nped,vehicle,-1,actualSeat,1.0,1,0)
+        end
+    end
 
     function spawnRandPeds()
         local rand = math.random(1,3)
@@ -249,6 +263,15 @@ RegisterNetEvent("will_jobs:initDriver",function()
             rand = rand - 1
             local pedRand = pedHashs[math.random(#pedHashs)]
             local nped = spawnPed(pedRand, {pedCoords.x2, pedCoords.y2, pedCoords.z2})
+            SetPedFleeAttributes(nped,0,false)
+            SetEntityAsMissionEntity(nped,true,false)
+			local spawnEntity = 0
+            local pedControl = NetworkRequestControlOfEntity(nped)
+            while not pedControl and spawnEntity <= 2000 do
+                pedControl = NetworkRequestControlOfEntity(nped)
+                spawnEntity = spawnEntity + 1
+                Wait(1)
+            end
             table.insert(createdPeds,nped)
         until rand <= 0
     end
@@ -270,21 +293,15 @@ RegisterNetEvent("will_jobs:initDriver",function()
                             break
                         end
                     end
-                    local cooldown = 75
                     if IsVehicleSeatFree(vehicle,actualSeat) then
-                        TaskEnterVehicle(nped,vehicle,-1,actualSeat,1.0,1,0)
-                        while not IsPedSittingInVehicle(nped,vehicle) and cooldown > 0  do
-                            Wait(100)
-                            cooldown = cooldown - 1
-                        end
-                        if IsPedSittingInVehicle(nped,vehicle) then
-                            paymentMethod()
-                            table.insert(passengers, nped)
-                            table.remove(createdPeds, k)
-                        end
+                        taskEnterBus(nped,vehicle,actualSeat)
+                        paymentMethod()
+                        table.insert(passengers, nped)
+                        table.remove(createdPeds, k)
                     end
                 end
             end
+            Wait(1000)
             actualSelected = actualSelected + 1
             FreezeEntityPosition(vehicle, false)
             SetTimeout(2000, function()
@@ -297,17 +314,19 @@ RegisterNetEvent("will_jobs:initDriver",function()
         local rand = math.random(0,#passengers)
         for k,ped in pairs(passengers) do
             if k <= rand then
-                TaskLeaveAnyVehicle(ped,0,0)
-                local cooldown = 50
-                TaskWanderStandard(ped,10.0,10)
+                TaskLeaveVehicle(ped,GetVehiclePedIsIn(PlayerPedId(),false),256)
+                local cooldown = 20
                 while IsPedInAnyVehicle(ped) and cooldown > 0 do
-                    TaskLeaveAnyVehicle(ped,0,0)
+                    TaskLeaveVehicle(ped,GetVehiclePedIsIn(PlayerPedId(),false),256)
                     Wait(100)
                     cooldown = cooldown - 1
                 end
                 table.remove(passengers, k)
                 SetPedKeepTask(ped, false)
                 TaskWanderStandard(ped,10.0,10)
+                if IsPedInAnyVehicle(ped) then
+                    DeleteEntity(ped)
+                end
             end
         end
     end

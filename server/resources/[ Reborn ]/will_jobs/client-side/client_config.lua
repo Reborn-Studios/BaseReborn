@@ -23,6 +23,11 @@ end)
 RegisterCommand("endjob", function (source, args, raw)
     if inService then
         exitService()
+		for k,v in pairs(passengers) do
+			if DoesEntityExist(v) then
+				DeleteEntity(v)
+			end
+		end
         Config.notify("Serviço finalizado", "sucesso")
     end
 end)
