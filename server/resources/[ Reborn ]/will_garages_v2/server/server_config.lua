@@ -639,6 +639,25 @@ exports('setVehSpawned',function(source, vehName, plate, vehid)
     will.setVehSpawned(user_id, vehName, plate, vehid)
 end)
 
+function giveVehicleKey(user_id, plate)
+    if plate then
+        adminVehs[plate] = user_id
+    end
+end
+
+-- ## exports['will_garages_v2']:GiveKey(source, plate)
+
+exports('GiveKey',function(source, plate)
+    local user_id = getUserId(source)
+    giveVehicleKey(user_id, plate)
+end)
+
+RegisterNetEvent("will_garages_v2:GiveKey")
+AddEventHandler("will_garages_v2:GiveKey",function(plate)
+    local source = source
+    local user_id = getUserId(source)
+    giveVehicleKey(user_id, plate)
+end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PREPARES
 -----------------------------------------------------------------------------------------------------------------------------------------

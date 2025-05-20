@@ -52,6 +52,7 @@ function spawnVeh(vname,x,y,z,h)
         SetVehicleNumberPlateText(nveh,plate)
         SetVehicleDoorsLocked(nveh,1)
 		TriggerServerEvent("setPlateEveryone",plate)
+		TriggerServerEvent("will_garages_v2:GiveKey",plate)
     end
     return nveh
 end
