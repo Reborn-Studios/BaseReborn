@@ -67,6 +67,9 @@ function applyModifies(nveh,engine,fuel,tuning,vehDoors,vehWindows,vehTyres,vnam
             if not onlyLivery then
                 TriggerEvent("ld_tunners:client:applyMods", nveh, tuning)
             end
+			if tuning.livery then
+				SetVehicleLivery(nveh, tonumber(tuning.livery))
+			end
         end
 	else
 		vehicleMods(nveh,tuning)
