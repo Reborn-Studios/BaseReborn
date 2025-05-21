@@ -459,13 +459,14 @@ RegisterNetEvent("will_jobs:initFireman",function()
             local timeDistance = 500
             local ped = PlayerPedId()
             
-            if IsPedInAnyVehicle(ped) then
-                local vehicle = GetVehiclePedIsIn(ped)
-                local vehConfig = jobConfigs.vehicleConfig
-                if vehicle and IsVehicleModel(vehicle,GetHashKey(vehConfig.vehicle)) then
-                    timeDistance = 100
-                    if locs[1] then
-                        local x,y,z = locs[1][1],locs[1][2],locs[1][3]
+            if locs[1] then
+                local x,y,z = locs[1][1],locs[1][2],locs[1][3]
+                local distance = #(GetEntityCoords(ped) - vector3(x,y,z))
+                if IsPedInAnyVehicle(ped) and distance <= 20 then
+                    local vehicle = GetVehiclePedIsIn(ped)
+                    local vehConfig = jobConfigs.vehicleConfig
+                    if vehicle and IsVehicleModel(vehicle,GetHashKey(vehConfig.vehicle)) then
+                        timeDistance = 100
                         z = z - 1.0
                         for i=1,5 do
                             StartScriptFire(x, y, z, 15, false)
@@ -483,7 +484,7 @@ RegisterNetEvent("will_jobs:initFireman",function()
                             local distance = #(GetEntityCoords(ped) - vector3(x,y,z))
                             removeAllBlips()
                             locs = getLocs(jobConfigs, "collets")
-                            if distance <= 30.0 then
+                            if distance <= 20.0 then
                                 paymentMethod()
                             end
                         end
