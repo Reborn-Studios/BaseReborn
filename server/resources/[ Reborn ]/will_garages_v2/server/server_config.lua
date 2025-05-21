@@ -96,19 +96,16 @@ end)
 local sharedKeys = {}
 
 RegisterServerEvent("garages:Key")
-AddEventHandler("garages:Key",function(entity)
+AddEventHandler("garages:Key",function(Plate)
 	local source = source
-	local Plate = entity[1]
 	local user_id = getUserId(source)
-    if Config.base == "cn" then
-        if user_id and GlobalState["Plates"][Plate] == user_id then
-            vRP.GenerateItem(user_id,"vehkey-"..Plate,1,true,false)
-        end
-    elseif Config.base == "summerz" then
-        if user_id and GlobalState["vehPlates"][Plate] == user_id then
+    if user_id and (GlobalState["vehPlates"][Plate] == user_id or user_id == getUserByPlate(Plate)) then
+        if GetResourceState("ox_inventory") == "started" then
+            exports.ox_inventory:AddItem(source, "vehkey", 1, { plate = Plate })
+        else
             vRP.generateItem(user_id,"vehkey-"..Plate,1,true,false)
         end
-	end
+    end
 end)
 
 RegisterCommand("chave",function(source, args)
@@ -524,8 +521,30 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- LOCK VEHICLE
 -----------------------------------------------------------------------------------------------------------------------------------------
+local function lockVehicle(source,vehNet)
+    if not vCLIENT.inVehicle(source) then
+        playAnim(source)
+    end
+    local networkVeh = NetworkGetEntityFromNetworkId(vehNet)
+    local vehLock = GetVehicleDoorLockStatus(networkVeh)
+    if vehLock >= 2 then
+        TriggerClientEvent("Notify",source,"importante","Veículo <b>destrancado</b> com sucesso.",5000)
+        TriggerClientEvent("vrp_sound:source",source,"unlocked",0.3)
+        SetVehicleDoorsLocked(networkVeh,1)   -- Destrancado
+    else
+        TriggerClientEvent("Notify",source,"importante","Veículo <b>trancado</b> com sucesso.",5000)
+        TriggerClientEvent("vrp_sound:source",source,"locked",0.3)
+        SetVehicleDoorsLocked(networkVeh,2)   -- Trancado
+    end
+end
+
+RegisterServerEvent("garages:vehicleLock")
+AddEventHandler("garages:vehicleLock",function(source,vehNet)
+    lockVehicle(source,vehNet)
+end)
+
 RegisterServerEvent("will_garages_v2:vehicleLock")
-AddEventHandler("will_garages_v2:vehicleLock",function(vehNet,vehPlate)
+AddEventHandler("will_garages_v2:vehicleLock",function()
 	local source = source
 	local user_id = getUserId(source)
 	if user_id then
@@ -533,20 +552,7 @@ AddEventHandler("will_garages_v2:vehicleLock",function(vehNet,vehPlate)
 		if vehName and vehPlate then
 			local plateUserId = getUserByPlate(vehPlate)
 			if user_id == plateUserId or canLockVehicle(user_id, vehName, plateUserId, vehPlate) then
-                if not vCLIENT.inVehicle(source) then
-                    playAnim(source)
-                end
-                local networkVeh = NetworkGetEntityFromNetworkId(vehNet)
-                local vehLock = GetVehicleDoorLockStatus(networkVeh)
-                if vehLock >= 2 then
-                    TriggerClientEvent("Notify",source,"importante","Veículo <b>destrancado</b> com sucesso.",5000)
-                    TriggerClientEvent("vrp_sound:source",source,"lock",0.3)
-                    SetVehicleDoorsLocked(networkVeh,1)   -- Destrancado
-                else
-                    TriggerClientEvent("Notify",source,"importante","Veículo <b>trancado</b> com sucesso.",5000)
-                    TriggerClientEvent("vrp_sound:source",source,"lock",0.3)
-                    SetVehicleDoorsLocked(networkVeh,2)   -- Trancado
-                end
+                lockVehicle(source,vehNet)
 			end
 		end
 	end
@@ -568,10 +574,12 @@ function registerPlate(vehPlate, user_id)
     if vehPlate then
         local vehPlates = GlobalState["vehPlates"]
         local Plates = GlobalState["Plates"]
-        vehPlates[vehPlate] = user_id or true
-        Plates[vehPlate] = user_id or true
-        GlobalState["vehPlates"] = vehPlates
-        GlobalState["Plates"] = Plates
+        if not vehPlates[vehPlate] then
+            vehPlates[vehPlate] = user_id or true
+            Plates[vehPlate] = user_id or true
+            GlobalState["vehPlates"] = vehPlates
+            GlobalState["Plates"] = Plates
+        end
     end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------

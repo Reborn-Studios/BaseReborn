@@ -12,7 +12,7 @@ local Objects = {}
 local MaxHealth = GlobalState['Basics']['MaxHealth'] or 400
 
 RegisterServerEvent("ox_inventory:useItem")
-AddEventHandler("ox_inventory:useItem",function(source, itemName, rAmount)
+AddEventHandler("ox_inventory:useItem",function(source, itemName, rAmount, data)
 	local user_id = vRP.getUserId(source)
 	if vRPclient.getHealth(source) <= 101 then return end
 	if not rAmount or rAmount <= 0 then
@@ -1469,6 +1469,15 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName, rAmount)
 	if itemName == "cat" then
 		TriggerClientEvent("dynamic:animalSpawn",source,"a_c_cat_01")
 		vRPclient.playAnim(source,true,{"rcmnigel1c","hailing_whistle_waive_a"},false)
+	end
+
+	if itemName == "vehkey" then
+		if data and data.metadata and data.metadata.plate then
+			local vehicle,vehNet,vehPlate = vRPclient.vehList(source,2)
+			if data.metadata.plate == vehPlate then
+				TriggerEvent("garages:vehicleLock",source,vehNet)
+			end
+		end
 	end
 
 	Player(source)["state"]["Commands"] = false

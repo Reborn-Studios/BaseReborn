@@ -1748,4 +1748,14 @@ return {
 			image = "rottweiler.png",
 		}
 	},
+
+	["vehkey"] = {
+		label = "Chave Veícular",
+		close = true,
+		weight = 250,
+		description = "Chave de veiculo",
+		client = {
+			image = "vehiclekey.png",
+		}
+	},
 }

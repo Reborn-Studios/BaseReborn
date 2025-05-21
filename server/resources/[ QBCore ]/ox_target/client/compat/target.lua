@@ -305,6 +305,37 @@ api.addGlobalVehicle(convert({
     }
 }))
 
+local VehPlates = GlobalState["vehPlates"] or {}
+AddStateBagChangeHandler("vehPlates","",function(name,key,value)
+	VehPlates = value
+end)
+
+api.addGlobalVehicle({
+    {
+        icon = 'fa-solid fa-key',
+        label = "Chave Veícular",
+        distance = 2,
+        canInteract = function(entity, distance, coords, name)
+            if GetVehicleDoorLockStatus(entity) <= 1 then
+                local plate = GetVehicleNumberPlateText(entity)
+                return VehPlates[plate]
+            end
+        end,
+        onSelect = function (data)
+            local plate = GetVehicleNumberPlateText(data.entity)
+            if plate then
+                TriggerServerEvent("garages:Key",plate)
+            end
+        end,
+    }
+})
+
+CreateThread(function()
+    while GetResourceState("ox_inventory") ~= "started" do Wait(1000) end
+    local ox_inventory = exports.ox_inventory
+    ox_inventory:displayMetadata("plate", "Placa")
+end)
+
 --[[ 
 
     Jewelry robbery

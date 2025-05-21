@@ -429,7 +429,7 @@ lib.callback.register('ox_inventory:useItem', function(source, itemName, slot, m
 				-- of usable items which led to issues when restarting resources (for obvious reasons), but config
 				-- developers complained the inventory broke their items. Safely invoking registered item callbacks
 				-- should resolve issues, i.e. https://github.com/esx-framework/esx-legacy/commit/9fc382bbe0f5b96ff102dace73c424a53458c96e
-				TriggerEvent("ox_inventory:useItem",source, itemName, data.count)
+				TriggerEvent("ox_inventory:useItem",source, itemName, data.count, data)
 				return pcall(server.UseItem, source, data.name, data)
 			end
 
