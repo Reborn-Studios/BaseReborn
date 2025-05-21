@@ -55,6 +55,7 @@ end)
 
 exports("openMenu",openMenu)
 RegisterCommand("adm2", openMenu)
+RegisterCommand("gerenciar", openMenu)
 
 function GetAllGroups()
     local formattedGroups = {}
