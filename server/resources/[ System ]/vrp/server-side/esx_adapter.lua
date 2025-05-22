@@ -220,7 +220,7 @@ local function updateHealthAndArmorInMetadata(xPlayer)
 end
 
 function Core.SavePlayer(xPlayer, cb)
-
+  local name = xPlayer.getName()
   updateHealthAndArmorInMetadata(xPlayer)
   local parameters <const> = {
       json.encode(xPlayer.getAccounts(true)),
@@ -239,7 +239,7 @@ function Core.SavePlayer(xPlayer, cb)
       parameters,
       function(affectedRows)
           if affectedRows == 1 then
-              print(('[^2INFO^7] Saved player ^5"%s^7"'):format(xPlayer.name))
+              print(('[^2INFO^7] Saved player ^5"%s^7"'):format(name))
               TriggerEvent("esx:playerSaved", xPlayer.playerId, xPlayer)
           end
           if cb then
@@ -786,13 +786,6 @@ AddEventHandler('esx:playerLogout', function(playerId, cb)
   local xPlayer = ESX.GetPlayerFromId(playerId)
   if xPlayer then
     TriggerEvent('esx:playerDropped', playerId)
-
-    Core.SavePlayer(xPlayer, function()
-      ESX.Players[playerId] = nil
-      if cb then
-        cb()
-      end
-    end)
   end
   TriggerClientEvent("esx:onPlayerLogout", playerId)
 end)
