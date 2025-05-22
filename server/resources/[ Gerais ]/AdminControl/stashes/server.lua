@@ -23,7 +23,7 @@ end)
 
 RegisterCommand(Config.Commands["stashes"]['command'],function (source)
     local user_id = vRP.getUserId(source)
-    if vRP.hasPermission(user_id,Config.Commands["garages"]['perm']) then
+    if vRP.hasPermission(user_id,Config.Commands["stashes"]['perm']) then
         if GetResourceState("ox_inventory") == "started" then
             TriggerClientEvent("AdminControl:openStashes",source)
         else

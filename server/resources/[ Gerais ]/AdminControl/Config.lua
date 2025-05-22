@@ -46,6 +46,10 @@ Config.Commands = {
 		['command'] = "criarfarm",
 		['perm'] = "owner.permissao"
 	},
+	['shops'] = {
+		['command'] = "createshops",
+		['perm'] = "owner.permissao"
+	}
 }
 
 Config.DefaultStash = {

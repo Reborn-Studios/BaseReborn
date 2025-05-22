@@ -127,6 +127,14 @@ function Client.openMainMenu()
                     ExecuteCommand("criarfarm")
                 end
             },
+            {
+                title = 'Criar Lojas',
+                description = 'Criação de lojas',
+                icon="fa-solid fa-shop",
+                onSelect = function ()
+                    ExecuteCommand("createshops")
+                end
+            },
         }
     })
     lib.showContext('admin_menu_control')

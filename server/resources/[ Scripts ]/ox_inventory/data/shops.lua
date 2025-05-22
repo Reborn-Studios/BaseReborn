@@ -128,19 +128,6 @@ return {
 			{ loc = vec3(73.02,-392.2,41.63), length = 0.5, width = 3.0, heading = 270.0, minZ = 30.5, maxZ = 32.0, distance = 6 }
 		}
 	},
-	Pesca = {
-        name = 'Pesca',
-        inventory = {
-            { name = 'fishingrod',  price = 500 },
-            { name = 'bait', price = 25 },
-        },
-        locations = {
-			vector3(-1558.96,-970.23,13.02),
-        },
-        targets = {
-			{ loc = vec3(-1558.96,-970.23,13.02), length = 0.5, width = 3.0, heading = 270.0, minZ = 12.5, maxZ = 14.0, distance = 6 }
-        }
-    },
 
 	Reciclagem = {
         name = 'Reciclagem',
