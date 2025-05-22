@@ -5,11 +5,17 @@ AddStateBagChangeHandler("AllShops","",function (_,_,value)
 end)
 
 local AllItems = {}
-if GetResourceState("ox_inventory") == "started" then
-    AllItems = exports.ox_inventory:Items()
-else
-    AllItems = GlobalState["RebornConfig"].items
-end
+CreateThread(function ()
+    if GlobalState['Inventory'] == "ox_inventory" then
+        while GetResourceState("ox_inventory") ~= "started" do
+            Wait(1000)
+        end
+        Wait(500)
+        AllItems = exports.ox_inventory:Items()
+    else
+        AllItems = GlobalState["RebornConfig"].items
+    end
+end)
 
 local newShop = {
     name = nil,
