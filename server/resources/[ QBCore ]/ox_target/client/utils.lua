@@ -18,7 +18,8 @@ function utils.raycastFromCamera(flag)
 
     while true do
         Wait(0)
-        local retval, hit, endCoords, surfaceNormal, materialHash, entityHit = GetShapeTestResultIncludingMaterial(handle)
+        local retval, hit, endCoords, surfaceNormal, materialHash, entityHit = GetShapeTestResultIncludingMaterial(
+        handle)
 
         if retval ~= 1 then
             ---@diagnostic disable-next-line: return-type-mismatch
@@ -28,7 +29,7 @@ function utils.raycastFromCamera(flag)
 end
 
 function utils.getTexture()
-    return lib.requestStreamedTextureDict('shared'), 'emptydot_32'
+    return lib.requestStreamedTextureDict('obtaizen'), 'Point-Green'
 end
 
 -- SetDrawOrigin is limited to 32 calls per frame. Set as 0 to disable.
@@ -36,8 +37,8 @@ local drawZoneSprites = GetConvarInt('ox_target:drawSprite', 24)
 local SetDrawOrigin = SetDrawOrigin
 local DrawSprite = DrawSprite
 local ClearDrawOrigin = ClearDrawOrigin
-local colour = vector(155, 155, 155, 175)
-local hover = vector(98, 135, 236, 255)
+local colour = 'Point-Green'
+local hover = 'Selected'
 local currentZones = {}
 local previousZones = {}
 local drawZones = {}
@@ -53,10 +54,12 @@ function utils.getNearbyZones(coords)
     if not Zones then return currentZones, false end
 
     local n = 0
+    local nearbyZones = lib.zones.getNearbyZones()
     drawN = 0
     previousZones, currentZones = currentZones, table.wipe(previousZones)
 
-    for _, zone in pairs(Zones) do
+    for i = 1, #nearbyZones do
+        local zone = nearbyZones[i]
         local contains = zone:contains(coords)
 
         if contains then
@@ -105,12 +108,11 @@ function utils.drawZoneSprites(dict, texture)
 
     for i = 1, drawN do
         local zone = drawZones[i]
-        local spriteColour = zone.colour or colour
+        local texture = zone.colour and hover or texture
 
-        if zone.drawSprite ~= false then
+        if zone.texture ~= false then
             SetDrawOrigin(zone.coords.x, zone.coords.y, zone.coords.z)
-            DrawSprite(dict, texture, 0, 0, width, height, 0, spriteColour.r, spriteColour.g, spriteColour.b,
-                spriteColour.a)
+            DrawSprite(dict, texture, 0, 0, width, height, 0, 255, 255, 255, 255, 255)
         end
     end
 

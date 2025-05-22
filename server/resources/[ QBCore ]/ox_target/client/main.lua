@@ -1,4 +1,4 @@
-if not lib.checkDependency('ox_lib', '3.21.0', true) then return end
+if not lib.checkDependency('ox_lib', '3.30.0', true) then return end
 
 lib.locale()
 
@@ -18,7 +18,6 @@ local GetEntityType = GetEntityType
 local HasEntityClearLosToEntity = HasEntityClearLosToEntity
 local GetEntityBoneIndexByName = GetEntityBoneIndexByName
 local GetEntityBonePosition_2 = GetEntityBonePosition_2
-local next = next
 local GetEntityModel = GetEntityModel
 local IsDisabledControlJustPressed = IsDisabledControlJustPressed
 local DisableControlAction = DisableControlAction
@@ -233,7 +232,7 @@ local function startTargeting()
 
         if hasTarget and (zonesChanged or entityChanged and hasTarget > 1) then
             SendNuiMessage('{"event": "leftTarget"}')
-            
+
             if entityChanged then options:wipe() end
 
             if debug and lastEntity > 0 then SetEntityDrawOutline(lastEntity, false) end
@@ -292,7 +291,7 @@ local function startTargeting()
         end
 
         if newOptions then
-            if hasTarget == 1 and options.size > 1 then
+            if hasTarget == 1 and (totalOptions - hidden) > 1 then
                 hasTarget = true
             end
 
@@ -427,6 +426,7 @@ RegisterNUICallback('select', function(data, cb)
             else
                 menuHistory[menuDepth + 1] = currentMenu
             end
+
             menuChanged = true
             currentMenu = option.openMenu ~= 'home' and option.openMenu or nil
 
@@ -434,6 +434,8 @@ RegisterNUICallback('select', function(data, cb)
         else
             state.setNuiFocus(false)
         end
+
+        currentTarget.zone = zone?.id
 
         if option.onSelect then
             option.onSelect(option.qtarget and currentTarget.entity or getResponse(option))

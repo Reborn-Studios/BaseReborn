@@ -10,131 +10,6 @@ local api = setmetatable({}, {
     end
 })
 
----@param options table
-local function convert(options)
-    local distance = options.distance
-    options = options.options
-
-    -- People may pass options as a hashmap (or mixed, even)
-    for k, v in pairs(options) do
-        if type(k) ~= 'number' then
-            table.insert(options, v)
-        end
-    end
-
-    for id, v in pairs(options) do
-        if type(id) ~= 'number' then
-            options[id] = nil
-            goto continue
-        end
-
-        v.onSelect = v.action
-        v.distance = v.distance or distance
-        v.name = v.name or v.label
-        v.items = v.item
-        v.icon = v.icon
-        v.groups = v.job
-
-        local groupType = type(v.groups)
-        if groupType == 'nil' then
-            v.groups = {}
-            groupType = 'table'
-        end
-        if groupType == 'string' then
-            local val = v.gang
-            if type(v.gang) == 'table' then
-                if table.type(v.gang) ~= 'array' then
-                    val = {}
-                    for k in pairs(v.gang) do
-                        val[#val + 1] = k
-                    end
-                end
-            end
-
-            if val then
-                v.groups = {v.groups, type(val) == 'table' and table.unpack(val) or val}
-            end
-
-            val = v.citizenid
-            if type(v.citizenid) == 'table' then
-                if table.type(v.citizenid) ~= 'array' then
-                    val = {}
-                    for k in pairs(v.citizenid) do
-                        val[#val+1] = k
-                    end
-                end
-            end
-
-            if val then
-                v.groups = {v.groups, type(val) == 'table' and table.unpack(val) or val}
-            end
-        elseif groupType == 'table' then
-            local val = {}
-            if table.type(v.groups) ~= 'array' then
-                for k in pairs(v.groups) do
-                    val[#val + 1] = k
-                end
-                v.groups = val
-                val = nil
-            end
-
-            val = v.gang
-            if type(v.gang) == 'table' then
-                if table.type(v.gang) ~= 'array' then
-                    val = {}
-                    for k in pairs(v.gang) do
-                        val[#val + 1] = k
-                    end
-                end
-            end
-
-            if val then
-                v.groups = {table.unpack(v.groups), type(val) == 'table' and table.unpack(val) or val}
-            end
-
-            val = v.citizenid
-            if type(v.citizenid) == 'table' then
-                if table.type(v.citizenid) ~= 'array' then
-                    val = {}
-                    for k in pairs(v.citizenid) do
-                        val[#val+1] = k
-                    end
-                end
-            end
-
-            if val then
-                v.groups = {table.unpack(v.groups), type(val) == 'table' and table.unpack(val) or val}
-            end
-        end
-
-        if type(v.groups) == 'table' and table.type(v.groups) == 'empty' then
-            v.groups = nil
-        end
-
-        if v.event and v.type and v.type ~= 'client' then
-            if v.type == 'server' then
-                v.serverEvent = v.event
-            elseif v.type == 'command' then
-                v.command = v.event
-            end
-
-            v.event = nil
-            v.type = nil
-        end
-
-        v.action = nil
-        v.job = nil
-        v.gang = nil
-        v.citizenid = nil
-        v.item = nil
-        v.qtarget = true
-
-        ::continue::
-    end
-
-    return options
-end
-
 ---Throws a formatted type error
 ---@param variable string
 ---@param expected string
@@ -148,7 +23,7 @@ end
 ---@return OxTargetOption[]
 local function checkOptions(options)
     local optionsType = type(options)
-    
+
     if optionsType ~= 'table' then
         typeError('options', 'table', optionsType)
     end
@@ -201,7 +76,7 @@ function api.zoneExists(id)
 
     if type(id) == 'number' and Zones[id] then return true end
 
-    for key, zone in pairs(Zones) do
+    for _, zone in pairs(lib.zones.getAllZones()) do
         if type(id) == 'string' and zone.name == id then return true end
     end
 
@@ -215,7 +90,7 @@ function api.removeZone(id, suppressWarning)
         if type(id) == 'string' then
             local foundZone
 
-            for _, v in pairs(Zones) do
+            for _, v in pairs(lib.zones.getAllZones()) do
                 if v.name == id then
                     foundZone = true
                     v:remove()
@@ -277,7 +152,7 @@ local function addTarget(target, options, resource)
     end
 
     if checkNames[1] then
-        removeTarget(target, checkNames, resource)
+        removeTarget(target, checkNames, resource, true)
     end
 
     local num = #target
@@ -421,37 +296,6 @@ function api.addEntity(arr, options)
     end
 end
 
-local IDS = {}
-
-function api.AddEntityZone(name, entity, options, targetoptions)
-    local id = math.random(1,100000000)
-    IDS[name] = id
-
-    local entityCoords = GetEntityCoords(entity)
-    local entityModel = GetEntityModel(entity)
-    
-    local minimum, maximum = GetModelDimensions(entityModel)
-    local width = math.abs(maximum.x - minimum.x)
-    local length = math.abs(maximum.y - minimum.y)
-    local height = math.abs(maximum.z - minimum.z)
-
-    local center = vec3(entityCoords.x, entityCoords.y, entityCoords.z + height / 2)
-
-    return api.addBoxZone({
-        name = IDS[name],
-        coords = center,
-        size = vec3(width, length, height),
-        debug = options.debugPoly,
-        rotation = options.heading,
-        options = convert(targetoptions),
-    })
-end
-
-function api.RemoveZone(name)
-    local id = IDS[name]
-    api.removeZone(id, true)
-end
-
 ---@param arr number | number[]
 ---@param options? string | string[]
 function api.removeEntity(arr, options)
@@ -494,7 +338,7 @@ function api.addLocalEntity(arr, options)
 
             addTarget(localEntities[entityId], options, resource)
         else
-            print(("No entity with id '%s' exists."):format(entityId))
+             lib.print.warn(("No entity with id '%s' exists in %s."):format(entityId, resource))
         end
     end
 end
@@ -656,7 +500,9 @@ function api.getTargetOptions(entity, _type, model)
             global = players,
         }
     end
+
     local netId = NetworkGetEntityIsNetworked(entity) and NetworkGetNetworkIdFromEntity(entity)
+
     return {
         global = _type == 1 and peds or _type == 2 and vehicles or objects,
         model = models[model],
