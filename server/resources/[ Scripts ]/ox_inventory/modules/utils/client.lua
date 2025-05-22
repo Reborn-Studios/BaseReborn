@@ -166,4 +166,35 @@ function Utils.CreateBoxZone(data, options)
     return exports.ox_target:addBoxZone(data)
 end
 
+local hasTextUi
+
+---@param point CPoint
+function Utils.nearbyMarker(point)
+    DrawMarker(point.marker.type, point.coords.x, point.coords.y, point.coords.z, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, point.marker.scale[1], point.marker.scale[2], point.marker.scale[3],
+        ---@diagnostic disable-next-line: param-type-mismatch
+        point.marker.colour[1], point.marker.colour[2], point.marker.colour[3], 222, false, false, 0, true, false, false, false)
+
+    if point.isClosest and point.currentDistance < 1.2 then
+        if not hasTextUi then
+            hasTextUi = point
+            lib.showTextUI(point.prompt.message, point.prompt.options)
+        end
+
+        if IsControlJustReleased(0, 38) then
+            CreateThread(function()
+                if point.inv == 'policeevidence' then
+                    client.openInventory('policeevidence')
+                elseif point.inv == 'crafting' then
+                    client.openInventory('crafting', { id = point.benchid, index = point.index })
+                else
+                    client.openInventory(point.inv or 'drop', { id = point.invId, type = point.type })
+                end
+            end)
+        end
+    elseif hasTextUi == point then
+        hasTextUi = nil
+        lib.hideTextUI()
+    end
+end
+
 return Utils

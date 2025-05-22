@@ -304,29 +304,32 @@ local function openEvidence()
 	client.openInventory('policeevidence')
 end
 
----@param point CPoint
-local function nearbyEvidence(point)
-	---@diagnostic disable-next-line: param-type-mismatch
-	DrawMarker(2, point.coords.x, point.coords.y, point.coords.z, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.3, 0.2, 0.15, 30, 30, 150, 222, false, false, 0, true, false, false, false)
-
-	if point.isClosest and point.currentDistance < 1.2 and IsControlJustReleased(0, 38) then
-		openEvidence()
-	end
-end
+local textPrompts = {
+    evidence = {
+        options = { icon = 'fa-box-archive' },
+        message = ('**%s**  \n%s'):format(locale('open_police_evidence'),
+            locale('interact_prompt', GetControlInstructionalButton(0, 38, true):sub(3)))
+    },
+    stash = {
+        options = { icon = 'fa-warehouse' },
+        message = ('**%s**  \n%s'):format(locale('open_stash'),
+            locale('interact_prompt', GetControlInstructionalButton(0, 38, true):sub(3)))
+    }
+}
 
 Inventory.Evidence = setmetatable(lib.load('data.evidence'), {
-	__call = function(self)
-		for _, evidence in pairs(self) do
-			if evidence.point then
-				evidence.point:remove()
+    __call = function(self)
+        for _, evidence in pairs(self) do
+            if evidence.point then
+                evidence.point:remove()
             elseif evidence.zoneId then
                 exports.ox_target:removeZone(evidence.zoneId)
                 evidence.zone = nil
             end
 
-			if client.hasGroup(shared.police) then
-				if shared.target then
-					if evidence.target then
+            if client.hasGroup(shared.police) then
+                if shared.target then
+                    if evidence.target then
                         evidence.zoneId = Utils.CreateBoxZone(evidence.target, {
                             {
                                 icon = evidence.target.icon or 'fas fa-warehouse',
@@ -336,56 +339,38 @@ Inventory.Evidence = setmetatable(lib.load('data.evidence'), {
                                 iconColor = evidence.target.iconColor,
                             }
                         })
-					end
-				else
-					evidence.target = nil
-					evidence.point = lib.points.new({
-						coords = evidence.coords,
-						distance = 16,
-						inv = 'policeevidence',
-						nearby = nearbyEvidence
-					})
-				end
-			end
-		end
-	end
+                    end
+                else
+                    evidence.target = nil
+                    evidence.point = lib.points.new({
+                        coords = evidence.coords,
+                        distance = 16,
+                        inv = 'policeevidence',
+                        marker = client.evidencemarker,
+                        prompt = textPrompts.evidence,
+                        nearby = Utils.nearbyMarker
+                    })
+                end
+            end
+        end
+    end
 })
 
-local function nearbyStash(self)
-	---@diagnostic disable-next-line: param-type-mismatch
-	--[[ if distance < 2.5 then
-		DrawText3D(x,y,z+1.0, "~b~[E]~w~ ACESSAR BAÚ ~b~"..string.upper(chest).."~w~.")
-	end ]]
-	DrawMarker(2, self.coords.x, self.coords.y, self.coords.z-0.5, 0, 0, 0, 0, 0, 0, 0.2, 0.2, 0.2, 255, 255, 255, 180, 0, 0, 2, 1, 0, 0, 0) -- seta
-	DrawMarker(25, self.coords.x, self.coords.y, self.coords.z-1.00, 0, 0, 0, 0, 0, 0, 0.9, 0.9, 0.5, 255, 255, 255, 180, 0, 0, 2, 1, 0, 0, 0) -- baixo
-	DrawMarker(25, self.coords.x, self.coords.y, self.coords.z-1.00, 0, 0, 0, 0, 0, 0, 1.0, 1.0, 0.5, 19, 126, 138, 280, 0, 0, 2, 1, 0, 0, 0) -- baixo contorno azul
-	-- DrawMarker(2, self.coords.x, self.coords.y, self.coords.z, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.3, 0.2, 0.15, 30, 30, 150, 222, false, false, 0, true, false, false, false)
-end
-
 Inventory.Stashes = setmetatable(lib.load('data.stashes'), {
-	__call = function(self)
-		for id, stash in pairs(self) do
-			if stash.jobs then stash.groups = stash.jobs end
+    __call = function(self)
+        for id, stash in pairs(self) do
+            if stash.jobs then stash.groups = stash.jobs end
 
-			if stash.point then
-				stash.point:remove()
+            if stash.point then
+                stash.point:remove()
             elseif stash.zoneId then
                 exports.ox_target:removeZone(stash.zoneId)
                 stash.zoneId = nil
             end
 
-			if not stash.groups or client.hasGroup(stash.groups) then
-				if stash.showBlip then
-					stash.point = lib.points.new({
-						coords = stash.coords,
-						distance = 10,
-						inv = 'stash',
-						invId = stash.name,
-						nearby = nearbyStash
-					})
-				end
-				if shared.target then
-					if stash.target then
+            if not stash.groups or client.hasGroup(stash.groups) then
+                if shared.target then
+                    if stash.target then
                         stash.zoneId = Utils.CreateBoxZone(stash.target, {
                             {
                                 icon = stash.target.icon or 'fas fa-warehouse',
@@ -397,13 +382,22 @@ Inventory.Stashes = setmetatable(lib.load('data.stashes'), {
                                 iconColor = stash.target.iconColor,
                             },
                         })
-					end
-				else
-					stash.target = nil
-				end
-			end
-		end
-	end
+                    end
+                else
+                    stash.target = nil
+                    stash.point = lib.points.new({
+                        coords = stash.coords,
+                        distance = 16,
+                        inv = 'stash',
+                        invId = stash.name,
+                        marker = client.evidencemarker,
+                        prompt = textPrompts.stash,
+                        nearby = Utils.nearbyMarker
+                    })
+                end
+            end
+        end
+    end
 })
 
 RegisterNetEvent('ox_inventory:refreshMaxWeight', function(data)
