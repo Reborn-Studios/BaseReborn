@@ -117,6 +117,10 @@ function tryPayment(user_id, price)
 	return vRP.tryFullPayment(user_id, parseInt(price))
 end
 
+function paymentBuyShop(user_id, value, shop)
+    return tryPayment(user_id, value)
+end
+
 function getUserMoney(user_id)
     if Config.base == "cn" then
         return vRP.InventoryItemAmount(user_id,"dollars")[1]
