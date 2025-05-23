@@ -769,3 +769,27 @@ RegisterCommand("postit",function(source,args,rawCommand)
 		end
 	end
 end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- APREENDER MESA DE DROGA
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterCommand("apreendermesa",function (source)
+    local user_id = vRP.getUserId(source)
+    if user_id and vRP.hasPermission(user_id,"policia.permissao") then
+        local DrugTables = GlobalState.DrugTables or {}
+        local coords = GetEntityCoords(GetPlayerPed(source))
+        for k,v in pairs(DrugTables) do
+			local distance = #(coords - vector3(v["x"],v["y"],v["z"]))
+            if distance < 2 then
+                vRPclient._playAnim(source,false,{{"anim@amb@clubhouse@tutorial@bkr_tut_ig3@","machinic_loop_mechandplayer"}},true)
+                Wait(4000)
+                TriggerClientEvent("Notify",source,"sucesso","Você apreendeu uma mesa de drogas.",5000)
+                vRPclient._stopAnim(source)
+                if DrugTables[k] then
+                    DrugTables[k] = nil
+                end
+                GlobalState:set("DrugTables",DrugTables,true)
+                return
+            end
+        end
+    end
+end)
