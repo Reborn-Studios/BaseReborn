@@ -34,9 +34,11 @@ Config.jobsQuantity = function(item, value)
     if item == 'fuel' then
         return 5000
     end
+    if item == "fichas" then
+        return math.random(15, 20) * 1000
+    end
     return math.random(15, 25)
 end
-
 
 --// Contratos a cada 120 minutos
 Config.WorkTimeout = 120
