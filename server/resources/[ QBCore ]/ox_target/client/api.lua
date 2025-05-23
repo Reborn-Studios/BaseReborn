@@ -124,7 +124,7 @@ local function removeTarget(target, remove, resource, showWarning)
                     table.remove(target, i)
 
                     if showWarning then
-                        utils.warn(("Replacing existing target option '%s'."):format(option.name))
+                        -- utils.warn(("Replacing existing target option '%s'."):format(option.name))
                     end
                 end
             end
