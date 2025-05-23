@@ -29,7 +29,6 @@ p {
   left: 50%;
   transform: translate(-50%, -50%);
   fill: #5bb894;
-
 }
 
 .eye-hover {
@@ -45,7 +44,7 @@ p {
   color: rgba(0, 73, 45, 0.548);
   font-size: 5.07vh;
   text-shadow: #ffffff00 1px 0 10px;
-  -webkit-text-stroke: 1px #84ffd0
+  -webkit-text-stroke: 1px #84ffd0;
 }
 
 #options-wrapper {
@@ -67,17 +66,17 @@ p {
     rgba(0, 61, 38, 0.438) 100%
   );
   border-radius: 5px;
-  font-size: 15pt;
+  font-size: 12pt;
   line-height: 50pt;
-  font-family: 'Nunito';
+  font-family: "Nunito";
   vertical-align: middle;
   transition: 300ms;
   transform-origin: left top;
   scale: 1;
   height: 25pt;
-  width: 200pt;
   margin: 5pt;
   margin-top: 6;
+  padding-right: 1vw;
 }
 
 .option-container:hover {
@@ -90,13 +89,13 @@ p {
 }
 
 .option-icon {
-  font-size: 15pt;
+  font-size: 12pt;
   line-height: 22pt;
   width: 14pt;
   margin: 7pt;
   padding-left: 3px;
   padding-right: 3.5px;
-  color:  #84ffd0;
+  color: #84ffd0;
 }
 
 .option-label {

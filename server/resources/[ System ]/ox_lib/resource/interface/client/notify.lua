@@ -23,24 +23,26 @@ local settings = require 'resource.settings'
 ---@param data NotifyProps
 ---@diagnostic disable-next-line: duplicate-set-field
 function lib.notify(data)
-    local sound = settings.notification_audio and data.sound
-    data.sound = nil
-    data.position = data.position or settings.notification_position
+    TriggerEvent("Notify", data.type or "azul", data.title or data.description, data.duration or 5000)
 
-    SendNUIMessage({
-        action = 'notify',
-        data = data
-    })
+    -- local sound = settings.notification_audio and data.sound
+    -- data.sound = nil
+    -- data.position = data.position or settings.notification_position
 
-    if not sound then return end
+    -- SendNUIMessage({
+    --     action = 'notify',
+    --     data = data
+    -- })
 
-    if sound.bank then lib.requestAudioBank(sound.bank) end
+    -- if not sound then return end
 
-    local soundId = GetSoundId()
-    PlaySoundFrontend(soundId, sound.name, sound.set, true)
-    ReleaseSoundId(soundId)
+    -- if sound.bank then lib.requestAudioBank(sound.bank) end
 
-    if sound.bank then ReleaseNamedScriptAudioBank(sound.bank) end
+    -- local soundId = GetSoundId()
+    -- PlaySoundFrontend(soundId, sound.name, sound.set, true)
+    -- ReleaseSoundId(soundId)
+
+    -- if sound.bank then ReleaseNamedScriptAudioBank(sound.bank) end
 end
 
 ---@class DefaultNotifyProps
