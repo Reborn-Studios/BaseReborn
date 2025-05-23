@@ -151,6 +151,18 @@ local shopsProducts = {
     },
 }
 
+-- // Valores minimos e maximos para os produtos
+Config.ItemPrices = {
+    ['hotdog'] = {
+        ['min'] = 50,
+        ['max'] = 500
+    },
+    ['cola'] = {
+        ['min'] = 50,
+        ['max'] = 500
+    },
+}
+
 -- // Configuração de todas lojas
 Config.Shops = {
     ["Conveniencia_01"] = {
