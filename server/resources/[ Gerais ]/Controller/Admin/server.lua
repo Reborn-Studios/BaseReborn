@@ -758,3 +758,14 @@ RegisterCommand("rg",function(source,args,rawCommand)
 		end
 	end
 end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- RG
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterCommand("postit",function(source,args,rawCommand)
+	local user_id = vRP.getUserId(source)
+	if user_id then
+		if HasPermission(source,"postit") then
+			TriggerClientEvent("postit:initPostit",source)
+		end
+	end
+end)

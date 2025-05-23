@@ -133,6 +133,7 @@ Config.Admin = {
     ['time'] = "admin.permissao",
     ['weather'] = "admin.permissao",
     ['wall'] = "admin.permissao",
+    ['postit'] = "admin.permissao",
 }
 
 --------##########################----------

@@ -346,3 +346,44 @@ AddEventHandler("syncarea",function(x,y,z,range)
     ClearAreaOfVehicles(x,y,z,2000.0,false,false,false,false,false)
     ClearAreaOfEverything(x,y,z,2000.0,false,false,false,false)
 end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- GETCOORDSFROMCAM
+-----------------------------------------------------------------------------------------------------------------------------------------
+function GetCoordsFromCam(distance,coords)
+	local rotation = GetGameplayCamRot(0)
+	local adjustedRotation = vector3((math.pi / 180) * rotation["x"],(math.pi / 180) * rotation["y"],(math.pi / 180) * rotation["z"])
+	local direction = vector3(-math.sin(adjustedRotation[3]) * math.abs(math.cos(adjustedRotation[1])),math.cos(adjustedRotation[3]) * math.abs(math.cos(adjustedRotation[1])),math.sin(adjustedRotation[1]))
+
+	return vector3(coords[1] + direction[1] * distance, coords[2] + direction[2] * distance, coords[3] + direction[3] * distance)
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- POSTIT:INITPOSTIT
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("postit:initPostit")
+AddEventHandler("postit:initPostit",function()
+	if not Active then
+		Active = true
+
+		CreateThread(function()
+			while true do
+				local Ped = PlayerPedId()
+				local Camera = GetGameplayCamCoord()
+				local CamCoords = GetCoordsFromCam(25.0,Camera)
+				local Handler = StartExpensiveSynchronousShapeTestLosProbe(Camera.x,Camera.y,Camera.z,CamCoords.x,CamCoords.y,CamCoords.z,-1,Ped,4)
+				local _,_,Coords = GetShapeTestResult(Handler)
+
+				---@diagnostic disable-next-line: missing-parameter
+				DrawMarker(28,Coords["x"],Coords["y"],Coords["z"],0.0,0.0,0.0,0.0,0.0,0.0,0.05,0.05,0.05,88,101,242,175,false,false,0,false)
+
+				if IsControlJustPressed(1,38) then
+                    vRP.prompt("Cordenadas",mathLegth(Coords["x"])..","..mathLegth(Coords["y"])..","..mathLegth(Coords["z"]))
+					Active = false
+
+					break
+				end
+
+				Wait(1)
+			end
+		end)
+	end
+end)
