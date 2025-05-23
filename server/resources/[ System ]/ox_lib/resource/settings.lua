@@ -21,7 +21,7 @@ end
 
 local settings = {
     default_locale = GetConvar('ox:locale', 'pt-br'),
-    notification_position = safeGetKvp(GetResourceKvpString, 'notification_position', 'top-right'),
+    notification_position = safeGetKvp(GetResourceKvpString, 'notification_position', 'center-right'),
     notification_audio = safeGetKvp(GetResourceKvpInt, 'notification_audio') == 1
 }
 
@@ -99,7 +99,7 @@ RegisterCommand('ox_lib', function()
     ---@type boolean, string, string
     local notification_audio, notification_position, locale = table.unpack(input)
 
-    if set('locale', locale) then lib.setLocale(locale) end
+    if userLocales and set('locale', locale) then lib.setLocale(locale) end
 
     set('notification_position', notification_position)
     set('notification_audio', notification_audio)
