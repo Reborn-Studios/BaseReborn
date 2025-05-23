@@ -105,7 +105,7 @@ function api.removeZone(id, suppressWarning)
 
     if suppressWarning then return end
 
-    warn(('attempted to remove a zone that does not exist (id: %s)'):format(id))
+    -- warn(('attempted to remove a zone that does not exist (id: %s)'):format(id))
 end
 
 ---@param target table
