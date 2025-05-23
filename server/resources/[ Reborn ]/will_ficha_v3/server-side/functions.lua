@@ -90,6 +90,7 @@ local function outPrison(user_id)
         local x,y,z = table.unpack(Config.coords_prison['Solto'])
         SetEntityCoords(ped,x,y,z)
         vRP.execute("vRP/resgate_prison",{ user_id = user_id })
+        vRP.initPrison(user_id, 0)
     end
 end
 
