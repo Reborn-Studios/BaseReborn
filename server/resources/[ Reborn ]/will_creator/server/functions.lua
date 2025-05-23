@@ -94,7 +94,7 @@ local function getUserJob(user_id)
     local groups = Reborn.groups()
     local job = "Desempregado"
     for k,v in pairs(userJobs) do
-        if groups[v.perm] and groups[v.perm]._config and groups[v.perm]._config.gtype and groups[v.perm]._config.gtype == job then
+        if groups[v.perm] and groups[v.perm]._config and groups[v.perm]._config.gtype and groups[v.perm]._config.gtype == "job" then
             job = groups[v.perm]._config.title or v.perm
         end
     end
