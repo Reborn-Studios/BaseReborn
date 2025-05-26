@@ -1421,7 +1421,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName, rAmount, data)
 	end
 
 	if itemName == "drugtable" then
-		TriggerClientEvent("will_drugsales:useTable", source, "prop_protest_table_01")
+		TriggerEvent("will_drugsales:useTable", source, "prop_protest_table_01")
 	end
 
 	if itemName == "gemstone" then

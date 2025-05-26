@@ -246,6 +246,16 @@ function Framework:CheckDrugPrice(data)
     return false
 end
 
+RegisterNetEvent("will_drugsales:useTable")
+AddEventHandler("will_drugsales:useTable", function (source,prop)
+    local totalCops = #Framework:GetCops() or 0
+	if totalCops < Config.MinimumCops then
+		Framework:SrvNotify(source,Config.Locales['disable_zone'])
+		return
+	end
+    TriggerClientEvent("will_drugsales:useTable",source,prop)
+end)
+
 RegisterNetEvent("will_drugsales:addTableItem")
 AddEventHandler("will_drugsales:addTableItem", function ()
    local source = source
