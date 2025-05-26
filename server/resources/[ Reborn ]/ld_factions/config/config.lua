@@ -163,7 +163,7 @@ orgsConfig.List = {
 			},
 		}
 	},
-	["Mafia"] = {
+	["Mecanico"] = {
 		config = {
 			maxMembers = 15, -- Maximo de Jogadores
 			listMetas = {
@@ -178,12 +178,16 @@ orgsConfig.List = {
 		},
 		
 		groups = {
-			["MafiaLider"] = { -- CARGO
+			["MecanicoLider"] = { -- CARGO
 				prefix = "Lider", -- PREFIX
 				leader = true, -- Se é lider ou não
+				tier = 3, -- Nivel do Cargo ( Para ter uma Ordem )
+			},
+			["MecanicoGerente"] = {
+				prefix = "Membro", -- PREFIX
 				tier = 2, -- Nivel do Cargo ( Para ter uma Ordem )
 			},
-			["Mafia"] = { -- CARGO
+			["Mecanico"] = { -- CARGO
 				prefix = "Membro", -- PREFIX
 				tier = 1, -- Nivel do Cargo ( Para ter uma Ordem )
 			},
