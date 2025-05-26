@@ -1250,5 +1250,5 @@ end)
 
 RegisterNetEvent("towdriver:invokeTow")
 AddEventHandler("towdriver:invokeTow",function()
-	ExecuteCommand("tow")
+	ExecuteCommand("rebocar")
 end)
