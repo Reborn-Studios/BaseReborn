@@ -166,15 +166,7 @@ orgsConfig.List = {
 	["Mecanico"] = {
 		config = {
 			maxMembers = 15, -- Maximo de Jogadores
-			listMetas = {
-                -- ITEM / SEMPRE TRUE
-                ['m1911'] = true,
-                ['fiveseven'] = true,
-                ['akcompact'] = true,
-				['uzi'] = true,
-				["ak103"] = true,
-				["ak74"] = true,
-            }
+			listMetas = {}
 		},
 		
 		groups = {
