@@ -86,7 +86,6 @@ window.addEventListener("message", function (event) {
     favoriteAnimations = ed.favs;
     document.getElementById("mainDivLeftSideBottom").innerHTML = "";
     ed.categories.forEach(function (categoryData, index) {
-      let url = IapU(EvhR(categoryData.image));
       if (categoryData.name == "all") {
         chanCatName = "All";
       } else if (categoryData.name == "general") {
@@ -226,10 +225,6 @@ function clFunc(name1, name2, name3, name4, name5, name6) {
         let category = favData.category;
         if (favData.category === "general") {
           category = "emotes";
-        }
-        let src = IapU(EXiU(category, favData.imgId));
-        if (category === "placedemotes" || category == "syncedemotes") {
-          src = "files/unknown.png";
         }
         $(`#mainDivRightSideBottomTopDiv-${favData.id}`).hover(
           function () {
@@ -546,8 +541,10 @@ function updateContent(emotes) {
           `clFunc('playAnim', '${item.animId}', '${item.category}')`
         );
         // divItem.appendChild(img);
-        document.getElementById(`geniun-${item.id}`).innerHTML = "";
-        document.getElementById(`geniun-${item.id}`).appendChild(img);
+        if (document.getElementById(`geniun-${item.id}`)) {
+          document.getElementById(`geniun-${item.id}`).innerHTML = "";
+          document.getElementById(`geniun-${item.id}`).appendChild(img);
+        }
       });
 
       fragment.appendChild(divItem);
