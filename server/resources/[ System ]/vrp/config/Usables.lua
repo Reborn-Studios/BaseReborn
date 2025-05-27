@@ -549,9 +549,14 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName, rAmount, data)
 		if GetResourceState("will_homes") == "started" then
 			local checkHome = exports['will_homes']:tryEnterHome(source, true)
 			if checkHome then
+				local polices = vRP.getUsersByPermission("policia.permissao")
+				if #polices < 2 then
+					TriggerClientEvent("Notify",source,"negado","Não há contingente suficiente.",7000)
+					return
+				end
 				vRPclient.playAnim(source,false,{"missheistfbi3b_ig7","lift_fibagent_loop"},false)
 				local taskResult = vTASKBAR.taskLockpick(source)
-				if taskResult then
+				if taskResult and vRP.tryGetInventoryItem(user_id,itemName,1,true) then
 					TriggerClientEvent("will_homes:client:enterHouse",source, checkHome, true)
 				end
 				vRPclient._stopAnim(source,false)
