@@ -9,6 +9,7 @@ local vRPclient = Tunnel.getInterface("vRP")
 
 local active = {}
 local Objects = {}
+local Trashes = {}
 local MaxHealth = GlobalState['Basics']['MaxHealth'] or 400
 
 RegisterServerEvent("ox_inventory:useItem")
@@ -1486,6 +1487,34 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName, rAmount, data)
 	end
 
 	Player(source)["state"]["Commands"] = false
+end)
+
+RegisterNetEvent("inventory:verifyObjects")
+AddEventHandler("inventory:verifyObjects",function(data)
+	local source = source
+	local coords = GetEntityCoords(GetPlayerPed(source))
+	for k,v in pairs(Trashes) do
+		if #(coords - v) <= 2.0 then
+			TriggerClientEvent("Notify",source,"negado","Lixeira esta vazia.",5000)
+			return
+		end
+	end
+	table.insert(Trashes, data.coords)
+	local user_id = vRP.getUserId(source)
+	local itens = { "emptybottle", "bandage", "burger", "water" }
+	local itemName = itens[math.random(1, #itens)]
+	if vRP.computeInvWeight(user_id)+vRP.itemWeightList(itemName) <= vRP.getBackpack(user_id) then
+		TriggerClientEvent("Progress",source,3000)
+		TriggerClientEvent('cancelando',source,true)
+		vRPclient._playAnim(source,false,{"amb@prop_human_parking_meter@female@idle_a","idle_a_female"},true)
+		SetTimeout(3000,function()
+			vRPclient._DeletarObjeto(source)
+			TriggerClientEvent('cancelando',source,false)
+			vRP.giveInventoryItem(user_id,itemName,1,true)
+		end)
+	else
+		TriggerClientEvent("Notify",source,"negado","Mochila cheia.",5000)
+	end
 end)
 
 RegisterNetEvent("inventory:makeWater")
