@@ -460,7 +460,7 @@ function updateContent(emotes) {
       if (item.category === "general") {
         category = "emotes";
       }
-      let src = IapU(EXiU(category, item.imgId));
+      let src = "";
       if (category === "placedemotes" || category == "syncedemotes") {
         src = "files/unknown.png";
       }
@@ -743,7 +743,7 @@ function addAnimToQuick(data, id) {
   if (category === "general") {
     category = "emotes";
   }
-  let src = IapU(EXiU(category, data.imgId));
+  let src = "";
   if (category === "placedemotes" || category == "syncedemotes") {
     src = "files/unknown.png";
   }
