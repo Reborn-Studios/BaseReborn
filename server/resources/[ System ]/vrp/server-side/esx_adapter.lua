@@ -220,6 +220,7 @@ local function updateHealthAndArmorInMetadata(xPlayer)
 end
 
 function Core.SavePlayer(xPlayer, cb)
+  if not xPlayer then return end
   local name = xPlayer.getName()
   updateHealthAndArmorInMetadata(xPlayer)
   local parameters <const> = {
