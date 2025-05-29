@@ -7,12 +7,16 @@ function server.hasGroup(inv, group)
 			local groupRank = inv.player.groups[name]
 			if groupRank and groupRank >= (rank or 0) then
 				return name, groupRank
+			elseif Player(inv.player.source).state[name] then
+				return name, "0"
 			end
 		end
 	else
 		local groupRank = inv.player.groups[group]
 		if groupRank then
 			return group, groupRank
+		elseif Player(inv.player.source).state[group] then
+			return group, "0"
 		end
 	end
 end
