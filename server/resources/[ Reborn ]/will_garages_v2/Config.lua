@@ -229,26 +229,36 @@ Config.workgarage = {
         "Amarokmec"
     },
     ["Paramedic"] = {
-		"ambulance",
+		"DLRS6EMS",
+		"DLRSQ8EMS",
+		"DLX5EMS",
+		"DLYAMAHAEMS"
     },
     ["Hospital"] = {
-        "ambulance",
+        "DLRS6EMS",
+		"DLRSQ8EMS",
+		"DLX5EMS",
+		"DLYAMAHAEMS"
     },
     ["Heliparamedic"] = {
-        "polmav"
+        "maverick2"
     },
     ["Police_interior"] = {
-        "police",
-		"polmustang",
-		"police3",
+        "reborna45",
+		"rebornc7",
+		"reborndodgeramtrx",
+		"reborngle450",
+		"reborntenere",
     },
     ["Police"] = {
-        { model = "police", livery = 1, name = "Veiculo policial", photo = "policephoto", perm = "Coronel" },
-		"polmustang",
-		"police3"
+		"reborna45",
+		"rebornc7",
+		"reborndodgeramtrx",
+		"reborngle450",
+		"reborntenere",
     },
     ["Helipolice"] = {
-        "polmav"
+        "maverick2"
     },
     ["Driver"] = {
         "bus"
