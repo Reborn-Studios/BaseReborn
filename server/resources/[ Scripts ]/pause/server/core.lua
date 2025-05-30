@@ -210,7 +210,7 @@ function Creative.StoreBuy(itemName, amount)
         end
         local itemData = getItemData(itemName)
         if itemData then
-            local price = parseInt(itemData["Price"] * itemData["Discount"])
+            local price = parseInt(itemData["Price"] * itemData["Discount"]) * amount
             if vRP.PaymentGemstone(user_id, price) then
                 local params = {
                     ['@passport'] = user_id,
