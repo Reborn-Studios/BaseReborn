@@ -793,3 +793,46 @@ RegisterCommand("apreendermesa",function (source)
         end
     end
 end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- COMMANDS - SEM WILL_GARAGES_V2
+-----------------------------------------------------------------------------------------------------------------------------------------
+CreateThread(function ()
+	while true do
+		if GetResourceState("will_garages_v2") == "stopped" then
+			break
+		end
+		Wait(1000)
+	end
+
+	RegisterCommand("car",function(source,args)
+		local user_id = vRP.getUserId(source)
+		if user_id then
+			if args[1] and vRP.hasPermission(user_id,"admin.permissao") then
+				local Ped = GetPlayerPed(source)
+				local Coords = GetEntityCoords(Ped)
+				local mHash = GetHashKey(args[1])
+				local nveh = CreateVehicle(mHash,Coords["x"],Coords["y"],Coords["z"],GetEntityHeading(Ped),true,true)
+				local cooldown = 0
+				while not DoesEntityExist(nveh) and cooldown < 5000 do
+					Wait(1)
+					cooldown = cooldown + 1
+				end
+				if DoesEntityExist(nveh) then
+					SetPedIntoVehicle(Ped,nveh,-1)
+				end
+			end
+		end
+	end)
+
+	RegisterCommand("dv",function(source,args,rawCommand)
+		local user_id = vRP.getUserId(source)
+		if vRP.hasPermission(user_id,"admin.permissao") then
+			local _, Network = vRPclient.getNearVehicle(source,12)
+			local Veh = NetworkGetEntityFromNetworkId(Network)
+			if Veh and DoesEntityExist(Veh) then
+				DeleteEntity(Veh)
+			end
+		end
+	end)
+
+end)
