@@ -171,5 +171,4 @@ function tvRP.giveWeapons(weapons,clear_before,forceHand)
 		weapon_list[string.upper(k)] = v
 	end
 	vRPserver.updateWeapons(tvRP.getWeapons())
-	TriggerServerEvent("will_inventory:giveWeapons", weapon_list)
 end

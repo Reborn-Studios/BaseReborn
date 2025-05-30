@@ -55,7 +55,6 @@ openChest = function(id)
     local house = Houses[id]
     if house and not visitMode then
         TriggerServerEvent('ld-inv:Server:OpenInventory','chest:'..house.name,{isHouse=true,slots=24,weight=vault},house.name)
-        TriggerServerEvent('will_inventory:server:openInventory', 'chest_'..house.name, "storage_case")
         TriggerEvent("homes:openVault", house.name,vault)
         TriggerEvent("vrp_chest:homes", house.name,vault)
         TriggerServerEvent("dpn:openHouseChest", { chestName = house.name, slots = 30, size = vault })

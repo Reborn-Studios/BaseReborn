@@ -31,7 +31,7 @@ GlobalState['Basics'] = {
     ['Debug'] = false
 }
 
-GlobalState['Inventory'] = "ox_inventory"       -- "ld_inventory" / "will_inventory" / "ox_inventory" / "custom"
+GlobalState['Inventory'] = "ox_inventory"       -- "ld_inventory" / "ox_inventory" / "custom"
 
 ----####----####----####----##
 ----##    IMG DIRETORIO    -##
