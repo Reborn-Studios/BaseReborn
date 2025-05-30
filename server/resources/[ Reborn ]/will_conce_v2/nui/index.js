@@ -1,4 +1,4 @@
-let imageIP = "http://212.18.114.101/imagens/";
+let imageIP = "https://api.rebornsystem.com.br/imagens/";
 let vehicles = {};
 let actualCategory = "";
 let intv;
@@ -134,7 +134,7 @@ function showVehicles(vehs) {
             </div>
             <img src="${imageIP}/${
       info.spawn
-    }.png" onerror="this.onerror=null;this.src='http://212.18.114.101/garages_v2/noveh.png';" class="vehicleimage">
+    }.png" onerror="this.onerror=null;this.src='https://api.rebornsystem.com.br/garages_v2/noveh.png';" class="vehicleimage">
         </div>
         `;
     $(".vehicles").append(list);

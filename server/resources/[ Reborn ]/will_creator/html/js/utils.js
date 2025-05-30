@@ -1,3 +1,5 @@
+const ImageDirectory = "https://api.rebornsystem.com.br/creator";
+
 function loadChars(data, maxValue, defaultSlots, maxSlots) {
   $("#charList").html("");
   for (var i = 0; i < data.length; i++) {

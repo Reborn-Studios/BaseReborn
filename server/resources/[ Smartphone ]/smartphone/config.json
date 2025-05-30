@@ -12,8 +12,8 @@
     "phone_template": "XXX-XXX",
     "backgroundURL": "",
     "db_driver": "oxmysql",
-    "ringSound": "http://212.18.114.101/apps/ring.ogg",
-    "notificationSound": "http://212.18.114.101/apps/notification.ogg"
+    "ringSound": "https://api.rebornsystem.com.br/apps/ring.ogg",
+    "notificationSound": "https://api.rebornsystem.com.br/apps/notification.ogg"
   },
   "exclusive": {
     "weazel": {

@@ -24,7 +24,7 @@ GlobalState['Basics'] = {
     ['ServerName'] = "Reborn Studios",
     ['Discord'] = "https://discord.gg/8unYr9MUdx",
     ['MaxHealth'] = 400,
-    ['CityLogo'] = "http://212.18.114.101/img/RebornLogo.png",
+    ['CityLogo'] = "https://api.rebornsystem.com.br/imagens/RebornLogo.png",
     ['ServerStore'] = "",
     ['Identifier'] = "steam",                   -- "steam" / "license" / "discord" / "fivem"
     ['Whitelist'] = false,
@@ -38,7 +38,7 @@ GlobalState['Inventory'] = "ox_inventory"       -- "ld_inventory" / "will_invent
 ----####----####----####----##
 
 Reborn.images = function()
-    return "http://212.18.114.101/imagens/"
+    return "https://api.rebornsystem.com.br/imagens/"
 end
 
 ----####----####----####----##
@@ -145,7 +145,6 @@ Reborn.changeIdentifier = function()
             ['characters'] = "id",
             ['vrp_user_data'] = "user_id",
             ['accounts_ids'] = "user_id",
-            ['users'] = "identifier",
             ['players'] = "citizenid",
             ['vehicles'] = "user_id",
             ['will_battlepass'] = "user_id",

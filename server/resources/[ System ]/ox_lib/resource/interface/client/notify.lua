@@ -23,7 +23,7 @@ local settings = require 'resource.settings'
 ---@param data NotifyProps
 ---@diagnostic disable-next-line: duplicate-set-field
 function lib.notify(data)
-    TriggerEvent("Notify", data.type or "azul", data.title or data.description, data.duration or 5000)
+    TriggerEvent("Notify", data.type or "azul", data.description or data.title, data.duration or 5000)
 
     -- local sound = settings.notification_audio and data.sound
     -- data.sound = nil

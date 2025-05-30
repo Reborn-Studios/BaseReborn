@@ -11,7 +11,7 @@ Config = {}
 Config.Mysql = "oxmysql"
 
 -- Diretório das imagens
-Config.imageDirect = "http://212.18.114.101/clothes/"
+Config.imageDirect = "https://api.rebornsystem.com.br/clothes/"
 
 Config.defaultValues = {
     ["arms"] = { defaultImage = Config.imageDirect.."male/8/15.png", category = "principal" },
