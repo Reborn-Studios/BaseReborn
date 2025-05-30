@@ -116,6 +116,21 @@ Reborn.maintenance = function()
 end
 
 ----####----####----####----##
+----## AUTO RESTART SERVER -##
+----####----####----####----##
+
+Reborn.autoReload = function()
+    return {
+        ['Enabled'] = true,                         -- Ativar/desativar auto-restart do servidor
+        ['RecurringTime'] = 12 * 60 * 60 * 1000,    -- Reiniciar após 12 horas
+        ['Timers'] = {                              -- Horarios programados para reiniciar
+            ['10:00'] = true,
+            ['18:00'] = true,
+        }
+    }
+end
+
+----####----####----####----##
 ----## ESTATISTICAS SERVER -##
 ----####----####----####----##
 
