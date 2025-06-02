@@ -288,9 +288,9 @@ expose('uber_accept_trip', function(source, id)
   assert(trip.driver == nil, 'Esta corrida foi atendida')
   assert(drivers[source] == false, 'Você já está em uma corrida')
 
-  local vehicle = GetVehiclePedIsIn(GetPlayerPed(source),false)
-  assert(vehicle ~= 0, 'Você precisa estar em um veículo')
-  local plate = GetVehicleNumberPlateText(vehicle)
+  local vehicle = GetVehiclePedIsIn(GetPlayerPed(source),true)
+  -- assert(vehicle ~= 0, 'Você precisa estar em um veículo')
+  local plate = GetVehicleNumberPlateText(vehicle) or vRP.GeneratePlate()
 
   local Passport = vRP.Passport(source)
 
