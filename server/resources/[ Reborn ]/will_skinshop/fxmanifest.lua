@@ -19,5 +19,6 @@ server_scripts {
 files {
 	"web-side/dist/*",
 	"web-side/dist/assets/*",
+	"web-side/dist/assets/**/*",
 	"web-side/dist/categories/*"
 }
