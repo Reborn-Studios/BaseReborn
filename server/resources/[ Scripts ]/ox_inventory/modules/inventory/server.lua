@@ -1382,6 +1382,7 @@ function Inventory.RemoveItem(inv, item, count, metadata, slot, ignoreTotal)
 				lib.logger(inv.owner, 'removeItem', ('"%s" removed %sx %s from "%s"'):format(invokingResource, removed, item.name, inv.label))
 			end
 
+			TriggerClientEvent("inventory:RemoveWeapon",inv.id,item.name)
 			return true
 		end
 	end
@@ -1612,6 +1613,9 @@ local function dropItem(source, playerInventory, fromData, data)
 
 	if server.syncInventory then server.syncInventory(playerInventory) end
 
+	SetTimeout(500,function()
+		TriggerClientEvent("inventory:RemoveWeapon", source, toData.name)
+	end)
 	return true, {
 		weight = playerInventory.weight,
 		items = {

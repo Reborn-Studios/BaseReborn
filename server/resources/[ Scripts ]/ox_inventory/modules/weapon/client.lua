@@ -86,6 +86,7 @@ function Weapon.Equip(item, data, noWeaponAnim)
 	end
 
 	TriggerEvent('ox_inventory:currentWeapon', item)
+	TriggerEvent("inventory:RemoveWeapon", item.name)
 
 	if client.weaponnotify then
 		Utils.ItemNotify({ item, 'ui_equipped' })
@@ -128,6 +129,9 @@ function Weapon.Disarm(currentWeapon, noAnim)
 		end
 
 		TriggerEvent('ox_inventory:currentWeapon')
+		if currentWeapon and currentWeapon.name then
+			TriggerEvent("inventory:CreateWeapon", currentWeapon.name)
+		end
 	end
 
 	Utils.WeaponWheel()
@@ -136,6 +140,7 @@ end
 
 function Weapon.ClearAll(currentWeapon)
 	Weapon.Disarm(currentWeapon)
+	TriggerEvent("inventory:ClearWeapons")
 
 	if client.parachute then
 		local chute = `GADGET_PARACHUTE`

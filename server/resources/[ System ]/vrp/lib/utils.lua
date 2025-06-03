@@ -213,6 +213,35 @@ function LoadMovement(Library)
 	return true
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- LOADNETWORK
+-----------------------------------------------------------------------------------------------------------------------------------------
+function LoadNetwork(Network)
+	local Cooldown = 100
+	local Object = NetworkGetEntityFromNetworkId(Network)
+	while not DoesEntityExist(Object) and Cooldown > 0 do
+		Cooldown = Cooldown - 1
+		Object = NetworkGetEntityFromNetworkId(Network)
+
+		Wait(1)
+	end
+
+	if DoesEntityExist(Object) then
+		NetworkRequestControlOfEntity(Object)
+		while not NetworkHasControlOfEntity(Object) do
+			Wait(1)
+		end
+
+		SetEntityAsMissionEntity(Object,true,true)
+		while not IsEntityAMissionEntity(Object) do
+			Wait(1)
+		end
+
+		return Object
+	end
+
+	return
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- DRAWBASE3D
 -----------------------------------------------------------------------------------------------------------------------------------------
 if not IsDuplicityVersion() then
