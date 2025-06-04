@@ -121,7 +121,7 @@ end
 
 Reborn.autoReload = function()
     return {
-        ['Enabled'] = true,                         -- Ativar/desativar auto-restart do servidor
+        ['Enabled'] = false,                        -- Ativar/desativar auto-restart do servidor
         ['RecurringTime'] = 12 * 60 * 60 * 1000,    -- Reiniciar após 12 horas
         ['Timers'] = {                              -- Horarios programados para reiniciar
             ['10:00'] = true,
@@ -204,7 +204,6 @@ Reborn.segurity_code = function()
             'will_login',
             'will_jobs',
             'ox_inventory',
-            'ox_doorlock',
             'ld_tunners',
             'hud-data',
             'cloakrooms',
