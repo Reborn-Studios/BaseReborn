@@ -41,6 +41,7 @@ if Config.Framework == "vrp" then
     end
 
     function Framework:AddItem(source, item, amount)
+        amount = tonumber(amount) or 0
         if amount <= 0 then return end
         local user_id = Framework:GetUserIdentifier(source)
         if vRP.giveInventoryItem then
