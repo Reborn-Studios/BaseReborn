@@ -16,7 +16,7 @@ local jewelryCooldown = 0
 function Jewelry.jewelryUpdateStatus(status)
 	GlobalState:set("JewelryStatus",status,true)
 	TriggerEvent("doors:doorsStatistics",17,not status)
-	exports.ox_doorlock:setDoorState(1, not status)
+	exports.ox_doorlock:setDoorState(6, not status)
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- JEWELRYCHECKITENS
