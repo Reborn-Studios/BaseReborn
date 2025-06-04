@@ -242,6 +242,14 @@ if context == 'client' then
             end
         end
 
+        if GetResourceState('notifications') == 'started' then
+            return exports['notifications']:sendNotification({
+                message = data.description,
+                title = data.title,
+                type = data.type,
+                duration = data.duration
+            })
+        end
         return export:notify(data)
     end)
 
@@ -257,8 +265,7 @@ else
     ---@deprecated
     ---@diagnostic disable-next-line: duplicate-set-field
     function lib.notify(playerId, data)
-        -- TriggerClientEvent(notifyEvent, playerId, data)
-        TriggerClientEvent("Notify", playerId, data.type or "azul", data.title or data.description, data.duration or 5000)
+        TriggerClientEvent(notifyEvent, playerId, data)        
     end
 
     local poolNatives = {

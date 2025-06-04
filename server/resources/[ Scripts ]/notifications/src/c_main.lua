@@ -24,8 +24,8 @@ function Notify:new(data)
     SendNUIMessage({
         message = 'createNotification',
         data = {
-            message = data.message or 'No message provided',
-            title= data.title or 'Notification',
+            message = data.message or 'Nenhuma mensagem provida',
+            title= data.title or 'Notificação',
             type = data.type or 'info',
             duration = data.duration or 4000,
         }

@@ -7,7 +7,7 @@ const app = Vue.createApp({
     return {
       data: {
         Align: "",
-        Background: "rgba(31, 40, 54, 1.0)",
+        Background: "rgba(31, 40, 54, 0.8)",
         Types: [],
         Position: {},
       },

@@ -1,5 +1,5 @@
 Config = {
-    Background = 'rgba(31, 40, 54, 1.0)', -- Background color of the notification
+    Background = 'rgba(31, 40, 54, 0.8)', -- Background color of the notification
 
     UseSound = true, -- Use a sound when a notification is shown
 
