@@ -49,6 +49,10 @@ Config.Commands = {
 	['shops'] = {
 		['command'] = "createshops",
 		['perm'] = "owner.permissao"
+	},
+	['tattooshop'] = {
+		['command'] = "tattooshops",
+		['perm'] = "owner.permissao"
 	}
 }
 

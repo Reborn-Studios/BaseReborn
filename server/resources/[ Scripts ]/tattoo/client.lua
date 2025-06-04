@@ -21,7 +21,22 @@ local oldCustom = {}
 
 local totalPrice = 0
 local cam = nil
+local TattoosShops = GlobalState['TattoosShops'] or {}
 
+AddStateBagChangeHandler('TattoosShops',"",function(_,_,value)
+    tattooShops = {}
+	TattoosShops = value
+    Wait(500)
+    tattooShops = cx.getTattooShops()
+    for k,data in pairs(TattoosShops) do
+        table.insert(tattooShops[1]['coord'], {
+            [1] = data["coords"].x,
+            [2] = data["coords"].y,
+            [3] = data["coords"].z,
+            exibeBlip = data["showBlip"]
+        })
+    end
+end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- FUNCTIONS
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -179,6 +194,14 @@ CreateThread(function()
     SetNuiFocus(false, false)
     tattooShops = cx.getTattooShops()    
     cx.getTattoo()
+    for k,data in pairs(TattoosShops) do
+        table.insert(tattooShops[1]['coord'], {
+            [1] = data["coords"].x,
+            [2] = data["coords"].y,
+            [3] = data["coords"].z,
+            exibeBlip = data["showBlip"]
+        })
+    end
 end)
 
 -- Deixar comentado depois da ultima att do Fivem as tatuagens pararam de piscar! Caso ocorra, descomentar esta funçao

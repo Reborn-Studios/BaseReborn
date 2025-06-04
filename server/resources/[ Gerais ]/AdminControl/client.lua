@@ -135,6 +135,14 @@ function Client.openMainMenu()
                     ExecuteCommand("createshops")
                 end
             },
+            {
+                title = 'Criar Loja de Tatuagem',
+                description = 'Lojas de Tatuagem',
+                icon="fa-solid fa-paintbrush",
+                onSelect = function ()
+                    ExecuteCommand(Config.Commands["tattooshop"]['command'])
+                end
+            }
         }
     })
     lib.showContext('admin_menu_control')
