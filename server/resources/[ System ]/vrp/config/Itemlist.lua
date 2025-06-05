@@ -1437,28 +1437,24 @@ local weapons = {
 	},
 }
 
-CreateThread(function()
-	if GlobalState['Inventory'] ~= "ox_inventory" then
-		for k,v in pairs(weapons) do
-			itens[k] = v
-		end
+if GlobalState['Inventory'] ~= "ox_inventory" then
+	for k,v in pairs(weapons) do
+		itens[k] = v
 	end
-end)
-
-AddEventHandler("onResourceStart",function(rs)
-	if rs == "ox_inventory" then
+else
+	while GetResourceState("ox_inventory") ~= "started" do
 		Wait(500)
-		local invItems = exports.ox_inventory:Items()
-		for k,v in pairs(invItems) do
-			itens[k] = {
-				index = v.client and v.client.image or k,
-				name = v.label,
-				type = "use",
-				description = v.description or "Sem descrição",
-				weight = v.weight / 1000
-			}
-		end
 	end
-end)
+	local invItems = exports.ox_inventory:Items()
+	for k,v in pairs(invItems) do
+		itens[k] = {
+			index = v.client and v.client.image or k,
+			name = v.label,
+			type = "use",
+			description = v.description or "Sem descrição",
+			weight = v.weight / 1000
+		}
+	end
+end
 
 return itens

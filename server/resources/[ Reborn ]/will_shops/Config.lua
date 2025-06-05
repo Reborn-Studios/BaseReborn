@@ -692,6 +692,7 @@ Config.Notify = {
 CreateThread(function()
     if IsDuplicityVersion() then
         while true do
+            Wait(1000*60*Config.WorkTimeout)
             for shopName,data in pairs(shopsProducts) do
                 for k,v in pairs(data) do
                     local destinyCoords = Config.deliveryCoords[k] or Config.deliveryCoords['others']
@@ -706,7 +707,6 @@ CreateThread(function()
                     })
                 end
             end
-            Wait(1000*60*Config.WorkTimeout)
         end
     end
 end)
