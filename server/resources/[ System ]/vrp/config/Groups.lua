@@ -705,6 +705,10 @@ do
 	for k,v in pairs(paisanaGroups) do
 		groups[k] = v
 	end
+	local AllGroups = GlobalState["AllGroups"] or {}
+	for k,v in pairs(AllGroups) do
+		groups[k] = v
+	end
 end
 
 return groups

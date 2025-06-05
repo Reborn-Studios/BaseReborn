@@ -53,6 +53,10 @@ Config.Commands = {
 	['tattooshop'] = {
 		['command'] = "tattooshops",
 		['perm'] = "owner.permissao"
+	},
+	['groups'] = {
+		['command'] = "managegroups",
+		['perm'] = "owner.permissao"
 	}
 }
 

@@ -16,6 +16,14 @@ function Client.openMainMenu()
                 end
             },
             {
+                title = 'Grupos',
+                description = 'Gerenciar grupos',
+                icon = "fa-solid fa-users",
+                onSelect = function ()
+                    ExecuteCommand(Config.Commands["groups"]['command'])
+                end
+            },
+            {
                 title = 'Portas',
                 description = 'Gerenciar portas',
                 icon = "fa-solid fa-door-open",

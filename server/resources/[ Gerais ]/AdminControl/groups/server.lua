@@ -14,3 +14,84 @@ RegisterServerEvent("AdminControl:setUserGroups",function (nuser_id, addGroups, 
         vRP.createWeebHook(Webhooks.webhookunset,"```prolog\n[ID]: "..user_id.." \n[RETIROU SET]: "..nuser_id.." \n [GROUP]: "..RemGroup.." "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
     end
 end)
+
+GlobalState['AllGroups'] = {}
+
+AddEventHandler('onServerResourceStart', function(resourceName)
+    if resourceName == GetCurrentResourceName() then
+        local AllGroups = GetControlFile("groups")
+        GlobalState['AllGroups'] = AllGroups
+        module('vrp',"config/Groups",true)
+    end
+end)
+
+RegisterCommand(Config.Commands["groups"]['command'],function (source)
+    local user_id = vRP.getUserId(source)
+    if vRP.hasPermission(user_id,Config.Commands["groups"]['perm']) then
+        TriggerClientEvent("AdminControl:openGroups",source)
+    end
+end)
+
+RegisterServerEvent("AdminControl:createGroup")
+AddEventHandler("AdminControl:createGroup",function (group)
+    local source = source
+    local user_id = vRP.getUserId(source)
+    if vRP.hasPermission(user_id,Config.Commands["groups"]['perm']) then
+        local AllGroups = GlobalState['AllGroups']
+        AllGroups[group.groupName] = {}
+        local perms = group.perms and splitString(group.perms,",") or {}
+        for _,perm in pairs(perms) do
+            perm = string.gsub(perm," ","")
+            table.insert(AllGroups[group.groupName], perm)
+        end
+        AllGroups[group.groupName]._config = {
+            title = group.title,
+			gtype = group.gtype,
+			grade = group.grade,
+			salary = group.salary
+        }
+        GlobalState:set("AllGroups",AllGroups,true)
+        SaveControlFile("groups",group.groupName,AllGroups[group.groupName])
+        TriggerClientEvent("Notify",source,"sucesso","Grupo registrado com sucesso!",5000)
+        ExecuteCommand("reloadconfig")
+    end
+end)
+
+RegisterServerEvent("AdminControl:deleteGroup")
+AddEventHandler("AdminControl:deleteGroup",function (group)
+    local source = source
+    local user_id = vRP.getUserId(source)
+    if vRP.hasPermission(user_id,Config.Commands["groups"]['perm']) then
+        local AllGroups = GlobalState['AllGroups']
+        AllGroups[group] = nil
+        GlobalState:set("AllGroups",AllGroups,true)
+        RemoveControlFile("groups",group)
+        TriggerClientEvent("Notify",source,"sucesso","Grupo deletado com sucesso!",5000)
+        ExecuteCommand("reloadconfig")
+    end
+end)
+
+RegisterServerEvent("AdminControl:editGroup")
+AddEventHandler("AdminControl:editGroup",function (group)
+    local source = source
+    local user_id = vRP.getUserId(source)
+    if vRP.hasPermission(user_id,Config.Commands["groups"]['perm']) then
+        local AllGroups = GlobalState['AllGroups']
+        local perms = group.perms and splitString(group.perms,",") or {}
+        AllGroups[group.groupName] = {}
+        for _,perm in pairs(perms) do
+            perm = string.gsub(perm," ","")
+            table.insert(AllGroups[group.groupName], perm)
+        end
+        AllGroups[group.groupName]._config = {
+            title = group.title,
+			gtype = group.gtype,
+			grade = group.grade,
+			salary = group.salary
+        }
+        GlobalState:set("AllGroups",AllGroups,true)
+        EditControlFile("groups",group.groupName,AllGroups[group.groupName])
+        TriggerClientEvent("Notify",source,"sucesso","Grupo editado com sucesso!",5000)
+        ExecuteCommand("reloadconfig")
+    end
+end)

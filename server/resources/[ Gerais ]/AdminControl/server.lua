@@ -25,7 +25,11 @@ end
 function RemoveControlFile(file,index)
     local data = json.decode(LoadResourceFile(GetCurrentResourceName(), 'data/'..file..'.json'))
     if data and data[index] ~= nil then
-        table.remove(data,index)
+        if table.type(data) == "array" then
+            table.remove(data,index)
+        else
+            data[index] = nil
+        end
         SaveResourceFile(GetCurrentResourceName(), 'data/'..file..'.json', json.encode(data, { indent = true }), -1)
     end
 end
@@ -35,7 +39,7 @@ end
 
 Server = {}
 local groups = module('vrp',"config/Groups") or {}
-RegisterServerEvent("Reborn:reloadInfos",function() groups = module('vrp',"config/Groups") end)
+RegisterServerEvent("Reborn:reloadInfos",function() groups = module('vrp',"config/Groups") or {} end)
 Webhooks = module("config/webhooks") or {}
 ClientControl = Tunnel.getInterface("AdminControl")
 Tunnel.bindInterface("AdminControl", Server)
