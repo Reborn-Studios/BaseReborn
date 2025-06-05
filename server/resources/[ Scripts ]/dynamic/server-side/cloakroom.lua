@@ -126,7 +126,7 @@ AddEventHandler("Cloakrooms:applyPreset",function(perm)
                 local preset = json.decode(consult[1].custom)
                 vRPC._setCustomization(source,preset)
                 TriggerClientEvent("skinshop:Apply",source,convertClothes(preset), true)
-                TriggerEvent("player:serverDebug")
+                TriggerEvent("player:serverDebug",source)
             end
         end
     end
