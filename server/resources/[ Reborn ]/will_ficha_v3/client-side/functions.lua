@@ -71,7 +71,7 @@ local servicosElec = {                                         -- Serviço de el
 local numServices = 1
 local reducaopenal = false
 local prisonTimer = 0
-local prison = false
+local prison = LocalPlayer.state.Prison
 
 -------##########-------##########-------##########
 -------##########	 	PENA
@@ -135,11 +135,12 @@ CreateThread(function()
 				end
 			end
 			
-            if distance3 <= 70 and not reducaopenal and prisonTimer <= 0 then
+			local x,y,z = servicosElec[numServices][1],servicosElec[numServices][2],servicosElec[numServices][3]
+			local distance4 = #(coords - vector3(x,y,z))
+            if distance4 <= 70 and not reducaopenal and prisonTimer <= 0 then
                 will = 4
-				local x,y,z = servicosElec[numServices][1],servicosElec[numServices][2],servicosElec[numServices][3]
 				Config.drawText(x,y,z,"[~r~E~w~]  PARA INICIAR SERVIÇO")
-                if distance3 <= 1.5 then
+                if distance4 <= 2.5 then
 					Config.drawMark(x,y,z)
                     if IsControlJustPressed(1, 38) then
                         prisonTimer = 3
