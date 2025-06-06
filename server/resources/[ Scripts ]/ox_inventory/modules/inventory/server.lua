@@ -412,6 +412,11 @@ end
 
 local Items = require 'modules.items.server'
 
+RegisterNetEvent("ox_inventory:reloadItems")
+AddEventHandler("ox_inventory:reloadItems", function()
+    Items = require 'modules.items.server'
+end)
+
 CreateThread(function()
     Inventory.accounts = server.accounts
     TriggerEvent('ox_inventory:loadInventory', Inventory)

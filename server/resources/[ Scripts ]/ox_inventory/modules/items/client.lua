@@ -2,6 +2,11 @@ if not lib then return end
 
 local Items = require 'modules.items.shared' --[[@as table<string, OxClientItem>]]
 
+RegisterNetEvent("ox_inventory:reloadItems")
+AddEventHandler("ox_inventory:reloadItems", function()
+    Items = require 'modules.items.shared'
+end)
+
 local function sendDisplayMetadata(data)
     SendNUIMessage({
 		action = 'displayMetadata',

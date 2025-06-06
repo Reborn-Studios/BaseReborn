@@ -57,6 +57,10 @@ Config.Commands = {
 	['groups'] = {
 		['command'] = "managegroups",
 		['perm'] = "owner.permissao"
+	},
+	['items'] = {
+		['command'] = "manageitems",
+		['perm'] = "owner.permissao"
 	}
 }
 

@@ -73,6 +73,24 @@ local function newItem(data)
 	ItemList[data.name] = data
 end
 
+QBCore = exports['qb-core']:GetCoreObject()
+
+exports("createItem",newItem)
+exports("deleteItem",function (item)
+	if ItemList[item] then
+		if isServer then
+			Inventory = require 'modules.inventory.server'
+			for src, Player in pairs(QBCore.Functions.GetQBPlayers()) do
+				local count = Inventory.GetItemCount(src, item)
+				if count > 0 then
+					Inventory.RemoveItem(src, item, count)
+				end
+			end
+		end
+		ItemList[item] = nil
+	end
+end)
+
 for type, data in pairs(lib.load('data.weapons')) do
 	for k, v in pairs(data) do
 		v.name = k

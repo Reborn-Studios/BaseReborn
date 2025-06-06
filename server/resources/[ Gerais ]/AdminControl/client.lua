@@ -24,6 +24,14 @@ function Client.openMainMenu()
                 end
             },
             {
+                title = 'Itens',
+                description = 'Gerenciar itens',
+                icon = "fa-solid fa-boxes-stacked",
+                onSelect = function ()
+                    ExecuteCommand(Config.Commands["items"]['command'])
+                end
+            },
+            {
                 title = 'Portas',
                 description = 'Gerenciar portas',
                 icon = "fa-solid fa-door-open",

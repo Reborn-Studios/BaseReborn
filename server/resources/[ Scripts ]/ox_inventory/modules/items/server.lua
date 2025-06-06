@@ -4,6 +4,11 @@ local Items = {}
 local ItemList = require 'modules.items.shared' --[[@as table<string, OxServerItem>]]
 local Utils = require 'modules.utils.server'
 
+RegisterNetEvent("ox_inventory:reloadItems")
+AddEventHandler("ox_inventory:reloadItems", function()
+    ItemList = require 'modules.items.shared'
+end)
+
 TriggerEvent('ox_inventory:itemList', ItemList)
 
 Items.containers = require 'modules.items.containers'

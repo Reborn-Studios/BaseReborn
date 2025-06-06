@@ -344,6 +344,12 @@ end)
 
 local Animations = lib.load('data.animations')
 local Items = require 'modules.items.client'
+
+RegisterNetEvent("ox_inventory:reloadItems")
+AddEventHandler("ox_inventory:reloadItems", function()
+    Items = require 'modules.items.client'
+end)
+
 local usingItem = false
 
 ---@param data { name: string, label: string, count: number, slot: number, metadata: table<string, any>, weight: number }

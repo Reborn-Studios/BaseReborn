@@ -144,7 +144,7 @@ RegisterNetEvent("AdminControl:openGroups")
 AddEventHandler("AdminControl:openGroups",function()
     lib.registerContext({
         id = 'admin_groups_control',
-        title = 'Controle dos Baus',
+        title = 'Controle dos Grupos',
         options = {
             {
                 title = 'Criar novo grupo',

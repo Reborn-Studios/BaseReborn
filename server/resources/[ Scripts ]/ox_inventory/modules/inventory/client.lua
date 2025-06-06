@@ -184,6 +184,11 @@ end)
 
 local Items = require 'modules.items.client'
 
+RegisterNetEvent("ox_inventory:reloadItems")
+AddEventHandler("ox_inventory:reloadItems", function()
+    Items = require 'modules.items.client'
+end)
+
 local function assertMetadata(metadata)
 	if metadata and type(metadata) ~= 'table' then
 		metadata = metadata and { type = metadata or nil }

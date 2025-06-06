@@ -1457,4 +1457,9 @@ else
 	end
 end
 
+local NewItems = GlobalState["NewItems"] or {}
+for k,v in pairs(NewItems) do
+	itens[k] = v
+end
+
 return itens

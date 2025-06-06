@@ -14,6 +14,11 @@ local db = require 'modules.mysql.server'
 local Items = require 'modules.items.server'
 local Inventory = require 'modules.inventory.server'
 
+RegisterNetEvent("ox_inventory:reloadItems")
+AddEventHandler("ox_inventory:reloadItems", function()
+    Items = require 'modules.items.server'
+end)
+
 ---@param player table
 ---@param data table?
 --- player requires source, identifier, and name
