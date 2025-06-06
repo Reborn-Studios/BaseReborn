@@ -59,6 +59,7 @@ function Server.editStash(index, Stash)
         stashesWebhooks[Stash.id] = Stash.webhook
         GlobalState:set("AllStashes",Stashes,true)
         EditControlFile("stashes",index,Stashes[index])
+        exports.ox_inventory:RegisterStash(Stash.id, Stash.label, Stash.slots, Stash.weight, Stash.owner, Stash.groups, Stash.coords)
         TriggerClientEvent("Notify",source,"sucesso","Bau editado com sucesso!",5000)
     end
 end
