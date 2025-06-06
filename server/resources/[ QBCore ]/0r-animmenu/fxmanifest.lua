@@ -21,8 +21,7 @@ escrow_ignore {
 shared_scripts {
     'shared/cores.lua',
 	'shared/locale.lua',
-    'locales/en.lua',
-    'locales/*.lua',
+    'locales/pt.lua',
     'shared/config.lua',
     'shared/AnimationList.lua'
 }

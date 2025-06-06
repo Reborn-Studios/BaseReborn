@@ -12,17 +12,28 @@ local Translations = {
         nobody_close = "Ninguém se aproxima o suficiente.",
         sent_request_to = "Solicitação enviada para %{pname}, o nome da animação é %{ename}.",
         refuse_emote = "O Emote recusou.",
-        do_you_wanna = "~y~Y~w~ para aceitar, ~r~L~w~ para recusar (~g~%{emote}~w~)"
+        do_you_wanna = "~y~Y~w~ para aceitar, ~r~L~w~ para recusar (~g~%{emote}~w~)",
+        request_cancelled = "Convite cancelado.",
+        request_timed_out = "Convite expirou.",
+        no_players_nearby = "Ninguem por perto.",
+        no_emote_to_cancel = "Nenhum emote para cancelar.",
+        quick_slot_empty = "Nenhum emote encontrado no slot %{slot}.",
+        waiting_for_a_decision = "Aguardando decisão. Cancelar"
+    },
+    menu = {
+        title = "Animações",
+        description = "Todas animações listadas",
+        exit = "Sair"
     },
     categories = {
-        all = "All",
-        favorites = "Favorites",
-        general = "General",
-        dances = "Dances",
-        expressions = "Expressions",
-        walks = "expressions",
-        placedemotes = "Placed",
-        syncedemotes = "Shared",
+        all = "Todos",
+        favorites = "Favoritos",
+        general = "Gerais",
+        dances = "Danças",
+        expressions = "Expressões",
+        walks = "caminhadas",
+        placedemotes = "Colocado",
+        syncedemotes = "Compartilhado",
     },
     ptfxInfos = {
         pee = "Segure G para fazer xixi.",
