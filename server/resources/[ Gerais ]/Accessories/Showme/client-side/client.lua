@@ -9,6 +9,7 @@ local showActive = {}
 RegisterNetEvent("showme:pressMe")
 AddEventHandler("showme:pressMe",function(source,message,seconds,border)
 	local pedSource = GetPlayerFromServerId(source)
+	if pedSource == -1 then return end
 	showMe[GetPlayerPed(pedSource)] = { message,seconds,border }
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
