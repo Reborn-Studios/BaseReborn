@@ -65,6 +65,24 @@ RegisterNetEvent("dynamic:checkVipStatus")
 AddEventHandler("dynamic:checkVipStatus",function()
 	ExecuteCommand("premium")
 end)
+
+RegisterNetEvent("radio:setAnim")
+AddEventHandler("radio:setAnim",function ()
+	local result = exports['ox_inventory']:Keyboard("Animação do radio",{
+		{ type = 'select', label = 'Animação', description = 'Selecione a animação', icon = "radio", options = {
+			{ label = "Animação na boca", description = "Animação com radio na boca", value = "mouth_anim" },
+			{ label = "Animaçao no ombro", description = "Animação com radio no ombro", value = "default_anim" },
+		}, default = "default_anim" },
+	})
+	if result[1] then
+		TriggerEvent("pma-voice:setRadioAnim",result[1])
+		if result[1] == "default_anim" then
+			TriggerEvent("Notify","amarelo","Animação do radio alterada para <b>ombro</b>.",5000)
+		else
+			TriggerEvent("Notify","amarelo","Animação do radio alterada para <b>boca</b>.",5000)
+		end
+	end
+end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- GLOBALFUNCTIONS
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -139,6 +157,7 @@ RegisterCommand("globalFunctions",function()
 
 			exports["dynamic"]:AddButton("Propriedades","Marcar/Desmarcar propriedades no mapa.","will_homes:blips","","others",false)
 			exports["dynamic"]:AddButton("Desbugar","Recarregar o personagem.","player:Debug","","others",true)
+			exports["dynamic"]:AddButton("Radio","Animação do radio.","radio:setAnim","","others")
 			if GetResourceState("will_login") == "started" then
 				exports["dynamic"]:AddButton("Referencias","Abrir menu de referencias.","will_login:openMyReferences","","others",true)
 			end

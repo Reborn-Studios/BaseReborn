@@ -1,5 +1,34 @@
 local radioChannel = 0
 local radioNames = {}
+radioAnim = GetResourceKvpString("radioAnim") or "default_anim"
+local RadioModel = `prop_cs_hand_radio`
+local RadioProp = 0
+
+RegisterNetEvent("pma-voice:setRadioAnim")
+AddEventHandler("pma-voice:setRadioAnim", function(result)
+	radioAnim = result
+    SetResourceKvp("radioAnim", result)
+end)
+
+local function deleteRadio()
+    if RadioProp ~= 0 then
+        Citizen.InvokeNative(0xAE3CBE5BF394C9C9 , Citizen.PointerValueIntInitialized(RadioProp))
+        RadioProp = 0
+    end
+end
+
+local function newRadio()
+    deleteRadio()
+    RequestModel(RadioModel)
+    while not HasModelLoaded(RadioModel) do
+        Citizen.Wait(1)
+    end
+    RadioProp = CreateObject(RadioModel, 1.0, 1.0, 1.0, 1, 1, 0)
+
+    local bone = GetPedBoneIndex(PlayerPedId(), 28422)
+    AttachEntityToEntity(RadioProp, PlayerPedId(), bone, 0.0750, 0.0230,  -0.0250, -90.0000, 0.00, -59.9999, 1, 0, 0, 0, 2, 1)
+end
+
 
 function syncRadioData(radioTable,localPlyRadioName)
 	radioData = radioTable
@@ -94,11 +123,20 @@ RegisterCommand("+radiotalk",function(source,args,rawCommand)
 			radioPressed = true
 			playMicClicks(true)
 
-			RequestAnimDict("random@arrests")
-			while not HasAnimDictLoaded("random@arrests") do
-				Citizen.Wait(1)
+			if radioAnim == "default_anim" then 
+				RequestAnimDict("random@arrests")
+				while not HasAnimDictLoaded("random@arrests") do
+					Citizen.Wait(1)
+				end
+				TaskPlayAnim(ped,"random@arrests","generic_radio_chatter",8.0,0.0,-1,49,0,0,0,0)
+			else
+				RequestAnimDict('anim@male@holding_radio')
+				while not HasAnimDictLoaded('anim@male@holding_radio') do
+					Citizen.Wait(10)
+				end
+				newRadio()
+				TaskPlayAnim(PlayerPedId(), 'anim@male@holding_radio', 'holding_radio_clip', 8.0, 2.0, -1, 50, 2.0, 0, 0, 0)
 			end
-			TaskPlayAnim(ped,"random@arrests","generic_radio_chatter",8.0,0.0,-1,49,0,0,0,0)
 
 			Citizen.CreateThread(function()
 				TriggerEvent("pma-voice:radioActive",true)
@@ -132,7 +170,12 @@ RegisterCommand("-radiotalk",function(source,args,rawCommand)
 		TriggerEvent("pma-voice:radioActive",false)
 		playMicClicks(false)
 
-		StopAnimTask(ped,"random@arrests","generic_radio_chatter",-4.0)
+		if radioAnim == "default_anim" then
+			StopAnimTask(ped,"random@arrests","generic_radio_chatter",-4.0)
+		else
+			deleteRadio()
+			StopAnimTask(PlayerPedId(), 'anim@male@holding_radio', 'holding_radio_clip', -4.0)
+		end
 		TriggerServerEvent("pma-voice:setTalkingOnRadio",false)
 	end
 end,false)
