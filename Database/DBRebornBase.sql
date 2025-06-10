@@ -249,7 +249,7 @@ CREATE TABLE IF NOT EXISTS `ox_doorlock` (
   `name` varchar(50) NOT NULL,
   `data` longtext NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 INSERT INTO `ox_doorlock` (`id`, `name`, `data`) VALUES
 	(1, 'FarmMaconha', '{"model":-147325430,"state":0,"heading":116,"doors":false,"groups":{"VermelhosLider":0,"Vermelhos":0},"coords":{"x":98.08999633789063,"y":6327.26025390625,"z":31.52678871154785},"maxDistance":2}'),
