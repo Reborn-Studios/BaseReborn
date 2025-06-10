@@ -733,7 +733,6 @@ AddEventHandler("queue:playerConnecting",function(source,ids,name,setKickReason,
 										else
 											deferrals.done("Você ainda não foi liberado. Tente novamente")
 										end
-										-- TriggerEvent("queue:playerConnecting",source,ids,name,setKickReason,deferrals)
                                     end
                                 end
                             else
@@ -745,6 +744,7 @@ AddEventHandler("queue:playerConnecting",function(source,ids,name,setKickReason,
 										Card["body"][1]["isVisible"] = false
 										Card["body"][2]["isVisible"] = true 
 										vRP.createWeebHook(Webhooks.createAccount,"```TOKEN DE LIBERAÇÃO: "..token.."\nNOME:"..name.." \nIP: "..GetPlayerEndpoint(source).."\n**Onde nos encontrou:** "..data.choice_set)
+										rows = vRP.getInfos(identifier)
 									end
                                 end
                             end
