@@ -88,6 +88,17 @@ RegisterCommand("premium",function(source,args,rawCommand)
 			if consult[1] and parseInt(os.time()) <= parseInt(consult[1].premium+24*consult[1].predays*60*60) then
 				TriggerClientEvent("Notify",source,"importante","Você ainda tem "..vRP.getTimers(parseInt(86400*consult[1].predays-(os.time()-consult[1].premium))).." de benefícios <b>Premium</b>.",5000)
 			end
+			local vips = {}
+			local groups = vRP.getUserGroups(user_id)
+			for k,v in pairs(groups) do
+				local ngroup = vRP.getGroup(k)
+				if ngroup and ngroup._config and ngroup._config.gtype and ngroup._config.gtype == "vip" then
+					table.insert(vips,"- "..ngroup._config.title or k)
+				end
+			end
+			if #vips > 0 then
+				TriggerClientEvent("Notify",source,"importante","Você possui os VIPs: <br>"..table.concat(vips,"<br>"),5000)
+			end
 		end
 	end
 end)
