@@ -150,6 +150,9 @@ function startWorkFuel(destiny, id, shop, data)
 	local nearVeh = GetClosestVehicle(destiny.x, destiny.y, destiny.z,1.701,0,71)
     if nearVeh == 0 then
 		addBlipCoords(data['name'], data['destiny'])
+		while #(GetEntityCoords(PlayerPedId()) - vector3(destiny.x, destiny.y, destiny.z)) > 50 do
+			Wait(3000)
+		end
 		local vHash = GetHashKey("tanker")
 		loadModel(vHash)
 		local tanker = CreateVehicle(vHash, destiny.x, destiny.y, destiny.z, destiny.w, true, false)
