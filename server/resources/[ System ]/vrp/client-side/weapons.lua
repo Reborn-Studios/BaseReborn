@@ -406,7 +406,110 @@ local Config = {
 		["RotY"] = 180.0,
 		["RotZ"] = 2.5,
 		["Model"] = "w_sb_gusenberg"
-	}
+	},
+
+	-- Config de armas no Peito (So descomentar qual você quer)
+
+	-- ["WEAPON_PUMPSHOTGUN_MK2"] = {
+	-- 	["Bone"] = 24818,
+	-- 	["x"] = 0.10,
+	-- 	["y"] = 0.19,
+	-- 	["z"] = -0.08,
+	-- 	["RotX"] = 165.0,
+	-- 	["RotY"] = 150.0,
+	-- 	["RotZ"] = 5.0,
+	-- 	["Model"] = "w_sg_pumpshotgunmk2"
+	-- },
+	-- ["WEAPON_PUMPSHOTGUN"] = {
+	-- 	["Bone"] = 24818,
+	-- 	["x"] = 0.10,
+	-- 	["y"] = 0.19,
+	-- 	["z"] = -0.08,
+	-- 	["RotX"] = 165.0,
+	-- 	["RotY"] = 150.0,
+	-- 	["RotZ"] = 5.0,
+	-- 	["Model"] = "w_sg_pumpshotgun"
+	-- },
+	-- ["WEAPON_SMG"] = {
+	-- 	["Bone"] = 24818,
+	-- 	["x"] = 0.03,
+	-- 	["y"] = 0.19,
+	-- 	["z"] = -0.13,
+	-- 	["RotX"] = 165.0,
+	-- 	["RotY"] = 168.0,
+	-- 	["RotZ"] = -8.0,
+	-- 	["Model"] = "w_sb_smg"
+	-- },
+	-- ["WEAPON_COMBATPDW"] = {
+	-- 	["Bone"] = 24818,
+	-- 	["x"] = 0.12,
+	-- 	["y"] = 0.19,
+	-- 	["z"] = 0.04,
+	-- 	["RotX"] = 0.0,
+	-- 	["RotY"] = 135.0,
+	-- 	["RotZ"] = 5.0,
+	-- 	["Model"] = "w_sb_pdw"
+	-- },
+	-- ["WEAPON_ASSAULTSMG"] = {
+	-- 	["Bone"] = 24818,
+	-- 	["x"] = 0.12,
+	-- 	["y"] = 0.19,
+	-- 	["z"] = -0.07,
+	-- 	["RotX"] = 0.0,
+	-- 	["RotY"] = 135.0,
+	-- 	["RotZ"] = 5.0,
+	-- 	["Model"] = "w_sb_assaultsmg"
+	-- },
+	-- ["WEAPON_ASSAULTRIFLE"] = {
+	-- 	["Bone"] = 24818,
+	-- 	["x"] = 0.13,
+	-- 	["y"] = -0.14,
+	-- 	["z"] = 0.04,
+	-- 	["RotX"] = 0.0,
+	-- 	["RotY"] = 145.0,
+	-- 	["RotZ"] = 5.0,
+	-- 	["Model"] = "w_ar_assaultrifle"
+	-- },
+	-- ["WEAPON_CARBINERIFLE"] = {
+	-- 	["Bone"] = 24818,
+	-- 	["x"] = -0.03,
+	-- 	["y"] = 0.20,
+	-- 	["z"] = -0.10,
+	-- 	["RotX"] = 165.0,
+	-- 	["RotY"] = 168.0,
+	-- 	["RotZ"] = -8.0,
+	-- 	["Model"] = "w_ar_carbinerifle"
+	-- },
+	-- ["WEAPON_SPECIALCARBINE"] = {
+	-- 	["Bone"] = 24818,
+	-- 	["x"] = 0.02,
+	-- 	["y"] = 0.19,
+	-- 	["z"] = -0.05,
+	-- 	["RotX"] = 165.0,
+	-- 	["RotY"] = 150.0,
+	-- 	["RotZ"] = 5.0,
+	-- 	["Model"] = "w_ar_specialcarbine"
+	-- },
+	-- ["WEAPON_MUSKET"] = {
+	-- 	["Bone"] = 24818,
+	-- 	["x"] = -0.1,
+	-- 	["y"] = 0.19,
+	-- 	["z"] = 0.0,
+	-- 	["RotX"] = 0.0,
+	-- 	["RotY"] = 0.8,
+	-- 	["RotZ"] = 5.0,
+	-- 	["Model"] = "w_ar_musket"
+	-- },
+	-- ["WEAPON_CARBINERIFLE_MK2"] = {
+	-- 	["Bone"] = 24818,
+	-- 	["x"] = -0.03,
+	-- 	["y"] = 0.20,
+	-- 	["z"] = -0.10,
+	-- 	["RotX"] = 165.0,
+	-- 	["RotY"] = 168.0,
+	-- 	["RotZ"] = -8.0,
+	-- 	["Model"] = "w_ar_carbineriflemk2"
+	-- }
 }
 
 RegisterNetEvent("inventory:CreateWeapon")
