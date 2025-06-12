@@ -422,6 +422,7 @@ local function canUseItem(isAmmo)
 	and not lib.progressActive()
 	and not IsPedRagdoll(ped)
 	and not IsPedFalling(ped)
+	and not LocalPlayer.state.Handcuff
 end
 
 ---@param data table
