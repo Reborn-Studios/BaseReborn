@@ -224,7 +224,7 @@ RegisterNetEvent("will_jobs:initLumberman",function()
                     DrawMarker(21,v[1],v[2],v[3]-0.6,0,0,0,0.0,0,0,0.5,0.5,0.4,100,185,230,50,0,0,0,1)
                     if deliverDis <= 0.6 and IsControlJustPressed(1,38) then
                         paymentMethod()
-                        deliverys[k] = nil
+                        -- deliverys[k] = nil
                     end
                 end
             end
