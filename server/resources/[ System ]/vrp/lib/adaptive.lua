@@ -590,7 +590,7 @@ local function requestQbGroups(groups)
 end
 
 RegisterNetEvent("Reborn:reloadInfos",function()
-	local groups = module('vrp',"config/Groups")
+	local groups = module('vrp',"config/Groups",true)
 	requestQbGroups(groups)
 end)
 

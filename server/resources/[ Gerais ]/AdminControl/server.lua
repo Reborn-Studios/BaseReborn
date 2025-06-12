@@ -39,7 +39,7 @@ end
 
 Server = {}
 local groups = module('vrp',"config/Groups") or {}
-RegisterServerEvent("Reborn:reloadInfos",function() groups = module('vrp',"config/Groups") or {} end)
+RegisterNetEvent("Reborn:reloadInfos",function() groups = module('vrp',"config/Groups",true) or {} end)
 Webhooks = module("config/webhooks") or {}
 ClientControl = Tunnel.getInterface("AdminControl")
 Tunnel.bindInterface("AdminControl", Server)

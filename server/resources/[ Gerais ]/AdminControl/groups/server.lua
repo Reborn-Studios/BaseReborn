@@ -15,13 +15,10 @@ RegisterServerEvent("AdminControl:setUserGroups",function (nuser_id, addGroups, 
     end
 end)
 
-GlobalState['AllGroups'] = {}
-
 AddEventHandler('onServerResourceStart', function(resourceName)
     if resourceName == GetCurrentResourceName() then
-        local AllGroups = GetControlFile("groups")
-        GlobalState['AllGroups'] = AllGroups
-        module('vrp',"config/Groups",true)
+        local AllGroups = GetControlFile("groups") or {}
+        GlobalState:set("AllGroups",AllGroups,true)
     end
 end)
 
@@ -53,7 +50,6 @@ AddEventHandler("AdminControl:createGroup",function (group)
         GlobalState:set("AllGroups",AllGroups,true)
         SaveControlFile("groups",group.groupName,AllGroups[group.groupName])
         TriggerClientEvent("Notify",source,"sucesso","Grupo registrado com sucesso!",5000)
-        ExecuteCommand("reloadconfig")
     end
 end)
 
@@ -67,7 +63,6 @@ AddEventHandler("AdminControl:deleteGroup",function (group)
         GlobalState:set("AllGroups",AllGroups,true)
         RemoveControlFile("groups",group)
         TriggerClientEvent("Notify",source,"sucesso","Grupo deletado com sucesso!",5000)
-        ExecuteCommand("reloadconfig")
     end
 end)
 
@@ -92,6 +87,5 @@ AddEventHandler("AdminControl:editGroup",function (group)
         GlobalState:set("AllGroups",AllGroups,true)
         EditControlFile("groups",group.groupName,AllGroups[group.groupName])
         TriggerClientEvent("Notify",source,"sucesso","Grupo editado com sucesso!",5000)
-        ExecuteCommand("reloadconfig")
     end
 end)

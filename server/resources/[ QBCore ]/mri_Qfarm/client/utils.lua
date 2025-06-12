@@ -89,6 +89,7 @@ function Utils.GetGroupGrades(group)
 end
 
 function Utils.GetBaseGroups(named)
+    QBCore = exports["qb-core"]:GetCoreObject()
     local jobs = QBCore.Shared.Jobs
     -- local gangs = exports.qbx_core:GetGangs()
     local groups = {}
