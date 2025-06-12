@@ -94,12 +94,18 @@ end)
 --#############################--
 
 local sharedKeys = {}
+local keyCooldown = {}
 
 RegisterServerEvent("garages:Key")
 AddEventHandler("garages:Key",function(Plate)
 	local source = source
 	local user_id = getUserId(source)
+    if keyCooldown[Plate] and keyCooldown[Plate] > os.time() then
+        TriggerClientEvent("Notify", source, "aviso", "Você precisa esperar 5 minutos para pegar a chave novamente", 5000)
+        return
+    end
     if user_id and (GlobalState["vehPlates"][Plate] == user_id or user_id == getUserByPlate(Plate)) then
+        keyCooldown[Plate] = os.time() + 300
         if GetResourceState("ox_inventory") == "started" then
             exports.ox_inventory:AddItem(source, "vehkey", 1, { plate = Plate })
         else
