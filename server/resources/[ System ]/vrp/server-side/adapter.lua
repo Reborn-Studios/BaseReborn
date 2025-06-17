@@ -666,7 +666,7 @@ function vRP.UpdateChest(Passport,Data,Slot,Target,Amount)
 end
 
 vRP.GetSrvData = function(key)
-    return vRP.getSData(key)
+    return json.decode(vRP.getSData(key)) or {}
 end
 
 function vRP.SetSrvData(Key,Data)
@@ -728,4 +728,34 @@ end
 
 vRP.RemovePermission = function(id,group)
     return vRP.removeUserGroup(id,group)
+end
+
+function vRP.DiscordAvatar(Passport)
+    return ""
+end
+
+function vRP.Hierarchy(Permission)
+    if Groups[Permission] and Groups[Permission]["Hierarchy"] then
+        return Groups[Permission]["Hierarchy"]
+    end
+    return false
+end
+
+function vRP.DataGroups(Permission)
+    local consult = vRP.query("vRP/get_specific_perm", { permiss = Permission })
+    local UserGroups = {}
+    if consult[1] then
+        for k,v in pairs(consult) do
+            UserGroups[v.user_id] = 1
+        end
+    end
+    return UserGroups
+end
+
+function vRP.Permissions()
+
+end
+
+function vRP.AmountService(Perm,Grade)
+
 end
