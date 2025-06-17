@@ -101,7 +101,7 @@ function QBCore.Functions.TriggerCallback(name, cb, ...)
 end
 
 function QBCore.Functions.Progressbar(name, label, duration, useWhileDead, canCancel, disableControls, animation, prop, propTwo, onFinish, onCancel)
-    lib.progressCircle({
+    if lib.progressCircle({
         label = label,
         duration = duration,
         position = 'bottom',
@@ -110,7 +110,11 @@ function QBCore.Functions.Progressbar(name, label, duration, useWhileDead, canCa
         anim = animation,
         prop = prop,
         disable = disableControls,
-    })
+    }) then
+        onFinish()
+    else
+        onCancel()
+    end
 end
 
 -- Getters
