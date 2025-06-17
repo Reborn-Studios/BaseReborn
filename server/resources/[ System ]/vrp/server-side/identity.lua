@@ -64,7 +64,6 @@ function vRP.upgradeChars(user_id)
 	local UserIdentity = vRP.getUserIdentity(user_id)
 	if UserIdentity then
 		vRP.execute("accounts/infosUpdatechars",{ identifier = UserIdentity["identifier"] })
-		UserIdentity["chars"] = UserIdentity["chars"] + 1
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
