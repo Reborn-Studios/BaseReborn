@@ -69,6 +69,8 @@ function Server.deleteStash(index)
     local Stashes = GlobalState['AllStashes']
     if Stashes[index] then
         RemoveControlFile("stashes",index)
+        vRP.query("DELETE FROM ox_inventory WHERE name = '"..Stashes[index].id.."'")
+        exports.ox_inventory:ClearInventory(Stashes[index].id)
         table.remove(Stashes,index)
         GlobalState:set("AllStashes",Stashes,true)
         TriggerClientEvent("Notify",source,"sucesso","Bau removido com sucesso!",5000)
