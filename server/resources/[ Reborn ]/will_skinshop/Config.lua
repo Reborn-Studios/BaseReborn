@@ -84,17 +84,6 @@ Config.will_shops = false
 Config.locates = {
     ['Creator'] = {
         clothes = "all",
-        blockedCategories = {
-            ['decals'] = true,
-            ['bracelet'] = true,
-            ['ear'] = true,
-            ['watch'] = true,
-            ['glass'] = true,
-            ['backpack'] = true,
-            ['vest'] = true,
-            ['mask'] = true,
-            ['accessory'] = true,
-        },
         permission = nil,
         -- coords = vector3(-1380.78, -469.91, 72.5)
     },
