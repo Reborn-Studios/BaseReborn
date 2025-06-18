@@ -2,6 +2,7 @@ local Proxy = module("vrp","lib/Proxy") or {}
 local Tunnel = module("vrp","lib/Tunnel") or {}
 local Webhooks = module("config/webhooks") or {}
 vRP = Proxy.getInterface("vRP")
+ESX = exports.es_extended:getSharedObject()
 local vTASKBAR = Tunnel.getInterface("taskbar")
 local vSURVIVAL = Tunnel.getInterface("Survival")
 local vPLAYER = Tunnel.getInterface("Player")
@@ -19,6 +20,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName, rAmount, data)
 	if not rAmount or rAmount <= 0 then
 		rAmount = 1
 	end
+	if ESX.UseItem(source, itemName) then return end
 	Player(source)["state"]["Commands"] = true
 	if itemName == "analgesic" then
 		if vRPclient.getHealth(source) > 101 and vRPclient.getHealth(source) < MaxHealth then
