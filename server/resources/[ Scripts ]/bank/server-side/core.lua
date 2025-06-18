@@ -58,6 +58,20 @@ CreateThread(function()
 		KEY `id` (`id`)
 		) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 	]])
+	exports["oxmysql"]:query_async([[
+		CREATE TABLE IF NOT EXISTS `taxs` (
+		`id` int(11) NOT NULL AUTO_INCREMENT,
+		`Passport` int(10) NOT NULL DEFAULT 0,
+		`Name` varchar(50) NOT NULL,
+		`Date` varchar(50) NOT NULL,
+		`Hour` varchar(50) NOT NULL,
+		`Value` int(11) NOT NULL DEFAULT 0,
+		`Message` longtext NOT NULL,
+		PRIMARY KEY (`id`),
+		KEY `Passport` (`Passport`),
+		KEY `id` (`id`)
+		) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+	]])
 	Wait(1000)
 	vRP.Prepare("invoices/Remove","DELETE FROM invoices WHERE id = @id")
 	vRP.Prepare("invoices/Check","SELECT * FROM invoices WHERE id = @id")
