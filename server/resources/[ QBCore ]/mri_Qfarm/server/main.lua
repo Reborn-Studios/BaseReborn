@@ -1,6 +1,10 @@
 local QBCore = exports["qb-core"]:GetCoreObject()
 Farms = GlobalState.Farms or {}
 
+RegisterNetEvent("Reborn:reloadInfos",function()
+    QBCore = exports["qb-core"]:GetCoreObject()
+end)
+
 local CREATE_TABLE = [[
     CREATE TABLE IF NOT EXISTS mri_qfarm (
         farmId BIGINT AUTO_INCREMENT PRIMARY KEY,

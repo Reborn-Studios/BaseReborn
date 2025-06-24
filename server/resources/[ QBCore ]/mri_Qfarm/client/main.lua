@@ -154,7 +154,6 @@ local function actionProcess(name, description, duration, done, cancel)
         disableMouse = false,
         disableCombat = true
     }, nil, nil, nil, done, cancel)
-    done()
 end
 
 local function nextTask(shuffle)
