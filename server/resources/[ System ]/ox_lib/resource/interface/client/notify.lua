@@ -23,6 +23,14 @@ local settings = require 'resource.settings'
 ---@param data NotifyProps
 ---@diagnostic disable-next-line: duplicate-set-field
 function lib.notify(data)
+    if GetResourceState('notifications') == 'started' then
+        return exports['notifications']:sendNotification({
+            message = data.description,
+            title = data.title,
+            type = data.type,
+            duration = data.duration
+        })
+    end
     TriggerEvent("Notify", data.type or "azul", data.description or data.title, data.duration or 5000)
 
     -- local sound = settings.notification_audio and data.sound

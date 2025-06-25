@@ -21,6 +21,11 @@ end)
 function Notify:new(data)
     if not self.isLoaded then return end;
 
+    if not data.message then
+        data.message = data.description or data.title
+        data.title = nil
+    end
+
     SendNUIMessage({
         message = 'createNotification',
         data = {
