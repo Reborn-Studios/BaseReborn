@@ -357,9 +357,32 @@ end
 --#######################--
 
 local garagesGlobal = GlobalState['GaragesGlobal'] or {}
+local createdBlips = {}
 
 AddStateBagChangeHandler("GaragesGlobal","",function(name,key,value)
 	garagesGlobal = value
+	for k,v in pairs(createdBlips) do
+		if v and DoesBlipExist(v) then
+			RemoveBlip(v)
+			createdBlips[k] = nil
+		end
+	end
+	for k, v in pairs(value) do
+		if v.map then
+			local x,y,z = table.unpack(v.entrada['blip'])
+			local blip = AddBlipForCoord(x,y,z)
+			SetBlipSprite(blip, 357)
+			SetBlipScale(blip, 0.6)
+			SetBlipColour(blip, 14)
+			SetBlipDisplay(blip, 4)
+			SetBlipAsShortRange(blip, true)
+
+			BeginTextCommandSetBlipName("STRING")
+			AddTextComponentString("Garagem")
+			EndTextCommandSetBlipName(blip)
+			table.insert(createdBlips,blip)
+		end
+    end
 end)
 
 local function getClosestBlip()
@@ -599,6 +622,7 @@ Citizen.CreateThread(function()
 			BeginTextCommandSetBlipName("STRING")
 			AddTextComponentString("Garagem")
 			EndTextCommandSetBlipName(blip)
+			table.insert(createdBlips,blip)
 		end
     end
 end)
