@@ -219,7 +219,7 @@
     <!-- CRIAÇAO -->
     <div
       class="bodyBGG w-full h-[100vh] flex text-white p-0 m-0 justify-between bg-transparent hidden"
-      style="display: none"
+      style="display: block"
     >
       <div
         class="w-full h-[100vh] flex text-white p-0 m-0 justify-between bg-transparent"
@@ -619,7 +619,10 @@
         </div>
         <div class="flex gap-5 z-20" id="categories">
           <div class="flex flex-col gap-2 py-10">
-            <div id="DNACategory" class="categoryGroup flex flex-col gap-2">
+            <div
+              id="DNACategory"
+              class="categoryGroup flex flex-col gap-2 overflow-y-auto scrollStyle pr-2"
+            >
               <div class="flex flex-col gap-1 items-end" id="sexSection">
                 <div
                   class="menu-header-gradient w-[350px] text-center text-[16px] uppercase font-medium py-[6px]"
@@ -720,6 +723,37 @@
                       <input
                         id="charCreateLastname"
                         placeholder="Sobrenome"
+                        class="font-normal outline-none placeholder-[#ffffff] placeholder-opacity-40 w-full bg-white bg-opacity-10 rounded px-5 py-2"
+                        type="text"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="flex flex-col gap-1 items-end">
+                  <div
+                    class="menu-header-gradient w-[350px] text-center text-[16px] uppercase font-medium py-[6px]"
+                  >
+                    IDADE
+                  </div>
+                  <div
+                    class="menu-content-gradient p-[18px] py-[8px] gap-5 grid items-center grid-cols-5 w-[350px]"
+                  >
+                    <div class="py-[4px] col-span-2">
+                      <div
+                        class="font-medium text-[18px] text-white text-opacity-[0.47] leading-[25px]"
+                      >
+                        Idade
+                      </div>
+                      <div
+                        class="text-[14px] text-white text-opacity-[0.27] leading-[12.6px]"
+                      >
+                        Idade do personagem
+                      </div>
+                    </div>
+                    <div class="w-full col-span-3">
+                      <input
+                        id="charAge"
+                        placeholder="Idade"
                         class="font-normal outline-none placeholder-[#ffffff] placeholder-opacity-40 w-full bg-white bg-opacity-10 rounded px-5 py-2"
                         type="text"
                       />
@@ -866,7 +900,7 @@
                 id="beardFaceSettings"
                 class="flex flex-col gap-2 w-full h-full"
               >
-                <div class="flex flex-col gap-1 items-end">
+                <div class="lipstick flex flex-col gap-1 items-end">
                   <div
                     class="menu-header-gradient w-[350px] text-center text-[16px] uppercase font-medium py-[6px]"
                   >
@@ -945,7 +979,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="flex flex-col gap-1 items-end">
+                <div class="lips_thickness flex flex-col gap-1 items-end">
                   <div
                     class="menu-header-gradient w-[350px] text-center text-[16px] uppercase font-medium py-[6px]"
                   >
@@ -1016,7 +1050,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="flex flex-col gap-1 items-end">
+                <div class="jaw_bone_width flex flex-col gap-1 items-end">
                   <div
                     class="menu-header-gradient w-[350px] text-center text-[16px] uppercase font-medium py-[6px]"
                   >
@@ -1087,7 +1121,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="flex flex-col gap-1 items-end">
+                <div class="jaw_bone_back_lenght flex flex-col gap-1 items-end">
                   <div
                     class="menu-header-gradient w-[350px] text-center text-[16px] uppercase font-medium py-[6px]"
                   >
@@ -1158,7 +1192,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="flex flex-col gap-1 items-end">
+                <div class="chimp_bone_lowering flex flex-col gap-1 items-end">
                   <div
                     class="menu-header-gradient w-[350px] text-center text-[16px] uppercase font-medium py-[6px]"
                   >
@@ -1229,7 +1263,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="flex flex-col gap-1 items-end">
+                <div class="chimp_bone_lenght flex flex-col gap-1 items-end">
                   <div
                     class="menu-header-gradient w-[350px] text-center text-[16px] uppercase font-medium py-[6px]"
                   >
@@ -1300,7 +1334,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="flex flex-col gap-1 items-end">
+                <div class="chimp_bone_width flex flex-col gap-1 items-end">
                   <div
                     class="menu-header-gradient w-[350px] text-center text-[16px] uppercase font-medium py-[6px]"
                   >
@@ -1371,7 +1405,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="flex flex-col gap-1 items-end">
+                <div class="chimp_hole flex flex-col gap-1 items-end">
                   <div
                     class="menu-header-gradient w-[350px] text-center text-[16px] uppercase font-medium py-[6px]"
                   >
@@ -1442,7 +1476,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="flex flex-col gap-1 items-end">
+                <div class="neck_thikness flex flex-col gap-1 items-end">
                   <div
                     class="menu-header-gradient w-[350px] text-center text-[16px] uppercase font-medium py-[6px]"
                   >
@@ -1517,9 +1551,9 @@
             </div>
             <div
               id="HAIRCategory"
-              class="categoryGroup flex flex-col gap-2 overflow-y-auto scrollStyle pr-2"
+              class="categoryGroup flex flex-col gap-2 hidden overflow-y-auto scrollStyle pr-2"
             >
-              <div class="flex flex-col gap-1 items-end">
+              <div class="chest_hair flex flex-col gap-1 items-end">
                 <div
                   class="menu-header-gradient w-[350px] text-center text-[16px] uppercase font-medium py-[6px]"
                 >
@@ -1590,7 +1624,7 @@
                   </div>
                 </div>
               </div>
-              <div class="flex flex-col gap-1 items-end">
+              <div class="hairs flex flex-col gap-1 items-end">
                 <div
                   class="menu-header-gradient w-[350px] text-center text-[16px] uppercase font-medium py-[6px]"
                 >
@@ -1611,7 +1645,7 @@
                   class="hair-colors-2 flex w-[350px] flex-wrap overflow-y-auto h-32 scrollStyle gap-2 p-[18px] pr-0"
                 ></div>
               </div>
-              <div class="flex flex-col gap-1 items-end">
+              <div class="beards flex flex-col gap-1 items-end">
                 <div
                   class="menu-header-gradient w-[350px] text-center text-[16px] uppercase font-medium py-[6px]"
                 >
@@ -1695,7 +1729,7 @@
               id="NOSECategory"
               class="categoryGroup flex flex-col gap-2 hidden overflow-y-auto scrollStyle pr-2"
             >
-              <div class="flex flex-col gap-1 items-end">
+              <div class="blush flex flex-col gap-1 items-end">
                 <div
                   class="menu-header-gradient w-[350px] text-center text-[16px] uppercase font-medium py-[6px]"
                 >
@@ -1774,7 +1808,7 @@
                   </div>
                 </div>
               </div>
-              <div class="flex flex-col gap-1 items-end">
+              <div class="nose_0 flex flex-col gap-1 items-end">
                 <div
                   class="menu-header-gradient w-[350px] text-center text-[16px] uppercase font-medium py-[6px]"
                 >
@@ -1842,7 +1876,7 @@
                   </div>
                 </div>
               </div>
-              <div class="flex flex-col gap-1 items-end">
+              <div class="nose_1 flex flex-col gap-1 items-end">
                 <div
                   class="menu-header-gradient w-[350px] text-center text-[16px] uppercase font-medium py-[6px]"
                 >
@@ -1910,7 +1944,7 @@
                   </div>
                 </div>
               </div>
-              <div class="flex flex-col gap-1 items-end">
+              <div class="nose_2 flex flex-col gap-1 items-end">
                 <div
                   class="menu-header-gradient w-[350px] text-center text-[16px] uppercase font-medium py-[6px]"
                 >
@@ -1978,7 +2012,7 @@
                   </div>
                 </div>
               </div>
-              <div class="flex flex-col gap-1 items-end">
+              <div class="nose_3 flex flex-col gap-1 items-end">
                 <div
                   class="menu-header-gradient w-[350px] text-center text-[16px] uppercase font-medium py-[6px]"
                 >
@@ -2046,7 +2080,7 @@
                   </div>
                 </div>
               </div>
-              <div class="flex flex-col gap-1 items-end">
+              <div class="nose_4 flex flex-col gap-1 items-end">
                 <div
                   class="menu-header-gradient w-[350px] text-center text-[16px] uppercase font-medium py-[6px]"
                 >
@@ -2114,7 +2148,7 @@
                   </div>
                 </div>
               </div>
-              <div class="flex flex-col gap-1 items-end">
+              <div class="nose_5 flex flex-col gap-1 items-end">
                 <div
                   class="menu-header-gradient w-[350px] text-center text-[16px] uppercase font-medium py-[6px]"
                 >
@@ -2182,7 +2216,7 @@
                   </div>
                 </div>
               </div>
-              <div class="flex flex-col gap-1 items-end">
+              <div class="cheek_1 flex flex-col gap-1 items-end">
                 <div
                   class="menu-header-gradient w-[350px] text-center text-[16px] uppercase font-medium py-[6px]"
                 >
@@ -2250,7 +2284,7 @@
                   </div>
                 </div>
               </div>
-              <div class="flex flex-col gap-1 items-end">
+              <div class="cheek_2 flex flex-col gap-1 items-end">
                 <div
                   class="menu-header-gradient w-[350px] text-center text-[16px] uppercase font-medium py-[6px]"
                 >
@@ -2318,7 +2352,7 @@
                   </div>
                 </div>
               </div>
-              <div class="flex flex-col gap-1 items-end">
+              <div class="cheek_3 flex flex-col gap-1 items-end">
                 <div
                   class="menu-header-gradient w-[350px] text-center text-[16px] uppercase font-medium py-[6px]"
                 >
@@ -2401,7 +2435,7 @@
                   class="menu-content-gradient eyes-content p-[18px] py-[12px] gap-3 flex items-center justify-between w-[350px] flex-wrap overflow-y-auto h-72 scrollStyle"
                 ></div>
               </div>
-              <div class="flex flex-col gap-1 items-end">
+              <div class="eye_opening flex flex-col gap-1 items-end">
                 <div
                   class="menu-header-gradient w-[350px] text-center text-[16px] uppercase font-medium py-[6px]"
                 >
@@ -2474,7 +2508,7 @@
                   </div>
                 </div>
               </div>
-              <div class="flex flex-col gap-1 items-end">
+              <div class="moles flex flex-col gap-1 items-end">
                 <div
                   class="menu-header-gradient w-[350px] text-center text-[16px] uppercase font-medium py-[6px]"
                 >
@@ -2608,7 +2642,7 @@
                   </div>
                 </div>
               </div>
-              <div class="flex flex-col gap-1 items-end">
+              <div class="eyebrows flex flex-col gap-1 items-end">
                 <div
                   class="menu-header-gradient w-[350px] text-center text-[16px] uppercase font-medium py-[6px]"
                 >
@@ -2697,7 +2731,7 @@
                   </div>
                 </div>
               </div>
-              <div class="flex flex-col gap-1 items-end">
+              <div class="eyebrown_high flex flex-col gap-1 items-end">
                 <div
                   class="menu-header-gradient w-[350px] text-center text-[16px] uppercase font-medium py-[6px]"
                 >
@@ -2768,7 +2802,7 @@
                   </div>
                 </div>
               </div>
-              <div class="flex flex-col gap-1 items-end">
+              <div class="eyebrown_forward flex flex-col gap-1 items-end">
                 <div
                   class="menu-header-gradient w-[350px] text-center text-[16px] uppercase font-medium py-[6px]"
                 >
@@ -2839,7 +2873,7 @@
                   </div>
                 </div>
               </div>
-              <div class="flex flex-col gap-1 items-end">
+              <div class="makeup flex flex-col gap-1 items-end">
                 <div
                   class="menu-header-gradient w-[350px] text-center text-[16px] uppercase font-medium py-[6px]"
                 >

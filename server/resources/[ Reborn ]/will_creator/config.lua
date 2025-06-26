@@ -100,7 +100,43 @@ Config.SpawnCoords = vector4(-1037.02,-2734.81,13.76,327.28)
 Config.BarberPrice = 200
 
 -- Categorias ao abrir o barbershop
-Config.BarberCategories = { "CABELO", "BOCA", "NARIZ", "OLHOS" }
+Config.BarberCategories = {
+    -- BOCA E BOCHECHA
+    "lipstick",
+    -- "lips_thickness",
+    -- "jaw_bone_width",
+    -- "jaw_bone_back_lenght",
+    -- "chimp_bone_lowering",
+    -- "chimp_bone_lenght",
+    -- "chimp_bone_width",
+    -- "chimp_hole",
+    -- "neck_thikness",
+
+    -- PELOS
+    "chest_hair",
+    "hairs",
+    "beards",
+
+    -- NARIZ
+    "blush",
+    -- "nose_0",
+    -- "nose_1",
+    -- "nose_2",
+    -- "nose_3",
+    -- "nose_4",
+    -- "nose_5",
+    -- "cheek_1",
+    -- "cheek_2",
+    -- "cheek_3",
+
+    -- OLHOS
+    "eye_opening",
+    -- "moles",
+    "eyebrows",
+    -- "eyebrown_high",
+    -- "eyebrown_forward",
+    "makeup",
+}
 
 Config.BlipType = {
     ["barber"] = {
