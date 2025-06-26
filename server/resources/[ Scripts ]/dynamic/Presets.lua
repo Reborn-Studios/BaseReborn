@@ -203,21 +203,57 @@ Presets = {
 		},
 	},
     ["Mechanic"] = {
-        ["Bennys"] = {
+        ["Mecanico"] = {
 			["homem"] = {
+				["hat"] = { item = -1, texture = 0, defaultItem = -1, defaultTexture = 0 },
+				["pants"] = { item = 39, texture = 0, defaultItem = 0, defaultTexture = 0 },
+				["vest"] = { item = 0, texture = 0, defaultItem = 0, defaultTexture = 0 },
+				["bracelet"] = { item = -1, texture = 0, defaultItem = -1, defaultTexture = 0 },
+				["decals"] = { item = 0, texture = 0, defaultItem = 0, defaultTexture = 0 },
+				["mask"] = { item = 0, texture = 0, defaultItem = 0, defaultTexture = 0 },
+				["shoes"] = { item = 25, texture = 0, defaultItem = 1, defaultTexture = 0 },
+				["tshirt"] = { item = 129, texture = 0, defaultItem = 1, defaultTexture = 0 },
+				["backpack"] = { item = 0, texture = 0, defaultItem = 0, defaultTexture = 0 },
+				["torso"] = { item = 65, texture = 0, defaultItem = 0, defaultTexture = 0 },
+				["accessory"] = { item = 0, texture = 0, defaultItem = 0, defaultTexture = 0 },
+				["watch"] = { item = -1, texture = 0, defaultItem = -1, defaultTexture = 0 },
+				["arms"] = { item = 107, texture = 9, defaultItem = 0, defaultTexture = 0 },
+				["glass"] = { item = 0, texture = 0, defaultItem = 0, defaultTexture = 0 },
+				["ear"] = { item = -1, texture = 0, defaultItem = -1, defaultTexture = 0 }
+			},
+			["mulher"] = {
 				["hat"] = { item = 13, texture = 2, defaultItem = -1, defaultTexture = 0 },
-				["pants"] = { item = 25, texture = 2, defaultItem = 0, defaultTexture = 0 },
+				["pants"] = { item = 31, texture = 2, defaultItem = 0, defaultTexture = 0 },
 				["vest"] = { item = 0, texture = 0, defaultItem = 0, defaultTexture = 0 },
 				["bracelet"] = { item = -1, texture = 0, defaultItem = -1, defaultTexture = 0 },
 				["decals"] = { item = 0, texture = 0, defaultItem = 0, defaultTexture = 0 },
 				["mask"] = { item = 121, texture = 0, defaultItem = 0, defaultTexture = 0 },
-				["shoes"] = { item = 25, texture = 0, defaultItem = 1, defaultTexture = 0 },
-				["tshirt"] = { item = 56, texture = 0, defaultItem = 1, defaultTexture = 0 },
+				["shoes"] = { item = 9, texture = 0, defaultItem = 1, defaultTexture = 0 },
+				["tshirt"] = { item = 27, texture = 0, defaultItem = 1, defaultTexture = 0 },
 				["backpack"] = { item = 0, texture = 0, defaultItem = 0, defaultTexture = 0 },
-				["torso"] = { item = 200, texture = 0, defaultItem = 0, defaultTexture = 0 },
+				["torso"] = { item = 202, texture = 0, defaultItem = 0, defaultTexture = 0 },
 				["accessory"] = { item = 1, texture = 0, defaultItem = 0, defaultTexture = 0 },
 				["watch"] = { item = -1, texture = 0, defaultItem = -1, defaultTexture = 0 },
-				["arms"] = { item = 20, texture = 0, defaultItem = 0, defaultTexture = 0 },
+				["arms"] = { item = 23, texture = 0, defaultItem = 0, defaultTexture = 0 },
+				["glass"] = { item = 0, texture = 0, defaultItem = 0, defaultTexture = 0 },
+				["ear"] = { item = -1, texture = 0, defaultItem = -1, defaultTexture = 0 }
+			}
+		},
+		["Bennys"] = {
+			["homem"] = {
+				["hat"] = { item = -1, texture = 0, defaultItem = -1, defaultTexture = 0 },
+				["pants"] = { item = 39, texture = 2, defaultItem = 0, defaultTexture = 0 },
+				["vest"] = { item = 0, texture = 0, defaultItem = 0, defaultTexture = 0 },
+				["bracelet"] = { item = -1, texture = 0, defaultItem = -1, defaultTexture = 0 },
+				["decals"] = { item = 0, texture = 0, defaultItem = 0, defaultTexture = 0 },
+				["mask"] = { item = 0, texture = 0, defaultItem = 0, defaultTexture = 0 },
+				["shoes"] = { item = 25, texture = 0, defaultItem = 1, defaultTexture = 0 },
+				["tshirt"] = { item = 129, texture = 0, defaultItem = 1, defaultTexture = 0 },
+				["backpack"] = { item = 0, texture = 0, defaultItem = 0, defaultTexture = 0 },
+				["torso"] = { item = 65, texture = 2, defaultItem = 0, defaultTexture = 0 },
+				["accessory"] = { item = 0, texture = 0, defaultItem = 0, defaultTexture = 0 },
+				["watch"] = { item = -1, texture = 0, defaultItem = -1, defaultTexture = 0 },
+				["arms"] = { item = 107, texture = 9, defaultItem = 0, defaultTexture = 0 },
 				["glass"] = { item = 0, texture = 0, defaultItem = 0, defaultTexture = 0 },
 				["ear"] = { item = -1, texture = 0, defaultItem = -1, defaultTexture = 0 }
 			},

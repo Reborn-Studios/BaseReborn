@@ -175,7 +175,7 @@ end)
 -- EMERGENCYFUNCTIONS
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterCommand("emergencyFunctions",function()
-	if (LocalPlayer["state"]["Police"] or LocalPlayer["state"]["Paramedic"]) and not IsPauseMenuActive() and not LocalPlayer["state"]["Commands"] and not LocalPlayer["state"]["Handcuff"] and not LocalPlayer["state"]["Prison"] and not Dynamic then
+	if (LocalPlayer["state"]["Police"] or LocalPlayer["state"]["Paramedic"] or LocalPlayer["state"]["Mechanic"]) and not IsPauseMenuActive() and not LocalPlayer["state"]["Commands"] and not LocalPlayer["state"]["Handcuff"] and not LocalPlayer["state"]["Prison"] and not Dynamic then
 		local Ped = PlayerPedId()
 		if LocalPlayer["state"]["Police"] then
 			if GetEntityHealth(Ped) > 100 and not IsPedInAnyVehicle(Ped) then
@@ -219,6 +219,16 @@ RegisterCommand("emergencyFunctions",function()
 				exports["dynamic"]:SubMenu("Fardamentos","Todos os fardamentos médicos.","preMedic","fa-light fa-shirt")
 				exports["dynamic"]:openMenu()
 			end
+		elseif LocalPlayer["state"]["Mechanic"] then
+			if Presets["Mechanic"] then
+				for Name,data in pairs(Presets["Mechanic"]) do
+					if LocalPlayer["state"][Name] then
+						exports["dynamic"]:AddButton(Name,"Fardamento de "..Name..".","player:Preset",Name,"preMechanic",true)
+					end
+				end
+			end
+			exports["dynamic"]:SubMenu("Fardamentos","Todos os fardamentos mecânicos.","preMechanic","fa-light fa-shirt")
+			exports["dynamic"]:openMenu()
 		end
 	end
 end)
