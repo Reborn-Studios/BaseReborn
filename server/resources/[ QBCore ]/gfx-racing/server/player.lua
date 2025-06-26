@@ -5,6 +5,7 @@ GFX.RaceLeaderBoard = {}
 GFX.GetPlayer = function(source) 
     if source then
         PlayerIdentifier = GFX.GetPlayerIdentifier(source)
+        if not PlayerIdentifier then return end
         MySQL.prepare('SELECT * FROM gfx_racing WHERE identifier = ?', {PlayerIdentifier}, function(result)
             if result then
                 result.routes = json.decode(result.routes)
