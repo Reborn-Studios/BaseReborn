@@ -408,21 +408,25 @@ Citizen.CreateThread(function()
 		local health = GetEntityHealth(ped)
 
 		if health > 101 then
-			if myhunger >= 10 and myhunger <= 20 then
-				SetFlash(0,0,500,1000,500)
-				SetEntityHealth(ped,health-1)
-			elseif myhunger <= 9 then
-				SetFlash(0,0,500,1000,500)
-				SetEntityHealth(ped,health-2)
-			end
+            if Config.EnableHunger then
+                if myhunger >= 10 and myhunger <= 20 then
+                    SetFlash(0,0,500,1000,500)
+                    SetEntityHealth(ped,health-1)
+                elseif myhunger <= 9 then
+                    SetFlash(0,0,500,1000,500)
+                    SetEntityHealth(ped,health-2)
+                end
+            end
 
-			if mythirst >= 10 and mythirst <= 20 then
-				SetFlash(0,0,500,1000,500)
-				SetEntityHealth(ped,health-1)
-			elseif mythirst <= 9 then
-				SetFlash(0,0,500,1000,500)
-				SetEntityHealth(ped,health-2)
-			end
+            if Config.EnableThirst then
+                if mythirst >= 10 and mythirst <= 20 then
+                    SetFlash(0,0,500,1000,500)
+                    SetEntityHealth(ped,health-1)
+                elseif mythirst <= 9 then
+                    SetFlash(0,0,500,1000,500)
+                    SetEntityHealth(ped,health-2)
+                end
+            end
 		end
 		Citizen.Wait(5000)
 	end
