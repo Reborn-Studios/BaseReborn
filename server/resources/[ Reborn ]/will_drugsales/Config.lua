@@ -38,6 +38,9 @@ Config.ImageDirect = Reborn.images()
 --###    VENDA COM MESA
 -----##############################-----
 
+-- Criar props em cima da mesa
+Config.CreateDrugProps = true
+
 -- Props das mesas
 Config.TableProps = { "prop_protest_table_01", "bkr_prop_weed_table_01b", "prop_ven_market_table1", "prop_tri_table_01" }
 
