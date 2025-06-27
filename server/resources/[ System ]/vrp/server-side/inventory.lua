@@ -91,10 +91,9 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- GIVEINVENTORYITEM
 -----------------------------------------------------------------------------------------------------------------------------------------
-function vRP.giveInventoryItem(user_id,item,amount,slot,notify)
+function vRP.giveInventoryItem(user_id,item,amount,notify,slot,metadata)
 	local nplayer = vRP.getUserSource(tonumber(user_id))
 	if nplayer then
-		local metadata = nil
 		Reborn.addItem(nplayer,item,amount,metadata,slot,notify)
 	end
 end
