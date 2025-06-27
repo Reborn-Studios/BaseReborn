@@ -166,6 +166,26 @@ RegisterCommand("invadir",function(source,args,rawCommand)
 	end
 end)
 
+local Inside = {}
+
+RegisterNetEvent("will_homes:updatePos")
+AddEventHandler("will_homes:updatePos",function (coords)
+	local source = source
+	local user_id = getUserId(source)
+	print(user_id,coords)
+	if user_id then
+		Inside[user_id] = coords
+	end
+end)
+
+AddEventHandler("Disconnect",function(user_id)
+	print(Inside[user_id])
+	if Inside[user_id] then
+		vRP.updateHomePosition(user_id,Inside[user_id].x,Inside[user_id].y,Inside[user_id].z)
+		Inside[user_id] = nil
+	end
+end)
+
 -- Função para entrar na casa mais proxima
 -- Pode ser usado para implementar em seu script de roubo
 

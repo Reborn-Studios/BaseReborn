@@ -240,10 +240,6 @@ function vRP.rejoinServer(source,health,armour,coords)
 	if user_id then
 		local identity = vRP.getUserIdentity(user_id)
 		if identity then
-			TriggerEvent("vRP:playerLeave",user_id,source)
-			TriggerEvent("playerDisconnect",user_id,source)
-			TriggerEvent("Disconnect",user_id,source)
-			TriggerEvent("esx:playerLogout",source)
 			if health then
 				vRP.user_tables[user_id].health = health
 			end
@@ -253,6 +249,10 @@ function vRP.rejoinServer(source,health,armour,coords)
 			if coords then
 				vRP.user_tables[user_id].position = { x = coords.x, y = coords.y, z = coords.z }
 			end
+			TriggerEvent("vRP:playerLeave",user_id,source)
+			TriggerEvent("playerDisconnect",user_id,source)
+			TriggerEvent("Disconnect",user_id,source)
+			TriggerEvent("esx:playerLogout",source)
 			vRP.setUData(user_id,"Datatable",json.encode(vRP.user_tables[user_id]))
 			local Player = QBCore.Functions.GetPlayer(source)
 			if Player then

@@ -335,6 +335,28 @@ CreateThread(function()
 	end
 end)
 
+CreateThread(function()
+	while true do
+		local timeDistance = 999
+        if inHouse and CurId and Houses[CurId] then
+            Wait(3000)
+            TriggerServerEvent("will_homes:updatePos",Houses[CurId].coords.house_in)
+            while inHouse and CurId do
+                local ped = PlayerPedId()
+                local coords = GetEntityCoords(ped)
+                local dist = #(coords - vector3(Houses[CurId].coords.house_out.x,Houses[CurId].coords.house_out.y,Houses[CurId].coords.house_out.z))
+                if dist > 100 then
+                    inHouse = false
+                    exitHouse()
+                end
+                Wait(timeDistance)
+            end
+            TriggerServerEvent("will_homes:updatePos",nil)
+        end
+		Wait(timeDistance)
+    end
+end)
+
 function GetPlayers()
 	local pedList = {}
 
