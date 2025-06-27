@@ -131,9 +131,10 @@ function vRP.getGmsId(user_id)
 	local identity = vRP.getUserIdentity(user_id)
 	if identity then
 		local infos = vRP.query("vRP/get_accounts",{ identifier = identity.identifier })
-		if infos[1] then
+		if infos[1] and infos[1].gems then
 			return infos[1].gems
 		end
+		return 0
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
