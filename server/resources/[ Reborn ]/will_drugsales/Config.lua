@@ -67,6 +67,9 @@ Config.ShouldToggleSelling = false       -- Event: "will_drugsales:toggleselling
 -- Tempo em segundos para concluir a venda
 Config.SellTimeout = 7
 
+-- Menu para negociar valor com NPC
+Config.SellWithMenu = true
+
 -- Itens para vender
 Config.SellItems = {
     { item = 'cocaine',  price = math.random(100, 200), prop = "bkr_prop_coke_cutblock_01" },
