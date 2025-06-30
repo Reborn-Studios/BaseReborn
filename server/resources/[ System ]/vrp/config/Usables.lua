@@ -349,6 +349,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName, rAmount, data)
 								vRP.chemicalTimer(nuser_id,1)
 								vSURVIVAL._revivePlayer(nplayer,110)
 								TriggerClientEvent("resetBleeding",nplayer)
+								vRPclient._stopAnim(source)
 							end
 						end
 						Citizen.Wait(0)
