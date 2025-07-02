@@ -142,7 +142,8 @@ function Creative.PremiumBuy(Data,Select)
                                 local RentalDays = data["Amount"]
                                 if VehicleIndex then
                                     if RentalDays then
-                                        vRP.execute('will/add_rend',{ user_id = Passport, vehicle = VehicleIndex ,time = RentalDays })
+                                        local Time = os.time() + 24 * 60 * 60 * RentalDays
+                                        vRP.execute('will/add_rend',{ user_id = Passport, vehicle = VehicleIndex ,time = Time })
                                     end
                                     addVehicle(Passport, VehicleIndex)
                                     TriggerClientEvent("Notify", Source, "Sucesso", "Premium alugado com sucesso", 5000)
