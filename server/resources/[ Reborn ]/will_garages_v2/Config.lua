@@ -127,7 +127,32 @@ Config.BlacklistVehicles = {
     },
 }
 
-Config.exclusiveGarages = {}
+Config.exclusiveGarages = {
+    -- ID da garagem
+    [382] = {
+        -- Veiculos exclusivos que so vão ter nessa garagem (Precisa estar na garagem do player - 'work': false)
+        "supervolito",
+        "supervolito2",
+        "swift",
+        "swift2",
+    }
+}
+
+-- Veiculos que nao vao aparecer nas outras garagens
+local exclusiveVehs = {
+    'supervolito',
+    'supervolito2',
+    'swift',
+    'swift2',
+}
+
+do
+    for k,v in pairs(Config.garages) do
+        if not Config.exclusiveGarages[k] then
+            Config.BlacklistVehicles[k] = exclusiveVehs
+        end
+    end
+end
 
 -----##########################################################-----
 --###          GARAGENS INTERIORES
