@@ -4,6 +4,10 @@ if Config.UseStress then
         stress = newStress
         SendNUIMessage({ type="set_status", statustype = "stress", value = newStress})
     end)
+    RegisterNetEvent('statusStress', function(newStress) -- Add this event with adding stress elsewhere
+        stress = newStress
+        SendNUIMessage({ type="set_status", statustype = "stress", value = newStress})
+    end)
     function IsWhitelistedWeaponStress(weapon)
         if weapon then
             for _, v in pairs(Config.WhitelistedWeaponStress) do
