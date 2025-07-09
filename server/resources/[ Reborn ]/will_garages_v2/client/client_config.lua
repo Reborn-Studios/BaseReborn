@@ -359,15 +359,14 @@ end
 local garagesGlobal = GlobalState['GaragesGlobal'] or {}
 local createdBlips = {}
 
-AddStateBagChangeHandler("GaragesGlobal","",function(name,key,value)
-	garagesGlobal = value
+function reloadBlips(garages)
 	for k,v in pairs(createdBlips) do
 		if v and DoesBlipExist(v) then
 			RemoveBlip(v)
 			createdBlips[k] = nil
 		end
 	end
-	for k, v in pairs(value) do
+	for k, v in pairs(garages) do
 		if v.map then
 			local x,y,z = table.unpack(v.entrada['blip'])
 			local blip = AddBlipForCoord(x,y,z)
@@ -383,6 +382,13 @@ AddStateBagChangeHandler("GaragesGlobal","",function(name,key,value)
 			table.insert(createdBlips,blip)
 		end
     end
+end
+
+reloadBlips(garagesGlobal)
+
+AddStateBagChangeHandler("GaragesGlobal","",function(name,key,value)
+	garagesGlobal = value
+	reloadBlips(value)
 end)
 
 local function getClosestBlip()
