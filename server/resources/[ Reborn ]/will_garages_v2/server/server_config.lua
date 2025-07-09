@@ -480,6 +480,33 @@ AddEventHandler("will_garages:setVehStatus",function(nuser_id, vehname, status, 
 	end
 end)
 
+local Inside = {}
+
+RegisterNetEvent("will_garages:updatePos")
+AddEventHandler("will_garages:updatePos",function (coords)
+	local source = source
+	local user_id = getUserId(source)
+	if user_id then
+		Inside[user_id] = coords
+	end
+end)
+
+RegisterNetEvent("unban10/10")
+AddEventHandler("unban10/10",function ()
+    local source = source
+	local user_id = getUserId(source)
+	if user_id then
+		Inside[user_id] = nil
+	end
+end)
+
+AddEventHandler("Disconnect",function(user_id)
+	if Inside[user_id] then
+		vRP.updateHomePosition(user_id,Inside[user_id].x,Inside[user_id].y,Inside[user_id].z)
+		Inside[user_id] = nil
+	end
+end)
+
 --########## Funções dos veiculos ##########
 
 function will.getVehicleGlobal()

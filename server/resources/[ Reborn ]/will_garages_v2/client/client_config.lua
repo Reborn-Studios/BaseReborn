@@ -406,6 +406,8 @@ local function getClosestBlip()
 	return closest
 end
 
+local actualGarage = nil
+
 Citizen.CreateThread(function()
 	while true do
 		local coords = GetEntityCoords(PlayerPedId())
@@ -421,6 +423,7 @@ Citizen.CreateThread(function()
 					distance = #(GetEntityCoords(PlayerPedId()) - vector3(x, y, z))
 					drawMark(x,y,z)
 					if IsControlJustPressed(0,38) and distance <= 2.0 then
+						actualGarage = closestBlip
 						pickGarage(closestBlip)
 					end
 					Citizen.Wait(will)
@@ -428,6 +431,14 @@ Citizen.CreateThread(function()
 			end
 		end
 		Citizen.Wait(will)
+	end
+end)
+
+RegisterNetEvent("checkIfIsInsideGarage")
+AddEventHandler("checkIfIsInsideGarage",function()
+	if actualGarage and garagesGlobal[closestBlip] then
+		local x,y,z = getBlip(garagesGlobal[closestBlip])
+		TriggerServerEvent("will_garages:updatePos",vector3(x,y,z))
 	end
 end)
 
