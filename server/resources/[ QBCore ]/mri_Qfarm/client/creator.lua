@@ -61,7 +61,7 @@ local function deletePoint(args)
     local result = delete(locale('actions.confirmation_description', locale('actions.point'), args.name),
         Farms[args.farmKey].config.points, args.pointKey)
     args.callback({
-        farmKey = args.farmKey,
+        key = args.farmKey,
         itemKey = args.itemKey
     })
 end
@@ -392,7 +392,7 @@ local function pointMenu(args)
             iconColor = ColorScheme.danger,
             onSelect = deletePoint,
             args = {
-                key = args.farmKey,
+                farmKey = args.farmKey,
                 itemKey = args.itemKey,
                 pointKey = args.pointKey,
                 name = args.name,
