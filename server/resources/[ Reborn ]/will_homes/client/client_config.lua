@@ -347,7 +347,9 @@ CreateThread(function()
                 local dist = #(coords - vector3(Houses[CurId].coords.house_out.x,Houses[CurId].coords.house_out.y,Houses[CurId].coords.house_out.z))
                 if dist > 100 then
                     inHouse = false
-                    exitHouse()
+                    if CurId then
+                        exitHouse()
+                    end
                 end
                 Wait(timeDistance)
             end
