@@ -71,7 +71,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNUICallback("ChatSubmit",function(Data,Callback)
 	SetNuiFocus(false,false)
-	if Data["message"] ~= "" and MumbleIsConnected() then
+	if Data["message"] ~= "" then
 		if Data["message"]:sub(1,1) == "/" then
 			ExecuteCommand(Data["message"]:sub(2))
 		else
