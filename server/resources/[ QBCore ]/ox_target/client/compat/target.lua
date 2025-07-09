@@ -238,12 +238,13 @@ api.addGlobalPlayer(convert({
     distance = 1.0,
     options = {
         {
-            job = "police",
+            -- job = "police",      -- Descomentar caso queira revista apenas para policia
             icon = "fa-solid fa-people-robbery",
-            -- event = "ld-inventory:revistar",
             action = function(data)
                 if GetResourceState("ox_inventory") == "started" and data then
-                    TriggerServerEvent("ox_inventory:requestRevist", GetPlayerServerId(NetworkGetPlayerIndexFromPed(data)))
+                    local nplayerid = NetworkGetPlayerIndexFromPed(data)
+                    local nplayer = GetPlayerServerId(nplayerid)
+                    TriggerServerEvent("ox_inventory:requestRevist", nplayer, IsEntityPlayingAnim(data,"random@arrests@busted","idle_a",3))
                 end
             end,
             label = "Revistar",
