@@ -1005,3 +1005,23 @@ end)
 function ServerPlayer.tryTow(vehid01,vehid02,mod)
 	TriggerClientEvent("vrp_towdriver:syncTow",-1,vehid01,vehid02,tostring(mod))
 end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- GARMAS
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterCommand("garmas",function(source,args,rawCommand)
+	local user_id = vRP.getUserId(source)
+	if user_id then
+		if vRP.hasPermission(user_id,"policia.permissao") then
+			return
+		end
+		local weapons = vRPclient.getWeapons(source)
+		for weap, v in pairs(weapons) do
+			vRP.giveInventoryItem(user_id,weap,1,true)
+			local ammo = vRP.itemAmmoList(weap)
+			if ammo and v.ammo > 0 then
+				vRP.giveInventoryItem(user_id,ammo,v.ammo,true)
+			end
+		end
+		vRPclient.clearWeapons(source)
+	end
+end)

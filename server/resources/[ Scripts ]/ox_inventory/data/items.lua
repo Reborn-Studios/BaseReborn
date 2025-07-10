@@ -1758,4 +1758,191 @@ return {
 			image = "vehiclekey.png",
 		}
 	},
+
+	["GADGET_PARACHUTE"] = {
+		label = "Paraquedas",
+		weight = 2250,
+		stack = true,
+		close = true,
+		description = "Sem descrição",
+		client = {
+			image = "GADGET_PARACHUTE.png",
+		}
+	},
+
+	["AMMO_PETROLCAN"] = {
+		label = "Combustível",
+		weight = 1,
+		stack = true,
+		close = true,
+		description = "Sem descrição",
+		client = {
+			image = "AMMO_PETROLCAN.png",
+		}
+	},
+
+	["shotgunammo"] = {
+		label = "M. Escopeta",
+		weight = 50,
+		stack = true,
+		close = true,
+		description = "Munição para escopetas",
+		client = {
+			image = "shotgunammo.png",
+		}
+	},
+
+	["WEAPON_STONEHATCHET"] = {
+		label = "Machado de Pedra",
+		weight = 750,
+		stack = true,
+		close = true,
+		description = "Sem descrição",
+		client = {
+			image = "WEAPON_STONEHATCHET.png",
+		}
+	},
+
+	["attachsgrip"] = {
+		label = "Grip",
+		weight = 200,
+		stack = true,
+		close = true,
+		description = "Sem descrição",
+		client = {
+			image = "attachsgrip.png",
+		}
+	},
+
+	["rifleammo"] = {
+		label = "M. Rifle",
+		weight = 40,
+		stack = true,
+		close = true,
+		description = "Munição para rifles",
+		client = {
+			image = "rifleammo.png",
+		}
+	},
+
+	["pistolammo"] = {
+		label = "M. Pistola",
+		weight = 20,
+		stack = true,
+		close = true,
+		description = "Munição para pistolas",
+		client = {
+			image = "pistolammo.png",
+		}
+	},
+
+	["attachsflashlight"] = {
+		label = "Lanterna",
+		weight = 200,
+		stack = true,
+		close = true,
+		description = "Sem descrição",
+		client = {
+			image = "attachsflashlight.png",
+		}
+	},
+
+	["attachssilencer"] = {
+		label = "Silenciador",
+		weight = 200,
+		stack = true,
+		close = true,
+		description = "Sem descrição",
+		client = {
+			image = "attachssilencer.png",
+		}
+	},
+
+	["finish"] = {
+		label = "Skin",
+		weight = 1000,
+		stack = true,
+		close = true,
+		description = "Sem descrição",
+		client = {
+			image = "finish.png",
+		}
+	},
+
+	["clip"] = {
+		label = "Pente",
+		weight = 1000,
+		stack = true,
+		close = true,
+		description = "Pente para armas pequenas e grandes",
+		client = {
+			image = "clip.png",
+		}
+	},
+
+	["grip"] = {
+		label = "Empunhadura",
+		weight = 1000,
+		stack = true,
+		close = true,
+		description = "Empunhadura para armas pequenas e grandes",
+		client = {
+			image = "grip.png",
+		}
+	},
+
+	["suppressor"] = {
+		label = "Silenciador",
+		weight = 1000,
+		stack = true,
+		close = true,
+		description = "Silenciador para armas pequenas e grandes",
+		client = {
+			image = "suppressor.png",
+		}
+	},
+
+	["smgammo"] = {
+		label = "M. Sub Metralhadora",
+		weight = 30,
+		stack = true,
+		close = true,
+		description = "Munição para submetralhadoras",
+		client = {
+			image = "smgammo.png",
+		}
+	},
+
+	["scope"] = {
+		label = "Mira",
+		weight = 1000,
+		stack = true,
+		close = true,
+		description = "Mira para armas pequenas e grandes",
+		client = {
+			image = "scope.png",
+		}
+	},
+
+	["flashlight"] = {
+		label = "Lanterna",
+		weight = 1000,
+		stack = true,
+		close = true,
+		description = "Lanterna para armas pequenas e grandes",
+		client = {
+			image = "flashlight.png",
+		}
+	},
+
+	["attachscrosshair"] = {
+		label = "Mira",
+		weight = 200,
+		stack = true,
+		close = true,
+		description = "Sem descrição",
+		client = {
+			image = "attachscrosshair.png",
+		}
+	},
 }

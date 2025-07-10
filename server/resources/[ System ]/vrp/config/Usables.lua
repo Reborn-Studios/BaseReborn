@@ -1,12 +1,13 @@
 local Proxy = module("vrp","lib/Proxy") or {}
 local Tunnel = module("vrp","lib/Tunnel") or {}
 local Webhooks = module("config/webhooks") or {}
+local items = module('vrp',"config/Itemlist") or {}
 vRP = Proxy.getInterface("vRP")
+vRPclient = Tunnel.getInterface("vRP")
 ESX = exports.es_extended:getSharedObject()
 local vTASKBAR = Tunnel.getInterface("taskbar")
 local vSURVIVAL = Tunnel.getInterface("Survival")
 local vPLAYER = Tunnel.getInterface("Player")
-local vRPclient = Tunnel.getInterface("vRP")
 
 local active = {}
 local Objects = {}
@@ -20,6 +21,51 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName, rAmount, data)
 	if not rAmount or rAmount <= 0 then
 		rAmount = 1
 	end
+
+	if vRP.itemTypeList(itemName) == "weapon" then
+		if vRP.tryGetInventoryItem(user_id,itemName,1) then
+			local Ammo = 0
+			if not vRP.itemAmmoList(itemName) then
+				Ammo = 1
+			end
+			vRPclient.giveWeapons(source, {[itemName] = { ammo = Ammo }})
+		end
+		return
+	end
+
+	if vRP.itemTypeList(itemName) == "ammo" then
+		local CurrentWeapon = GetCurrentPedWeapon(GetPlayerPed(source))
+		if CurrentWeapon then
+			local Weapon = nil
+			for k,v in pairs(items) do
+				if v.type == "weapon" and CurrentWeapon == GetHashKey(k) and v.ammo == itemName then
+					Weapon = k
+					break
+				end
+			end
+			if not Weapon then
+				TriggerClientEvent("Notify",source,"negado","Munição não corresponde a arma",5000)
+				return
+			end
+			local AmmoClip = vRPclient.getWeaponAmmo(source,Weapon)
+			if Weapon == "WEAPON_PETROLCAN" then
+				if (AmmoClip + rAmount) > 4500 then
+					rAmount = 4500 - AmmoClip
+				end
+			else
+				if (AmmoClip + rAmount) > 250 then
+					rAmount = 250 - AmmoClip
+				end
+			end
+			if vRP.tryGetInventoryItem(user_id,itemName,rAmount) then
+				vRPclient.giveWeapons(source, {[Weapon] = { ammo = rAmount }})
+			end
+		else
+			TriggerClientEvent("Notify",source,"negado","Você precisa estar com a arma equipada",5000)
+		end
+		return
+	end
+
 	if ESX.UseItem(source, itemName) then return end
 	Player(source)["state"]["Commands"] = true
 	if itemName == "analgesic" then
@@ -217,7 +263,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName, rAmount, data)
 					end
 					Citizen.Wait(0)
 				until active[user_id] == nil
-			end			
+			end
 		else
 			if vRPclient.getHealth(source) > 101 and vRPclient.getHealth(source) < MaxHealth then
 				active[user_id] = 30
@@ -306,25 +352,9 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName, rAmount, data)
 	end
 
 	if itemName == "adrenaline" then
-
-		local adrenalineCds = {
-			{ 1978.76,5171.11,47.64 },
-			{ 707.86,4183.95,40.71 },
-			{ 436.64,6462.23,28.75 },
-			{ -2173.5,4291.73,49.04 }
-		}
-
-		local ped = GetPlayerPed(source)
-		local coords = GetEntityCoords(ped)
-		local adrenalineDistance = false
-		for k,v in pairs(adrenalineCds) do
-			local distance = #(coords - vector3(v[1],v[2],v[3]))
-			if distance <= 5 then
-				adrenalineDistance = true
-			end
-		end
-		local parAmount = vRP.numPermission("Paramedic")
-		if #parAmount > 0 or not adrenalineDistance then
+		local parAmount = vRP.getUsersByPermission("paramedico.permissao")
+		if #parAmount > 0 then
+			TriggerClientEvent("Notify",source,"aviso","Existem <b>"..#parAmount.."</b> paramedicos em serviço.",5000)
 			return
 		end
 
@@ -500,7 +530,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName, rAmount, data)
 		active[user_id] = 10
 		TriggerClientEvent("Progress",source,10000,"Utilizando...")
 
-		repeat	
+		repeat
 			if active[user_id] == 0 then
 				active[user_id] = nil
 

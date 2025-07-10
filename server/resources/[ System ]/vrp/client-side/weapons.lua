@@ -154,6 +154,7 @@ end
 function tvRP.clearWeapons()
 	RemoveAllPedWeapons(PlayerPedId(),true)
 	weapon_list = {}
+	vRPserver.updateWeapons({})
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- GiveWeaponToPed
@@ -171,6 +172,12 @@ function tvRP.giveWeapons(weapons,clear_before,forceHand)
 		weapon_list[string.upper(k)] = v
 	end
 	vRPserver.updateWeapons(tvRP.getWeapons())
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- GiveWeaponToPed
+-----------------------------------------------------------------------------------------------------------------------------------------
+function tvRP.getWeaponAmmo(Weapon)
+	return GetAmmoInPedWeapon(PlayerPedId(),Weapon)
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- INVENTORY:CREATEWEAPON

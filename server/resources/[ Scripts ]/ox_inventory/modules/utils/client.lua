@@ -117,6 +117,13 @@ function Utils.WeaponWheel(state)
 	end
 end
 
+CreateThread(function()
+	Wait(2000)
+	if GlobalState['WeaponWheel'] then
+		Utils.WeaponWheel(true)
+	end
+end)
+
 exports('weaponWheel', Utils.WeaponWheel)
 
 function Utils.CreateBlip(settings, coords)

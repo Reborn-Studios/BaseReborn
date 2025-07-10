@@ -515,7 +515,10 @@ local function useSlot(slot, noAnim)
 		if data.effect then
 			data:effect({name = item.name, slot = item.slot, metadata = item.metadata})
 		elseif data.weapon then
-			if EnableWeaponWheel or not plyState.canUseWeapons then return end
+			if not plyState.canUseWeapons then return end
+			if EnableWeaponWheel then
+				return useItem(data)
+			end
 
 			if IsCinematicCamRendering() then SetCinematicModeActive(false) end
 

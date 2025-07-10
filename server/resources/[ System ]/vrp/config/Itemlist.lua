@@ -1455,6 +1455,11 @@ else
 			weight = v.weight / 1000
 		}
 	end
+	if GlobalState['WeaponWheel'] then
+		for k,v in pairs(weapons) do
+			itens[k] = v
+		end
+	end
 end
 
 local NewItems = GlobalState["NewItems"] or {}

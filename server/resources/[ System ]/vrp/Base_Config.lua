@@ -33,6 +33,8 @@ GlobalState['Basics'] = {
 
 GlobalState['Inventory'] = "ox_inventory"       -- "ld_inventory" / "ox_inventory" / "custom"
 
+GlobalState['WeaponWheel'] = false               -- Utilizado para o ox_inventory / Ao ativar, as armas não terão mais durabilidade e metadatas
+
 ----####----####----####----##
 ----##    IMG DIRETORIO    -##
 ----####----####----####----##
