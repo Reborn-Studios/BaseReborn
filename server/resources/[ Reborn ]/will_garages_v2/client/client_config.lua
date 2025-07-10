@@ -436,8 +436,8 @@ end)
 
 RegisterNetEvent("checkIfIsInsideGarage")
 AddEventHandler("checkIfIsInsideGarage",function()
-	if actualGarage and garagesGlobal[closestBlip] then
-		local x,y,z = getBlip(garagesGlobal[closestBlip])
+	if actualGarage and garagesGlobal[actualGarage] then
+		local x,y,z = getBlip(garagesGlobal[actualGarage])
 		TriggerServerEvent("will_garages:updatePos",vector3(x,y,z))
 	end
 end)
