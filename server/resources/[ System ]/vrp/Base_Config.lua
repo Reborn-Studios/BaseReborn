@@ -126,6 +126,11 @@ Reborn.autoReload = function()
         ['Timers'] = {                              -- Horarios programados para reiniciar
             ['10:00'] = true,
             ['18:00'] = true,
+        },
+        ['Warning'] = {
+            ['TimeToRestart'] = 5 * 60 * 1000,                          -- Tempo para avisar antes de dar RR
+            ['Message'] = "Previsão de terremoto em 5 minutos...",      -- Mensagem para avisar
+            ['ChangeWeather'] = "THUNDER",                              -- Mudança de tempo
         }
     }
 end
