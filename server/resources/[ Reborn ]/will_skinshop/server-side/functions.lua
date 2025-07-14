@@ -26,7 +26,7 @@ function checkVipCloth(source,category,item)
         end
         return false
     end
-    if hasPermission(user_id, "Gold") then
+    if hasPermission(user_id, "vip.permissao") then
         return true
     end
     return false
