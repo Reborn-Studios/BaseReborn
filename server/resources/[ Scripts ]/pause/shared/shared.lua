@@ -528,15 +528,18 @@ Premium = {
                 ["Options"] = {
                     {
                         ["Name"] = "Nissan GTR",
-                        ["Index"] = "nissangtr"
+                        ["Index"] = "gtr50",
+                        ["Amount"] = 30
                     },
                     {
-                        ["Name"] = "Ferrari Italia",
-                        ["Index"] = "ferrariitalia"
+                        ["Name"] = "Audi RS7",
+                        ["Index"] = "rs7",
+                        ["Amount"] = 30
                     },
                     {
                         ["Name"] = "Lancer Evolution 9",
-                        ["Index"] = "lancerevolution9"
+                        ["Index"] = "evo9",
+                        ["Amount"] = 30
                     },
                 }
             }
