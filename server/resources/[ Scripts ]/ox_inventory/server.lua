@@ -440,7 +440,7 @@ lib.callback.register('ox_inventory:useItem', function(source, itemName, slot, m
 				else
 					return TriggerClientEvent('ox_lib:notify', source, { type = 'error', description = locale('item_not_enough', item.name) })
 				end
-			elseif server.UseItem then
+			elseif not item.weapon and server.UseItem then
                 inventory.usingItem = data
 				-- This is used to call an external useItem function, i.e. ESX.UseItem / QBCore.Functions.CanUseItem
 				-- If an error is being thrown on item use there is no internal solution. We previously kept a list
@@ -449,6 +449,8 @@ lib.callback.register('ox_inventory:useItem', function(source, itemName, slot, m
 				-- should resolve issues, i.e. https://github.com/esx-framework/esx-legacy/commit/9fc382bbe0f5b96ff102dace73c424a53458c96e
 				TriggerEvent("ox_inventory:useItem",source, itemName, data.count, data)
 				return pcall(server.UseItem, source, data.name, data)
+			elseif GlobalState['WeaponWheel'] then
+				TriggerEvent("ox_inventory:useItem",source, itemName, data.count, data)
 			end
 
 			data.consume = consume
