@@ -289,6 +289,7 @@ lib.callback.register('ox_inventory:buyItem', function(source, data)
 					exports['will_shops']:bougthProduct(vRP.getUserId(source), shopType, fromData.name,count, price, "Item adquirido: "..fromData.name.." - x"..count)
 				end
 				local amount = fromData.metadata and fromData.metadata.amount or 1
+				if metadata.amount then metadata = nil end
 				Inventory.SetSlot(playerInv, fromItem, count * amount, metadata, data.toSlot)
 				playerInv.weight = newWeight
 
