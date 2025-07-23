@@ -44,3 +44,21 @@ function Server.deleteElevator(index)
         TriggerClientEvent("Notify",source,"sucesso","Elevador removido com sucesso!",5000)
     end
 end
+
+function Server.checkPerm(perm)
+    local source = source
+    local user_id = vRP.getUserId(source)
+    if type(perm) == "table" then
+        for permiss,grade in pairs(perm) do
+            if vRP.hasPermission(user_id,permiss) then
+                return true
+            end
+        end
+        TriggerClientEvent("Notify",source,"negado","Você não possui permissão para esse andar!",5000)
+        return false
+    end
+    if vRP.hasPermission(user_id,perm) then
+        return true
+    end
+    TriggerClientEvent("Notify",source,"negado","Você não possui permissão para esse andar!",5000)
+end

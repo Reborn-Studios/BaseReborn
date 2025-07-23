@@ -18,9 +18,11 @@ local function getFloor()
     local floor = {}
     lib.showTextUI('Posicione o blip para o andar')
     local blipCds = GetBlipCoords()
+    local groups = ServerControl.getGroups()
     lib.hideTextUI()
     local input = lib.inputDialog('Registro do andar', {
         { type = 'input', label = 'Nome', description = 'Nome do andar', required = true },
+        { type = 'multi-select', label = 'Permissoes', description = "Selecione as permissoes", options = groups, searchable = true },
         { type = 'select', label = 'Icone', required = true, options = {
             { label = "Cima", value = "fa-solid fa-circle-sort-up" },
             { label = "Padrao", value = "fa-solid fa-circle-sort" },
@@ -28,8 +30,21 @@ local function getFloor()
         } },
     })
     if input then
+        local Groups = {}
+        local SelectedGroups = input[2]
+        if type(SelectedGroups) == "table" then
+            for _,ndata in pairs(SelectedGroups) do
+                local Perms = json.decode(ndata)
+                for group,grade in pairs(Perms) do
+                    Groups[group] = tonumber(grade)
+                end
+            end
+        else
+            Groups = nil
+        end
         floor.Name = input[1]
-        floor.Icon = input[2]
+        floor.Perm = Groups
+        floor.Icon = input[3]
         floor.Coords = blipCds
         return floor
     end
@@ -234,6 +249,9 @@ local Functions = {
 			return
 		end
         if Floor then
+            if Floor.Perm and not ServerControl.checkPerm(Floor.Perm) then
+                return
+            end
             local Entity = GetVehiclePedIsIn(Ped) ~= 0 and GetVehiclePedIsIn(Ped) or Ped
 
 			SetNuiFocus(false, false)
