@@ -32,12 +32,24 @@ RegisterCommand(Config.Commands["stashes"]['command'],function (source)
     end
 end)
 
+local function getStashId(id)
+    local Stashes = GlobalState['AllStashes']
+    local stashId = "Registered-"..id
+    for k,v in pairs(Stashes) do
+        if v.id == stashId then
+            id = id + 1
+            return getStashId(id)
+        end
+    end
+    return stashId
+end
+
 function Server.registerStash(Stash)
     local source = source
     if Stash.label then
         local Stashes = GlobalState['AllStashes']
         local id = #Stashes + 1
-        Stash.id = "Registered-"..id
+        Stash.id = getStashId(id)
         exports.ox_inventory:RegisterStash(Stash.id, Stash.label, Stash.slots, Stash.weight, Stash.owner, Stash.groups, Stash.coords)
         Stashes[id] = Stash
         stashesWebhooks[id] = Stash.webhook
