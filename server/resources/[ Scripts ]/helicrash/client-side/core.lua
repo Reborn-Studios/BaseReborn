@@ -36,12 +36,6 @@ CreateThread(function()
 								Distance = 1.75,
 								options = {
 									{
-										--[[ onSelect = function()
-											if GetResourceState("ox_inventory") == "started" then
-												print('open stash')
-												exports.ox_inventory:openInventory('stash', "Helicrash-"..Number)
-											end
-										end, ]]
 										event = "chest:Open",
 										label = "Abrir",
 										tunnel = "shop",

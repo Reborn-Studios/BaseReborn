@@ -130,7 +130,7 @@ RegisterServerEvent("chest:Open",function (data)
 	local user_id = vRP.getUserId(source)
 	local identity = vRP.getUserIdentity(user_id)
 	if data.service and Chests[data.service] and identity then
-		TriggerClientEvent('ox_inventory:openInventory', source, 'stash', Chests[data.service])
+		exports.ox_inventory:forceOpenInventory(source, 'stash', Chests[data.service])
 		if not opened[Chests[data.service]] then
 			opened[Chests[data.service]] = true
 			TriggerClientEvent('Notify', -1, 'amarelo', 'O jogador: <b>' ..identity["name"]..' '..identity["name2"].. '</b> coletou um suprimento do Helicrash.',5000)
