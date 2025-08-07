@@ -235,13 +235,16 @@ function will.spawnVehicle(vname,x,y,z,h,data,interior,bucket)
     local source = source
     local debugVehicle = 0
     local mHash = GetHashKey(vname)
-    local height = bucket == 0 and z or 1.000
+    local height = z + 100.0
 	local nveh = CreateVehicle(mHash, x, y, height, h ,true, true)
     while not DoesEntityExist(nveh) and debugVehicle <= 80 do
         debugVehicle = debugVehicle + 1
         Wait(100)
     end
     if DoesEntityExist(nveh) then
+        local vehicleType = GetVehicleType(nveh)
+        DeleteEntity(nveh)
+        nveh = CreateVehicleServerSetter(mHash, vehicleType, x, y, z, h)
         local netid = NetworkGetNetworkIdFromEntity(nveh)
         if not netid then
             spawnedWrongVehs[nveh] = true

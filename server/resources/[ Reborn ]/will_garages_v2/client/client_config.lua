@@ -324,9 +324,9 @@ function will.getNearVehicles(radius,x,y,z)
 	return r
 end
 
-function will.getNearVehicle(radius)
+function will.getNearVehicle(radius,x,y,z)
 	local veh
-	local vehs = will.getNearVehicles(radius)
+	local vehs = will.getNearVehicles(radius,x,y,z)
 	local min = radius + 0.0001
 	for _veh,dist in pairs(vehs) do
 		if dist < min then

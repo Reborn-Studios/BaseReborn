@@ -129,13 +129,13 @@ Config.BlacklistVehicles = {
 
 Config.exclusiveGarages = {
     -- ID da garagem
-    [382] = {
-        -- Veiculos exclusivos que so vão ter nessa garagem (Precisa estar na garagem do player - 'work': false)
-        "supervolito",
-        "supervolito2",
-        "swift",
-        "swift2",
-    }
+    -- [382] = {
+    --     -- Veiculos exclusivos que so vão ter nessa garagem (Precisa estar na garagem do player - 'work': false)
+    --     "supervolito",
+    --     "supervolito2",
+    --     "swift",
+    --     "swift2",
+    -- }
 }
 
 -- Veiculos que nao vao aparecer nas outras garagens
