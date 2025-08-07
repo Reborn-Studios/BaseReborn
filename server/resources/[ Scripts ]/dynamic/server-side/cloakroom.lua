@@ -103,7 +103,7 @@ AddEventHandler("Cloakrooms:applyPreset",function(perm)
             local basic = vRP.getSData("RoupaOff:"..user_id)
             local consult = json.decode(basic) or {}
             if consult then
-                TriggerClientEvent("updateRoupas",source,consult)
+                TriggerClientEvent("updateRoupas",source,convertClothes(consult))
             end
             TriggerClientEvent("Notify",source,"negado","Você retirou seu uniforme..",6000)
             return
@@ -124,9 +124,7 @@ AddEventHandler("Cloakrooms:applyPreset",function(perm)
                 TriggerClientEvent("Notify",source,"sucesso","Roupas aplicadas.",5000)
                 vRP.setSData("RoupaOff:"..user_id,json.encode(myClothes))
                 local preset = json.decode(consult[1].custom)
-                vRPC._setCustomization(source,preset)
                 TriggerClientEvent("skinshop:Apply",source,convertClothes(preset), true)
-                TriggerEvent("player:serverDebug",source)
             end
         end
     end
