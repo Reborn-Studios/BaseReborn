@@ -185,12 +185,19 @@ AddEventHandler("vRP:playerJoinGroup",function (user_id,group,gtype)
 	Wait(1000)
 	local nplayer = vRP.getUserSource(user_id)
 	if nplayer and vipWeights[group] and vRP.hasPermission(user_id, "vip.permissao") then
-		if gtype and gtype == "vip" and GetResourceState("ox_inventory") == "started" then
-			local inventory = exports.ox_inventory:GetInventory(nplayer)
-			local backpack = inventory.maxWeight / 1000
+		if gtype and gtype == "vip" then
+			if GetResourceState("ox_inventory") == "started" then
+				local inventory = exports.ox_inventory:GetInventory(nplayer)
+				local backpack = inventory.maxWeight / 1000
+				if backpack then
+					backpack = backpack + vipWeights[group]
+					exports.ox_inventory:SetMaxWeight(nplayer, backpack * 1000)
+				end
+			end
+			local backpack = vRP.getBackpack(user_id)
 			if backpack then
 				backpack = backpack + vipWeights[group]
-				exports.ox_inventory:SetMaxWeight(nplayer, backpack * 1000)
+				vRP.setBackpack(user_id, backpack)
 			end
 		end
 	end
