@@ -77,9 +77,58 @@ Config.Permissions = {
             "forceradar", -- Force minimap on
             "infinitestam", -- Toggle infinite stamina
             "skinmenu", -- Give a player the skin menu
+            
+            "characterspage", -- Access the All Characters page
+            "deletecharacter", -- Delete a character
+            "vehiclesinfo", -- Access the vehicle spawn code list page
+            "itemsinfo", -- Access the item spawn code list page
+            "teleport", -- Teleport yourself, others, to location
+            "kill", -- Kill yourself, others
+            "freeze", -- Freeze a player
+            "ban", -- Ban a player from the server
+            "unban", -- Unban a player
+            "weather", -- Change the server weather
+            "time", -- Change the server time
+            "givetakemoney", -- Give or take money from a player
+            "warn", -- Warn a player
+            "revive", -- Revive a player
+            "foodandwater", -- Feed a player
+            "relievestress", -- Relieve stress of a player
+            "savecar", -- Save a car to a player's garage
+            "spawncar", -- Spawn a vehicle
+            "openinventory",
+            "setjob", -- Set job of a player
+            "setgang", -- Set gang of a player
+            "firejob", -- Fire a player from their job
+            "firegang", -- Fire a player from their gang
+            "giveitem", -- Give a player an item, or several thousand
+            "setmedriver", -- Teleport into nearest vehicle as driver
+            "setmepassenger", -- Teleport into nearest vehicle as passenger
+            "deleteclosestvehicle", -- Delete closest vehicle
+            "repairvehicle", -- Repair a vehicle
+            "washvehicle", -- Wash a vehicle
+            "lockvehicle", -- Lock a vehicle
+            "unlockvehicle", -- Unlock a vehicle
+            "maxperformanceupgrades", -- Max performance upgrades (vehicle)
+            "fillgastank", -- Fill gas tank (vehicle)
+            "clearblood", -- Clear blood from clothes
+            "wetclothes", -- Wet clothes
+            "dryclothes", -- Dry clothes
+            "playerblips", -- Toggle player location blips
+            "playernames", -- Toggle player location blips
+            "invisibility", -- Toggle invisibility
+            "godmode", -- Toggle god mode
+            "fastrun", -- Toggle fast run
+            "superjump", -- Toggle super jump
+            "noragdoll", -- Toggle no ragdoll
+            "uncuffSelf", -- Uncuff yourself
+            "cuff", -- Cuff yourself
+            "jobpage", -- Access the jobs page
+            "gangpage", -- Access the gangs page
+            "banspage", -- Access the bans page
         },
     },
-    ["mod"] = {
+    ["Mod"] = {
         AllowedActions = {
             "characterspage", -- Access the All Characters page
             "deletecharacter", -- Delete a character
@@ -134,7 +183,7 @@ Config.Permissions = {
             "banspage", -- Access the bans page
         },
     },
-    ["support"] = {
+    ["Sup"] = {
         Power = 50,
         AllowedActions = {
             "adminmenu", -- Open the admin menu
