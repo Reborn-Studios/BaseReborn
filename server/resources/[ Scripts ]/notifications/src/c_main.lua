@@ -39,7 +39,7 @@ end
 
 RegisterNetEvent("Notify")
 AddEventHandler("Notify",function(css,mensagem,timer,position)
-	if not timer or timer == "" then
+	if not timer or type(timer) ~= "number" then
 		timer = 5000
 	end
 
