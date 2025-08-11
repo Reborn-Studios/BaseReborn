@@ -54,11 +54,11 @@ local function canOpenInventory()
         return shared.info('cannot open inventory', '(is busy)')
     end
 
-    if PlayerData.dead or IsPedFatallyInjured(playerPed) then
+    if PlayerData.dead or IsPedFatallyInjured(playerPed) or GetEntityHealth(playerPed) <= 101 then
         return shared.info('cannot open inventory', '(fatal injury)')
     end
 
-    if PlayerData.cuffed or IsPedCuffed(playerPed) then
+    if PlayerData.cuffed or IsPedCuffed(playerPed) or LocalPlayer.state.Handcuff then
         return shared.info('cannot open inventory', '(cuffed)')
     end
 
@@ -70,7 +70,7 @@ end
 local function canOpenTarget(ped)
 	return IsPedFatallyInjured(ped)
 	or IsEntityPlayingAnim(ped, 'dead', 'dead_a', 3)
-	or IsPedCuffed(ped)
+	or IsPedCuffed(ped) or LocalPlayer.state.Handcuff
 	or IsEntityPlayingAnim(ped, 'mp_arresting', 'idle', 3)
 	or IsEntityPlayingAnim(ped, 'missminuteman_1ig_2', 'handsup_base', 3)
 	or IsEntityPlayingAnim(ped, 'missminuteman_1ig_2', 'handsup_enter', 3)
