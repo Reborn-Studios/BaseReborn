@@ -79,6 +79,10 @@ end
 
 function QBCore.Functions.GetPlayerByCitizenId(citizenid)
     -- print('QBCore :: GetPlayerByCitizenId',citizenid,GetInvokingResource())
+    if tonumber(citizenid) then
+        local src = QBCore.Functions.GetSourceByUserId(tonumber(citizenid))
+        return QBCore.Functions.GetPlayer(src)
+    end
     for src in pairs(QBCore.Players) do
         if QBCore.Players[src].PlayerData.citizenid == citizenid then
             return QBCore.Players[src]
