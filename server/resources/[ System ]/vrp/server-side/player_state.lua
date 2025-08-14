@@ -194,11 +194,6 @@ AddEventHandler("vRP:playerJoinGroup",function (user_id,group,gtype)
 					exports.ox_inventory:SetMaxWeight(nplayer, backpack * 1000)
 				end
 			end
-			local backpack = vRP.getBackpack(user_id)
-			if backpack then
-				backpack = backpack + vipWeights[group]
-				vRP.setBackpack(user_id, backpack)
-			end
 		end
 	end
 end)
