@@ -36,7 +36,7 @@ CreateThread(function()
 								Distance = 1.75,
 								options = {
 									{
-										event = "chest:Open",
+										event = "helicrash:Open",
 										label = "Abrir",
 										tunnel = "shop",
 										service = "Helicrash-"..Number

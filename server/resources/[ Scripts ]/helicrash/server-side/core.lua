@@ -29,18 +29,14 @@ CreateThread(function()
 
 					local Items = {}
 					local Loot = math.random(#Loots)
-					for Slot,w in pairs(Loots[Loot]) do
-						Loots[Loot][Slot] = w
-						table.insert(Items,{ w["item"],w["amount"] })
-					end
 					if GetResourceState("ox_inventory") == "started" then
-						local stashId = exports.ox_inventory:CreateTemporaryStash({
-							label = "Helicrash",
-							slots = 100,
-							maxWeight = 100000,
-							coords = v[1],
-							items = Items
-						})
+						local stashId = "Chest:Helicrash-"..Number
+						exports.ox_inventory:RegisterStash(stashId,"Helicrash",100,100000,false,nil,v[1])
+						for Slot,w in pairs(Loots[Loot]) do
+							Loots[Loot][Slot] = w
+							table.insert(Items,{ w["item"],w["amount"] })
+							exports.ox_inventory:AddItem(stashId, w["item"],w["amount"])
+						end
 						Chests["Helicrash-"..Number] = stashId
 					else
 						vRP.RemSrvData("Chest:Helicrash-"..Number)
@@ -125,13 +121,14 @@ end)
 
 local opened = {}
 
-RegisterServerEvent("chest:Open",function (data)
+RegisterNetEvent("helicrash:Open")
+AddEventHandler("helicrash:Open",function (data)
 	local source = source
 	local user_id = vRP.getUserId(source)
-	local identity = vRP.getUserIdentity(user_id)
-	if data.service and Chests[data.service] and identity then
+	if data.service and Chests[data.service] then
 		exports.ox_inventory:forceOpenInventory(source, 'stash', Chests[data.service])
-		if not opened[Chests[data.service]] then
+		local identity = vRP.getUserIdentity(user_id)
+		if not opened[Chests[data.service]] and identity then
 			opened[Chests[data.service]] = true
 			TriggerClientEvent('Notify', -1, 'amarelo', 'O jogador: <b>' ..identity["name"]..' '..identity["name2"].. '</b> coletou um suprimento do Helicrash.',5000)
 		end
