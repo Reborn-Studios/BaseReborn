@@ -4,7 +4,19 @@ AddEventHandler('onServerResourceStart', function(resourceName)
     if resourceName == GetCurrentResourceName() then
         local NewItems = GetControlFile("items")
         GlobalState['NewItems'] = NewItems
-        module('vrp',"config/Itemlist",true)
+        for k,v in pairs(NewItems) do
+            exports['ox_inventory']:createItem({
+                name = k,
+                label = v.name,
+                weight = v.weight * 1000,
+                description = v.description,
+                close = true,
+                client = {
+                    image = v.index..".png"
+                }
+            })
+        end
+        TriggerEvent("ox_inventory:reloadItems")
     end
 end)
 
