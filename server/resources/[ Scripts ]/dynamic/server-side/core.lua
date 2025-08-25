@@ -1,16 +1,28 @@
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VRP
 -----------------------------------------------------------------------------------------------------------------------------------------
-local Tunnel = module("vrp","lib/Tunnel")
-local Proxy = module("vrp","lib/Proxy")
+local Tunnel = module("vrp","lib/Tunnel") or {}
+local Proxy = module("vrp","lib/Proxy") or {}
 vRPC = Tunnel.getInterface("vRP")
 vRP = Proxy.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
 Creative = {}
-local answeredCalls = {}
 Tunnel.bindInterface("dynamic",Creative)
+vSKINSHOP = Tunnel.getInterface("will_skinshop")
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- VARIABLES
+-----------------------------------------------------------------------------------------------------------------------------------------
+local CountClothes = {}
+local answeredCalls = {}
+local DEFAULT_CLOTHES_AMOUNT = 3		-- Quantidade de roupas para salvar para todos
+local ClothesPerms = {					-- Quantidade de roupas para VIPs
+	Platina = 8,
+	Ouro = 6,
+	Prata = 4,
+	Bronze = 2
+}
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- DYNAMIC:EMERGENCYANNOUNCE
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -104,5 +116,91 @@ AddEventHandler("chamados:chamado",function()
 		else
 			TriggerClientEvent("Notify",source,"negado","Não tem administradores em serviço.",5000)
 		end
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- CLOTHES
+-----------------------------------------------------------------------------------------------------------------------------------------
+function Creative.myClothes()
+	local source = source
+	local user_id = vRP.getUserId(source)
+	if user_id then
+		local Clothes = {}
+
+		CountClothes[user_id] = DEFAULT_CLOTHES_AMOUNT
+
+		for Permission,Multiplier in pairs(ClothesPerms) do
+			if vRP.hasPermission(user_id,Permission) then
+				CountClothes[user_id] = CountClothes[user_id] + Multiplier
+			end
+		end
+
+		local Consult = vRP.query("SELECT * FROM vrp_user_data WHERE user_id = '"..user_id.."' AND dkey LIKE '%Clothes%'")
+		local consult = Consult or {}
+		if consult then
+			for k,v in pairs(consult) do
+				if v.dvalue then
+					Clothes[#Clothes + 1] = v.dkey
+				end
+			end
+		end
+		return Clothes
+	end
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- DYNAMIC:CLOTHES
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterServerEvent("dynamic:Clothes")
+AddEventHandler("dynamic:Clothes",function(Mode)
+	local source = source
+	local Passport = vRP.Passport(source)
+	if Passport then
+		local query = vRP.query("SELECT * FROM vrp_user_data WHERE user_id = '"..Passport.."' AND dkey LIKE '%Clothes%'")
+		local Consult = {}
+		local Number = 0
+		for k,v in pairs(query) do
+			Consult[v.dkey] = json.decode(v.dvalue)
+			Number = Number + 1
+		end
+		local Split = splitString(Mode)
+		local Name = Split[2]
+		if Split[1] == "Save" then
+			if Number >= CountClothes[Passport] then
+				TriggerClientEvent("Notify",source,"Armário","Limite atingide de roupas.",5000)
+				return false
+			end
+			local Keyboard = vRP.prompt(source,"Nome do preset")
+			if Keyboard then
+				local Check = Keyboard
+				if string.len(Check) >= 4 then
+					if not Consult[Check] then
+						Consult["Clothes:"..Check] = vSKINSHOP.Customization(source)
+						vRP.setUData(Passport,"Clothes:"..Check,json.encode(Consult["Clothes:"..Check]))
+						TriggerClientEvent("dynamic:AddMenu",source,Check,"Informações da vestimenta.",Check,"wardrobe")
+						TriggerClientEvent("dynamic:AddButton",source,"Aplicar","Vestir-se com as vestimentas.","dynamic:Clothes","Apply-"..Check,Check,true)
+						TriggerClientEvent("dynamic:AddButton",source,"Remover","Deletar a vestimenta do armário.","dynamic:Clothes","Delete-"..Check,Check,true,true)
+					end
+				else
+					TriggerClientEvent("Notify",source,"Armário","Nome escolhido precisa possuir mínimo de 4 letras.",5000)
+				end
+			end
+		elseif Split[1] == "Delete" then
+			if Consult[Name] then
+				Consult[Name] = nil
+				vRP.execute("vRP/rem_user_dkey",{ user_id = Passport, key = Name })
+			end
+		elseif Split[1] == "Apply" then
+			if Consult[Name] then
+				TriggerClientEvent("skinshop:Apply",source,Consult[Name],true)
+			end
+		end
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- DISCONNECT
+-----------------------------------------------------------------------------------------------------------------------------------------
+AddEventHandler("Disconnect",function(Passport)
+	if CountClothes[Passport] then
+		CountClothes[Passport] = nil
 	end
 end)

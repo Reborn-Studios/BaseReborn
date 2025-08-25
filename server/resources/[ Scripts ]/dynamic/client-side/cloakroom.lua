@@ -5,7 +5,7 @@ local Tunnel = module("vrp","lib/Tunnel")
 
 Cloakroom = Tunnel.getInterface("Cloakrooms")
 
-CreateThread( function()
+CreateThread(function()
     while true do
         local timeDistance = 1000
         local ped = PlayerPedId()
@@ -21,13 +21,13 @@ CreateThread( function()
                     if IsControlJustPressed(0,38) then
                         local checkPermission,checkLider,uniforms = Cloakroom.requestPermission(k)
                         if checkPermission then
-                            exports["dynamic"]:SubMenu("Equipar","Todas os uniformes de sua corporação.","uniforms")
+                            exports["dynamic"]:AddMenu("Equipar","Todas os uniformes de sua corporação.","uniforms")
                             exports["dynamic"]:AddButton("Sair","Retirar o seu uniforme.","Cloakrooms:applyPreset","sairPtr","uniforms",true)
                             if checkLider then
-                                exports["dynamic"]:SubMenu("Opções","Gerenciamento de uniformes líder.","optionsUniforms")
+                                exports["dynamic"]:AddMenu("Opções","Gerenciamento de uniformes líder.","optionsUniforms")
                                 exports["dynamic"]:AddButton("Adicionar","Adicione o uniforme que está em seu corpo.","Cloakrooms:applyPreset","apply-"..k,"optionsUniforms",true)
                                 if uniforms and uniforms[1] then
-                                    exports["dynamic"]:SubMenu("Remover","Remover uniformes.","removeUniforms")
+                                    exports["dynamic"]:AddMenu("Remover","Remover uniformes.","removeUniforms")
                                     for _,x in pairs(uniforms) do
                                         exports["dynamic"]:AddButton(x.name,"Remover roupa.","Cloakrooms:applyPreset",'remove-'..x.name,"removeUniforms",true)
                                     end
@@ -38,7 +38,7 @@ CreateThread( function()
                                     exports["dynamic"]:AddButton(x.name,"Roupa para utilizar em serviço.","Cloakrooms:applyPreset",x.name,"uniforms",true)
                                 end
                             end
-                            exports["dynamic"]:openMenu()
+                            exports["dynamic"]:Open()
                         end
                     end
                 end
