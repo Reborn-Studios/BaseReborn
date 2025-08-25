@@ -368,3 +368,7 @@ end)
 exports("getClothes",function ()
 	return SkinData
 end)
+
+function cRP.Customization()
+	return SkinData
+end
