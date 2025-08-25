@@ -133,10 +133,17 @@ function server.syncInventory(inv)
     if accounts then
         local player = server.GetPlayerFromId(inv.id)
         player.Functions.SetPlayerData('items', inv.items)
+		if accounts.dollars and accounts.dollars ~= player.PlayerData.money.cash then
+			player.Functions.SetMoneyCache("cash",accounts.dollars)
+		end
 
-        --[[ if accounts.money and accounts.money ~= player.Functions.GetMoney('cash') then
-			player.Functions.SetMoney('cash', accounts.money, "Sync money with inventory")
-		end ]]
+		local xPlayer = ESX.GetPlayerFromId(inv.id)
+		if xPlayer then
+			local newAccounts = {}
+			newAccounts.money = accounts.dollars
+			newAccounts.black_money = accounts.dollars2
+			xPlayer.syncInventory(inv.weight, inv.maxWeight, inv.items, newAccounts)
+		end
 	end
 end
 
