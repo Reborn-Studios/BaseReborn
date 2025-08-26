@@ -1447,8 +1447,8 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName, rAmount, data)
 					TriggerClientEvent("tencode:StatusService",nplayer,false)
 					TriggerClientEvent("vrp_tencode:StatusService",nplayer,false)
 					local polGroup = vRP.getUserGroupByType(nuser_id,"job")
-					vRP.removeUserGroup(user_id,polGroup)
-					vRP.addUserGroup(user_id, "Paisana"..polGroup)
+					vRP.removeUserGroup(nuser_id,polGroup)
+					vRP.addUserGroup(nuser_id, "Paisana"..polGroup)
 					TriggerClientEvent("Notify",source,"importante","Todas as comunicações do policial foram retiradas.",5000)
 				end
 			end
