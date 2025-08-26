@@ -154,40 +154,37 @@ RegisterCommand("PlayerFunctions",function()
 		local LastVehicle = GetLastDrivenVehicle()
 		if IsEntityAVehicle(Vehicle) then
 			if not IsPedInAnyVehicle(Ped, false) then
-				if GetEntityModel(LastVehicle) == GetHashKey("flatbed") and not IsPedInAnyVehicle(Ped, false) then
+				if GetEntityModel(LastVehicle) == GetHashKey("flatbed") then
 					exports["dynamic"]:AddButton("Rebocar","Colocar o veículo na prancha.","towdriver:invokeTow","","others",false)
 				end
 				if vRP.nearestPlayer(3) then
+					exports["dynamic"]:AddMenu("Jogador","Pessoa mais próxima de você.","closestpeds")
 					exports["dynamic"]:AddButton("Colocar no Veículo","Colocar no veículo mais próximo.","player:cvFunctions","cv","closestpeds",true)
 					exports["dynamic"]:AddButton("Remover do Veículo","Remover do veículo mais próximo.","player:cvFunctions","rv","closestpeds",true)
-
-					exports["dynamic"]:AddMenu("Jogador","Pessoa mais próxima de você.","closestpeds","fa-light fa-user")
 				end
 			else
+				exports["dynamic"]:AddMenu("Veículo","Funções do veículo.","vehicle")
 				exports["dynamic"]:AddButton("Sentar no Motorista","Sentar no banco do motorista.","vrp_player:SeatPlayer","0","vehicle",false)
 				exports["dynamic"]:AddButton("Sentar no Passageiro","Sentar no banco do passageiro.","vrp_player:SeatPlayer","1","vehicle",false)
 				exports["dynamic"]:AddButton("Sentar em Outros","Sentar no banco do passageiro.","vrp_player:SeatPlayer","2","vehicle",false)
 				exports["dynamic"]:AddButton("Mexer nos Vidros","Levantar/Abaixar os vidros.","vrp_player:syncWins",Vehicle,"vehicle",false)
-
-				exports["dynamic"]:AddMenu("Veículo","Funções do veículo.","vehicle","fa-light fa-car")
 			end
 
+			exports["dynamic"]:AddMenu("Portas","Portas do veículo.","doors")
 			exports["dynamic"]:AddButton("Porta do Motorista","Abrir porta do motorista.","vehcontrol:Doors","1","doors",true)
 			exports["dynamic"]:AddButton("Porta do Passageiro","Abrir porta do passageiro.","vehcontrol:Doors","2","doors",true)
 			exports["dynamic"]:AddButton("Porta Traseira Esquerda","Abrir porta traseira esquerda.","vehcontrol:Doors","3","doors",true)
 			exports["dynamic"]:AddButton("Porta Traseira Direita","Abrir porta traseira direita.","vehcontrol:Doors","4","doors",true)
 			exports["dynamic"]:AddButton("Porta-Malas","Abrir porta-malas.","vehcontrol:Doors","5","doors",true)
 			exports["dynamic"]:AddButton("Capô","Abrir capô.","vehcontrol:Doors","6","doors",true)
-
-			exports["dynamic"]:AddMenu("Portas","Portas do veículo.","doors")
 		end
 
 		if exports['Accessories']:MyPet() ~= nil then
+			exports["dynamic"]:AddMenu("Domésticos","Todas as funções dos animais domésticos.","animal")
 			exports["dynamic"]:AddButton("Seguir","Seguir o proprietário.","dynamic:animalFunctions","seguir","animal",false)
 			exports["dynamic"]:AddButton("Colocar no Veículo","Colocar o animal no veículo.","dynamic:animalFunctions","colocar","animal",false)
 			exports["dynamic"]:AddButton("Remover do Veículo","Remover o animal no veículo.","dynamic:animalFunctions","remover","animal",false)
 			exports["dynamic"]:AddButton("Deletar","Remover o animal.","dynamic:animalFunctions","deletar","animal",false)
-			exports["dynamic"]:AddMenu("Domésticos","Todas as funções dos animais domésticos.","animal","fa-solid fa-dog")
 		end
 
 		exports["dynamic"]:AddMenu("Chamados","Chamados Admin.","chamado")
