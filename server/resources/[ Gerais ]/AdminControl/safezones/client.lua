@@ -168,6 +168,7 @@ CreateThread(function()
 end)
 
 CreateThread(function()
+    local LastVehicle = nil
     while true do
         local ped = PlayerPedId()
         local timing = 1000
@@ -185,6 +186,9 @@ CreateThread(function()
                         color = 'white'
                     }
                 })
+                SetLocalPlayerAsGhost(true)
+                NetworkSetFriendlyFireOption(false)
+                SetEntityInvincible(ped,true)
             end
             DisableControlAction(1, 37, true)
             DisableControlAction(0, 37, true)
@@ -204,14 +208,25 @@ CreateThread(function()
             DisableControlAction(0, 106, true)
             SetCurrentPedWeapon(ped,GetHashKey("WEAPON_UNARMED"),true)
             DisablePlayerFiring(ped,true)
-            if not IsPedInAnyVehicle(ped) then
+            if IsPedInAnyVehicle(ped,false) then
+				if not LastVehicle then
+					LastVehicle = GetPlayersLastVehicle()
+					SetNetworkVehicleAsGhost(LastVehicle,true)
+				end
+			else
+				if LastVehicle and DoesEntityExist(LastVehicle) then
+					SetNetworkVehicleAsGhost(LastVehicle,false)
+					LastVehicle = false
+				end
                 DisableControlAction(0, 58, true)
                 DisableControlAction(0, 47, true)
-            end
+			end
         elseif notified then
             notified = false
             lib.hideTextUI()
-            -- TriggerEvent("Notify","aviso","Você saiu da SafeZone",3000)
+            SetLocalPlayerAsGhost(false)
+            NetworkSetFriendlyFireOption(true)
+            SetEntityInvincible(ped,false)
         end
         Wait(timing)
     end
