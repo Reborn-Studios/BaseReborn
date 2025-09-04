@@ -50,7 +50,7 @@ Config.Works = {
         ['name'] = "Carga de hamburguer",
         ['item'] = 'hamburger',
         ['quantity'] = 20,
-        ['vehicle'] = "speedo4",
+        ['vehicle'] = "speedo2",
         ['destiny'] = vector3(-174.83,-1289.36,31.3),
         ['cooldown'] = 60
     },
@@ -74,7 +74,7 @@ Config.Works = {
         ['name'] = "Carga de energetico",
         ['item'] = 'energetic',
         ['quantity'] = 45,
-        ['vehicle'] = "speedo4",
+        ['vehicle'] = "speedo2",
         ['destiny'] = vector3(58.67,6332.95,31.38),
         ['cooldown'] = 60
     },
@@ -94,7 +94,7 @@ Config.Stocks = {
 
 -- // Veiculos para buscar mercadoria
 Config.deliveryVehs = {
-    ['hamburger'] = "speedo4",
+    ['hamburger'] = "speedo2",
     ['cola'] = "pounder",
     ['fuel'] = "hauler",
 }
@@ -701,7 +701,7 @@ CreateThread(function()
                         ['name'] = "Carga de "..getItemName(k),
                         ['item'] = k,
                         ['quantity'] = math.random(10,15),
-                        ['vehicle'] = Config.deliveryVehs[k] or "speedo4",
+                        ['vehicle'] = Config.deliveryVehs[k] or "speedo2",
                         ['destiny'] = vector3(destiny[1],destiny[2],destiny[3]),
                         ['cooldown'] = 60
                     })

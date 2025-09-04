@@ -458,7 +458,6 @@ config.veiculos = {
         ['rumpo3'] = { nome = 'rumpo3', valor = 25000, peso = 180 },
         ['speedo'] = { nome = 'speedo', valor = 115000, peso = 180 },
         ['speedo2'] = { nome = 'speedo2', valor = 32000, peso = 180 },
-        ['speedo4'] = { nome = 'speedo4', valor = 50000, peso = 180 },
         ['surfer'] = { nome = 'surfer', valor = 60000, peso = 180 },
         ['surfer2'] = { nome = 'surfer2', valor = 150000, peso = 180 },
         ['youga'] = { nome = 'youga', valor = 150000, peso = 180 },
