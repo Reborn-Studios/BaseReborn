@@ -18,6 +18,8 @@ Proxy.addInterface("vRP",vRP)
 tvRP = {}
 Tunnel.bindInterface("vRP",tvRP)
 vRPclient = Tunnel.getInterface("vRP")
+
+GlobalState["OnlinePlayers"] = 0
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -216,6 +218,7 @@ AddEventHandler("playerDropped",function()
     local health = GetEntityHealth(ped)
     local armour = GetPedArmour(ped)
     local coords = GetEntityCoords(ped)
+	GlobalState["OnlinePlayers"] = GlobalState["OnlinePlayers"] - 1
 	vRP.rejoinServer(source,health,armour,coords)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -357,6 +360,8 @@ AddEventHandler("baseModule:idLoaded",function(source,user,model)
 		if identity then
 			vRP.rusers[user_id] = identity.identifier
 		end
+
+		GlobalState["OnlinePlayers"] = GlobalState["OnlinePlayers"] + 1
 
 		local registration = vRP.getUserRegistration(user_id)
 		if registration == nil then

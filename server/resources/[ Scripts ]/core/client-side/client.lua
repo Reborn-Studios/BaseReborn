@@ -809,13 +809,7 @@ CreateThread(function()
         SetDiscordRichPresenceAssetText(GlobalState['Basics']['ServerName'])
 		SetDiscordRichPresenceAction(0, "Conectar No Servidor", "fivem://connect/"..(licenseData and licenseData['ip'] or "(IP)")..":"..licenseData['porta'])
 		SetDiscordRichPresenceAction(1, "Entrar No Discord", GlobalState['Basics']['Discord'])
-		local playerCount = 0
-		for _, player in ipairs(GetActivePlayers()) do
-			if GetPlayerPed(player) then
-				playerCount = playerCount + 1
-			end
-		end
-		SetRichPresence(playerCount.." jogadores online")
+		SetRichPresence(GlobalState["OnlinePlayers"].." jogadores online")
         Wait(30000)
     end
 end)
