@@ -348,6 +348,10 @@ function AddCircleZone(name,center,radius,options,targetoptions)
 end
 
 CreateThread(function()
+    Wait(1000)
+    if GetResourceState("will_robbery") == "started" then
+		return
+	end
     AddCircleZone("jewelry01",vector3(-626.67,-238.58,38.05),0.75,{
         name = "jewelry01",
         heading = 3374176

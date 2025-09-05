@@ -13,6 +13,9 @@ AddStateBagChangeHandler("JewelryStatus","",function (_,_,value) jewelryStart = 
 CreateThread(function()
 	Wait(1000)
 	local bombLoc = Config.jewelry.bombLocs
+	if GetResourceState("will_robbery") == "started" then
+		return
+	end
 	exports["target"]:AddCircleZone("Robbery:Jewelry",vector3(bombLoc[1],bombLoc[2],bombLoc[3]),0.75,{
 		name = "Robbery:Jewelry",
 		heading = 3374176
