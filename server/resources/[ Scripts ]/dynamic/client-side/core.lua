@@ -127,7 +127,7 @@ RegisterCommand("PlayerFunctions",function()
 		end
 		exports["dynamic"]:AddMenu("Armário","Abrir lista com todas as vestimentas.","wardrobe")
 		exports["dynamic"]:AddButton("Guardar","Salvar vestimentas do corpo.","dynamic:Clothes","Save","wardrobe",true)
-
+		exports["dynamic"]:AddButton("Remover","Remover suas vestimentas do corpo.","player:Outfit","remover","wardrobe",true)
 		local Clothes = vSERVER.myClothes()
 		if parseInt(#Clothes) > 0 then
 			for Index,v in pairs(Clothes) do
