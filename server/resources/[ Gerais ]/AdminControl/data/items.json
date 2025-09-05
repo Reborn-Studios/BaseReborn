@@ -1,1 +1,93 @@
-{}
+{
+    "yacht_drill": {
+        "description": "",
+        "name": "Drill",
+        "type": "use",
+        "weight": 0.5,
+        "index": ""
+    },
+    "drill": {
+        "description": "Furadeira",
+        "name": "Drill",
+        "type": "use",
+        "weight": 0.5,
+        "index": "drill"
+    },
+    "paintingg": {
+        "description": "",
+        "name": "paintingg",
+        "type": "use",
+        "weight": 0.5,
+        "index": ""
+    },
+    "paintingj": {
+        "description": "",
+        "name": "paintingj",
+        "type": "use",
+        "weight": 0.5,
+        "index": ""
+    },
+    "diamond": {
+        "type": "use",
+        "name": "Diamantes",
+        "description": "",
+        "weight": 0,
+        "index": ""
+    },
+    "bag": {
+        "description": "Mochila para roubo",
+        "name": "Bag",
+        "type": "use",
+        "weight": 0.5,
+        "index": "bag"
+    },
+    "paintingi": {
+        "description": "",
+        "name": "paintingi",
+        "type": "use",
+        "weight": 0.5,
+        "index": ""
+    },
+    "paintingh": {
+        "description": "",
+        "name": "paintingh",
+        "type": "use",
+        "weight": 0.5,
+        "index": ""
+    },
+    "paintingf": {
+        "description": "",
+        "name": "paintingf",
+        "type": "use",
+        "weight": 0.5,
+        "index": ""
+    },
+    "cutter": {
+        "description": "Cortador",
+        "name": "cutter",
+        "type": "use",
+        "weight": 0.5,
+        "index": "cutter"
+    },
+    "hack_usb": {
+        "description": "",
+        "name": "Hack USB",
+        "type": "use",
+        "weight": 0.5,
+        "index": ""
+    },
+    "paintinge": {
+        "description": "",
+        "name": "paintinge",
+        "type": "use",
+        "weight": 0.5,
+        "index": ""
+    },
+    "thermite_h": {
+        "description": "Termita para abrir trancas",
+        "name": "Termita",
+        "type": "use",
+        "weight": 0.5,
+        "index": "thermite_h"
+    }
+}
