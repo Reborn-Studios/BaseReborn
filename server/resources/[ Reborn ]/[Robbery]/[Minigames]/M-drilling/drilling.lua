@@ -95,7 +95,6 @@ end
 
 Drilling.ClearDrillProp = function()
     if DrillPropHandle and DoesEntityExist(DrillPropHandle) then
-        print("found")
         -- Detach the prop first (just to be safe)
         DetachEntity(DrillPropHandle, true, true)
 
@@ -229,7 +228,6 @@ Drilling.HandleControls = function()
         0.51 or Drilling.DrillPos >= 0.62 and Drilling.DrillPos <= 0.63 or Drilling.DrillPos >= 0.78 and
         Drilling.DrillPos <= 0.79 then
         PlaySoundFrontend(-1, "Drill_Pin_Break", "DLC_HEIST_FLEECA_SOUNDSET", 1);
-        print("broken!")
     end
 
     -- Update temperature and hole depth based on current position and speed
