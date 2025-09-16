@@ -61,6 +61,10 @@ Config.Commands = {
 	['items'] = {
 		['command'] = "manageitems",
 		['perm'] = "owner.permissao"
+	},
+	['barbershop'] = {
+		['command'] = "barbershops",
+		['perm'] = "owner.permissao"
 	}
 }
 

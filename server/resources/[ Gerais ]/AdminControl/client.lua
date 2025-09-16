@@ -158,6 +158,14 @@ function Client.openMainMenu()
                 onSelect = function ()
                     ExecuteCommand(Config.Commands["tattooshop"]['command'])
                 end
+            },
+            {
+                title = 'Criar Barbershop',
+                description = 'Lojas de Barbearia',
+                icon="fa-solid fa-scissors",
+                onSelect = function ()
+                    ExecuteCommand(Config.Commands["barbershop"]['command'])
+                end
             }
         }
     })

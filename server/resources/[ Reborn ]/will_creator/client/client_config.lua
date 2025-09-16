@@ -624,18 +624,54 @@ skinData = {
 --      UTIL FUNCTIONS
 -- #########################
 
+local blips = {}
+local BarberBlips = Config.Stores
+local BarberShops = GlobalState['BarberShops'] or {}
+
+local function refreshBarberBlips()
+    for k,v in pairs(BarberBlips) do
+        local hasBlip = false
+        for k2,v2 in pairs(BarberShops) do
+            if #(vector3(v.coords.x,v.coords.y,v.coords.z) - vector3(v2.coords.x, v2.coords.y, v2.coords.z)) < 1 then
+                hasBlip = true
+            end
+        end
+        if not hasBlip then
+            BarberBlips[k] = nil
+        end
+    end
+    for k,blip in pairs(blips) do
+        if blip and DoesBlipExist(blip) then
+            RemoveBlip(blip)
+        end
+    end
+    for k,v in pairs(BarberShops) do
+        if v.showBlip then
+            local blip = createBlip("barber", v.coords)
+            table.insert(blips, blip)
+        end
+        table.insert(BarberBlips,v)
+    end
+end
+
+AddStateBagChangeHandler("BarberShops","",function (_,_,value)
+    BarberShops = value
+    refreshBarberBlips()
+end)
+
 CreateThread(function()
+    refreshBarberBlips()
     while true do
         local ped = PlayerPedId()
         local coords = GetEntityCoords(ped)
         local timeDistance = 500
         if not inShopping then
-            for k, store in pairs(Config.Stores) do
+            for k, store in pairs(BarberBlips) do
                 if #(coords - vec3(store.coords.x,store.coords.y,store.coords.z)) <= 3 then
                     timeDistance = 3
                     DrawBase3D(store.coords.x,store.coords.y,store.coords.z,"barbershop")
                     if IsControlJustPressed(0, 38) then
-                        openShopMenu(store.type)
+                        openShopMenu(store.type or "barber")
                     end
                 end
             end
@@ -652,7 +688,7 @@ function setupBlips()
             createBlip(blipConfig, Config.Stores[k].coords)
         end
     end
-end
+end ]]
 
 function createBlip(blipConfig, coords)
     local blip = AddBlipForCoord(coords.x, coords.y, coords.z)
@@ -664,7 +700,7 @@ function createBlip(blipConfig, coords)
     AddTextComponentString(blipConfig.name)
     EndTextCommandSetBlipName(blip)
     return blip
-end ]]
+end
 
 function loadModel(model)
 	while not HasModelLoaded(model) do
