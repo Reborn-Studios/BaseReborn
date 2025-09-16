@@ -86,11 +86,11 @@ Citizen.CreateThread(function()
         if user_id then
             
             MySQL.Async.execute("REPLACE INTO vrp_srv_data(dkey,dvalue) VALUES(@dkey,@dvalue)", {
-                ["@dkey"] = "mods:" .. user_id .. ":" .. car,
+                ["@dkey"] = "mods:" .. plate,
                 ["@dvalue"] = json.encode(mods),
             })
             
-            local cacheKey = user_id .. ":" .. car
+            local cacheKey = plate
             if vehicleModsCache[cacheKey] then
                 vehicleModsCache[cacheKey] = nil
             end
@@ -103,12 +103,12 @@ Citizen.CreateThread(function()
         if user_id then
             local source = GetUserSource(user_id)
             if source then
-                local cacheKey = user_id .. ":" .. car_name
+                local cacheKey = plate
                 if vehicleModsCache[cacheKey] then
                     TriggerClientEvent("ld_tunners:client:applyMods", source, entity, vehicleModsCache[cacheKey])
                 else
                     MySQL.Async.fetchAll("SELECT * FROM vrp_srv_data WHERE dkey = @key", {
-                        ["@key"] = "mods:" .. user_id .. ":" .. car_name
+                        ["@key"] = "mods:" .. plate
                     }, function(result)
                         if #result > 0 then
                             local mods = json.decode(result[1].dvalue)
