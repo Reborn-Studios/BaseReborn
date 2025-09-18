@@ -1035,6 +1035,10 @@ AddEventHandler("gameEventTriggered",function(event,args)
 						killerSource = GetPlayerServerId(NetworkGetPlayerIndexFromPed(data.attacker))
 					end
                     alreadyDead = true
+					if tostring(data.weapon) == "-1746263880" then
+						TriggerServerEvent("PerdaPersonagem")
+						return
+					end
 					TriggerServerEvent("logplayerDied",killerSource,getWeaponHashName(tostring(data.weapon)))
 					CreateThread(function()
 						while alreadyDead do

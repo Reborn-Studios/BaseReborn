@@ -420,7 +420,7 @@ CreateThread(function()
     -- get last id created
     prepare("will_creator/lastCharacters","SELECT "..dbColumns[Config.Base]['chars']['user_id'].." FROM "..dbColumns[Config.Base]['chars']['table'].." WHERE "..dbColumns[Config.Base]['chars']['identifier'].." = @identifier ORDER BY "..dbColumns[Config.Base]['chars']['user_id'].." DESC LIMIT 1")
     -- get chars with identifier
-    prepare("will_creator/get_characters","SELECT * FROM "..dbColumns[Config.Base]['chars']['table'].." WHERE "..dbColumns[Config.Base]['chars']['identifier'].." = @identifier")
+    prepare("will_creator/get_characters","SELECT * FROM "..dbColumns[Config.Base]['chars']['table'].." WHERE "..dbColumns[Config.Base]['chars']['identifier'].." = @identifier AND deleted = 0")
     -- get max chars with identifier
     prepare("will_creator/countChars","SELECT "..dbColumns[Config.Base]['accounts']['chars'].." FROM "..dbColumns[Config.Base]['accounts']['table'].." WHERE "..dbColumns[Config.Base]['chars']['identifier'].." = @identifier")
     -- insert char infos

@@ -1025,3 +1025,24 @@ RegisterCommand("garmas",function(source,args,rawCommand)
 		vRPclient.clearWeapons(source)
 	end
 end)
+
+
+RegisterNetEvent("PerdaPersonagem")
+AddEventHandler("PerdaPersonagem",function()
+	local source = source
+	local user_id = vRP.getUserId(source)
+
+	-- Mudança de tempo
+	GlobalState.weatherSync = "RAIN"
+	SetTimeout(1000* 60 * 5,function()
+		GlobalState.weatherSync = "EXTRASUNNY"
+	end)
+
+	-- Mensagem
+	local identity = vRP.getUserIdentity(user_id)
+	if not identity then return end
+	TriggerClientEvent("Notify", -1, "aviso", "[Prefeitura informa]: "..identity.name.." "..identity.name2.." nos deixou hoje. Que sua história sirva de lembrança a todos nós.", 20000)
+	-- Remover personagem
+	vRP.execute("vRP/remove_characters",{ id = user_id })
+	vRP.kick(user_id,"Seu personagem foi perdido")
+end)
