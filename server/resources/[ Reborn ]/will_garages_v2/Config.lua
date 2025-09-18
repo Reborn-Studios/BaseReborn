@@ -139,7 +139,7 @@ Config.exclusiveGarages = {
 }
 
 -- Veiculos que nao vao aparecer nas outras garagens
-local exclusiveVehs = {
+exclusiveVehs = {
     'supervolito',
     'supervolito2',
     'swift',

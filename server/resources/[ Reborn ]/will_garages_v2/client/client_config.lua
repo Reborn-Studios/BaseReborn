@@ -367,6 +367,9 @@ function reloadBlips(garages)
 		end
 	end
 	for k, v in pairs(garages) do
+        if not Config.exclusiveGarages[k] then
+            Config.BlacklistVehicles[k] = exclusiveVehs
+        end
 		if v.map then
 			local x,y,z = table.unpack(v.entrada['blip'])
 			local blip = AddBlipForCoord(x,y,z)
