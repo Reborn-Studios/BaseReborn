@@ -217,19 +217,6 @@ local function registerShop(ShopId, data)
     })
 end
 
-local function refreshShops()
-    for ShopId,data in pairs(AllShops) do
-        registerShop(ShopId, data['products'])
-    end
-end
-
-AddStateBagChangeHandler("Will_Shops","",function (_,_,value)
-    AllShops = value
-    if GetResourceState("ox_inventory") == "started" then
-        refreshShops()
-    end
-end)
-
 AddStateBagChangeHandler("Will_Shops_Products","",function (_,_,value)
     for ShopId,data in pairs(value) do
         registerShop(ShopId, data)
@@ -239,6 +226,8 @@ end)
 AddEventHandler("onResourceStart",function(rs)
 	if rs == "ox_inventory" then
         Wait(1000)
-		refreshShops()
+        for ShopId,data in pairs(GlobalState["Will_Shops_Products"]) do
+            registerShop(ShopId, data)
+        end
 	end
 end)
