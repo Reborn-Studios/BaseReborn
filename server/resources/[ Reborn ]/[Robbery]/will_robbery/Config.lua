@@ -243,6 +243,7 @@ Config.robberys = {
             { model = "g_m_m_chicold_01", weapon = "WEAPON_ASSAULTRIFLE" }
             -- adicionar mais se quiser
         },
+        ['EnableReward'] = true,
         ['RewardItem'] = 'dollars2',        -- Item de recompensa
         ['RewardCash'] = 10000,             -- Total da recompensa
         ['EnemyLocationOffset'] = vector3(0, 5, 0),
