@@ -198,8 +198,6 @@ end
 --## SYNC OX_INVENTORY
 --#####################
 
-local AllShops = Config.Shops
-
 local function registerShop(ShopId, data)
     local products = {}
     for item,price in pairs(data) do
@@ -216,6 +214,12 @@ local function registerShop(ShopId, data)
         },
     })
 end
+
+AddStateBagChangeHandler("Will_Shops","",function (_,_,value)
+    for ShopId,data in pairs(value) do
+        registerShop(ShopId, data['products'])
+    end
+end)
 
 AddStateBagChangeHandler("Will_Shops_Products","",function (_,_,value)
     for ShopId,data in pairs(value) do
