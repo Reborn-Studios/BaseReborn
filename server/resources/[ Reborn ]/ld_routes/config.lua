@@ -562,6 +562,75 @@ config.main = {
 					["tecido"] = 15,
 				}
 			},
+			["bag"] = {
+				["image"] = "bag",
+				["amount"] = 1,
+				["destroy"] = true,
+				["webhook"] = Webhooks.webhookroutes,
+				["police_chance"] = 0,
+				["require"] = {
+					["tecido"] = 25,
+				}
+			},
+			["drill"] = {
+				["image"] = "drill",
+				["amount"] = 1,
+				["destroy"] = true,
+				["webhook"] = Webhooks.webhookroutes,
+				["police_chance"] = 0,
+				["require"] = {
+					["aluminum"] = 25,
+					["copper"] = 10,
+					["eletronics"] = 5,
+				}
+			},
+			["thermite_h"] = {
+				["image"] = "thermite_h",
+				["amount"] = 1,
+				["destroy"] = true,
+				["webhook"] = Webhooks.webhookroutes,
+				["police_chance"] = 0,
+				["require"] = {
+					["aluminum"] = 20,
+					["gunpowder"] = 20,
+					["eletronics"] = 3,
+				}
+			},
+			["yacht_drill"] = {
+				["image"] = "yacht_drill",
+				["amount"] = 1,
+				["destroy"] = true,
+				["webhook"] = Webhooks.webhookroutes,
+				["police_chance"] = 0,
+				["require"] = {
+					["aluminum"] = 25,
+					["copper"] = 10,
+					["eletronics"] = 5,
+				}
+			},
+			["hack_usb"] = {
+				["image"] = "hack_usb",
+				["amount"] = 1,
+				["destroy"] = true,
+				["webhook"] = Webhooks.webhookroutes,
+				["police_chance"] = 0,
+				["require"] = {
+					["aluminum"] = 8,
+					["copper"] = 3,
+					["eletronics"] = 10,
+				}
+			},
+			["cutter"] = {
+				["image"] = "cutter",
+				["amount"] = 1,
+				["destroy"] = true,
+				["webhook"] = Webhooks.webhookroutes,
+				["police_chance"] = 0,
+				["require"] = {
+					["aluminum"] = 10,
+					["plastic"] = 5,
+				}
+			},
 		},
 		["collect"] = {
 			["collectContent"] = {

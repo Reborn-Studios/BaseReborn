@@ -1945,4 +1945,147 @@ return {
 			image = "attachscrosshair.png",
 		}
 	},
+
+	["paintingg"] = {
+		label = "paintingg",
+		weight = 500,
+		stack = true,
+		close = true,
+		description = "",
+		client = {
+			image = "paintingg.png",
+		}
+	},
+
+	["paintingh"] = {
+		label = "paintingh",
+		weight = 500,
+		stack = true,
+		close = true,
+		description = "",
+		client = {
+			image = "paintingh.png",
+		}
+	},
+
+	["paintingf"] = {
+		label = "paintingf",
+		weight = 500,
+		stack = true,
+		close = true,
+		description = "",
+		client = {
+			image = "paintingf.png",
+		}
+	},
+
+	["drill"] = {
+		label = "Drill",
+		weight = 500,
+		stack = true,
+		close = true,
+		description = "Furadeira",
+		client = {
+			image = "drill.png",
+		}
+	},
+
+	["bag"] = {
+		label = "Bag",
+		weight = 500,
+		stack = true,
+		close = true,
+		description = "Mochila para roubo",
+		client = {
+			image = "bag.png",
+		}
+	},
+
+	["paintingj"] = {
+		label = "paintingj",
+		weight = 500,
+		stack = true,
+		close = true,
+		description = "",
+		client = {
+			image = "paintingj.png",
+		}
+	},
+
+	["thermite_h"] = {
+		label = "Termita",
+		weight = 500,
+		stack = true,
+		close = true,
+		description = "Termita para abrir trancas",
+		client = {
+			image = "thermite_h.png",
+		}
+	},
+
+	["paintingi"] = {
+		label = "paintingi",
+		weight = 500,
+		stack = true,
+		close = true,
+		description = "",
+		client = {
+			image = "paintingi.png",
+		}
+	},
+
+	["yacht_drill"] = {
+		label = "Drill",
+		weight = 500,
+		stack = true,
+		close = true,
+		description = "",
+		client = {
+			image = "yacht_drill.png",
+		}
+	},
+
+	["diamond"] = {
+		label = "Diamantes",
+		weight = 0,
+		stack = true,
+		close = true,
+		description = "",
+		client = {
+			image = "diamond.png",
+		}
+	},
+
+	["hack_usb"] = {
+		label = "Hack USB",
+		weight = 500,
+		stack = true,
+		close = true,
+		description = "",
+		client = {
+			image = "hack_usb.png",
+		}
+	},
+
+	["paintinge"] = {
+		label = "paintinge",
+		weight = 500,
+		stack = true,
+		close = true,
+		description = "",
+		client = {
+			image = "paintinge.png",
+		}
+	},
+
+	["cutter"] = {
+		label = "cutter",
+		weight = 500,
+		stack = true,
+		close = true,
+		description = "Cortador",
+		client = {
+			image = "cutter.png",
+		}
+	},
 }

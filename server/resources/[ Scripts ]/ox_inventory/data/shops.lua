@@ -171,6 +171,7 @@ return {
 	JewelrySell = {
 		name = 'Venda de itens',
         inventory = {
+            { name = 'dollars', price = 1, currency = 'diamond', metadata = { amount = 12500 } },
             { name = 'dollars', price = 1, currency = 'goldbar', metadata = { amount = 8500 } },
             { name = 'dollars', price = 1, currency = 'watch', metadata = { amount = 6000 } },
             { name = 'dollars', price = 1, currency = 'ring', metadata = { amount = 4500 } },
