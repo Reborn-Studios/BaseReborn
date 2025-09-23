@@ -625,7 +625,7 @@ skinData = {
 -- #########################
 
 local blips = {}
-local BarberBlips = Config.Stores
+local BarberBlips = {}
 local BarberShops = GlobalState['BarberShops'] or {}
 
 local function refreshBarberBlips()
@@ -666,6 +666,15 @@ CreateThread(function()
         local coords = GetEntityCoords(ped)
         local timeDistance = 500
         if not inShopping then
+            for k, store in pairs(Config.Stores) do
+                if #(coords - vec3(store.coords.x,store.coords.y,store.coords.z)) <= 3 then
+                    timeDistance = 3
+                    DrawBase3D(store.coords.x,store.coords.y,store.coords.z,"barbershop")
+                    if IsControlJustPressed(0, 38) then
+                        openShopMenu(store.type or "barber")
+                    end
+                end
+            end
             for k, store in pairs(BarberBlips) do
                 if #(coords - vec3(store.coords.x,store.coords.y,store.coords.z)) <= 3 then
                     timeDistance = 3
