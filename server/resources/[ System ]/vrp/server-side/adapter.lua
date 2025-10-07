@@ -230,7 +230,8 @@ function vRP.Passport(Source)
 end
 
 function vRP.UserData(Passport, Key)
-    return vRP.getUData(Passport, Key)
+    local result = vRP.getUData(Passport, Key)
+    return json.decode(result) or {}
 end
 
 function vRP.GetHealth(source)
