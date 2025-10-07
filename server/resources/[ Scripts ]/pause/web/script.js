@@ -19839,7 +19839,7 @@
                   battlepass: 0,
                   boxes: !0,
                   marketplace: !0,
-                  skinweapon: 0,
+                  skinweapon: !0,
                   map: !0,
                   settings: !0,
                   disconnect: !0,

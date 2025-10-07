@@ -91,7 +91,7 @@ function Weapon.Equip(item, data, noWeaponAnim)
 	if client.weaponnotify then
 		Utils.ItemNotify({ item, 'ui_equipped' })
 	end
-
+	TriggerServerEvent("skinweapon:checkToEquip",item.name)
 	return item, sleep
 end
 
