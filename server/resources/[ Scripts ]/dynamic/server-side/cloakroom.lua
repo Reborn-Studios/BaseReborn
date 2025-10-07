@@ -120,7 +120,7 @@ AddEventHandler("Cloakrooms:applyPreset",function(perm)
         local consult = vRP.query("cloakroom/selectClothesW",{ name = perm, sexo = sexo })
         if consult[1] and consult[1].custom then
             if vRP.hasPermission(user_id,consult[1].permiss) then
-                local myClothes = vRPC.getCustomPlayer(source)
+                local myClothes = vRPC.getCustomization(source)
                 TriggerClientEvent("Notify",source,"sucesso","Roupas aplicadas.",5000)
                 vRP.setSData("RoupaOff:"..user_id,json.encode(myClothes))
                 local preset = json.decode(consult[1].custom)
