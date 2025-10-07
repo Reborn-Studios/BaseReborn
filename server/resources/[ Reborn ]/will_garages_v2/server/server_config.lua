@@ -526,7 +526,7 @@ end
 
 function will.getVehiclePrice(name)
 	local vprice = 50000    
-    if GlobalState['VehicleGlobal'][name] then
+    if name and GlobalState['VehicleGlobal'][name] then
         vprice = GlobalState['VehicleGlobal'][name].price
     end
     return vprice
