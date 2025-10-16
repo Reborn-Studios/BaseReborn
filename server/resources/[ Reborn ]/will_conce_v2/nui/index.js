@@ -116,13 +116,14 @@ function showVehicles(vehs) {
   }
   $(".vehicles").html("");
   for (const info of vehsFiltered) {
+    let value = "";
     if (!info.vip) {
-      info.valor = info.valor.toLocaleString("pt-BR", {
+      value = info.valor.toLocaleString("pt-BR", {
         style: "currency",
         currency: "BRL",
       });
     } else {
-      info.valor = info.valor + " Gemas";
+      value = info.valor + " Gemas";
     }
     let list = `
         <div class="vehcategory max-h-44" onclick="showVehicle('${
@@ -130,7 +131,7 @@ function showVehicles(vehs) {
         }')">
             <div class="px-5 flex flex-col justify-center items-center">
                 <h2 class="vehName mx-5 mt-2">${info.nome.toUpperCase()}</h2>
-                <h3 class="font-bold">${info.valor}</h3>
+                <h3 class="font-bold">${value}</h3>
             </div>
             <img src="${imageIP}/${
       info.spawn
