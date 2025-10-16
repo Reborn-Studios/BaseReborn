@@ -4641,61 +4641,63 @@ function eo(e$) {
   return new Promise((e0) => setTimeout(e0, e$));
 }
 
-async function uploadToCatbox(fileUrl) {
+async function uploadToCatbox(file, extension) {
   const formData = new FormData();
-  formData.append("reqtype", "urlupload");
-  formData.append("url", fileUrl);
+  formData.append("reqtype", "fileupload");
+  formData.append("fileToUpload", file, `${Date.now()}.${extension}`);
   formData.append("userhash", "7df65496863436c4d38169363");
+
   const response = await fetch("https://catbox.moe/user/api.php", {
     method: "POST",
     body: formData,
   });
+
   const data = await response.text();
-  return data.includes("https") ? data : { error: data };
+  if (data.startsWith("https://")) return data;
+  throw new Error("Erro ao enviar para Catbox: " + data);
+}
+
+async function uploadVideoToCatbox(file) {
+  const formData = new FormData();
+  formData.append("reqtype", "fileupload");
+  formData.append("fileToUpload", file, "camera.webm");
+  formData.append("userhash", "7df65496863436c4d38169363");
+
+  const response = await fetch("https://catbox.moe/user/api.php", {
+    method: "POST",
+    body: formData,
+  });
+
+  const data = await response.text();
+  if (data.startsWith("https://")) {
+    console.log("✅ Upload concluído:", data);
+    return data;
+  } else {
+    console.error("❌ Erro no Catbox:", data);
+    throw new Error(data);
+  }
 }
 
 var to = {
-  async upload(e$, e0) {
-    var e8;
-    let e2 = So.settings.uploadServer,
-      e3 = new FormData();
-    e3.append(
-      e2.includes("discord") ? "file" : "webm" == e0 ? "audio" : "image",
-      e$,
-      Date.now() + "." + e0
-    );
-    let e1 = await fetch(e2, {
-      method: "POST",
-      body: e3,
-    });
-    if (404 == e1.status)
-      throw (
-        (So.alert(
-          "uploadServer inv\xe1lido na config.json, o webhook \xe9 inv\xe1lido ou n\xe3o existe mais"
-        ),
-        Error("Invalid uploadServer"))
-      );
-    {
-      let e6 = await e1.json();
-      let urlResponse = await uploadToCatbox(e6.attachments[0].url);
-      return null != (e8 = e6.url) ? e8 : urlResponse;
+  async upload(file, extension) {
+    try {
+      const url = await uploadToCatbox(file, extension);
+      return url;
+    } catch (err) {
+      console.error("❌ Falha no upload:", err);
+      So.alert("Falha ao enviar arquivo para o Catbox!");
+      return null;
     }
   },
-  async uploadVideo(e$) {
-    let e0 = new FormData();
-    e0.append("video", e$, "camera.webm"),
-      e0.append("signature", await So.backend.upload_ticket());
-    let e8 = await fetch(
-        "http://moscougroup.com.br/smartphone/storage/upload.v2.php",
-        {
-          method: "POST",
-          body: e0,
-        }
-      ),
-      e2 = await e8.json();
-    return (
-      e2.error && console.error(`Story upload resulted in ${e2.error}`), e2.url
-    );
+  async uploadVideo(file) {
+    try {
+      const url = await uploadVideoToCatbox(file);
+      return url;
+    } catch (err) {
+      console.error("Erro no upload de vídeo:", err);
+      So.alert("Falha ao enviar vídeo para o Catbox!");
+      return null;
+    }
   },
 };
 
