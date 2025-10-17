@@ -32,7 +32,57 @@ function QBCore.Functions.GetCoords(entity)
 end
 
 function QBCore.Functions.HasItem(items, amount)
-    return exports['qb-inventory']:HasItem(items, amount)
+    return exports['ox_inventory']:HasItem(items, amount)
+end
+
+function QBCore.Functions.GetName()
+    local charinfo = QBCore.PlayerData.charinfo
+    return charinfo.firstname .. ' ' .. charinfo.lastname
+end
+
+function QBCore.Functions.LookAtEntity(entity, timeout, speed)
+    local involved = GetInvokingResource()
+    if not DoesEntityExist(entity) then
+        return involved .. ' :^1  Entity does not exist'
+    end
+    if type(entity) ~= 'number' then
+        return involved .. ' :^1  Entity must be a number'
+    end
+    if type(speed) ~= 'number' then
+        return involved .. ' :^1  Speed must be a number'
+    end
+    if speed > 5.0 then speed = 5.0 end
+    if timeout > 5000 then timeout = 5000 end
+    local ped = PlayerPedId()
+    local playerPos = GetEntityCoords(ped)
+    local targetPos = GetEntityCoords(entity)
+    local dx = targetPos.x - playerPos.x
+    local dy = targetPos.y - playerPos.y
+    local targetHeading = GetHeadingFromVector_2d(dx, dy)
+    local turnSpeed
+    local startTimeout = GetGameTimer()
+    while true do
+        local currentHeading = GetEntityHeading(ped)
+        local diff = targetHeading - currentHeading
+        if math.abs(diff) < 2 then
+            break
+        end
+        if diff < -180 then
+            diff = diff + 360
+        elseif diff > 180 then
+            diff = diff - 360
+        end
+        turnSpeed = speed + (2.5 - speed) * (1 - math.abs(diff) / 180)
+        if diff > 0 then
+            currentHeading = currentHeading + turnSpeed
+        else
+            currentHeading = currentHeading - turnSpeed
+        end
+        SetEntityHeading(ped, currentHeading)
+        Wait(0)
+        if (startTimeout + timeout) < GetGameTimer() then break end
+    end
+    SetEntityHeading(ped, targetHeading)
 end
 
 -- Utility
@@ -50,11 +100,43 @@ function QBCore.Functions.RequestAnimDict(animDict)
 end
 
 function QBCore.Functions.PlayAnim(animDict, animName, upperbodyOnly, duration)
+    local invoked = GetInvokingResource()
+    local animPromise = promise.new()
+    if type(animDict) ~= 'string' or type(animName) ~= 'string' then
+        animPromise:reject(invoked .. ' :^1  Wrong type for animDict or animName')
+        return animPromise.value
+    end
+    if not DoesAnimDictExist(animDict) then
+        animPromise:reject(invoked .. ' :^1  Animation dictionary does not exist')
+        return animPromise.value
+    end
     local flags = upperbodyOnly and 16 or 0
     local runTime = duration or -1
-    QBCore.Functions.RequestAnimDict(animDict)
-    TaskPlayAnim(PlayerPedId(), animDict, animName, 8.0, 1.0, runTime, flags, 0.0, false, false, true)
+    if runTime == -1 then flags = 49 end
+    local ped = PlayerPedId()
+    local start = GetGameTimer()
+    while not HasAnimDictLoaded(animDict) do
+        RequestAnimDict(animDict)
+        if (GetGameTimer() - start) > 5000 then
+            animPromise:reject(invoked .. ' :^1  Animation dictionary failed to load')
+            return animPromise.value
+        end
+        Wait(1)
+    end
+    TaskPlayAnim(ped, animDict, animName, 8.0, 8.0, runTime, flags, 0, true, true, true)
+    Wait(10) -- Wait a bit for the animation to start, then check if it exists
+    local currentTime = GetAnimDuration(animDict, animName)
+    if currentTime == 0 then
+        animPromise:reject(invoked .. ' :^1  Animation does not exist')
+        return animPromise.value
+    end
+    local fullDuration = currentTime * 1000
+    -- If duration is provided and is less than the full duration, use it instead
+    local waitTime = duration and math.min(duration, fullDuration) or fullDuration
+    Wait(waitTime)
     RemoveAnimDict(animDict)
+    animPromise:resolve(currentTime)
+    return animPromise.value
 end
 
 function QBCore.Functions.LoadModel(model)
@@ -95,9 +177,26 @@ function QBCore.Functions.TriggerClientCallback(name, cb, ...)
 end
 
 -- Server Callback
-function QBCore.Functions.TriggerCallback(name, cb, ...)
-    QBCore.ServerCallbacks[name] = cb
-    TriggerServerEvent('QBCore:Server:TriggerCallback', name, ...)
+function QBCore.Functions.TriggerCallback(name, ...)
+    local cb = nil
+    local args = { ... }
+
+    if QBCore.Shared.IsFunction(args[1]) then
+        cb = args[1]
+        table.remove(args, 1)
+    end
+
+    QBCore.ServerCallbacks[name] = {
+        callback = cb,
+        promise = promise.new()
+    }
+
+    TriggerServerEvent('QBCore:Server:TriggerCallback', name, table.unpack(args))
+
+    if cb == nil then
+        Citizen.Await(QBCore.ServerCallbacks[name].promise)
+        return QBCore.ServerCallbacks[name].promise.value
+    end
 end
 
 function QBCore.Functions.Progressbar(name, label, duration, useWhileDead, canCancel, disableControls, animation, prop, propTwo, onFinish, onCancel)
@@ -953,6 +1052,13 @@ function QBCore.Functions.GetGroundZCoord(coords)
     end
 end
 
+function QBCore.Functions.GetGroundHash(entity)
+    local coords = GetEntityCoords(entity)
+    local num = StartShapeTestCapsule(coords.x, coords.y, coords.z + 4, coords.x, coords.y, coords.z - 2.0, 1, 1, entity, 7)
+    local retval, success, endCoords, surfaceNormal, materialHash, entityHit = GetShapeTestResultEx(num)
+    return materialHash, entityHit, surfaceNormal, endCoords, success, retval
+end
+
 -- Player load and unload handling
 -- New method for checking if logged in across all scripts (optional)
 -- if LocalPlayer.state['isLoggedIn'] then
@@ -1110,6 +1216,27 @@ RegisterNetEvent('QBCore:Command:DeleteVehicle', function()
     end
 end)
 
+RegisterNetEvent('QBCore:Client:VehicleInfo', function(info)
+    local plate = QBCore.Functions.GetPlate(info.vehicle)
+    local hasKeys = true
+
+    if GetResourceState('qb-vehiclekeys') == 'started' then
+        hasKeys = exports['qb-vehiclekeys']:HasKeys(plate)
+    end
+
+    local data = {
+        vehicle = info.vehicle,
+        seat = info.seat,
+        name = info.modelName,
+        plate = plate,
+        driver = GetPedInVehicleSeat(info.vehicle, -1),
+        inseat = GetPedInVehicleSeat(info.vehicle, info.seat),
+        haskeys = hasKeys
+    }
+
+    TriggerEvent('QBCore:Client:' .. info.event .. 'Vehicle', data)
+end)
+
 -- Other stuff
 
 RegisterNetEvent('QBCore:Player:SetPlayerData', function(val)
@@ -1134,7 +1261,9 @@ end)
 
 -- Client Callback
 RegisterNetEvent('QBCore:Client:TriggerClientCallback', function(name, ...)
-    QBCore.Functions.TriggerClientCallback(name, function(...)
+    if not QBCore.ClientCallbacks[name] then return end
+
+    QBCore.ClientCallbacks[name](function(...)
         TriggerServerEvent('QBCore:Server:TriggerClientCallback', name, ...)
     end, ...)
 end)
@@ -1142,7 +1271,12 @@ end)
 -- Server Callback
 RegisterNetEvent('QBCore:Client:TriggerCallback', function(name, ...)
     if QBCore.ServerCallbacks[name] then
-        QBCore.ServerCallbacks[name](...)
+        QBCore.ServerCallbacks[name].promise:resolve(...)
+
+        if QBCore.ServerCallbacks[name].callback then
+            QBCore.ServerCallbacks[name].callback(...)
+        end
+
         QBCore.ServerCallbacks[name] = nil
     end
 end)
@@ -1253,7 +1387,51 @@ RegisterNetEvent('qb-core:client:KeyPressed', function()
     keyPressed()
 end)
 
+local function GetCoreObject(filters)
+    if not filters then return QBCore end
+    local results = {}
+    for i = 1, #filters do
+        local key = filters[i]
+        if QBCore[key] then
+            results[key] = QBCore[key]
+        end
+    end
+    return results
+end
+exportHandler("qb-core",'GetCoreObject', GetCoreObject)
+
+local function GetSharedItems()
+    return QBShared.Items
+end
+exportHandler("qb-core",'GetSharedItems', GetSharedItems)
+
+local function GetSharedVehicles()
+    return QBShared.Vehicles
+end
+exportHandler("qb-core",'GetSharedVehicles', GetSharedVehicles)
+
+local function GetSharedWeapons()
+    return QBShared.Weapons
+end
+exportHandler("qb-core",'GetSharedWeapons', GetSharedWeapons)
+
+local function GetSharedJobs()
+    return QBShared.Jobs
+end
+exportHandler("qb-core",'GetSharedJobs', GetSharedJobs)
+
+local function GetSharedGangs()
+    return QBShared.Gangs
+end
+exportHandler("qb-core",'GetSharedGangs', GetSharedGangs)
+
 exportHandler("qb-core","DrawText", drawText)
 exportHandler("qb-core",'ChangeText', changeText)
 exportHandler("qb-core",'HideText', hideText)
 exportHandler("qb-core",'KeyPressed', keyPressed)
+
+for functionName, func in pairs(QBCore.Functions) do
+    if type(func) == 'function' then
+        exportHandler("qb-core",functionName, func)
+    end
+end

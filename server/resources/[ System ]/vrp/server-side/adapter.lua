@@ -387,13 +387,12 @@ function vRP.HasGroup(Passport, Permission)
 end
 
 function vRP.Identities(source)
-    local Result = false
+    local Result = nil
     local Identifiers = GetPlayerIdentifiers(source)
     local baseIdentifier = GlobalState['Basics']['Identifier'] or "steam"
     for _, v in pairs(Identifiers) do
         if string.find(v,baseIdentifier) then
-            local SplitName = splitString(v, ":")
-            Result = SplitName[2]
+            Result = tostring(v)
             break
         end
     end

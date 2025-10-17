@@ -60,7 +60,6 @@ function QBCore.Functions.GetSource(identifier)
 end
 
 function QBCore.Functions.GetSourceByUserId(user_id)
-    -- print('QBCore :: GetSourceByUserId',user_id,GetInvokingResource())
     for src, v in pairs(QBCore.Players) do
         if user_id == v.user_id then
             return src
@@ -69,8 +68,7 @@ function QBCore.Functions.GetSourceByUserId(user_id)
 end
 
 function QBCore.Functions.GetPlayer(source)
-    -- print('QBCore :: GetPlayer',source,GetInvokingResource())
-    if type(source) == 'number' then
+    if tonumber(source) ~= nil then
         return QBCore.Players[source]
     else
         return QBCore.Players[QBCore.Functions.GetSource(source)]
@@ -78,7 +76,6 @@ function QBCore.Functions.GetPlayer(source)
 end
 
 function QBCore.Functions.GetPlayerByCitizenId(citizenid)
-    -- print('QBCore :: GetPlayerByCitizenId',citizenid,GetInvokingResource())
     if tonumber(citizenid) then
         local src = QBCore.Functions.GetSourceByUserId(tonumber(citizenid))
         return QBCore.Functions.GetPlayer(src)
@@ -95,9 +92,32 @@ function QBCore.Functions.GetOfflinePlayerByCitizenId(citizenid)
     return QBCore.Player.GetOfflinePlayer(citizenid)
 end
 
+function QBCore.Functions.GetPlayerByLicense(license)
+    return QBCore.Player.GetPlayerByLicense(license)
+end
+
 function QBCore.Functions.GetPlayerByPhone(number)
     for src in pairs(QBCore.Players) do
         if QBCore.Players[src].PlayerData.charinfo.phone == number then
+            return QBCore.Players[src]
+        end
+    end
+    return nil
+end
+
+function QBCore.Functions.GetPlayerByAccount(account)
+    for src in pairs(QBCore.Players) do
+        if QBCore.Players[src].PlayerData.charinfo.account == account then
+            return QBCore.Players[src]
+        end
+    end
+    return nil
+end
+
+function QBCore.Functions.GetPlayerByCharInfo(property, value)
+    for src in pairs(QBCore.Players) do
+        local charinfo = QBCore.Players[src].PlayerData.charinfo
+        if charinfo[property] ~= nil and charinfo[property] == value then
             return QBCore.Players[src]
         end
     end
@@ -224,6 +244,26 @@ function QBCore.Functions.SpawnVehicle(source, model, coords, warp)
     return veh
 end
 
+---Server side vehicle creation with optional callback
+---the CreateAutomobile native is still experimental but doesn't use client for creation
+---doesn't work for all vehicles!
+---comment
+---@param source any
+---@param model any
+---@param coords vector
+---@param warp boolean
+---@return number
+function QBCore.Functions.CreateAutomobile(source, model, coords, warp)
+    model = type(model) == 'string' and joaat(model) or model
+    if not coords then coords = GetEntityCoords(GetPlayerPed(source)) end
+    local heading = coords.w and coords.w or 0.0
+    local CreateAutomobile = `CREATE_AUTOMOBILE`
+    local veh = Citizen.InvokeNative(CreateAutomobile, model, coords, heading, true, true)
+    while not DoesEntityExist(veh) do Wait(0) end
+    if warp then TaskWarpPedIntoVehicle(GetPlayerPed(source), veh, -1) end
+    return veh
+end
+
 -- Server side vehicle creation with optional callback
 -- the CreateAutomobile native is still experimental but doesn't use client for creation
 -- doesn't work for all vehicles!
@@ -240,9 +280,30 @@ end
 -- Callback Functions --
 
 -- Client Callback
-function QBCore.Functions.TriggerClientCallback(name, source, cb, ...)
-    QBCore.ClientCallbacks[name] = cb
-    TriggerClientEvent('QBCore:Client:TriggerClientCallback', source, name, ...)
+---@param name string
+---@param source any
+---@param cb function
+---@param ... any
+function QBCore.Functions.TriggerClientCallback(name, source, ...)
+    local cb = nil
+    local args = { ... }
+
+    if QBCore.Shared.IsFunction(args[1]) then
+        cb = args[1]
+        table.remove(args, 1)
+    end
+
+    QBCore.ClientCallbacks[name] = {
+        callback = cb,
+        promise = promise.new()
+    }
+
+    TriggerClientEvent('QBCore:Client:TriggerClientCallback', source, name, table.unpack(args))
+
+    if cb == nil then
+        Citizen.Await(QBCore.ClientCallbacks[name].promise)
+        return QBCore.ClientCallbacks[name].promise.value
+    end
 end
 
 -- Server Callback
@@ -1041,15 +1102,23 @@ end)
 -- Client Callback
 RegisterNetEvent('QBCore:Server:TriggerClientCallback', function(name, ...)
     if QBCore.ClientCallbacks[name] then
-        QBCore.ClientCallbacks[name](...)
+        QBCore.ClientCallbacks[name].promise:resolve(...)
+
+        if QBCore.ClientCallbacks[name].callback then
+            QBCore.ClientCallbacks[name].callback(...)
+        end
+
         QBCore.ClientCallbacks[name] = nil
     end
 end)
 
 -- Server Callback
 RegisterNetEvent('QBCore:Server:TriggerCallback', function(name, ...)
+    if not QBCore.ServerCallbacks[name] then return end
+
     local src = source
-    QBCore.Functions.TriggerCallback(name, src, function(...)
+
+    QBCore.ServerCallbacks[name](src, function(...)
         TriggerClientEvent('QBCore:Client:TriggerCallback', src, name, ...)
     end, ...)
 end)
@@ -1146,18 +1215,7 @@ end)
 -- use the netid on the client with the NetworkGetEntityFromNetworkId native
 -- convert it to a vehicle via the NetToVeh native
 QBCore.Functions.CreateCallback('QBCore:Server:SpawnVehicle', function(source, cb, model, coords, warp)
-    local ped = GetPlayerPed(source)
-    model = type(model) == 'string' and joaat(model) or model
-    if not coords then coords = GetEntityCoords(ped) end
-    local veh = CreateVehicle(model, coords.x, coords.y, coords.z, coords.w, true, true)
-    while not DoesEntityExist(veh) do Wait(0) end
-    if warp then
-        while GetVehiclePedIsIn(ped) ~= veh do
-            Wait(0)
-            TaskWarpPedIntoVehicle(ped, veh, -1)
-        end
-    end
-    while NetworkGetEntityOwner(veh) ~= source do Wait(0) end
+    local veh = QBCore.Functions.SpawnVehicle(source, model, coords, warp)
     cb(NetworkGetNetworkIdFromEntity(veh))
 end)
 
@@ -1166,12 +1224,7 @@ end)
 -- use the netid on the client with the NetworkGetEntityFromNetworkId native
 -- convert it to a vehicle via the NetToVeh native
 QBCore.Functions.CreateCallback('QBCore:Server:CreateVehicle', function(source, cb, model, coords, warp)
-    model = type(model) == 'string' and GetHashKey(model) or model
-    if not coords then coords = GetEntityCoords(GetPlayerPed(source)) end
-    local CreateAutomobile = GetHashKey("CREATE_AUTOMOBILE")
-    local veh = Citizen.InvokeNative(CreateAutomobile, model, coords, coords.w, true, true)
-    while not DoesEntityExist(veh) do Wait(0) end
-    if warp then TaskWarpPedIntoVehicle(GetPlayerPed(source), veh, -1) end
+    local veh = QBCore.Functions.CreateAutomobile(source, model, coords, warp)
     cb(NetworkGetNetworkIdFromEntity(veh))
 end)
 

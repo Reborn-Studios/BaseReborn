@@ -3,7 +3,6 @@ ESX.Jobs = {}
 ESX.Items = {}
 Core = {}
 Core.UsableItemsCallbacks = {}
-Core.ServerCallbacks = {}
 Core.TimeoutCount = -1
 Core.CancelledTimeouts = {}
 Core.RegisteredCommands = {}
@@ -12,7 +11,9 @@ Core.PickupId = 0
 Core.PlayerFunctionOverrides = {}
 
 AddEventHandler('esx:getSharedObject', function(cb)
+  if ESX.IsFunctionReference(cb) then
     cb(ESX)
+  end
 end)
 
 exports('getSharedObject', function()
@@ -56,6 +57,20 @@ function ESX.SetTimeout(msec, cb)
     end)
     Core.TimeoutCount = id
     return id
+end
+
+function ESX.TriggerClientEvent(eventName, playerIds, ...)
+    if type(playerIds) == "number" then
+        TriggerClientEvent(eventName, playerIds, ...)
+        return
+    end
+
+    local payload = msgpack.pack_args(...)
+    local payloadLength = #payload
+
+    for i = 1, #playerIds do
+        TriggerClientEventInternal(eventName, playerIds[i], payload, payloadLength)
+    end
 end
   
 function ESX.RegisterCommand(name, group, cb, allowConsole, suggestion)
@@ -200,18 +215,123 @@ end
 function ESX.ClearTimeout(id)
     Core.CancelledTimeouts[id] = true
 end
-  
-function ESX.RegisterServerCallback(name, cb)
-    Core.ServerCallbacks[name] = cb
+
+Callbacks = {}
+
+Callbacks.requests = {}
+Callbacks.storage = {}
+Callbacks.id = 0
+
+function Callbacks:Register(name, resource, cb)
+    self.storage[name] = {
+        resource = resource,
+        cb = cb
+    }
 end
-  
-function ESX.TriggerServerCallback(name, requestId, source, cb, ...)
-    if Core.ServerCallbacks[name] then
-        Core.ServerCallbacks[name](source, cb, ...)
+
+function Callbacks:Execute(cb, ...)
+    local success, errorString = pcall(cb, ...)
+
+    if not success then
+        print(("[^1ERROR^7] Failed to execute Callback with RequestId: ^5%s^7"):format(self.currentId))
+        print("^3Callback Error:^7 " .. tostring(errorString))  -- just log, don't throw
+        self.currentId = nil
+        return
+    end
+
+    self.currentId = nil
+end
+
+function Callbacks:Trigger(player, event, cb, invoker, ...)
+    self.requests[self.id] = {
+        await = type(cb) == "boolean",
+        cb = cb or promise:new()
+    }
+    local table = self.requests[self.id]
+
+    TriggerClientEvent("esx:triggerClientCallback", player, event, self.id, invoker, ...)
+
+    self.id += 1
+
+    return table.cb
+end
+
+function Callbacks:ServerRecieve(player, event, requestId, invoker, ...)
+    self.currentId = requestId
+
+    if not self.storage[event] then
+        return error(("Server Callback with requestId ^5%s^1 Was Called by ^5%s^1 but does not exist."):format(event, invoker))
+    end
+
+    local returnCb = function(...)
+        TriggerClientEvent("esx:serverCallback", player, requestId, invoker, ...)
+    end
+    local callback = self.storage[event].cb
+
+    self:Execute(callback, player, returnCb, ...)
+end
+
+function Callbacks:RecieveClient(requestId, invoker, ...)
+    self.currentId = requestId
+
+    if not self.requests[self.currentId] then
+        return error(("Client Callback with requestId ^5%s^1 Was Called by ^5%s^1 but does not exist."):format(self.currentId, invoker))
+    end
+
+    local callback = self.requests[self.currentId]
+
+    self.requests[requestId] = nil
+    if callback.await then
+        callback.cb:resolve({ ... })
     else
-        print(('[^3WARNING^7] Server callback ^5"%s"^0 does not exist. ^1Please Check The Server File for Errors!'):format(name))
+        self:Execute(callback.cb, ...)
     end
 end
+
+function ESX.TriggerClientCallback(player, eventName, callback, ...)
+    local invokingResource = GetInvokingResource()
+    local invoker = (invokingResource and invokingResource ~= "Unknown") and invokingResource or "es_extended"
+
+    Callbacks:Trigger(player, eventName, callback, invoker, ...)
+end
+
+function ESX.AwaitClientCallback(player, eventName, ...)
+    local invokingResource = GetInvokingResource()
+    local invoker = (invokingResource and invokingResource ~= "Unknown") and invokingResource or "es_extended"
+
+    local p = Callbacks:Trigger(player, eventName, false, invoker, ...)
+    if not p then return end
+
+    SetTimeout(15000, function()
+        if p.state == "pending" then
+            p:reject("Server Callback Timed Out")
+        end
+    end)
+
+    Citizen.Await(p)
+
+    return table.unpack(p.value)
+end
+
+function ESX.RegisterServerCallback(eventName, callback)
+    local invokingResource = GetInvokingResource()
+    local invoker = (invokingResource and invokingResource ~= "Unknown") and invokingResource or "es_extended"
+
+    Callbacks:Register(eventName, invoker, callback)
+end
+
+function ESX.DoesServerCallbackExist(eventName)
+    return Callbacks.storage[eventName] ~= nil
+end
+
+RegisterNetEvent("esx:clientCallback", function(requestId, invoker, ...)
+    Callbacks:RecieveClient(requestId, invoker, ...)
+end)
+
+RegisterNetEvent("esx:triggerServerCallback", function(eventName, requestId, invoker, ...)
+    local source = source
+    Callbacks:ServerRecieve(source, eventName, requestId, invoker, ...)
+end)
 
 local function updateHealthAndArmorInMetadata(xPlayer)
   local ped = GetPlayerPed(xPlayer.source)
@@ -314,19 +434,49 @@ function ESX.GetExtendedPlayers(key, val)
     end
     return xPlayers
 end
+
+function ESX.GetNumPlayers(key, val)
+    if not key then
+        return #GetPlayers()
+    end
+
+    if type(val) == "table" then
+        local numPlayers = {}
+        if key == "job" then
+            for _, v in ipairs(val) do
+                numPlayers[v] = (Core.JobsPlayerCount[v] or 0)
+            end
+            return numPlayers
+        end
+
+        local filteredPlayers = ESX.GetExtendedPlayers(key, val)
+        for i, v in pairs(filteredPlayers) do
+            numPlayers[i] = (#v or 0)
+        end
+        return numPlayers
+    end
+
+    if key == "job" then
+        return (Core.JobsPlayerCount[val] or 0)
+    end
+
+    return #ESX.GetExtendedPlayers(key, val)
+end
   
 function ESX.GetPlayerFromId(source)
-    -- print('ESX :: GetPlayerFromId',source,GetInvokingResource())
     return ESX.Players[tonumber(source)]
 end
   
 function ESX.GetPlayerFromIdentifier(identifier)
-    -- print('ESX :: GetPlayerFromIdentifier',source,GetInvokingResource())
     for k, v in pairs(ESX.Players) do
         if v.identifier == identifier then
             return v
         end
     end
+end
+
+function ESX.IsPlayerLoaded(source)
+    return ESX.Players[source] ~= nil
 end
 
 function ESX.GetIdentifier(playerId)
@@ -336,6 +486,38 @@ function ESX.GetIdentifier(playerId)
           return identifier
       end
   end
+end
+
+function ESX.GetVehicleType(model, player, cb)
+    if cb and not ESX.IsFunctionReference(cb) then
+        error("Invalid callback function")
+    end
+
+    local promise = not cb and promise.new()
+    local function resolve(result)
+        if promise then
+            promise:resolve(result)
+        elseif cb then
+            cb(result)
+        end
+
+        return result
+    end
+
+    model = type(model) == "string" and joaat(model) or model
+
+    if Core.vehicleTypesByModel[model] then
+        return resolve(Core.vehicleTypesByModel[model])
+    end
+
+    ESX.TriggerClientCallback(player, "esx:GetVehicleType", function(vehicleType)
+        Core.vehicleTypesByModel[model] = vehicleType
+        resolve(vehicleType)
+    end, model)
+
+    if promise then
+        return Citizen.Await(promise)
+    end
 end
 
 function ESX.RefreshJobs()
@@ -400,6 +582,10 @@ end
   
 function ESX.GetJobs()
     return ESX.Jobs
+end
+
+function ESX.GetItems()
+    return ESX.Items
 end
   
 function ESX.GetUsableItems()
@@ -1017,22 +1203,50 @@ AddEventHandler('esx:onPickup', function(pickupId)
   end
 end)
 
-ESX.RegisterServerCallback('esx:getPlayerData', function(source, cb)
-  local xPlayer = ESX.GetPlayerFromId(source)
+ESX.RegisterServerCallback("esx:getPlayerData", function(source, cb)
+    local xPlayer = ESX.GetPlayerFromId(source)
 
-  cb({identifier = xPlayer.identifier, accounts = xPlayer.getAccounts(), inventory = xPlayer.getInventory(), job = xPlayer.getJob(),
-      loadout = xPlayer.getLoadout(), money = xPlayer.getMoney(), position = xPlayer.getCoords(true)})
+    if not xPlayer then
+        return
+    end
+
+    cb({
+        identifier = xPlayer.identifier,
+        accounts = xPlayer.getAccounts(),
+        inventory = xPlayer.getInventory(),
+        job = xPlayer.getJob(),
+        loadout = xPlayer.getLoadout(),
+        money = xPlayer.getMoney(),
+        position = xPlayer.getCoords(true),
+        metadata = xPlayer.getMeta(),
+    })
 end)
 
 ESX.RegisterServerCallback('esx:isUserAdmin', function(source, cb)
   cb(Core.IsPlayerAdmin(source))
 end)
 
-ESX.RegisterServerCallback('esx:getOtherPlayerData', function(source, cb, target)
-  local xPlayer = ESX.GetPlayerFromId(target)
+ESX.RegisterServerCallback("esx:getGameBuild", function(_, cb)
+    cb(tonumber(GetConvar("sv_enforceGameBuild", "1604")))
+end)
 
-  cb({identifier = xPlayer.identifier, accounts = xPlayer.getAccounts(), inventory = xPlayer.getInventory(), job = xPlayer.getJob(),
-      loadout = xPlayer.getLoadout(), money = xPlayer.getMoney(), position = xPlayer.getCoords(true)})
+ESX.RegisterServerCallback("esx:getOtherPlayerData", function(_, cb, target)
+    local xPlayer = ESX.GetPlayerFromId(target)
+
+    if not xPlayer then
+        return
+    end
+
+    cb({
+        identifier = xPlayer.identifier,
+        accounts = xPlayer.getAccounts(),
+        inventory = xPlayer.getInventory(),
+        job = xPlayer.getJob(),
+        loadout = xPlayer.getLoadout(),
+        money = xPlayer.getMoney(),
+        position = xPlayer.getCoords(true),
+        metadata = xPlayer.getMeta(),
+    })
 end)
 
 ESX.RegisterServerCallback('esx:getPlayerNames', function(source, cb, players)
@@ -1049,6 +1263,22 @@ ESX.RegisterServerCallback('esx:getPlayerNames', function(source, cb, players)
   end
 
   cb(players)
+end)
+
+ESX.RegisterServerCallback("esx:spawnVehicle", function(source, cb, vehData)
+    local ped = GetPlayerPed(source)
+    ESX.OneSync.SpawnVehicle(vehData.model or `ADDER`, vehData.coords or GetEntityCoords(ped), vehData.coords.w or 0.0, vehData.props or {}, function(id)
+        if vehData.warp then
+            local vehicle = NetworkGetEntityFromNetworkId(id)
+            local timeout = 0
+            while GetVehiclePedIsIn(ped, false) ~= vehicle and timeout <= 15 do
+                Wait(0)
+                TaskWarpPedIntoVehicle(ped, vehicle, -1)
+                timeout += 1
+            end
+        end
+        cb(id)
+    end)
 end)
 
 AddEventHandler('txAdmin:events:scheduledRestart', function(eventData)
