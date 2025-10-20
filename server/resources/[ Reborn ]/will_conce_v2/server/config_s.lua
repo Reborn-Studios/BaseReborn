@@ -81,12 +81,19 @@ cfg_s.buy_vehicle = function(user_id,category,vehicle,tuning)
                         if not srv.checkRentSell(user_id,vehicle) then
                             if request(nplayer,"Deseja comprar "..vehicle.." por R$"..price.."?",30) and checkMaxUserVehs(user_id) then
                                 if tryPayment(user_id,price,veiculos[category][vehicle].vip) then
+                                    local plate = vRP.generatePlateNumber()
                                     execute('will/rem_rent',{user_id = user_id,vehicle = vehicle})
-                                    addVehicle(user_id, vehicle)
+                                    addVehicle(user_id, vehicle, plate)
                                     if hasEstoque then
                                         execute('will/att_estoque',{estoque = (vehStock[1].estoque - 1),vehicle = vehicle })
                                     end
-                                    vRP.setSData('custom:'..user_id..":"..vehicle,json.encode(tuning))
+                                    if GetResourceState("ld_tunners") == "started" then
+                                        local tunning2 = { primaryColor = tuning.customPcolor }
+                                        vRP.setSData("mods:"..plate,json.encode(tunning2))
+                                    else
+                                        vRP.setSData('custom:'..user_id..":"..vehicle,json.encode(tuning))
+                                    end
+                                    
                                     TriggerClientEvent('Notify',nplayer,"sucesso","Sua compra foi aprovada pelo nossso gerente!")
                                     webhook(cfg_s.webhook_comprar,'```[Concessionaria compra]\n[ID]:'..user_id.."\n[VALOR]:"..price.."[VEICULO]:"..vehicle..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").."\n```")
                                     return
@@ -103,11 +110,18 @@ cfg_s.buy_vehicle = function(user_id,category,vehicle,tuning)
                 end
                 if request(nplayer,"Deseja comprar "..vehicle.." por R$"..price.."?",30) and checkMaxUserVehs(user_id) then
                     if tryPayment(user_id,price,veiculos[category][vehicle].vip) then
+                        local plate = vRP.generatePlateNumber()
                         if hasEstoque then
                             execute('will/att_estoque',{estoque = (vehStock[1].estoque - 1),vehicle = vehicle })
                         end
-                        addVehicle(user_id, vehicle)
-                        vRP.setSData('custom:'..user_id..":"..vehicle,json.encode(tuning))
+                        addVehicle(user_id, vehicle, plate)
+                        if GetResourceState("ld_tunners") == "started" then
+                            local tunning2 = { primaryColor = tuning.customPcolor }
+                            vRP.setSData("mods:"..plate,json.encode(tunning2))
+                        else
+                            vRP.setSData('custom:'..user_id..":"..vehicle,json.encode(tuning))
+                        end
+
                         TriggerClientEvent('Notify',nplayer,"sucesso","Sua compra foi aprovada pelo nossso gerente!")
                         webhook(cfg_s.webhook_comprar,'```[Concessionaria compra]\n[ID]:'..user_id.."\n[VALOR]:"..price.."[VEICULO]:"..vehicle..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").."\n```")
                     else

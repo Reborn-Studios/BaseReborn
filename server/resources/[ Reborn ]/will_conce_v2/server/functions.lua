@@ -75,6 +75,6 @@ function request(source,text,time)
     return vRP.request(source,text,time)
 end
 
-function addVehicle(user_id, vehicle)
-    vRP.addUserVehicle(user_id,vehicle)
+function addVehicle(user_id, vehicle, plate)
+    vRP.addUserVehicle(user_id,vehicle, plate)
 end
