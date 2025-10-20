@@ -6,6 +6,9 @@ Proxy = module("vrp","lib/Proxy") or {}
 Webhooks = module("config/webhooks") or {}
 vRP = Proxy.getInterface("vRP")
 vRPclient = Tunnel.getInterface("vRP")
+
+local GlobalItems = module('vrp',"config/Itemlist") or {}
+RegisterServerEvent("Reborn:reloadInfos",function() GlobalItems = module('vrp',"config/Itemlist") end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -68,15 +71,76 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- ITEM
 -----------------------------------------------------------------------------------------------------------------------------------------
+local function levenshtein(s, t)
+    local len_s, len_t = #s, #t
+    if len_s == 0 then return len_t end
+    if len_t == 0 then return len_s end
+
+    local matrix = {}
+    for i = 0, len_s do
+        matrix[i] = {}
+        matrix[i][0] = i
+    end
+    for j = 0, len_t do
+        matrix[0][j] = j
+    end
+
+    for i = 1, len_s do
+        local s_i = s:sub(i, i)
+        for j = 1, len_t do
+            local t_j = t:sub(j, j)
+            local cost = (s_i == t_j) and 0 or 1
+            matrix[i][j] = math.min(
+                matrix[i - 1][j] + 1,
+                matrix[i][j - 1] + 1,
+                matrix[i - 1][j - 1] + cost
+            )
+        end
+    end
+    return matrix[len_s][len_t]
+end
+
+local function similarityPercent(s1, s2)
+    local lev = levenshtein(s1, s2)
+    local maxLen = math.max(#s1, #s2)
+    return ((maxLen - lev) / maxLen) * 100
+end
+
+local function findClosestItem(input)
+    local closestItem = nil
+    local lowestDistance = math.huge
+    input = input:lower():gsub("%s+", "")
+    for key, item in pairs(GlobalItems) do
+        local itemName = (item.name or key):lower():gsub("%s+", "")
+        local distance = levenshtein(input, itemName)
+
+        if distance < lowestDistance then
+            lowestDistance = distance
+            closestItem = key
+        end
+    end
+    return closestItem
+end
+
 RegisterCommand("item",function(source,args,rawCommand)
 	if HasPermission(source,"item") then
 		if args[1] and args[2] then
-			if vRP.itemBodyList(args[1]) then
+			if GlobalItems[args[1]] then
 				local user_id = vRP.getUserId(source)
 				vRP.giveInventoryItem(user_id,args[1],tonumber(args[2]) or 1, nil, true)
 				vRP.createWeebHook(Webhooks.webhookgive,"```prolog\n[ID]: "..user_id.."\n[PEGOU]: "..args[1].." \n[QUANTIDADE]: "..parseInt(args[2]).." "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
 			else
-				TriggerClientEvent("Notify",source,"negado","Item inexistente",5000)
+				local closestItem = findClosestItem(args[1])
+				local similarPercent = similarityPercent(args[1], closestItem)
+				if closestItem and similarPercent >= 75 then
+					if vRP.request(source,"Você quer pegar o item "..closestItem.."?",30) then
+						local user_id = vRP.getUserId(source)
+						vRP.giveInventoryItem(user_id,closestItem,tonumber(args[2]) or 1, nil, true)
+						vRP.createWeebHook(Webhooks.webhookgive,"```prolog\n[ID]: "..user_id.."\n[PEGOU]: "..closestItem.." \n[QUANTIDADE]: "..parseInt(args[2]).." "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
+					end
+				else
+					TriggerClientEvent("Notify",source,"negado","Item inexistente",5000)
+				end
 			end
 		end
 	end
@@ -86,7 +150,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterCommand("itemall",function(source,args,rawCommand)
 	if HasPermission(source,"itemall") and args[1] and args[2] then
-		if vRP.itemBodyList(args[1]) then
+		if GlobalItems[args[1]] then
 			local users = vRP.getUsers()
 			for k,v in pairs(users) do
 				vRP.giveInventoryItem(parseInt(k),tostring(args[1]),tonumber(args[2]) or 1,nil,true)
