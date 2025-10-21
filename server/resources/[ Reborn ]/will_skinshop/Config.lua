@@ -90,13 +90,23 @@ Config.locates = {
     {
         clothes = {
             -- Categoria com peças limitadas
-            ["torso"] = {
-                -- Intervalo das disponiveis (Ex.: 0 até 200)
-                ['available'] = { 0, 200 },
-                ['block'] = {
-                    -- Modelo bloqueado
-                    ['14'] = true
-                }
+            ["male"] = {
+                ["torso"] = {
+                    -- Intervalo das disponiveis (Ex.: 0 até 200)
+                    ['available'] = { 0, 200 },
+                    ['block'] = {
+                        -- Modelo bloqueado
+                        ['14'] = true
+                    }
+                },
+            },
+            ["female"] = {
+                ["torso"] = {
+                    ['block'] = {
+                        -- Modelo bloqueado
+                        ['15'] = true
+                    }
+                },
             },
         },
         -- Categorias bloqueadas
@@ -111,7 +121,16 @@ Config.locates = {
         -- coords = vector3(75.40,-1392.92,29.37) -- Local no will_shops
     },
     {
-        clothes = "all",
+        clothes = {
+            ["male"] = {
+                ["torso"] = {
+                    ['block'] = {
+                        -- Modelo bloqueado
+                        ['14'] = true
+                    }
+                },
+            },
+        },
         permission = nil,
         coords = vector3(-163.20,-302.03,39.73)
     },
