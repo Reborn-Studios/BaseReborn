@@ -129,18 +129,10 @@ AddEventHandler("setDrunkTime",function(timers)
 		Wait(10)
 	end
 	SetPedMovementClipset(PlayerPedId(),"move_m@drunk@verydrunk",0.25)
-end)
-
-CreateThread(function()
-	while true do
-		if drunkTime > 0 then
-			drunkTime = drunkTime - 1
-			if drunkTime <= 0 or GetEntityHealth(PlayerPedId()) <= 101 then
-				ResetPedMovementClipset(PlayerPedId(),0.25)
-			end
-		end
-		if gsrTime > 0 then
-			gsrTime = gsrTime - 1
+	while drunkTime > 0 do
+		drunkTime = drunkTime - 1
+		if drunkTime <= 0 or GetEntityHealth(PlayerPedId()) <= 101 then
+			ResetPedMovementClipset(PlayerPedId(),0.25)
 		end
 		Wait(1000)
 	end
@@ -148,25 +140,22 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADSHOTSFIRED
 -----------------------------------------------------------------------------------------------------------------------------------------
-CreateThread(function()
-	while true do
-		local timeDistance = 500
-		local ped = PlayerPedId()
-		if IsPedArmed(ped,4) and not LocalPlayer.state.inLateGame and not LocalPlayer.state.inPvp then
-			timeDistance = 10
-			if IsPedShooting(ped) then
-				PlayerServer.shotsFired()
-				gsrTime = 60
-			end
+local ShotDelay = GetGameTimer()
+
+AddEventHandler("CEventGunShot",function(_,OtherPed)
+	local Ped = PlayerPedId()
+	if Ped == OtherPed and not LocalPlayer["state"]["inLateGame"] and not LocalPlayer.state.inPvp and not LocalPlayer.state.Police and GetGameTimer() >= ShotDelay then
+		ShotDelay = GetGameTimer() + 60000
+		if not IsPedCurrentWeaponSilenced(Ped) or math.random(100) >= 75 then
+			PlayerServer.shotsFired()
 		end
-		Wait(timeDistance)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- GSRCHECK
 -----------------------------------------------------------------------------------------------------------------------------------------
 function PlvRP.gsrCheck()
-	return gsrTime
+	return ShotDelay > GetGameTimer()
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CLEANEFFECTDRUGS

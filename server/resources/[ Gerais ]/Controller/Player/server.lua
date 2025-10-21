@@ -396,27 +396,14 @@ end)
 -- SHOTSFIRED
 -----------------------------------------------------------------------------------------------------------------------------------------
 local shotFired = {}
-CreateThread(function()
-	while true do
-		for k,v in pairs(shotFired) do
-			if shotFired[k] > 0 then
-				shotFired[k] = v - 10
-				if shotFired[k] <= 0 then
-					shotFired[k] = nil
-				end
-			end
-		end
-		Wait(10000)
-	end
-end)
 
 function ServerPlayer.shotsFired()
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		if shotFired[user_id] == nil then
+		if shotFired[user_id] == nil or shotFired[user_id] < os.time() then
 			if not vRP.hasPermission(user_id,"policiatiros.permissao") then
-				shotFired[user_id] = 30
+				shotFired[user_id] = os.time() + 30
 				local x,y,z = vRPclient.getPositions(source)
 				local comAmount = vRP.getUsersByPermission("policia.permissao")
 				for k,v in pairs(comAmount) do
