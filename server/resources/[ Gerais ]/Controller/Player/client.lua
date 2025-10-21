@@ -118,16 +118,12 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- SETDRUNK
 -----------------------------------------------------------------------------------------------------------------------------------------
-local gsrTime = 0
 local drunkTime = 0
 
 RegisterNetEvent("setDrunkTime")
 AddEventHandler("setDrunkTime",function(timers)
 	drunkTime = timers
-	RequestAnimSet("move_m@drunk@verydrunk")
-	while not HasAnimSetLoaded("move_m@drunk@verydrunk") do
-		Wait(10)
-	end
+	if not LoadMovement("move_m@drunk@verydrunk") then return end
 	SetPedMovementClipset(PlayerPedId(),"move_m@drunk@verydrunk",0.25)
 	while drunkTime > 0 do
 		drunkTime = drunkTime - 1
@@ -423,10 +419,7 @@ end)
 -- MOVEMENTCLIP
 -----------------------------------------------------------------------------------------------------------------------------------------
 function PlvRP.movementClip(dict)
-	RequestAnimSet(dict)
-	while not HasAnimSetLoaded(dict) do
-		Wait(10)
-	end
+	LoadMovement(dict)
 	SetPedMovementClipset(PlayerPedId(),dict,0.25)
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -813,8 +806,6 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- EMPURRAR
 -----------------------------------------------------------------------------------------------------------------------------------------
-local First = vector3(0.0,0.0,0.0)
-local Second = vector3(5.0,5.0,5.0)
 local Vehicle = { Coords = nil, Vehicle = nil, Dimension = nil, IsInFront = false, Distance = nil }
 
 local function getClosestVeh(coords)
@@ -864,7 +855,7 @@ CreateThread(function()
 		if Vehicle.Vehicle ~= nil then
 			local ped = PlayerPedId()
 			if IsControlPressed(0,244) and GetEntityHealth(ped) > 100 and IsVehicleSeatFree(Vehicle.Vehicle,-1) and not IsEntityInAir(ped) and not IsPedBeingStunned(ped,0) and not IsEntityAttachedToEntity(ped,Vehicle.Vehicle) and not (GetEntityRoll(Vehicle.Vehicle) > 75.0 or GetEntityRoll(Vehicle.Vehicle) < -75.0) then
-				RequestAnimDict('missfinale_c2ig_11')
+				LoadAnim('missfinale_c2ig_11')
 				TaskPlayAnim(ped,'missfinale_c2ig_11','pushcar_offcliff_m',2.0,-8.0,-1,35,0,false,false,false)
 				NetworkRequestControlOfEntity(Vehicle.Vehicle)
 				local vehBone = GetPedBoneIndex(6286,0)
