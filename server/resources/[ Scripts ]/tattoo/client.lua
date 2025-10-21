@@ -342,6 +342,33 @@ RegisterNUICallback("updateRotate", function(data, cb)
     end
 end)
 
+RegisterNuiCallback("udpateInputCam",function (data,cb)
+    if data.tipo == "zoom" and cam and DoesCamExist(cam) then
+        local camData
+        if data.valor == 0 then
+            camData = { point = vec3(0.0,0.0,0.67) }
+            camPos = GetOffsetFromEntityInWorldCoords(PlayerPedId(), 0.0, 0.35, 0.0)
+            SetCamCoord(cam, camPos.x, camPos.y, camPos.z+0.75)
+        elseif data.valor == 1 then
+            camData = { point = vec3(0.0,0.0,0.0) }
+            camPos = GetOffsetFromEntityInWorldCoords(PlayerPedId(), 0.0, 0.8, -0.5)
+            SetCamCoord(cam, camPos.x, camPos.y, camPos.z+0.75)
+        elseif data.valor == 2 then
+            camData = { point = vec3(0.0,0.0,-0.5) }
+            camPos = GetOffsetFromEntityInWorldCoords(PlayerPedId(), 0.0, 0.8, -0.9)
+            SetCamCoord(cam, camPos.x, camPos.y, camPos.z+0.75)
+        elseif data.valor == 3 then
+            camData = { point = vec3(0.0,0.0,0.0) }
+            camPos = GetOffsetFromEntityInWorldCoords(PlayerPedId(), 0.0, 2.0, 0.0)
+        end
+        SetCamCoord(cam, camPos.x, camPos.y, camPos.z+0.75)
+        if camData then
+            local pointCoords = GetOffsetFromEntityInWorldCoords(PlayerPedId(), camData.point.x, camData.point.y, camData.point.z)
+            PointCamAtCoord(cam, pointCoords.x, pointCoords.y, pointCoords.z)
+        end
+    end
+end)
+
 function moreValue(n)
 	n = n + 0.00000
 	return n

@@ -72,7 +72,7 @@ function _0xc5eb() {
     "sexo",
     "#inicio",
     "15759675uckNnc",
-    "https://dpn_criacao/udpateInputCam",
+    "http://tattoo/udpateInputCam",
     "\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22item\x20itemPTattooShop\x22\x20data-partname=\x22",
     "88AwbcAM",
     "http://tattoo/changeTattoo",
