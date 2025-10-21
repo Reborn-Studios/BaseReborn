@@ -1028,27 +1028,41 @@ AddEventHandler("gameEventTriggered",function(event,args)
         local data = { victim = args[1], attacker = args[2], weapon = args[7] }
         if IsEntityAPed(data.victim) then
             local ped = PlayerPedId()
-            if data.victim == ped then
+            if data.victim == ped and not alreadyDead then
                 local killerSource = -1
-                if GetEntityHealth(ped) <= 101 and not alreadyDead then
-					if DoesEntityExist(data.attacker) and IsPedAPlayer(data.attacker) and data.attacker ~= data.victim then
-						killerSource = GetPlayerServerId(NetworkGetPlayerIndexFromPed(data.attacker))
-					end
+				if DoesEntityExist(data.attacker) and IsPedAPlayer(data.attacker) and data.attacker ~= data.victim then
+					killerSource = GetPlayerServerId(NetworkGetPlayerIndexFromPed(data.attacker))
+				end
+                if GetEntityHealth(ped) <= 101 then
                     alreadyDead = true
 					if tostring(data.weapon) == "-1746263880" then
 						TriggerServerEvent("PerdaPersonagem")
 						return
 					end
 					TriggerServerEvent("logplayerDied",killerSource,getWeaponHashName(tostring(data.weapon)))
-					CreateThread(function()
-						while alreadyDead do
-							if GetEntityHealth(ped) > 102 then
-								alreadyDead = false
+				else
+					local WeaponGroup = GetWeapontypeGroup(data.weapon)
+					if WeaponGroup == 970310034 or WeaponGroup == 1159398588 or WeaponGroup == 416676503 then
+						local hit,bone = GetPedLastDamageBone(ped)
+						if hit and (bone == 31086 or bone == 12844) then
+							SetEntityHealth(PlayerPedId(),101)
+							alreadyDead = true
+							if tostring(data.weapon) == "-1746263880" then
+								TriggerServerEvent("PerdaPersonagem")
+								return
 							end
-							Wait(4)
+							TriggerServerEvent("logplayerDied",killerSource,getWeaponHashName(tostring(data.weapon)))
 						end
-					end)
+					end
                 end
+				CreateThread(function()
+					while alreadyDead do
+						if GetEntityHealth(ped) > 102 then
+							alreadyDead = false
+						end
+						Wait(4)
+					end
+				end)
             end
         end
     end
