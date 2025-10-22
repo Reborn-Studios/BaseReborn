@@ -31,15 +31,6 @@ AddEventHandler('esx:clientLog', function(msg)
     end
 end)
 
-RegisterServerEvent('esx:triggerServerCallback')
-AddEventHandler('esx:triggerServerCallback', function(name, requestId, ...)
-    local playerId = source
-
-    ESX.TriggerServerCallback(name, requestId, playerId, function(...)
-        TriggerClientEvent('esx:serverCallback', playerId, requestId, ...)
-    end, ...)
-end)
-
 function ESX.Trace(msg)
     if Config.EnableDebug then
       print(('[^2TRACE^7] %s^7'):format(msg))
