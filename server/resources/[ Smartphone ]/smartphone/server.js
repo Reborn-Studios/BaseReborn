@@ -3594,27 +3594,19 @@ pF.ready(async () => {
     if (p5("getBankStatements")) {
       return exports.smartphone.getBankStatements(h);
     } else {
-      if (pF.hasTable("smartbank_statements")) {
-        const k = await qx(h);
-
-        if (!k) {
-          return (
-            console.error(
-              "Jogador sem pix da smartbank: " + h + " [" + k + "]"
-            ),
-            []
-          );
-        }
-
-        const l = {};
-        l.pix = k;
-        const m = await pc("smartbank_statements")
-          .where(l)
-          .orderBy("time", "DESC")
+      if (pF.hasTable("transactions")) {
+        const m = await pc("transactions")
+          .where({ Passport: h })
+          .orderBy("Date", "DESC")
           .limit(25);
         return m.map((o) => ({
           id: o.id,
-          description: o.reason + " | " + pu(o.amount),
+          description:
+            (o.Type === "entry" ? "Entrada" : "Saída") +
+            " | " +
+            pu(o.Value) +
+            " - " +
+            o.Date,
         }));
       } else {
         if (await pF.hasColumns("vrp_banco", "title", "amount", "idtrans")) {
