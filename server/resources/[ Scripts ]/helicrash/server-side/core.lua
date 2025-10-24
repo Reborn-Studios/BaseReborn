@@ -27,20 +27,17 @@ CreateThread(function()
 				if Number ~= "1" then
 					Boxes = Boxes + 1
 
-					local Items = {}
 					local Loot = math.random(#Loots)
 					if GetResourceState("ox_inventory") == "started" then
-						local stashId = "Chest:Helicrash-"..Number
+						local stashId = "Chest:Helicrashs-"..Number
 						exports.ox_inventory:RegisterStash(stashId,"Helicrash",100,100000,false,nil,v[1])
 						for Slot,w in pairs(Loots[Loot]) do
-							Loots[Loot][Slot] = w
-							table.insert(Items,{ w["item"],w["amount"] })
 							exports.ox_inventory:AddItem(stashId, w["item"],w["amount"])
 						end
 						Chests["Helicrash-"..Number] = stashId
 					else
-						vRP.RemSrvData("Chest:Helicrash-"..Number)
-						vRP.SetSrvData("Chest:Helicrash-"..Number,json.encode(Loots[Loot]),false)
+						vRP.RemSrvData("Chest:Helicrashs-"..Number)
+						vRP.SetSrvData("Chest:Helicrashs-"..Number,json.encode(Loots[Loot]),false)
 					end
 				end
 			end
