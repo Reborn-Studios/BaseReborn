@@ -343,6 +343,12 @@ end
 -- GETBACKPACK
 -----------------------------------------------------------------------------------------------------------------------------------------
 function vRP.getBackpack(user_id)
+	if GlobalState['Inventory'] == "ox_inventory" then
+		local maxWeight = vRP.getInventoryMaxWeight(user_id)
+		if maxWeight then
+			return maxWeight
+		end
+	end
 	local data = vRP.getUserDataTable(user_id)
 	if data.backpack == nil then
 		local first_login = Reborn.first_login()
@@ -398,7 +404,7 @@ CreateThread(function()
 			local nplayer = vRP.getUserSource(user_id)
 			if nplayer then
 				local inventory = exports.ox_inventory:GetInventory(nplayer)
-				return inventory and inventory.maxWeight or 30000
+				return (inventory and inventory.maxWeight / 1000 or 30)
 			end
 		end
 
