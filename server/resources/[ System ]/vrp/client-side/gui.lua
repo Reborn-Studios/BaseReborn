@@ -372,8 +372,7 @@ end)
 -- ACCEPT
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterCommand("keybindAccept",function(source,args)
-	local ped = PlayerPedId()
-	if not celular and GetEntityHealth(ped) > 101 then
+	if not celular and not cancelando then
 		SendNUIMessage({ act = "event", event = "Y" })
 	end
 end)
@@ -381,8 +380,7 @@ end)
 -- REJECT
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterCommand("keybindReject",function(source,args)
-	local ped = PlayerPedId()
-	if not celular and GetEntityHealth(ped) > 101 then
+	if not celular and not cancelando then
 		SendNUIMessage({ act = "event", event = "U" })
 	end
 end)

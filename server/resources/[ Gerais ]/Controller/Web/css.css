@@ -127,7 +127,7 @@ legend {
   height: 100vh;
   width: 100vw;
   opacity: 0.8;
-  background-image: linear-gradient(rgba(51, 51, 51, 55), rgba(92, 0, 0, 55));
+  background-image: linear-gradient(rgba(51, 51, 51, 0.4), rgba(92, 0, 0, 0.5));
   display: none;
 }
 

@@ -1532,11 +1532,11 @@ AddEventHandler("inventory:verifyObjects",function(data)
 			return
 		end
 	end
-	table.insert(Trashes, data.coords)
 	local user_id = vRP.getUserId(source)
 	local itens = { "emptybottle", "bandage", "burger", "water" }
 	local itemName = itens[math.random(1, #itens)]
 	if vRP.computeInvWeight(user_id)+vRP.itemWeightList(itemName) <= vRP.getBackpack(user_id) then
+		table.insert(Trashes, data.coords)
 		TriggerClientEvent("Progress",source,3000)
 		TriggerClientEvent('cancelando',source,true)
 		vRPclient._playAnim(source,false,{"amb@prop_human_parking_meter@female@idle_a","idle_a_female"},true)
