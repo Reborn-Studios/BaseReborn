@@ -208,6 +208,7 @@ end
 local aliasPerm = {
 	['Police'] = "policia.permissao",
 	['Mechanic'] = "mecanico.permissao",
+	['Admin'] = "suporte.permissao",
 	['Paramedic'] = "paramedico.permissao"
 }
 
