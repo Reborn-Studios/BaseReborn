@@ -314,7 +314,7 @@ RegisterCommand("vtuning",function(source,args)
 		local Health = GetEntityHealth(Vehicle) / 10
 		exports["dynamic"]:AddButton("Chassi","Rigidez do chassi se encontra em <yellow>"..parseInt(Health).."%</yellow>.","","",false,false)
 
-		exports["dynamic"]:openMenu()
+		exports["dynamic"]:Open()
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
