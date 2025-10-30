@@ -41,6 +41,8 @@ vRP.prepare("vRP/rem_user_dkey","DELETE FROM vrp_user_data WHERE user_id = @user
 -----------------------------------------------------------------------------------------------------------------------------------------
 vRP.prepare("vRP/set_srvdata","REPLACE INTO vrp_srv_data(dkey,dvalue) VALUES(@key,@value)")
 vRP.prepare("vRP/get_srvdata","SELECT dvalue FROM vrp_srv_data WHERE dkey = @key")
+vRP.prepare("entitydata/setData","REPLACE INTO vrp_srv_data(dkey,dvalue) VALUES(@dkey,@value)")
+vRP.prepare("entitydata/getData","SELECT dvalue FROM vrp_srv_data WHERE dkey = @dkey OR Name = @Name")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PREPARE permissions
 -----------------------------------------------------------------------------------------------------------------------------------------
