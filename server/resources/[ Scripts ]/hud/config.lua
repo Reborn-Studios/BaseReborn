@@ -102,7 +102,7 @@ Config.NitroForce = 50.0 -- Nitro force when player using nitro
 Config.EnableEngineToggle = false -- Determines if engine toggle is enabled or not
 
 -------------------------------------------- Vehicle Functionality --------------------------------------------
-Config.EnableCruise = true -- Determines if cruise mode is active
+Config.EnableCruise = false -- Determines if cruise mode is active
 Config.EnableSeatbelt = true -- Determines if seatbelt is active
 
 -------------------------------------------- Settings text --------------------------------------------
