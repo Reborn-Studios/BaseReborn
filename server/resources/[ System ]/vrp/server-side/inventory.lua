@@ -5,6 +5,10 @@ local items = module('vrp',"config/Itemlist") or {}
 local Webhooks = module("config/webhooks") or {}
 
 RegisterServerEvent("Reborn:reloadInfos",function() items = module('vrp',"config/Itemlist") end)
+
+function vRP.getAllItens()
+	return items
+end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- ITEMDEFINITION
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -37,6 +41,10 @@ function vRP.itemNameList(item)
 	if items[item] ~= nil then
 		return items[item].name
 	end
+end
+
+function vRP.getItemName(item)
+	return vRP.itemNameList(item)
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- ITEMTYPELIST
