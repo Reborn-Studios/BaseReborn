@@ -445,7 +445,7 @@ local function useItem(data, cb, noAnim)
 
     usingItem = true
     ---@type boolean?
-    result = lib.callback.await('ox_inventory:useItem', 200, data.name, data.slot, slotData.metadata, noAnim)
+    result = lib.callback.await('ox_inventory:useItem', 200, data.name, data.slot, slotData.metadata, noAnim, data.amount)
 	if result and cb then
 		local success, response = pcall(cb, result and slotData)
 
@@ -471,7 +471,7 @@ exports('useItem', useItem)
 
 ---@param slot number
 ---@return boolean?
-local function useSlot(slot, noAnim)
+local function useSlot(slot, noAnim, amount)
 	local item = PlayerData.inventory[slot]
 	if not item then return end
 
@@ -675,6 +675,7 @@ local function useSlot(slot, noAnim)
                 return lib.notify({ id = 'cannot_perform', type = 'error', description = locale('cannot_perform') })
 			end
 		elseif not data.ammo and not data.component then
+			data.amount = amount
 			useItem(data)
 		end
     end
@@ -1639,8 +1640,8 @@ RegisterNUICallback('removeAmmo', function(slot, cb)
 	end
 end)
 
-RegisterNUICallback('useItem', function(slot, cb)
-	useSlot(slot --[[@as number]])
+RegisterNUICallback('useItem', function(data, cb)
+	useSlot(data.slot --[[@as number]], nil, data.count)
 	cb(1)
 end)
 
