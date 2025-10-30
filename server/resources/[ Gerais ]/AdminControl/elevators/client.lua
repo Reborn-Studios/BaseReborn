@@ -215,7 +215,7 @@ local Functions = {
             for j = 1, #Elevators[i]['Floors'] do
                 local Floor = Elevators[i]['Floors'][j]
                 if #(PlayerCoord - vector3(Floor['Coords']['x'],Floor['Coords']['y'],Floor['Coords']['z'])) <= 1.3 then
-					if IsPedInAnyVehicle(Ped) and not Floor['CanUseVehicle'] then
+					if IsPedInAnyVehicle(Ped) and not Elevators[i]['CanUseVehicle'] then
 						Notify('Veículos são proibidos no andar selecionado')
 						return
 					end
@@ -240,7 +240,7 @@ local Functions = {
     ['teleport'] = function(id)
         local Floor = Elevators[CurrentElevator]['Floors'][id]
 		local Ped = PlayerPedId()
-		if IsPedInAnyVehicle(Ped) and not Floor['CanUseVehicle'] then
+		if IsPedInAnyVehicle(Ped) and not Elevators[CurrentElevator]['CanUseVehicle'] then
 			Notify('Veículos são proibidos no andar selecionado')
 			return
 		end
