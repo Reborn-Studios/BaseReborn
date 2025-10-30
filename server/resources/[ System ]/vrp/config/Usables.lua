@@ -414,7 +414,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName, rAmount, data)
 			end
 		else
 			if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
-				vRP.setUData(user_id,"vRP:spawnController",json.encode(0))
+				vRP.setUData(user_id,"currentCharacterMode","")
 				vRP.kick(user_id, "Você resetou sua aparência")  
 			end
 		end
