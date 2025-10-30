@@ -803,6 +803,17 @@ return {
 				image = "shoes.png"
 			}
 		},
+
+		['WEAPON_FLASHBANG'] = {
+			label = 'K-J4 Flashbang',
+			durability = 0.03,
+			weight = 600,
+			throwable = true,
+			anim = { 'melee@holster', 'unholster', 200, 'melee@holster', 'holster', 600 },
+			client = {
+				image = "WEAPON_FLASHBANG.png"
+			}
+		}
 	},
 
 	Components = {
