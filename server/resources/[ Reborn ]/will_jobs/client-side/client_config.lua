@@ -17,6 +17,78 @@ CreateThread(function()
 			SetNuiFocus(true, true)
 		end)
     end
+
+	Wait(100)
+
+	if GetResourceState("will_shops") == "started" then
+		Tunnel = module("vrp","lib/Tunnel")
+		vSERVER = Tunnel.getInterface("will_jobs")
+
+		function getShopImage(shopName)
+			if shopName:find("Posto") then
+				return "https://static.wikia.nocookie.net/gta/images/6/6d/LTDGroveSt-GTAV.png/revision/latest?cb=20180227153305&path-prefix=pt"
+			elseif shopName:find("Conveniencia") then
+				return "https://img.gta5-mods.com/q75/images/7-eleven-stores-prodigyhd/87ca65-GTA5%202016-05-21%2002-06-41-556.png"
+			elseif shopName:find("Ammunation") then
+				return "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTeHGoyY0GCxKg0IbanOj941-lwg7L2MJMrQ&s"
+			end
+		end
+
+		function getJobs()
+			local allJobs = {}
+
+			local shopsJobs = vSERVER.getShopsJobs()
+			for k,v in pairs(shopsJobs) do
+				local image = getShopImage(v.shop_name)
+				Config.jobs[v.shop_name] = {
+					description = v.description,
+					image = image,
+					salary = v.value or math.random(2000,3500),
+					steps = {
+						[1] = {
+							message = "Vá até o blip para iniciar o emprego",
+							coords = vector3(-1081.44,-256.28,37.77),
+						},
+						[2] = {
+							message = "Abra o painel de Empregos na loja",
+						},
+						[3] = {
+							message = "Inicie o emprego e faça a rota",
+						}
+					},
+					startEvent = "will_jobs:initShopJob"
+				}
+			end
+
+			for k,v in pairs(Config.jobs) do
+				local jobSteps = {}
+				if v.steps then
+					for k2,v2 in ipairs(v.steps) do
+						table.insert(jobSteps, v2.message)
+					end
+				end
+				table.insert(allJobs, {
+					name = k,
+					salary = v.salary or math.random(2000,3500),
+					description = v.description,
+					image = v.image,
+					steps = jobSteps,
+					exp = myJobs[k] or 0
+				})
+			end
+			
+			return allJobs
+		end
+
+		RegisterNetEvent("will_jobs:initShopJob",function ()
+			if actualJob and GlobalState["Will_Shops"][actualJob] then
+				local loc = GlobalState["Will_Shops"][actualJob]['job_coords']
+				SetTimeout(200,function ()
+					setupBlip(loc.x, loc.y, loc.z,actualJob)
+				end)
+			end
+		end)
+	end
 end)
 
 -- Finalizar emprego

@@ -3,7 +3,10 @@
 --#########################
 
 Proxy = module("vrp","lib/Proxy")
+Tunnel = module("vrp","lib/Tunnel")
 vRP = Proxy.getInterface("vRP")
+ShopServer = {}
+Tunnel.bindInterface("will_jobs",ShopServer)
 
 function getUserId(source)
     if Config.base == "cn" then
@@ -191,3 +194,10 @@ RegisterServerEvent("will_jobs:lumbermanPayout",function()
     end
     return false
 end)
+
+prepare("will/get_all_shop_jobs","SELECT * FROM will_shops_jobs WHERE `finished` = 'false';")
+
+function ShopServer.getShopsJobs()
+    local consult = query("will/get_all_shop_jobs")
+    return consult or {}
+end
