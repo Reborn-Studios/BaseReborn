@@ -438,13 +438,6 @@ RegisterCommand("group",function(source,args,rawCommand)
 						TriggerClientEvent("AdminControl:showUserGroups",source,parseInt(args[1]),vRP.getUserGroups(parseInt(args[1])))
 						return
 					end
-					if kgroup._config and kgroup._config.gtype and kgroup._config.gtype == "job" then
-						local group = vRP.getUserGroupByType(parseInt(args[1]),"job")
-						if group then
-							vRP.removePermission(parseInt(args[1]),group)
-							vRP.execute("vRP/del_group",{ user_id = parseInt(args[1]), permiss = group })
-						end
-					end
 					if not vRP.hasPermission(parseInt(args[1]),tostring(args[2])) then
 						vRP.addUserGroup(parseInt(args[1]),tostring(args[2]))
 						TriggerClientEvent("Notify",source,"sucesso","O cidadão foi setado como " ..(args[2]).." ",5000)
