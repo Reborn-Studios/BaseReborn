@@ -105,3 +105,5 @@ vRP.prepare("vRP/resgate_prison","UPDATE characters SET prison = 0 WHERE id = @u
 vRP.prepare("vRP/set_vRP_gems","UPDATE accounts SET gems = gems + @gems WHERE identifier = @identifier")
 vRP.prepare("vRP/rem_vRP_gems","UPDATE accounts SET gems = gems - @gems WHERE identifier = @identifier")
 vRP.prepare("vRP/set_rental_time","UPDATE vehicles SET premiumtime = @premiumtime WHERE user_id = @user_id AND vehicle = @vehicle")
+vRP.prepare("vRP/cleanPremium","UPDATE accounts SET premium = '0', priority = '0', predays = '0' WHERE UNIX_TIMESTAMP() >= premium + (86400 * predays)")
+vRP.execute("vRP/cleanPremium")
