@@ -420,7 +420,7 @@ CreateThread(function()
 			local nplayer = vRP.getUserSource(user_id)
 			if nplayer then
 				local inventory = exports.ox_inventory:GetInventory(nplayer)
-				return inventory and inventory.weight or 0
+				return (inventory and inventory.weight/1000) or 0
 			end
 		end
 
