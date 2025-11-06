@@ -905,7 +905,7 @@ RegisterServerEvent("mri_Qadmin:server:SendPlayerBack", function(targetId)
     local src = source
     if AdminPanel.HasPermission(src, "teleport") then
         if SendPlayerBack[targetId] then
-            SetEntityCoords(GetPlayerPed(targetId), SendPlayerBack[targetId])
+            SetEntityCoords(GetPlayerPed(targetId), SendPlayerBack[targetId].x, SendPlayerBack[targetId].y, SendPlayerBack[targetId].z)
             TriggerClientEvent("mri_Qadmin:client:ShowPanelAlert", src, "success", "<strong>"..Lang:t("alerts.success").."</strong> "..Lang:t("alerts.teleportedBack", {value = GetPlayerName(targetId)}))
             SendPlayerBack[targetId] = nil
         else

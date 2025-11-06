@@ -422,9 +422,7 @@ RegisterNetEvent("mri_Qadmin:client:RequestSpectate", function(playerServerId, t
 end)
 
 RegisterNetEvent("mri_Qadmin:client:RequestInventory", function(TargetId)
-    local targetPlayer = GetPlayerServerId(NetworkGetPlayerIndexFromPed(TargetId))
-    if not targetPlayer then return end
-    exports.ox_inventory:openInventory("player", targetPlayer)
+    exports.ox_inventory:openInventory("player", TargetId)
 end)
   
 RegisterNetEvent("mri_Qadmin:client:setLivery", function(livery)
