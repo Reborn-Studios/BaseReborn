@@ -96,6 +96,7 @@ exports("Revive",function(Health)
 	SetEntityHealth(Ped,Health)
 	SetEntityInvincible(Ped,false)
 	LocalPlayer["state"]:set("Invincible",false,false)
+	LocalPlayer["state"]:set("Handcuff",false,true)
 	if Death then
 		Death = false
 		deathtimer = 0
