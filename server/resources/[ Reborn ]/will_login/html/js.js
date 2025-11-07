@@ -235,6 +235,7 @@ function isValidDate(dateString) {
   const [day, month, year] = dateString.split("/").map(Number);
   const date = new Date(year, month - 1, day);
   if (year < 1920) return false;
+  if (year > new Date().getFullYear()) return false;
   if (month < 1 || month > 12) return false;
   if (day < 1 || day > 31) return false;
   return (
