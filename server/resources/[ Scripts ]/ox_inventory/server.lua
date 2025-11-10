@@ -60,8 +60,12 @@ function server.setPlayerInventory(player, data)
 
 	player.source = tonumber(player.source)
 	local playerSlots = vRP.getSlots(player.identifier)
-	local invMaxWeight = vRP.getBackpack(player.identifier) * 1000
-	local inv = Inventory.Create(player.source, player.name, 'player', playerSlots or shared.playerslots, totalWeight, invMaxWeight or shared.playerweight, player.identifier, inventory)
+	local DataTable = vRP.getUserDataTable(player.identifier)
+	local invMaxWeight = shared.playerweight
+	if tonumber(DataTable.backpack) and tonumber(DataTable.backpack) > 0 then
+		invMaxWeight = tonumber(DataTable.backpack) * 1000
+	end
+	local inv = Inventory.Create(player.source, player.name, 'player', playerSlots or shared.playerslots, totalWeight, invMaxWeight, player.identifier, inventory)
 
 	if inv then
 		inv.player = server.setPlayerData(player)
