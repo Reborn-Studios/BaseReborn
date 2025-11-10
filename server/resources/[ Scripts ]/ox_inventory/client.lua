@@ -1157,15 +1157,29 @@ local function setStateBagHandler(stateId)
 	setStateBagHandler = nil
 end
 
-lib.onCache('seat', function(seat)
-	if seat then
-		local hasWeapon = GetCurrentPedVehicleWeapon(cache.ped)
+local weaponedVeh = nil
+inVehWeapon = nil
 
+lib.onCache('seat', function(seat)
+	if seat ~= false then
+		weaponedVeh = currentWeapon or inVehWeapon
+		local hasWeapon = GetCurrentPedVehicleWeapon(cache.ped)
+		inVehWeapon = nil
 		if hasWeapon then
 			return Utils.WeaponWheel(true)
 		end
+	else
+		if weaponedVeh and weaponedVeh.name then
+			local data = Items[weaponedVeh.name]
+			useItem(data, function(result)
+				if result then
+					currentWeapon = Weapon.Equip(weaponedVeh, data, true)
+					inVehWeapon = currentWeapon
+				end
+			end, true)
+			weaponedVeh = nil
+		end
 	end
-
 	Utils.WeaponWheel(false)
 end)
 

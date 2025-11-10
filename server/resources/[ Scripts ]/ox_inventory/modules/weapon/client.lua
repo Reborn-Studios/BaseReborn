@@ -133,7 +133,8 @@ function Weapon.Disarm(currentWeapon, noAnim)
 			TriggerEvent("inventory:CreateWeapon", currentWeapon.name)
 		end
 	end
-
+	currentWeapon = nil
+	inVehWeapon = nil
 	Utils.WeaponWheel()
 	RemoveAllPedWeapons(cache.ped, true)
 end
