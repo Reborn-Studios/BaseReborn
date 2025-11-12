@@ -1,241 +1,229 @@
 {
-    "rules": [
-        "Não trolle ou atrapalhe outros jogadores.",
-        "Respeite todas as decisões dos administradores e da equipe.",
-        "Não use hacks, exploits ou mods de forma injusta.",
-        "Mantenha um comportamento maduro e respeitoso o tempo todo.",
-        "Não faça spam no chat nem use linguagem ofensiva ou discriminatória."
-    ],
-    "music": [
-        {
-            "artist": "OT7 Quanny",
-            "title": "1008 Grams",
-            "path": "./assets/mp3/1008gs.mp3"
-        },
-        {
-            "artist": "SDot Go",
-            "title": "Free G",
-            "path": "./assets/mp3/free_g.mp3"
-        },
-        {
-            "artist": "Future, Metro Boomin",
-            "title": "GTA",
-            "path": "./assets/mp3/gta.mp3"
-        },
-        {
-            "artist": "Future, Metro Boomin",
-            "title": "Like That",
-            "path": "./assets/mp3/like_that.mp3"
-        },
-        {
-            "artist": "RX Papi",
-            "title": "Stop Me When I'm Lyin'",
-            "path": "./assets/mp3/stop_me.mp3"
-        },
-        {
-            "artist": "Future, Metro Boomin",
-            "title": "Type Shit",
-            "path": "./assets/mp3/type_shi.mp3"
-        }
-    ],
-    "defaultVolume": 100,
-    "videoUrl": "",
-    "gallery": [
-        {
-            "path": "./assets/jpg/fivemsupranrcisist.jpg"
-        },
-        {
-            "path": "./assets/jpg/sunsetsupraitsugsik.jpg"
-        },
-        {
-            "path": "./assets/jpg/midiguess.jpg"
-        },
-        {
-            "path": "./assets/jpg/hellcatdurangoitsugsik.jpg"
-        },
-        {
-            "path": "./assets/jpg/IMG_2135.jpeg"
-        },
-        {
-            "path": "./assets/png/oldies2.png"
-        },
-        {
-            "path": "./assets/png/oldies1.png"
-        },
-        {
-            "path": "./assets/png/supra6.png"
-        },
-        {
-            "path": "./assets/png/supra5.png"
-        },
-        {
-            "path": "./assets/jpg/mitch-donk1.jpg"
-        },
-        {
-            "path": "./assets/jpg/mitch-donk2.jpg"
-        },
-        {
-            "path": "./assets/jpg/mitch-donk3.jpg"
-        },
-        {
-            "path": "./assets/png/supra3.png"
-        },
-        {
-            "path": "./assets/png/supra4.png"
-        },
-        {
-            "path": "./assets/png/bluebmw.png"
-        },
-        {
-            "path": "./assets/png/headshot.png"
-        },
-        {
-            "path": "./assets/png/supra2.png"
-        },
-        {
-            "path": "./assets/jpg/rarri_lol.jpg"
-        }
-    ],
-    "backgroundImage": "./assets/png/supra1.png",
-    "teamMembers": [
-        {
-            "image": "./assets/png/fakalheadshot.png",
-            "role": "Desenvolvedor Chefe",
-            "name": "GucciFlipFlops",
-            "discord": "pakinextdoor"
-        },
-        {
-            "image": "./assets/png/gatorheadshot.png",
-            "role": "Membro Fundador",
-            "name": "HerGTR",
-            "discord": "dwboutit"
-        },
-        {
-            "image": "./assets/png/mitchheadshot.png",
-            "role": "Membro Fundador",
-            "name": "Mitch",
-            "discord": "builtlikemitch"
-        },
-        {
-            "image": "./assets/png/headshot.png",
-            "role": "Membro Fundador",
-            "name": "Haz",
-            "discord": "spooky1001"
-        }
-    ],
-    "selectedColor": "#5e1897",
-    "keyboardShortcuts": {
-        "keys": [
-            {
-                "key": "B",
-                "inCar": "Colocar cinto de segurança",
-                "onFoot": "Apontar"
-            },
-            {
-                "key": "Seta Esquerda",
-                "inCar": "Seta para a esquerda"
-            },
-            {
-                "key": "Seta Direita",
-                "inCar": "Seta para a direita"
-            },
-            {
-                "key": "Seta Cima",
-                "inCar": "Pisca alerta"
-            },
-            {
-                "key": "K",
-                "onFoot": "Abrir celular"
-            },
-            {
-                "key": "F3",
-                "onFoot": "Menu de animações"
-            },
-            {
-                "key": "F5",
-                "onFoot": "Manusear o código policial"
-            },
-            {
-                "key": "F9",
-                "onFoot": "Menu dinâmico"
-            },
-            {
-                "key": "F10",
-                "onFoot": "Menu de serviços"
-            },
-            {
-                "key": "OEM_3",
-                "onFoot": "Abrir inventário"
-            },
-            {
-                "inCar": "Abrir porta-luvas",
-                "key": "HOME",
-                "onFoot": "Abrir porta-malas"
-            },
-            {
-                "key": "L",
-                "onFoot": "Trancar veículo"
-            },
-            {
-                "key": "Z",
-                "inCar": "Ligar/desligar motor"
-            },
-            {
-                "key": "X",
-                "onFoot": "Levantar as mãos"
-            },
-            {
-                "key": "0",
-                "inCar": "Controlador do veículo"
-            },
-            {
-                "key": "LALT",
-                "onFoot": "Terceiro olho (Target)"
-            }
-        ]
-    },
-    "watermark": {
-        "label": {
-            "colorWordCount": 1,
-            "text": "Reborn Studios"
-        },
-        "subHeading": "Loading Screen",
-        "logo": "https://api.rebornsystem.com.br/imagens/RebornLogo.png"
-    },
-    "socialHeaders": [
-        {
-            "cardLabel": "Servidor Discord",
-            "cardInfo": "Entre no Discord para ficar por dentro das novidades do servidor FiveM!",
-            "type": "discord",
-            "enabled": true,
-            "link": "https://discord.gg/8unYr9MUdx"
-        },
-        {
-            "enabled": true,
-            "cardLabel": "Página do Instagram",
-            "cardInfo": "Siga a página no Instagram para mais conteúdos!",
-            "link": "https://instagram.com"
-        },
-        {
-            "cardLabel": "Canal do Telegram",
-            "cardInfo": "Entre no canal do Telegram para receber notícias e atualizações!",
-            "type": "telegram",
-            "enabled": true,
-            "link": "https://telegram.com"
-        },
-        {
-            "cardLabel": "Canal do YouTube",
-            "cardInfo": "Inscreva-se no canal do YouTube para mais atualizações!",
-            "type": "youtube",
-            "enabled": true,
-            "link": "https://youtube.com"
-        },
-        {
-            "cardLabel": "Canal do TikTok",
-            "cardInfo": "Siga-nos no TikTok para mais conteúdos!",
-            "type": "tiktok",
-            "enabled": true,
-            "link": "https://discord.gg/dbFChqBh5u"
-        }
+  "keyboardShortcuts": {
+    "keys": [
+      {
+        "key": "B",
+        "onFoot": "Apontar",
+        "inCar": "Colocar cinto de segurança"
+      },
+      {
+        "inCar": "Seta para a esquerda",
+        "key": "Seta Esquerda"
+      },
+      {
+        "inCar": "Seta para a direita",
+        "key": "Seta Direita"
+      },
+      {
+        "inCar": "Pisca alerta",
+        "key": "Seta Cima"
+      },
+      {
+        "onFoot": "Abrir celular",
+        "key": "K"
+      },
+      {
+        "onFoot": "Menu de animações",
+        "key": "F3"
+      },
+      {
+        "onFoot": "Manusear o código policial",
+        "key": "F5"
+      },
+      {
+        "onFoot": "Menu dinâmico",
+        "key": "F9"
+      },
+      {
+        "onFoot": "Menu de serviços",
+        "key": "F10"
+      },
+      {
+        "onFoot": "Abrir inventário",
+        "key": "OEM_3"
+      },
+      {
+        "key": "HOME",
+        "onFoot": "Abrir porta-malas",
+        "inCar": "Abrir porta-luvas"
+      },
+      {
+        "onFoot": "Trancar veículo",
+        "key": "L"
+      },
+      {
+        "inCar": "Ligar/desligar motor",
+        "key": "Z"
+      },
+      {
+        "onFoot": "Levantar as mãos",
+        "key": "X"
+      },
+      {
+        "inCar": "Controlador do veículo",
+        "key": "0"
+      },
+      {
+        "onFoot": "Terceiro olho (Target)",
+        "key": "LALT"
+      }
     ]
+  },
+  "socialHeaders": [
+    {
+      "type": "discord",
+      "cardInfo": "Entre no Discord para ficar por dentro das novidades do servidor FiveM!",
+      "cardLabel": "Servidor Discord",
+      "link": "https://discord.gg/8unYr9MUdx",
+      "enabled": true
+    },
+    {
+      "link": "https://instagram.com",
+      "enabled": true,
+      "cardInfo": "Siga a página no Instagram para mais conteúdos!",
+      "cardLabel": "Página do Instagram"
+    },
+    {
+      "type": "telegram",
+      "cardInfo": "Entre no canal do Telegram para receber notícias e atualizações!",
+      "cardLabel": "Canal do Telegram",
+      "link": "https://telegram.com",
+      "enabled": true
+    },
+    {
+      "type": "youtube",
+      "cardInfo": "Inscreva-se no canal do YouTube para mais atualizações!",
+      "cardLabel": "Canal do YouTube",
+      "link": "https://youtube.com",
+      "enabled": true
+    },
+    {
+      "type": "tiktok",
+      "cardInfo": "Siga-nos no TikTok para mais conteúdos!",
+      "cardLabel": "Canal do TikTok",
+      "link": "https://discord.gg/dbFChqBh5u",
+      "enabled": true
+    }
+  ],
+  "videoUrl": "",
+  "defaultVolume": 20,
+  "rules": [
+    "Não trolle ou atrapalhe outros jogadores.",
+    "Respeite todas as decisões dos administradores e da equipe.",
+    "Não use hacks, exploits ou mods de forma injusta.",
+    "Mantenha um comportamento maduro e respeitoso o tempo todo.",
+    "Não faça spam no chat nem use linguagem ofensiva ou discriminatória."
+  ],
+  "selectedColor": "#5e1897",
+  "teamMembers": [
+    {
+      "image": "./assets/png/fakalheadshot.png",
+      "discord": "williv",
+      "role": "Desenvolvedor Chefe",
+      "name": "Will"
+    },
+    {
+      "image": "./assets/png/mitchheadshot.png",
+      "discord": "luccathereal",
+      "role": "Desenvolvedor",
+      "name": "Lucca"
+    }
+  ],
+  "watermark": {
+    "logo": "https://api.rebornsystem.com.br/imagens/RebornLogo.png",
+    "subHeading": "Loading Screen",
+    "label": {
+      "colorWordCount": 1,
+      "text": "Reborn Studios"
+    }
+  },
+  "music": [
+    {
+      "artist": "Future, Metro Boomin",
+      "title": "Type Shit",
+      "path": "./assets/mp3/type_shi.mp3"
+    },
+    {
+      "artist": "OT7 Quanny",
+      "title": "1008 Grams",
+      "path": "./assets/mp3/1008gs.mp3"
+    },
+    {
+      "artist": "SDot Go",
+      "title": "Free G",
+      "path": "./assets/mp3/free_g.mp3"
+    },
+    {
+      "artist": "Future, Metro Boomin",
+      "title": "GTA",
+      "path": "./assets/mp3/gta.mp3"
+    },
+    {
+      "artist": "Future, Metro Boomin",
+      "title": "Like That",
+      "path": "./assets/mp3/like_that.mp3"
+    },
+    {
+      "artist": "RX Papi",
+      "title": "Stop Me When I'm Lyin'",
+      "path": "./assets/mp3/stop_me.mp3"
+    }
+  ],
+  "gallery": [
+    {
+      "path": "./assets/jpg/fivemsupranrcisist.jpg"
+    },
+    {
+      "path": "./assets/jpg/sunsetsupraitsugsik.jpg"
+    },
+    {
+      "path": "./assets/jpg/midiguess.jpg"
+    },
+    {
+      "path": "./assets/jpg/hellcatdurangoitsugsik.jpg"
+    },
+    {
+      "path": "./assets/jpg/IMG_2135.jpeg"
+    },
+    {
+      "path": "./assets/png/oldies2.png"
+    },
+    {
+      "path": "./assets/png/oldies1.png"
+    },
+    {
+      "path": "./assets/png/supra6.png"
+    },
+    {
+      "path": "./assets/png/supra5.png"
+    },
+    {
+      "path": "./assets/jpg/mitch-donk1.jpg"
+    },
+    {
+      "path": "./assets/jpg/mitch-donk2.jpg"
+    },
+    {
+      "path": "./assets/jpg/mitch-donk3.jpg"
+    },
+    {
+      "path": "./assets/png/supra3.png"
+    },
+    {
+      "path": "./assets/png/supra4.png"
+    },
+    {
+      "path": "./assets/png/bluebmw.png"
+    },
+    {
+      "path": "./assets/png/headshot.png"
+    },
+    {
+      "path": "./assets/png/supra2.png"
+    },
+    {
+      "path": "./assets/jpg/rarri_lol.jpg"
+    }
+  ],
+  "backgroundImage": "./assets/png/supra1.png"
 }
