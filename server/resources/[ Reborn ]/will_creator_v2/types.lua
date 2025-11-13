@@ -1,0 +1,74 @@
+---@class Character
+---@field id number
+---@field skin SkinData
+---@field name string
+---@field job string
+---@field permiss string
+---@field bank number
+---@field phone string
+---@field clothes table<string | string>
+---@field tattoos table<string | string>
+
+---@class SkinData
+---@field parent1 number
+---@field parent2 number
+---@field shape1 number
+---@field shape2 number
+---@field similarity number
+---@field skinSimilarity number
+---@field eyeColor number
+---@field eyeOpenness number
+---@field eyebrowsStyle number
+---@field eyebrowsOpacity number
+---@field eyebrowsColor number
+---@field eyebrowsColor2 number
+---@field eyebrowsHeight number
+---@field eyebrowsWidth number
+---@field noseWidth number
+---@field noseHeight number
+---@field noseLength number
+---@field noseBridge number
+---@field noseTip number
+---@field noseShift number
+---@field cheekHeight number
+---@field cheekWidth number
+---@field cheekboneWidth number
+---@field lips number
+---@field chinLength number
+---@field chinPosition number
+---@field chinWidth number
+---@field chinShape number
+---@field jawWidth number
+---@field jawHeight number
+---@field neckLength number
+---@field hair number
+---@field hairColor number
+---@field hairColor2 number
+---@field beard number
+---@field beardColor number
+---@field blush number
+---@field blushColor number
+---@field lipstick number
+---@field lipstickColor number
+---@field makeup number
+---@field aspect number
+---@field skin number
+---@field freckles number
+---@field wrinkles number
+---@field wrinklesOpacity number
+---@field bodyHair number
+---@field bodyHairColor number
+---@field blemishes1 number
+---@field blemishes2 number
+---@field shirtOverlay number
+---@field gender? 'mp_m_freemode_01' | 'mp_f_freemode_01'
+---@field firstname? string
+---@field lastname? string
+
+---@class Spawns
+---@field label string
+---@field image string
+---@field x number
+---@field y number
+---@field z number
+---@field perm? string
