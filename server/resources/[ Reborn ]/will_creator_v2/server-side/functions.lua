@@ -286,7 +286,6 @@ function GetSpawns(src)
     Wait(700)
     local UserSpawns = {}
     for k,v in pairs(Config.Spawns) do
-        print(user_id,v.perm,vRP.hasPermission(user_id, v.perm))
         if not v.perm or vRP.hasPermission(user_id, v.perm) then
             table.insert(UserSpawns, v)
         end
