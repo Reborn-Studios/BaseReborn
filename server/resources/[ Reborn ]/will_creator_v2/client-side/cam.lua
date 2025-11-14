@@ -177,6 +177,8 @@ function IntroCam(data)
             Teleport(PlayerPedId(),initCoord.x,initCoord.y,initCoord.z)
             CharCustom(data, true)
         end
+    else
+        Teleport(PlayerPedId(),initCoord.x,initCoord.y,initCoord.z)
     end
     local ped = PlayerPedId()
     SetEntityHeading(ped, initCoord.w)
