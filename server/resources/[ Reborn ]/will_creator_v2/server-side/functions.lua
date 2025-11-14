@@ -100,7 +100,6 @@ function GetCharacter(id, data)
     local result = data or QueryConsult("will_creator_v2/get_user", { id = id })[1]
     if not result or not id then return end
     local skin = GetBarber(id)
-    if not skin then return end
     local job,permiss = getUserJob(id)
     return {
         id = id,
