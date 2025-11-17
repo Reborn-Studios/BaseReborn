@@ -178,6 +178,7 @@ function vRP.upgradeStress(user_id,amount)
 			{ name = "thirst", percent = data.thirst },
 			{ name = "stress", percent = data.stress },
 		})
+        TriggerClientEvent("hud:client:UpdateStress",source,data.stress)
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -202,6 +203,7 @@ function vRP.downgradeStress(user_id,amount)
 			{ name = "thirst", percent = data.thirst },
 			{ name = "stress", percent = data.stress },
 		})
+        TriggerClientEvent("hud:client:UpdateStress",source,data.stress)
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
