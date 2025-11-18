@@ -142,7 +142,7 @@ function CheckForCreateCharacter(source)
     if result and result[1] then
         maxValue = parseInt(result[1].chars)
     end
-    if #Chars >= maxValue then
+    if #Chars > 0 and #Chars >= maxValue then
         TriggerClientEvent("Notify",source,"negado","Você atingiu o limite de personagens.",5000)
         return false
     end
