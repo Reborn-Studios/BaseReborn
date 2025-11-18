@@ -82,19 +82,19 @@ Config.MoneySettings        = {
 
 Config.ToggleSettingsMenu   = {
     active = true,
-    key = 'I',             -- nil or Key
-    command = 'hudsettings', -- Shortcut key to open hud settings menu
+    key = nil,             -- nil or Key
+    command = 'hud', -- Shortcut key to open hud settings menu
 }
 
 -- Configures for seat-belt system.
 Config.ToggleSeatBelt       = {
     active = true,
-    key = 'B',
+    key = 'G',
     --What should be the minimum vehicle speed for eject:
     -- This value is set according to kmH being `true`. If you are using kmH `false`, you can write it as `MPH`.
     ejectSpeed = 160,
     -- If true, you will receive a warning if you are not wearing your seat belt.
-    warning = true,
+    warning = false,
 }
 
 -- Shortcut key to turn the vehicle engine on and off

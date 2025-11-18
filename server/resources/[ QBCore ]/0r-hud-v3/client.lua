@@ -81,7 +81,7 @@ local function registerCommands()
     end
     if Config.ToggleSeatBelt.active then
         lib.addKeybind({
-            name = 'hud_toggle_seatbelt',
+            name = 'hud_toggle_seatbelt2',
             description = locale('toggle_seatbelt'),
             defaultKey = Config.ToggleSeatBelt.key,
             onPressed = function()
