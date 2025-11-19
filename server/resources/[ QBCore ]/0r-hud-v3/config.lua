@@ -99,7 +99,7 @@ Config.ToggleSeatBelt       = {
 
 -- Shortcut key to turn the vehicle engine on and off
 Config.ToggleVehicleEngine  = {
-    active = true,
+    active = false,
     key = 'Z',
 }
 
@@ -123,8 +123,8 @@ Config.HavePostalMap        = false
 
 --Defines the refresh thread timecycle for data that need to be updated periodically. Milliseconds
 Config.RefreshTimes         = {
-    hud = 200,
-    vehicle = 100,
+    hud = 500,
+    vehicle = 200,
     requestPlayerCount = 30 * 1000 -- 30 seconds
 }
 

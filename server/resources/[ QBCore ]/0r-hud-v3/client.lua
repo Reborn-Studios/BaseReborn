@@ -280,17 +280,6 @@ end)
 ---@param state boolean visible (true) or hidden (false)
 exports('ToggleVisible', Hud.SetVisible)
 
-Citizen.CreateThread(function()
-    while true do
-        Wait(0)
-        HideHudComponentThisFrame(3)
-        HideHudComponentThisFrame(4)
-        HideHudComponentThisFrame(13)
-        HideHudComponentThisFrame(1)
-        HideHudComponentThisFrame(2)
-    end
-end)
-
 CreateThread(function()
     while not NetworkIsSessionStarted() do Wait(100) end
     Wait(2000)
