@@ -164,7 +164,11 @@ function Client.openMainMenu()
                 description = 'Lojas de Barbearia',
                 icon="fa-solid fa-scissors",
                 onSelect = function ()
-                    ExecuteCommand(Config.Commands["barbershop"]['command'])
+                    if GetResourceState("will_creator_v2") == "started" then
+                        ExecuteCommand("creatoradm")
+                    else
+                        ExecuteCommand(Config.Commands["barbershop"]['command'])
+                    end
                 end
             }
         }
