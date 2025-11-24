@@ -212,6 +212,14 @@ CREATE TABLE IF NOT EXISTS `will_skinshops` (
   INDEX `id` (`id`) USING BTREE
 ) ENGINE=InnoDB;
 
+CREATE TABLE IF NOT EXISTS `sv_banking_data` (
+    `uuid` VARCHAR(255) NOT NULL,
+    `credit_score` INT(11) DEFAULT 0,
+    `savings_balance` INT(100) DEFAULT 0,
+    `transactions` JSON NOT NULL DEFAULT '[]',
+    PRIMARY KEY (`uuid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 CREATE TABLE IF NOT EXISTS `will_clothes` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `category` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb3_general_ci',
@@ -258,3 +266,30 @@ INSERT INTO `ox_doorlock` (`id`, `name`, `data`) VALUES
 	(4, 'Departamento Policial', '{"groups":{"Police":0},"state":1,"maxDistance":2,"coords":{"x":91.35662841796875,"y":-390.28375244140627,"z":42.50693130493164},"doors":[{"model":821473823,"coords":{"x":92.5790786743164,"y":-390.72711181640627,"z":42.50693130493164},"heading":160},{"model":821473823,"coords":{"x":90.13418579101563,"y":-389.84039306640627,"z":42.50693130493164},"heading":340}]}'),
 	(5, 'Mecanica', '{"groups":{"mechanic":0},"state":1,"auto":true,"maxDistance":8,"coords":{"x":823.698974609375,"y":-992.8875122070313,"z":28.06938171386718},"model":-1858735571,"heading":1,"doors":false}'),
 	(6, 'Joalheria', '{"hideUi":true,"coords":{"x":-631.19091796875,"y":-237.38540649414063,"z":38.2065315246582},"maxDistance":2,"state":1,"doors":[{"heading":306,"coords":{"x":-631.9553833007813,"y":-236.33326721191407,"z":38.2065315246582},"model":1425919976},{"heading":306,"coords":{"x":-630.426513671875,"y":-238.4375457763672,"z":38.2065315246582},"model":9467943}]}');
+
+CREATE TABLE IF NOT EXISTS `charskins` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` varchar(255) NOT NULL,
+  `skin` text NOT NULL,
+  `active` tinyint(4) NOT NULL DEFAULT 1,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  KEY `active` (`active`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+CREATE TABLE IF NOT EXISTS `barbershops` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL DEFAULT 'Barbearia',
+  `coords` text NOT NULL,
+  `blip` text NOT NULL DEFAULT 'false',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+INSERT INTO `barbershops` (`id`, `name`, `coords`, `blip`) VALUES
+	(1, 'Barbearia 1', '{"x":-814.4227294921875,"y":-184.01123046875,"z":37.56891632080078}', '1'),
+	(2, 'Barbearia 2', '{"x":137.20240783691407,"y":-1707.35986328125,"z":29.29161071777343}', '1'),
+	(3, 'Barbearia 3', '{"x":-1282.607177734375,"y":-1116.9423828125,"z":6.49011516571044}', '1'),
+	(4, 'Barbearia 4', '{"x":1931.1112060546876,"y":3730.650146484375,"z":32.34444236755371}', '1'),
+	(5, 'Barbearia 5', '{"x":1212.8834228515626,"y":-472.9643249511719,"z":65.70804595947266}', '1'),
+	(6, 'Barbearia 6', '{"x":-32.95664596557617,"y":-152.7146453857422,"z":56.57651901245117}', '1'),
+	(7, 'Barbearia 7', '{"x":-277.6341552734375,"y":6227.82177734375,"z":31.19552421569824}', '1');
