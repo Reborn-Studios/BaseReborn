@@ -26,6 +26,14 @@ function Notify:new(data)
         data.title = nil
     end
 
+    if type(data.duration) ~= "number" then
+        data.duration = 5000
+    end
+
+    if Config.Types[data.type] == nil then
+        data.type = 'info'
+    end
+
     SendNUIMessage({
         message = 'createNotification',
         data = {
