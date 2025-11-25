@@ -184,7 +184,7 @@ function IntroCam(data)
     SetEntityHeading(ped, initCoord.w)
     Wait(500)
     if MulticharCam then
-        PointCamAtPedBone(MulticharCam, ped, 31086, 0.0, 0.0, 0.0, true)
+        -- PointCamAtPedBone(MulticharCam, ped, 31086, 0.0, 0.0, 0.0, true)
         local coords = GetOffsetFromEntityInWorldCoords(ped, 0, 1.1, 0)
         SetCamCoord(MulticharCam, coords.x, coords.y, coords.z + 0.6)
         SetCamRot(MulticharCam, 0.0, 0.0, GetEntityHeading(ped) + 180, 0)

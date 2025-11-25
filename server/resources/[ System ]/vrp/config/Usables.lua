@@ -412,6 +412,10 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName, rAmount, data)
 			if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
 				TriggerClientEvent("will_creator:resetChar",source)
 			end
+		elseif GetResourceState("will_creator_v2") == "started" then
+			if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
+				TriggerClientEvent("will_creator_v2:client:CreateCharacter",source)
+			end
 		else
 			if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
 				vRP.setUData(user_id,"currentCharacterMode","")
