@@ -4,6 +4,8 @@
 PlvRP = {}
 Tunnel.bindInterface("Player",PlvRP)
 PlayerServer = Tunnel.getInterface("Player")
+
+LocalPlayer["state"]:set("Route",0,true)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- RECEIVESALARY
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -1117,8 +1119,11 @@ local teleport = {
 	{ -71.0,-801.07,44.23,-72.09,-808.11,324.02,"ENTRAR" }, -- Mazebank
 	{ -72.09,-808.11,324.02,-71.0,-801.07,44.23,"SAIR" },
 
-	{ 97.48,-1293.61,29.33,1138.82,-3198.88,-39.66,"ENTRAR" },  ----- lavagem
-	{ 1138.82,-3198.88,-39.66,97.48,-1293.61,29.33,"SAIR" },
+	{ 97.48,-1293.61,29.33,1138.82,-3198.88,-39.66,"ENTRAR", joinBucket = 1 },  ----- lavagem
+	{ 1138.82,-3198.88,-39.66,97.48,-1293.61,29.33,"SAIR", exitBucket = 1 },
+
+	-- { 38.03,-1403.99,29.35,1138.82,-3198.88,-39.66,"ENTRAR", joinBucket = 2 },  ----- lavagem 2
+	-- { 1138.82,-3198.88,-39.66,38.03,-1403.99,29.35,"SAIR", exitBucket = 2 },
 
 	{ 967.4,7.49,81.16,964.98,58.48,112.56,"ENTRAR" },  ------CASSINO
 	{ 964.98,58.48,112.56,967.4,7.49,81.16,"SAIR"},
@@ -1140,16 +1145,26 @@ CreateThread(function()
 		if not IsPedInAnyVehicle(ped,false) then
 			local coords = GetEntityCoords(ped)
 			for k,v in pairs(teleport) do
-				local distance = #(coords - vector3(v[1],v[2],v[3]))
-				if distance <= 1.5 then
-					timeDistance = 1
-					DrawBase3D(v[1],v[2],v[3],"elevator")
-					if IsControlJustPressed(1,38) then
-						DoScreenFadeOut(1000)
-						Wait(1200)
-						SetEntityCoords(ped,v[4],v[5],v[6],false,false,false,false)
-						Wait(1200)
-						DoScreenFadeIn(1000)
+				local bucket = v.exitBucket or 0
+				if LocalPlayer["state"]["Route"] == bucket then
+					local distance = #(coords - vector3(v[1],v[2],v[3]))
+					if distance <= 1.5 then
+						timeDistance = 1
+						DrawBase3D(v[1],v[2],v[3],"elevator")
+						if IsControlJustPressed(1,38) then
+							DoScreenFadeOut(1000)
+							Wait(1200)
+							if v.joinBucket then
+								LocalPlayer["state"]:set("Route",v.joinBucket,true)
+								TriggerServerEvent("vRP:BucketServer",GetPlayerServerId(PlayerId()),"Enter",v.joinBucket)
+							elseif v.exitBucket then
+								LocalPlayer["state"]:set("Route",0,true)
+								TriggerServerEvent("vRP:BucketServer",GetPlayerServerId(PlayerId()),"Exit")
+							end
+							SetEntityCoords(ped,v[4],v[5],v[6],false,false,false,false)
+							Wait(1200)
+							DoScreenFadeIn(1000)
+						end
 					end
 				end
 			end
