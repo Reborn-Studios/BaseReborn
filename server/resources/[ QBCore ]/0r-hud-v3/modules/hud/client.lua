@@ -443,6 +443,32 @@ RegisterNetEvent('hud:client:UpdateNitrous', function(hasNitro, level, state)
     Hud.data.bars.vehicle_nitro.value = level
 end)
 
+CreateThread(function()
+	while true do
+		local ped = PlayerPedId()
+		local health = GetEntityHealth(ped)
+
+		if health > 101 and client.load then
+			if PlayerData.hunger >= 10 and PlayerData.hunger <= 20 then
+				SetFlash(0,0,500,1000,500)
+				SetEntityHealth(ped,health-1)
+			elseif PlayerData.hunger <= 9 then
+				SetFlash(0,0,500,1000,500)
+				SetEntityHealth(ped,health-2)
+			end
+
+			if PlayerData.thirst >= 10 and PlayerData.thirst <= 20 then
+				SetFlash(0,0,500,1000,500)
+				SetEntityHealth(ped,health-1)
+			elseif PlayerData.thirst <= 9 then
+				SetFlash(0,0,500,1000,500)
+				SetEntityHealth(ped,health-2)
+			end
+		end
+		Wait(5000)
+	end
+end)
+
 -- Slow running thick updates secondary priority data
 CreateThread(function()
     local wait = 1000 -- more slowly, if the player is not fully loaded
