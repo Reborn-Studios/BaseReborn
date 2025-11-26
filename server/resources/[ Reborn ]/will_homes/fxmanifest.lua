@@ -28,4 +28,5 @@ files {
 	"nui/bg.png",
 	"nui/style.css",
 	"nui/jquery.js",
+	"nui/svg/*",
 }

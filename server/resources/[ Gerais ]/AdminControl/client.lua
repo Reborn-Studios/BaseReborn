@@ -170,6 +170,18 @@ function Client.openMainMenu()
                         ExecuteCommand(Config.Commands["barbershop"]['command'])
                     end
                 end
+            },
+            {
+                title = 'Criar Casas',
+                description = 'Casas registradas',
+                icon="fa-solid fa-house",
+                onSelect = function ()
+                    if GetResourceState("will_homes") == "started" then
+                        ExecuteCommand(Config.Commands["houses"]['command'])
+                    else
+                        TriggerEvent("Notify","negado","Você não tem o homes da Reborn",5000)
+                    end
+                end
             }
         }
     })

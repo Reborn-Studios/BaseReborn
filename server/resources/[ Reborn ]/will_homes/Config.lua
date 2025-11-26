@@ -17,7 +17,7 @@ Config.delHomeTime = 5              -- Dias para casa ficar sem dono (Se não pa
 
 Config.houseTaxes = function(id)    -- Preço das taxas
     if not id then return 0 end
-    local house = Config.Houses[id]
+    local house = Houses[id]
     local price = house.price * 1/10
     if price > 100000 then
         price = 100000

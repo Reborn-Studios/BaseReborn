@@ -65,7 +65,11 @@ Config.Commands = {
 	['barbershop'] = {
 		['command'] = "barbershops",
 		['perm'] = "owner.permissao"
-	}
+	},
+	['houses'] = {
+		['command'] = "managehouses",
+		['perm'] = "owner.permissao"
+	},
 }
 
 Config.DefaultStash = {

@@ -92,6 +92,27 @@ local mobileTheft = {
 	}
 }
 
+function will.tryBuyWithGems(id)
+	local source = source
+	local user_id = getUserId(source)
+	if user_id and tryBuyHouse(user_id) then
+		local value = Config.Houses[tonumber(id)] and Config.Houses[id].gems or 10000
+		if vRP.request(source,"Deseja comprar a casa por "..value.." gemas?",30) then
+			if vRP.remGmsId(user_id,value) then
+				local newTax = os.time() + Config.taxTime*24*60*60
+				CacheHouses[id].owner = user_id
+				CacheHouses[id].tax = newTax
+				execute('will/buy_home', { house_id = id, owner = user_id, tax = newTax, name = CacheHouses[id].name, friends = json.encode({}), extends = json.encode({}) })
+				vCLIENT.updateHouse(-1, id, CacheHouses[id])
+				SendDiscord("[UserID]: "..user_id.." comprou a casa **"..CacheHouses[id].name.."** por: "..value.." gemas")
+				TriggerClientEvent("Notify",source,"sucesso","Casa adquirida com sucesso",5000)
+			else
+				TriggerClientEvent("Notify",source,"negado","Você não possui gemas suficientes",5000)
+			end
+		end
+	end
+end
+
 function will.paymentTheft(mobile)
 	local source = source
 	local user_id = getUserId(source)
@@ -215,5 +236,43 @@ CreateThread(function()
 		if (parseInt(v.tax)+60*60*24*Config.delHomeTime) < os.time() then
 			execute('will/sell_home', { id = v.id })
 		end
+	end
+end)
+
+local globalHouses = GlobalState['Houses']
+
+AddStateBagChangeHandler("Houses","",function (_,_,value)
+    for k,v in pairs(CacheHouses) do
+        for l,w in pairs(value) do
+			local exists = false
+			if w.name == v.name then
+				exists = true
+			end
+			if not exists and not Config.Houses[k] then
+				CacheHouses[k] = nil
+			end
+		end
+    end
+
+    globalHouses = value
+
+    for k,v in pairs(globalHouses) do
+        local id = #Config.Houses + k
+		if not CacheHouses[id] then
+			CacheHouses[id] = v
+		end
+    end
+end)
+
+CreateThread(function ()
+	while true do
+		if CacheHouses and #CacheHouses > 0 then
+			for k,v in pairs(globalHouses) do
+				local id = #Config.Houses + k
+				CacheHouses[id] = v
+			end
+			break
+		end
+		Wait(1)
 	end
 end)

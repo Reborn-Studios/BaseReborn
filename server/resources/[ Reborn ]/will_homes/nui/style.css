@@ -33,6 +33,7 @@
   height: 625px;
   background: url(bg.png);
   background-size: cover;
+  color: #ccdb45;
 }
 
 .center {
@@ -86,20 +87,17 @@
   left: 16.5%;
   border-radius: 30px;
   box-shadow: 0px 0px 18px #fbd233;
+  color: black;
 }
 
-.evb i {
-  position: relative;
-  top: 30%;
-  left: 12%;
-  font-size: 16px;
-}
-
-.evb i span {
+.evb span {
   position: absolute;
   font-size: 24px;
-  left: 30px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   letter-spacing: 2px;
+  font-weight: bold;
 }
 
 .house_info {
@@ -215,7 +213,7 @@
   box-shadow: 0px 0px 10px #fff;
 }
 
-body {
+.container {
   margin: 0;
   overflow: hidden;
 }
@@ -253,10 +251,48 @@ body {
 .modal,
 .loading {
   background: #000000c7;
-  width: 40%;
-  height: 200px;
   border: 2px solid white;
   border-radius: 15px;
+  color: #ffffff;
+}
+
+.modal {
+  height: 10vh;
+  padding: 2vw;
+}
+
+.buymodal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1vw;
+  background: #000000c7;
+  width: 30vw;
+  height: 15vh;
+  border: 2px solid white;
+  border-radius: 15px;
+  color: #ffffff;
+}
+
+.loading-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 50vh;
+}
+
+.spin-anim {
+  animation: spin 2s infinite linear;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .modal h1,
@@ -353,8 +389,9 @@ y {
 
 .modal a,
 .sellmodal a,
-.transfermodal a {
-  position: relative;
+.transfermodal a,
+.buymodal a {
+  /* position: relative; */
   text-align: center;
   background: #ffffffed;
   color: black;
@@ -377,6 +414,7 @@ y {
 
 .modal a:hover,
 .sellmodal a:hover,
+.buymodal a:hover,
 .transfermodal a:hover {
   background: #00000012 !important;
   color: #ffffffed !important;
@@ -723,4 +761,103 @@ w {
 
 .button-container .button:nth-child(2) {
   float: right;
+}
+
+.housesMain {
+  font-family: "Bebas Nue";
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 2vh;
+  top: 50%;
+  left: 50%;
+  width: 70vw;
+  height: 60vh;
+  background-color: #0f0f0f;
+  transform: translate(-50%, -50%);
+  padding: 2vw;
+  border-radius: 1vw;
+  color: whitesmoke;
+  overflow-y: auto;
+}
+
+.pageHouses {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1vw;
+}
+
+.housecard {
+  position: relative;
+  width: 16vw;
+  /* height: 40vh; */
+  border: 1px solid white;
+  border-radius: 1vw;
+}
+
+.housecard .title {
+  text-align: center;
+  font-size: 1.5vw;
+}
+
+.housecard ul {
+  font-size: 0.9vw;
+}
+
+.starscard {
+  padding-left: 1vw;
+  width: 100%;
+}
+
+.housecard img {
+  width: 100%;
+  height: 20vh;
+  border-top-left-radius: 1vw;
+  border-top-right-radius: 1vw;
+}
+
+.housecard .loc {
+  display: flex;
+  gap: 0.3vw;
+  align-items: center;
+  border: none;
+  cursor: pointer;
+  padding: 0.6vw;
+  width: 7vw;
+  margin: 1vw auto;
+  font-family: "Bebas Nue";
+  font-size: 1vw;
+  font-weight: 700;
+  background-color: rgb(96, 255, 96);
+}
+
+.housecard .loc:hover {
+  background-color: rgb(48, 150, 48);
+}
+
+.pagination {
+  display: flex;
+  flex-wrap: wrap;
+  width: 68vw;
+  gap: 0.3vw;
+  justify-content: center;
+}
+
+.pagination div {
+  padding: 0.5vw;
+  border-radius: 0.1vw;
+  font-size: 1vw;
+}
+
+.page {
+  cursor: pointer;
+  background-color: #1c8e44;
+}
+
+.pagination .page:hover {
+  background-color: #145c2d;
+}
+
+.selectedPage {
+  background-color: #4d4d4d;
 }

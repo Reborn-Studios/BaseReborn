@@ -1,1 +1,542 @@
-const _0x67a5ab=_0x13ec;function _0xbe24(){const _0x16738e=['message','https://will_homes/close','classList','tax','remove','length','sell-house','html','<div\x20class=\x22tax-button\x22><a\x20href=\x22#\x22\x20style=\x22background:#dd4d38;margin:10px;\x22\x20data-info=\x22pay-tax\x22>Pagar\x20taxa</a></div>','26pIfEQT','transfer-home','name','walls_','buy-house','url(./interiors/','\x22\x20data-name=\x22','#u_','display','#h_who','10nopAUo','.friends','addEventListener','2542774CBNInI','433518cHunmx','<a\x20class=\x22pl\x22\x20data-info=\x22add-house-f\x22\x20data-id=\x22','https://will_homes/changeTheme','6525230VomCXx','close-and-save','body','close_','fade','\x0a\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22button-container\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22button\x22><i\x20class=\x22fas\x20fa-angle-left\x22></i></div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22button\x22><i\x20class=\x22fas\x20fa-angle-right\x22></i></div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20','done','\x22\x20href=\x22#\x22>Selecionar</a></div>','pay-tax','#h_transfer','8IUHCEz','querySelectorAll','sell-with-money','#h_price','table','https://will_homes/trySell','now','252zkzPoh','visit-house','val','#all','.ev','.buy','https://will_homes/enterHouse','url(./interiors/modern.png)','block','close-modal','remove-house-f','\x22\x20>','add','#h_visit','background-size','keyCode','infoauth','.sellmodal','.scrl','house','transfer-house','.button','stars','data','each','update','.bg','theme','https://will_homes/visit','numco','#h_sell','.stars','44jsijbC','click','friends','.walls','266dpezVJ','who','init','ready','home','garage','Disponível','.manage','show','action','.tables','#h_no','\x22\x20\x20>','css','.transfermodal','#friends','next','.png)','.modal','post','cover','.png);background-size:\x20cover;\x22><a\x20data-info=\x22theme\x22\x20data-theme=\x22','https://will_homes/table','ATRASADO','.loading','manage','722326ekNJSn','13312791iJKdRn','113478xrkcjD','round','<i\x20class=\x22fas\x20fa-star\x20star\x22></i>','tables_','61026bHGYFJ','#h_gp','#h_friends','.buttons','#info_tax','stringify','active','\x20Dias','https://will_homes/AddFriends','append','none','https://will_homes/tryTransfer','https://will_homes/RemoveFriends','background','prev','\x20<i\x20class=\x22fa-thin\x20fa-minus\x22></i></a>','hide','<a\x20class=\x22pl\x22\x20data-info=\x22remove-house-f\x22\x20data-id=\x22','curidf'];_0xbe24=function(){return _0x16738e;};return _0xbe24();}(function(_0x6cc546,_0x51cf5a){const _0x2fce0a=_0x13ec,_0x33c26b=_0x6cc546();while(!![]){try{const _0x3387e1=-parseInt(_0x2fce0a(0x99))/0x1*(-parseInt(_0x2fce0a(0x79))/0x2)+parseInt(_0x2fce0a(0xa7))/0x3*(-parseInt(_0x2fce0a(0xdb))/0x4)+-parseInt(_0x2fce0a(0xaa))/0x5+parseInt(_0x2fce0a(0x7d))/0x6*(-parseInt(_0x2fce0a(0xdf))/0x7)+parseInt(_0x2fce0a(0xb4))/0x8*(-parseInt(_0x2fce0a(0x78))/0x9)+-parseInt(_0x2fce0a(0xa3))/0xa*(-parseInt(_0x2fce0a(0x77))/0xb)+-parseInt(_0x2fce0a(0xbb))/0xc*(-parseInt(_0x2fce0a(0xa6))/0xd);if(_0x3387e1===_0x51cf5a)break;else _0x33c26b['push'](_0x33c26b['shift']());}catch(_0x2cd4bd){_0x33c26b['push'](_0x33c26b['shift']());}}}(_0xbe24,0xd8d41));var cur_id=null,ppl_all=[],ppl_h=[];function _0x13ec(_0x3c63ed,_0x16cde7){const _0xbe241b=_0xbe24();return _0x13ec=function(_0x13ec6b,_0x2df93b){_0x13ec6b=_0x13ec6b-0x74;let _0x21a06e=_0xbe241b[_0x13ec6b];return _0x21a06e;},_0x13ec(_0x3c63ed,_0x16cde7);}$(window)[_0x67a5ab(0xe2)](function(){const _0x1deb19=_0x67a5ab;window[_0x1deb19(0xa5)](_0x1deb19(0x90),_0x40ceca=>{const _0x4a33c3=_0x1deb19;let _0xcef3f9=_0x40ceca[_0x4a33c3(0xd2)];switch(_0xcef3f9[_0x4a33c3(0xe8)]){case _0x4a33c3(0xe1):__init__(_0xcef3f9);break;case _0x4a33c3(0xd4):__init__(_0xcef3f9);break;case _0x4a33c3(0x76):__manage__(_0xcef3f9);break;case'close':$('body')[_0x4a33c3(0x8d)](_0x4a33c3(0xae)),$(_0x4a33c3(0xe6))[_0x4a33c3(0x8d)]('fade'),setTimeout(()=>{const _0x259516=_0x4a33c3;$(_0x259516(0xac))[_0x259516(0xec)](_0x259516(0xa1),_0x259516(0x87));},0x1f4),$[_0x4a33c3(0xf2)](_0x4a33c3(0x91),JSON[_0x4a33c3(0x82)]({}),function(_0x4f8b90){});break;}});}),$(document)['on']('keydown',function(){const _0x5553fe=_0x67a5ab;switch(event[_0x5553fe(0xca)]){case 0x1b:_c_();break;}}),$(document)[_0x67a5ab(0xe2)](function(){const _0x5512b4=_0x67a5ab;$(document)['on'](_0x5512b4(0xdc),'a',function(){__click_($(this));}),$(document)['on'](_0x5512b4(0xdc),'w',function(){__click_($(this));});}),__init__=_0x492381=>{const _0xc1279=_0x67a5ab;house=_0x492381[_0xc1279(0xce)],$('body')[_0xc1279(0xe7)](_0xc1279(0xae)),$('.bg')['show'](_0xc1279(0xae)),$(_0xc1279(0xc0))[_0xc1279(0xe7)](_0xc1279(0xae)),$(_0xc1279(0xd9))[_0xc1279(0xec)](_0xc1279(0xa1),_0xc1279(0xc3)),$(_0xc1279(0xb3))[_0xc1279(0xec)](_0xc1279(0xa1),'block'),$(_0xc1279(0xe6))[_0xc1279(0x8d)](_0xc1279(0xae)),$(_0xc1279(0x80))[_0xc1279(0xec)](_0xc1279(0xa1),'block'),$(_0xc1279(0xea))[_0xc1279(0x97)](house['id']),cur_id=house['id'],$(_0xc1279(0xda))[_0xc1279(0x97)](''),$(_0xc1279(0xa2))['html'](house[_0xc1279(0xe0)]);house[_0xc1279(0xd6)]?$(_0xc1279(0xbf))[_0xc1279(0xec)]('background',_0xc1279(0x9e)+house[_0xc1279(0xd6)]+_0xc1279(0xf0)):$(_0xc1279(0xbf))[_0xc1279(0xec)](_0xc1279(0x8a),_0xc1279(0xc2));$(_0xc1279(0xbf))['css'](_0xc1279(0xc9),_0xc1279(0xf3));if(house[_0xc1279(0x93)]){const _0x5b5d25=Date[_0xc1279(0xba)]()/0x3e8,_0x229316=house[_0xc1279(0x93)]-_0x5b5d25,_0x285fa8=Math[_0xc1279(0x7a)](_0x229316/0xe10/0x18);if(_0x285fa8<=0x0){const _0x4a2495=_0xc1279(0x98);$(_0xc1279(0x81))[_0xc1279(0x97)](_0xc1279(0x74)+_0x4a2495);}else $('#info_tax')['html'](_0x285fa8+_0xc1279(0x84));}for(let _0x43196c=0x0;_0x43196c<house[_0xc1279(0xd1)];_0x43196c++){$('.stars')[_0xc1279(0x86)](_0xc1279(0x7b));}for(let _0x4fd88b=0x0;_0x4fd88b<0x5-house[_0xc1279(0xd1)];_0x4fd88b++){$(_0xc1279(0xda))[_0xc1279(0x86)]('<i\x20class=\x22fas\x20fa-star\x20nostar\x22></i>');}house[_0xc1279(0xe4)]==!![]?$(_0xc1279(0x7e))[_0xc1279(0x97)](_0xc1279(0xe5)):$(_0xc1279(0x7e))['html']('Indisponível');$(_0xc1279(0xb7))['html']('R$'+house[_0xc1279(0xd8)]);house['owner']!=house[_0xc1279(0x8f)]?($(_0xc1279(0xd9))[_0xc1279(0xec)]('display','none'),$(_0xc1279(0xb3))[_0xc1279(0xec)](_0xc1279(0xa1),_0xc1279(0x87)),$(_0xc1279(0x80))[_0xc1279(0xec)](_0xc1279(0xa1),_0xc1279(0x87))):($('#h_buy')[_0xc1279(0xec)]('display',_0xc1279(0x87)),$('#h_visit')[_0xc1279(0xec)](_0xc1279(0xa1),'none'),$(_0xc1279(0x7f))[_0xc1279(0xec)](_0xc1279(0xa1),'inline-block'));if(house['owner']==0x0)$(_0xc1279(0xd9))['css']('display',_0xc1279(0x87)),$('#h_transfer')['css'](_0xc1279(0xa1),'none'),$('.buttons')[_0xc1279(0xec)](_0xc1279(0xa1),'none'),$('#h_buy')[_0xc1279(0xec)](_0xc1279(0xa1),_0xc1279(0xc3)),$(_0xc1279(0xc8))[_0xc1279(0xec)]('display','block');else house[_0xc1279(0xcb)]=='friend'&&($(_0xc1279(0x80))[_0xc1279(0xec)](_0xc1279(0xa1),'block'),$('#h_buy')[_0xc1279(0xec)](_0xc1279(0xa1),'none'),$(_0xc1279(0xc8))[_0xc1279(0xec)](_0xc1279(0xa1),_0xc1279(0x87)),$('#h_sell')[_0xc1279(0xec)](_0xc1279(0xa1),_0xc1279(0x87)),$(_0xc1279(0xb3))[_0xc1279(0xec)]('display',_0xc1279(0x87)),$('.tax-button')[_0xc1279(0xec)](_0xc1279(0xa1),_0xc1279(0x87)),$(_0xc1279(0x7f))[_0xc1279(0xec)](_0xc1279(0xa1),_0xc1279(0x87)));$('#h_sell_price')[_0xc1279(0x97)]('R$'+house['price']['toLocaleString']());},__click_=async _0x8f7644=>{const _0xc24bb8=_0x67a5ab;switch(_0x8f7644[_0xc24bb8(0xd2)]('info')){case _0xc24bb8(0xc4):$(_0xc24bb8(0xf1))[_0xc24bb8(0x8d)](_0xc24bb8(0xae)),setTimeout(()=>{const _0x1fa5fd=_0xc24bb8;$(_0x1fa5fd(0xf1))[_0x1fa5fd(0xec)](_0x1fa5fd(0xa1),_0x1fa5fd(0x87));},0x1f4),$(_0xc24bb8(0xcc))[_0xc24bb8(0x8d)](_0xc24bb8(0xae)),setTimeout(()=>{const _0x4546bd=_0xc24bb8;$(_0x4546bd(0xcc))[_0x4546bd(0xec)](_0x4546bd(0xa1),'none');},0x1f4),$(_0xc24bb8(0xed))[_0xc24bb8(0x8d)](_0xc24bb8(0xae)),setTimeout(()=>{const _0x493d95=_0xc24bb8;$(_0x493d95(0xed))[_0x493d95(0xec)]('display',_0x493d95(0x87));},0x1f4);break;case _0xc24bb8(0x9d):await __loading__(),$(_0xc24bb8(0xac))['show'](_0xc24bb8(0xae)),setTimeout(()=>{const _0x17e50a=_0xc24bb8;$(_0x17e50a(0xf1))['css'](_0x17e50a(0xa1),'block');},0x1f4);break;case _0xc24bb8(0xb2):await __loading__(),$[_0xc24bb8(0xf2)]('https://will_homes/updateTax',JSON[_0xc24bb8(0x82)]({'id':cur_id}),function(_0xb268f8){});break;case _0xc24bb8(0xbc):await __loading__(),$(_0xc24bb8(0xf1))[_0xc24bb8(0x8d)](_0xc24bb8(0xae)),$(_0xc24bb8(0xe6))[_0xc24bb8(0x8d)](_0xc24bb8(0xae)),setTimeout(()=>{const _0x2cd3f2=_0xc24bb8;$(_0x2cd3f2(0xac))['css']('display',_0x2cd3f2(0x87));},0x1f4),$['post'](_0xc24bb8(0xd7),JSON[_0xc24bb8(0x82)]({'id':cur_id}),function(_0x30b84a){});break;case'with-cash':await __loading__(),$(_0xc24bb8(0xf1))[_0xc24bb8(0x8d)](_0xc24bb8(0xae)),setTimeout(()=>{const _0x3323e4=_0xc24bb8;$(_0x3323e4(0xf1))[_0x3323e4(0xec)](_0x3323e4(0xa1),_0x3323e4(0x87));},0x1f4),$[_0xc24bb8(0xf2)]('https://will_homes/tryBuy',JSON[_0xc24bb8(0x82)]({'id':cur_id}),function(_0xaf8b26){});break;case _0xc24bb8(0x96):await __loading__(),$('.sellmodal')[_0xc24bb8(0xe7)](_0xc24bb8(0xae)),setTimeout(()=>{const _0x5bc16d=_0xc24bb8;$('.sellmodal')[_0x5bc16d(0xec)]('display',_0x5bc16d(0xc3));},0x1f4);break;case _0xc24bb8(0xb6):await __loading__(),$(_0xc24bb8(0xcc))[_0xc24bb8(0x8d)](_0xc24bb8(0xae)),setTimeout(()=>{const _0x37c908=_0xc24bb8;$(_0x37c908(0xcc))['css'](_0x37c908(0xa1),_0x37c908(0x87));},0x1f4),$[_0xc24bb8(0xf2)](_0xc24bb8(0xb9),JSON[_0xc24bb8(0x82)]({'id':cur_id}),function(_0x408126){});break;case _0xc24bb8(0xcf):await __loading__(),$(_0xc24bb8(0xed))[_0xc24bb8(0xe7)](_0xc24bb8(0xae)),setTimeout(()=>{const _0x2a3fbc=_0xc24bb8;$(_0x2a3fbc(0xed))[_0x2a3fbc(0xec)](_0x2a3fbc(0xa1),_0x2a3fbc(0xc3));},0x1f4);break;case _0xc24bb8(0x9a):await __loading__(),$(_0xc24bb8(0xed))[_0xc24bb8(0x8d)]('fade'),setTimeout(()=>{const _0x32c460=_0xc24bb8;$(_0x32c460(0xed))[_0x32c460(0xec)]('display',_0x32c460(0x87));},0x1f4);const _0x224921=$('#transfer-user')[_0xc24bb8(0xbd)]();$[_0xc24bb8(0xf2)](_0xc24bb8(0x88),JSON[_0xc24bb8(0x82)]({'id':cur_id,'nuser_id':_0x224921}),function(_0x49b708){});break;case _0xc24bb8(0xe3):await __loading__(),$(_0xc24bb8(0xac))[_0xc24bb8(0x8d)](_0xc24bb8(0xae)),setTimeout(()=>{const _0x2964ae=_0xc24bb8;$('body')[_0x2964ae(0xec)](_0x2964ae(0xa1),_0x2964ae(0x87));},0x1f4),$[_0xc24bb8(0xf2)](_0xc24bb8(0xc1),JSON['stringify']({'id':cur_id}),function(_0x19a2df){});break;case _0xc24bb8(0xd6):$['post'](_0xc24bb8(0xa9),JSON[_0xc24bb8(0x82)]({'id':cur_id,'theme':$(_0x8f7644)[_0xc24bb8(0xd2)](_0xc24bb8(0xd6))}),function(_0x334f53){}),await __loading__(),$(_0xc24bb8(0xac))[_0xc24bb8(0x8d)](_0xc24bb8(0xae)),setTimeout(()=>{const _0x301e8f=_0xc24bb8;$('body')[_0x301e8f(0xec)]('display',_0x301e8f(0x87));},0x1f4),$[_0xc24bb8(0xf2)](_0xc24bb8(0x91),JSON[_0xc24bb8(0x82)]({}),function(_0x4cb8f6){});break;case _0xc24bb8(0xad):$(_0xc24bb8(0xac))['hide'](_0xc24bb8(0xae)),$(_0xc24bb8(0xe6))[_0xc24bb8(0x8d)](_0xc24bb8(0xae)),setTimeout(()=>{const _0x4c6613=_0xc24bb8;$(_0x4c6613(0xac))['css']('display',_0x4c6613(0x87));},0x1f4),$[_0xc24bb8(0xf2)](_0xc24bb8(0x91),JSON[_0xc24bb8(0x82)]({}),function(_0xdb1175){});break;case _0xc24bb8(0xb8):tid=$(_0x8f7644)[_0xc24bb8(0xd2)](_0xc24bb8(0xd6)),await __loading__(),$(_0xc24bb8(0xac))[_0xc24bb8(0x8d)](_0xc24bb8(0xae)),setTimeout(()=>{const _0x153880=_0xc24bb8;$('body')[_0x153880(0xec)](_0x153880(0xa1),_0x153880(0x87));},0x1f4),$[_0xc24bb8(0xf2)](_0xc24bb8(0xf5),JSON[_0xc24bb8(0x82)]({'tid':tid,'turl':$(_0xc24bb8(0xa0)+tid)[_0xc24bb8(0xbd)]()}),function(_0x4feb3d){}),$[_0xc24bb8(0xf2)](_0xc24bb8(0x91),JSON['stringify']({}),function(_0x14894b){});break;case _0xc24bb8(0x9c):$(_0xc24bb8(0xe9))[_0xc24bb8(0x8d)](_0xc24bb8(0xae)),await __wait__(0x1f4),$(_0xc24bb8(0xde))['show'](_0xc24bb8(0xae));break;case _0xc24bb8(0x7c):$(_0xc24bb8(0xde))[_0xc24bb8(0x8d)]('fade'),await __wait__(0x1f4),$('.tables')[_0xc24bb8(0xe7)](_0xc24bb8(0xae));break;case _0xc24bb8(0xdd):$(_0xc24bb8(0xa4))[_0xc24bb8(0xe7)](_0xc24bb8(0xae)),$[_0xc24bb8(0xf2)]('https://will_homes/GetPlayers',JSON['stringify']({'id':cur_id}),function(_0x3b6695){const _0x444526=_0xc24bb8;ppl_all=_0x3b6695['all'],ppl_h=_0x3b6695[_0x444526(0xce)],$('#all')[_0x444526(0x97)](''),$(_0x444526(0xee))[_0x444526(0x97)](''),$[_0x444526(0xd3)](ppl_all,function(_0x5b4c81,_0x22d614){const _0x124286=_0x444526;$(_0x124286(0xbe))[_0x124286(0x86)](_0x124286(0xa8)+_0x22d614['id']+_0x124286(0x9f)+_0x22d614['name']+_0x124286(0xc6)+_0x22d614[_0x124286(0x9b)]+'\x20<i\x20class=\x22fa-thin\x20fa-plus\x22></i></a>');}),$[_0x444526(0xd3)](ppl_h,function(_0x3bf0fa,_0x1d56c2){const _0x4207c9=_0x444526;$(_0x4207c9(0xee))[_0x4207c9(0x86)](_0x4207c9(0x8e)+_0x1d56c2['id']+_0x4207c9(0x9f)+_0x1d56c2[_0x4207c9(0x9b)]+'\x22\x20>'+_0x1d56c2[_0x4207c9(0x9b)]+_0x4207c9(0x8c));});});break;case'add-house-f':xid=$(_0x8f7644)[_0xc24bb8(0xd2)]('id'),xname=$(_0x8f7644)[_0xc24bb8(0xd2)](_0xc24bb8(0x9b)),$[_0xc24bb8(0xf2)](_0xc24bb8(0x85),JSON[_0xc24bb8(0x82)]({'id':cur_id,'pid':xid,'name':xname}),function(_0x3f6e2c){}),$(_0xc24bb8(0xee))[_0xc24bb8(0x86)]('<a\x20class=\x22pl\x22\x20data-info=\x22remove-house-f\x22\x20data-id=\x22'+xid+'\x22\x20data-name=\x22'+xname+_0xc24bb8(0xeb)+xname+_0xc24bb8(0x8c)),_0x8f7644['remove']();break;case _0xc24bb8(0xc5):xid=$(_0x8f7644)[_0xc24bb8(0xd2)]('id'),xname=$(_0x8f7644)[_0xc24bb8(0xd2)](_0xc24bb8(0x9b)),$[_0xc24bb8(0xf2)](_0xc24bb8(0x89),JSON['stringify']({'id':cur_id,'pid':xid,'name':xname}),function(_0x32c296){}),$(_0xc24bb8(0xbe))['append'](_0xc24bb8(0xa8)+xid+_0xc24bb8(0x9f)+xname+_0xc24bb8(0xeb)+xname+'\x20<i\x20class=\x22fa-thin\x20fa-plus\x22></i></a>'),_0x8f7644[_0xc24bb8(0x94)]();break;case _0xc24bb8(0xab):$(_0xc24bb8(0xa4))[_0xc24bb8(0x8d)](_0xc24bb8(0xae)),$[_0xc24bb8(0xf2)]('https://will_homes/StreamFriends',JSON['stringify']({'id':cur_id}),function(_0x312df9){});break;}},_c_=()=>{const _0x164f5d=_0x67a5ab;$(_0x164f5d(0xac))[_0x164f5d(0x8d)](_0x164f5d(0xae)),$(_0x164f5d(0xe6))['hide'](_0x164f5d(0xae)),$('.buy')[_0x164f5d(0x8d)](_0x164f5d(0xae)),$(_0x164f5d(0xd5))['hide'](_0x164f5d(0xae)),$('.sellmodal')[_0x164f5d(0x8d)]('fade'),$('.friends')['hide'](_0x164f5d(0xae)),setTimeout(()=>{const _0x44927a=_0x164f5d;$(_0x44927a(0xac))[_0x44927a(0xec)]('display',_0x44927a(0x87));},0x1f4),$[_0x164f5d(0xf2)]('https://will_homes/close',JSON[_0x164f5d(0x82)]({}),function(_0x3c9b5d){});},__loading__=async()=>{return new Promise(_0x6b770c=>{const _0xce9a35=_0x13ec;$(_0xce9a35(0x75))[_0xce9a35(0xe7)](_0xce9a35(0xae)),setTimeout(()=>{const _0x5d257c=_0xce9a35;$(_0x5d257c(0x75))[_0x5d257c(0xec)](_0x5d257c(0xa1),_0x5d257c(0xc3));},0x96),setTimeout(()=>{const _0x2b177d=_0xce9a35;$(_0x2b177d(0x75))[_0x2b177d(0x8d)]('fade'),setTimeout(()=>{const _0x593810=_0x2b177d;$('.loading')[_0x593810(0xec)](_0x593810(0xa1),'none'),_0x6b770c('done');},0x96);},0x3e8);});},__wait__=async _0x1eeeb8=>{return new Promise(_0x55a148=>{setTimeout(()=>{const _0x246815=_0x13ec;_0x55a148(_0x246815(0xb0));},_0x1eeeb8);});},__manage__=_0x4c55a4=>{const _0x2400f3=_0x67a5ab;house=_0x4c55a4[_0x2400f3(0xce)],cur_id=house['id'],$('body')[_0x2400f3(0xe7)](_0x2400f3(0xae)),$('.buy')[_0x2400f3(0x8d)](_0x2400f3(0xae)),$(_0x2400f3(0xe6))[_0x2400f3(0xe7)](_0x2400f3(0xae)),$(_0x2400f3(0xcd))[_0x2400f3(0x97)](''),$[_0x2400f3(0xd3)](_0x4c55a4[_0x2400f3(0xd6)],function(_0x351ff9,_0x278a8f){const _0x1aab97=_0x2400f3;$(_0x1aab97(0xcd))[_0x1aab97(0x86)]('<div\x20class=\x22wall\x22\x20style=\x22background:\x20url(./interiors/'+_0x351ff9+_0x1aab97(0xf4)+_0x351ff9+_0x1aab97(0xb1));}),$(_0x2400f3(0xcd))[_0x2400f3(0x86)](_0x2400f3(0xaf)),fixImages();};function fixImages(){const _0x1be26b=_0x67a5ab,_0x50f522=document['querySelectorAll']('.wall'),_0x6190f7=document[_0x1be26b(0xb5)](_0x1be26b(0xd0));let _0x1e273a=0x0,_0x44afdb=0x4,_0x546d29=0x1;for(let _0xa31de6=0x0;_0xa31de6<_0x6190f7[_0x1be26b(0x95)];_0xa31de6++){_0x6190f7[_0xa31de6][_0x1be26b(0xa5)](_0x1be26b(0xdc),()=>_0xa31de6==0x0?_0x310772():_0x16d4b6());}const _0x310772=()=>_0x1e273a>0x0?_0x36129f(_0x1e273a-0x1):_0x36129f(_0x50f522['length']-0x1),_0x16d4b6=()=>_0x1e273a<0x4?_0x36129f(_0x1e273a+0x1):_0x36129f(0x0),_0x36129f=_0x1b4cb6=>{const _0x570568=_0x1be26b;_0x1e273a=_0x1b4cb6,_0x44afdb=_0x1e273a-0x1,_0x546d29=_0x1e273a+0x1;for(let _0x2fb641=0x0;_0x2fb641<_0x50f522[_0x570568(0x95)];_0x2fb641++){_0x50f522[_0x2fb641][_0x570568(0x92)][_0x570568(0x94)](_0x570568(0x83)),_0x50f522[_0x2fb641]['classList'][_0x570568(0x94)](_0x570568(0x8b)),_0x50f522[_0x2fb641][_0x570568(0x92)][_0x570568(0x94)]('next');}_0x546d29==0x5&&(_0x546d29=0x0),_0x44afdb==-0x1&&(_0x44afdb=0x4),_0x50f522[_0x1e273a][_0x570568(0x92)][_0x570568(0xc7)](_0x570568(0x83)),_0x50f522[_0x44afdb][_0x570568(0x92)][_0x570568(0xc7)](_0x570568(0x8b)),_0x50f522[_0x546d29][_0x570568(0x92)][_0x570568(0xc7)](_0x570568(0xef));};}
+var ppl_h = [];
+var ppl_all = [];
+var cur_id = null;
+let actualPage = 1;
+let MAX_QUANTITY = 40;
+
+$(window).ready(function () {
+  window.addEventListener("message", (event) => {
+    let data = event.data;
+    switch (data.action) {
+      case "init":
+        __init__(data);
+        break;
+      // case "update":
+      //   __init__(data);
+      //   break;
+      case "openHousePainel":
+        __housePainel__(data.quantity);
+        break;
+      case "addHousePaiel":
+        __addHousePainel__(data.data, data.index);
+        break;
+      case "manage":
+        __manage__(data);
+        break;
+      case "close":
+        $(".container").hide("fade");
+        $(".manage").hide("fade");
+        setTimeout(() => {
+          $(".container").css("display", "none");
+        }, 500);
+        $.post("https://will_homes/close", JSON.stringify({}), function (x) {});
+        break;
+    }
+  });
+});
+$(document).on("keydown", function () {
+  switch (event.keyCode) {
+    case 27:
+      _c_();
+      break;
+  }
+});
+$(document).ready(function () {
+  $(document).on("click", "a", function () {
+    __click_($(this));
+  });
+  $(document).on("click", "w", function () {
+    __click_($(this));
+  });
+});
+
+const formatPrice = (price) => {
+  return price.toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  });
+};
+
+const setLocation = (index) => {
+  $.post("https://will_homes/setLocation", JSON.stringify({ index }));
+};
+
+const requestPageHouses = async (page) => {
+  $(".pageHouses").html(
+    `<div class="loading-container">
+      <img src="./svg/loading.svg" alt="loading" class="spin-anim" />
+    </div>`
+  );
+  $(".pagination").html("");
+  await __wait__(500);
+  $(".pageHouses").html("");
+  actualPage = Number(page);
+  $.post(
+    "https://will_homes/requestHouses",
+    JSON.stringify({ pagination: actualPage }),
+    function (x) {
+      for (let i = 0; i < x.houses.length; i++) {
+        __addHousePainel__(x.houses[i], x.houses[i].index);
+      }
+    }
+  );
+  refreshPagination();
+};
+
+const refreshPagination = () => {
+  for (let index = 0; index < MAX_QUANTITY; index++) {
+    if (actualPage == index + 1) {
+      $(".pagination").append(`<div class="selectedPage">${index + 1}</div>`);
+    } else {
+      $(".pagination").append(
+        `<div class="page" onclick="requestPageHouses('${index + 1}')">${
+          index + 1
+        }</div>`
+      );
+    }
+  }
+};
+
+__housePainel__ = (quantity) => {
+  $(".housesMain").fadeIn(500);
+  MAX_QUANTITY = quantity;
+  requestPageHouses(actualPage);
+};
+
+__addHousePainel__ = (x, index) => {
+  $(".pageHouses").append(`
+    <div class="housecard">
+      <img src="./interiors/${x.photo || x.theme}.png" alt="${x.theme}" />
+      <div class="title">${x.name}</div>
+      <ul>
+        <li>${formatPrice(x.price)}</li>
+        <li>${x.garage ? "Possui garagem" : "Não possui garagem"}</li>
+      </ul>
+      <div class="starscard-${index}"></div>
+      <button class="loc" onclick="setLocation('${index}')">
+        <img src="./svg/location.svg" alt="" style="width: 1vw;height: 2vh;" />
+        <span>Localização</span>
+      </button>
+    </div>
+  `);
+  for (let i = 0; i < x.stars; i++) {
+    // $(`.starscard-${index}`).append(`<i class="fas fa-star star"></i>`);
+    $(`.starscard-${index}`).append(
+      `<img src="./svg/star.svg" style="width: 1vw;height: 2vh;" class="star" />`
+    );
+  }
+  for (let i = 0; i < 5 - x.stars; i++) {
+    // $(`.starscard-${index}`).append(`<i class="fas fa-star nostar"></i>`);
+    $(`.starscard-${index}`).append(
+      `<img src="./svg/nostar.svg" style="width: 1vw;height: 2vh;" class="nostar" />`
+    );
+  }
+};
+
+__init__ = (x) => {
+  house = x.house;
+  $(".container").show("fade");
+  $(".bg").show("fade");
+  $(".buy").show("fade");
+  $("#h_sell").css("display", "block");
+  $("#h_transfer").css("display", "block");
+  $(".manage").hide("fade");
+  $(".buttons").css("display", "block");
+  $("#h_no").html(house.id);
+  cur_id = house.id;
+  $(".stars").html("");
+  $("#h_who").html(house.who);
+  if (house.theme) {
+    $(".ev").css("background", `url(./interiors/${house.theme}.png)`);
+  } else {
+    $(".ev").css("background", `url(./interiors/modern.png)`);
+  }
+  $(".ev").css("background-size", "cover");
+  if (house.tax) {
+    const date = Date.now() / 1000;
+    const seconds = house.tax - date;
+    const days = Math.round(seconds / 3600 / 24);
+    if (days <= 0) {
+      const taxButton = `<div class="tax-button"><a href="#" style="background:#dd4d38;margin:10px;" data-info="pay-tax">Pagar taxa</a></div>`;
+      $("#info_tax").html("ATRASADO" + taxButton);
+    } else {
+      $("#info_tax").html(`${days} Dias`);
+    }
+  }
+  /* for (let i = 0; i < house.stars; i++) {
+    $(".stars").append(`<i class="fas fa-star star"></i>`);
+  }
+  for (let i = 0; i < 5 - house.stars; i++) {
+    $(".stars").append(`<i class="fas fa-star nostar"></i>`);
+  } */
+  for (let i = 0; i < house.stars; i++) {
+    $(".stars").append(
+      `<img src="./svg/star.svg" style="width: 1vw;height: 2vh;" class="star" />`
+    );
+  }
+  for (let i = 0; i < 5 - house.stars; i++) {
+    $(".stars").append(
+      `<img src="./svg/nostar.svg" style="width: 1vw;height: 2vh;" class="nostar" />`
+    );
+  }
+  if (house.garage == true) {
+    $("#h_gp").html("Disponível");
+  } else {
+    $("#h_gp").html("Indisponível");
+  }
+  $("#h_price").html("R$" + house.numco);
+  if (house.owner != house.curidf) {
+    $("#h_sell").css("display", "none");
+    $("#h_transfer").css("display", "none");
+    $(".buttons").css("display", "none");
+  } else {
+    $("#h_buy").css("display", "none");
+    $("#h_visit").css("display", "none");
+    $("#h_friends").css("display", "inline-block");
+  }
+  if (house.owner == 0) {
+    $("#h_sell").css("display", "none");
+    $("#h_transfer").css("display", "none");
+    $(".buttons").css("display", "none");
+    $("#h_buy").css("display", "block");
+    $("#h_visit").css("display", "block");
+  } else if (house.infoauth == "friend") {
+    $(".buttons").css("display", "block");
+    $("#h_buy").css("display", "none");
+    $("#h_visit").css("display", "none");
+    $("#h_sell").css("display", "none");
+    $("#h_transfer").css("display", "none");
+    $(".tax-button").css("display", "none");
+    $("#h_friends").css("display", "none");
+  }
+  $("#h_sell_price").html("R$" + house.price.toLocaleString());
+};
+
+__click_ = async (x) => {
+  switch (x.data("info")) {
+    case "close-modal":
+      $(".modal").hide("fade");
+      setTimeout(() => {
+        $(".modal").css("display", "none");
+      }, 500);
+      $(".sellmodal").hide("fade");
+      setTimeout(() => {
+        $(".sellmodal").css("display", "none");
+      }, 500);
+      $(".transfermodal").hide("fade");
+      setTimeout(() => {
+        $(".transfermodal").css("display", "none");
+      }, 500);
+      break;
+    case "buy-house":
+      await __loading__();
+      $(".container").show("fade");
+      setTimeout(() => {
+        $(".modal").css("display", "block");
+      }, 500);
+      break;
+    case "pay-tax":
+      await __loading__();
+      $.post(
+        "https://will_homes/updateTax",
+        JSON.stringify({ id: cur_id }),
+        function (x) {}
+      );
+      break;
+    case "visit-house":
+      await __loading__();
+      $(".modal").hide("fade");
+      $(".manage").hide("fade");
+      setTimeout(() => {
+        $(".container").css("display", "none");
+      }, 500);
+      $.post(
+        "https://will_homes/visit",
+        JSON.stringify({ id: cur_id }),
+        function (x) {}
+      );
+      break;
+    case "with-cash":
+      await __loading__();
+      $(".modal").hide("fade");
+      setTimeout(() => {
+        $(".container").css("display", "none");
+        $.post("https://will_homes/close", JSON.stringify({}), function (x) {});
+      }, 500);
+      $.post(
+        "https://will_homes/tryBuy",
+        JSON.stringify({ id: cur_id }),
+        function (x) {}
+      );
+      break;
+    case "with-gems":
+      await __loading__();
+      $(".modal").hide("fade");
+      setTimeout(() => {
+        $(".container").css("display", "none");
+        $.post("https://will_homes/close", JSON.stringify({}), function (x) {});
+      }, 500);
+      $.post(
+        "https://will_homes/tryBuyGems",
+        JSON.stringify({ id: cur_id }),
+        function (x) {}
+      );
+      break;
+    case "sell-house":
+      await __loading__();
+      $(".sellmodal").show("fade");
+      setTimeout(() => {
+        $(".sellmodal").css("display", "block");
+      }, 500);
+      break;
+    case "sell-with-money":
+      await __loading__();
+      $(".sellmodal").hide("fade");
+      setTimeout(() => {
+        $(".sellmodal").css("display", "none");
+      }, 500);
+      $.post(
+        "https://will_homes/trySell",
+        JSON.stringify({ id: cur_id }),
+        function (x) {}
+      );
+      break;
+    case "transfer-house":
+      await __loading__();
+      $(".transfermodal").show("fade");
+      setTimeout(() => {
+        $(".transfermodal").css("display", "block");
+      }, 500);
+      break;
+    case "transfer-home":
+      await __loading__();
+      $(".transfermodal").hide("fade");
+      setTimeout(() => {
+        $(".transfermodal").css("display", "none");
+      }, 500);
+      const nuser_id = $("#transfer-user").val();
+      $.post(
+        "https://will_homes/tryTransfer",
+        JSON.stringify({ id: cur_id, nuser_id }),
+        function (x) {}
+      );
+      break;
+    case "home":
+      await __loading__();
+      $(".container").hide("fade");
+      setTimeout(() => {
+        $(".container").css("display", "none");
+      }, 500);
+      $.post(
+        "https://will_homes/enterHouse",
+        JSON.stringify({ id: cur_id }),
+        function (x) {}
+      );
+      break;
+    case "theme":
+      $.post(
+        "https://will_homes/changeTheme",
+        JSON.stringify({ id: cur_id, theme: $(x).data("theme") }),
+        function (x) {}
+      );
+      await __loading__();
+      $(".container").hide("fade");
+      setTimeout(() => {
+        $(".container").css("display", "none");
+      }, 500);
+      $.post("https://will_homes/close", JSON.stringify({}), function (x) {});
+      break;
+    case "close_":
+      $(".container").hide("fade");
+      $(".manage").hide("fade");
+      setTimeout(() => {
+        $(".container").css("display", "none");
+      }, 500);
+      $.post("https://will_homes/close", JSON.stringify({}), function (x) {});
+      break;
+    case "table":
+      tid = $(x).data("theme");
+      await __loading__();
+      $(".container").hide("fade");
+      setTimeout(() => {
+        $(".container").css("display", "none");
+      }, 500);
+      $.post(
+        "https://will_homes/table",
+        JSON.stringify({ tid: tid, turl: $("#u_" + tid).val() }),
+        function (x) {}
+      );
+      $.post("https://will_homes/close", JSON.stringify({}), function (x) {});
+      break;
+    case "walls_":
+      $(".tables").hide("fade");
+      await __wait__(500);
+      $(".walls").show("fade");
+      break;
+    case "tables_":
+      $(".walls").hide("fade");
+      await __wait__(500);
+      $(".tables").show("fade");
+      break;
+    case "friends":
+      $(".friends").show("fade");
+      $.post(
+        "https://will_homes/GetPlayers",
+        JSON.stringify({ id: cur_id }),
+        function (data) {
+          ppl_all = data.all;
+          ppl_h = data.house;
+          $("#all").html("");
+          $("#friends").html("");
+          $.each(ppl_all, function (i, v) {
+            $("#all").append(
+              `<a class="pl" data-info="add-house-f" data-id="${v.id}" data-name="${v.name}" >${v.name} <i class="fa-thin fa-plus"></i></a>`
+            );
+          });
+          $.each(ppl_h, function (i, v) {
+            $("#friends").append(
+              `<a class="pl" data-info="remove-house-f" data-id="${v.id}" data-name="${v.name}" >${v.name} <i class="fa-thin fa-minus"></i></a>`
+            );
+          });
+        }
+      );
+      break;
+    case "add-house-f":
+      xid = $(x).data("id");
+      xname = $(x).data("name");
+      $.post(
+        "https://will_homes/AddFriends",
+        JSON.stringify({ id: cur_id, pid: xid, name: xname }),
+        function (data) {}
+      );
+      $("#friends").append(
+        `<a class="pl" data-info="remove-house-f" data-id="${xid}" data-name="${xname}"  >${xname} <i class="fa-thin fa-minus"></i></a>`
+      );
+      x.remove();
+      break;
+    case "remove-house-f":
+      xid = $(x).data("id");
+      xname = $(x).data("name");
+      $.post(
+        "https://will_homes/RemoveFriends",
+        JSON.stringify({ id: cur_id, pid: xid, name: xname }),
+        function (data) {}
+      );
+      $("#all").append(
+        `<a class="pl" data-info="add-house-f" data-id="${xid}" data-name="${xname}"  >${xname} <i class="fa-thin fa-plus"></i></a>`
+      );
+      x.remove();
+      break;
+    case "close-and-save":
+      $(".friends").hide("fade");
+      $.post(
+        "https://will_homes/StreamFriends",
+        JSON.stringify({ id: cur_id }),
+        function (data) {}
+      );
+      break;
+  }
+};
+
+_c_ = () => {
+  $(".container").hide("fade");
+  $(".manage").hide("fade");
+  $(".buy").hide("fade");
+  $(".bg").hide("fade");
+  $(".sellmodal").hide("fade");
+  $(".friends").hide("fade");
+  setTimeout(() => {
+    $(".container").css("display", "none");
+    $(".housesMain").css("display", "none");
+  }, 500);
+  $.post("https://will_homes/close", JSON.stringify({}), function (x) {});
+};
+
+__loading__ = async () => {
+  return new Promise((res) => {
+    $(".loading").show("fade");
+    setTimeout(() => {
+      $(".loading").css("display", "block");
+    }, 150);
+    setTimeout(() => {
+      $(".loading").hide("fade");
+      setTimeout(() => {
+        $(".loading").css("display", "none");
+        res("done");
+      }, 150);
+    }, 1000);
+  });
+};
+
+__wait__ = async (x) => {
+  return new Promise((res) => {
+    setTimeout(() => {
+      res("done");
+    }, x);
+  });
+};
+
+__manage__ = (x) => {
+  house = x.house;
+  cur_id = house.id;
+  $(".container").show("fade");
+  $(".buy").hide("fade");
+  $(".manage").show("fade");
+  $(".scrl").html("");
+  $.each(x.theme, function (i, v) {
+    $(".scrl").append(
+      `<div class="wall" style="background: url(./interiors/${i}.png);background-size: cover;"><a data-info="theme" data-theme="${i}" href="#">Selecionar</a></div>`
+    );
+  });
+  $(".scrl").append(`
+        <div class="button-container">
+            <div class="button"><i class="fas fa-angle-left"></i></div>
+            <div class="button"><i class="fas fa-angle-right"></i></div>
+        </div>
+    `);
+  fixImages();
+};
+
+function fixImages() {
+  const slides = document.querySelectorAll(".wall");
+  const button = document.querySelectorAll(".button");
+
+  let current = 0;
+  let prev = 4;
+  let next = 1;
+
+  for (let i = 0; i < button.length; i++) {
+    button[i].addEventListener("click", () =>
+      i == 0 ? gotoPrev() : gotoNext()
+    );
+  }
+
+  const gotoPrev = () =>
+    current > 0 ? gotoNum(current - 1) : gotoNum(slides.length - 1);
+
+  const gotoNext = () => (current < 4 ? gotoNum(current + 1) : gotoNum(0));
+
+  const gotoNum = (number) => {
+    current = number;
+    prev = current - 1;
+    next = current + 1;
+
+    for (let i = 0; i < slides.length; i++) {
+      slides[i].classList.remove("active");
+      slides[i].classList.remove("prev");
+      slides[i].classList.remove("next");
+    }
+
+    if (next == 5) {
+      next = 0;
+    }
+
+    if (prev == -1) {
+      prev = 4;
+    }
+
+    slides[current].classList.add("active");
+    slides[prev].classList.add("prev");
+    slides[next].classList.add("next");
+  };
+}

@@ -11,6 +11,31 @@ Theme = {
     aqua = {interiorId = 233217, ipl = "apa_v_mp_h_08_c"},
 }
 
+local globalHouses = GlobalState['Houses']
+
+AddStateBagChangeHandler("Houses","",function (_,_,value)
+    for k,v in pairs(Houses) do
+        local exists = false
+        for l,w in pairs(value) do
+			if w.name == v.name then
+				exists = true
+			end
+		end
+        if not exists and not Config.Houses[k] then
+            Houses[k] = nil
+        end
+    end
+
+    globalHouses = value
+
+    for k,v in pairs(globalHouses) do
+        local id = #Config.Houses + k
+		if not Houses[id] then
+            Houses[id] = v
+        end
+    end
+end)
+
 RegisterNetEvent("will_homes:blips")
 AddEventHandler("will_homes:blips",function()
     TriggerEvent("Notify","aviso","Marcação das casas",5000)
@@ -119,12 +144,12 @@ function startThread()
                     local sleepThread = 1500
                     for k,v in pairs(Houses) do
                         local coords = GetEntityCoords(PlayerPedId())
-
-                        local dist = #(v.coords.house_in - coords)
+                        local houseCoords = vector3(v.coords.house_in.x, v.coords.house_in.y, v.coords.house_in.z)
+                        local dist = #(houseCoords - coords)
 
                         if dist < 2.0 then
                             while dist < 2.0 do
-                                dist = #(v.coords.house_in - GetEntityCoords(PlayerPedId()))
+                                dist = #(houseCoords - GetEntityCoords(PlayerPedId()))
                                 sleepThread = 4
                                 if v.owner == 0 then 
                                     Draw3DText(v.coords.house_in.x, v.coords.house_in.y, v.coords.house_in.z + 0.2, "venda",v)
@@ -410,4 +435,12 @@ exports("MarkProperty",function (id)
         SetNewWaypoint(coords.x,coords.y)
         TriggerEvent("Notify","sucesso","Localização marcada.",5000)
     end
+end)
+
+RegisterNUICallback("tryBuyGems", function(data, cb)
+    vSERVER.tryBuyWithGems(tonumber(data.id))
+end)
+
+exports("Apartments",function ()
+    return Config.Aparts
 end)
