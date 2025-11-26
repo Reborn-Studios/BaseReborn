@@ -36,6 +36,8 @@ vRP.prepare("vRP/set_token_whitelist","UPDATE accounts SET whitelist = @whitelis
 vRP.prepare("vRP/set_userdata","REPLACE INTO vrp_user_data(user_id,dkey,dvalue) VALUES(@user_id,@key,@value)")
 vRP.prepare("vRP/get_userdata","SELECT dvalue FROM vrp_user_data WHERE user_id = @user_id AND dkey = @key")
 vRP.prepare("vRP/rem_user_dkey","DELETE FROM vrp_user_data WHERE user_id = @user_id AND dkey = @key")
+vRP.Prepare("playerdata/GetData","SELECT dvalue AS Information FROM vrp_user_data WHERE user_id = @Passport AND dkey = @Name")
+vRP.Prepare("playerdata/SetData","REPLACE INTO vrp_user_data (user_id,dkey,dvalue) VALUES (@Passport,@Name,@Information)")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PREPARE vRP_SRV_DATA
 -----------------------------------------------------------------------------------------------------------------------------------------
