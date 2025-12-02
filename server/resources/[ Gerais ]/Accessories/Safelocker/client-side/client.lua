@@ -1,6 +1,3 @@
-local Proxy = module("vrp","lib/Proxy")
-vRP = Proxy.getInterface("vRP")
-
 _onSpot = false
 isMinigame = false
 _SafeCrackingStates = "Setup"

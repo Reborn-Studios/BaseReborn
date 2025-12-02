@@ -1,37 +1,15 @@
-local Proxy = module("vrp","lib/Proxy")
-vRP = Proxy.getInterface("vRP")
-
 local place = 0
 local grade = 0.5
 local started = false
 local thisTable = nil
 local esperando = false
 local disabledControl = 0
-local globalConfig = {
-    props = {
-      {['x'] = 187.35, ['y'] = -993.49, ['z'] = 28.31, model = 'prop_arm_wrestle_01'},                      -- PRACA
-      {['x'] = 191.54, ['y'] = -991.9, ['z'] = 28.31, model = 'prop_arm_wrestle_01'},                       -- PRACA
-      {['x'] = 195.14, ['y'] = -989.94, ['z'] = 28.31, model = 'prop_arm_wrestle_01'},                      -- PRACA
-      {['x'] = 977.9, ['y'] = -95.17, ['z'] = 74.87, model = 'prop_arm_wrestle_01'},                        -- MC
-      {['x'] = -1823.73, ['y'] = -1181.51, ['z'] = 14.31, model = 'bkr_Prop_Clubhouse_Arm_wrestle_02a'},    -- PIER
-      {['x'] = -1820.16, ['y'] = -1183.45, ['z'] = 14.31, model = 'bkr_Prop_Clubhouse_Arm_wrestle_02a'},    -- PIER
-      {['x'] = -1816.31, ['y'] = -1185.56, ['z'] = 14.31, model = 'bkr_Prop_Clubhouse_Arm_wrestle_02a'},    -- PIER
-    },
-}
-local sessions = {
-    { place1 = 0, place2 = 0, started = false, grade = 0.5,['x'] = 187.35, ['y'] = -993.49, ['z'] = 30.1, model = 'prop_arm_wrestle_01'},                       -- PRACA
-    { place1 = 0, place2 = 0, started = false, grade = 0.5,['x'] = 191.54, ['y'] = -991.9, ['z'] = 30.11, model = 'prop_arm_wrestle_01'},                       -- PRACA
-    { place1 = 0, place2 = 0, started = false, grade = 0.5,['x'] = 195.14, ['y'] = -989.94, ['z'] = 30.1, model = 'prop_arm_wrestle_01'},                       -- PRACA
-    { place1 = 0, place2 = 0, started = false, grade = 0.5,['x'] = 977.9, ['y'] = -95.17, ['z'] = 74.87, model = 'prop_arm_wrestle_01'},                        -- MC
-    { place1 = 0, place2 = 0, started = false, grade = 0.5,['x'] = -1823.73, ['y'] = -1181.51, ['z'] = 14.31, model = 'bkr_Prop_Clubhouse_Arm_wrestle_02a'},    -- PIER
-    { place1 = 0, place2 = 0, started = false, grade = 0.5,['x'] = -1820.16, ['y'] = -1183.45, ['z'] = 14.31, model = 'bkr_Prop_Clubhouse_Arm_wrestle_02a'},    -- PIER
-    { place1 = 0, place2 = 0, started = false, grade = 0.5,['x'] = -1816.31, ['y'] = -1185.56, ['z'] = 14.31, model = 'bkr_Prop_Clubhouse_Arm_wrestle_02a'},    -- PIER
-}
+local sessions = ArmBrakerConfig.sessions
 
 CreateThread(function()
     while true do
         Wait(5000)
-        for i, modelConfig in pairs(globalConfig.props) do
+        for i, modelConfig in pairs(ArmBrakerConfig.globalProps) do
             local pedCoords = GetEntityCoords(PlayerPedId())
             if Vdist(pedCoords.x, pedCoords.y, pedCoords.z, modelConfig.x, modelConfig.y, modelConfig.z) < 50 then
                 thisTable = GetClosestObjectOfType(modelConfig.x, modelConfig.y, modelConfig.z, 1.5, GetHashKey(modelConfig.model), false, false, false)
@@ -132,7 +110,7 @@ local function timer()
 end
 
 function checkFunction()
-    for i, modelConfig in pairs(globalConfig.props) do
+    for i, modelConfig in pairs(ArmBrakerConfig.globalProps) do
         local table = GetClosestObjectOfType(GetEntityCoords(PlayerPedId()), 1.5, GetHashKey(modelConfig.model), 0, 0, 0)
         if DoesEntityExist(table) then
             local position = GetEntityCoords(PlayerPedId())
@@ -233,7 +211,7 @@ AddEventHandler('ArmBraker:check_cl', function(args)
     if args == 'place1' then
         place = 1
 
-        for i, modelConfig in pairs(globalConfig.props) do
+        for i, modelConfig in pairs(ArmBrakerConfig.globalProps) do
             table = GetClosestObjectOfType(GetEntityCoords(PlayerPedId()), 1.5, GetHashKey(modelConfig.model), 0, 0, 0)
             if DoesEntityExist(table) then
                 break
@@ -263,7 +241,7 @@ AddEventHandler('ArmBraker:check_cl', function(args)
         end
     elseif args == 'place2' then
         place = 2
-        for i, modelConfig in pairs(globalConfig.props) do
+        for i, modelConfig in pairs(ArmBrakerConfig.globalProps) do
             table = GetClosestObjectOfType(GetEntityCoords(PlayerPedId()), 1.5, GetHashKey(modelConfig.model), 0, 0, 0)
             if DoesEntityExist(table) then
                 break
@@ -298,7 +276,7 @@ end)
 RegisterNetEvent('ArmBraker:reset_cl')
 AddEventHandler('ArmBraker:reset_cl', function()
     esperando = false
-    for i, modelConfig in pairs(globalConfig.props) do
+    for i, modelConfig in pairs(ArmBrakerConfig.globalProps) do
         local tableId = GetClosestObjectOfType(GetEntityCoords(PlayerPedId()), 1.5, GetHashKey(modelConfig.model), 0, 0, 0)
         if DoesEntityExist(tableId) then
             SetEntityNoCollisionEntity(PlayerPedId(), tableId, true)

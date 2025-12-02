@@ -1,5 +1,3 @@
-local Tunnel = module("vrp","lib/Tunnel") or {}
-vRPS = Tunnel.getInterface("vRP")
 PetServer = Tunnel.getInterface("pets")
 
 local animalHash = nil

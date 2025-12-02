@@ -1,8 +1,3 @@
-
-local Tunnel = module("vrp","lib/Tunnel") or {}
-local Proxy = module("vrp","lib/Proxy") or {}
-vRP = Proxy.getInterface("vRP")
-
 local cRP = {}
 Tunnel.bindInterface("pets",cRP)
 -----------------------------------------------------------------------------------------------------------------------------------------
