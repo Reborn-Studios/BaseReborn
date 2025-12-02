@@ -338,6 +338,14 @@ AddEventHandler("player:Debug",function()
     ReloadPlayer(source)
 end)
 
+AddEventHandler("playerDropped",function()
+    local source = source
+    local identifier = GetIdentifier(source)
+    if identifier and Characters[identifier] then
+        Characters[identifier] = nil
+    end
+end)
+
 --#########################
 ---##      PREPARES
 --#########################
