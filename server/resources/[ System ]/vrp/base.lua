@@ -307,8 +307,11 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PLAYERSPAWNED
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterServerEvent("baseModule:idLoaded")
-AddEventHandler("baseModule:idLoaded",function(source,user,model)
+local multiChar = Reborn.multi_personagem()["Enabled"]
+local spawnEvent = multiChar and "baseModule:idLoaded" or "vRP:playerSpawn"
+
+RegisterServerEvent(spawnEvent)
+AddEventHandler(spawnEvent,function(source,user,model)
 	local user_id = parseInt(user)
 	if not user_id then return end
 	if vRP.rusers[user_id] == nil then
@@ -368,9 +371,15 @@ AddEventHandler("baseModule:idLoaded",function(source,user,model)
 			vRP.execute("vRP/update_characters",{ id = parseInt(user_id), registration = vRP.generateRegistrationNumber(), phone = vRP.generatePhoneNumber() })
 		end
         vRP.setUData(user_id,"Datatable",json.encode(vRP.user_tables[user_id]))
-		TriggerEvent("vRP:playerSpawn",user_id,source,true)
-		TriggerEvent("playerConnect",user_id,source, true)
+		if multiChar then
+			TriggerEvent("vRP:playerSpawn",user_id,source,true)
+			TriggerEvent("playerConnect",user_id,source,true)
+		end
 		TriggerClientEvent("hudActived",source,true)
+		TriggerClientEvent("hud:Active",source,true)
+
+		Player(source).state:set("Passport",user_id,true)
+		Player(source).state:set("Active",true,true)
 	else
 		DropPlayer(source,"Você já está conectado em outra conta.")
 		if vRP.user_sources[user_id] then
