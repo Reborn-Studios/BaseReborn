@@ -165,6 +165,7 @@ return {
 ---@field job iJob
 ---@field weapon iWeapon
 ---@field extra_currency iExtraCurrency
+---@field logoPos 'center' | 'hud'
 
 ---@class iNavigation
 ---@field isDestinationActive boolean

@@ -8,6 +8,8 @@ local cancelando = false
 LocalPlayer["state"]:set("Handcuff",false,true)
 LocalPlayer["state"]:set("Commands",false,true)
 LocalPlayer["state"]:set("Premium",false,false)
+LocalPlayer["state"]:set("Passport",0,true)
+LocalPlayer["state"]:set("Active",false,false)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CANCELANDO
 -----------------------------------------------------------------------------------------------------------------------------------------

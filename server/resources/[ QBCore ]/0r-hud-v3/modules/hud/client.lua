@@ -166,7 +166,8 @@ local function updateClientInfo()
     local _, inClip = GetAmmoInClip(cache.ped, weapon)
     local ammo = { inClip = inClip, inWeapon = inWeapon }
     client_info.weapon.ammo = ammo
-    client_info.player_source.source = cache.serverId
+    client_info.player_source.source = LocalPlayer.state["Passport"]
+    client_info.logoPos = Config.DefaultHudSettings.logoPos
 end
 
 ---Update Compass Data
@@ -259,6 +260,15 @@ local function updateBars()
     bars.voice.value = valueToPercentageVoice(bars.voice.talkRange)
     bars.voice.isTalking = NetworkIsPlayerTalking(playerId)
     -- #
+    local def = Config.DefaultHudSettings
+    bars.hunger.show = def.activeHunger
+    bars.thirst.show = def.activeThirst
+    bars.stress.show = def.activeStress
+    bars.stamina.show = true
+    bars.voice.show = true
+    bars.oxygen.show = true
+    bars.vehicle_engine.show = true
+    bars.vehicle_nitro.show = true
 end
 
 ---Update Vehicle Data
@@ -338,6 +348,7 @@ function Hud.SetDefaultSettings()
     Hud.data.client_info.time.active = def.client_info.time.active
     Hud.data.client_info.weapon.active = def.client_info.weapon.active
     Hud.data.client_info.extra_currency.active = def.client_info.extra_currency.active
+    Hud.data.client_info.logoPos = def.logoPos
     Hud.data.bars.armor.color = def.bar_colors.armor
     Hud.data.bars.health.color = def.bar_colors.health
     Hud.data.bars.hunger.color = def.bar_colors.hunger
@@ -443,27 +454,100 @@ RegisterNetEvent('hud:client:UpdateNitrous', function(hasNitro, level, state)
     Hud.data.bars.vehicle_nitro.value = level
 end)
 
+function GetShakeIntensity(stresslevel)
+    local retval = 0.05
+    local Intensity = {
+        ["shake"] = {
+            [1] = {
+                min = 50,
+                max = 60,
+                intensity = 0.12,
+            },
+            [2] = {
+                min = 60,
+                max = 70,
+                intensity = 0.17,
+            },
+            [3] = {
+                min = 70,
+                max = 80,
+                intensity = 0.22,
+            },
+            [4] = {
+                min = 80,
+                max = 90,
+                intensity = 0.28,
+            },
+            [5] = {
+                min = 90,
+                max = 100,
+                intensity = 0.32,
+            },
+        }
+    }
+    for k, v in pairs(Intensity['shake']) do
+        if stresslevel >= v.min and stresslevel <= v.max then
+            retval = v.intensity
+            break
+        end
+    end
+    return retval
+end
+
 CreateThread(function()
-	while true do
+    local def = Config.DefaultHudSettings
+	while def.activeHunger or def.activeThirst do
 		local ped = PlayerPedId()
 		local health = GetEntityHealth(ped)
 
 		if health > 101 and client.load then
-			if PlayerData.hunger >= 10 and PlayerData.hunger <= 20 then
-				SetFlash(0,0,500,1000,500)
-				SetEntityHealth(ped,health-1)
-			elseif PlayerData.hunger <= 9 then
-				SetFlash(0,0,500,1000,500)
-				SetEntityHealth(ped,health-2)
-			end
+            if def.activeHunger then
+                if PlayerData.hunger >= 10 and PlayerData.hunger <= 20 then
+                    SetFlash(0,0,500,1000,500)
+                    SetEntityHealth(ped,health-1)
+                elseif PlayerData.hunger <= 9 then
+                    SetFlash(0,0,500,1000,500)
+                    SetEntityHealth(ped,health-2)
+                end
+            end
 
-			if PlayerData.thirst >= 10 and PlayerData.thirst <= 20 then
-				SetFlash(0,0,500,1000,500)
-				SetEntityHealth(ped,health-1)
-			elseif PlayerData.thirst <= 9 then
-				SetFlash(0,0,500,1000,500)
-				SetEntityHealth(ped,health-2)
-			end
+            if def.activeThirst then
+                if PlayerData.thirst >= 10 and PlayerData.thirst <= 20 then
+                    SetFlash(0,0,500,1000,500)
+                    SetEntityHealth(ped,health-1)
+                elseif PlayerData.thirst <= 9 then
+                    SetFlash(0,0,500,1000,500)
+                    SetEntityHealth(ped,health-2)
+                end
+            end
+
+            if def.activeStress and PlayerData.stress then
+                if PlayerData.stress >= 100 then
+                    local ShakeIntensity = GetShakeIntensity(PlayerData.stress)
+                    local FallRepeat = math.random(2, 4)
+                    local RagdollTimeout = (FallRepeat * 1750)
+                    ShakeGameplayCam('SMALL_EXPLOSION_SHAKE', ShakeIntensity)
+                    SetFlash(0, 0, 500, 3000, 500)
+
+                    if not IsPedRagdoll(ped) and IsPedOnFoot(ped) and not IsPedSwimming(ped) then
+                        SetPedToRagdollWithFall(ped, RagdollTimeout, RagdollTimeout, 1, GetEntityForwardVector(ped), 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+                    end
+
+                    Wait(500)
+                    for i=1, FallRepeat, 1 do
+                        Wait(750)
+                        DoScreenFadeOut(200)
+                        Wait(1000)
+                        DoScreenFadeIn(200)
+                        ShakeGameplayCam('SMALL_EXPLOSION_SHAKE', ShakeIntensity)
+                        SetFlash(0, 0, 200, 750, 200)
+                    end
+                elseif PlayerData.stress >= 50 then
+                    local ShakeIntensity = GetShakeIntensity(PlayerData.stress)
+                    ShakeGameplayCam('SMALL_EXPLOSION_SHAKE', ShakeIntensity)
+                    SetFlash(0, 0, 500, 2500, 500)
+                end
+            end
 		end
 		Wait(5000)
 	end

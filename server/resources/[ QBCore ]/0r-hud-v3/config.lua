@@ -9,6 +9,11 @@ Config = {}
 Config.DefaultHudSettings   = {
     ---@type BarStyle
     bar_style = 'hexagon-w',
+    -- center | hud
+    logoPos = "center",
+    activeHunger = true,
+    activeThirst = true,
+    activeStress = true,
     --[[ Places all bar types in a new order. ]]
     is_res_style_active = true,
     vehicle_hud_style = 4,
@@ -34,10 +39,10 @@ Config.DefaultHudSettings   = {
             -- Show online players on client_info
             showOnlinePlayers = false,
         },
-        bank = { active = false },
+        bank = { active = true },
         cash = { active = false },
         job = { active = true },
-        player_source = { active = false },
+        player_source = { active = true },
         radio = { active = true },
         time = { active = false },
         weapon = { active = true },
