@@ -92,6 +92,21 @@ local function getUserJob(user_id)
     return job, permiss
 end
 
+-- Nome inteiro do personagem
+---@param data table<string | string>
+---@return string
+local function getFullName(data)
+    local name = data.name or data.Name or data.nome
+    local surname = data.name2 or data.firstname or data.Lastname or data.sobrenome
+    if name then
+        if surname then
+            return name.." "..surname
+        end
+        return name
+    end
+    return "Individuo Indigente"
+end
+
 -- Pegar informaçoes de um personagem
 --- @param id number -- ID do personagem
 --- @param data? table<string | string> -- Informaçoes do personagem
@@ -104,7 +119,7 @@ function GetCharacter(id, data)
     return {
         id = id,
         skin = skin,
-        name = (result.name or result.Name).." "..(result.name2 or result.firstname or result.Lastname),
+        name = getFullName(result),
         job = job,
         permiss = permiss,
         bank = result.bank or result.Bank or vRP.getBankMoney(id),
