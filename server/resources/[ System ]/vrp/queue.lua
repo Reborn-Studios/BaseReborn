@@ -64,7 +64,9 @@ local function getPriority()
 	local pList = vRP.query("vRP/get_priorityqueue")
 
 	for i = 1,#pList do
-		priorityUsers[pList[i].identifier] = pList[i].priority
+		if pList[i].identifier then
+			priorityUsers[pList[i].identifier] = pList[i].priority
+		end
 	end	
 
 	return priorityUsers
