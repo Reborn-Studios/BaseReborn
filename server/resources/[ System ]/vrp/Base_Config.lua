@@ -49,7 +49,7 @@ end
 
 Reborn.multi_personagem = function()
     return {
-        ['Enabled'] = true,
+        ['Enabled'] = true,             -- Caso desativar, OBRIGATORIO dar WIPE
         ['Max_personagens'] = 1         -- Quantidade de personagens que todos conseguerem criar
     }                                   -- Para aumentar de player especifico: Banco de dados > accounts > chars
 end
@@ -157,7 +157,6 @@ Reborn.changeIdentifier = function()
         ['Comando'] = "mudarid",
         ['Tabelas'] = {
             -- # Tabela - Identificador
-            ['hud-data'] = "identifier",
             ['ld_orgs_daily'] = "user_id",
             ['ld_orgs_monthly'] = "user_id",
             ['ox_inventory'] = "owner",
@@ -215,7 +214,6 @@ Reborn.segurity_code = function()
             'will_jobs',
             'ox_inventory',
             'ld_tunners',
-            'hud-data',
             'cloakrooms',
             'user_bans',
             'ld_orgs',

@@ -773,7 +773,7 @@ AddEventHandler("queue:playerConnecting",function(source,ids,name,setKickReason,
         local user_id = vRP.getUserIdByIdentifiers(source,ids)
         if user_id then
             if not rows[1] or not rows[1].banned then
-                if rows[1] and rows[1].whitelist then 
+                if not GlobalState['Basics']['Whitelist'] or (rows[1] and rows[1].whitelist) then
                     deferrals.done()
                 else
                     deferrals.done(languages['whitelist'].."\n[ID: "..user_id.." ]")
