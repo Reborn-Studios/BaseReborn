@@ -1,6 +1,7 @@
 Tunnel = module("vrp","lib/Tunnel")
 Proxy = module("vrp","lib/Proxy")
 vRP = Proxy.getInterface("vRP")
+Reborn = Proxy.getInterface("Reborn")
 
 -----##########################################################-----
 --###          CONFIGS
@@ -18,7 +19,7 @@ Config.Debug = false
 -- ####################
 
 -- Habilitar multi character (Caso mude após criar personagens, é aconselhavel deletar todos)
-Config.EnableMultichar = true
+Config.EnableMultichar = Reborn.multi_personagem()["Enabled"]
 
 -- Coordenadas na escolha do personagem
 Config.MulticharDefaultCoords = vector4(-609.92,-134.14,39.01,155.01)

@@ -308,12 +308,8 @@ end
 -- PLAYERSPAWNED
 -----------------------------------------------------------------------------------------------------------------------------------------
 local multiChar = Reborn.multi_personagem()["Enabled"]
-local spawnEvent = multiChar and "baseModule:idLoaded" or "vRP:playerSpawn"
 
-RegisterServerEvent(spawnEvent)
-AddEventHandler(spawnEvent,function(source,user,model)
-	local user_id = parseInt(user)
-	if not user_id then return end
+local function playerConnect(source, user_id, model)
 	if vRP.rusers[user_id] == nil then
 		local playerData = vRP.getUData(parseInt(user_id),"Datatable")
 		local resultData = json.decode(playerData) or {}
@@ -387,4 +383,19 @@ AddEventHandler(spawnEvent,function(source,user,model)
 		end
 		print("O jogador "..user_id.." tentou se conectar em duas contas.")
 	end
+end
+
+RegisterServerEvent("baseModule:idLoaded")
+AddEventHandler("baseModule:idLoaded",function(source,user,model)
+	local user_id = parseInt(user)
+	if not user_id then return end
+	playerConnect(source, user_id, model)
 end)
+
+if not multiChar then
+	RegisterServerEvent("vRP:playerSpawn")
+	AddEventHandler("vRP:playerSpawn",function(user_id,source,firstspawn,model)
+		if not user_id then return end
+		playerConnect(source, parseInt(user_id), model)
+	end)
+end

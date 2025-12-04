@@ -156,6 +156,8 @@ function CheckForCreateCharacter(source)
     local result = QueryConsult("will_creator_v2/countChars",{ identifier = identifier })
     if result and result[1] then
         maxValue = parseInt(result[1].chars)
+    else
+        maxValue = Reborn.multi_personagem()["Max_personagens"]
     end
     if #Chars > 0 and #Chars >= maxValue then
         TriggerClientEvent("Notify",source,"negado","Você atingiu o limite de personagens.",5000)
@@ -190,7 +192,7 @@ function PlayCharacter(source,user_id,gender)
     elseif Config.EnableMultichar then
         TriggerEvent("baseModule:idLoaded", source, user_id, gender)
     else
-        TriggerEvent("vRP:playerSpawn", user_id, source)
+        TriggerEvent("vRP:playerSpawn", user_id, source, nil, gender)
     end
     -- Ativar hud
     TriggerClientEvent("hudActived",source,true)
