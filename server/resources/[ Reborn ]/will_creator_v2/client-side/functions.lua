@@ -34,6 +34,7 @@ CreateThread(function()
             if Config.EnableMultichar then
                 CharacterSelect()
             else
+                Wait(2000)
                 PlayCharacter()
             end
             break

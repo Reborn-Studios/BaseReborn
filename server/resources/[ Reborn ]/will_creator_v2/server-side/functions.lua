@@ -9,10 +9,16 @@ vRPC = Tunnel.getInterface("vRP")
 ---@param source number
 ---@return number
 function GetUserId(source)
+    local UserId = nil
     if Config.Base == "cn" then
-		return vRP.Passport(source)
+		UserId = vRP.Passport(source)
+    else
+        UserId = vRP.getUserId(source)
     end
-    return vRP.getUserId(source)
+    if not UserId and not Config.EnableMultichar then
+        UserId = vRP.getUserIdByIdentifiers(source,GetPlayerIdentifiers(source))
+    end
+    return UserId
 end
 
 -- Source atraves do ID
