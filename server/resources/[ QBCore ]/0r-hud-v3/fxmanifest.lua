@@ -29,7 +29,3 @@ files {
 }
 
 dependencies { 'ox_lib', 'xsound' }
-
-server_scripts {
-	--[[server.lua]]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            'server/utils/.mocks.js',
-}
