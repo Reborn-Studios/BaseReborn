@@ -107,6 +107,7 @@ end)
 
 -- Entrar de Paisana quando relogar
 AddEventHandler("vRP:playerSpawn",function(user_id,source)
+    Wait(1000)
     for Index,data in pairs(Config.data) do
         for k,v in pairs(data.groups) do
             if vRP.hasGroup(user_id,v.group) then
