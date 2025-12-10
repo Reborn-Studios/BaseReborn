@@ -550,12 +550,6 @@ CreateThread(function()
 			TriggerEvent("cancelando",false)
 		end
 		RemovePickups(PlayerId())
-		-- REMOVE WEAPONED PED
-		for _,nped in pairs(GetGamePool('CPed')) do
-			if not IsPedAPlayer(nped) and IsPedArmed(nped,4) then
-				DeletePed(nped)
-			end
-		end
 		Wait(timeDistance)
 	end
 end)
