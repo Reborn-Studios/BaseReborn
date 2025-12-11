@@ -8,16 +8,17 @@ local spawnedVehs = {}
 local indexConce = nil
 local loadedVeh = false
 local inTestDrive = false
+local ConceVehicles = config.veiculos
 
 local function loadVehicles()
     local AllVehicles = {}
     local AllVehicleModels = GetAllVehicleModels()
     for k,v in pairs(AllVehicleModels) do
-        for category, models in pairs(config.veiculos) do
+        for category, models in pairs(ConceVehicles) do
             if not AllVehicles[category] then AllVehicles[category] = {} end
             for model, _ in pairs(models) do
                 if string.lower(v) == string.lower(model) then
-                    AllVehicles[category][v] = config.veiculos[category][model]
+                    AllVehicles[category][v] = ConceVehicles[category][model]
                 end
             end
         end
@@ -41,6 +42,7 @@ Citizen.CreateThread(function()
                     -- init_cam(config.conce[indexConce].camCoord)
                     TriggerServerEvent('will_conce_v2:join_dimesion')
                     SetNuiFocus(true,true)
+                    ConceVehicles = config.conce[indexConce].vehicles or config.veiculos
                     SendNUIMessage({
                         action = "show",
                         ip = config.ip,
@@ -172,7 +174,7 @@ RegisterNUICallback('load_vehicle',function(data,cb)
             SetVehicleWindowTint(nveh,1)
             SetVehicleDirtLevel(nveh,0.0)
 
-            init_cam(config.conce[indexConce].camCoord)
+            init_cam(indexConce)
 
             local horsePower = math.ceil(GetVehicleHandlingFloat(nveh,'CHandlingData','fInitialDriveMaxFlatVel') * GetVehicleHandlingFloat(nveh,'CHandlingData','fInitialDriveForce') * 10)
             local vehMass = math.floor(GetVehicleHandlingFloat(nveh,'CHandlingData','fMass'))
@@ -184,9 +186,9 @@ RegisterNUICallback('load_vehicle',function(data,cb)
                 vehMass = tostring(vehMass).."KG"
             end
             local seats = GetVehicleModelNumberOfSeats(mhash)
-            local name = config.veiculos[category] and config.veiculos[category][model] and config.veiculos[category][model].nome or model
-            local price = config.veiculos[category] and config.veiculos[category][model] and config.veiculos[category][model].valor or 5000
-            local chest = config.veiculos[category] and config.veiculos[category][model] and config.veiculos[category][model].peso or 40
+            local name = ConceVehicles[category] and ConceVehicles[category][model] and ConceVehicles[category][model].nome or model
+            local price = ConceVehicles[category] and ConceVehicles[category][model] and ConceVehicles[category][model].valor or 5000
+            local chest = ConceVehicles[category] and ConceVehicles[category][model] and ConceVehicles[category][model].peso or 40
             cb({
                 horsePower = horsePower,
                 initialDrive = acelerationTime,
@@ -194,7 +196,7 @@ RegisterNUICallback('load_vehicle',function(data,cb)
                 nome = name,
                 seats = seats,
                 price = price,
-                vip = config.veiculos[category] and config.veiculos[category][model] and config.veiculos[category][model].vip,
+                vip = ConceVehicles[category] and ConceVehicles[category][model] and ConceVehicles[category][model].vip,
                 chest = chest
             })
         end
@@ -254,7 +256,7 @@ function fix()
         while freeCam do
             drawTxt("~g~[H]~w~ para voltar",4,0.5,0.93,0.50,255,255,255,120)
             if IsControlJustPressed(0,74) then
-                init_cam(config.conce[indexConce].camCoord)
+                init_cam(indexConce)
                 SetNuiFocus(true,true)
                 freeCam = false
             end
@@ -263,7 +265,8 @@ function fix()
     end)
 end
 
-init_cam = function(coord)
+init_cam = function(indexConce)
+    local coord = config.conce[indexConce].camCoord
     if cam and (DoesCamExist(cam)) then
         RenderScriptCams(false, false, 0, true, false)
         DestroyCam(cam, false)
@@ -271,7 +274,7 @@ init_cam = function(coord)
     end
 	cam = CreateCam("DEFAULT_SCRIPTED_CAMERA",true)
 	SetCamCoord(cam,coord.x,coord.y,coord.z+1)
-    PointCamAtCoord(cam,coord.x,coord.y,coord.z+1)
+    PointCamAtCoord(cam,config.conce[indexConce].spaw_vehicle.x,config.conce[indexConce].spaw_vehicle.y,config.conce[indexConce].spaw_vehicle.z+1)
 	SetCamActive(cam,true)
     SetCamRot(cam,350.0,0.0,0.0,1)
 	RenderScriptCams(true,false,cam,false,false)

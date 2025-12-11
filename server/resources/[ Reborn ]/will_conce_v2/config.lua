@@ -30,7 +30,25 @@ config.conce = {
         testeDrive = vec3(-17.17,-1079.76,26.68),           -- LOCAL ONDE IRA CRIAR O VEICULO DE TEST DRIVE
         testeDriveHeading = 134.07,                         -- DIREÇÃO QUE O VEICULO DO TESTE DRIVE SERA CRIADO
         testDriveDuracao = 30,                              -- TEMPO DE DURAÇÃO DO TESTE DRIVE
+        vehicles = config.veiculos
     },
+    [2] = {
+        coord = vec3(-775.3,-1362.2,5.01),
+        spaw_vehicle = vec4(-754.41,-1385.17,0.42,145.75),
+        camCoord = vec3(-761.24,-1372.05,3.84),
+        testeDrive = vec3(-754.41,-1385.17,0.42),
+        testeDriveHeading = 145.75,
+        testDriveDuracao = 30,
+        vehicles = {
+            ['boats'] = {
+                ["marquis"] = {  nome = 'Marquis', valor = 400000, peso = 60 },
+                ["seashark"] = {  nome = 'Sea Shark', valor = 280000, peso = 60 },
+                ["predator"] = {  nome = 'Predator', valor = 350000, peso = 60 },
+                ["dinghy"] = {  nome = 'Dinghy', valor = 470000, peso = 60 },
+                ["squalo"] = {  nome = 'Squalo', valor = 420000, peso = 60 },
+            }
+        }
+    }
 }
 
 config.veiculos = {
