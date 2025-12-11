@@ -218,8 +218,8 @@ AddEventHandler("playerDropped",function()
     local health = GetEntityHealth(ped)
     local armour = GetPedArmour(ped)
     local coords = GetEntityCoords(ped)
-	GlobalState["OnlinePlayers"] = GlobalState["OnlinePlayers"] - 1
 	vRP.rejoinServer(source,health,armour,coords)
+	GlobalState["OnlinePlayers"] = GlobalState["OnlinePlayers"] - 1
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- KICK
@@ -241,31 +241,28 @@ end
 function vRP.rejoinServer(source,health,armour,coords)
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		local identity = vRP.getUserIdentity(user_id)
-		if identity then
-			if health then
-				vRP.user_tables[user_id].health = health
-			end
-			if armour then
-				vRP.user_tables[user_id].armour = armour
-			end
-			if coords then
-				vRP.user_tables[user_id].position = { x = coords.x, y = coords.y, z = coords.z }
-			end
-			TriggerEvent("vRP:playerLeave",user_id,source)
-			TriggerEvent("playerDisconnect",user_id,source)
-			TriggerEvent("Disconnect",user_id,source)
-			TriggerEvent("esx:playerLogout",source)
-			vRP.setUData(user_id,"Datatable",json.encode(vRP.user_tables[user_id]))
-			local Player = QBCore.Functions.GetPlayer(source)
-			if Player then
-				Player.Functions.Logout()
-			end
-			vRP.rusers[user_id] = nil
-			vRP.users[source] = nil
-			vRP.user_sources[user_id] = nil
-			vRP.user_tables[user_id] = nil
+		if health then
+			vRP.user_tables[user_id].health = health
 		end
+		if armour then
+			vRP.user_tables[user_id].armour = armour
+		end
+		if coords then
+			vRP.user_tables[user_id].position = { x = coords.x, y = coords.y, z = coords.z }
+		end
+		TriggerEvent("vRP:playerLeave",user_id,source)
+		TriggerEvent("playerDisconnect",user_id,source)
+		TriggerEvent("Disconnect",user_id,source)
+		TriggerEvent("esx:playerLogout",source)
+		vRP.setUData(user_id,"Datatable",json.encode(vRP.user_tables[user_id]))
+		local Player = QBCore.Functions.GetPlayer(source)
+		if Player then
+			Player.Functions.Logout()
+		end
+		vRP.rusers[user_id] = nil
+		vRP.users[source] = nil
+		vRP.user_sources[user_id] = nil
+		vRP.user_tables[user_id] = nil
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
