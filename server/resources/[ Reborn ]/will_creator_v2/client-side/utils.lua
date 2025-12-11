@@ -148,8 +148,8 @@ function GetMaxValues(disabled)
 
 	for k,v in pairs(Variations) do
         if v["type"] == "variation" then
-            MaxModels[k]["item"] = GetNumberOfPedDrawableVariations(ped,v["id"]) - 1
-            MaxModels[k]["texture"] = GetNumberOfPedTextureVariations(ped,v["id"],GetPedDrawableVariation(ped,v["id"])) - 1
+            MaxModels[k]["item"] = GetNumberOfPedDrawableVariations(ped,v["id"])
+            MaxModels[k]["texture"] = GetNumberOfPedTextureVariations(ped,v["id"],GetPedDrawableVariation(ped,v["id"]))
 
             if MaxModels[k]["texture"] <= 0 then
                 MaxModels[k]["texture"] = 0

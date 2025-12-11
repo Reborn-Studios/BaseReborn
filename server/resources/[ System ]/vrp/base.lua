@@ -364,10 +364,9 @@ local function playerConnect(source, user_id, model)
 			vRP.execute("vRP/update_characters",{ id = parseInt(user_id), registration = vRP.generateRegistrationNumber(), phone = vRP.generatePhoneNumber() })
 		end
         vRP.setUData(user_id,"Datatable",json.encode(vRP.user_tables[user_id]))
-		if multiChar then
-			TriggerEvent("vRP:playerSpawn",user_id,source,true)
-			TriggerEvent("playerConnect",user_id,source,true)
-		end
+
+		TriggerEvent("vRP:playerSpawn",user_id,source,true)
+		TriggerEvent("playerConnect",user_id,source,true)
 		TriggerClientEvent("hudActived",source,true)
 		TriggerClientEvent("hud:Active",source,true)
 
@@ -390,8 +389,8 @@ AddEventHandler("baseModule:idLoaded",function(source,user,model)
 end)
 
 if not multiChar then
-	RegisterServerEvent("vRP:playerSpawn")
-	AddEventHandler("vRP:playerSpawn",function(user_id,source,firstspawn,model)
+	RegisterServerEvent("will_creator_v2:playerSpawn")
+	AddEventHandler("will_creator_v2:playerSpawn",function(user_id,source,model)
 		if not user_id then return end
 		playerConnect(source, parseInt(user_id), model)
 	end)

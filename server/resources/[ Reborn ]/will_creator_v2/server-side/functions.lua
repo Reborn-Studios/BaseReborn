@@ -198,7 +198,7 @@ function PlayCharacter(source,user_id,gender)
     elseif Config.EnableMultichar then
         TriggerEvent("baseModule:idLoaded", source, user_id, gender)
     else
-        TriggerEvent("vRP:playerSpawn", user_id, source, nil, gender)
+        TriggerEvent("will_creator_v2:playerSpawn", user_id, source, gender)
     end
     -- Ativar hud
     TriggerClientEvent("hudActived",source,true)
