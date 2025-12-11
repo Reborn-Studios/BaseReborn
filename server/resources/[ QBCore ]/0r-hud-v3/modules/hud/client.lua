@@ -369,6 +369,9 @@ function Hud.CheckRadarDisplay()
     DisplayRadar(false)
     if client.IsPlayerLoaded() and client.uiLoad then
         if not Hud.data.cinematic.show then
+            if LocalPlayer.state.noClip then
+                DisplayRadar(true)
+            end
             if Hud.data.mini_map.onlyInVehicle then
                 if (cache.vehicle and DoesEntityExist(cache.vehicle)) then
                     DisplayRadar(true)

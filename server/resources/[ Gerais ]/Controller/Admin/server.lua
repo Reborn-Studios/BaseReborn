@@ -249,6 +249,7 @@ end)
 function AdmServer.enablaNoclip()
 	local source = source
 	if HasPermission(source,"noclip") then
+		Player(source).state:set("noClip",not Player(source).state.noClip,true)
 		vRPclient.noClip(source)
 	end
 end
