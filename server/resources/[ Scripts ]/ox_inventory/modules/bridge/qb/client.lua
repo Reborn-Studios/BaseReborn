@@ -79,3 +79,9 @@ end)
 AddEventHandler(('__cfx_export_qb-inventory_HasItem'), function(setCB)
 	setCB(hasItem)
 end)
+
+function GetPlayerBank()
+	if not PlayerData.loaded then return 0 end
+	local player = QBCore.Functions.GetPlayerData()
+	return player.money.bank
+end

@@ -81,7 +81,8 @@ function Utils.ItemNotify(data)
 		return
 	end
 
-	SendNUIMessage({action = 'itemNotify', data = data})
+	-- SendNUIMessage({action = 'itemNotify', data = data})
+	TriggerEvent("itensNotify",data[2],data[1].name,data[3],data[1].label)
 end
 
 RegisterNetEvent('ox_inventory:itemNotify', Utils.ItemNotify)

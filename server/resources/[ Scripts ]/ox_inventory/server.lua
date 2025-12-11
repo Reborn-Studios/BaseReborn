@@ -19,6 +19,12 @@ AddEventHandler("ox_inventory:reloadItems", function()
     Items = require 'modules.items.server'
 end)
 
+RegisterNetEvent("will_creator_v2:updateMugshot")
+AddEventHandler("will_creator_v2:updateMugshot", function(mugshot)
+	local source = source
+    TriggerClientEvent("ox_inventory:updateMugshot", source, mugshot)
+end)
+
 ---@param player table
 ---@param data table?
 --- player requires source, identifier, and name

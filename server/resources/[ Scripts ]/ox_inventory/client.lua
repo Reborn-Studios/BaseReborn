@@ -109,6 +109,13 @@ local function closeTrunk()
 	end
 end
 
+local myMugshot = GetResourceKvpString("ox_inventory:mugshot")
+
+RegisterNetEvent("ox_inventory:updateMugshot",function (mugshot)
+	myMugshot = mugshot
+	SetResourceKvp("ox_inventory:mugshot", mugshot)
+end)
+
 local CraftingBenches = require 'modules.crafting.client'
 local Vehicles = lib.load('data.vehicles')
 local Inventory = require 'modules.inventory.client'
@@ -274,12 +281,22 @@ function client.openInventory(inv, data)
     currentInventory = right or defaultInventory
     left.items = PlayerData.inventory
     left.groups = PlayerData.groups
+	left.pdata = {
+		money = Inventory.GetItemCount("dollars"),
+		bank = GetPlayerBank()
+	}
+	left.passport = LocalPlayer.state.Passport
+	left.mugshot = myMugshot
 
     SendNUIMessage({
         action = 'setupInventory',
         data = {
             leftInventory = left,
-            rightInventory = currentInventory
+            rightInventory = currentInventory,
+			ThemeSettings = Prism.ThemeSettings,
+			mouseTrailActive = Prism.mouseTrailActive,
+			Texts = Prism.Texts,
+			UseNativeLabeling = Prism.UseNativeLabeling
         }
     })
 
@@ -332,12 +349,22 @@ RegisterNetEvent('ox_inventory:forceOpenInventory', function(left, right)
 	currentInventory.ignoreSecurityChecks = true
 	left.items = PlayerData.inventory
 	left.groups = PlayerData.groups
+	left.pdata = {
+		money = Inventory.GetItemCount("dollars"),
+		bank = GetPlayerBank()
+	}
+	left.passport = LocalPlayer.state.Passport
+	left.mugshot = myMugshot
 
 	SendNUIMessage({
 		action = 'setupInventory',
 		data = {
 			leftInventory = left,
-			rightInventory = currentInventory
+			rightInventory = currentInventory,
+			ThemeSettings = Prism.ThemeSettings,
+			mouseTrailActive = Prism.mouseTrailActive,
+			Texts = Prism.Texts,
+			UseNativeLabeling = Prism.UseNativeLabeling
 		}
 	})
 end)
@@ -1086,7 +1113,13 @@ RegisterNetEvent('ox_inventory:createDrop', function(dropId, data, owner, slot)
 			else
 				SendNUIMessage({
 					action = 'setupInventory',
-					data = { rightInventory = currentInventory }
+					data = {
+						ThemeSettings = Prism.ThemeSettings,
+						mouseTrailActive = Prism.mouseTrailActive,
+						Texts = Prism.Texts,
+						UseNativeLabeling = Prism.UseNativeLabeling,
+						rightInventory = currentInventory
+					}
 				})
 			end
 		end
@@ -1589,12 +1622,22 @@ RegisterNetEvent('ox_inventory:viewInventory', function(left, right)
     currentInventory.type = 'inspect'
 	left.items = PlayerData.inventory
 	left.groups = PlayerData.groups
+	left.pdata = {
+		money = Inventory.GetItemCount("dollars"),
+		bank = GetPlayerBank()
+	}
+	left.passport = LocalPlayer.state.Passport
+	left.mugshot = myMugshot
 
 	SendNUIMessage({
 		action = 'setupInventory',
 		data = {
 			leftInventory = left,
-			rightInventory = currentInventory
+			rightInventory = currentInventory,
+			ThemeSettings = Prism.ThemeSettings,
+			mouseTrailActive = Prism.mouseTrailActive,
+			Texts = Prism.Texts,
+			UseNativeLabeling = Prism.UseNativeLabeling
 		}
 	})
 end)
