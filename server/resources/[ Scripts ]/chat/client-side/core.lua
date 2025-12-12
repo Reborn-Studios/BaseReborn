@@ -1,8 +1,11 @@
-local ClientState = {
-	["Police"] = true,
-	["Mechanic"] = true,
-	["Paramedic"] = true
-}
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- VRP
+-----------------------------------------------------------------------------------------------------------------------------------------
+local Tunnel = module("vrp","lib/Tunnel")
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- CONNECTION
+-----------------------------------------------------------------------------------------------------------------------------------------
+vSERVER = Tunnel.getInterface("chat")
 
 CreateThread(function()
 	SetTextChatEnabled(false)
@@ -13,21 +16,63 @@ AddEventHandler('__cfx_internal:serverPrint', function(msg)
 	return
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- CHAT
+-- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("Chat",function()
-	if not IsPauseMenuActive() then
-		SetNuiFocus(true,true)
-		SetCursorLocation(0.15,0.36)
-
+local Active = {
+	['Police'] = true,
+	['Paramedic'] = true,
+	['Mechanic'] = true,
+	['Admin'] = true,
+}
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- BLOCK
+-----------------------------------------------------------------------------------------------------------------------------------------
+local Block = {
+	"zap",
+	"macaco",
+	"preto",
+	"arrombado",
+	"viadinho",
+	"urugutango",
+	"gorila",
+	"gorilla",
+	"mongoloide",
+	"bixa",
+	"bicha",
+	"traveco",
+	"veveco",
+	"boiola",
+	"pau",
+	"buceta",
+	"gay",
+	"piranha",
+	"monkey",
+	"vagabunda",
+	"puta",
+	"escroto",
+	"piranha",
+	"pretinho",
+	"escurinho",
+	"negrinho",
+	"piranha"
+}
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- CHATEVENT
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterCommand("ChatEvent",function()
+	if not IsPauseMenuActive() and not LocalPlayer.state.Handcuff and not LocalPlayer.state.Carry and not IsPedReloading(PlayerPedId()) then
 		local Tags = {}
-		for Index,v in pairs(ClientState) do
-			if LocalPlayer["state"][Index] then
-				Tags[#Tags + 1] = Index
+		for Permission,_ in pairs(Active) do
+			if LocalPlayer.state[Permission] then
+				table.insert(Tags,Permission)
 			end
 		end
+		if not LocalPlayer.state.Police then
+			table.insert(Tags,"Ilegal")
+		end
 
-		SendNUIMessage({ Action = "Chat", Data = Tags, Block = Block })
+		SendNUIMessage({ Action = "Chat", Payload = { Tags,Block } })
+		SetNuiFocus(true,true)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -35,55 +80,18 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNetEvent("chat:ClientMessage")
 AddEventHandler("chat:ClientMessage",function(Author,Message,Mode)
-	SendNUIMessage({ Action = "Message", Author = Author, Message = Message, Type = Mode })
-end)
-
-RegisterNetEvent('chatMessage')
-AddEventHandler('chatMessage', function(author, color, text)
-  	SendNUIMessage({ Action = "Message", Author = author, Message = text, Type = Mode })
-end)
-
-RegisterNetEvent('chat:addMessage')
-AddEventHandler('chat:addMessage', function(message)
-	local data = {}
-	if type(message) == 'string' then
-		data.author = ""
-		data.message = message
-	elseif type(message) == "table" then
-		if message.template then
-			data.author = ""
-			data.message = message.template
-		end
-		if message.args then
-			if message.args[2] then
-				data.author = message.args[1]
-				data.message = message.args[2]
-			else
-				data.author = ""
-				data.message = message.args[1]
-			end
-		end
-	end
-	SendNUIMessage({ Action = "Message", Author = data.author, Message = data.message, Type = "CHAT" })
+	SendNUIMessage({ Action = "Message", Payload = { Author,Message,Mode } })
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CHATSUBMIT
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNUICallback("ChatSubmit",function(Data,Callback)
-	SetNuiFocus(false,false)
 	if Data["message"] ~= "" then
 		if Data["message"]:sub(1,1) == "/" then
 			ExecuteCommand(Data["message"]:sub(2))
+			SetNuiFocus(false,false)
 		else
-			local Ped = PlayerPedId()
-			if GetEntityHealth(Ped) > 100 then
-                if #Data["message"] > 255 then
-                    TriggerEvent("Notify","vermelho","Mensagem muito longa.",5000)
-                    return
-                else
-                    TriggerServerEvent("chat:ServerMessage",Data["tag"],Data["message"])
-                end
-			end
+			TriggerServerEvent("chat:ServerMessage",Data.tag,Data.message)
 		end
 	end
 
@@ -92,11 +100,50 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CLOSE
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterNUICallback("close",function(Data,Callback)
+RegisterNUICallback("Close",function(Data,Callback)
 	SetNuiFocus(false,false)
+
 	Callback("Ok")
+end)
+
+RegisterNUICallback("Theme",function(Data,Callback)
+	Callback({
+		shadow = true,
+		main = "7335d8f2",
+		mainText = "#ffffff",
+		common = "#6fc66a",
+		rare = "#6ac6c5",
+		epic = "#c66a75",
+		legendary = "#c6986a",
+		accept = {
+			letter = "#dcffe9",
+			background = "#3fa466"
+		},
+		reject = {
+			letter = "#ffe8e8",
+			background = "#ad4443"
+		},
+		chat = {
+			Police = {
+				background = "#16468b",
+				letter = "#ffffff"
+			},
+			Paramedic = {
+				background = "#c127cf",
+				letter = "#ffffff"
+			},
+			Mechanic = {
+				background = "#d4780f",
+				letter = "#ffffff"
+			},
+			Ilegal = {
+				background = "#3b3b3b",
+				letter = "#ffffff"
+			}
+		},
+	})
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- KEYMAPPING
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterKeyMapping("Chat","Abrir o chat.","keyboard","T")
+RegisterKeyMapping("ChatEvent","Abrir o chat.","keyboard","T")

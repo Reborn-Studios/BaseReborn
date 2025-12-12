@@ -15,11 +15,5 @@ server_scripts {
 }
 
 files {
-	"web-side/*",
-	"web-side/**/*"
-}
-
-shared_scripts {
-	-- "@vrp/config/Global.lua",
-	"shared-side/*"
+	"web-side/*"
 }
