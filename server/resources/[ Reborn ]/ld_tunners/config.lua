@@ -31,15 +31,19 @@ Config.Settings = {
         applyBonus = 0.5, -- Bônus de pagamento para ordens de serviço
         applyPermission = "mecanico.permissao", -- Permissão necessária para aceitar ordens de serviço
         expireTime = 3 -- Tempo em dias para remover as ordens que não foram utilizadas, do banco.
-    }
+    },
+
+    enableRepair = true, -- Ativar sistema de reparo
 }
 
 Config.Menus = {
     upgrades = {
-        brakes = { basePrice = 5000, increaseBy = 500 }, -- caso não queira que requisite um item, basta apagar esse parâmetro, igual os exemplos abaixo.
+        brakes = { basePrice = 5000, increaseBy = 500, --[[ item = "brakes" ]] }, -- caso não queira que requisite um item, basta apagar esse parâmetro, igual os exemplos abaixo.
         transmission = { basePrice = 5000, increaseBy = 500 },
         suspension = { basePrice = 5000, increaseBy = 500 },
         engine = { basePrice = 5000, increaseBy = 500 },
+        armor = { basePrice = 5000, increaseBy = 500, enabled = true }, -- caso queira desativar a blindagem de lataria, basta mudar o enabled para false
+        armor_tyre = { basePrice = 5000, enabled = true }, -- caso queira desativar a blindagem de pneu, basta mudar o enabled para false
         turbo = { basePrice = 5000, enabled = true }, -- caso queira desativar a tunagem de turbo, basta mudar o enabled para false
     },
     customization = {
@@ -95,6 +99,7 @@ Config.Menus = {
         nitro = { basePrice = 15000 },
         popcorn = { basePrice = 15000 },
         popcolor = { basePrice = 20000 },
+        popsound = { basePrice = 20000 },
         wastegate = { basePrice = 30000 },
         purge = { basePrice = 10000 },
     },
@@ -160,5 +165,6 @@ Config.Locale = {
     ["dont_have_item"] = "Você não possui o item necessário",
     ["popnbang_active"] = "Status do pops'N'bangs: %s",
     ["save_cancel"] = "Mudanças canceladas.",
+    ["order_generated"] = "A ordem de serviço foi gerada com sucesso!",
     ["saved"] = "As mudanças foram aplicadas com sucesso!"
 }

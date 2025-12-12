@@ -118,6 +118,7 @@ getVehicleProperties = function(vehicle)
             modHorns = GetVehicleMod(vehicle, 14),
             modSuspension = GetVehicleMod(vehicle, 15),
             modArmor = GetVehicleMod(vehicle, 16),
+            modTyreBurst = GetVehicleTyresCanBurst(vehicle),
             modKit17 = GetVehicleMod(vehicle, 17),
             modTurbo = IsToggleModOn(vehicle, 18),
             modKit19 = GetVehicleMod(vehicle, 19),
@@ -161,7 +162,13 @@ getVehicleProperties = function(vehicle)
 end
 
 setVehicleProperties = function(vehicle, props)
-	if DoesEntityExist(vehicle) and props then
+    
+    if DoesEntityExist(vehicle) and props then
+        SetVehicleModKit(vehicle, 0)
+
+        local colorPrimary, colorSecondary = GetVehicleColours(vehicle)
+        local pearlescentColor, wheelColor = GetVehicleExtraColours(vehicle)
+
         if props.extras then
             for id, enabled in pairs(props.extras) do
                 if enabled then
@@ -171,20 +178,15 @@ setVehicleProperties = function(vehicle, props)
                 end
             end
         end
-        --print(181, props.color1)
-        local colorPrimary, colorSecondary
-        local pearlescentColor, wheelColor
-        if not props.color1 and props.color2 then
-            colorPrimary, colorSecondary = GetVehicleColours(vehicle)
-        elseif not props.pearlescentColor and props.wheelColor then
-            pearlescentColor, wheelColor = GetVehicleExtraColours(vehicle)
-        end
-        SetVehicleModKit(vehicle, 0)
+
         if props.plate then
             SetVehicleNumberPlateText(vehicle, props.plate)
         end
         if props.plateIndex then
             SetVehicleNumberPlateTextIndex(vehicle, props.plateIndex)
+        end
+        if props.modTyreBurst then
+            SetVehicleTyresCanBurst(vehicle, props.modTyreBurst)
         end
         if props.fuelLevel then
             SetVehicleFuelLevel(vehicle, props.fuelLevel + 0.0)
@@ -195,39 +197,55 @@ setVehicleProperties = function(vehicle, props)
         if props.oilLevel then
             SetVehicleOilLevel(vehicle, props.oilLevel)
         end
+
         if props.color1 then
+            local currentPrimary, _ = GetVehicleColours(vehicle)
+            local isCurrentChameleon = currentPrimary > 220
+
             if type(props.color1) == "number" then
                 ClearVehicleCustomPrimaryColour(vehicle)
+                if props.color1 <= 220 then
+                    SetVehicleMod(vehicle, 48, -1, false)
+                    SetVehicleLivery(vehicle, -1)
+                end
                 SetVehicleColours(vehicle, props.color1, colorSecondary)
+                if isCurrentChameleon then
+                    local pearl, wheel = GetVehicleExtraColours(vehicle)
+                    SetVehicleExtraColours(vehicle, pearl, wheel)
+                end
             else
                 SetVehicleCustomPrimaryColour(vehicle, props.color1[1], props.color1[2], props.color1[3])
+                if isCurrentChameleon then
+                    SetVehicleMod(vehicle, 48, -1, false)
+                    SetVehicleLivery(vehicle, -1)
+                end
             end
         end
+
         if props.color2 then
             if type(props.color2) == "number" then
                 ClearVehicleCustomSecondaryColour(vehicle)
-                SetVehicleColours(vehicle, props.color1 or colorPrimary, props.color2)
+                local currentPrimary, _ = GetVehicleColours(vehicle)
+                SetVehicleColours(vehicle, currentPrimary, props.color2)
             else
                 SetVehicleCustomSecondaryColour(vehicle, props.color2[1], props.color2[2], props.color2[3])
             end
         end
-        if props.pearlescentColor then
-            SetVehicleExtraColours(vehicle, props.pearlescentColor, wheelColor)
+
+        if props.pearlescentColor or props.wheelColor then
+            SetVehicleExtraColours(vehicle, props.pearlescentColor or pearlescentColor, props.wheelColor or wheelColor)
         end
+
         if props.interiorColor then
             SetVehicleInteriorColor(vehicle, props.interiorColor)
         end
         if props.dashboardColor then
             SetVehicleDashboardColour(vehicle, props.dashboardColor)
         end
-        if props.wheelColor then
-            SetVehicleExtraColours(vehicle, props.pearlescentColor or pearlescentColor, props.wheelColor)
-        end
         if props.wheels then
             SetVehicleWheelType(vehicle, props.wheels)
         end
         if props.windowTint then
-
             SetVehicleWindowTint(vehicle, props.windowTint)
         end
         if props.windowStatus then
@@ -253,9 +271,6 @@ setVehicleProperties = function(vehicle, props)
         end
         if props.headlightColor then
             SetVehicleHeadlightsColour(vehicle, props.headlightColor)
-        end
-        if props.interiorColor then
-            SetVehicleInteriorColour(vehicle, props.interiorColor)
         end
         if props.wheelSize then
             SetVehicleWheelSize(vehicle, props.wheelSize)
@@ -317,20 +332,11 @@ setVehicleProperties = function(vehicle, props)
         if props.modArmor then
             SetVehicleMod(vehicle, 16, props.modArmor, false)
         end
-        if props.modKit17 then
-            SetVehicleMod(vehicle, 17, props.modKit17, false)
-        end
         if props.modTurbo then
             ToggleVehicleMod(vehicle, 18, props.modTurbo)
         end
-        if props.modKit19 then
-            SetVehicleMod(vehicle, 19, props.modKit19, false)
-        end
         if props.modSmokeEnabled then
             ToggleVehicleMod(vehicle, 20, props.modSmokeEnabled)
-        end
-        if props.modKit21 then
-            SetVehicleMod(vehicle, 21, props.modKit21, false)
         end
         if props.modXenon then
             ToggleVehicleMod(vehicle, 22, props.modXenon)
@@ -416,26 +422,32 @@ setVehicleProperties = function(vehicle, props)
         if props.modWindows then
             SetVehicleMod(vehicle, 46, props.modWindows, false)
         end
-        if props.modKit47 then
-            SetVehicleMod(vehicle, 47, props.modKit47, false)
-        end
         if props.modLivery then
             SetVehicleMod(vehicle, 48, props.modLivery, false)
             SetVehicleLivery(vehicle, props.modLivery)
         end
-        if props.modKit49 then
-            SetVehicleMod(vehicle, 49, props.modKit49, false)
-        end
         if props.liveryRoof then
             SetVehicleRoofLivery(vehicle, props.liveryRoof)
         end
-	end
+    end
 end
 
 RequestAndWaitModel = function(model)
     while not HasModelLoaded(model) do
         RequestModel(model)
         Citizen.Wait(1)
+    end
+end
+
+ShowHud = function(value)
+    TriggerEvent("hudActived",value)
+    DisplayRadar(value)
+    if not value then
+        TriggerEvent("Notify","mechanic","Instruções",[[
+        <b>1.</b> Pressione <b>[BACKSPACE]</b> para sair do menu<br>
+        <b>2.</b> Use as <b>[SETAS]</b> para navegar pelo menu<br>
+        <b>3.</b> Use <b>[CTRL]</b> para ativar o mouse
+        ]],10000)
     end
 end
 

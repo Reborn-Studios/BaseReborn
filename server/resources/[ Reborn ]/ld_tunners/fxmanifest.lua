@@ -4,7 +4,7 @@ lua54 'yes'
 
 author 'Lucca. (luccathereal)'
 description 'https://discord.gg/4YDS7mW6UE'
-version '1.0.1'
+version '2.0.0'
 
 shared_script {
     "@vrp/lib/Utils.lua",

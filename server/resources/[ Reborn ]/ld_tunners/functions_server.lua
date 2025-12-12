@@ -69,14 +69,14 @@ Citizen.CreateThread(function()
     end
 
     GenerateItemOrder = function(source, serial_name)
-        if exports.ox_inventory then
+        if GetResourceState("ox_inventory") == "started" then
             exports.ox_inventory:AddItem(source, "tunning_order", 1, {
                 serial = serial_name, 
                 description = "Ordem de serviço para aplicação de tunagem"
             })
         else
             local generateFunc = (vRP.GenerateItem and vRP.GenerateItem) or (vRP.generateItem and vRP.generateItem) or nil
-            if generateFunc then generateFunc(GetUserId(source), "tunning_order-" .. serial_name, 1, true, false) end
+            if generateFunc ~= nil then generateFunc(GetUserId(source), "tunning_order-" .. serial_name, 1, true, false) end
         end
     end
 
