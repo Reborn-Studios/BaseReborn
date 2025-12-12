@@ -63,7 +63,7 @@ function getUserCashAmount(source)
     if framework == 'ESX' then
         return playerData.getMoney()
     elseif framework == 'QBCore' then
-        return playerData.PlayerData.money.cash
+        return playerData.Functions.GetMoney("cash")
     end
 end
 
