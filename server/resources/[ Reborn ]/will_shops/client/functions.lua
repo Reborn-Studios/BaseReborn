@@ -18,13 +18,32 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- MAIN THREADS
 -----------------------------------------------------------------------------------------------------------------------------------------
+local function getClosestBlip()
+	local ped = PlayerPedId()
+	local coords = GetEntityCoords(ped)
+	local closestBlip = nil
+	local closestDistance = 6.0
+	for k,v in pairs(allShops) do
+		local jobDis = #(coords - v['job_coords']) < closestDistance
+		local shopDis = #(coords - v['buy_products_coords']) < closestDistance
+		local managmentDis = #(coords - v['managment_coords']) < closestDistance
+		if shopDis or managmentDis or jobDis then
+			closestDistance = shopDis and #(coords - v['buy_products_coords']) or managmentDis and #(coords - v['managment_coords']) or jobDis and #(coords - v['job_coords'])
+			closestBlip = k
+		end
+	end
+	return closestBlip
+end
+
 CreateThread(function()
 	SetNuiFocus(false, false)
 	while true do
 		local timeDistance = 500
 		local ped = PlayerPedId()
 		local coords = GetEntityCoords(ped)
-		for k,v in pairs(allShops) do
+		local closestShop = getClosestBlip()
+		if closestShop then
+			local v = allShops[closestShop]
 			local managmentDis = #(coords - v['managment_coords'])
 			local shopDis = #(coords - v['buy_products_coords'])
 			local jobDis = #(coords - v['job_coords'])
@@ -32,29 +51,29 @@ CreateThread(function()
 				timeDistance = 4
 				DrawText3D(v['managment_coords'].x,v['managment_coords'].y,v['managment_coords'].z,"~g~[E]~w~ Gerenciamento")
 				if IsControlJustPressed(0,38) then
-					openManagment(k)
+					openManagment(closestShop)
 				end
 			elseif shopDis <= 6.0 then
 				timeDistance = 4
-				if k:find("Conveniencia") then
+				if closestShop:find("Conveniencia") then
 					DrawBase3D(v['buy_products_coords'].x,v['buy_products_coords'].y,v['buy_products_coords'].z,"department")
-				elseif k:find("Ammunation") then
+				elseif closestShop:find("Ammunation") then
 					DrawBase3D(v['buy_products_coords'].x,v['buy_products_coords'].y,v['buy_products_coords'].z,"ammunation")
 				else
 					DrawText3D(v['buy_products_coords'].x,v['buy_products_coords'].y,v['buy_products_coords'].z,"~g~[E]~w~ Abrir loja")
 				end
-				if IsControlJustPressed(0,38) then
+				if IsControlJustPressed(0,38) and shopDis <= 2 then
 					if GetResourceState("ox_inventory") ~= "started" then
-						openShop(k)
+						openShop(closestShop)
 					else
-						exports.ox_inventory:openInventory('shop', { type = k, id = 1 })
+						exports.ox_inventory:openInventory('shop', { type = closestShop, id = 1 })
 					end
 				end
 			elseif jobDis <= 2.0 then
 				timeDistance = 4
 				DrawText3D(v['job_coords'].x,v['job_coords'].y,v['job_coords'].z,"~g~[E]~w~ Emprego")
 				if IsControlJustPressed(0,38) then
-					checkShopJobs(k)
+					checkShopJobs(closestShop)
 				end
 			end
 		end
