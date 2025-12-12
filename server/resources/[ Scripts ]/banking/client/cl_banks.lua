@@ -42,15 +42,15 @@ end)
 
 CreateThread(function()
   for i = 1, #Config.bankLocations.COORDS, 1 do
-    local blip = AddBlipForCoord(Config.bankLocations.COORDS[i])
-    SetBlipSprite(blip, Config.bankLocations.BLIPSPRITE)
-    SetBlipDisplay(blip, 4)
-    SetBlipScale(blip, Config.bankLocations.BLIPSCALE)
-    SetBlipColour(blip, Config.bankLocations.BLIPCOLOR)
-    BeginTextCommandSetBlipName("STRING")
-    AddTextComponentString(Config.bankLocations.BLIPNAME)
-    EndTextCommandSetBlipName(blip)
-    SetBlipAsShortRange(blip, true)
+    -- local blip = AddBlipForCoord(Config.bankLocations.COORDS[i])
+    -- SetBlipSprite(blip, Config.bankLocations.BLIPSPRITE)
+    -- SetBlipDisplay(blip, 4)
+    -- SetBlipScale(blip, Config.bankLocations.BLIPSCALE)
+    -- SetBlipColour(blip, Config.bankLocations.BLIPCOLOR)
+    -- BeginTextCommandSetBlipName("STRING")
+    -- AddTextComponentString(Config.bankLocations.BLIPNAME)
+    -- EndTextCommandSetBlipName(blip)
+    -- SetBlipAsShortRange(blip, true)
 
     local point = CreatePoint({
       coords = Config.bankLocations.COORDS[i],
