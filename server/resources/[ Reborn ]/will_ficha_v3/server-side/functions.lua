@@ -285,7 +285,7 @@ function will.checkKey()
 				for k,v in pairs(policeResult) do
 					local player = getUserSource(parseInt(v))
 					async(function()
-						TriggerClientEvent("Notify",player,"aviso","Tentativa de fuga da penitenciária.",5000)
+						TriggerClientEvent("Notify",player,"police","Tentativa de fuga da penitenciária.",5000)
 					end)
 				end
 				TriggerClientEvent("Notify",source,"negado","Você falhou.",5000)

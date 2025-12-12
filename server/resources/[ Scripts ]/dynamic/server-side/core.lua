@@ -35,7 +35,7 @@ AddEventHandler("dynamic:EmergencyAnnounceMedic",function()
 			TriggerClientEvent("dynamic:closeSystem",source)
 			local message = vRP.prompt(source,"Mensagem:","")
 			if message then
-				TriggerClientEvent("Notify",-1,"Anuncio Hospital",'<b>'..message.."</b>",15000)
+				TriggerClientEvent("Notify",-1,"ambulance","Anuncio Medico",message,15000)
 			end
 		end
 	end
@@ -52,7 +52,7 @@ AddEventHandler("dynamic:EmergencyAnnounce",function()
 			TriggerClientEvent("dynamic:closeSystem",source)
 			local message = vRP.prompt(source,"Mensagem:","")
 			if message then
-				TriggerClientEvent("Notify",-1,"Anuncio Policial",'<b>'..message.."</b>",30000)
+				TriggerClientEvent("Notify",-1,"police","Anuncio Policial",message,30000)
 			end
 		end
 	end

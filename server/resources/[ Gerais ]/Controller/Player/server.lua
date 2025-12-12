@@ -129,7 +129,7 @@ AddEventHandler("vrp_player:salary",function()
 			local groupSalary = vRP.getSalaryByGroup(k)
 			if groupSalary then
 				vRP.addBank(parseInt(user_id), groupSalary)
-				TriggerClientEvent("Notify",source,"sucesso","Você recebeu seu salario de R$"..groupSalary.." pelo serviço de "..vRP.getGroupTitle(k)..".", 5000)
+				TriggerClientEvent("Notify",source,"payment","Salário","Você recebeu seu salario de R$"..groupSalary.." pelo serviço de "..vRP.getGroupTitle(k)..".", 5000)
 			end
 		end
 	end

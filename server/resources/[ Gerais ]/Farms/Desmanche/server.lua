@@ -72,14 +72,14 @@ function Desmanche.GerarPagamento(placa, nomeFeio, nomeBonito, index)
 			TriggerClientEvent('Notify', nsource, 'aviso', 'Você foi multado em <b>R$' ..multas.. '</b> referente ao seguro do veículo <b>' .. nomeBonito .. ' (' .. nomeFeio .. ')</b>.', 5000)
 		end
 		TriggerClientEvent("vrp_sound:source",source,'coin',0.3)
-		TriggerClientEvent('Notify', source, 'sucesso', 'Você recebeu <b>R$'..vRP.format(pagamento)..'</b> pelo desmanche de um <b>'..nomeBonito..' ('.. nomeFeio..' - PLACA [' .. placa .. '])</b>.', 5000)
+		TriggerClientEvent('Notify', source, 'payment', 'Você recebeu <b>R$'..vRP.format(pagamento)..'</b> pelo desmanche de um <b>'..nomeBonito..' ('.. nomeFeio..' - PLACA [' .. placa .. '])</b>.', 5000)
 		vRP.createWeebHook(Webhooks.hookdesmanche,"```prolog\n[PASSAPORTE]: "..user_id.." \n[NOME]: "..identity.name.." "..identity.name2.." \n[DESMANCHOU]: "..nomeBonito.."  \n[PLACA]: ".. placa .." \n[RECEBEU]: ".. vRP.format(pagamento) .." "..os.date("\n[Data]: %d/%m/%y \n[Hora]: %H:%M:%S").." \r```")
 	elseif not puser_id then			-- Veiculo de NPC
 		for k,v in pairs(Farms.desmanche[index]['Payment']) do
 			vRP.giveInventoryItem(user_id,k,v)
 		end
 		iniciado[index] = false
-		TriggerClientEvent('Notify', source, 'sucesso', 'Você recebeu os materiais pelo desmanche de um <b>'..nomeBonito..' ('.. nomeFeio..' - PLACA [' .. placa .. '])</b>.', 5000)
+		TriggerClientEvent('Notify', source, 'payment', 'Você recebeu os materiais pelo desmanche de um <b>'..nomeBonito..' ('.. nomeFeio..' - PLACA [' .. placa .. '])</b>.', 5000)
 		vRP.createWeebHook(Webhooks.hookdesmanche,"```prolog\n[PASSAPORTE]: "..user_id.." \n[NOME]: "..identity.name.." "..identity.name2.." \n[DESMANCHOU VEICULO NPC]: "..nomeBonito.."  \n[PLACA]: ".. placa .." \n[RECEBEU OS ITENS] "..os.date("\n[Data]: %d/%m/%y \n[Hora]: %H:%M:%S").." \r```")
     end
 end

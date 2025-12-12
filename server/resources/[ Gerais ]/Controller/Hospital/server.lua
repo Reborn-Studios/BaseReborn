@@ -142,9 +142,9 @@ local function getDiagnostic(source,nplayer)
 		end
 
 		if text ~= "" then
-			TriggerClientEvent("Notify",source,"aviso","Status do paciente:<br>" .. text,5000)
+			TriggerClientEvent("Notify",source,"ambulance","Status do paciente:<br>" .. text,5000)
 		elseif not hurt then
-			TriggerClientEvent("Notify",source,"sucesso","Status do paciente:<br>- <b>Nada encontrado</b>",5000)
+			TriggerClientEvent("Notify",source,"ambulance","Status do paciente:<br>- <b>Nada encontrado</b>",5000)
 		end
 		vRP.createWeebHook(Webhooks.webhookdiagnostico,"```prolog\n[ID]: "..user_id.."\n[DIAGNOSTICOU]: "..nplayer.."\n[RESULTADO]: "..text.. " "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
 	end
@@ -179,7 +179,7 @@ local function getTreatment(user_id,nplayer)
 				TriggerClientEvent("resetBleeding",nplayer)
 				TriggerClientEvent("resetDiagnostic",nplayer)
 				vRPclient._stopAnim(source)
-				TriggerClientEvent("Notify",source,"sucesso","O tratamento começou.",5000)
+				TriggerClientEvent("Notify",source,"ambulance","O tratamento começou.",5000)
 				vRP.createWeebHook(Webhooks.webhooktratamento,"```prolog\n[ID]: "..user_id.."\n[DEU TRATAMENTO PARA:]: "..nplayer.." "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
 			end
 		end
@@ -206,9 +206,10 @@ end)
 -- CHECKSERVICES
 -----------------------------------------------------------------------------------------------------------------------------------------
 function HPServer.checkServices()
+	local source = source
 	local amountMedics = vRP.getUsersByPermission("paramedico.permissao")
 	if parseInt(#amountMedics) >= 1 then
-		TriggerClientEvent("Notify",source,"negado","Existem paramédicos em serviço.",5000)
+		TriggerClientEvent("Notify",source,"ambulance","Existem paramédicos em serviço.",5000)
 		return false
 	end
 	return true

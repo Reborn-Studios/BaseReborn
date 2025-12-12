@@ -88,9 +88,10 @@ function buyLootbox(source, lootbox, useCoins)
 end
 
 function giveReward(user_id, level, mode)
+    local source = getUserSource(user_id)
     if mode == 'money' then
         addMoney(user_id, Config.LevelRewards[level].amount)
-        TriggerClientEvent("Notify", source, "sucesso", "Você recebeu R$"..Config.LevelRewards[level].amount..".", 5000)
+        TriggerClientEvent("Notify", source, "payment", "Você recebeu R$"..Config.LevelRewards[level].amount..".", 5000)
     elseif mode == 'weapon' then
         giveInventoryItem(user_id, Config.LevelRewards[level].item, Config.LevelRewards[level].amount)
         TriggerClientEvent("Notify", source, "sucesso", "Você recebeu "..Config.LevelRewards[level].title..".", 5000)

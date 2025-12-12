@@ -71,7 +71,7 @@ function addBank(user_id, amount)
         elseif Config.base == "cn" then
             vRP.GiveBank(user_id, amount)
         end
-        TriggerClientEvent("Notify",nplayer,"sucesso","Dinheiro recebido R$"..amount,5000)
+        TriggerClientEvent("Notify",nplayer,"payment","Dinheiro recebido R$"..amount,5000)
     end
 end
 

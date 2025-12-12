@@ -135,7 +135,7 @@ function giveUserMoney(user_id, money, job)
                 if vipReward > 0 then
                     vRP.addBank(user_id, vipReward)
                     if nplayer then
-                        Config.notify("Você ganhou R$"..vipReward.." de bônus por ser VIP "..group,"sucesso",nplayer)
+                        Config.notify("Você ganhou R$"..vipReward.." de bônus por ser VIP "..group,"payment",nplayer)
                     end
                 end
             end

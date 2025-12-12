@@ -177,7 +177,7 @@ function SvClient.startCure()
 		return
 	end
 	cure = true
-	TriggerEvent("Notify","sucesso","O tratamento começou, espere o paramédico libera-lo.",3000)
+	TriggerEvent("Notify","ambulance","O tratamento começou, espere o paramédico libera-lo.",3000)
 	if cure then
 		local maxHealth = GlobalState['Basics']['MaxHealth'] or 400
 		repeat
@@ -186,7 +186,7 @@ function SvClient.startCure()
 				SetEntityHealth(ped,GetEntityHealth(ped) + 1)
 			end
 		until GetEntityHealth(ped) >= maxHealth or GetEntityHealth(ped) <= 101
-			TriggerEvent("Notify","sucesso","Tratamento concluído.",3000)
+			TriggerEvent("Notify","ambulance","Tratamento concluído.",3000)
 			Death = false
 			cure = false
 			blockControls = false

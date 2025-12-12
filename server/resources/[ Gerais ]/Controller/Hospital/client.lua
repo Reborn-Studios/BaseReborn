@@ -162,10 +162,10 @@ CreateThread(function()
 								end
 							end
 							if checkBusy >= #v.beds then
-								TriggerEvent("Notify","importante","Todas as macas estão ocupadas, aguarde.",5000)
+								TriggerEvent("Notify","ambulance","Todas as macas estão ocupadas, aguarde.",5000)
 							end
 						else
-							TriggerEvent("Notify","negado","Você está bem de saude.",5000)
+							TriggerEvent("Notify","ambulance","Você está bem de saude.",5000)
 						end
 					end
 				end
@@ -206,7 +206,7 @@ AddEventHandler('tratamento-macas',function()
 		SetEntityHealth(PlayerPedId(),GetEntityHealth(PlayerPedId())+3)
 		Wait(1500)
 	until GetEntityHealth(PlayerPedId()) >= maxHealth or GetEntityHealth(PlayerPedId()) <= 101
-	TriggerEvent("Notify","importante","Tratamento concluido.")
+	TriggerEvent("Notify","ambulance","Tratamento concluido.")
 	TriggerEvent("cancelando",false)
 	TriggerEvent("vrp_survival:desbugar")
 end)
@@ -223,7 +223,7 @@ AddEventHandler("tratamento",function()
 	end
 
 	tratamento = true
-	TriggerEvent("Notify","sucesso","Tratamento iniciado, aguarde a liberação do <b>profissional médico.</b>.",8000)
+	TriggerEvent("Notify","ambulance","Tratamento iniciado, aguarde a liberação do <b>profissional médico.</b>.",8000)
 
 	if tratamento then
 		repeat
@@ -232,7 +232,7 @@ AddEventHandler("tratamento",function()
 				SetEntityHealth(ped,GetEntityHealth(ped)+3)
 			end
 		until GetEntityHealth(ped) >= maxHealth or GetEntityHealth(ped) <= 101
-			TriggerEvent("Notify","sucesso","Tratamento concluido.",8000)
+			TriggerEvent("Notify","ambulance","Tratamento concluido.",8000)
 			tratamento = false
 			TriggerEvent("vrp_survival:desbugar")
 	end
