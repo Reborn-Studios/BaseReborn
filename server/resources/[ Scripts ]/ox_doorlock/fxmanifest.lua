@@ -14,6 +14,7 @@ repository   'https://github.com/overextended/ox_doorlock'
 --[[ Manifest ]]--
 shared_scripts {
 	'@ox_lib/init.lua',
+	'@reborn_uipack/init.lua',
 	'config.lua',
 }
 

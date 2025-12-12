@@ -16,6 +16,7 @@ ui_page 'web/index.html'
 
 shared_scripts {
 	'@ox_lib/init.lua',
+	'@reborn_uipack/init.lua',
 }
 
 client_scripts {

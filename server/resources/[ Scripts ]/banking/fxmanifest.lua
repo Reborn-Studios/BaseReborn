@@ -19,7 +19,8 @@ server_scripts {
 shared_scripts {
   'lang.lua',
   'config.lua',
-	'@ox_lib/init.lua'
+	'@ox_lib/init.lua',
+  '@reborn_uipack/init.lua',
 }
 
 files {

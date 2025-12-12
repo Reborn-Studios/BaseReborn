@@ -16,7 +16,10 @@ dependencies {
     'ox_target',
 }
 
-shared_script '@ox_lib/init.lua'
+shared_scripts {
+    '@ox_lib/init.lua',
+    '@reborn_uipack/init.lua',
+}
 
 shared_script 'Config.lua'
 ox_libs {

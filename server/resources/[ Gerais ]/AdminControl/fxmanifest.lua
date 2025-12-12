@@ -12,6 +12,7 @@ dependencies {
 
 shared_scripts {
 	'@ox_lib/init.lua',
+	'@reborn_uipack/init.lua',
 	"@vrp/lib/utils.lua",
 	"Config.lua",
 }

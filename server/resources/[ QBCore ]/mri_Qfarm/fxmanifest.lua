@@ -11,6 +11,7 @@ ox_lib "locale"
 
 shared_scripts {
     "@ox_lib/init.lua",
+    '@reborn_uipack/init.lua',
     "shared/*.lua"
 }
 

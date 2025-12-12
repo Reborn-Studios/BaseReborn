@@ -10,6 +10,7 @@ work_with 'ESX/QB latest version'
 
 shared_scripts {
 	'@ox_lib/init.lua',
+	'@reborn_uipack/init.lua',
 	'config.lua',
 	'shared/init.lua',
 }

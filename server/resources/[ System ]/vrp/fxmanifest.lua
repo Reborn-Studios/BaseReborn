@@ -13,6 +13,7 @@ dependencies {
 
 shared_scripts {
 	'@ox_lib/init.lua',
+	'@reborn_uipack/init.lua',
 	"lib/utils.lua",
 	'locale.lua',
 	'locales/*.lua',

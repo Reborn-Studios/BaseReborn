@@ -11,7 +11,7 @@ Prism.mouseTrailActive = {
 }
 
 Prism.ThemeSettings = {
-    PrimaryColor = '#360a7e',
+    PrimaryColor = '#682bca',
     buttonGradients = {
         gradient = 'linear-gradient(135deg, #A8D342 0%, #9FD558 100%)',
         shadow = 'rgba(154, 205, 50, 0.4)',
