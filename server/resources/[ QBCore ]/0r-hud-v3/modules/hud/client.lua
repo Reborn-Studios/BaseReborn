@@ -19,6 +19,7 @@ local screenResolution = { x = 0, y = 0 }
 local isPauseActive = false
 local oldVehicle = nil
 local isPlayerDeath = false
+local showHud = false
 
 ---Get game active screen resolution and save
 ---@return table ScreenResolution
@@ -367,7 +368,7 @@ end
 -- Radar display or hidden by options
 function Hud.CheckRadarDisplay()
     DisplayRadar(false)
-    if client.IsPlayerLoaded() and client.uiLoad then
+    if client.IsPlayerLoaded() and client.uiLoad and showHud then
         if not Hud.data.cinematic.show then
             if LocalPlayer.state.noClip then
                 DisplayRadar(true)
@@ -427,6 +428,7 @@ end
 -- Sets the visibility of the HUD UI element
 ---@param state boolean visible (true) or hidden (false)
 function Hud.SetVisible(state)
+    showHud = state
     if state then
         Hud.CheckRadarDisplay()
     else
@@ -434,6 +436,11 @@ function Hud.SetVisible(state)
     end
     client.SendReactMessage('ui:setVisible', state)
 end
+
+RegisterNetEvent("hudActived")
+AddEventHandler("hudActived", function(state)
+    Hud.SetVisible(state)
+end)
 
 -- The vehicle gear is updated with data from the `hrsgears` script.
 RegisterNetEvent('0r-hud:Client:SetManualGear', function(newGear)
@@ -592,7 +599,7 @@ end)
 CreateThread(function()
     getScreenResolution()
     while true do
-        if client.load and client.uiLoad then
+        if client.load and client.uiLoad and showHud then
             -- Control Pause Menu
             if IsPauseMenuActive() and not isPauseActive then
                 Hud.SetVisible(false)
