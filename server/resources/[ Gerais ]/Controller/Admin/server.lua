@@ -111,7 +111,7 @@ local function findClosestItem(input)
     local lowestDistance = math.huge
     input = input:lower():gsub("%s+", "")
     for key, item in pairs(GlobalItems) do
-        local itemName = (item.name or key):lower():gsub("%s+", "")
+        local itemName = key:lower():gsub("%s+", "")
         local distance = levenshtein(input, itemName)
 
         if distance < lowestDistance then
