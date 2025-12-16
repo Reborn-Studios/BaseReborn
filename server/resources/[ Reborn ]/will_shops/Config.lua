@@ -128,7 +128,8 @@ local shopsProducts = {
         ["WEAPON_POOLCUE"] = 975,
         ["WEAPON_STONE_HATCHET"] = 975,
         ["WEAPON_KNUCKLE"] = 975,
-        ["WEAPON_FLASHLIGHT"] = 675
+        ["WEAPON_FLASHLIGHT"] = 675,
+        ["WEAPON_SWITCHBLADE"] = 975
     },
     ['Skinshop'] = {
         ["arms"] = 50,
