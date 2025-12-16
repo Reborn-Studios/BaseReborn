@@ -290,8 +290,7 @@ local function setDoorState(id, state, lockpick)
 		end
 
 		if source then
-			lib.notify(source,
-				{ type = 'error', icon = 'lock', description = state == 0 and 'cannot_unlock' or 'cannot_lock' })
+			TriggerClientEvent("Notify",source,"negado",state == 0 and 'Você não pode destrancar essa porta' or 'Você não pode trancar essa porta',5000)
 		end
 	end
 

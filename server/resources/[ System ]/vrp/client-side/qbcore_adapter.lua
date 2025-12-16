@@ -153,7 +153,6 @@ end)
 
 function QBCore.Functions.Notify(text, texttype, length)
     lib.notify({
-        title = 'Notificação',
         description = text,
         type = texttype,
         duration = length
