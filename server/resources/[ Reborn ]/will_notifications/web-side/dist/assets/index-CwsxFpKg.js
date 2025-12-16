@@ -13087,6 +13087,7 @@ const $t = {
   dm = () => !window.invokeNative;
 function mm() {
   const [A, Y] = Cl.useState(null);
+
   return (
     pu("setConfig", (_) => {
       _.debug && console.log("SetConfig"), Y(_);
@@ -13096,7 +13097,17 @@ function mm() {
         const v = await fetch("/config.json").then((p) => p.json());
         Y(v);
       };
-      dm() && _();
+      const __ = async () => {
+        const v = await fetch("http://will_notifications/nuiLoaded", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json; charset=UTF-8",
+          },
+          body: JSON.stringify({ loaded: !0 }),
+        });
+        Y(v);
+      };
+      (dm() && _()) || __();
     }, []),
     A &&
       x.jsxs("div", {
