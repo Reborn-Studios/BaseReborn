@@ -599,7 +599,7 @@ end)
 CreateThread(function()
     getScreenResolution()
     while true do
-        if client.load and client.uiLoad and showHud then
+        if client.load and client.uiLoad then
             -- Control Pause Menu
             if IsPauseMenuActive() and not isPauseActive then
                 Hud.SetVisible(false)
