@@ -27,7 +27,7 @@ RegisterNetEvent('next-flashbang:detonate', function(pos, players, entity)
         if playerPed and DoesEntityExist(playerPed) then
             local playerPos = GetEntityCoords(playerPed, false)
             local distance = #(playerPos - pos)
-            if distance <= Config.FlashbangRadius + 0.0 then
+            if distance <= ConfigFlash.FlashbangRadius + 0.0 then
                 TriggerClientEvent('next-flashbang:flash', id, pos, distance)
             end
         end

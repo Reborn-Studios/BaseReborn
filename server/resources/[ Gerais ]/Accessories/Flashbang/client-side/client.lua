@@ -35,7 +35,7 @@ local function handleFlashbang()
                     Wait(2500)
                     
                     local bangPos = GetEntityCoords(obj)
-                    local nearbyPlayers = getPlayersNearby(bangPos, Config.FlashbangRadius + 0.0)
+                    local nearbyPlayers = getPlayersNearby(bangPos, ConfigFlash.FlashbangRadius + 0.0)
                     local entity = ObjToNet(obj)
 
                     TriggerServerEvent('next-flashbang:detonate', bangPos, nearbyPlayers, entity)
@@ -126,7 +126,7 @@ local function applyFlashbangEffect()
         SetPedIsDrunk(ped, true)
         ShakeGameplayCam('HAND_SHAKE', 5.0)
 
-        Wait(Config.FlashbangDuration * 1000)
+        Wait(ConfigFlash.FlashbangDuration * 1000)
         Incapacitated = false
 
         clearFlashbangEffects(1500)
@@ -171,7 +171,7 @@ RegisterNetEvent('next-flashbang:flash', function(pos, distance)
     local rat = CreatePed(0, `a_c_rat`, pos, 0, false)
     local OnScreen, ScreenX, ScreenY = World3dToScreen2d(pos.x, pos.y, pos.z, 0)
 
-    if distance <= Config.StunRadius + 0.0 then
+    if distance <= ConfigFlash.StunRadius + 0.0 then
         Incapacitated = true
 
         CreateThread(function()
@@ -179,13 +179,13 @@ RegisterNetEvent('next-flashbang:flash', function(pos, distance)
         end)
 
         if not IsPedInAnyVehicle(ped, false) then
-            if Config.RagdollEnabled then
-                local time = Config.RagdollTime * 1000
+            if ConfigFlash.RagdollEnabled then
+                local time = ConfigFlash.RagdollTime * 1000
                 SetPedToRagdoll(ped, time, time, 0)
             end
         end
 
-        if Config.Disarm then
+        if ConfigFlash.Disarm then
             if usingOx then
                 TriggerEvent('ox_inventory:disarm', true)
             else
@@ -193,16 +193,16 @@ RegisterNetEvent('next-flashbang:flash', function(pos, distance)
             end
         end
 
-        if Config.SlowMovement then
-            applyFlashSlowLook(Config.FlashbangDuration * 1000, Config.SlowMovementScale)
+        if ConfigFlash.SlowMovement then
+            applyFlashSlowLook(ConfigFlash.FlashbangDuration * 1000, ConfigFlash.SlowMovementScale)
         end
 
         applyFlashbangEffect()
     elseif HasEntityClearLosToEntityInFront(ped, rat) and OnScreen then
         CreateThread(function()
             ShakeGameplayCam('HAND_SHAKE', 1.0)
-            local scale = math.max(0.0, math.min(1.0, 1 - (distance / Config.FlashbangRadius)))
-            local duration = Config.FlashbangDuration * 1000 * scale
+            local scale = math.max(0.0, math.min(1.0, 1 - (distance / ConfigFlash.FlashbangRadius)))
+            local duration = ConfigFlash.FlashbangDuration * 1000 * scale
 
             playEmote(duration)
 
