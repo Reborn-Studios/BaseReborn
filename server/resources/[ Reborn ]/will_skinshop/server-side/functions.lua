@@ -62,7 +62,7 @@ function tryPayment(payMethod, user_id, price)
             return true
         end
         -- Pagamento de VIP
-        return false
+        return vRP.remGmsId(user_id, price)
     else
         if Config.base == "cn" then
             return vRP.PaymentFull(user_id, price)
