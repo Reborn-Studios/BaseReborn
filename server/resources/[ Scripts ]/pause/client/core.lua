@@ -41,10 +41,7 @@ RegisterNUICallback("Skinweapon",function(Data,Callback)
 	SetNuiFocus(false,false)
 	TransitionFromBlurred(1000)
 	TriggerEvent("hud:Active",true)
-
-	if LocalPlayer["state"]["Admin"] then
-		TriggerEvent("skinweapon:Open")
-	end
+	TriggerEvent("skinweapon:Open")
 
 	Callback("Ok")
 end)
