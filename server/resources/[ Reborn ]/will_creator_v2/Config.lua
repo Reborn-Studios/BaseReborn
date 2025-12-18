@@ -31,7 +31,7 @@ Config.Multichar = {
             "Tenente", "Sub.Tenente", "Sargento", "2Sargento",
             "3Sargento", "Cabo", "Soldado", "Recruta"
         },
-        ['coords'] = vector4(2551.73,-385.34,93.0,219.04),
+        ['coords'] = vector4(142.08,-352.9,43.26,303.2),
         ['anim'] = { ["dict"] = "mp_player_int_uppersalute", ["name"] = "mp_player_int_salute" }
     },
 }
