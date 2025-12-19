@@ -4,6 +4,7 @@ vehFuels = {}
 isFuel = false
 showNui = false
 allShops = GlobalState['Will_Shops'] or {}
+lastVeh = nil
 local gameTimer = GetGameTimer()
 local vehClass = {
 	[13] = 0.0,
@@ -354,8 +355,39 @@ CreateThread(function()
 end)
 
 local fuelTypes = { "prop_gas_pump_1a", "prop_gas_pump_1b", "prop_gas_pump_1c", "prop_gas_pump_1d", "prop_gas_pump_old2", "prop_gas_pump_old3", "prop_vintage_pump" }
+local nozzleDropped = false
+local holdingNozzle = false
+local nozzleInVehicle = false
+local nozzle
+local rope
+local pumpCoords
+local tankBone
+local nozzleBasedOnClass = {
+    0.65, -- Compacts
+    0.65, -- Sedans
+    0.85, -- SUVs
+    0.6, -- Coupes
+    0.55, -- Muscle
+    0.6, -- Sports Classics
+    0.6, -- Sports
+    0.55, -- Super
+    0.12, -- Motorcycles
+    0.8, -- Off-road
+    0.7, -- Industrial
+    0.6, -- Utility
+    0.7, -- Vans
+    0.0, -- Cycles
+    0.0, -- Boats
+    0.0, -- Helicopters
+    0.0, -- Planes
+    0.6, -- Service
+    0.65, -- Emergency
+    0.65, -- Military
+    0.75, -- Commercial
+    0.0 -- Trains
+}
 
-function getClosestShop(coords)
+local function getClosestShop(coords)
 	for shop,v in pairs(allShops) do
 		if v.shopDifference and type(v.shopDifference) == "string" and v.shopDifference == "fuelSystem" then
 			if #(v.buy_products_coords - coords) <= 20 then
@@ -366,6 +398,119 @@ function getClosestShop(coords)
 	return nil
 end
 
+function LoadAnimDict(dict)
+	if not HasAnimDictLoaded(dict) then
+		RequestAnimDict(dict)
+		while not HasAnimDictLoaded(dict) do
+			Wait(1)
+		end
+	end
+end
+
+function PlayEffect(pdict, pname)
+    CreateThread(function()
+        local position = GetOffsetFromEntityInWorldCoords(nozzle, 0.0, 0.28, 0.17)
+        UseParticleFxAssetNextCall(pdict)
+        local pfx = StartParticleFxLoopedAtCoord(pname, position.x, position.y, position.z, 0.0, 0.0, GetEntityHeading(nozzle), 1.0, false, false, false, false)
+        Wait(100)
+        StopParticleFxLooped(pfx, 0)
+    end)
+end
+
+local function vehicleInFront()
+	local ped = PlayerPedId()
+    local offset = GetOffsetFromEntityInWorldCoords(ped, 0.0, 2.0, 0.0)
+	local pedCoords = GetEntityCoords(ped)
+    local rayHandle = CastRayPointToPoint(pedCoords.x, pedCoords.y, pedCoords.z - 1.3, offset.x, offset.y, offset.z, 10, ped, 0)
+    local A, B, C, D, entity = GetRaycastResult(rayHandle)
+    if IsEntityAVehicle(entity) then
+        return entity
+    end
+end
+
+local function grabNozzleFromPump(pump,pumpHandle)
+	local ped = PlayerPedId()
+    LoadAnimDict("anim@am_hold_up@male")
+    TaskPlayAnim(ped, "anim@am_hold_up@male", "shoplift_high", 2.0, 8.0, -1, 50, 0, 0, 0, 0)
+    Wait(300)
+    nozzle = CreateObject(`prop_cs_fuel_nozle`, 0, 0, 0, true, true, true)
+    AttachEntityToEntity(nozzle, ped, GetPedBoneIndex(ped, 0x49D9), 0.11, 0.02, 0.02, -80.0, -90.0, 15.0, true, true, false, true, 1, true)
+    RopeLoadTextures()
+    while not RopeAreTexturesLoaded() do
+        Wait(0)
+    end
+    rope = AddRope(pump.x, pump.y, pump.z, 0.0, 0.0, 0.0, 3.0, 1, 1000.0, 0.0, 1.0, false, false, false, 1.0, true)
+    while not rope do
+        Wait(0)
+    end
+    ActivatePhysics(rope)
+    Wait(50)
+    local nozzlePos = GetEntityCoords(nozzle)
+    nozzlePos = GetOffsetFromEntityInWorldCoords(nozzle, 0.0, -0.033, -0.195)
+    AttachEntitiesToRope(rope, pumpHandle, nozzle, pump.x, pump.y, pump.z + 1.45, nozzlePos.x, nozzlePos.y, nozzlePos.z, 5.0, false, false, nil, nil)
+    nozzleDropped = false
+    holdingNozzle = true
+    nozzleInVehicle = false
+end
+
+local function grabExistingNozzle()
+	local ped = PlayerPedId()
+    AttachEntityToEntity(nozzle, ped, GetPedBoneIndex(ped, 0x49D9), 0.11, 0.02, 0.02, -80.0, -90.0, 15.0, true, true, false, true, 1, true)
+    nozzleDropped = false
+    holdingNozzle = true
+    nozzleInVehicle = false
+end
+
+local function putNozzleInVehicle(vehicle, ptankBone, isBike, dontClear, newTankPosition)
+    if isBike then
+        AttachEntityToEntity(nozzle, vehicle, ptankBone, 0.0 + newTankPosition.x, -0.2 + newTankPosition.y, 0.2 + newTankPosition.z, -80.0, 0.0, 0.0, true, true, false, false, 1, true)
+    else
+        AttachEntityToEntity(nozzle, vehicle, ptankBone, -0.18 + newTankPosition.x, 0.0 + newTankPosition.y, 0.75 + newTankPosition.z, -125.0, -90.0, -90.0, true, true, false, false, 1, true)
+    end
+    if not dontClear and IsEntityPlayingAnim(ped, "timetable@gardener@filling_can", "gar_ig_5_filling_can", 3) then
+        ClearPedTasks(ped)
+    end
+    nozzleDropped = false
+    holdingNozzle = false
+    nozzleInVehicle = true
+end
+
+local function dropNozzle()
+    DetachEntity(nozzle, true, true)
+    nozzleDropped = true
+    holdingNozzle = false
+    nozzleInVehicle = false
+    SendNUIMessage({ fuel = false })
+	showNui = false
+	isFuel = false
+	isPrice = 0
+	litros = 0
+	ClearPedTasks(PlayerPedId())
+end
+
+local function returnNozzleToPump()
+    DeleteEntity(nozzle)
+    RopeUnloadTextures()
+    DeleteRope(rope)
+    nozzleDropped = false
+    holdingNozzle = false
+    nozzleInVehicle = false
+    SendNUIMessage({ fuel = false })
+	showNui = false
+	isFuel = false
+	isPrice = 0
+	litros = 0
+end
+
+AddEventHandler("onResourceStop",function(resourceName)
+	if resourceName == GetCurrentResourceName() then
+		if DoesEntityExist(nozzle) then
+			DeleteEntity(nozzle)
+			DeleteRope(rope)
+		end
+	end
+end)
+
 CreateThread(function()
 	local litros = 0
 	while true do
@@ -374,47 +519,166 @@ CreateThread(function()
 		local coords = GetEntityCoords(ped)
 		local objCds = nil
 		local shop = nil
+		local object = nil
 		for k,pump in ipairs(fuelTypes) do
-			local object = GetClosestObjectOfType(coords,6.0,GetHashKey(pump),0,0,0)
+			object = GetClosestObjectOfType(coords,6.0,GetHashKey(pump),0,0,0)
 			if object and DoesEntityExist(object) then
 				objCds = GetEntityCoords(object)
 				shop = getClosestShop(objCds)
 				break
 			end
 		end
-		if objCds then
+		if object and objCds then
 			local distance = #(coords - objCds)
 			if distance <= 6.0 then
 				timeDistance = 4
-				local vehicle = GetPlayersLastVehicle()
-				if DoesEntityExist(vehicle) and not IsPedInAnyVehicle(ped) and GetSelectedPedWeapon(ped) ~= 883325847 then
-					local coordsVeh = GetEntityCoords(vehicle)
-					local vehFuel = GetVehicleFuelLevel(vehicle)
-					local vehPlate = GetVehicleNumberPlateText(vehicle)
-					local distance = #(coords - vector3(coordsVeh["x"],coordsVeh["y"],coordsVeh["z"]))
-					if distance <= 3.5 then
-						if not isFuel then
-							if vehFuel < 100.0 then
-								DrawText3D(coordsVeh["x"],coordsVeh["y"],coordsVeh["z"] + 1,"~g~E~w~   ABASTECER")
+				if not holdingNozzle and not nozzleInVehicle and not nozzleDropped and distance <= 2.0 then
+					DrawText3D(objCds.x, objCds.y, objCds.z + 0.5, "~g~[E]~w~ Pegar bocal")
+					if IsControlJustPressed(0, 51) then
+						grabNozzleFromPump(objCds,object)
+						Wait(1000)
+						ClearPedTasks(ped)
+					end
+				elseif holdingNozzle and not nozzleInVehicle and distance <= 2.0 then
+					DrawText3D(objCds.x, objCds.y, objCds.z + 1.2, "~g~[E]~w~ Retornar bocal")
+					if IsControlJustPressed(0, 51) then
+						LoadAnimDict("anim@am_hold_up@male")
+						TaskPlayAnim(ped, "anim@am_hold_up@male", "shoplift_high", 2.0, 8.0, -1, 50, 0, 0, 0, 0)
+						Wait(300)
+						returnNozzleToPump()
+						Wait(1000)
+						ClearPedTasks(ped)
+					end
+				end
+				if holdingNozzle or nozzleInVehicle or nozzleDropped then
+					if nozzle and pumpCoords then
+						nozzleLocation = GetEntityCoords(nozzle)
+						if #(nozzleLocation - objCds) > 6.0 then
+							dropNozzle()
+						elseif #(objCds - coords) > 50.0 then
+							returnNozzleToPump()
+						end
+					end
+					local veh = vehicleInFront()
+					if DoesEntityExist(veh) and not IsPedInAnyVehicle(ped,false) and GetSelectedPedWeapon(ped) ~= 883325847 then
+						if nozzle then
+							DisableControlAction(0, 25, true)
+							DisableControlAction(0, 24, true)
+							if IsDisabledControlPressed(0, 24) then
+								if veh and tankPosition and #(coords - tankPosition) < 1.2 then
+									if not IsEntityPlayingAnim(ped, "timetable@gardener@filling_can", "gar_ig_5_filling_can", 3) then
+										LoadAnimDict("timetable@gardener@filling_can")
+										TaskPlayAnim(ped, "timetable@gardener@filling_can", "gar_ig_5_filling_can", 2.0, 8.0, -1, 50, 0, 0, 0, 0)
+									end
+								else
+									if IsEntityPlayingAnim(ped, "timetable@gardener@filling_can", "gar_ig_5_filling_can", 3) then
+										ClearPedTasks(ped)
+									end
+									if nozzleLocation then
+										PlayEffect("core", "veh_trailer_petrol_spray")
+									end
+								end
+							else
+								if IsEntityPlayingAnim(ped, "timetable@gardener@filling_can", "gar_ig_5_filling_can", 3) then
+									ClearPedTasks(ped)
+								end
 							end
-						else
-							if not showNui then
-								SendNUIMessage({ fuel = true })
-								showNui = true
+						end
+
+						local vehClass = GetVehicleClass(veh)
+						local zPos = nozzleBasedOnClass[vehClass + 1]
+						local isBike = false
+						local nozzleModifiedPosition = {
+							x = 0.0,
+							y = 0.0,
+							z = 0.0
+						}
+						local textModifiedPosition = {
+							x = 0.0,
+							y = 0.0,
+							z = 0.0
+						}
+
+						if vehClass == 8 and vehClass ~= 13 then
+							tankBone = GetEntityBoneIndexByName(veh, "petrolcap")
+							if tankBone == -1 then
+								tankBone = GetEntityBoneIndexByName(veh, "petroltank")
 							end
+							if tankBone == -1 then
+								tankBone = GetEntityBoneIndexByName(veh, "engine")
+							end
+							isBike = true
+						elseif vehClass ~= 13 then
+							tankBone = GetEntityBoneIndexByName(veh, "petrolcap")
+							if tankBone == -1 then
+								tankBone = GetEntityBoneIndexByName(veh, "petroltank_l")
+							end
+							if tankBone == -1 then
+								tankBone = GetEntityBoneIndexByName(veh, "hub_lr")
+							end
+							if tankBone == -1 then
+								tankBone = GetEntityBoneIndexByName(veh, "handle_dside_r")
+								nozzleModifiedPosition.x = 0.1
+								nozzleModifiedPosition.y = -0.5
+								nozzleModifiedPosition.z = -0.6
+								textModifiedPosition.x = 0.55
+								textModifiedPosition.y = 0.1
+								textModifiedPosition.z = -0.2
+							end
+						end
+						tankPosition = GetWorldPositionOfEntityBone(veh, tankBone)
+						local vehFuel = GetVehicleFuelLevel(veh)
+						local vehPlate = GetVehicleNumberPlateText(veh)
+						if tankPosition and #(coords - tankPosition) < 1.2 and vehFuel < 100.0 then
+							if not nozzleInVehicle and holdingNozzle then
+								nearTank = true
+								DrawText3D(tankPosition.x + textModifiedPosition.x, tankPosition.y + textModifiedPosition.y, tankPosition.z + zPos + textModifiedPosition.z, "~g~[E]~w~ Colocar bocal")
+								if IsControlJustPressed(0, 51) then
+									LoadAnimDict("timetable@gardener@filling_can")
+									TaskPlayAnim(ped, "timetable@gardener@filling_can", "gar_ig_5_filling_can", 2.0, 8.0, -1, 50, 0, 0, 0, 0)
+									Wait(300)
+									putNozzleInVehicle(veh, tankBone, isBike, true, nozzleModifiedPosition)
+									if not showNui then
+										SendNUIMessage({ fuel = true })
+										showNui = true
+									end
+									lastFuel = vehFuel
+									lastVeh = veh
+									isFuel = true
+								end
+							elseif nozzleInVehicle then
+								DrawText3D(tankPosition.x + textModifiedPosition.x, tankPosition.y + textModifiedPosition.y, tankPosition.z + zPos + textModifiedPosition.z, "~g~[E]~w~ Pegar bocal")
+								if IsControlJustPressed(0, 51) then
+									LoadAnimDict("timetable@gardener@filling_can")
+									TaskPlayAnim(ped, "timetable@gardener@filling_can", "gar_ig_5_filling_can", 2.0, 8.0, -1, 50, 0, 0, 0, 0)
+									Wait(300)
+									grabExistingNozzle()
+									if isFuel then
+										if vSERVER.paymentFuel(isPrice,vehPlate,vehFuel,shop,isPrice * 4) then
+											TriggerServerEvent("engine:tryFuel",vehPlate,vehFuel)
+											vehFuels[vehPlate] = vehFuel
+										else
+											TriggerServerEvent("engine:tryFuel",vehPlate,lastFuel)
+											vehFuels[vehPlate] = lastFuel
+										end
+										SetVehicleFuelLevel(veh,vehFuels[vehPlate])
+										Entity(veh).state:set("fuel", vehFuels[vehPlate], true)
+									end
+									Wait(300)
+									ClearPedTasks(ped)
+								end
+							end
+						end
+
+						if nozzleInVehicle then
 							local fuelPrice = 0.025
 							if shop then
 								fuelPrice = allShops[shop]['products']['fuel']
 							end
 							isPrice = isPrice + fuelPrice
-							SetVehicleFuelLevel(vehicle,vehFuel + 0.025)
+							SetVehicleFuelLevel(veh,vehFuel + 0.025)
 							litros = litros + 0.02
 							SendNUIMessage({ tank = parseInt(floor(vehFuel)), price = parseInt(isPrice), lts = litros })
-							DrawText3D(coordsVeh["x"],coordsVeh["y"],coordsVeh["z"] + 1,"~g~E~w~   FINALIZAR")
-
-							if not IsEntityPlayingAnim(ped,"timetable@gardener@filling_can","gar_ig_5_filling_can",3) then
-								TaskPlayAnim(ped,"timetable@gardener@filling_can","gar_ig_5_filling_can",3.0,3.0,-1,50,0,0,0,0)
-							end
 
 							if vehFuel >= 100.0 or GetEntityHealth(ped) <= 101 then
 								if vSERVER.paymentFuel(isPrice,vehPlate,100.0,shop,litros) then
@@ -424,71 +688,23 @@ CreateThread(function()
 									TriggerServerEvent("engine:tryFuel",vehPlate,lastFuel)
 									vehFuels[vehPlate] = lastFuel
 								end
-								SetVehicleFuelLevel(vehicle,vehFuels[vehPlate])
-								Entity(vehicle).state:set("fuel", vehFuels[vehPlate], true)
-								StopAnimTask(ped,"timetable@gardener@filling_can","gar_ig_5_filling_can",2.0)
-								RemoveAnimDict("timetable@gardener@filling_can")
+								SetVehicleFuelLevel(veh,vehFuels[vehPlate])
+								Entity(veh).state:set("fuel", vehFuels[vehPlate], true)
 								ClearPedTasks(ped)
 								SendNUIMessage({ fuel = false })
-								showNui = false
-								isFuel = false
-								isPrice = 0
-								litros = 0
+								grabExistingNozzle()
 							end
 						end
-
-						if IsControlJustPressed(1,38) and GetGameTimer() >= gameTimer then
-							gameTimer = GetGameTimer() + 1500
-							if isFuel then
-								if vSERVER.paymentFuel(isPrice,vehPlate,vehFuel,shop,isPrice * 4) then
-									TriggerServerEvent("engine:tryFuel",vehPlate,vehFuel)
-									vehFuels[vehPlate] = vehFuel
-								else
-									TriggerServerEvent("engine:tryFuel",vehPlate,lastFuel)
-									vehFuels[vehPlate] = lastFuel
-								end
-								SetVehicleFuelLevel(vehicle,vehFuels[vehPlate])
-								Entity(vehicle).state:set("fuel", vehFuels[vehPlate], true)
-								StopAnimTask(ped,"timetable@gardener@filling_can","gar_ig_5_filling_can",2.0)
-								RemoveAnimDict("timetable@gardener@filling_can")
-								SendNUIMessage({ fuel = false })
-								ClearPedTasks(ped)
-								showNui = false
-								isFuel = false
-								isPrice = 0
-								litros = 0
-							else
-								if vehFuel < 100.0 then
-									lastFuel = vehFuel
-									TaskTurnPedToFaceEntity(ped,vehicle,5000)
-									loadAnim("timetable@gardener@filling_can")
-									TaskPlayAnim(ped,"timetable@gardener@filling_can","gar_ig_5_filling_can",3.0,3.0,-1,50,0,0,0,0)
-									isFuel = true
-								end
-							end
+					else
+						if isFuel and nozzleInVehicle and #(coords - tankPosition) > 3.0 and lastVeh then
+							SetVehicleFuelLevel(lastVeh,lastFuel)
+							Entity(lastVeh).state:set("fuel", lastFuel, true)
+							returnNozzleToPump()
 						end
-					end
-
-					if isFuel and distance > 3.5 then
-						if vSERVER.paymentFuel(isPrice,vehPlate,vehFuel,shop,isPrice * 4) then
-							TriggerServerEvent("engine:tryFuel",vehPlate,vehFuel)
-							vehFuels[vehPlate] = vehFuel
-						else
-							TriggerServerEvent("engine:tryFuel",vehPlate,lastFuel)
-							vehFuels[vehPlate] = lastFuel
-						end
-						SetVehicleFuelLevel(vehicle,vehFuels[vehPlate])
-						Entity(vehicle).state:set("fuel", vehFuels[vehPlate], true)
-						StopAnimTask(ped,"timetable@gardener@filling_can","gar_ig_5_filling_can",2.0)
-						RemoveAnimDict("timetable@gardener@filling_can")
-						SendNUIMessage({ fuel = false })
-						ClearPedTasks(ped)
-						showNui = false
-						isFuel = false
-						isPrice = 0
-						litros = 0
 					end
 				end
+			elseif holdingNozzle or nozzleInVehicle then
+				returnNozzleToPump()
 			end
 		end
 		Wait(timeDistance)
