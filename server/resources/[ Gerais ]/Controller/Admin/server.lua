@@ -142,6 +142,13 @@ RegisterCommand("item",function(source,args,rawCommand)
 					TriggerClientEvent("Notify",source,"negado","Item inexistente",5000)
 				end
 			end
+		else
+			local itemData = AdmClient.showItemlist(source)
+			if GlobalItems[itemData[1]] then
+				local user_id = vRP.getUserId(source)
+				vRP.giveInventoryItem(user_id,itemData[1],tonumber(itemData[2]) or 1, nil, true)
+				vRP.createWeebHook(Webhooks.webhookgive,"```prolog\n[ID]: "..user_id.."\n[PEGOU]: "..itemData[1].." \n[QUANTIDADE]: "..parseInt(itemData[2]).." "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
+			end
 		end
 	end
 end)

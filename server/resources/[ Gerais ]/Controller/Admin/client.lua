@@ -387,3 +387,19 @@ AddEventHandler("postit:initPostit",function()
 		end)
 	end
 end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- ADMIN ITEMLIST
+-----------------------------------------------------------------------------------------------------------------------------------------
+function AdminClient.showItemlist()
+    local options = {}
+    for k,v in pairs(GlobalState["RebornConfig"]?.items) do
+        options[#options + 1] = { value = k, label = v.name }
+    end
+    local input = lib.inputDialog("Spawnar item",{
+        { type = "select", label = "Item", required = true, searchable = true, options = options },
+        { type = "number", label = "Quantidade", default = 1 }
+    })
+    if input[1] then
+        return input
+    end
+end

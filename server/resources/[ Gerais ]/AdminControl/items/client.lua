@@ -90,7 +90,7 @@ local function listItems()
     for k,v in pairs(NewItems) do
         table.insert(options,{
             title = k,
-            description = "Item: "..v.name.."\nTipo: "..v.type.."\nDescrição: "..v.description,
+            description = "Item: "..v.name.."\nTipo: "..v.type.."\nDescrição: "..(v.description or ""),
             icon = "box",
             iconColor = "blue",
             onSelect = function ()
