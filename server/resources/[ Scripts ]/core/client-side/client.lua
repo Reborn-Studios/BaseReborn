@@ -213,7 +213,7 @@ CreateThread(function()
 		for _,model in next,SUPPRESSED_MODELS do
 			SetVehicleModelIsSuppressed(GetHashKey(model),true)
 		end
-		Wait(1000)
+		Wait(1)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -242,14 +242,9 @@ local weaponsDamage = {
 	['WEAPON_PUMPSHOTGUN'] = 2.0,
 }
 
+local npcControl = Reborn.npcControl()
+
 CreateThread(function()
-	local npcControl = Reborn.npcControl()
-	for weapon,damage in pairs(weaponsDamage) do
-		SetWeaponDamageModifier(GetHashKey(weapon),damage)
-	end
-	StartAudioScene("CHARACTER_CHANGE_IN_SKY_SCENE")
-	SetAudioFlag("DisableFlightMusic",true)
-	SetAudioFlag("PoliceScannerDisabled",true)
 	while true do
 		-- NPC CONTROL
 		SetPedDensityMultiplierThisFrame(npcControl['PedDensity'])
@@ -391,6 +386,111 @@ CreateThread(function()
 		-- DANO AO PERSONAGEM
 		SetPedSuffersCriticalHits(PlayerPedId(),true)
 		Wait(0)
+	end
+end)
+
+exports("ReloadCharacter",function()
+	local Pid = PlayerId()
+	local Ped = PlayerPedId()
+
+	StopAudioScenes()
+	RemovePickups(Pid)
+	SetMaxWantedLevel(0)
+	SetPedHelmet(Ped,false)
+	local maxHealth = GlobalState['Basics']['MaxHealth'] or 400
+	if GetEntityMaxHealth(Ped) ~= maxHealth then
+		SetEntityMaxHealth(Ped,maxHealth)
+		SetPedMaxHealth(Ped,maxHealth)
+	end
+	ClearPedTasksImmediately(Ped)
+	SetAiWeaponDamageModifier(0.5)
+	SetPoliceIgnorePlayer(Ped,true)
+	SetPlayerCanUseCover(Pid,false)
+	SetPedSteersAroundPeds(Ped,true)
+	SetEveryoneIgnorePlayer(Ped,true)
+	SetAiMeleeWeaponDamageModifier(5.0)
+	SetDispatchCopsForPlayer(Ped,false)
+	SetFlashLightKeepOnWhileMoving(true)
+	SetPedDropsWeaponsWhenDead(Ped,false)
+	SetPedCanLosePropsOnDamage(Ped,false,0)
+
+	SetPedConfigFlag(Ped,35,false)		-- Bloquear capacetes
+	SetPedConfigFlag(Ped,438,true)
+	SetForceFootstepUpdate(Ped,true)
+	SetPedAudioFootstepLoud(Ped,true)
+	SetPedAudioFootstepQuiet(Ped,true)
+
+	DisableIdleCamera(true)
+	SetRandomEventFlag(false)
+	SetWeaponsNoAutoswap(true)
+	SetBlipAlpha(GetNorthRadarBlip(),0)
+	ReplaceHudColourWithRgba(116,88,101,242,225)
+
+	SetAudioFlag("ActivateSwitchWheelAudio",false)
+	SetAudioFlag("AllowAmbientSpeechInSlowMo",false)
+	SetAudioFlag("AllowCutsceneOverScreenFade",false)
+	SetAudioFlag("AllowForceRadioAfterRetune",false)
+	SetAudioFlag("AllowPainAndAmbientSpeechToPlayDuringCutscene",false)
+	SetAudioFlag("AllowPlayerAIOnMission",false)
+	SetAudioFlag("AllowPoliceScannerWhenPlayerHasNoControl",false)
+	SetAudioFlag("AllowRadioDuringSwitch",false)
+	SetAudioFlag("AllowRadioOverScreenFade",false)
+	SetAudioFlag("AllowScoreAndRadio",false)
+	SetAudioFlag("AllowScriptedSpeechInSlowMo",false)
+	SetAudioFlag("AvoidMissionCompleteDelay",false)
+	SetAudioFlag("DisableAbortConversationForDeathAndInjury",true)
+	SetAudioFlag("DisableAbortConversationForRagdoll",true)
+	SetAudioFlag("DisableBarks",true)
+	SetAudioFlag("DisableFlightMusic",true)
+	SetAudioFlag("DisableReplayScriptStreamRecording",true)
+	SetAudioFlag("EnableHeadsetBeep",false)
+	SetAudioFlag("ForceConversationInterrupt",false)
+	SetAudioFlag("ForceSeamlessRadioSwitch",false)
+	SetAudioFlag("ForceSniperAudio",false)
+	SetAudioFlag("FrontendRadioDisabled",true)
+	SetAudioFlag("HoldMissionCompleteWhenPrepared",false)
+	SetAudioFlag("IsDirectorModeActive",false)
+	SetAudioFlag("IsPlayerOnMissionForSpeech",true)
+	SetAudioFlag("ListenerReverbDisabled",true)
+	SetAudioFlag("LoadMPData",false)
+	SetAudioFlag("MobileRadioInGame",false)
+	SetAudioFlag("OnlyAllowScriptTriggerPoliceScanner",false)
+	SetAudioFlag("PlayMenuMusic",false)
+	SetAudioFlag("PoliceScannerDisabled",true)
+	SetAudioFlag("ScriptedConvListenerMaySpeak",true)
+	SetAudioFlag("SpeechDucksScore",true)
+	SetAudioFlag("SuppressPlayerScubaBreathing",true)
+	SetAudioFlag("WantedMusicDisabled",true)
+	SetAudioFlag("WantedMusicOnMission",false)
+
+	StartAudioScene("CHARACTER_CHANGE_IN_SKY_SCENE")
+	SetScenarioGroupEnabled("Heist_Island_Peds",true)
+	SetScenarioTypeEnabled("WORLD_VEHICLE_BIKE_OFF_ROAD_RACE",false)
+	SetScenarioTypeEnabled("WORLD_VEHICLE_BUSINESSMEN",false)
+	SetScenarioTypeEnabled("WORLD_VEHICLE_EMPTY",false)
+	SetScenarioTypeEnabled("WORLD_VEHICLE_MECHANIC",false)
+	SetScenarioTypeEnabled("WORLD_VEHICLE_MILITARY_PLANES_BIG",false)
+	SetScenarioTypeEnabled("WORLD_VEHICLE_MILITARY_PLANES_SMALL",false)
+	SetScenarioTypeEnabled("WORLD_VEHICLE_POLICE_BIKE",false)
+	SetScenarioTypeEnabled("WORLD_VEHICLE_POLICE_CAR",false)
+	SetScenarioTypeEnabled("WORLD_VEHICLE_POLICE_NEXT_TO_CAR",false)
+	SetScenarioTypeEnabled("WORLD_VEHICLE_SALTON_DIRT_BIKE",false)
+	SetScenarioTypeEnabled("WORLD_VEHICLE_SALTON",false)
+	SetScenarioTypeEnabled("WORLD_VEHICLE_STREETRACE",false)
+	SetStaticEmitterEnabled("LOS_SANTOS_VANILLA_UNICORN_01_STAGE",false)
+	SetStaticEmitterEnabled("LOS_SANTOS_VANILLA_UNICORN_02_MAIN_ROOM",false)
+	SetStaticEmitterEnabled("LOS_SANTOS_VANILLA_UNICORN_03_BACK_ROOM",false)
+	SetStaticEmitterEnabled("se_dlc_aw_arena_construction_01",false)
+	SetStaticEmitterEnabled("se_dlc_aw_arena_crowd_background_main",false)
+	SetStaticEmitterEnabled("se_dlc_aw_arena_crowd_exterior_lobby",false)
+	SetStaticEmitterEnabled("se_dlc_aw_arena_crowd_interior_lobby",false)
+	SetStaticEmitterEnabled("se_walk_radio_d_picked",false)
+	StartAudioScene("DLC_MPHEIST_TRANSITION_TO_APT_FADE_IN_RADIO_SCENE")
+	StartAudioScene("FBI_HEIST_H5_MUTE_AMBIENCE_SCENE")
+	SetAmbientZoneListStatePersistent("AZL_DLC_Hei4_Island_Zones",true,true)
+	SetAmbientZoneListStatePersistent("AZL_DLC_Hei4_Island_Disabled_Zones",false,true)
+	for weapon,damage in pairs(weaponsDamage) do
+		SetWeaponDamageModifier(GetHashKey(weapon),damage)
 	end
 end)
 
@@ -549,7 +649,6 @@ CreateThread(function()
 			StopGameplayCamShaking()
 			TriggerEvent("cancelando",false)
 		end
-		RemovePickups(PlayerId())
 		Wait(timeDistance)
 	end
 end)

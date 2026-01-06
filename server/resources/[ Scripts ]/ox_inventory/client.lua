@@ -37,6 +37,7 @@ local playerPed = cache.ped
 lib.onCache('ped', function(ped)
 	playerPed = ped
 	Utils.WeaponWheel()
+	exports['core']:ReloadCharacter()
 end)
 
 plyState:set('invBusy', true, true)

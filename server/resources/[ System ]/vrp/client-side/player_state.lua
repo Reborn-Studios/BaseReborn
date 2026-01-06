@@ -13,17 +13,12 @@ AddEventHandler("syncmala",function(index)
 end)
 
 CreateThread(function()
-	for i = 1,121 do
-		EnableDispatchService(i,false)
-	end
 	while true do
+		for i = 1,121 do
+			EnableDispatchService(i,false)
+		end
 		SetPlayerHealthRechargeMultiplier(cache.playerId,0.0)
 		SetPlayerHealthRechargeLimit(cache.playerId,0.0)
-		local maxHealth = GlobalState['Basics']['MaxHealth'] or 400
-		if GetEntityMaxHealth(cache.ped) ~= maxHealth then
-			SetEntityMaxHealth(cache.ped,maxHealth)
-			SetPedMaxHealth(cache.ped,maxHealth)
-		end
 
 		if GetPlayerMaxArmour(cache.ped) ~= 100 then
 			SetPlayerMaxArmour(cache.ped,100)
@@ -32,7 +27,6 @@ CreateThread(function()
 		if GetPlayerMaxStamina(cache.playerId) ~= 200.0 then
 			SetPlayerMaxStamina(cache.playerId,200.0)
 		end
-
 		Wait(1000)
 	end
 end)
