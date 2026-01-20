@@ -56,11 +56,19 @@ end
 local function setShopGroup(args)
     local key = args.key
     local shop = Shops[key] or newShop
+    local defaultGroup = nil
+    if type(shop.group) == "table" then
+        if not next(shop.group) then
+            defaultGroup = nil
+        else
+            defaultGroup = shop.group
+        end
+    end
     local input = lib.inputDialog("Defina o grupo", {{
         type = 'multi-select',
         label = "Defina o grupo",
         options = ServerControl.getGroups(),
-        default = tostring(shop.group) or "",
+        default = defaultGroup,
         required = true,
         searchable = true
     }})
