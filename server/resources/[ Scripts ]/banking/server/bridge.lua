@@ -34,6 +34,16 @@ function fetchUsersUUID(source)
     end
 end
 
+function fetchUserSourceById(id)
+    if framework == 'ESX' then
+        local playerData = ESX.GetPlayerFromIdentifier(id)
+        return playerData.source
+    elseif framework == 'QBCore' then
+        local playerData = QBCore.Functions.GetPlayerByCitizenId(id)
+        return playerData and playerData.source
+    end
+end
+
 function fetchUserNameBySource(source)
     local playerData = fetchUserBySource(source)
     if not playerData then return end

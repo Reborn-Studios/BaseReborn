@@ -115,7 +115,7 @@ RegisterCallback("fetchAccountData", fetchAccountData)
 
 function handleTransaction(A0_2, A1_2, A2_2, A3_2, A4_2, A5_2)
   -- Readable locals
-  local sourceId, account, action, amount, dateStr, targetId = A0_2, A1_2, A2_2, A3_2, A4_2, A5_2
+  local sourceId, account, action, amount, dateStr, targetUserId = A0_2, A1_2, A2_2, A3_2, A4_2, A5_2
   if not (sourceId and account and action and amount) or not dateStr then
     return { type = "error", response = "invalid_data" }
   end
@@ -141,6 +141,7 @@ function handleTransaction(A0_2, A1_2, A2_2, A3_2, A4_2, A5_2)
   local actionLower = string.lower(action)
 
   if actionLower == "transfer" then
+    local targetId = fetchUserSourceById(targetUserId)
     if not targetId then return end
     if targetId == sourceId then
       logDebug("User ID: " .. sourceId .. " attempted to transfer money to themselves")
