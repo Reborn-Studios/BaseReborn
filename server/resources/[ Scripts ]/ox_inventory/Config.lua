@@ -1,6 +1,6 @@
 Prism = {}
 
-Prism.UseNativeLabeling = false -- ( Use native Inventory labeling for secondary inventory )
+Prism.UseNativeLabeling = true -- ( Use native Inventory labeling for secondary inventory )
 Prism.mouseTrailActive = {
     enabled = false,
     color = {
@@ -30,7 +30,7 @@ Prism.Texts = {
     Hotbar = 'HOTBAR',
     HotbarDescription = 'Equipe rapidamente seus itens',
     Secondary = 'Secundário',
-    SecondaryDescription = 'Store necessary assets',
+    SecondaryDescription = 'Armazene ativos necessários',
     Close_header_1 = 'Fechar',
     Close_header_2 = 'Inventário',
 }
