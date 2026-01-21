@@ -79,7 +79,7 @@ else
     client = {
         autoreload = GetConvarInt('inventory:autoreload', 1) == 1,
         screenblur = GetConvarInt('inventory:screenblur', 1) == 1,
-        keys = json.decode(GetConvar('inventory:keys', '')) or { 'OEM_3', 'HOME', 'TAB' },
+        keys = json.decode(GetConvar('inventory:keys', '')) or { 'OEM_3', 'PAGEUP', 'TAB' },
         enablekeys = json.decode(GetConvar('inventory:enablekeys', '[249]')),
         aimedfiring = GetConvarInt('inventory:aimedfiring', 0) == 1,
         giveplayerlist = GetConvarInt('inventory:giveplayerlist', 0) == 1,
