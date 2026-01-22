@@ -220,7 +220,7 @@ end
 RegisterNetEvent("mri_Qadmin:server:ViewWarnings", function(player, citizenid)
     local src = source
     local license = nil
-    if AdminPanel.HasPermission(src, "checkwarns") then
+    if AdminPanel.HasPermission(src, "checkwarns") and player then
         if player ~= "OFFLINE" then
             if QBCore then
                 license = QBCore.Functions.GetIdentifier(player, "license")

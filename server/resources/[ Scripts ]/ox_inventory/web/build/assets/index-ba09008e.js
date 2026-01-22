@@ -23023,7 +23023,6 @@ const vm = ({ percent: e, durability: t, segments: n = 12, theme: r }) => {
         [t, e],
       ),
       s = Math.round((e / 100) * n);
-    console.log(JSON.stringify(e));
 
     return t
       ? D("div", {
