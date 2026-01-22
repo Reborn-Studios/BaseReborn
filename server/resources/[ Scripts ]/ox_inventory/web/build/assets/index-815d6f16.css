@@ -1,7 +1,8 @@
 @font-face {
   font-family: "Usuzi";
   src: url("https://db.onlinewebfonts.com/t/006e5bd249bbdd29033a593bd1642e14.eot");
-  src: url("https://db.onlinewebfonts.com/t/006e5bd249bbdd29033a593bd1642e14.eot?#iefix")
+  src:
+    url("https://db.onlinewebfonts.com/t/006e5bd249bbdd29033a593bd1642e14.eot?#iefix")
       format("embedded-opentype"),
     url("https://db.onlinewebfonts.com/t/006e5bd249bbdd29033a593bd1642e14.woff")
       format("woff"),
@@ -17,9 +18,9 @@
 }
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
+    "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   height: 100vh;
@@ -33,8 +34,8 @@ body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+  font-family:
+    source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
 ::-webkit-scrollbar {
@@ -623,6 +624,17 @@ button:active {
   border-bottom-right-radius: 0.25vh;
 }
 
+.inventory-slot-weight-box {
+  position: absolute;
+  top: 0;
+  left: 1;
+  display: flex;
+  flex-direction: row;
+  align-self: flex-start;
+  padding: 3px;
+  color: #fff;
+}
+
 .inventory-slot-label-text {
   text-transform: uppercase;
   white-space: nowrap;
@@ -635,6 +647,13 @@ button:active {
   font-size: 11px;
   line-height: 100%;
   letter-spacing: 0.85%;
+}
+
+.inventory-slot-weight-text {
+  font-size: 9px;
+  line-height: 100%;
+  letter-spacing: 0.85%;
+  padding: 2px 3px;
 }
 
 .hexagon-slot-number {
@@ -960,7 +979,9 @@ button:active {
 .transition-slide-up-enter-active {
   transform: translateY(0);
   opacity: 1;
-  transition: transform 200ms ease-out, opacity 200ms ease-out;
+  transition:
+    transform 200ms ease-out,
+    opacity 200ms ease-out;
 }
 
 .transition-slide-up-exit {
@@ -971,7 +992,9 @@ button:active {
 .transition-slide-up-exit-active {
   transform: translateY(100%);
   opacity: 0;
-  transition: transform 200ms ease-in, opacity 200ms ease-in;
+  transition:
+    transform 200ms ease-in,
+    opacity 200ms ease-in;
 }
 
 .inventory-context {
@@ -982,7 +1005,11 @@ button:active {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
   width: 232px;
   overflow: hidden;
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family:
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
   z-index: 1000;
 }
 .inventory-context.position-left {
@@ -1335,7 +1362,8 @@ button:active {
   min-width: 200px;
   max-width: 300px;
   color: #ffffff;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   font-size: 14px;
   line-height: 1.4;
 }

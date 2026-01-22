@@ -23023,6 +23023,8 @@ const vm = ({ percent: e, durability: t, segments: n = 12, theme: r }) => {
         [t, e],
       ),
       s = Math.round((e / 100) * n);
+    console.log(JSON.stringify(e));
+
     return t
       ? D("div", {
           className: "durability-bar",
@@ -23412,7 +23414,12 @@ const vm = ({ percent: e, durability: t, segments: n = 12, theme: r }) => {
                   n !== "shop" &&
                     e?.slot > 5 &&
                     e?.durability !== void 0 &&
-                    D(vm, { percent: e.durability, durability: !0, theme: i }),
+                    D(vm, {
+                      percent: e.durability,
+                      durability: !0,
+                      theme: i,
+                      weight: e.weight,
+                    }),
                   ((n === "player" && e.slot > 5) || n !== "player") &&
                     D("div", {
                       className: "inventory-slot-label-box",
@@ -23421,6 +23428,14 @@ const vm = ({ percent: e, durability: t, segments: n = 12, theme: r }) => {
                         children: e.metadata?.label
                           ? e.metadata.label
                           : Ve[e.name]?.label || e.name,
+                      }),
+                    }),
+                  ((n === "player" && e.slot > 5) || n !== "player") &&
+                    D("div", {
+                      className: "inventory-slot-weight-box",
+                      children: D("div", {
+                        className: "inventory-slot-weight-text",
+                        children: ((e.weight || 0.0) / 1000).toFixed(1) + "kg",
                       }),
                     }),
                 ],
