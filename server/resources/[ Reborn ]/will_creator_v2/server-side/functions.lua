@@ -176,13 +176,14 @@ end
 --- @param src number (source)
 --- @param data SkinData
 --- @return number | nil
-function CreateCharacter(src, data)
+function CreateCharacter(src, data, clothes)
     local identifier = GetIdentifier(src)
     if not identifier then return end
     QueryExecute("will_creator_v2/create_characters",{ identifier = identifier, name = data.firstname, name2 = data.lastname })
     local consult = QueryConsult("will_creator_v2/lastCharacters",{ identifier = identifier })
     local id = parseInt(consult[1]["id"])
     QueryExecute("will_creator_v2/insert_playerskin",{ user_id = id, skin = json.encode(data), active = 1 })
+    vRP.setUData(id, "Clothings", json.encode(clothes))
     PlayCharacter(src,id,data.gender)
     return id
 end
@@ -466,7 +467,7 @@ CreateThread(function()
     -- get last id created
     PrepareQuery("will_creator_v2/lastCharacters","SELECT "..dbColumns[Config.Base]['chars']['user_id'].." FROM "..dbColumns[Config.Base]['chars']['table'].." WHERE "..dbColumns[Config.Base]['chars']['identifier'].." = @identifier ORDER BY "..dbColumns[Config.Base]['chars']['user_id'].." DESC LIMIT 1")
     -- get chars with identifier
-    PrepareQuery("will_creator_v2/get_characters","SELECT * FROM "..dbColumns[Config.Base]['chars']['table'].." WHERE "..dbColumns[Config.Base]['chars']['identifier'].." = @identifier")
+    PrepareQuery("will_creator_v2/get_characters","SELECT * FROM "..dbColumns[Config.Base]['chars']['table'].." WHERE "..dbColumns[Config.Base]['chars']['identifier'].." = @identifier AND deleted = 0")
     -- get all chars
     PrepareQuery("will_creator_v2/get_all_chars","SELECT * FROM "..dbColumns[Config.Base]['chars']['table'])
     -- get max chars with identifier
