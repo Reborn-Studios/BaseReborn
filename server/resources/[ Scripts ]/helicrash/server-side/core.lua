@@ -29,7 +29,7 @@ CreateThread(function()
 
 					local Loot = math.random(#Loots)
 					if GetResourceState("ox_inventory") == "started" then
-						local stashId = "Chest:Helicrashs-"..Number
+						local stashId = "Chest:Helicrashs-"..os.time()..'-'..Boxes
 						exports.ox_inventory:RegisterStash(stashId,"Helicrash",100,100000,false,nil,v[1])
 						for Slot,w in pairs(Loots[Loot]) do
 							exports.ox_inventory:AddItem(stashId, w["item"],w["amount"])
