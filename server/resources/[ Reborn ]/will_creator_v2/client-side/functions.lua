@@ -120,7 +120,7 @@ CreateThread(function()
     end
 end)
 
-local function convertClothes(data)
+function ConvertClothes(data)
     local newClothes = table.clone(data)
     for k,v in pairs(data) do
         if aliasClothes[k] then
@@ -134,7 +134,7 @@ end
 
 function ApplyClothes(Ped, Data)
     if not Data then return end
-    Data = convertClothes(Data)
+    Data = ConvertClothes(Data)
     SendDebug(("ApplyClothes - %s | %s"):format(Data["pants"],Data["torso"]))
 	if Data["pants"] and Data["torso"] then
         SendDebug(("Pants - Torso - %s | %s"):format(Data["pants"]["item"],Data["torso"]["item"]))
@@ -223,7 +223,7 @@ end
 
 RegisterNetEvent("will_creator_v2:reloadPlayer")
 AddEventHandler("will_creator_v2:reloadPlayer",function(data)
-    ApplyCharData(PlayerPedId(),data)
+    CharCustom(data)
 end)
 
 function ChangeToSkin(skin)
