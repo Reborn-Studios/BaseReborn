@@ -32,7 +32,8 @@ function QBCore.Functions.GetCoords(entity)
 end
 
 function QBCore.Functions.HasItem(items, amount)
-    return exports['ox_inventory']:HasItem(items, amount)
+    local hasItem = exports.ox_inventory:Search('count', items)
+    return hasItem and hasItem > amount
 end
 
 function QBCore.Functions.GetName()
