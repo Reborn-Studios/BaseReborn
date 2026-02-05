@@ -243,6 +243,7 @@ AddEventHandler("will_garages_v2:repairVehicle",function(index,status)
 				SetVehicleFixed(v)
 				SetVehicleDeformationFixed(v)
 			end
+			SetVehicleOnGroundProperly(v)
 			SetVehicleBodyHealth(v,1000.0)
 			SetVehicleEngineHealth(v,1000.0)
 			SetVehiclePetrolTankHealth(v,1000.0)
