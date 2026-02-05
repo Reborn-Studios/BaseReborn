@@ -233,7 +233,11 @@ end
 function GetBarber(id)
     local skins = QueryConsult("will_creator_v2/get_playerskins",{ user_id = id })
     if skins[1] then
-        return json.decode(skins[1].skin)
+        local data = json.decode(skins[1].skin)
+        if not data.gender then
+            data.gender = "mp_m_freemode_01"
+        end
+        return data
     end
     return nil
 end
