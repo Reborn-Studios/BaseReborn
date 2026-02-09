@@ -266,7 +266,7 @@ CreateThread(function()
 	while true do
 		local timeDistance = 999
 		local ped = PlayerPedId()
-		if not IsPedInAnyVehicle(ped) then
+		if not IsPedInAnyVehicle(ped) and GetResourceState("ox_inventory") ~= "started" then
 			if GetSelectedPedWeapon(ped) == 883325847 then
 				local vehicle = GetPlayersLastVehicle()
 				if DoesEntityExist(vehicle) then
