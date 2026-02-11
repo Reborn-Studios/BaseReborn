@@ -171,10 +171,38 @@ local Blips = {
 	{ 826.79,-972.39,26.25,544,75,"Sport Race",0.6 },
 	-- Gerais
 	{ -51.82,-1111.38,26.44,225,4,"Concessionaria",0.5 },
-	{ 94.53,-383.45,43.62 ,60,4,"Departamento Policial",0.6 },
 	{ -1082.31,-247.59,37.77,498,4,"Central de Empregos",0.5 },
 	{ -544.68,-205.63,38.3,483,4,"Jurídico", 0.7 },
 }
+
+CreateThread(function ()
+	local OtherBlips = {}
+	if GlobalState['Basics']['Theme'] == "default" then
+		OtherBlips = {
+			{ 94.53,-383.45,43.62 ,60,4,"Departamento Policial",0.6 },
+		}
+	elseif GlobalState['Basics']['Theme'] == "SP" then
+		OtherBlips = {
+			{ -914.87,-2039.3,9.4,60,1,"PCESP",0.6 },
+			{ -2063.0,-490.82,12.46,60,28,"ROTA",0.6 },
+			{ 2544.89,-393.26,93.12,60,4,"PMESP",0.6 },
+			{ 701.27,245.89,93.05,60,3,"GCM",0.6 },
+			{ 2617.61,5306.38,47.44,60,46,"TOR",0.6 },
+			{ 82.56, 6525.71, 38.15,60,6,"BAEP",0.6 },
+			{ 1801.66, 3605.85, 39.72,60,40,"FT",0.6 },
+		}
+	elseif GlobalState['Basics']['Theme'] == "RJ" then
+		OtherBlips = {
+			{ -1610.15,180.14,59.66,60,4,"PMERJ",0.6 },
+			{ -909.71,-2045.05,9.3,60,4,"PCERJ",0.6 },
+			{ 372.24,-1611.4,29.3,60,4,"CORE",0.6 },
+			{ -1286.03,293.89,64.85,60,4,"BOPE",0.6 },
+		}
+	end
+	for k,v in pairs(OtherBlips) do
+		Blips[#Blips + 1] = v
+	end
+end)
 
 CreateThread(function()
 	for _,v in pairs(Blips) do

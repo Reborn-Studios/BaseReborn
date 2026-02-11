@@ -2006,3 +2006,125 @@ Config.garages = {
         [1] = { ['x'] = 72.41, ['y'] = 6635.25, ['z'] = 31.75, ['h'] = 142.72 }
     },
 }
+if GlobalState['Basics']['Theme'] == "default" then
+
+elseif GlobalState['Basics']['Theme'] == "SP" then
+    Config.garages[384] = { ["name"] = "GCM", ["payment"] = "", ["perm"] = "gcm.permissao",
+        ["entrada"] = {
+            ["blip"] = { 701.27, 245.89, 93.05, 58.31 }
+        },
+        ["spawns"] = {
+            { 695.22, 243.20, 92.23, 60.81 },
+        }
+    }
+    Config.garages[496] = { ["name"] = "PMESP", ["payment"] = "", ["perm"] = "pmesp.permissao",
+        ["entrada"] = {
+            ["blip"] = { 2544.89, -393.26, 93.12, 239.21 }
+        },
+        ["spawns"] = {
+            { 2537.19, -390.78, 91.99, 11.71 },
+        }
+    }
+    Config.garages[497] = { ["name"] = "PMESP", ["payment"] = "", ["perm"] = "pmesp.permissao",
+        ["entrada"] = {
+            ["blip"] = { 2544.97, -375.42, 93.12, 271.09 }
+        },
+        ["spawns"] = {
+            { 2537.32, -377.92, 91.99, 169.24 },
+        }
+    }
+    Config.garages[498] = { ["name"] = "PMESPHeli", ["payment"] = "", ["perm"] = "pmesp.permissao",
+        ["entrada"] = {
+            ["blip"] = { 2505.34, -422.98, 118.23, 353.22 }
+        },
+        ["spawns"] = {
+            { 2511.23, -426.53, 117.33, 320.72 },
+        }
+    }
+    Config.garages[499] = { ["name"] = "TOR", ["payment"] = false, ["perm"] = "tor.permissao",
+        ["entrada"] = {
+            ["blip"] = { 2621.92, 5312.57, 47.54, 77.08 }
+        },
+        ["spawns"] = {
+            { 2619.76, 5309.55, 46.41, 105.74 },
+        }
+    }
+    Config.garages[500] = { ["name"] = "PMFT", ["payment"] = false, ["perm"] = "ft.permissao",
+        ["entrada"] = {
+            ["blip"] = { 1806.41, 3582.55, 36.15, 320.13 }
+        },
+        ["spawns"] = {
+            { 1810.65, 3585.05, 35.15, 30.13 },
+        }
+    }
+    Config.garages[501] = { ["name"] = "PCHeli", ["payment"] = false, ["perm"] = "policiacivil.permissao",
+        ["entrada"] = {
+            ["blip"] = { -951.19, -2030.40, 11.32, 322.89 }
+        },
+        ["spawns"] = {
+            { -951.16, -2021.55, 10.33, 45.39 },
+        }
+    }
+    Config.garages[502] = { ["name"] = "PCESP", ["payment"] = false, ["perm"] = "policiacivil.permissao",
+        ["entrada"] = {
+            ["blip"] = { -901.34, -2032.00, 9.40, 213.22 }
+        },
+        ["spawns"] = {
+            { -898.17, -2034.94, 8.30, 225.72 },
+        }
+    }
+    Config.garages[503] = { ["name"] = "BAEP", ["payment"] = false, ["perm"] = "baep.permissao",
+        ["entrada"] = {
+            ["blip"] = { 68.03, 6518.23, 32.33, 292.75 }
+        },
+        ["spawns"] = {
+            { 73.84, 6518.96, 31.33, 225.25 },
+        }
+    }
+    Config.garages[504] = { ["name"] = "ROTA", ["payment"] = false, ["perm"] = "rota.permissao",
+        ["entrada"] = {
+            ["blip"] = { -2067.63, -510.46, 12.46, 310.80 }
+        },
+        ["spawns"] = {
+            { -2069.26, -504.36, 11.46, 233.29 },
+        }
+    }
+elseif GlobalState['Basics']['Theme'] == "RJ" then
+    Config.garages[500] = { ["name"] = "PCERJ", ["payment"] = false, ["perm"] = "policiacivil.permissao",
+        ["entrada"] = {
+            ["blip"] = { -914.6953125, -2053.136962890625, 9.2989273071289, 320.13 }
+        },
+        ["spawns"] = {
+            { -912.5457763671876, -2049.716064453125, 8.2989273071289, 225.0000457763672 },
+            { -910.3077392578124, -2047.1802978515626, 8.2989273071289, 225.0000457763672 },
+            { -907.8248901367188, -2044.806640625, 8.2989273071289, 225.0000457763672 },
+        }
+    }
+    Config.garages[501] = { ["name"] = "CORE", ["payment"] = false, ["perm"] = "core.permissao",
+        ["entrada"] = {
+            ["blip"] = { 383.430, -1612.083618, 29.292039, 322.89 }
+        },
+        ["spawns"] = {
+            { 389.2640075683594, -1613.1314697265626, 28.29203987121582, 230.00157165527345 },
+            { 391.2444763183594, -1610.7554931640626, 28.29203987121582, 230.00157165527345 },
+        }
+    }
+    Config.garages[502] = { ["name"] = "BOPE", ["payment"] = false, ["perm"] = "bope.permissao",
+        ["entrada"] = {
+            ["blip"] = { -1309, 282.48, 64.25, 213.22 }
+        },
+        ["spawns"] = {
+            { -1308.17, 279.12, 63.10, 144.90 },
+            { -1304.82, 277.10, 63.10, 144.90 },
+        }
+    }
+    Config.garages[503] = { ["name"] = "PMERJ", ["payment"] = "", ["perm"] = "baep.permissao",
+        ["entrada"] = {
+            ["blip"] = { -1631.87, 193.27, 60.64, 292.75 }
+        },
+        ["spawns"] = {
+            { -1625.99, 193.48, 59.37, 294.79 },
+            { -1627.76, 196.88, 59.37, 294.79 },
+        }
+    }
+end

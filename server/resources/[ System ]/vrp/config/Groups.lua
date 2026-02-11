@@ -69,186 +69,7 @@ local groups = {
 		   POLICIA
 		#############
 	 ]]
-	["Police"] = {
-		_config = {
-			title = "Policial",
-			gtype = "job"
-		},
-		"policiamilitar.permissao",
-		"policia.permissao",
-		"polpar.permissao",
-		"portadp.permissao",
-		"player.blips",
-		"garmas.permissao",
-		"policiatiros.permissao"
-	},
-	["Coronel"] = {
-		_config = {
-			title = "Coronel",
-			gtype = "job",
-			grade = "10",
-			isboss = true,
-			salary = 9000
-		},
-		"comando.permissao",
-		"policiamilitar.permissao",
-		"policia.permissao",
-		"polpar.permissao",
-		"portadp.permissao",
-		"player.blips",
-		"garmas.permissao",
-		"policiatiros.permissao"
-	},
-	["Capitao"] = {
-		_config = {
-			title = "Capitao",
-			gtype = "job",
-			grade = "9",
-			salary = 8500
-		},
-		"policiamilitar.permissao",
-		"policia.permissao",
-		"polpar.permissao",
-		"portadp.permissao",
-		"player.blips",
-		"garmas.permissao",
-		"policiatiros.permissao"
-	},
-	["Major"] = {
-		_config = {
-			title = "Major",
-			gtype = "job",
-			grade = "8",
-			salary = 8000
-		},
-		"policiamilitar.permissao",
-		"policia.permissao",
-		"polpar.permissao",
-		"portadp.permissao",
-		"player.blips",
-		"garmas.permissao",
-		"policiatiros.permissao"
-	},
-	["Tenente"] = {
-		_config = {
-			title = "Tenente",
-			gtype = "job",
-			grade = "7",
-			salary = 7500
-		},
-		"policiamilitar.permissao",
-		"policia.permissao",
-		"polpar.permissao",
-		"portadp.permissao",
-		"player.blips",
-		"garmas.permissao",
-		"policiatiros.permissao"
-	},
-	["Sub.Tenente"] = {
-		_config = {
-			title = "Sub Tenente",
-			gtype = "job",
-			grade = "6",
-			salary = 7000
-		},
-		"policiamilitar.permissao",
-		"policia.permissao",
-		"polpar.permissao",
-		"portadp.permissao",
-		"player.blips",
-		"garmas.permissao",
-		"policiatiros.permissao"
-	},
-	["Sargento"] = {
-		_config = {
-			title = "Sargento",
-			gtype = "job",
-			grade = "5",
-			salary = 6500
-		},
-		"policiamilitar.permissao",
-		"policia.permissao",
-		"polpar.permissao",
-		"portadp.permissao",
-		"player.blips",
-		"garmas.permissao",
-		"policiatiros.permissao"
-	},
-	["2Sargento"] = {
-		_config = {
-			title = "2° Sargento",
-			gtype = "job",
-			grade = "4",
-			salary = 6000
-		},
-		"policiamilitar.permissao",
-		"policia.permissao",
-		"polpar.permissao",
-		"portadp.permissao",
-		"player.blips",
-		"garmas.permissao",
-		"policiatiros.permissao"
-	},
-	["3Sargento"] = {
-		_config = {
-			title = "3° Sargento",
-			gtype = "job",
-			grade = "3",
-			salary = 5500
-		},
-		"policiamilitar.permissao",
-		"policia.permissao",
-		"polpar.permissao",
-		"portadp.permissao",
-		"player.blips",
-		"garmas.permissao",
-		"policiatiros.permissao"
-	},
-	["Cabo"] = {
-		_config = {
-			title = "Cabo",
-			gtype = "job",
-			grade = "2",
-			salary = 5000
-		},
-		"policiamilitar.permissao",
-		"policia.permissao",
-		"polpar.permissao",
-		"portadp.permissao",
-		"player.blips",
-		"garmas.permissao",
-		"policiatiros.permissao"
-	},
-	["Soldado"] = {
-		_config = {
-			title = "Soldado",
-			gtype = "job",
-			grade = "1",
-			salary = 4500
-		},
-		"policiamilitar.permissao",
-		"policia.permissao",
-		"polpar.permissao",
-		"portadp.permissao",
-		"player.blips",
-		"garmas.permissao",
-		"policiatiros.permissao"
-	},
-	["Recruta"] = {
-		_config = {
-			title = "Recruta",
-			gtype = "job",
-			grade = "0",
-			salary = 4000
-		},
-		"policiamilitar.permissao",
-		"policia.permissao",
-		"polpar.permissao",
-		"portadp.permissao",
-		"player.blips",
-		"garmas.permissao",
-		"policiatiros.permissao"
-	},
+	
 	--[[ 
 		#############
 		   HOSPITAL
@@ -427,53 +248,6 @@ local groups = {
 		  FACS/ORGS
 		#############
 	 ]]
-	["fac1"] = {
-		_config = {
-			title = "Membro de facção",
-			gtype = "job"
-		},
-		"fac1.permissao"
-	},
-	["fac1lider"] = {
-		_config = {
-			title = "Membro de facção L.",
-			gtype = "job"
-		},
-		"liderfac1.permissao",
-		"fac1.permissao"
-	},
-	["fac2"] = {
-		_config = {
-			title = "Membro de facção",
-			gtype = "job"
-		},
-		"fac2.permissao"
-	},
-	["fac2lider"] = {
-		_config = {
-			title = "Membro de facção L.",
-			gtype = "job"
-		},
-		"liderfac2.permissao",
-		"fac2.permissao"
-	},
-	["fac3"] = {
-		_config = {
-			title = "Membro de facção",
-			gtype = "job"
-		},
-		"fac3.permissao",
-		"trafico.permissao"
-	},
-	["fac3lider"] = {
-		_config = {
-			title = "Membro de facção L.",
-			gtype = "job"
-		},
-		"liderfac3.permissao",
-		"fac3.permissao",
-		"trafico.permissao"
-	},
 	["Cassino"] = {
 		_config = {
 			title = "Cassino",
@@ -508,7 +282,6 @@ local groups = {
 		"liderdesmanche.permissao",
 		"desmanche.permissao",
 		"motoclub.permissao",
-
 	},
 	["Milicia"] = {
 		_config = {
@@ -700,6 +473,10 @@ do
 	end
 	local AllGroups = GlobalState["AllGroups"] or {}
 	for k,v in pairs(AllGroups) do
+		groups[k] = v
+	end
+	local PoliceGroups = module('vrp',"config/PoliceGroups")() or {}
+	for k,v in pairs(PoliceGroups) do
 		groups[k] = v
 	end
 end

@@ -630,10 +630,6 @@ QBShared.Jobs = {
 
 local ALIAS_GROUPS = {}
 CONVERT_GROUPS = {
-    ['policia.permissao'] = {
-		["job"] = "police",
-		["label"] = "Police",
-	},
     ['paramedico.permissao'] = {
 		["job"] = "ambulance",
 		["label"] = "EMS",
@@ -651,6 +647,59 @@ CONVERT_GROUPS = {
 		["label"] = "The Lost MC",
 	}
 }
+
+if GlobalState['Basics']['Theme'] == "default" then
+	CONVERT_GROUPS['policia.permissao'] = {
+		["job"] = "police",
+		["label"] = "Police",
+	}
+elseif GlobalState['Basics']['Theme'] == "SP" then
+	CONVERT_GROUPS['policiamilitar.permissao'] = {
+		["job"] = "polmilitar",
+		["label"] = "PMESP",
+	}
+	CONVERT_GROUPS['policiacivil.permissao'] = {
+		["job"] = "polcivil",
+		["label"] = "PCESP",
+	}
+	CONVERT_GROUPS['rota.permissao'] = {
+		["job"] = "polrota",
+		["label"] = "ROTA",
+	}
+	CONVERT_GROUPS['baep.permissao'] = {
+		["job"] = "polbaep",
+		["label"] = "BAEP",
+	}
+	CONVERT_GROUPS['ft.permissao'] = {
+		["job"] = "polft",
+		["label"] = "PFT",
+	}
+	CONVERT_GROUPS['tor.permissao'] = {
+		["job"] = "poltor",
+		["label"] = "TOR",
+	}
+	CONVERT_GROUPS['gcm.permissao'] = {
+		["job"] = "polgcm",
+		["label"] = "GCM",
+	}
+elseif GlobalState['Basics']['Theme'] == "RJ" then
+	CONVERT_GROUPS['core.permissao'] = {
+		["job"] = "polcore",
+		["label"] = "CORE",
+	}
+	CONVERT_GROUPS['bope.permissao'] = {
+		["job"] = "polbope",
+		["label"] = "BOPE",
+	}
+	CONVERT_GROUPS['policiacivil.permissao'] = {
+		["job"] = "polcivil",
+		["label"] = "Civil",
+	}
+	CONVERT_GROUPS['pmerj.permissao'] = {
+		["job"] = "polpmerj",
+		["label"] = "PMERJ",
+	}
+end
 
 local function requestQbGroups(groups)
 	for Group, perms in pairs(groups) do

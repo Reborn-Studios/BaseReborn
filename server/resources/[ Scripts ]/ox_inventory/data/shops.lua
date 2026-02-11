@@ -1,3 +1,39 @@
+local Arsenais = {}
+if GlobalState['Basics']['Theme'] == "default" then
+	Arsenais = {
+		-- Default
+		{ loc = vec3(73.02,-392.2,41.63), length = 0.5, width = 3.0, heading = 270.0, minZ = 30.5, maxZ = 32.0, distance = 6 }
+	}
+elseif GlobalState['Basics']['Theme'] == "SP" then
+	Arsenais = {
+        -- BAEP
+        { loc = vec3(58.2,6540.31,32.5), length = 0.5, width = 3.0, heading = 270.0, minZ = 30.5, maxZ = 32.0, distance = 6 },
+        -- FT
+        { loc = vec3(1818.65,3628.53,40.09), length = 0.5, width = 3.0, heading = 270.0, minZ = 30.5, maxZ = 32.0, distance = 6 },
+        -- GCM
+        { loc = vec3(697.97,252.48,97.93), length = 0.5, width = 3.0, heading = 270.0, minZ = 30.5, maxZ = 32.0, distance = 6 },
+        -- PCESP
+        { loc = vec3(-945.76,-2045.61,9.41), length = 0.5, width = 3.0, heading = 270.0, minZ = 30.5, maxZ = 32.0, distance = 6 },
+        -- PMESP
+        { loc = vec3(2526.38,-342.39,101.9), length = 0.5, width = 3.0, heading = 270.0, minZ = 30.5, maxZ = 32.0, distance = 6 },
+        -- ROTA
+        { loc = vec3(-2044.4,-447.33,12.5), length = 0.5, width = 3.0, heading = 270.0, minZ = 30.5, maxZ = 32.0, distance = 6 },
+        -- TOR
+        { loc = vec3(2604.94,5344.67,47.61), length = 0.5, width = 3.0, heading = 270.0, minZ = 30.5, maxZ = 32.0, distance = 6 },
+    }
+elseif GlobalState['Basics']['Theme'] == "RJ" then
+	Arsenais = {
+        -- PMERJ
+        { loc = vec3(-1662.44,168.48,62.11), length = 0.5, width = 3.0, heading = 270.0, minZ = 30.5, maxZ = 32.0, distance = 6 },
+        -- BOPE
+        { loc = vec3(-1249.36,334.79,69.74), length = 0.5, width = 3.0, heading = 270.0, minZ = 30.5, maxZ = 32.0, distance = 6 },
+        -- CORE
+        { loc = vec3(363.73,-1608.26,29.57), length = 0.5, width = 3.0, heading = 270.0, minZ = 30.5, maxZ = 32.0, distance = 6 },
+        -- PCERJ
+        { loc = vec3(-935.88,-2057.89,9.46), length = 0.5, width = 3.0, heading = 270.0, minZ = 30.5, maxZ = 32.0, distance = 6 }
+    }
+end
+
 return {
 	General = {
 		name = 'Shop',
@@ -124,9 +160,7 @@ return {
 			{ name = 'WEAPON_STUNGUN', price = 500, metadata = { registered = true, serial = 'POL'} }
 		}, locations = {
 			vec3(73.02,-392.2,41.63)
-		}, targets = {
-			{ loc = vec3(73.02,-392.2,41.63), length = 0.5, width = 3.0, heading = 270.0, minZ = 30.5, maxZ = 32.0, distance = 6 }
-		}
+		}, targets = Arsenais
 	},
 
 	Reciclagem = {

@@ -28,6 +28,7 @@ GlobalState['Basics'] = {
     ['ServerStore'] = "",
     ['Identifier'] = "steam",                   -- "steam" / "license" / "discord" / "fivem"
     ['Whitelist'] = false,
+    ['Theme'] = "default",                      -- "default", "SP", "RJ"
     ['Debug'] = false
 }
 
