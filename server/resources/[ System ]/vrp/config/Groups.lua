@@ -401,8 +401,6 @@ local groups = {
 		"vip.permissao",
 		"platina.permissao",
 		"pets.permissao",
-		"corarma.permissao",
-		"casa.permissao",
 		"tratamentolivre.permissao",
 		"helivip.permissao",
 		"roupas.permissao",
@@ -414,20 +412,15 @@ local groups = {
 			gtype = "vip",
 			salary = 25000
 		},
-		"vip.permissao",
-		"diamante.permissao",
-		"pets.permissao",
-		"corarma.permissao",
-		"tratamentolivre.permissao",
-		"helivip.permissao",
-		"radar.permissao",
-		"roupas.permissao",
-		"casa.permissao",
-		"fantasias.permissao",
-		"permanente.permissao",
-		"personagem.permissao",
-		"carrosexclusivos.permissao",
-		"mochila.permissao"
+		"vip.permissao",					-- Permissão padrão para VIPs
+		"diamante.permissao",				-- Permissão de exclusividade Diamante
+		"pets.permissao",					-- Utilizado para script de Pets do Lucca
+		"tratamentolivre.permissao",		-- Utilizado para não pagar tratamento do hospital
+		"helivip.permissao",				-- Acesso a garagem de Helicopteros VIPs
+		"radar.permissao",					-- Utilizado para o script de radar do Lucca
+		"roupas.permissao",					-- Não precisar de item roupas para mudar de roupas por comando
+		"carrosexclusivos.permissao",		-- Acesso a garagem de carros exclusivos
+		"mochila.permissao"					-- Não perder a mochila ao morrer
 	},
 	--[[ 
 		#############
