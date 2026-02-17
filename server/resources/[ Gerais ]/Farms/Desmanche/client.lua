@@ -313,5 +313,5 @@ end
 -- DELETAR VEICULO
 -----------------------------------------------------------------------------------------------------------------------------------------
 function DeletarVeiculo(vehicle)
-    TriggerServerEvent("will_garages_v2:syncDeleteVehicle",VehToNet(vehicle))
+    TriggerServerEvent("tryDeleteEntity",VehToNet(vehicle))
 end

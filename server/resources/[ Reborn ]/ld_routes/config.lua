@@ -5,7 +5,7 @@ config.animType = 1
 config.dinheirolimpo = "dollars"
 config.dinheirosujo = "dollars2"
 
-config.hookLDFactions = true
+config.hookLDFactions = false
 
 config.craftWarnColor = {163, 0, 0}
 config.collectWarnColor = {163, 0, 0}
