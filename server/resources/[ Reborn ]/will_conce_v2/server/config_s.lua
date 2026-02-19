@@ -148,6 +148,10 @@ cfg_s.rent_vehicle = function(user_id,categoria,vehicle)
     end
     if not checkVehicle(user_id,vehicle) then
         if veiculos[categoria][vehicle] then
+            if categoria == "vips" then
+                TriggerClientEvent('Notify',source,'negado',"Você não pode alugar um veículo VIP!")
+                return
+            end
             local rent_price = parseInt(veiculos[categoria][vehicle].valor * config.rentPrice)
             local myVeh = query('will/get_vehicle',{user_id=user_id})
             for k,v in pairs(myVeh) do
