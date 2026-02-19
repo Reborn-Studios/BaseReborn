@@ -399,7 +399,7 @@ function AdminClient.showItemlist()
         { type = "select", label = "Item", required = true, searchable = true, options = options },
         { type = "number", label = "Quantidade", default = 1 }
     })
-    if input[1] then
+    if input and input[1] then
         return input
     end
 end
