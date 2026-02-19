@@ -33,9 +33,9 @@ function r(e$, e0) {
   } catch (e8) {
     let e2 = new URL(e$, location),
       e3 = (e$) => {
-        URL.revokeObjectURL(e$.src), e$.remove();
+        (URL.revokeObjectURL(e$.src), e$.remove());
       };
-    (self[e0] = (e$) =>
+    ((self[e0] = (e$) =>
       new Promise((e8, e1) => {
         let e6 = new URL(e$, e2);
         if (self[e0].moduleMap[e6]) return e8(self[e0].moduleMap[e6]);
@@ -43,28 +43,28 @@ function r(e$, e0) {
             [`import * as m from '${e6}';`, `${e0}.moduleMap['${e6}']=m;`],
             {
               type: "text/javascript",
-            }
+            },
           ),
           e7 = Object.assign(document.createElement("script"), {
             type: "module",
             src: URL.createObjectURL(e4),
             onerror() {
-              e1(Error(`Failed to import: ${e$}`)), e3(e7);
+              (e1(Error(`Failed to import: ${e$}`)), e3(e7));
             },
             onload() {
-              e8(self[e0].moduleMap[e6]), e3(e7);
+              (e8(self[e0].moduleMap[e6]), e3(e7));
             },
           });
         document.head.appendChild(e7);
       })),
-      (self[e0].moduleMap = {});
+      (self[e0].moduleMap = {}));
   }
 })("/dist/");
 const i = r(
-    "Infinity,undefined,NaN,isFinite,isNaN,parseFloat,parseInt,decodeURI,decodeURIComponent,encodeURI,encodeURIComponent,Math,Number,Date,Array,Object,Boolean,String,RegExp,Map,Set,JSON,Intl,BigInt"
+    "Infinity,undefined,NaN,isFinite,isNaN,parseFloat,parseInt,decodeURI,decodeURIComponent,encodeURI,encodeURIComponent,Math,Number,Date,Array,Object,Boolean,String,RegExp,Map,Set,JSON,Intl,BigInt",
   ),
   c = r(
-    "itemscope,allowfullscreen,formnovalidate,ismap,nomodule,novalidate,readonly"
+    "itemscope,allowfullscreen,formnovalidate,ismap,nomodule,novalidate,readonly",
   );
 
 function u(e$) {
@@ -144,16 +144,16 @@ const g = (e$) =>
       ? {
           [`Map(${e0.size})`]: [...e0.entries()].reduce(
             (e$, [e0, e8]) => ((e$[`${e0} =>`] = e8), e$),
-            {}
+            {},
           ),
         }
       : I(e0)
-      ? {
-          [`Set(${e0.size})`]: [...e0.values()],
-        }
-      : !N(e0) || P(e0) || F(e0)
-      ? e0
-      : String(e0),
+        ? {
+            [`Set(${e0.size})`]: [...e0.values()],
+          }
+        : !N(e0) || P(e0) || F(e0)
+          ? e0
+          : String(e0),
   x = {},
   y = [],
   k = () => {},
@@ -183,7 +183,7 @@ const g = (e$) =>
   z = (e$) =>
     V(e$) && "NaN" !== e$ && "-" !== e$[0] && "" + parseInt(e$, 10) === e$,
   B = r(
-    ",key,ref,onVnodeBeforeMount,onVnodeMounted,onVnodeBeforeUpdate,onVnodeUpdated,onVnodeBeforeUnmount,onVnodeUnmounted"
+    ",key,ref,onVnodeBeforeMount,onVnodeMounted,onVnodeBeforeUpdate,onVnodeUpdated,onVnodeBeforeUnmount,onVnodeUnmounted",
   ),
   H = (e$) => {
     let e0 = Object.create(null);
@@ -225,9 +225,9 @@ function oe(e$, e0 = x) {
       if (!ne.includes(e8)) {
         ce(e8);
         try {
-          return de.push(ue), (ue = !0), ne.push(e8), (le = e8), e$();
+          return (de.push(ue), (ue = !0), ne.push(e8), (le = e8), e$());
         } finally {
-          ne.pop(), fe(), (le = ne[ne.length - 1]);
+          (ne.pop(), fe(), (le = ne[ne.length - 1]));
         }
       }
     };
@@ -242,7 +242,7 @@ function oe(e$, e0 = x) {
       e8
     );
   })(e$, e0);
-  return e0.lazy || e2(), e2;
+  return (e0.lazy || e2(), e2);
 }
 
 function re(e$) {
@@ -262,7 +262,7 @@ let ue = !0;
 const de = [];
 
 function pe() {
-  de.push(ue), (ue = !1);
+  (de.push(ue), (ue = !1));
 }
 
 function fe() {
@@ -275,8 +275,8 @@ function me(e$, e0, e8) {
   let e2 = te.get(e$);
   e2 || te.set(e$, (e2 = new Map()));
   let e3 = e2.get(e8);
-  e3 || e2.set(e8, (e3 = new Set())),
-    e3.has(le) || (e3.add(le), le.deps.push(e3));
+  (e3 || e2.set(e8, (e3 = new Set())),
+    e3.has(le) || (e3.add(le), le.deps.push(e3)));
 }
 
 function he(e$, e0, e8, e2, e3, e1) {
@@ -315,7 +315,7 @@ const be = r("__proto__,__v_isRef,__isVue"),
   ge = new Set(
     Object.getOwnPropertyNames(Symbol)
       .map((e$) => Symbol[e$])
-      .filter(D)
+      .filter(D),
   ),
   ve = Ce(),
   xe = Ce(!1, !0),
@@ -334,14 +334,14 @@ function Ce(e$ = !1, e0 = !1) {
     return (D(e2) ? ge.has(e2) : be(e2)) || (e$ || me(e8, 0, e2), e0)
       ? e6
       : ot(e6)
-      ? e1 && z(e2)
-        ? e6
-        : e6.value
-      : N(e6)
-      ? e$
-        ? Qe(e6)
-        : Ze(e6)
-      : e6;
+        ? e1 && z(e2)
+          ? e6
+          : e6.value
+        : N(e6)
+          ? e$
+            ? Qe(e6)
+            : Ze(e6)
+          : e6;
   };
 }
 
@@ -349,7 +349,7 @@ function _e(e$ = !1) {
   return function (e0, e8, e2, e3) {
     let e1 = e0[e8];
     if (!e$ && ((e2 = at(e2)), !P(e0) && ot(e1) && !ot(e2)))
-      return (e1.value = e2), !0;
+      return ((e1.value = e2), !0);
     let e6 = P(e0) && z(e8) ? Number(e8) < e0.length : R(e0, e8),
       e4 = Reflect.set(e0, e8, e2, e3);
     return (
@@ -359,7 +359,7 @@ function _e(e$ = !1) {
     );
   };
 }
-["includes", "indexOf", "lastIndexOf"].forEach((e$) => {
+(["includes", "indexOf", "lastIndexOf"].forEach((e$) => {
   let e0 = Array.prototype[e$];
   we[e$] = function (...e$) {
     let e8 = at(this);
@@ -373,9 +373,9 @@ function _e(e$ = !1) {
     we[e$] = function (...e$) {
       pe();
       let e8 = e0.apply(this, e$);
-      return fe(), e8;
+      return (fe(), e8);
     };
-  });
+  }));
 const Ae = {
     get: ve,
     set: _e(),
@@ -383,14 +383,14 @@ const Ae = {
       let e8 = R(e$, e0);
       e$[e0];
       let e2 = Reflect.deleteProperty(e$, e0);
-      return e2 && e8 && he(e$, "delete", e0, void 0), e2;
+      return (e2 && e8 && he(e$, "delete", e0, void 0), e2);
     },
     has: function (e$, e0) {
       let e8 = Reflect.has(e$, e0);
-      return (D(e0) && ge.has(e0)) || me(e$, 0, e0), e8;
+      return ((D(e0) && ge.has(e0)) || me(e$, 0, e0), e8);
     },
     ownKeys: function (e$) {
-      return me(e$, 0, P(e$) ? "length" : ae), Reflect.ownKeys(e$);
+      return (me(e$, 0, P(e$) ? "length" : ae), Reflect.ownKeys(e$));
     },
   },
   Se = {
@@ -413,14 +413,14 @@ const Ee = (e$) => (N(e$) ? Ze(e$) : e$),
 function Ie(e$, e0, e8 = !1, e2 = !1) {
   let e3 = at((e$ = e$.__v_raw)),
     e1 = at(e0);
-  e0 === e1 || e8 || me(e3, 0, e0), e8 || me(e3, 0, e1);
+  (e0 === e1 || e8 || me(e3, 0, e0), e8 || me(e3, 0, e1));
   let { has: e6 } = Le(e3),
     e4 = e8 ? Re : e2 ? Pe : Ee;
   return e6.call(e3, e0)
     ? e4(e$.get(e0))
     : e6.call(e3, e1)
-    ? e4(e$.get(e1))
-    : void 0;
+      ? e4(e$.get(e1))
+      : void 0;
 }
 
 function Oe(e$, e0 = !1) {
@@ -436,14 +436,16 @@ function Oe(e$, e0 = !1) {
 
 function Me(e$, e0 = !1) {
   return (
-    (e$ = e$.__v_raw), e0 || me(at(e$), 0, ae), Reflect.get(e$, "size", e$)
+    (e$ = e$.__v_raw),
+    e0 || me(at(e$), 0, ae),
+    Reflect.get(e$, "size", e$)
   );
 }
 
 function Ve(e$) {
   e$ = at(e$);
   let e0 = at(this);
-  return Le(e0).has.call(e0, e$) || (e0.add(e$), he(e0, "add", e$, e$)), this;
+  return (Le(e0).has.call(e0, e$) || (e0.add(e$), he(e0, "add", e$, e$)), this);
 }
 
 function De(e$, e0) {
@@ -464,16 +466,16 @@ function Ne(e$) {
   let e0 = at(this),
     { has: e8, get: e2 } = Le(e0),
     e3 = e8.call(e0, e$);
-  e3 || ((e$ = at(e$)), (e3 = e8.call(e0, e$))), e2 && e2.call(e0, e$);
+  (e3 || ((e$ = at(e$)), (e3 = e8.call(e0, e$))), e2 && e2.call(e0, e$));
   let e1 = e0.delete(e$);
-  return e3 && he(e0, "delete", e$, void 0), e1;
+  return (e3 && he(e0, "delete", e$, void 0), e1);
 }
 
 function Ue() {
   let e$ = at(this),
     e0 = 0 !== e$.size,
     e8 = e$.clear();
-  return e0 && he(e$, "clear", void 0, void 0), e8;
+  return (e0 && he(e$, "clear", void 0, void 0), e8);
 }
 
 function $e(e$, e0) {
@@ -576,15 +578,15 @@ function qe(e$, e0) {
     "__v_isReactive" === e2
       ? !e$
       : "__v_isReadonly" === e2
-      ? e$
-      : "__v_raw" === e2
-      ? e0
-      : Reflect.get(R(e8, e2) && e2 in e0 ? e8 : e0, e2, e3);
+        ? e$
+        : "__v_raw" === e2
+          ? e0
+          : Reflect.get(R(e8, e2) && e2 in e0 ? e8 : e0, e2, e3);
 }
 ["keys", "values", "entries", Symbol.iterator].forEach((e$) => {
-  (ze[e$] = je(e$, !1, !1)),
+  ((ze[e$] = je(e$, !1, !1)),
     (He[e$] = je(e$, !0, !1)),
-    (Be[e$] = je(e$, !1, !0));
+    (Be[e$] = je(e$, !1, !0)));
 });
 const Ge = {
     get: qe(!1, !1),
@@ -634,7 +636,7 @@ function et(e$, e0, e8, e2) {
   let e6 = Ye(e$);
   if (0 === e6) return e$;
   let e4 = new Proxy(e$, 2 === e6 ? e2 : e8);
-  return e3.set(e$, e4), e4;
+  return (e3.set(e$, e4), e4);
 }
 
 function tt(e$) {
@@ -663,13 +665,13 @@ function rt(e$) {
 }
 class it {
   constructor(e$, e0 = !1) {
-    (this._rawValue = e$),
+    ((this._rawValue = e$),
       (this._shallow = e0),
       (this.__v_isRef = !0),
-      (this._value = e0 ? e$ : st(e$));
+      (this._value = e0 ? e$ : st(e$)));
   }
   get value() {
-    return me(at(this), 0, "value"), this._value;
+    return (me(at(this), 0, "value"), this._value);
   }
   set value(e$) {
     Y(at(e$), this._rawValue) &&
@@ -701,7 +703,7 @@ function pt(e$) {
 }
 class ft {
   constructor(e$, e0) {
-    (this._object = e$), (this._key = e0), (this.__v_isRef = !0);
+    ((this._object = e$), (this._key = e0), (this.__v_isRef = !0));
   }
   get value() {
     return this._object[this._key];
@@ -712,7 +714,7 @@ class ft {
 }
 class mt {
   constructor(e$, e0, e8) {
-    (this._setter = e0),
+    ((this._setter = e0),
       (this._dirty = !0),
       (this.__v_isRef = !0),
       (this.effect = oe(e$, {
@@ -721,7 +723,7 @@ class mt {
           this._dirty || ((this._dirty = !0), he(at(this), "set", "value"));
         },
       })),
-      (this.__v_isReadonly = e8);
+      (this.__v_isReadonly = e8));
   }
   get value() {
     return (
@@ -818,7 +820,7 @@ function It(e$) {
       }
       return e0;
     })(e$);
-    e0 > -1 ? yt.splice(e0, 0, e$) : yt.push(e$), Ot();
+    (e0 > -1 ? yt.splice(e0, 0, e$) : yt.push(e$), Ot());
   }
 }
 
@@ -827,10 +829,10 @@ function Ot() {
 }
 
 function Mt(e$, e0, e8, e2) {
-  P(e$)
+  (P(e$)
     ? e8.push(...e$)
     : (e0 && e0.includes(e$, e$.allowRecurse ? e2 + 1 : e2)) || e8.push(e$),
-    Ot();
+    Ot());
 }
 
 function Vt(e$, e0 = null) {
@@ -841,7 +843,7 @@ function Vt(e$, e0 = null) {
       _t++
     )
       Ct[_t]();
-    (Ct = null), (_t = 0), (Pt = null), Vt(e$, e0);
+    ((Ct = null), (_t = 0), (Pt = null), Vt(e$, e0));
   }
 }
 
@@ -855,25 +857,25 @@ function Dt(e$) {
       Tt++
     )
       St[Tt]();
-    (St = null), (Tt = 0);
+    ((St = null), (Tt = 0));
   }
 }
 const Nt = (e$) => (null == e$.id ? 1 / 0 : e$.id);
 
 function Ut(e$) {
-  (xt = !1), (vt = !0), Vt(e$), yt.sort((e$, e0) => Nt(e$) - Nt(e0));
+  ((xt = !1), (vt = !0), Vt(e$), yt.sort((e$, e0) => Nt(e$) - Nt(e0)));
   try {
     for (kt = 0; kt < yt.length; kt++) {
       let e0 = yt[kt];
       e0 && ht(e0, null, 14);
     }
   } finally {
-    (kt = 0),
+    ((kt = 0),
       (yt.length = 0),
       Dt(),
       (vt = !1),
       (Rt = null),
-      (yt.length || At.length) && Ut(e$);
+      (yt.length || At.length) && Ut(e$));
   }
 }
 
@@ -889,7 +891,7 @@ function $t(e$, e0, ...e8) {
   }
   let eV = X(G(e0)),
     eN = e2[eV];
-  !eN && e1 && (eN = e2[(eV = X(K(e0)))]), eN && bt(eN, e$, 6, e3);
+  (!eN && e1 && (eN = e2[(eV = X(K(e0)))]), eN && bt(eN, e$, 6, e3));
   let e9 = e2[eV + "Once"];
   if (e9) {
     if (e$.emitted) {
@@ -906,11 +908,11 @@ function jt(e$, e0, e8 = !1) {
     e1 = !1;
   if (!M(e$)) {
     let e6 = (e$) => {
-      (e1 = !0), S(e3, jt(e$, e0, !0));
+      ((e1 = !0), S(e3, jt(e$, e0, !0)));
     };
-    !e8 && e0.mixins.length && e0.mixins.forEach(e6),
+    (!e8 && e0.mixins.length && e0.mixins.forEach(e6),
       e$.extends && e6(e$.extends),
-      e$.mixins && e$.mixins.forEach(e6);
+      e$.mixins && e$.mixins.forEach(e6));
   }
   return e2 || e1
     ? (P(e2) ? e2.forEach((e$) => (e3[e$] = null)) : S(e3, e2),
@@ -923,7 +925,7 @@ function Ft(e$, e0) {
     !(!e$ || !_(e0)) &&
     (R(
       e$,
-      (e0 = e0.slice(2).replace(/Once$/, ""))[0].toLowerCase() + e0.slice(1)
+      (e0 = e0.slice(2).replace(/Once$/, ""))[0].toLowerCase() + e0.slice(1),
     ) ||
       R(e$, K(e0)) ||
       R(e$, e0))
@@ -958,10 +960,10 @@ function Ht(e$) {
     let ez;
     if (4 & e8.shapeFlag) {
       let eF = e3 || e2;
-      (eD = Vl(eV.call(eF, eF, eN, e1, eU, e9, ej))), (ez = e7);
+      ((eD = Vl(eV.call(eF, eF, eN, e1, eU, e9, ej))), (ez = e7));
     } else {
       let eB = e0;
-      (eD = Vl(
+      ((eD = Vl(
         eB(
           e1,
           eB.length > 1
@@ -970,10 +972,10 @@ function Ht(e$) {
                 slots: e4,
                 emit: e5,
               }
-            : null
-        )
+            : null,
+        ),
       )),
-        (ez = e0.props ? e7 : Gt(e7));
+        (ez = e0.props ? e7 : Gt(e7)));
     }
     let eH = eD;
     if (!1 !== e0.inheritAttrs && ez) {
@@ -983,13 +985,13 @@ function Ht(e$) {
         (1 & eG || 6 & eG) &&
         (e6 && eZ.some(A) && (ez = Wt(ez, e6)), (eH = Ll(eH, ez)));
     }
-    e8.dirs && (eH.dirs = eH.dirs ? eH.dirs.concat(e8.dirs) : e8.dirs),
+    (e8.dirs && (eH.dirs = eH.dirs ? eH.dirs.concat(e8.dirs) : e8.dirs),
       e8.transition && (eH.transition = e8.transition),
-      (eD = eH);
+      (eD = eH));
   } catch (eq) {
-    gt(eq, e$, 1), (eD = Pl(vl));
+    (gt(eq, e$, 1), (eD = Pl(vl)));
   }
-  return (zt = null), eD;
+  return ((zt = null), eD);
 }
 
 function qt(e$) {
@@ -1028,14 +1030,14 @@ function Kt(e$, e0, e8) {
 }
 
 function Jt(e$) {
-  return M(e$) && (e$ = e$()), P(e$) && (e$ = qt(e$)), Vl(e$);
+  return (M(e$) && (e$ = e$()), P(e$) && (e$ = qt(e$)), Vl(e$));
 }
 let Xt = 0;
 const Yt = (e$) => (Xt += e$);
 
 function Zt(e$, e0, e8 = {}, e2) {
   let e3 = e$[e0];
-  Xt++, wl();
+  (Xt++, wl());
   let e1 = e3 && Qt(e3(e8)),
     e6 = _l(
       bl,
@@ -1043,14 +1045,15 @@ function Zt(e$, e0, e8 = {}, e2) {
         key: e8.key || `_${e0}`,
       },
       e1 || (e2 ? e2() : []),
-      e1 && 1 === e$._ ? 64 : -2
+      e1 && 1 === e$._ ? 64 : -2,
     );
-  return Xt--, e6;
+  return (Xt--, e6);
 }
 
 function Qt(e$) {
   return e$.some(
-    (e$) => !Al(e$) || (e$.type !== vl && !(e$.type === bl && !Qt(e$.children)))
+    (e$) =>
+      !Al(e$) || (e$.type !== vl && !(e$.type === bl && !Qt(e$.children))),
   )
     ? e$
     : null;
@@ -1063,9 +1066,9 @@ function en(e$, e0 = zt) {
     let e2 = zt;
     Bt(e0);
     let e3 = e$(...e8);
-    return Bt(e2), Xt || Cl(), e3;
+    return (Bt(e2), Xt || Cl(), e3);
   };
-  return (e8._c = !0), e8;
+  return ((e8._c = !0), e8);
 }
 let tn = null;
 const nn = [];
@@ -1075,7 +1078,7 @@ function ln(e$) {
 }
 
 function an() {
-  nn.pop(), (tn = nn[nn.length - 1] || null);
+  (nn.pop(), (tn = nn[nn.length - 1] || null));
 }
 
 function sn(e$) {
@@ -1083,21 +1086,21 @@ function sn(e$) {
     en(function () {
       ln(e$);
       let e8 = e0.apply(this, arguments);
-      return an(), e8;
+      return (an(), e8);
     });
 }
 
 function on(e$, e0, e8, e2 = !1) {
   let e3 = {},
     e1 = {};
-  Q(e1, Tl, 1),
+  (Q(e1, Tl, 1),
     rn(e$, e0, e3, e1),
     e8
       ? (e$.props = e2 ? e3 : et(e3, !1, Te, We))
       : e$.type.props
-      ? (e$.props = e3)
-      : (e$.props = e1),
-    (e$.attrs = e1);
+        ? (e$.props = e3)
+        : (e$.props = e1),
+    (e$.attrs = e1));
 }
 
 function rn(e$, e0, e8, e2) {
@@ -1148,11 +1151,11 @@ function un(e$, e0, e8 = !1) {
     let e4 = (e$) => {
       e6 = !0;
       let [e8, e2] = un(e$, e0, !0);
-      S(e3, e8), e2 && e1.push(...e2);
+      (S(e3, e8), e2 && e1.push(...e2));
     };
-    !e8 && e0.mixins.length && e0.mixins.forEach(e4),
+    (!e8 && e0.mixins.length && e0.mixins.forEach(e4),
       e$.extends && e4(e$.extends),
-      e$.mixins && e$.mixins.forEach(e4);
+      e$.mixins && e$.mixins.forEach(e4));
   }
   if (!e2 && !e6) return (e$.__props = y);
   if (P(e2))
@@ -1174,9 +1177,9 @@ function un(e$, e0, e8 = !1) {
         if (eU) {
           let ej = mn(Boolean, eU.type),
             eD = mn(String, eU.type);
-          (eU[0] = ej > -1),
+          ((eU[0] = ej > -1),
             (eU[1] = eD < 0 || ej < eD),
-            (ej > -1 || R(eU, "default")) && e1.push(eN);
+            (ej > -1 || R(eU, "default")) && e1.push(eN));
         }
       }
     }
@@ -1211,11 +1214,11 @@ function hn(e$, e0, e8 = na, e2 = !1) {
         e0.__weh ||
         (e0.__weh = (...e2) => {
           if (e8.isUnmounted) return;
-          pe(), aa(e8);
+          (pe(), aa(e8));
           let e3 = bt(e0, e8, e$, e2);
-          return aa(null), fe(), e3;
+          return (aa(null), fe(), e3);
         });
-    return e2 ? e3.unshift(e1) : e3.push(e1), e1;
+    return (e2 ? e3.unshift(e1) : e3.push(e1), e1);
   }
 }
 const bn =
@@ -1244,7 +1247,7 @@ function En(
   e$,
   e0,
   { immediate: e8, deep: e2, flush: e3, onTrack: e1, onTrigger: e6 } = x,
-  e4 = na
+  e4 = na,
 ) {
   let e7,
     e5,
@@ -1253,26 +1256,26 @@ function En(
     (ot(e$)
       ? ((e7 = () => e$.value), (eV = !!e$._shallow))
       : tt(e$)
-      ? ((e7 = () => e$), (e2 = !0))
-      : (e7 = P(e$)
-          ? () =>
-              e$.map((e$) =>
-                ot(e$)
-                  ? e$.value
-                  : tt(e$)
-                  ? Pn(e$)
-                  : M(e$)
-                  ? ht(e$, e4, 2, [e4 && e4.proxy])
-                  : void 0
-              )
-          : M(e$)
-          ? e0
-            ? () => ht(e$, e4, 2, [e4 && e4.proxy])
-            : () => {
-                if (!e4 || !e4.isUnmounted)
-                  return e5 && e5(), ht(e$, e4, 3, [e9]);
-              }
-          : k),
+        ? ((e7 = () => e$), (e2 = !0))
+        : (e7 = P(e$)
+            ? () =>
+                e$.map((e$) =>
+                  ot(e$)
+                    ? e$.value
+                    : tt(e$)
+                      ? Pn(e$)
+                      : M(e$)
+                        ? ht(e$, e4, 2, [e4 && e4.proxy])
+                        : void 0,
+                )
+            : M(e$)
+              ? e0
+                ? () => ht(e$, e4, 2, [e4 && e4.proxy])
+                : () => {
+                    if (!e4 || !e4.isUnmounted)
+                      return (e5 && e5(), ht(e$, e4, 3, [e9]));
+                  }
+              : k),
     e0 && e2)
   ) {
     let eN = e7;
@@ -1296,16 +1299,16 @@ function En(
       }
     },
     eD;
-  (ej.allowRecurse = !!e0),
+  ((ej.allowRecurse = !!e0),
     (eD =
       "sync" === e3
         ? ej
         : "post" === e3
-        ? () => sl(ej, e4 && e4.suspense)
-        : () => {
-            var e$;
-            !e4 || e4.isMounted ? ((e$ = ej), Mt(e$, Ct, wt, _t)) : ej();
-          });
+          ? () => sl(ej, e4 && e4.suspense)
+          : () => {
+              var e$;
+              !e4 || e4.isMounted ? ((e$ = ej), Mt(e$, Ct, wt, _t)) : ej();
+            }));
   let ez = oe(e7, {
     lazy: !0,
     onTrack: e1,
@@ -1319,10 +1322,10 @@ function En(
         ? ej()
         : (eU = ez())
       : "post" === e3
-      ? sl(ez, e4 && e4.suspense)
-      : ez(),
+        ? sl(ez, e4 && e4.suspense)
+        : ez(),
     () => {
-      re(ez), e4 && T(e4.effects, ez);
+      (re(ez), e4 && T(e4.effects, ez));
     }
   );
 }
@@ -1410,17 +1413,17 @@ const In = [Function, Array],
             return (
               (e2.isLeaving = !0),
               (ez.afterLeave = () => {
-                (e2.isLeaving = !1), e8.update();
+                ((e2.isLeaving = !1), e8.update());
               }),
               Dn(e7)
             );
           "in-out" === e4 &&
             (ez.delayLeave = (e$, e0, e8) => {
-              (Mn(e2, e9)[String(e9.key)] = e9),
+              ((Mn(e2, e9)[String(e9.key)] = e9),
                 (e$._leaveCb = () => {
-                  e0(), (e$._leaveCb = void 0), delete eV.delayedLeave;
+                  (e0(), (e$._leaveCb = void 0), delete eV.delayedLeave);
                 }),
-                (eV.delayedLeave = e8);
+                (eV.delayedLeave = e8));
             });
         }
         return e7;
@@ -1431,7 +1434,7 @@ const In = [Function, Array],
 function Mn(e$, e0) {
   let { leavingVNodes: e8 } = e$,
     e2 = e8.get(e0.type);
-  return e2 || ((e2 = Object.create(null)), e8.set(e0.type, e2)), e2;
+  return (e2 || ((e2 = Object.create(null)), e8.set(e0.type, e2)), e2);
 }
 
 function Vn(e$, e0, e8, e2) {
@@ -1468,7 +1471,7 @@ function Vn(e$, e0, e8, e2) {
         }
         e0._leaveCb && e0._leaveCb(!0);
         let e1 = eZ[eH];
-        e1 && Sl(e$, e1) && e1.el._leaveCb && e1.el._leaveCb(), eG(e2, [e0]);
+        (e1 && Sl(e$, e1) && e1.el._leaveCb && e1.el._leaveCb(), eG(e2, [e0]));
       },
       enter(e$) {
         let e0 = e7,
@@ -1476,7 +1479,7 @@ function Vn(e$, e0, e8, e2) {
           e1 = eV;
         if (!e8.isMounted) {
           if (!e3) return;
-          (e0 = ez || e7), (e2 = eF || e5), (e1 = eB || eV);
+          ((e0 = ez || e7), (e2 = eF || e5), (e1 = eB || eV));
         }
         let e6 = !1,
           e4 = (e$._enterCb = (e0) => {
@@ -1501,7 +1504,7 @@ function Vn(e$, e0, e8, e2) {
               (e0._leaveCb = void 0),
               eZ[e3] === e$ && delete eZ[e3]);
           });
-        (eZ[e3] = e$), e9 ? (e9(e0, e6), e9.length <= 1 && e6()) : e6();
+        ((eZ[e3] = e$), e9 ? (e9(e0, e6), e9.length <= 1 && e6()) : e6());
       },
       clone: (e$) => Vn(e$, e0, e8, e2),
     };
@@ -1509,7 +1512,7 @@ function Vn(e$, e0, e8, e2) {
 }
 
 function Dn(e$) {
-  if (jn(e$)) return ((e$ = Ll(e$)).children = null), e$;
+  if (jn(e$)) return (((e$ = Ll(e$)).children = null), e$);
 }
 
 function Nn(e$) {
@@ -1520,9 +1523,9 @@ function Un(e$, e0) {
   6 & e$.shapeFlag && e$.component
     ? Un(e$.component.subTree, e0)
     : 128 & e$.shapeFlag
-    ? ((e$.ssContent.transition = e0.clone(e$.ssContent)),
-      (e$.ssFallback.transition = e0.clone(e$.ssFallback)))
-    : (e$.transition = e0);
+      ? ((e$.ssContent.transition = e0.clone(e$.ssContent)),
+        (e$.ssFallback.transition = e0.clone(e$.ssFallback)))
+      : (e$.transition = e0);
 }
 
 function $n(e$, e0 = !1) {
@@ -1564,7 +1567,7 @@ const jn = (e$) => e$.type.__isKeepAlive,
         e9 = eN("div");
 
       function eU(e$) {
-        qn(e$), eV(e$, e1, e6);
+        (qn(e$), eV(e$, e1, e6));
       }
 
       function ej(e$) {
@@ -1576,39 +1579,39 @@ const jn = (e$) => e$.type.__isKeepAlive,
 
       function eD(e$) {
         let e0 = e8.get(e$);
-        e3 && e0.type === e3.type ? e3 && qn(e3) : eU(e0),
+        (e3 && e0.type === e3.type ? e3 && qn(e3) : eU(e0),
           e8.delete(e$),
-          e2.delete(e$);
+          e2.delete(e$));
       }
-      (e4.activate = (e$, e0, e8, e2, e3) => {
+      ((e4.activate = (e$, e0, e8, e2, e3) => {
         let e1 = e$.component;
-        e5(e$, e0, e8, 0, e6),
+        (e5(e$, e0, e8, 0, e6),
           e7(e1.vnode, e$, e0, e8, e1, e6, e2, e3),
           sl(() => {
-            (e1.isDeactivated = !1), e1.a && Z(e1.a);
+            ((e1.isDeactivated = !1), e1.a && Z(e1.a));
             let e0 = e$.props && e$.props.onVnodeMounted;
             e0 && il(e0, e1.parent, e$);
-          }, e6);
+          }, e6));
       }),
         (e4.deactivate = (e$) => {
           let e0 = e$.component;
-          e5(e$, e9, null, 1, e6),
+          (e5(e$, e9, null, 1, e6),
             sl(() => {
               e0.da && Z(e0.da);
               let e8 = e$.props && e$.props.onVnodeUnmounted;
-              e8 && il(e8, e0.parent, e$), (e0.isDeactivated = !0);
-            }, e6);
+              (e8 && il(e8, e0.parent, e$), (e0.isDeactivated = !0));
+            }, e6));
         }),
         Tn(
           () => [e$.include, e$.exclude],
           ([e$, e0]) => {
-            e$ && ej((e0) => zn(e$, e0)), e0 && ej((e$) => !zn(e0, e$));
+            (e$ && ej((e0) => zn(e$, e0)), e0 && ej((e$) => !zn(e0, e$)));
           },
           {
             flush: "post",
             deep: !0,
-          }
-        );
+          },
+        ));
       let ez = null,
         eF = () => {
           null != ez && e8.set(ez, Gn(e1.subTree));
@@ -1632,15 +1635,15 @@ const jn = (e$) => e$.type.__isKeepAlive,
           if (((ez = null), !e0.default)) return null;
           let e1 = e0.default(),
             e6 = e1[0];
-          if (e1.length > 1) return (e3 = null), e1;
+          if (e1.length > 1) return ((e3 = null), e1);
           if (!(Al(e6) && (4 & e6.shapeFlag || 128 & e6.shapeFlag)))
-            return (e3 = null), e6;
+            return ((e3 = null), e6);
           let e4 = Gn(e6),
             e7 = e4.type,
             e5 = ua(e7),
             { include: eV, exclude: eN, max: e9 } = e$;
           if ((eV && (!e5 || !zn(eV, e5))) || (eN && e5 && zn(eN, e5)))
-            return (e3 = e4), e6;
+            return ((e3 = e4), e6);
           let eU = null == e4.key ? e7 : e4.key,
             ej = e8.get(eU);
           return (
@@ -1670,8 +1673,8 @@ function zn(e$, e0) {
   return P(e$)
     ? e$.some((e$) => zn(e$, e0))
     : V(e$)
-    ? e$.split(",").indexOf(e0) > -1
-    : !!e$.test && e$.test(e0);
+      ? e$.split(",").indexOf(e0) > -1
+      : !!e$.test && e$.test(e0);
 }
 
 function Bn(e$, e0, e8 = na) {
@@ -1688,7 +1691,7 @@ function Bn(e$, e0, e8 = na) {
   if ((hn(e0, e2, e8), e8)) {
     let e3 = e8.parent;
     for (; e3 && e3.parent; )
-      jn(e3.parent.vnode) && Hn(e2, e0, e8, e3), (e3 = e3.parent);
+      (jn(e3.parent.vnode) && Hn(e2, e0, e8, e3), (e3 = e3.parent));
   }
 }
 
@@ -1701,7 +1704,7 @@ function Hn(e$, e0, e8, e2) {
 
 function qn(e$) {
   let e0 = e$.shapeFlag;
-  256 & e0 && (e0 -= 256), 512 & e0 && (e0 -= 512), (e$.shapeFlag = e0);
+  (256 & e0 && (e0 -= 256), 512 & e0 && (e0 -= 512), (e$.shapeFlag = e0));
 }
 
 function Gn(e$) {
@@ -1733,7 +1736,7 @@ function Zn(e$, e0) {
     e2 = e$.dirs || (e$.dirs = []);
   for (let e3 = 0; e3 < e0.length; e3++) {
     let [e1, e6, e4, e7 = x] = e0[e3];
-    M(e1) &&
+    (M(e1) &&
       (e1 = {
         mounted: e1,
         updated: e1,
@@ -1745,7 +1748,7 @@ function Zn(e$, e0) {
         oldValue: void 0,
         arg: e4,
         modifiers: e7,
-      });
+      }));
   }
   return e$;
 }
@@ -1858,15 +1861,15 @@ const al = {
   ol = (e$, e0, e8, e2) => {
     if (P(e$))
       return void e$.forEach((e$, e3) =>
-        ol(e$, e0 && (P(e0) ? e0[e3] : e0), e8, e2)
+        ol(e$, e0 && (P(e0) ? e0[e3] : e0), e8, e2),
       );
     let e3;
     e3 =
       !e2 || e2.type.__asyncLoader
         ? null
         : 4 & e2.shapeFlag
-        ? e2.component.exposed || e2.component.proxy
-        : e2.el;
+          ? e2.component.exposed || e2.component.proxy
+          : e2.el;
     let { i: e1, r: e6 } = e$,
       e4 = e0 && e0.r,
       e7 = e1.refs === x ? (e1.refs = {}) : e1.refs,
@@ -1880,7 +1883,7 @@ const al = {
       V(e6))
     ) {
       let eV = () => {
-        (e7[e6] = e3), R(e5, e6) && (e5[e6] = e3);
+        ((e7[e6] = e3), R(e5, e6) && (e5[e6] = e3));
       };
       e3 ? ((eV.id = -1), sl(eV, e8)) : eV();
     } else if (ot(e6)) {
@@ -1910,8 +1913,8 @@ function rl(e$) {
         insertStaticContent: eD,
       } = e$,
       ez = (e$, e0, e8, e2 = null, e3 = null, e1 = null, e6 = !1, e4 = !1) => {
-        e$ && !Sl(e$, e0) && ((e2 = tD(e$)), tV(e$, e3, e1, !0), (e$ = null)),
-          -2 === e0.patchFlag && ((e4 = !1), (e0.dynamicChildren = null));
+        (e$ && !Sl(e$, e0) && ((e2 = tD(e$)), tV(e$, e3, e1, !0), (e$ = null)),
+          -2 === e0.patchFlag && ((e4 = !1), (e0.dynamicChildren = null)));
         let { type: e7, ref: e5, shapeFlag: eV } = e0;
         switch (e7) {
           case gl:
@@ -1930,9 +1933,9 @@ function rl(e$) {
             1 & eV
               ? eq(e$, e0, e8, e2, e3, e1, e6, e4)
               : 6 & eV
-              ? t0(e$, e0, e8, e2, e3, e1, e6, e4)
-              : (64 & eV || 128 & eV) &&
-                e7.process(e$, e0, e8, e2, e3, e1, e6, e4, tF);
+                ? t0(e$, e0, e8, e2, e3, e1, e6, e4)
+                : (64 & eV || 128 & eV) &&
+                  e7.process(e$, e0, e8, e2, e3, e1, e6, e4, tF);
         }
         null != e5 && e3 && ol(e5, e$ && e$.ref, e1, e0);
       },
@@ -1953,19 +1956,19 @@ function rl(e$) {
       },
       eZ = ({ el: e$, anchor: e0 }, e2, e3) => {
         let e1;
-        for (; e$ && e$ !== e0; ) (e1 = e9(e$)), e8(e$, e2, e3), (e$ = e1);
+        for (; e$ && e$ !== e0; ) ((e1 = e9(e$)), e8(e$, e2, e3), (e$ = e1));
         e8(e0, e2, e3);
       },
       eG = ({ el: e$, anchor: e0 }) => {
         let e8;
-        for (; e$ && e$ !== e0; ) (e8 = e9(e$)), e2(e$), (e$ = e8);
+        for (; e$ && e$ !== e0; ) ((e8 = e9(e$)), e2(e$), (e$ = e8));
         e2(e0);
       },
       eq = (e$, e0, e8, e2, e3, e1, e6, e4) => {
-        (e6 = e6 || "svg" === e0.type),
+        ((e6 = e6 || "svg" === e0.type),
           null == e$
             ? eW(e0, e8, e2, e3, e1, e6, e4)
-            : eY(e$, e0, e3, e1, e6, e4);
+            : eY(e$, e0, e3, e1, e6, e4));
       },
       eW = (e$, e0, e2, e1, e4, e7, e5) => {
         let eN,
@@ -1993,7 +1996,7 @@ function rl(e$) {
                   e1,
                   e4,
                   e7 && "foreignObject" !== eU,
-                  e5 || !!e$.dynamicChildren
+                  e5 || !!e$.dynamicChildren,
                 ),
             eZ && Qn(e$, null, e1, "created"),
             eD)
@@ -2006,20 +2009,20 @@ function rl(e$) {
         }
         eZ && Qn(e$, null, e1, "beforeMount");
         let eq = (!e4 || (e4 && !e4.pendingBranch)) && eF && !eF.persisted;
-        eq && eF.beforeEnter(eN),
+        (eq && eF.beforeEnter(eN),
           e8(eN, e0, e2),
           ((e9 = eD && eD.onVnodeMounted) || eq || eZ) &&
             sl(() => {
-              e9 && il(e9, e1, e$),
+              (e9 && il(e9, e1, e$),
                 eq && eF.enter(eN),
-                eZ && Qn(e$, null, e1, "mounted");
-            }, e4);
+                eZ && Qn(e$, null, e1, "mounted"));
+            }, e4));
       },
       eK = (e$, e0, e8, e2) => {
         if ((e0 && eU(e$, e0), e2)) {
           let e3 = e2.type.__scopeId;
-          e3 && e3 !== e0 && eU(e$, e3 + "-s"),
-            e8 === e2.subTree && eK(e$, e2.vnode.scopeId, e2.vnode, e2.parent);
+          (e3 && e3 !== e0 && eU(e$, e3 + "-s"),
+            e8 === e2.subTree && eK(e$, e2.vnode.scopeId, e2.vnode, e2.parent));
         }
       },
       eX = (e$, e0, e8, e2, e3, e1, e6, e4 = 0) => {
@@ -2060,13 +2063,13 @@ function rl(e$) {
           1 & e5 && e$.children !== e0.children && eV(e7, e0.children);
         } else e4 || null != eN || eJ(e7, e0, eU, ej, e8, e2, e6);
         let eG = e6 && "foreignObject" !== e0.type;
-        eN
+        (eN
           ? eQ(e$.dynamicChildren, eN, e7, e8, e2, eG)
           : e4 || t6(e$, e0, e7, null, e8, e2, eG),
           ((eD = ej.onVnodeUpdated) || e9) &&
             sl(() => {
-              eD && il(eD, e8, e0, e$), e9 && Qn(e0, e$, e8, "updated");
-            }, e2);
+              (eD && il(eD, e8, e0, e$), e9 && Qn(e0, e$, e8, "updated"));
+            }, e2));
       },
       eQ = (e$, e0, e8, e2, e3, e1) => {
         for (let e6 = 0; e6 < e0.length; e6++) {
@@ -2102,15 +2105,15 @@ function rl(e$) {
         let eV = (e0.el = e$ ? e$.el : e4("")),
           eN = (e0.anchor = e$ ? e$.anchor : e4("")),
           { patchFlag: e9, dynamicChildren: eU } = e0;
-        e9 > 0 && (e5 = !0),
+        (e9 > 0 && (e5 = !0),
           null == e$
             ? (e8(eV, e2, e3),
               e8(eN, e2, e3),
               eX(e0.children, e2, eN, e1, e6, e7, e5))
             : e9 > 0 && 64 & e9 && eU && e$.dynamicChildren
-            ? (eQ(e$.dynamicChildren, eU, e2, e1, e6, e7),
-              (null != e0.key || (e1 && e0 === e1.subTree)) && cl(e$, e0, !0))
-            : t6(e$, e0, e2, eN, e1, e6, e7, e5);
+              ? (eQ(e$.dynamicChildren, eU, e2, e1, e6, e7),
+                (null != e0.key || (e1 && e0 === e1.subTree)) && cl(e$, e0, !0))
+              : t6(e$, e0, e2, eN, e1, e6, e7, e5));
       },
       t0 = (e$, e0, e8, e2, e3, e1, e6, e4) => {
         null == e$
@@ -2191,21 +2194,21 @@ function rl(e$) {
             oa = e0;
             let { props: e8, children: e2 } = e$.vnode,
               e3 = sa(e$);
-            on(e$, e8, e3, e0),
+            (on(e$, e8, e3, e0),
               ((e$, e0) => {
                 if (32 & e$.vnode.shapeFlag) {
                   let e8 = e0._;
                   e8
                     ? ((e$.slots = e0), Q(e0, "_", e8))
                     : Xn(e0, (e$.slots = {}));
-                } else (e$.slots = {}), e0 && Yn(e$, e0);
+                } else ((e$.slots = {}), e0 && Yn(e$, e0));
                 Q(e$.slots, Tl, 1);
               })(e$, e2),
               e3 &&
                 (function (e$, e0) {
                   let e8 = e$.type;
-                  (e$.accessCache = Object.create(null)),
-                    (e$.proxy = new Proxy(e$.ctx, Zl));
+                  ((e$.accessCache = Object.create(null)),
+                    (e$.proxy = new Proxy(e$.ctx, Zl)));
                   let { setup: e2 } = e8;
                   if (e2) {
                     let e3 = (e$.setupContext =
@@ -2222,7 +2225,7 @@ function rl(e$) {
                             };
                           })(e$)
                         : null);
-                    (na = e$), pe();
+                    ((na = e$), pe());
                     let e1 = ht(e2, e$, 0, [e$.props, e3]);
                     if ((fe(), (na = null), U(e1))) {
                       if (e0)
@@ -2233,7 +2236,7 @@ function rl(e$) {
                     } else ra(e$, e1);
                   } else ia(e$);
                 })(e$, e0),
-              (oa = !1);
+              (oa = !1));
           })(e4),
           e4.asyncDep)
         ) {
@@ -2269,13 +2272,14 @@ function rl(e$) {
           })(e$, e0, e8)
         ) {
           if (e2.asyncDep && !e2.asyncResolved) return void t1(e2, e0, e8);
-          (e2.next = e0),
+          ((e2.next = e0),
             (function (e$) {
               let e0 = yt.indexOf(e$);
               e0 > -1 && yt.splice(e0, 1);
             })(e2.update),
-            e2.update();
-        } else (e0.component = e$.component), (e0.el = e$.el), (e2.vnode = e0);
+            e2.update());
+        } else
+          ((e0.component = e$.component), (e0.el = e$.el), (e2.vnode = e0));
       },
       t3 = (e$, e0, e8, e2, e3, e1, e6) => {
         e$.update = oe(function () {
@@ -2283,30 +2287,30 @@ function rl(e$) {
             let e4,
               { next: e7, bu: e5, u: eV, parent: e9, vnode: eU } = e$,
               ej = e7;
-            e7 ? ((e7.el = eU.el), t1(e$, e7, e6)) : (e7 = eU),
+            (e7 ? ((e7.el = eU.el), t1(e$, e7, e6)) : (e7 = eU),
               e5 && Z(e5),
               (e4 = e7.props && e7.props.onVnodeBeforeUpdate) &&
-                il(e4, e9, e7, eU);
+                il(e4, e9, e7, eU));
             let eD = Ht(e$),
               eF = e$.subTree;
-            (e$.subTree = eD),
+            ((e$.subTree = eD),
               ez(eF, eD, eN(eF.el), tD(eF), e$, e3, e1),
               (e7.el = eD.el),
               null === ej &&
                 (function ({ vnode: e$, parent: e0 }, e8) {
                   for (; e0 && e0.subTree === e$; )
-                    ((e$ = e0.vnode).el = e8), (e0 = e0.parent);
+                    (((e$ = e0.vnode).el = e8), (e0 = e0.parent));
                 })(e$, eD.el),
               eV && sl(eV, e3),
               (e4 = e7.props && e7.props.onVnodeUpdated) &&
                 sl(() => {
                   il(e4, e9, e7, eU);
-                }, e3);
+                }, e3));
           } else {
             let eB,
               { el: eH, props: eZ } = e0,
               { bm: eG, m: eq, parent: eW } = e$;
-            eG && Z(eG), (eB = eZ && eZ.onVnodeBeforeMount) && il(eB, eW, e0);
+            (eG && Z(eG), (eB = eZ && eZ.onVnodeBeforeMount) && il(eB, eW, e0));
             let eK = (e$.subTree = Ht(e$));
             if (
               (eH && tH
@@ -2321,16 +2325,16 @@ function rl(e$) {
               }, e3);
             }
             let { a: eY } = e$;
-            eY && 256 & e0.shapeFlag && sl(eY, e3),
+            (eY && 256 & e0.shapeFlag && sl(eY, e3),
               (e$.isMounted = !0),
-              (e0 = e8 = e2 = null);
+              (e0 = e8 = e2 = null));
           }
         }, al);
       },
       t1 = (e$, e0, e8) => {
         e0.component = e$;
         let e2 = e$.vnode.props;
-        (e$.vnode = e0),
+        ((e$.vnode = e0),
           (e$.next = null),
           (function (e$, e0, e8, e2) {
             let {
@@ -2373,12 +2377,12 @@ function rl(e$) {
               e1 = x;
             if (32 & e8.shapeFlag) {
               let e6 = e0._;
-              e6
+              (e6
                 ? 1 === e6
                   ? (e3 = !1)
                   : S(e2, e0)
                 : ((e3 = !e0.$stable), Xn(e0, e2)),
-                (e1 = e0);
+                (e1 = e0));
             } else
               e0 &&
                 (Yn(e$, e0),
@@ -2387,7 +2391,7 @@ function rl(e$) {
                 }));
             if (e3) for (let e4 in e2) Wn(e4) || e4 in e1 || delete e2[e4];
           })(e$, e0.children),
-          Vt(void 0, e$.update);
+          Vt(void 0, e$.update));
       },
       t6 = (e$, e0, e8, e2, e3, e1, e6, e4 = !1) => {
         let e7 = e$ && e$.children,
@@ -2401,10 +2405,10 @@ function rl(e$) {
         8 & eU
           ? (16 & e5 && tj(e7, e3, e1), eN !== e7 && eV(e8, eN))
           : 16 & e5
-          ? 16 & eU
-            ? t7(e7, eN, e8, e2, e3, e1, e6, e4)
-            : tj(e7, e3, e1, !0)
-          : (8 & e5 && eV(e8, ""), 16 & eU && eX(eN, e8, e2, e3, e1, e6, e4));
+            ? 16 & eU
+              ? t7(e7, eN, e8, e2, e3, e1, e6, e4)
+              : tj(e7, e3, e1, !0)
+            : (8 & e5 && eV(e8, ""), 16 & eU && eX(eN, e8, e2, e3, e1, e6, e4));
       },
       t4 = (e$, e0, e8, e2, e3, e1, e6, e4) => {
         e0 = e0 || y;
@@ -2429,31 +2433,31 @@ function rl(e$) {
           let e9 = e$[e7],
             eU = (e0[e7] = e4 ? Dl(e0[e7]) : Vl(e0[e7]));
           if (!Sl(e9, eU)) break;
-          ez(e9, eU, e8, null, e3, e1, e6, e4), e7++;
+          (ez(e9, eU, e8, null, e3, e1, e6, e4), e7++);
         }
         for (; e7 <= eV && e7 <= eN; ) {
           let ej = e$[eV],
             eD = (e0[eN] = e4 ? Dl(e0[eN]) : Vl(e0[eN]));
           if (!Sl(ej, eD)) break;
-          ez(ej, eD, e8, null, e3, e1, e6, e4), eV--, eN--;
+          (ez(ej, eD, e8, null, e3, e1, e6, e4), eV--, eN--);
         }
         if (e7 > eV) {
           if (e7 <= eN) {
             let eF = eN + 1,
               eB = eF < e5 ? e0[eF].el : e2;
             for (; e7 <= eN; )
-              ez(
+              (ez(
                 null,
                 (e0[e7] = e4 ? Dl(e0[e7]) : Vl(e0[e7])),
                 e8,
                 eB,
                 e3,
                 e1,
-                e6
+                e6,
               ),
-                e7++;
+                e7++);
           }
-        } else if (e7 > eN) for (; e7 <= eV; ) tV(e$[e7], e3, e1, !0), e7++;
+        } else if (e7 > eN) for (; e7 <= eV; ) (tV(e$[e7], e3, e1, !0), e7++);
         else {
           let eH = e7,
             eZ = e7,
@@ -2504,7 +2508,7 @@ function rl(e$) {
                   let e5 = e$[e2];
                   if (0 !== e5) {
                     if (e$[(e3 = e8[e8.length - 1])] < e5) {
-                      (e0[e2] = e3), e8.push(e2);
+                      ((e0[e2] = e3), e8.push(e2));
                       continue;
                     }
                     for (e1 = 0, e6 = e8.length - 1; e1 < e6; )
@@ -2516,7 +2520,7 @@ function rl(e$) {
                   }
                 }
                 for (e6 = e8[(e1 = e8.length) - 1]; e1-- > 0; )
-                  (e8[e1] = e6), (e6 = e0[e6]);
+                  ((e8[e1] = e6), (e6 = e0[e6]));
                 return e8;
               })(eJ)
             : y;
@@ -2549,13 +2553,13 @@ function rl(e$) {
         if (e4 === xl) return void eZ(e$, e0, e2);
         if (2 !== e3 && 1 & eV && e7) {
           if (0 === e3)
-            e7.beforeEnter(e6), e8(e6, e0, e2), sl(() => e7.enter(e6), e1);
+            (e7.beforeEnter(e6), e8(e6, e0, e2), sl(() => e7.enter(e6), e1));
           else {
             let { leave: e9, delayLeave: eU, afterLeave: ej } = e7,
               eD = () => e8(e6, e0, e2),
               ez = () => {
                 e9(e6, () => {
-                  eD(), ej && ej();
+                  (eD(), ej && ej());
                 });
               };
             eU ? eU(e6, eD, ez) : ez();
@@ -2581,17 +2585,17 @@ function rl(e$) {
           tU(e$.component, e8, e2);
         else {
           if (128 & eV) return void e$.suspense.unmount(e8, e2);
-          eU && Qn(e$, null, e0, "beforeUnmount"),
+          (eU && Qn(e$, null, e0, "beforeUnmount"),
             e5 && (e1 !== bl || (eN > 0 && 64 & eN))
               ? tj(e5, e0, e8, !1, !0)
               : ((e1 === bl && (128 & eN || 256 & eN)) || (!e3 && 16 & eV)) &&
                 tj(e7, e0, e8),
             64 & eV && (e2 || !ul(e$.props)) && e$.type.remove(e$, tF),
-            e2 && tN(e$);
+            e2 && tN(e$));
         }
         ((ej = e6 && e6.onVnodeUnmounted) || eU) &&
           sl(() => {
-            ej && il(ej, e0, e$), eU && Qn(e$, null, e0, "unmounted");
+            (ej && il(ej, e0, e$), eU && Qn(e$, null, e0, "unmounted"));
           }, e8);
       },
       tN = (e$) => {
@@ -2599,7 +2603,7 @@ function rl(e$) {
         if (e0 === bl) return void t9(e8, e3);
         if (e0 === xl) return void eG(e$);
         let e6 = () => {
-          e2(e8), e1 && !e1.persisted && e1.afterLeave && e1.afterLeave();
+          (e2(e8), e1 && !e1.persisted && e1.afterLeave && e1.afterLeave());
         };
         if (1 & e$.shapeFlag && e1 && !e1.persisted) {
           let { leave: e4, delayLeave: e7 } = e1,
@@ -2609,14 +2613,14 @@ function rl(e$) {
       },
       t9 = (e$, e0) => {
         let e8;
-        for (; e$ !== e0; ) (e8 = e9(e$)), e2(e$), (e$ = e8);
+        for (; e$ !== e0; ) ((e8 = e9(e$)), e2(e$), (e$ = e8));
         e2(e0);
       },
       tU = (e$, e0, e8) => {
         let { bum: e2, effects: e3, update: e1, subTree: e6, um: e4 } = e$;
         if ((e2 && Z(e2), e3))
           for (let e7 = 0; e7 < e3.length; e7++) re(e3[e7]);
-        e1 && (re(e1), tV(e6, e$, e0, e8)),
+        (e1 && (re(e1), tV(e6, e$, e0, e8)),
           e4 && sl(e4, e0),
           sl(() => {
             e$.isUnmounted = !0;
@@ -2627,7 +2631,7 @@ function rl(e$) {
             e$.asyncDep &&
             !e$.asyncResolved &&
             e$.suspenseId === e0.pendingId &&
-            (e0.deps--, 0 === e0.deps && e0.resolve());
+            (e0.deps--, 0 === e0.deps && e0.resolve()));
       },
       tj = (e$, e0, e8, e2 = !1, e3 = !1, e1 = 0) => {
         for (let e6 = e1; e6 < e$.length; e6++) tV(e$[e6], e0, e8, e2, e3);
@@ -2636,14 +2640,14 @@ function rl(e$) {
         6 & e$.shapeFlag
           ? tD(e$.component.subTree)
           : 128 & e$.shapeFlag
-          ? e$.suspense.next()
-          : e9(e$.anchor || e$.el),
+            ? e$.suspense.next()
+            : e9(e$.anchor || e$.el),
       tz = (e$, e0) => {
-        null == e$
+        (null == e$
           ? e0._vnode && tV(e0._vnode, null, null, !0)
           : ez(e0._vnode || null, e$, e0),
           Dt(),
-          (e0._vnode = e$);
+          (e0._vnode = e$));
       },
       tF = {
         p: ez,
@@ -2727,12 +2731,12 @@ function wl(e$ = !1) {
 }
 
 function Cl() {
-  yl.pop(), (kl = yl[yl.length - 1] || null);
+  (yl.pop(), (kl = yl[yl.length - 1] || null));
 }
 
 function _l(e$, e0, e8, e2, e3) {
   let e1 = Pl(e$, e0, e8, e2, e3, !0);
-  return (e1.dynamicChildren = kl || y), Cl(), kl && kl.push(e1), e1;
+  return ((e1.dynamicChildren = kl || y), Cl(), kl && kl.push(e1), e1);
 }
 
 function Al(e$) {
@@ -2757,25 +2761,25 @@ const Tl = "__vInternal",
     var e6, e4, e7;
     if (((e$ && e$ !== pl) || (e$ = vl), Al(e$))) {
       let e5 = Ll(e$, e0, !0);
-      return e8 && Nl(e5, e8), e5;
+      return (e8 && Nl(e5, e8), e5);
     }
     if (((e6 = e$), M(e6) && "__vccOpts" in e6 && (e$ = e$.__vccOpts), e0)) {
       (lt(e0) || Tl in e0) && (e0 = S({}, e0));
       let { class: eV, style: eN } = e0;
-      eV && !V(eV) && (e0.class = m(eV)),
-        N(eN) && (lt(eN) && !P(eN) && (eN = S({}, eN)), (e0.style = u(eN)));
+      (eV && !V(eV) && (e0.class = m(eV)),
+        N(eN) && (lt(eN) && !P(eN) && (eN = S({}, eN)), (e0.style = u(eN))));
     }
     let e9 = V(e$)
         ? 1
         : e$.__isSuspense
-        ? 128
-        : e$.__isTeleport
-        ? 64
-        : N(e$)
-        ? 4
-        : M(e$)
-        ? 2
-        : 0,
+          ? 128
+          : e$.__isTeleport
+            ? 64
+            : N(e$)
+              ? 4
+              : M(e$)
+                ? 2
+                : 0,
       eU = {
         __v_isVNode: !0,
         __v_skip: !0,
@@ -2817,9 +2821,9 @@ const Tl = "__vInternal",
           }
         );
       })(eU);
-      (eU.ssContent = ej), (eU.ssFallback = eD);
+      ((eU.ssContent = ej), (eU.ssFallback = eD));
     }
-    return !e1 && kl && (e2 > 0 || 6 & e9) && 32 !== e2 && kl.push(eU), eU;
+    return (!e1 && kl && (e2 > 0 || 6 & e9) && 32 !== e2 && kl.push(eU), eU);
   };
 
 function Ll(e$, e0, e8 = !1) {
@@ -2866,7 +2870,7 @@ function Il(e$ = " ", e0 = 0) {
 
 function Ol(e$, e0) {
   let e8 = Pl(xl, null, e$);
-  return (e8.staticCount = e0), e8;
+  return ((e8.staticCount = e0), e8);
 }
 
 function Ml(e$ = "", e0 = !1) {
@@ -2877,12 +2881,12 @@ function Vl(e$) {
   return null == e$ || "boolean" == typeof e$
     ? Pl(vl)
     : P(e$)
-    ? Pl(bl, null, e$)
-    : "object" == typeof e$
-    ? null === e$.el
-      ? e$
-      : Ll(e$)
-    : Pl(gl, null, String(e$));
+      ? Pl(bl, null, e$)
+      : "object" == typeof e$
+        ? null === e$.el
+          ? e$
+          : Ll(e$)
+        : Pl(gl, null, String(e$));
 }
 
 function Dl(e$) {
@@ -2918,7 +2922,7 @@ function Nl(e$, e0) {
         }),
         (e8 = 32))
       : ((e0 = String(e0)), 64 & e2 ? ((e8 = 16), (e0 = [Il(e0)])) : (e8 = 8));
-  (e$.children = e0), (e$.shapeFlag |= e8);
+  ((e$.children = e0), (e$.shapeFlag |= e8));
 }
 
 function Ul(...e$) {
@@ -2942,7 +2946,7 @@ function $l(e$, e0) {
   if (na) {
     let e8 = na.provides,
       e2 = na.parent && na.parent.provides;
-    e2 === e8 && (e8 = na.provides = Object.create(e2)), (e8[e$] = e0);
+    (e2 === e8 && (e8 = na.provides = Object.create(e2)), (e8[e$] = e0));
   }
 }
 
@@ -3090,7 +3094,7 @@ function zl(e$, e0, e8 = [], e2 = [], e3 = [], e1 = !1) {
 function Bl(e$, e0, e8, e2, e3) {
   ql(e$, e0, e3, e2);
   let { extends: e1, mixins: e6 } = e8;
-  e1 && Hl(e$, e0, e1, e2), e6 && ql(e$, e0, e6, e2);
+  (e1 && Hl(e$, e0, e1, e2), e6 && ql(e$, e0, e6, e2));
   let e4 = e8[e$];
   e4 && bt(e4.bind(e2.proxy), e2, e0);
 }
@@ -3175,7 +3179,9 @@ const Xl = (e$) =>
         if (!e1.length && !e2 && !e3) return e0;
         let e6 = {};
         return (
-          e1.forEach((e0) => Jl(e6, e0, e$)), Jl(e6, e0, e$), (e0.__merged = e6)
+          e1.forEach((e0) => Jl(e6, e0, e$)),
+          Jl(e6, e0, e$),
+          (e0.__merged = e6)
         );
       })(e$),
     $forceUpdate: (e$) => () => It(e$.update),
@@ -3209,11 +3215,11 @@ const Xl = (e$) =>
               return e1[e0];
           }
         else {
-          if (e2 !== x && R(e2, e0)) return (e6[e0] = 0), e2[e0];
-          if (e3 !== x && R(e3, e0)) return (e6[e0] = 1), e3[e0];
+          if (e2 !== x && R(e2, e0)) return ((e6[e0] = 0), e2[e0]);
+          if (e3 !== x && R(e3, e0)) return ((e6[e0] = 1), e3[e0]);
           if ((e5 = e$.propsOptions[0]) && R(e5, e0))
-            return (e6[e0] = 2), e1[e0];
-          if (e8 !== x && R(e8, e0)) return (e6[e0] = 3), e8[e0];
+            return ((e6[e0] = 2), e1[e0]);
+          if (e8 !== x && R(e8, e0)) return ((e6[e0] = 3), e8[e0]);
           Fl || (e6[e0] = 4);
         }
       }
@@ -3223,12 +3229,12 @@ const Xl = (e$) =>
       return eN
         ? ("$attrs" === e0 && me(e$, 0, e0), eN(e$))
         : (e9 = e4.__cssModules) && (e9 = e9[e0])
-        ? e9
-        : e8 !== x && R(e8, e0)
-        ? ((e6[e0] = 3), e8[e0])
-        : R((eU = e7.config.globalProperties), e0)
-        ? eU[e0]
-        : void 0;
+          ? e9
+          : e8 !== x && R(e8, e0)
+            ? ((e6[e0] = 3), e8[e0])
+            : R((eU = e7.config.globalProperties), e0)
+              ? eU[e0]
+              : void 0;
     },
     set({ _: e$ }, e0, e8) {
       let { data: e2, setupState: e3, ctx: e1 } = e$;
@@ -3248,7 +3254,7 @@ const Xl = (e$) =>
           propsOptions: e1,
         },
       },
-      e6
+      e6,
     ) {
       let e4;
       return (
@@ -3282,19 +3288,19 @@ function sa(e$) {
 let oa = !1;
 
 function ra(e$, e0, e8) {
-  M(e0) ? (e$.render = e0) : N(e0) && (e$.setupState = pt(e0)), ia(e$);
+  (M(e0) ? (e$.render = e0) : N(e0) && (e$.setupState = pt(e0)), ia(e$));
 }
 
 function ia(e$, e0) {
   let e8 = e$.type;
-  e$.render ||
+  (e$.render ||
     ((e$.render = e8.render || k),
     e$.render._rc && (e$.withProxy = new Proxy(e$.ctx, Ql))),
     (na = e$),
     pe(),
     zl(e$, e8),
     fe(),
-    (na = null);
+    (na = null));
 }
 
 function ca(e$, e0 = na) {
@@ -3313,7 +3319,7 @@ function da(e$) {
       ((e0 = e$),
       M(e0) ? ((e8 = e0), (e2 = k)) : ((e8 = e0.get), (e2 = e0.set)),
       new mt(e8, e2, M(e0) || !e0.set));
-  return ca(e3.effect), e3;
+  return (ca(e3.effect), e3);
 }
 
 function pa(e$, e0, e8) {
@@ -3372,7 +3378,7 @@ const xa = {
               ? {
                   is: e8,
                 }
-              : void 0
+              : void 0,
           ),
     createText: (e$) => ba.createTextNode(e$),
     createComment: (e$) => ba.createComment(e$),
@@ -3397,7 +3403,7 @@ const xa = {
       let e1 = e3.firstChild,
         e6 = e1,
         e4 = e6;
-      for (; e6; ) (e4 = e6), xa.insert(e6, e0, e8), (e6 = e3.firstChild);
+      for (; e6; ) ((e4 = e6), xa.insert(e6, e0, e8), (e6 = e3.firstChild));
       return [e1, e4];
     },
   },
@@ -3451,8 +3457,8 @@ function Pa(e$, e0, e8, e2, e3 = null) {
       if (La.test(e$)) {
         let e8;
         for (e0 = {}; (e8 = e$.match(La)); )
-          (e$ = e$.slice(0, e$.length - e8[0].length)),
-            (e0[e8[0].toLowerCase()] = !0);
+          ((e$ = e$.slice(0, e$.length - e8[0].length)),
+            (e0[e8[0].toLowerCase()] = !0));
       }
       return [K(e$.slice(2)), e0];
     })(e0);
@@ -3469,7 +3475,7 @@ function Pa(e$, e0, e8, e2, e3 = null) {
                       let e8 = e$.stopImmediatePropagation;
                       return (
                         (e$.stopImmediatePropagation = () => {
-                          e8.call(e$), (e$._stopped = !0);
+                          (e8.call(e$), (e$._stopped = !0));
                         }),
                         e0.map((e$) => (e0) => !e0._stopped && e$(e0))
                       );
@@ -3478,7 +3484,7 @@ function Pa(e$, e0, e8, e2, e3 = null) {
                   })(e$, e8.value),
                   e0,
                   5,
-                  [e$]
+                  [e$],
                 );
             };
             return (
@@ -3487,7 +3493,7 @@ function Pa(e$, e0, e8, e2, e3 = null) {
               e8
             );
           })(e2, e3)),
-          e7
+          e7,
         )
       : e6 &&
         (!(function (e$, e0, e8, e2) {
@@ -3560,48 +3566,48 @@ function Da(e$) {
       onAppearCancelled: eY = eG,
     } = ej,
     eQ = (e$, e0, e8) => {
-      $a(e$, e0 ? eV : e4), $a(e$, e0 ? e5 : e6), e8 && e8();
+      ($a(e$, e0 ? eV : e4), $a(e$, e0 ? e5 : e6), e8 && e8());
     },
     eJ = (e$, e0) => {
-      $a(e$, eU), $a(e$, e9), e0 && e0();
+      ($a(e$, eU), $a(e$, e9), e0 && e0());
     },
     t$ = (e$) => (e0, e2) => {
       let e3 = e$ ? eX : eZ,
         e6 = () => eQ(e0, e$, e2);
-      e3 && e3(e0, e6),
+      (e3 && e3(e0, e6),
         ja(() => {
-          $a(e0, e$ ? e7 : e1),
+          ($a(e0, e$ ? e7 : e1),
             Ua(e0, e$ ? eV : e4),
-            (e3 && e3.length > 1) || za(e0, e8, eF, e6);
-        });
+            (e3 && e3.length > 1) || za(e0, e8, eF, e6));
+        }));
     };
   return S(ej, {
     onBeforeEnter(e$) {
-      eH && eH(e$), Ua(e$, e1), Ua(e$, e6);
+      (eH && eH(e$), Ua(e$, e1), Ua(e$, e6));
     },
     onBeforeAppear(e$) {
-      eK && eK(e$), Ua(e$, e7), Ua(e$, e5);
+      (eK && eK(e$), Ua(e$, e7), Ua(e$, e5));
     },
     onEnter: t$(!1),
     onAppear: t$(!0),
     onLeave(e$, e0) {
       let e2 = () => eJ(e$, e0);
-      Ua(e$, eN),
+      (Ua(e$, eN),
         Ga(),
         Ua(e$, e9),
         ja(() => {
-          $a(e$, eN), Ua(e$, eU), (eq && eq.length > 1) || za(e$, e8, eB, e2);
+          ($a(e$, eN), Ua(e$, eU), (eq && eq.length > 1) || za(e$, e8, eB, e2));
         }),
-        eq && eq(e$, e2);
+        eq && eq(e$, e2));
     },
     onEnterCancelled(e$) {
-      eQ(e$, !1), eG && eG(e$);
+      (eQ(e$, !1), eG && eG(e$));
     },
     onAppearCancelled(e$) {
-      eQ(e$, !0), eY && eY(e$);
+      (eQ(e$, !0), eY && eY(e$));
     },
     onLeaveCancelled(e$) {
-      eJ(e$), eW && eW(e$);
+      (eJ(e$), eW && eW(e$));
     },
   });
 }
@@ -3611,8 +3617,8 @@ function Na(e$) {
 }
 
 function Ua(e$, e0) {
-  e0.split(/\s+/).forEach((e0) => e0 && e$.classList.add(e0)),
-    (e$._vtc || (e$._vtc = new Set())).add(e0);
+  (e0.split(/\s+/).forEach((e0) => e0 && e$.classList.add(e0)),
+    (e$._vtc || (e$._vtc = new Set())).add(e0));
 }
 
 function $a(e$, e0) {
@@ -3639,15 +3645,15 @@ function za(e$, e0, e8, e2) {
   let e5 = e6 + "end",
     eV = 0,
     eN = () => {
-      e$.removeEventListener(e5, e9), e1();
+      (e$.removeEventListener(e5, e9), e1());
     },
     e9 = (e0) => {
       e0.target === e$ && ++eV >= e7 && eN();
     };
-  setTimeout(() => {
+  (setTimeout(() => {
     eV < e7 && eN();
   }, e4 + 1),
-    e$.addEventListener(e5, e9);
+    e$.addEventListener(e5, e9));
 }
 
 function Ba(e$, e0) {
@@ -3666,17 +3672,17 @@ function Ba(e$, e0) {
     "transition" === e0
       ? e6 > 0 && ((eV = "transition"), (eN = e6), (e9 = e1.length))
       : "animation" === e0
-      ? e5 > 0 && ((eV = "animation"), (eN = e5), (e9 = e7.length))
-      : (e9 = (eV =
-          (eN = Math.max(e6, e5)) > 0
-            ? e6 > e5
-              ? "transition"
-              : "animation"
-            : null)
-          ? "transition" === eV
-            ? e1.length
-            : e7.length
-          : 0),
+        ? e5 > 0 && ((eV = "animation"), (eN = e5), (e9 = e7.length))
+        : (e9 = (eV =
+            (eN = Math.max(e6, e5)) > 0
+              ? e6 > e5
+                ? "transition"
+                : "animation"
+              : null)
+            ? "transition" === eV
+              ? e1.length
+              : e7.length
+            : 0),
     {
       type: eV,
       timeout: eN,
@@ -3720,32 +3726,32 @@ const Wa = new WeakMap(),
           if (
             !(function (e$, e0, e8) {
               let e2 = e$.cloneNode();
-              e$._vtc &&
+              (e$._vtc &&
                 e$._vtc.forEach((e$) => {
                   e$.split(/\s+/).forEach(
-                    (e$) => e$ && e2.classList.remove(e$)
+                    (e$) => e$ && e2.classList.remove(e$),
                   );
                 }),
                 e8.split(/\s+/).forEach((e$) => e$ && e2.classList.add(e$)),
-                (e2.style.display = "none");
+                (e2.style.display = "none"));
               let e3 = 1 === e0.nodeType ? e0 : e0.parentNode;
               e3.appendChild(e2);
               let { hasTransform: e1 } = Ba(e2);
-              return e3.removeChild(e2), e1;
+              return (e3.removeChild(e2), e1);
             })(e3[0].el, e8.vnode.el, e0)
           )
             return;
-          e3.forEach(Xa), e3.forEach(Ya);
+          (e3.forEach(Xa), e3.forEach(Ya));
           let e2 = e3.filter(Za);
-          Ga(),
+          (Ga(),
             e2.forEach((e$) => {
               let e8 = e$.el,
                 e2 = e8.style;
-              Ua(e8, e0),
+              (Ua(e8, e0),
                 (e2.transform =
                   e2.webkitTransform =
                   e2.transitionDuration =
-                    "");
+                    ""));
               let e3 = (e8._moveCb = (e$) => {
                 (e$ && e$.target !== e8) ||
                   (e$ && !/transform$/.test(e$.propertyName)) ||
@@ -3754,13 +3760,13 @@ const Wa = new WeakMap(),
                   $a(e8, e0));
               });
               e8.addEventListener("transitionend", e3);
-            });
+            }));
         }),
         () => {
           let e6 = at(e$),
             e4 = Da(e6),
             e7 = e6.tag || bl;
-          (e3 = e1), (e1 = e0.default ? $n(e0.default()) : []);
+          ((e3 = e1), (e1 = e0.default ? $n(e0.default()) : []));
           for (let e5 = 0; e5 < e1.length; e5++) {
             let eV = e1[e5];
             null != eV.key && Un(eV, Vn(eV, e4, e2, e8));
@@ -3768,8 +3774,8 @@ const Wa = new WeakMap(),
           if (e3)
             for (let eN = 0; eN < e3.length; eN++) {
               let e9 = e3[eN];
-              Un(e9, Vn(e9, e4, e2, e8)),
-                Wa.set(e9, e9.el.getBoundingClientRect());
+              (Un(e9, Vn(e9, e4, e2, e8)),
+                Wa.set(e9, e9.el.getBoundingClientRect()));
             }
           return Pl(e7, null, e1);
         }
@@ -3779,7 +3785,7 @@ const Wa = new WeakMap(),
 
 function Xa(e$) {
   let e0 = e$.el;
-  e0._moveCb && e0._moveCb(), e0._enterCb && e0._enterCb();
+  (e0._moveCb && e0._moveCb(), e0._enterCb && e0._enterCb());
 }
 
 function Ya(e$) {
@@ -3815,17 +3821,17 @@ function ts(e$) {
     ((e0.composing = !1),
     (function (e$, e0) {
       let e8 = document.createEvent("HTMLEvents");
-      e8.initEvent(e0, !0, !0), e$.dispatchEvent(e8);
+      (e8.initEvent(e0, !0, !0), e$.dispatchEvent(e8));
     })(e0, "input"));
 }
 const ns = {
     created(e$, { modifiers: { lazy: e0, trim: e8, number: e2 } }, e3) {
       e$._assign = Qa(e3);
       let e1 = e2 || "number" === e$.type;
-      Ra(e$, e0 ? "change" : "input", (e0) => {
+      (Ra(e$, e0 ? "change" : "input", (e0) => {
         if (e0.target.composing) return;
         let e2 = e$.value;
-        e8 ? (e2 = e2.trim()) : e1 && (e2 = ee(e2)), e$._assign(e2);
+        (e8 ? (e2 = e2.trim()) : e1 && (e2 = ee(e2)), e$._assign(e2));
       }),
         e8 &&
           Ra(e$, "change", () => {
@@ -3834,7 +3840,7 @@ const ns = {
         e0 ||
           (Ra(e$, "compositionstart", es),
           Ra(e$, "compositionend", ts),
-          Ra(e$, "change", ts));
+          Ra(e$, "change", ts)));
     },
     mounted(e$, { value: e0 }) {
       e$.value = null == e0 ? "" : e0;
@@ -3854,7 +3860,7 @@ const ns = {
   },
   ls = {
     created(e$, e0, e8) {
-      (e$._assign = Qa(e8)),
+      ((e$._assign = Qa(e8)),
         Ra(e$, "change", () => {
           var e0;
           let e8 = e$._modelValue,
@@ -3867,27 +3873,27 @@ const ns = {
             if (e3 && !e4) e1(e8.concat(e2));
             else if (!e3 && e4) {
               let e7 = [...e8];
-              e7.splice(e6, 1), e1(e7);
+              (e7.splice(e6, 1), e1(e7));
             }
           } else if (I(e8)) {
             let e5 = new Set(e8);
-            e3 ? e5.add(e2) : e5.delete(e2), e1(e5);
+            (e3 ? e5.add(e2) : e5.delete(e2), e1(e5));
           } else e1(ss(e$, e3));
-        });
+        }));
     },
     mounted: as,
     beforeUpdate(e$, e0, e8) {
-      (e$._assign = Qa(e8)), as(e$, e0, e8);
+      ((e$._assign = Qa(e8)), as(e$, e0, e8));
     },
   };
 
 function as(e$, { value: e0, oldValue: e8 }, e2) {
-  (e$._modelValue = e0),
+  ((e$._modelValue = e0),
     P(e0)
       ? (e$.checked = b(e0, e2.props.value) > -1)
       : I(e0)
-      ? (e$.checked = e0.has(e2.props.value))
-      : e0 !== e8 && (e$.checked = h(e0, ss(e$, !0)));
+        ? (e$.checked = e0.has(e2.props.value))
+        : e0 !== e8 && (e$.checked = h(e0, ss(e$, !0))));
 }
 
 function ss(e$, e0) {
@@ -3933,8 +3939,8 @@ const os = ["ctrl", "shift", "alt", "meta"],
   },
   ds = {
     beforeMount(e$, { value: e0 }, { transition: e8 }) {
-      (e$._vod = "none" === e$.style.display ? "" : e$.style.display),
-        e8 && e0 ? e8.beforeEnter(e$) : ps(e$, e0);
+      ((e$._vod = "none" === e$.style.display ? "" : e$.style.display),
+        e8 && e0 ? e8.beforeEnter(e$) : ps(e$, e0));
     },
     mounted(e$, { value: e0 }, { transition: e8 }) {
       e8 && e0 && e8.enter(e$);
@@ -3966,8 +3972,8 @@ const fs = S(
             if ((null == e0 && (e0 = ""), e8)) e$.setAttribute("class", e0);
             else {
               let e2 = e$._vtc;
-              e2 && (e0 = (e0 ? [e0, ...e2] : [...e2]).join(" ")),
-                (e$.className = e0);
+              (e2 && (e0 = (e0 ? [e0, ...e2] : [...e2]).join(" ")),
+                (e$.className = e0));
             }
           })(e$, e2, e3);
           break;
@@ -3978,7 +3984,7 @@ const fs = S(
               if (V(e8)) {
                 if (e0 !== e8) {
                   let e3 = e2.display;
-                  (e2.cssText = e8), "_vod" in e$ && (e2.display = e3);
+                  ((e2.cssText = e8), "_vod" in e$ && (e2.display = e3));
                 }
               } else {
                 for (let e1 in e8) ka(e2, e1, e8[e1]);
@@ -3993,62 +3999,63 @@ const fs = S(
           _(e0)
             ? A(e0) || Pa(e$, e0, 0, e2, e6)
             : ((e5 = e$),
-              (eV = e0),
-              (eN = e2),
-              (e9 = e3)
-                ? "innerHTML" === eV || !!(eV in e5 && Ia.test(eV) && M(eN))
-                : !(
-                    "spellcheck" === eV ||
-                    "draggable" === eV ||
-                    "form" === eV ||
-                    ("list" === eV && "INPUT" === e5.tagName) ||
-                    ("type" === eV && "TEXTAREA" === e5.tagName) ||
-                    (Ia.test(eV) && V(eN))
-                  ) && eV in e5)
-            ? (function (e$, e0, e8, e2, e3, e1, e6) {
-                if ("innerHTML" === e0 || "textContent" === e0)
-                  return (
-                    e2 && e6(e2, e3, e1), void (e$[e0] = null == e8 ? "" : e8)
-                  );
-                if ("value" !== e0 || "PROGRESS" === e$.tagName) {
-                  if ("" === e8 || null == e8) {
-                    let e4 = typeof e$[e0];
-                    if ("" === e8 && "boolean" === e4)
-                      return void (e$[e0] = !0);
-                    if (null == e8 && "string" === e4)
-                      return (e$[e0] = ""), void e$.removeAttribute(e0);
-                    if ("number" === e4)
-                      return (e$[e0] = 0), void e$.removeAttribute(e0);
+                (eV = e0),
+                (eN = e2),
+                (e9 = e3)
+                  ? "innerHTML" === eV || !!(eV in e5 && Ia.test(eV) && M(eN))
+                  : !(
+                      "spellcheck" === eV ||
+                      "draggable" === eV ||
+                      "form" === eV ||
+                      ("list" === eV && "INPUT" === e5.tagName) ||
+                      ("type" === eV && "TEXTAREA" === e5.tagName) ||
+                      (Ia.test(eV) && V(eN))
+                    ) && eV in e5)
+              ? (function (e$, e0, e8, e2, e3, e1, e6) {
+                  if ("innerHTML" === e0 || "textContent" === e0)
+                    return (
+                      e2 && e6(e2, e3, e1),
+                      void (e$[e0] = null == e8 ? "" : e8)
+                    );
+                  if ("value" !== e0 || "PROGRESS" === e$.tagName) {
+                    if ("" === e8 || null == e8) {
+                      let e4 = typeof e$[e0];
+                      if ("" === e8 && "boolean" === e4)
+                        return void (e$[e0] = !0);
+                      if (null == e8 && "string" === e4)
+                        return ((e$[e0] = ""), void e$.removeAttribute(e0));
+                      if ("number" === e4)
+                        return ((e$[e0] = 0), void e$.removeAttribute(e0));
+                    }
+                    try {
+                      e$[e0] = e8;
+                    } catch (e7) {}
+                  } else {
+                    e$._value = e8;
+                    let e5 = null == e8 ? "" : e8;
+                    e$.value !== e5 && (e$.value = e5);
                   }
-                  try {
-                    e$[e0] = e8;
-                  } catch (e7) {}
-                } else {
-                  e$._value = e8;
-                  let e5 = null == e8 ? "" : e8;
-                  e$.value !== e5 && (e$.value = e5);
-                }
-              })(e$, e0, e2, e1, e6, e4, e7)
-            : ("true-value" === e0
-                ? (e$._trueValue = e2)
-                : "false-value" === e0 && (e$._falseValue = e2),
-              (function (e$, e0, e8, e2) {
-                if (e2 && e0.startsWith("xlink:"))
-                  null == e8
-                    ? e$.removeAttributeNS(_a, e0.slice(6, e0.length))
-                    : e$.setAttributeNS(_a, e0, e8);
-                else {
-                  let e3 = c(e0);
-                  null == e8 || (e3 && !1 === e8)
-                    ? e$.removeAttribute(e0)
-                    : e$.setAttribute(e0, e3 ? "" : e8);
-                }
-              })(e$, e0, e2, e3));
+                })(e$, e0, e2, e1, e6, e4, e7)
+              : ("true-value" === e0
+                  ? (e$._trueValue = e2)
+                  : "false-value" === e0 && (e$._falseValue = e2),
+                (function (e$, e0, e8, e2) {
+                  if (e2 && e0.startsWith("xlink:"))
+                    null == e8
+                      ? e$.removeAttributeNS(_a, e0.slice(6, e0.length))
+                      : e$.setAttributeNS(_a, e0, e8);
+                  else {
+                    let e3 = c(e0);
+                    null == e8 || (e3 && !1 === e8)
+                      ? e$.removeAttribute(e0)
+                      : e$.setAttribute(e0, e3 ? "" : e8);
+                  }
+                })(e$, e0, e2, e3));
       }
     },
     forcePatchProp: (e$, e0) => "value" === e0,
   },
-  xa
+  xa,
 );
 let ms;
 var hs,
@@ -4063,14 +4070,14 @@ hs =
   bs && "function" == typeof bs.ownKeys
     ? bs.ownKeys
     : Object.getOwnPropertySymbols
-    ? function (e$) {
-        return Object.getOwnPropertyNames(e$).concat(
-          Object.getOwnPropertySymbols(e$)
-        );
-      }
-    : function (e$) {
-        return Object.getOwnPropertyNames(e$);
-      };
+      ? function (e$) {
+          return Object.getOwnPropertyNames(e$).concat(
+            Object.getOwnPropertySymbols(e$),
+          );
+        }
+      : function (e$) {
+          return Object.getOwnPropertyNames(e$);
+        };
 var vs =
   Number.isNaN ||
   function (e$) {
@@ -4086,15 +4093,15 @@ var ys = xs,
       var e3, e1, e6;
 
       function e4(e8) {
-        e$.removeListener(e0, e7), e2(e8);
+        (e$.removeListener(e0, e7), e2(e8));
       }
 
       function e7() {
-        "function" == typeof e$.removeListener &&
+        ("function" == typeof e$.removeListener &&
           e$.removeListener("error", e4),
-          e8([].slice.call(arguments));
+          e8([].slice.call(arguments)));
       }
-      Ls(e$, e0, e7, {
+      (Ls(e$, e0, e7, {
         once: !0,
       }),
         "error" !== e0 &&
@@ -4103,20 +4110,20 @@ var ys = xs,
           (e6 = {
             once: !0,
           }),
-          "function" == typeof e3.on && Ls(e3, "error", e1, e6));
+          "function" == typeof e3.on && Ls(e3, "error", e1, e6)));
     });
   };
-(xs.EventEmitter = xs),
+((xs.EventEmitter = xs),
   (xs.prototype._events = void 0),
   (xs.prototype._eventsCount = 0),
-  (xs.prototype._maxListeners = void 0);
+  (xs.prototype._maxListeners = void 0));
 var ws = 10;
 
 function Cs(e$) {
   if ("function" != typeof e$)
     throw TypeError(
       'The "listener" argument must be of type Function. Received type ' +
-        typeof e$
+        typeof e$,
     );
 }
 
@@ -4138,13 +4145,13 @@ function As(e$, e0, e8, e2) {
         (e6 = e1[e0])),
     void 0 === e6)
   )
-    (e6 = e1[e0] = e8), ++e$._eventsCount;
+    ((e6 = e1[e0] = e8), ++e$._eventsCount);
   else if (
     ("function" == typeof e6
       ? (e6 = e1[e0] = e2 ? [e8, e6] : [e6, e8])
       : e2
-      ? e6.unshift(e8)
-      : e6.push(e8),
+        ? e6.unshift(e8)
+        : e6.push(e8),
     (e3 = _s(e$)) > 0 && e6.length > e3 && !e6.warned)
   ) {
     e6.warned = !0;
@@ -4153,14 +4160,14 @@ function As(e$, e0, e8, e2) {
         e6.length +
         " " +
         String(e0) +
-        " listeners added. Use emitter.setMaxListeners() to increase limit"
+        " listeners added. Use emitter.setMaxListeners() to increase limit",
     );
-    (e7.name = "MaxListenersExceededWarning"),
+    ((e7.name = "MaxListenersExceededWarning"),
       (e7.emitter = e$),
       (e7.type = e0),
       (e7.count = e6.length),
       (e4 = e7),
-      console && console.warn && console.warn(e4);
+      console && console.warn && console.warn(e4));
   }
   return e$;
 }
@@ -4185,7 +4192,7 @@ function Ts(e$, e0, e8) {
       listener: e8,
     },
     e3 = Ss.bind(e2);
-  return (e3.listener = e8), (e2.wrapFn = e3), e3;
+  return ((e3.listener = e8), (e2.wrapFn = e3), e3);
 }
 
 function Es(e$, e0, e8) {
@@ -4195,16 +4202,16 @@ function Es(e$, e0, e8) {
   return void 0 === e3
     ? []
     : "function" == typeof e3
-    ? e8
-      ? [e3.listener || e3]
-      : [e3]
-    : e8
-    ? (function (e$) {
-        for (var e0 = Array(e$.length), e8 = 0; e8 < e0.length; ++e8)
-          e0[e8] = e$[e8].listener || e$[e8];
-        return e0;
-      })(e3)
-    : Ps(e3, e3.length);
+      ? e8
+        ? [e3.listener || e3]
+        : [e3]
+      : e8
+        ? (function (e$) {
+            for (var e0 = Array(e$.length), e8 = 0; e8 < e0.length; ++e8)
+              e0[e8] = e$[e8].listener || e$[e8];
+            return e0;
+          })(e3)
+        : Ps(e3, e3.length);
 }
 
 function Rs(e$) {
@@ -4228,10 +4235,10 @@ function Ls(e$, e0, e8, e2) {
     if ("function" != typeof e$.addEventListener)
       throw TypeError(
         'The "emitter" argument must be of type EventEmitter. Received type ' +
-          typeof e$
+          typeof e$,
       );
     e$.addEventListener(e0, function e3(e1) {
-      e2.once && e$.removeEventListener(e0, e3), e8(e1);
+      (e2.once && e$.removeEventListener(e0, e3), e8(e1));
     });
   }
 }
@@ -4239,7 +4246,7 @@ function Ls(e$, e0, e8, e2) {
 function Is(e$) {
   return new Date(1e3 * e$).toLocaleTimeString("pt-BR").substring(0, 5);
 }
-Object.defineProperty(xs, "defaultMaxListeners", {
+(Object.defineProperty(xs, "defaultMaxListeners", {
   enumerable: !0,
   get: function () {
     return ws;
@@ -4249,25 +4256,25 @@ Object.defineProperty(xs, "defaultMaxListeners", {
       throw RangeError(
         'The value of "defaultMaxListeners" is out of range. It must be a non-negative number. Received ' +
           e$ +
-          "."
+          ".",
       );
     ws = e$;
   },
 }),
   (xs.init = function () {
-    (void 0 !== this._events &&
+    ((void 0 !== this._events &&
       this._events !== Object.getPrototypeOf(this)._events) ||
       ((this._events = Object.create(null)), (this._eventsCount = 0)),
-      (this._maxListeners = this._maxListeners || void 0);
+      (this._maxListeners = this._maxListeners || void 0));
   }),
   (xs.prototype.setMaxListeners = function (e$) {
     if ("number" != typeof e$ || e$ < 0 || vs(e$))
       throw RangeError(
         'The value of "n" is out of range. It must be a non-negative number. Received ' +
           e$ +
-          "."
+          ".",
       );
-    return (this._maxListeners = e$), this;
+    return ((this._maxListeners = e$), this);
   }),
   (xs.prototype.getMaxListeners = function () {
     return _s(this);
@@ -4303,10 +4310,10 @@ Object.defineProperty(xs, "defaultMaxListeners", {
     return As(this, e$, e0, !0);
   }),
   (xs.prototype.once = function (e$, e0) {
-    return Cs(e0), this.on(e$, Ts(this, e$, e0)), this;
+    return (Cs(e0), this.on(e$, Ts(this, e$, e0)), this);
   }),
   (xs.prototype.prependOnceListener = function (e$, e0) {
-    return Cs(e0), this.prependListener(e$, Ts(this, e$, e0)), this;
+    return (Cs(e0), this.prependListener(e$, Ts(this, e$, e0)), this);
   }),
   (xs.prototype.removeListener = function (e$, e0) {
     var e8, e2, e3, e1, e6;
@@ -4321,11 +4328,11 @@ Object.defineProperty(xs, "defaultMaxListeners", {
     else if ("function" != typeof e8) {
       for (e3 = -1, e1 = e8.length - 1; e1 >= 0; e1--)
         if (e8[e1] === e0 || e8[e1].listener === e0) {
-          (e6 = e8[e1].listener), (e3 = e1);
+          ((e6 = e8[e1].listener), (e3 = e1));
           break;
         }
       if (e3 < 0) return this;
-      0 === e3
+      (0 === e3
         ? e8.shift()
         : (function (e$, e0) {
             for (; e0 + 1 < e$.length; e0++) e$[e0] = e$[e0 + 1];
@@ -4333,7 +4340,7 @@ Object.defineProperty(xs, "defaultMaxListeners", {
           })(e8, e3),
         1 === e8.length && (e2[e$] = e8[0]),
         void 0 !== e2.removeListener &&
-          this.emit("removeListener", e$, e6 || e0);
+          this.emit("removeListener", e$, e6 || e0));
     }
     return this;
   }),
@@ -4383,7 +4390,7 @@ Object.defineProperty(xs, "defaultMaxListeners", {
   (xs.prototype.eventNames = function () {
     return this._eventsCount > 0 ? hs(this._events) : [];
   }),
-  (ys.once = ks);
+  (ys.once = ks));
 const Os = ["dom", "seg", "ter", "qua", "qui", "sex", "sab"],
   Ms = [
     "jan",
@@ -4423,7 +4430,7 @@ function Us(e$) {
   let e0 = e$ instanceof Date ? e$ : new Date(1e3 * e$);
   return [
     [e0.getDate(), Vs[e0.getMonth()].substr(0, 3), e0.getFullYear() - 2e3].join(
-      " "
+      " ",
     ),
     Is(e$),
   ];
@@ -4460,7 +4467,7 @@ const Hs = new Proxy(
   {},
   {
     get: (e$, e0) => Zs(e0),
-  }
+  },
 );
 
 function qs(e$, e0, e8) {
@@ -4489,10 +4496,10 @@ var Gs = Object.freeze(
         return e2 < 60
           ? "Agora"
           : e2 < 3600
-          ? e8(e2 / 60) + "min"
-          : e2 < 86400
-          ? e8(e2 / 3600) + "h"
-          : e8(e2 / 86400) + "d";
+            ? e8(e2 / 60) + "min"
+            : e2 < 86400
+              ? e8(e2 / 3600) + "h"
+              : e8(e2 / 86400) + "d";
       },
       unixToDatetime: function (e$) {
         return new Date(1e3 * e$).toLocaleString("pt-BR");
@@ -4516,7 +4523,7 @@ var Gs = Object.freeze(
       },
       vdist: function ([e$, e0, e8], [e2, e3, e1], e6 = !1) {
         return Math.round(
-          Math.sqrt((e$ - e2) ** 2 + (e0 - e3) ** 2 + (e6 ? e8 - e1 : 0) ** 2)
+          Math.sqrt((e$ - e2) ** 2 + (e0 - e3) ** 2 + (e6 ? e8 - e1 : 0) ** 2),
         );
       },
       vdist2: function (...e$) {
@@ -4534,8 +4541,8 @@ var Gs = Object.freeze(
     Symbol.toStringTag,
     {
       value: "Module",
-    }
-  )
+    },
+  ),
 );
 
 function Ws(e$) {
@@ -4591,14 +4598,14 @@ function Ys() {
       "bank",
       "/bank",
       Js[So.settings.bankType.replace(/\d/g, "")],
-      e0(So.settings.bankType.toLowerCase() + ".webp")
+      e0(So.settings.bankType.toLowerCase() + ".webp"),
     ),
     // Ks("paypal", "/paypal", "PayPal", e0("paypal.webp")), // PayPal removido
     Ks("olx", "/olx", "OLX", e0("olx.png")),
     Ks("tinder", "/tinder", "Tinder", e0("tinder.webp")),
     // Ks("yellowpages", "/yellowpages", "Yellow Pages", e0("yellowpages.webp")), // Yellow Pages removido
     ...Object.keys(null != (e$ = So.settings.customApps) ? e$ : []).map((e$) =>
-      Ks(e$, "/custom/" + e$, Fs(e$), e0("settings.png"))
+      Ks(e$, "/custom/" + e$, Fs(e$), e0("settings.png")),
     ),
     Ks("weazel", "/weazel", "Weazel News", e0("weazel.webp")),
     // Ks("casino", "/casino", "Blaze", e0("blaze.webp")), // Cassino removido
@@ -4612,7 +4619,7 @@ function Ys() {
     .map((e$, e0) =>
       s(s({}, e$), {
         bottom: e0 < 4,
-      })
+      }),
     ));
 }
 
@@ -4703,13 +4710,13 @@ var to = {
 
 function no(e$, e0, e8) {
   let e2 = e$.createShader(e0);
-  e$.shaderSource(e2, e8), e$.compileShader(e2);
+  (e$.shaderSource(e2, e8), e$.compileShader(e2));
   let e3 = e$.getShaderInfoLog(e2);
-  return e3 && console.error(e3), e2;
+  return (e3 && console.error(e3), e2);
 }
 class lo {
   constructor(e$) {
-    (this.canvas = e$),
+    ((this.canvas = e$),
       (this.gl = e$.getContext("webgl", {
         antialias: !1,
         depth: !1,
@@ -4721,13 +4728,13 @@ class lo {
       (this.animationFrame = void 0),
       this.createStuff(),
       this.render(),
-      (this.running = !0);
+      (this.running = !0));
   }
   createStuff() {
     if (!this.gl) {
       for (let e$ = 0; e$ < 10; e$ += 1)
         console.log(
-          "Voc\xea est\xe1 bugado! N\xe3o poss\xedvel criar o contexto WebGL, este problema n\xe3o tem corre\xe7\xe3o"
+          "Voc\xea est\xe1 bugado! N\xe3o poss\xedvel criar o contexto WebGL, este problema n\xe3o tem corre\xe7\xe3o",
         );
       return;
     }
@@ -4746,7 +4753,7 @@ class lo {
             0,
             e$.RGBA,
             e$.UNSIGNED_BYTE,
-            e8
+            e8,
           ),
           e$.texParameterf(e$.TEXTURE_2D, e$.TEXTURE_MAG_FILTER, e$.NEAREST),
           e$.texParameterf(e$.TEXTURE_2D, e$.TEXTURE_MIN_FILTER, e$.NEAREST),
@@ -4755,7 +4762,7 @@ class lo {
           e$.texParameterf(
             e$.TEXTURE_2D,
             e$.TEXTURE_WRAP_T,
-            e$.MIRRORED_REPEAT
+            e$.MIRRORED_REPEAT,
           ),
           e$.texParameterf(e$.TEXTURE_2D, e$.TEXTURE_WRAP_T, e$.REPEAT),
           e$.texParameterf(e$.TEXTURE_2D, e$.TEXTURE_WRAP_T, e$.CLAMP_TO_EDGE),
@@ -4770,12 +4777,12 @@ class lo {
         let e0 = no(
             e$,
             e$.VERTEX_SHADER,
-            "\n  attribute vec2 a_position;\n  attribute vec2 a_texcoord;\n  uniform mat3 u_matrix;\n  varying vec2 textureCoordinate;\n  void main() {\n    gl_Position = vec4(a_position, 0.0, 1.0);\n    textureCoordinate = a_texcoord;\n  }\n"
+            "\n  attribute vec2 a_position;\n  attribute vec2 a_texcoord;\n  uniform mat3 u_matrix;\n  varying vec2 textureCoordinate;\n  void main() {\n    gl_Position = vec4(a_position, 0.0, 1.0);\n    textureCoordinate = a_texcoord;\n  }\n",
           ),
           e8 = no(
             e$,
             e$.FRAGMENT_SHADER,
-            "\nvarying highp vec2 textureCoordinate;\nuniform sampler2D external_texture;\nvoid main()\n{\n  gl_FragColor = texture2D(external_texture, textureCoordinate);\n}\n"
+            "\nvarying highp vec2 textureCoordinate;\nuniform sampler2D external_texture;\nvoid main()\n{\n  gl_FragColor = texture2D(external_texture, textureCoordinate);\n}\n",
           ),
           e2 = e$.createProgram();
         return (
@@ -4792,19 +4799,19 @@ class lo {
       })(e0),
       { vertexBuff: e6, texBuff: e4 } = (function (e$) {
         let e0 = e$.createBuffer();
-        e$.bindBuffer(e$.ARRAY_BUFFER, e0),
+        (e$.bindBuffer(e$.ARRAY_BUFFER, e0),
           e$.bufferData(
             e$.ARRAY_BUFFER,
             new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]),
-            e$.STATIC_DRAW
-          );
+            e$.STATIC_DRAW,
+          ));
         let e8 = e$.createBuffer();
         return (
           e$.bindBuffer(e$.ARRAY_BUFFER, e8),
           e$.bufferData(
             e$.ARRAY_BUFFER,
             new Float32Array([0, 0, 1, 0, 0, 1, 1, 1]),
-            e$.STATIC_DRAW
+            e$.STATIC_DRAW,
           ),
           {
             vertexBuff: e0,
@@ -4812,7 +4819,7 @@ class lo {
           }
         );
       })(e0);
-    e0.useProgram(e2),
+    (e0.useProgram(e2),
       e0.bindTexture(e0.TEXTURE_2D, e8),
       e0.uniform1i(e0.getUniformLocation(e2, "external_texture"), 0),
       e0.bindBuffer(e0.ARRAY_BUFFER, e6),
@@ -4821,7 +4828,7 @@ class lo {
       e0.bindBuffer(e0.ARRAY_BUFFER, e4),
       e0.vertexAttribPointer(e1, 2, e0.FLOAT, !1, 0, 0),
       e0.enableVertexAttribArray(e1),
-      e0.viewport(0, 0, e0.canvas.width, e0.canvas.height);
+      e0.viewport(0, 0, e0.canvas.width, e0.canvas.height));
   }
   resize(e$, e0) {
     this.gl &&
@@ -4841,7 +4848,7 @@ class lo {
   }
 }
 const ao = document.createElement("canvas");
-(ao.width = 1920), (ao.height = 1080);
+((ao.width = 1920), (ao.height = 1080));
 const so = new lo(ao);
 so.running = !1;
 let oo = 0;
@@ -4854,7 +4861,7 @@ var ro = {
     return oo;
   },
   set delta(e) {
-    (oo = e), (so.running = oo > 0);
+    ((oo = e), (so.running = oo > 0));
   },
   start() {
     this.delta += 1;
@@ -4877,50 +4884,50 @@ const io = Ze({
       ? Promise.resolve(
           e$
             ? "https://i.pinimg.com/564x/a6/d4/30/a6d4302b399cc1dc1e682f08f20bf2f4.jpg"
-            : "https://c.wallhere.com/photos/b1/5e/GTA5_GTA_Online_GTA_Landscape_GTA_Photography_trees_sunrise_Grand_Theft_Auto_V_Grand_Theft_Auto_V_Online-1945677.jpg!d"
+            : "https://c.wallhere.com/photos/b1/5e/GTA5_GTA_Online_GTA_Landscape_GTA_Photography_trees_sunrise_Grand_Theft_Auto_V_Grand_Theft_Auto_V_Online-1945677.jpg!d",
         )
       : (ro.start(),
         So.pusher.once("CONFIRM_SCREENSHOT", async () => {
           this.original = await ro.createBlob();
           let e$ = new Audio(So.asset("/stock/photo.ogg"));
-          (e$.volume = 0.25),
+          ((e$.volume = 0.25),
             e$.play(),
             fetch("http://smartphone/screenshot", {
               method: "POST",
-            });
+            }));
         }),
         (this.formats = e$ ? ["selfie"] : ["landscape", "portrait", "selfie"]),
         new Promise((e8, e2) => {
-          (So.visible.value = !1),
+          ((So.visible.value = !1),
             So.client.close(),
             So.client.takePhoto(!!e$).then(async (e$) => {
               if ((ro.stop(), So.client.open(), e$)) {
                 for (; !this.original; ) await uo(50);
-                (this.ondiscard = () => {
-                  (this.original = null), e2("Photo discarded");
+                ((this.ondiscard = () => {
+                  ((this.original = null), e2("Photo discarded"));
                 }),
                   (this.onproceed = (e$) => {
                     to.upload(e$, "jpg")
                       .then(
                         (e$) => {
-                          So.backend.gallery_save(e0, e$).then((e$) => {
-                            So.gallery.push(e$),
-                              So.gallery.sort((e$, e0) => e0.id - e$.id);
+                          (So.backend.gallery_save(e0, e$).then((e$) => {
+                            (So.gallery.push(e$),
+                              So.gallery.sort((e$, e0) => e0.id - e$.id));
                           }),
-                            e8(e$);
+                            e8(e$));
                         },
                         (e$) => {
-                          e2(e$),
+                          (e2(e$),
                             console.error(
                               "Falha ao realizar upload de imagem",
-                              e$.message
-                            );
-                        }
+                              e$.message,
+                            ));
+                        },
                       )
                       .finally(() => (this.original = null));
-                  });
+                  }));
               } else e2("Camera rejected");
-            });
+            }));
         }));
   },
 });
@@ -4958,7 +4965,7 @@ var ho = {
 window.addEventListener("popstate", () => (bo.state.request.value = null));
 const bo = {
     clearAndRequest(e$, e0 = 25, e8 = !1) {
-      return (this.state.request.value = null), this.request(e$, e0, e8);
+      return ((this.state.request.value = null), this.request(e$, e0, e8));
     },
     request(e$, e0 = 25, e8 = !1) {
       return new Promise((e2, e3) => {
@@ -5022,26 +5029,26 @@ function vo(e$) {
                 e$ && e$.__null__ ? e2(null) : e2(e$);
               })
               .catch((e2) => {
-                e3(e2),
+                (e3(e2),
                   console.error(
                     "Rejected: " + e$,
                     e8,
                     JSON.stringify(e0),
-                    (null == e2 ? void 0 : e2.message) || e2
-                  );
+                    (null == e2 ? void 0 : e2.message) || e2,
+                  ));
               });
           });
         }),
-    }
+    },
   );
 }
 const xo = vo("client"),
-  yo = (e$) => "https://fivem-static.jesteriruka.dev" + e$,
+  yo = (e$) => "./assets" + e$,
   ko = new ys();
 ko.setMaxListeners(300);
 const wo = {
   volume: rt(
-    Number(localStorage.getItem("smartphone@notificationVolume") || 50)
+    Number(localStorage.getItem("smartphone@notificationVolume") || 50),
   ),
   doNotDisturb: rt("true" == localStorage.getItem("smartphone@doNotDisturb")),
   darkTheme: rt("true" == localStorage.getItem("smartphone@darkTheme")),
@@ -5054,14 +5061,14 @@ const wo = {
 };
 
 function Co(e$) {
-  wo.set("darkTheme", e$),
-    document.documentElement.classList.toggle("dark", !!e$);
+  (wo.set("darkTheme", e$),
+    document.documentElement.classList.toggle("dark", !!e$));
 }
-Tn(wo.volume, (e$) => wo.set("notificationVolume", e$)),
+(Tn(wo.volume, (e$) => wo.set("notificationVolume", e$)),
   Tn(wo.doNotDisturb, (e$) => wo.set("doNotDisturb", String(!!e$))),
   Tn(wo.darkTheme, (e$) => Co(e$)),
   Tn(wo.anonymousCall, (e$) => wo.set("anonymousCall", String(!!e$))),
-  document.documentElement.classList.toggle("dark", wo.darkTheme.value);
+  document.documentElement.classList.toggle("dark", wo.darkTheme.value));
 const _o = [];
 ko.on("Route:afterEach", () => {
   let e$ = _o.splice(0, _o.length);
@@ -5096,7 +5103,7 @@ const Ao = {
       })
       .then(
         (e$) => (this.microphone.value = e$),
-        () => {}
+        () => {},
       );
   },
   currentCall: rt(),
@@ -5133,7 +5140,7 @@ const Ao = {
   client: xo,
   pusher: ko,
   onceRoute(e$, e0) {
-    this.pusher.on(e$, e0), _o.push([e$, e0]);
+    (this.pusher.on(e$, e0), _o.push([e$, e0]));
   },
   notifications: Ze([]),
   storage: wo,
@@ -5149,8 +5156,8 @@ const Ao = {
           null != (e7 = Qs[(e6 = e$)])
             ? e7
             : null == (e4 = Ys().find((e$) => e$.entry == e6))
-            ? void 0
-            : e4.icon,
+              ? void 0
+              : e4.icon,
         title: e0,
         subtitle: e8,
       };
@@ -5164,14 +5171,14 @@ const Ao = {
         null !=
           (e1 = null == (e3 = this.settings.notificationSpan) ? void 0 : e3[e$])
           ? e1
-          : 5e3
+          : 5e3,
       ),
       "phone" != e$)
     ) {
       let eN = new Audio(this.settings.notificationSound);
-      (eN.volume = this.getNotificationVolume() / 100),
+      ((eN.volume = this.getNotificationVolume() / 100),
         (eN.currentTime = 0),
-        eN.play();
+        eN.play());
     }
   },
   getNotificationVolume: () =>
@@ -5185,15 +5192,15 @@ const Ao = {
   setNotificationFor(e$, e0) {
     localStorage.setItem(
       `smartphone@notification_${e$.toLowerCase()}`,
-      JSON.stringify(!!e0)
+      JSON.stringify(!!e0),
     );
   },
   created() {
-    this.backend.getSettings().then((e$) => {
+    (this.backend.getSettings().then((e$) => {
       var { identity: e0, contacts: e8 } = e$,
         e2 = o(e$, ["identity", "contacts"]);
       for (let e3 in e0) this.identity[e3] = e0[e3];
-      (this.contacts.value = e8),
+      ((this.contacts.value = e8),
         this.sortContacts(),
         Object.assign(this.settings, e2),
         e2.isAndroid && (document.documentElement.style.fontFamily = "Roboto"),
@@ -5203,7 +5210,7 @@ const Ao = {
           ? (this.backgroundURL = e2.backgroundURL)
           : this.backgroundURL ||
             (this.backgroundURL =
-              e2.backgroundURL || yo("/stock/wallpapers/default.webp"));
+              e2.backgroundURL || yo("/stock/wallpapers/default.webp")));
     }),
       (this.settings.zoom =
         parseInt(localStorage.getItem("smartphone@zoom")) || 100),
@@ -5233,19 +5240,19 @@ const Ao = {
               id: e0 + 1,
               name: "Fake " + (e0 + 1),
               phone: "000-0" + String(e0 + 1).padStart(2, 0),
-            }))
-        ));
+            })),
+        )));
   },
   ready() {
-    this.pusher.on("ADD_CONTACT", () => this.sortContacts()),
+    (this.pusher.on("ADD_CONTACT", () => this.sortContacts()),
       this.settings.useGameClock
         ? this.pusher.on("TIME", (e$) => (this.clock.value = e$))
         : setInterval(() => {
             let e$ = new Date(),
               e0 = this.clock.value;
-            (e0.hours = String(e$.getHours()).padStart(2, 0)),
-              (e0.minutes = String(e$.getMinutes()).padStart(2, 0));
-          }, 1e3);
+            ((e0.hours = String(e$.getHours()).padStart(2, 0)),
+              (e0.minutes = String(e$.getMinutes()).padStart(2, 0)));
+          }, 1e3));
   },
   fetchSettings() {
     let e$ = setInterval(() => {
@@ -5268,15 +5275,15 @@ const Ao = {
         this.settings.allowUnsafeURL && ["Imagem", "self-center"],
       ],
       25,
-      !0
+      !0,
     );
     return 0 === e8
       ? await co().request(e0, e$)
       : 1 === e8
-      ? await fo()
-      : 2 === e8
-      ? await this.promptImageURL()
-      : void 0;
+        ? await fo()
+        : 2 === e8
+          ? await this.promptImageURL()
+          : void 0;
   },
   alert: null,
   prompt: null,
@@ -5299,7 +5306,7 @@ const To = {
           () => e$.content,
           (e$) => {
             "string" == typeof e$ && e$.includes("executeVRP") && e0();
-          }
+          },
         ),
         {
           content: e$.content,
@@ -5348,7 +5355,7 @@ To.render = function (e$, e0, e8, e2, e3, e1) {
                   onClick: e0[1] || (e0[1] = (e$) => e2.alert()),
                   class: "p-2 px-8 rounded-lg font-bold text-blue-600",
                 },
-                "OK"
+                "OK",
               ),
             ]),
           ]))
@@ -5362,7 +5369,7 @@ To.render = function (e$, e0, e8, e2, e3, e1) {
                   onClick: e0[2] || (e0[2] = (e$) => e2.alert()),
                   class: "p-2 px-6 rounded-lg text-blue-400",
                 },
-                "Fechar"
+                "Fechar",
               ),
             ]),
           ])),
@@ -5414,7 +5421,7 @@ Vo.render = function (e$, e0, e8, e2, e3, e1) {
                   onClick: e0[1] || (e0[1] = (e$) => e8.callback(!1)),
                   class: "p-3 text-blue-600",
                 },
-                "CANCELAR"
+                "CANCELAR",
               ),
               Pl(
                 "button",
@@ -5422,7 +5429,7 @@ Vo.render = function (e$, e0, e8, e2, e3, e1) {
                   onClick: e0[2] || (e0[2] = (e$) => e8.callback(!0)),
                   class: "p-3 text-blue-600",
                 },
-                "SIM"
+                "SIM",
               ),
             ]),
           ]))
@@ -5436,7 +5443,7 @@ Vo.render = function (e$, e0, e8, e2, e3, e1) {
                   onClick: e0[3] || (e0[3] = (e$) => e8.callback(!1)),
                   class: "flex-1 p-3 rounded-lg text-red-500",
                 },
-                "N\xe3o"
+                "N\xe3o",
               ),
               Pl(
                 "button",
@@ -5444,7 +5451,7 @@ Vo.render = function (e$, e0, e8, e2, e3, e1) {
                   onClick: e0[4] || (e0[4] = (e$) => e8.callback(!0)),
                   class: "flex-1 p-3 border-l text-blue-400",
                 },
-                "Sim"
+                "Sim",
               ),
             ]),
           ])),
@@ -5458,22 +5465,22 @@ const Bo = {
         e0;
       return (
         So.pusher.on("createCustomConfirm", (e8) => {
-          (e$.value = e8),
+          ((e$.value = e8),
             So.addNotification(
               "bank",
               "Confirma\xe7\xe3o de cobran\xe7a",
-              "Abra seu celular para confirmar"
+              "Abra seu celular para confirmar",
             ),
             clearTimeout(e0),
             e8.timeout &&
               (e0 = setTimeout(() => {
                 e$.value = null;
-              }, e8.timeout));
+              }, e8.timeout)));
         }),
         {
           data: e$,
           callback: function (e0) {
-            So.client.fCustomConfirm(e0), (e$.value = null);
+            (So.client.fCustomConfirm(e0), (e$.value = null));
           },
         }
       );
@@ -5495,7 +5502,7 @@ const Bo = {
       class: "fal fa-times text-red-600 align-middle mr-2",
     },
     null,
-    -1
+    -1,
   ),
   Ko = Il(" N\xe3o, recusar "),
   Jo = Pl(
@@ -5504,7 +5511,7 @@ const Bo = {
       class: "fal fa-check text-green-600 align-middle mr-2",
     },
     null,
-    -1
+    -1,
   ),
   Xo = Il(" Sim, aceitar ");
 Bo.render = function (e$, e0, e8, e2, e3, e1) {
@@ -5537,7 +5544,7 @@ Bo.render = function (e$, e0, e8, e2, e3, e1) {
                         },
                         null,
                         8,
-                        ["innerHTML"]
+                        ["innerHTML"],
                       ),
                       Pl("div", Go, [
                         Pl(
@@ -5546,7 +5553,7 @@ Bo.render = function (e$, e0, e8, e2, e3, e1) {
                             onClick: e0[1] || (e0[1] = (e$) => e2.callback(!1)),
                             class: "flex-1 border rounded-lg p-3 text-blue-600",
                           },
-                          [Wo, Ko]
+                          [Wo, Ko],
                         ),
                         Pl(
                           "button",
@@ -5554,7 +5561,7 @@ Bo.render = function (e$, e0, e8, e2, e3, e1) {
                             onClick: e0[2] || (e0[2] = (e$) => e2.callback(!0)),
                             class: "flex-1 border rounded-lg p-3 text-blue-600",
                           },
-                          [Jo, Xo]
+                          [Jo, Xo],
                         ),
                       ]),
                     ]),
@@ -5562,10 +5569,10 @@ Bo.render = function (e$, e0, e8, e2, e3, e1) {
                 : Ml("", !0),
             ]),
             _: 1,
-          }
+          },
         ),
       ],
-      2
+      2,
     )
   );
 };
@@ -5577,7 +5584,7 @@ const Yo = {
       return {
         content: e0,
         submit: function (e8) {
-          e$.callback(e8 ? null : e0.value), (e0.value = null);
+          (e$.callback(e8 ? null : e0.value), (e0.value = null));
         },
         android: e8,
       };
@@ -5634,9 +5641,9 @@ Yo.render = function (e$, e0, e8, e2, e3, e1) {
                   },
                   null,
                   40,
-                  ["maxlength"]
+                  ["maxlength"],
                 ),
-                [[ns, e2.content]]
+                [[ns, e2.content]],
               ),
             ]),
             Pl("div", nr, [
@@ -5646,7 +5653,7 @@ Yo.render = function (e$, e0, e8, e2, e3, e1) {
                   onClick: e0[3] || (e0[3] = (e$) => e2.submit(!0)),
                   class: "p-4 font-bold text-blue-600",
                 },
-                "CANCELAR"
+                "CANCELAR",
               ),
               Pl(
                 "button",
@@ -5654,7 +5661,7 @@ Yo.render = function (e$, e0, e8, e2, e3, e1) {
                   onClick: e0[4] || (e0[4] = (e$) => e2.submit()),
                   class: "p-4 font-bold text-blue-600",
                 },
-                "OK"
+                "OK",
               ),
             ]),
           ]))
@@ -5675,9 +5682,9 @@ Yo.render = function (e$, e0, e8, e2, e3, e1) {
                   },
                   null,
                   40,
-                  ["maxlength"]
+                  ["maxlength"],
                 ),
-                [[ns, e2.content]]
+                [[ns, e2.content]],
               ),
             ]),
             Pl("div", sr, [
@@ -5687,7 +5694,7 @@ Yo.render = function (e$, e0, e8, e2, e3, e1) {
                   onClick: e0[7] || (e0[7] = (e$) => e2.submit(!0)),
                   class: "p-4 text-red-500 flex-1",
                 },
-                "Fechar"
+                "Fechar",
               ),
               Pl(
                 "button",
@@ -5695,7 +5702,7 @@ Yo.render = function (e$, e0, e8, e2, e3, e1) {
                   onClick: e0[8] || (e0[8] = (e$) => e2.submit()),
                   class: "p-4 text-blue-400 border-l flex-1",
                 },
-                "Enviar"
+                "Enviar",
               ),
             ]),
           ])),
@@ -5725,7 +5732,7 @@ const or = {
           req: e$.request,
           res: function (e2) {
             var e1, e6, e4;
-            (null == (e1 = e$.request.value) ? void 0 : e1.emptyAsError) &&
+            ((null == (e1 = e$.request.value) ? void 0 : e1.emptyAsError) &&
             null == e2
               ? null == (e6 = e$.request.value) || e6.reject(e2)
               : null == (e4 = e$.request.value) || e4.resolve(e2),
@@ -5734,7 +5741,7 @@ const or = {
                 e0.value > 0
                   ? (e0.value -= e8.value / 33)
                   : (clearInterval(e3), (e$.request.value = null));
-              }, 10));
+              }, 10)));
           },
           height: e0,
           max: e8,
@@ -5763,7 +5770,7 @@ const ir = Pl(
         },
       }),
     ],
-    -1
+    -1,
   ),
   cr = {
     class: "flex flex-col flex-1 overflow-y-auto hide-scroll",
@@ -5790,7 +5797,7 @@ const ur = rr((e$, e0, e8, e2, e3, e1) =>
               onClick: e0[1] || (e0[1] = (e$) => e2.res()),
               class: "mb-4",
             },
-            [ir]
+            [ir],
           ),
           Pl("ul", cr, [
             (wl(!0),
@@ -5817,19 +5824,19 @@ const ur = rr((e$, e0, e8, e2, e3, e1) =>
                     },
                     null,
                     10,
-                    ["onClick", "innerHTML"]
+                    ["onClick", "innerHTML"],
                   )
                 );
               }),
-              128
+              128,
             )),
           ]),
         ],
-        4
+        4,
       ))
-    : Ml("", !0)
+    : Ml("", !0),
 );
-(or.render = ur), (or.__scopeId = "data-v-6c6185e0");
+((or.render = ur), (or.__scopeId = "data-v-6c6185e0"));
 const dr = {
     setup() {
       let e$ = co(),
@@ -5847,7 +5854,7 @@ const dr = {
         for (let e0 in e$) e2[e0] = e$[e0];
       }
       async function e1(e$) {
-        "landscape" === e$
+        ("landscape" === e$
           ? e3({
               left: 0,
               top: 0,
@@ -5855,30 +5862,30 @@ const dr = {
               height: 1080,
             })
           : "portrait" === e$
-          ? e3({
-              left: 540,
-              top: 0,
-              width: 640,
-              height: 1080,
-            })
-          : "selfie" === e$ &&
-            e3({
-              left: 400,
-              top: 240,
-              width: 640,
-              height: 640,
-            }),
-          e6();
+            ? e3({
+                left: 540,
+                top: 0,
+                width: 640,
+                height: 1080,
+              })
+            : "selfie" === e$ &&
+              e3({
+                left: 400,
+                top: 240,
+                width: 640,
+                height: 640,
+              }),
+          e6());
       }
 
       function e6() {
         let e$ = e0.value,
           e3 = e$.getContext("2d"),
           { left: e1, top: e6, width: e4, height: e7, filter: e5 } = e2;
-        (e$.width = e4),
+        ((e$.width = e4),
           (e$.height = e7),
           (e3.filter = e5),
-          e3.drawImage(e8.value, e1, e6, e4, e7, 0, 0, e4, e7);
+          e3.drawImage(e8.value, e1, e6, e4, e7, 0, 0, e4, e7));
       }
       return (
         vn(() => {
@@ -5888,12 +5895,12 @@ const dr = {
             ((e2 = e$.original),
             new Promise((e$) => {
               let e0 = new Image(1920, 1080);
-              (e0.onload = () => e$(e0)), (e0.src = URL.createObjectURL(e2));
+              ((e0.onload = () => e$(e0)), (e0.src = URL.createObjectURL(e2)));
             })).then((e$) => {
               e3.drawImage(e$, 0, 0, 1920, 1080);
               let e0 = new Image();
-              (e0.onload = () => (e8.value = e0)),
-                (e0.src = e3.canvas.toDataURL("image/jpeg", 0.8));
+              ((e0.onload = () => (e8.value = e0)),
+                (e0.src = e3.canvas.toDataURL("image/jpeg", 0.8)));
             });
         }),
         Tn(e8, () => {
@@ -5929,7 +5936,7 @@ const dr = {
               "sepia(.25) contrast(1.5) brightness(.9) hue-rotate(-15deg)",
           },
           setFilter: function (e$) {
-            (e2.filter = e$), e6();
+            ((e2.filter = e$), e6());
           },
           copyWithFilter: function (e$) {
             if (!e8.value) return "null";
@@ -5946,17 +5953,17 @@ const dr = {
           },
           discard: function () {
             var e0;
-            null == (e0 = e$.ondiscard) || e0.call(e$), (e$.original = null);
+            (null == (e0 = e$.ondiscard) || e0.call(e$), (e$.original = null));
           },
           proceed: function () {
             e0.value.toBlob(
               (e0) => {
                 var e8;
-                null == (e8 = e$.onproceed) || e8.call(e$, e0),
-                  (e$.original = null);
+                (null == (e8 = e$.onproceed) || e8.call(e$, e0),
+                  (e$.original = null));
               },
               "image/jpeg",
-              0.8
+              0.8,
             );
           },
         }
@@ -5972,7 +5979,7 @@ const dr = {
       class: "text-white text-center font-semibold mb-8",
     },
     "Editor de Imagem",
-    -1
+    -1,
   ),
   mr = {
     ref: "canvasElement",
@@ -5989,7 +5996,7 @@ const dr = {
       class: "text-white",
     },
     "Formato",
-    -1
+    -1,
   ),
   gr = {
     class: "flex mt-4",
@@ -6003,7 +6010,7 @@ const dr = {
       class: "text-white",
     },
     "Filtros",
-    -1
+    -1,
   ),
   yr = {
     class: "flex mt-4 pb-4 overflow-x-auto fancy-scroll",
@@ -6033,7 +6040,7 @@ dr.render = function (e$, e0, e8, e2, e3, e1) {
                   class:
                     "text-blue-500 border rounded-xl border-blue-500 px-4 py-2 flex-1",
                 },
-                " Paisagem "
+                " Paisagem ",
               ))
             : Ml("", !0),
           e2.formats.includes("portrait")
@@ -6046,7 +6053,7 @@ dr.render = function (e$, e0, e8, e2, e3, e1) {
                   class:
                     "ml-4 text-blue-500 border rounded-xl border-blue-500 px-4 py-2 flex-1",
                 },
-                " Retrato "
+                " Retrato ",
               ))
             : Ml("", !0),
           e2.formats.includes("selfie")
@@ -6059,7 +6066,7 @@ dr.render = function (e$, e0, e8, e2, e3, e1) {
                   class:
                     "ml-4 text-blue-500 border rounded-xl border-blue-500 px-4 py-2 flex-1",
                 },
-                " Selfie "
+                " Selfie ",
               ))
             : Ml("", !0),
         ]),
@@ -6092,16 +6099,16 @@ dr.render = function (e$, e0, e8, e2, e3, e1) {
                       },
                       null,
                       8,
-                      ["src"]
+                      ["src"],
                     ),
                     Pl("span", kr, g(e0), 1),
                   ],
                   8,
-                  ["onClick"]
+                  ["onClick"],
                 )
-              )
+              ),
             ),
-            128
+            128,
           )),
         ]),
       ]),
@@ -6113,7 +6120,7 @@ dr.render = function (e$, e0, e8, e2, e3, e1) {
             onClick:
               e0[4] || (e0[4] = (...e$) => e2.discard && e2.discard(...e$)),
           },
-          "Descartar"
+          "Descartar",
         ),
         Pl(
           "button",
@@ -6122,7 +6129,7 @@ dr.render = function (e$, e0, e8, e2, e3, e1) {
             onClick:
               e0[5] || (e0[5] = (...e$) => e2.proceed && e2.proceed(...e$)),
           },
-          "Salvar"
+          "Salvar",
         ),
       ]),
     ])
@@ -6132,38 +6139,38 @@ const Cr = {
     props: ["callback"],
     inject: ["setKeepInput"],
     setup(e$) {
-      jl("setDark")(), jl("setKeepInput")(!0);
+      (jl("setDark")(), jl("setKeepInput")(!0));
       let e0 = rt(),
         e8 = rt(0),
         e2 = rt(!1),
         e3 = document.createElement("canvas");
-      (e3.width = 1280), (e3.height = 720);
+      ((e3.width = 1280), (e3.height = 720));
       let e1,
         e6,
         e4,
         e7 = new lo(e3);
 
       function e5() {
-        (e1 = setInterval(() => (e8.value += 1), 1e3)),
+        ((e1 = setInterval(() => (e8.value += 1), 1e3)),
           (e2.value = !0),
-          (e8.value = 0);
+          (e8.value = 0));
         let e$ = [e0.value.captureStream(24), So.microphone.value];
-        (e6 = new MediaRecorder(
+        ((e6 = new MediaRecorder(
           new MediaStream(
             e$
               .map((e$) => (null == e$ ? void 0 : e$.getTracks()))
               .filter((e$) => e$)
-              .flat()
+              .flat(),
           ),
           {
             videoBitsPerSecond: 2e6,
-          }
+          },
         )).start(),
-          e0.value.toBlob((e$) => (e4 = e$), "image/jpeg", 0.8);
+          e0.value.toBlob((e$) => (e4 = e$), "image/jpeg", 0.8));
       }
 
       function eV() {
-        clearInterval(e1),
+        (clearInterval(e1),
           (e2.value = !1),
           (e6.ondataavailable = (e0) => {
             e4 &&
@@ -6172,7 +6179,7 @@ const Cr = {
                 .then((e$) => [e$, e4])
                 .then(...e$.callback);
           }),
-          e6.stop();
+          e6.stop());
       }
 
       function eN(e$) {
@@ -6191,7 +6198,7 @@ const Cr = {
               0,
               0,
               e8.width,
-              e8.height
+              e8.height,
             );
           };
         }),
@@ -6209,10 +6216,10 @@ const Cr = {
       );
     },
     unmounted() {
-      (this.view.kill = !0),
+      ((this.view.kill = !0),
         this.setKeepInput(!1),
         So.client.SetInVideoCall(!1),
-        window.removeEventListener("keydown", this.handler);
+        window.removeEventListener("keydown", this.handler));
     },
   },
   _r = sn("data-v-065406ae");
@@ -6226,7 +6233,7 @@ const Ar = {
       class: "h-12",
     },
     null,
-    -1
+    -1,
   ),
   Tr = {
     class: "h-10 flex justify-center items-center",
@@ -6237,7 +6244,7 @@ const Ar = {
       class: "fas fa-circle text-red-600 text-sm",
     },
     null,
-    -1
+    -1,
   ),
   Rr = {
     class: "ml-2 text-theme",
@@ -6256,7 +6263,7 @@ const Ar = {
       class: "fa fa-square text-4xl text-red-500",
     },
     null,
-    -1
+    -1,
   );
 an();
 const Or = _r(
@@ -6273,7 +6280,7 @@ const Or = _r(
                 key: 0,
               },
               [Er, Pl("span", Rr, g(e$.$filters.duration(e2.duration)), 1)],
-              64
+              64,
             ))
           : Ml("", !0),
       ]),
@@ -6290,7 +6297,7 @@ const Or = _r(
                 class:
                   "absolute mx-auto w-24 h-24 bg-gray-300 rounded-full flex flex-center",
               },
-              [Ir]
+              [Ir],
             ))
           : (wl(),
             _l("button", {
@@ -6302,9 +6309,9 @@ const Or = _r(
             })),
       ]),
     ])
-  )
+  ),
 );
-(Cr.render = Or), (Cr.__scopeId = "data-v-065406ae");
+((Cr.render = Or), (Cr.__scopeId = "data-v-065406ae"));
 const Mr = "function" == typeof Symbol && "symbol" == typeof Symbol.toStringTag,
   Vr = (e$) => (Mr ? Symbol(e$) : "_vr_" + e$),
   Dr = Vr("rvlm"),
@@ -6389,8 +6396,8 @@ function Xr(e$, e0) {
   return Array.isArray(e$)
     ? Yr(e$, e0)
     : Array.isArray(e0)
-    ? Yr(e0, e$)
-    : e$ === e0;
+      ? Yr(e0, e$)
+      : e$ === e0;
 }
 
 function Yr(e$, e0) {
@@ -6405,17 +6412,20 @@ function ni(e$) {
       let e0 = document.querySelector("base");
       e$ = (e$ = (e0 && e0.getAttribute("href")) || "/").replace(
         /^\w+:\/\/[^\/]+/,
-        ""
+        "",
       );
     } else e$ = "/";
   }
-  return "/" !== e$[0] && "#" !== e$[0] && (e$ = "/" + e$), e$.replace(qr, "");
+  return (
+    "/" !== e$[0] && "#" !== e$[0] && (e$ = "/" + e$),
+    e$.replace(qr, "")
+  );
 }
-((Qr = Zr || (Zr = {})).pop = "pop"),
+(((Qr = Zr || (Zr = {})).pop = "pop"),
   (Qr.push = "push"),
   ((ti = ei || (ei = {})).back = "back"),
   (ti.forward = "forward"),
-  (ti.unknown = "");
+  (ti.unknown = ""));
 const li = /^[^#]+#/;
 
 function ai(e$, e0) {
@@ -6452,7 +6462,7 @@ function oi(e$) {
     ? window.scrollTo(e0)
     : window.scrollTo(
         null != e0.left ? e0.left : window.pageXOffset,
-        null != e0.top ? e0.top : window.pageYOffset
+        null != e0.top ? e0.top : window.pageYOffset,
       );
 }
 
@@ -6465,7 +6475,7 @@ function ci(e$, e0) {
   let { pathname: e8, search: e2, hash: e3 } = e0;
   if (e$.indexOf("#") > -1) {
     let e1 = e3.slice(1);
-    return "/" !== e1[0] && (e1 = "/" + e1), Wr(e1, "");
+    return ("/" !== e1[0] && (e1 = "/" + e1), Wr(e1, ""));
   }
   return Wr(e8, e$) + e2 + e3;
 }
@@ -6497,9 +6507,9 @@ function di(e$) {
           ? (e8.host && document.querySelector("base") ? e$ : e$.slice(e4)) + e2
           : location.protocol + "//" + location.host + e$ + e2;
     try {
-      e0[e6 ? "replaceState" : "pushState"](e1, "", e7), (e3.value = e1);
+      (e0[e6 ? "replaceState" : "pushState"](e1, "", e7), (e3.value = e1));
     } catch (e5) {
-      console.error(e5), e8[e6 ? "replace" : "assign"](e7);
+      (console.error(e5), e8[e6 ? "replace" : "assign"](e7));
     }
   }
   return (
@@ -6514,7 +6524,7 @@ function di(e$) {
           replaced: !0,
           scroll: null,
         },
-        !0
+        !0,
       ),
     {
       location: e2,
@@ -6524,7 +6534,7 @@ function di(e$) {
           forward: e$,
           scroll: si(),
         });
-        e1(e6.current, e6, !0),
+        (e1(e6.current, e6, !0),
           e1(
             e$,
             zr(
@@ -6533,21 +6543,21 @@ function di(e$) {
               {
                 position: e6.position + 1,
               },
-              e8
+              e8,
             ),
-            !1
+            !1,
           ),
-          (e2.value = e$);
+          (e2.value = e$));
       },
       replace: function (e$, e8) {
-        e1(
+        (e1(
           e$,
           zr({}, e0.state, ui(e3.value.back, e$, e3.value.forward, !0), e8, {
             position: e3.value.position,
           }),
-          !0
+          !0,
         ),
-          (e2.value = e$);
+          (e2.value = e$));
       },
     }
   );
@@ -6585,7 +6595,7 @@ function pi(e$) {
             zr({}, e$.state, {
               scroll: si(),
             }),
-            ""
+            "",
           );
       }
       return (
@@ -6601,13 +6611,13 @@ function pi(e$) {
               let e0 = e3.indexOf(e$);
               e0 > -1 && e3.splice(e0, 1);
             };
-            return e1.push(e0), e0;
+            return (e1.push(e0), e0);
           },
           destroy: function () {
             for (let e$ of e1) e$();
-            (e1 = []),
+            ((e1 = []),
               window.removeEventListener("popstate", e4),
-              window.removeEventListener("beforeunload", e7);
+              window.removeEventListener("beforeunload", e7));
           },
         }
       );
@@ -6617,12 +6627,12 @@ function pi(e$) {
         location: "",
         base: e$,
         go: function (e$, e0 = !0) {
-          e0 || e8.pauseListeners(), history.go(e$);
+          (e0 || e8.pauseListeners(), history.go(e$));
         },
         createHref: ai.bind(null, e$),
       },
       e0,
-      e8
+      e8,
     );
   return (
     Object.defineProperty(e2, "location", {
@@ -6658,16 +6668,16 @@ function vi(e$, e0) {
       type: e$,
       [hi]: !0,
     },
-    e0
+    e0,
   );
 }
 
 function xi(e$, e0) {
   return e$ instanceof Error && hi in e$ && (null == e0 || !!(e$.type & e0));
 }
-((gi = bi || (bi = {}))[(gi.aborted = 4)] = "aborted"),
+(((gi = bi || (bi = {}))[(gi.aborted = 4)] = "aborted"),
   (gi[(gi.cancelled = 8)] = "cancelled"),
-  (gi[(gi.duplicated = 16)] = "duplicated");
+  (gi[(gi.duplicated = 16)] = "duplicated"));
 const yi = {
     sensitive: !1,
     strict: !1,
@@ -6688,10 +6698,10 @@ function wi(e$, e0) {
       ? -1
       : 1
     : e$.length > e0.length
-    ? 1 === e0.length && 80 === e0[0]
-      ? 1
-      : -1
-    : 0;
+      ? 1 === e0.length && 80 === e0[0]
+        ? 1
+        : -1
+      : 0;
 }
 
 function Ci(e$, e0) {
@@ -6724,7 +6734,9 @@ function Si(e$, e0, e8) {
           let e5 = e6[e7],
             eV = 40 + (e8.sensitive ? 0.25 : 0);
           if (0 === e5.type)
-            e7 || (e3 += "/"), (e3 += e5.value.replace(ki, "\\$&")), (eV += 40);
+            (e7 || (e3 += "/"),
+              (e3 += e5.value.replace(ki, "\\$&")),
+              (eV += 40));
           else if (1 === e5.type) {
             let { value: eN, repeatable: e9, optional: eU, regexp: ej } = e5;
             e1.push({
@@ -6740,18 +6752,18 @@ function Si(e$, e0, e8) {
               } catch (ez) {
                 throw Error(
                   `Invalid custom RegExp for param "${eN}" (${eD}): ` +
-                    ez.message
+                    ez.message,
                 );
               }
             }
             let eF = e9 ? `((?:${eD})(?:/(?:${eD}))*)` : `(${eD})`;
-            e7 || (eF = eU && e6.length < 2 ? `(?:/${eF})` : "/" + eF),
+            (e7 || (eF = eU && e6.length < 2 ? `(?:/${eF})` : "/" + eF),
               eU && (eF += "?"),
               (e3 += eF),
               (eV += 20),
               eU && (eV += -8),
               e9 && (eV += -20),
-              ".*" === eD && (eV += -50);
+              ".*" === eD && (eV += -50));
           }
           e4.push(eV);
         }
@@ -6761,8 +6773,8 @@ function Si(e$, e0, e8) {
         let eB = e2.length - 1;
         e2[eB][e2[eB].length - 1] += 0.7000000000000001;
       }
-      e8.strict || (e3 += "/?"),
-        e8.end ? (e3 += "$") : e8.strict && (e3 += "(?:/|$)");
+      (e8.strict || (e3 += "/?"),
+        e8.end ? (e3 += "$") : e8.strict && (e3 += "(?:/|$)"));
       let eH = RegExp(e3, e8.sensitive ? "" : "i");
       return {
         re: eH,
@@ -6792,7 +6804,7 @@ function Si(e$, e0, e8) {
                   e5 = e6 in e0 ? e0[e6] : "";
                 if (Array.isArray(e5) && !e4)
                   throw Error(
-                    `Provided param "${e6}" is an array but it is not repeatable (* or + modifiers)`
+                    `Provided param "${e6}" is an array but it is not repeatable (* or + modifiers)`,
                   );
                 let eV = Array.isArray(e5) ? e5.join("/") : e5;
                 if (!eV) {
@@ -6820,7 +6832,7 @@ function Si(e$, e0, e8) {
           e1;
 
         function e6() {
-          e1 && e3.push(e1), (e1 = []);
+          (e1 && e3.push(e1), (e1 = []));
         }
         let e4,
           e7 = 0,
@@ -6835,19 +6847,19 @@ function Si(e$, e0, e8) {
                   value: e5,
                 })
               : 1 === e8 || 2 === e8 || 3 === e8
-              ? (e1.length > 1 &&
-                  ("*" === e4 || "+" === e4) &&
-                  e0(
-                    `A repeatable param (${e5}) must be alone in its segment. eg: '/:ids+.`
-                  ),
-                e1.push({
-                  type: 1,
-                  value: e5,
-                  regexp: eV,
-                  repeatable: "*" === e4 || "+" === e4,
-                  optional: "*" === e4 || "?" === e4,
-                }))
-              : e0("Invalid state to consume buffer"),
+                ? (e1.length > 1 &&
+                    ("*" === e4 || "+" === e4) &&
+                    e0(
+                      `A repeatable param (${e5}) must be alone in its segment. eg: '/:ids+.`,
+                    ),
+                  e1.push({
+                    type: 1,
+                    value: e5,
+                    regexp: eV,
+                    repeatable: "*" === e4 || "+" === e4,
+                    optional: "*" === e4 || "?" === e4,
+                  }))
+                : e0("Invalid state to consume buffer"),
             (e5 = ""));
         }
 
@@ -6861,20 +6873,20 @@ function Si(e$, e0, e8) {
                 "/" === e4
                   ? (e5 && eN(), e6())
                   : ":" === e4
-                  ? (eN(), (e8 = 1))
-                  : e9();
+                    ? (eN(), (e8 = 1))
+                    : e9();
                 break;
               case 4:
-                e9(), (e8 = e2);
+                (e9(), (e8 = e2));
                 break;
               case 1:
                 "(" === e4
                   ? (e8 = 2)
                   : Ai.test(e4)
-                  ? e9()
-                  : (eN(),
-                    (e8 = 0),
-                    "*" !== e4 && "?" !== e4 && "+" !== e4 && e7--);
+                    ? e9()
+                    : (eN(),
+                      (e8 = 0),
+                      "*" !== e4 && "?" !== e4 && "+" !== e4 && e7--);
                 break;
               case 2:
                 ")" === e4
@@ -6884,15 +6896,15 @@ function Si(e$, e0, e8) {
                   : (eV += e4);
                 break;
               case 3:
-                eN(),
+                (eN(),
                   (e8 = 0),
                   "*" !== e4 && "?" !== e4 && "+" !== e4 && e7--,
-                  (eV = "");
+                  (eV = ""));
                 break;
               default:
                 e0("Unknown state");
             }
-          else (e2 = e8), (e8 = 4);
+          else ((e2 = e8), (e8 = 4));
         return (
           2 === e8 && e0(`Unfinished custom RegExp for param "${e5}"`),
           eN(),
@@ -6900,7 +6912,7 @@ function Si(e$, e0, e8) {
           e3
         );
       })(e$.path),
-      e8
+      e8,
     ),
     e3 = zr(e2, {
       record: e$,
@@ -6909,7 +6921,8 @@ function Si(e$, e0, e8) {
       alias: [],
     });
   return (
-    e0 && !e3.record.aliasOf == !e0.record.aliasOf && e0.children.push(e3), e3
+    e0 && !e3.record.aliasOf == !e0.record.aliasOf && e0.children.push(e3),
+    e3
   );
 }
 
@@ -6951,7 +6964,7 @@ function Ti(e$, e0) {
             components: e2 ? e2.record.components : e5.components,
             path: eU,
             aliasOf: e2 ? e2.record : e5,
-          })
+          }),
         );
     }
     let ej, eD;
@@ -6974,7 +6987,7 @@ function Ti(e$, e0) {
         for (let eG = 0; eG < eZ.length; eG++)
           e3(eZ[eG], ej, e2 && e2.children[eG]);
       }
-      (e2 = e2 || ej), e6(ej);
+      ((e2 = e2 || ej), e6(ej));
     }
     return eD
       ? () => {
@@ -7004,8 +7017,8 @@ function Ti(e$, e0) {
   function e6(e$) {
     let e0 = 0;
     for (; e0 < e8.length && Ci(e$, e8[e0]) >= 0; ) e0++;
-    e8.splice(e0, 0, e$),
-      e$.record.name && !Ri(e$) && e2.set(e$.record.name, e$);
+    (e8.splice(e0, 0, e$),
+      e$.record.name && !Ri(e$) && e2.set(e$.record.name, e$));
   }
   return (
     (e0 = Li(
@@ -7014,7 +7027,7 @@ function Ti(e$, e0) {
         end: !0,
         sensitive: !1,
       },
-      e0
+      e0,
     )),
     e$.forEach((e$) => e3(e$)),
     {
@@ -7029,7 +7042,7 @@ function Ti(e$, e0) {
             throw vi(1, {
               location: e$,
             });
-          (e6 = e3.record.name),
+          ((e6 = e3.record.name),
             (e4 = zr(
               (function (e$, e0) {
                 let e8 = {};
@@ -7037,15 +7050,15 @@ function Ti(e$, e0) {
                 return e8;
               })(
                 e0.params,
-                e3.keys.filter((e$) => !e$.optional).map((e$) => e$.name)
+                e3.keys.filter((e$) => !e$.optional).map((e$) => e$.name),
               ),
-              e$.params
+              e$.params,
             )),
-            (e1 = e3.stringify(e4));
+            (e1 = e3.stringify(e4)));
         } else if ("path" in e$)
-          (e1 = e$.path),
+          ((e1 = e$.path),
             (e3 = e8.find((e$) => e$.re.test(e1))) &&
-              ((e4 = e3.parse(e1)), (e6 = e3.record.name));
+              ((e4 = e3.parse(e1)), (e6 = e3.record.name)));
         else {
           if (
             !(e3 = e0.name
@@ -7056,13 +7069,13 @@ function Ti(e$, e0) {
               location: e$,
               currentLocation: e0,
             });
-          (e6 = e3.record.name),
+          ((e6 = e3.record.name),
             (e4 = zr({}, e0.params, e$.params)),
-            (e1 = e3.stringify(e4));
+            (e1 = e3.stringify(e4)));
         }
         let e7 = [],
           e5 = e3;
-        for (; e5; ) e7.unshift(e5.record), (e5 = e5.parent);
+        for (; e5; ) (e7.unshift(e5.record), (e5 = e5.parent));
         return {
           name: e6,
           path: e1,
@@ -7168,7 +7181,7 @@ function Xi(e$) {
       e4 = e1 < 0 ? null : Ji(e3.slice(e1 + 1));
     if (e6 in e0) {
       let e7 = e0[e6];
-      Array.isArray(e7) || (e7 = e0[e6] = [e7]), e7.push(e4);
+      (Array.isArray(e7) || (e7 = e0[e6] = [e7]), e7.push(e4));
     } else e0[e6] = e4;
   }
   return e0;
@@ -7185,7 +7198,7 @@ function Yi(e$) {
     }
     let e3 = Array.isArray(e2) ? e2.map((e$) => e$ && Wi(e$)) : [e2 && Wi(e2)];
     for (let e1 = 0; e1 < e3.length; e1++)
-      (e0 += (e1 ? "&" : "") + e8), null != e3[e1] && (e0 += "=" + e3[e1]);
+      ((e0 += (e1 ? "&" : "") + e8), null != e3[e1] && (e0 += "=" + e3[e1]));
   }
   return e0;
 }
@@ -7198,8 +7211,8 @@ function Zi(e$) {
       (e0[e8] = Array.isArray(e2)
         ? e2.map((e$) => (null == e$ ? null : "" + e$))
         : null == e2
-        ? e2
-        : "" + e2);
+          ? e2
+          : "" + e2);
   }
   return e0;
 }
@@ -7234,26 +7247,26 @@ function ec(e$, e0, e8, e2, e3) {
                 vi(4, {
                   from: e8,
                   to: e0,
-                })
+                }),
               )
             : e$ instanceof Error
-            ? e4(e$)
-            : "string" == typeof (e7 = e$) || (e7 && "object" == typeof e7)
-            ? e4(
-                vi(2, {
-                  from: e0,
-                  to: e$,
-                })
-              )
-            : (e1 &&
-                e2.enterCallbacks[e3] === e1 &&
-                "function" == typeof e$ &&
-                e1.push(e$),
-              e6());
+              ? e4(e$)
+              : "string" == typeof (e7 = e$) || (e7 && "object" == typeof e7)
+                ? e4(
+                    vi(2, {
+                      from: e0,
+                      to: e$,
+                    }),
+                  )
+                : (e1 &&
+                    e2.enterCallbacks[e3] === e1 &&
+                    "function" == typeof e$ &&
+                    e1.push(e$),
+                  e6());
         },
         e5 = e$.call(e2 && e2.instances[e3], e0, e8, e7),
         eV = Promise.resolve(e5);
-      e$.length < 3 && (eV = eV.then(e7)), eV.catch((e$) => e4(e$));
+      (e$.length < 3 && (eV = eV.then(e7)), eV.catch((e$) => e4(e$)));
     });
 }
 
@@ -7274,13 +7287,13 @@ function tc(e$, e0, e8, e2) {
           e5 && e1.push(ec(e5, e8, e2, e6, e4));
         } else {
           let eV = e7();
-          (eV = eV.catch(console.error)),
+          ((eV = eV.catch(console.error)),
             e1.push(() =>
               eV.then((e$) => {
                 var e3;
                 if (!e$)
                   return Promise.reject(
-                    Error(`Couldn't resolve component "${e4}" at "${e6.path}"`)
+                    Error(`Couldn't resolve component "${e4}" at "${e6.path}"`),
                   );
                 let e1 =
                   (e3 = e$).__esModule ||
@@ -7290,8 +7303,8 @@ function tc(e$, e0, e8, e2) {
                 e6.components[e4] = e1;
                 let e7 = (e1.__vccOpts || e1)[e0];
                 return e7 && ec(e7, e8, e2, e6, e4)();
-              })
-            );
+              }),
+            ));
         }
       }
     }
@@ -7332,13 +7345,13 @@ function nc(e$) {
               return !1;
           }
           return !0;
-        })(e8.params, e2.value.params)
+        })(e8.params, e2.value.params),
     ),
     e6 = da(
       () =>
         e3.value > -1 &&
         e3.value === e8.matched.length - 1 &&
-        Jr(e8.params, e2.value.params)
+        Jr(e8.params, e2.value.params),
     );
   return {
     route: e2,
@@ -7359,7 +7372,7 @@ function nc(e$) {
             let e0 = e$.currentTarget.getAttribute("target");
             if (/\b_blank\b/i.test(e0)) return;
           }
-          return e$.preventDefault && e$.preventDefault(), !0;
+          return (e$.preventDefault && e$.preventDefault(), !0);
         }
       })(e8)
         ? Promise.resolve()
@@ -7392,7 +7405,7 @@ const lc = ll({
         [sc(
           e$.exactActiveClass,
           e3.linkExactActiveClass,
-          "router-link-exact-active"
+          "router-link-exact-active",
         )]: e2.isExactActive,
       }));
     return () => {
@@ -7410,9 +7423,9 @@ const lc = ll({
               e8,
               {
                 class: e1.value,
-              }
+              },
             ),
-            e3
+            e3,
           );
     };
   },
@@ -7443,13 +7456,13 @@ const rc = ll({
       e3 = da(() => e$.route || e2.value),
       e1 = jl(Nr, 0),
       e6 = da(() => e3.value.matched[e1]);
-    $l(Nr, e1 + 1), $l(Dr, e6), $l(jr, e3);
+    ($l(Nr, e1 + 1), $l(Dr, e6), $l(jr, e3));
     let e4 = rt();
     return (
       Tn(
         () => [e4.value, e6.value, e$.name],
         ([e$, e0, e8], [e2, e3, e1]) => {
-          e0 &&
+          (e0 &&
             ((e0.instances[e8] = e$),
             e3 &&
               e3 !== e0 &&
@@ -7460,11 +7473,11 @@ const rc = ll({
             !e$ ||
               !e0 ||
               (e3 && Kr(e0, e3) && e2) ||
-              (e0.enterCallbacks[e8] || []).forEach((e0) => e0(e$));
+              (e0.enterCallbacks[e8] || []).forEach((e0) => e0(e$)));
         },
         {
           flush: "post",
-        }
+        },
       ),
       () => {
         let e2 = e3.value,
@@ -7481,8 +7494,8 @@ const rc = ll({
             ? !0 === eV
               ? e2.params
               : "function" == typeof eV
-              ? eV(e2)
-              : eV
+                ? eV(e2)
+                : eV
             : null,
           e9 = pa(
             e7,
@@ -7491,7 +7504,7 @@ const rc = ll({
                 e$.component.isUnmounted && (e1.instances[e5] = null);
               },
               ref: e4,
-            })
+            }),
           );
         return (
           oc(e8.default, {
@@ -7516,32 +7529,32 @@ function uc() {
   return jl($r);
 }
 const dc = document.createElement("canvas");
-(dc.width = 1920), (dc.height = 1080);
+((dc.width = 1920), (dc.height = 1080));
 const pc = new lo(dc);
-(pc.running = !1),
+((pc.running = !1),
   So.pusher.on("REQUEST_SCREENSHOT", (e$, e0, e8 = "image/jpeg", e2 = 0.9) => {
-    (pc.running = !0),
+    ((pc.running = !0),
       (pc.onrender = function (e3) {
-        (this.running = !1),
+        ((this.running = !1),
           e3.toBlob(
             (e2) => {
               let e3 = new FormData();
-              e3.append(
+              (e3.append(
                 e0,
                 e2,
-                "image." + e8.split("/")[1].replace("jpeg", "jpg")
+                "image." + e8.split("/")[1].replace("jpeg", "jpg"),
               ),
                 fetch(e$, {
                   method: "POST",
                   body: e3,
-                }).catch(() => {});
+                }).catch(() => {}));
             },
             e8,
-            e2
-          );
+            e2,
+          ));
       }),
-      pc.render();
-  });
+      pc.render());
+  }));
 const fc = {
     setup() {
       let e$ = cc(),
@@ -7562,7 +7575,7 @@ const hc = {
       class: "text-6xl",
     },
     "WillOS",
-    -1
+    -1,
   );
 an();
 const gc = mc((e$, e0, e8, e2, e3, e1) => {
@@ -7579,7 +7592,7 @@ const gc = mc((e$, e0, e8, e2, e3, e1) => {
     ])
   );
 });
-(fc.render = gc), (fc.__scopeId = "data-v-8a17276a");
+((fc.render = gc), (fc.__scopeId = "data-v-8a17276a"));
 const vc = rt(new Date());
 setInterval(() => vc.value.setTime(Date.now()), 1e3);
 const xc = {
@@ -7678,19 +7691,19 @@ const Ac = yc(
                         },
                         null,
                         8,
-                        ["src"]
+                        ["src"],
                       ),
                       Pl("span", Cc, g(e0.name), 1),
                     ],
                     8,
-                    ["onClick"]
+                    ["onClick"],
                   )
-                )
+                ),
               ),
-              128
+              128,
             )),
           ],
-          2
+          2,
         ),
         Pl(
           "div",
@@ -7730,26 +7743,26 @@ const Ac = yc(
                           },
                           null,
                           8,
-                          ["src"]
+                          ["src"],
                         ),
                       ],
                       8,
-                      ["onClick"]
+                      ["onClick"],
                     )
-                  )
+                  ),
                 ),
-                128
+                128,
               )),
             ]),
           ],
-          2
+          2,
         ),
       ],
-      4
+      4,
     )
-  )
+  ),
 );
-(xc.render = Ac), (xc.__scopeId = "data-v-69454f4a");
+((xc.render = Ac), (xc.__scopeId = "data-v-69454f4a"));
 const Sc = {
   default: "Padr\xe3o",
   s9: "S9",
@@ -7778,7 +7791,7 @@ const Tc = rt(!1),
           [
             75, 80, 90, 100, 110, 120, 125, 133, 150, 166, 175, 200, 225, 233,
             250,
-          ].map((e$) => [e$, e$ + "%"])
+          ].map((e$) => [e$, e$ + "%"]),
         ),
         { volume: eV, doNotDisturb: eN, darkTheme: e9, anonymousCall: eU } = e6;
       Tc.value ||
@@ -7789,23 +7802,24 @@ const Tc = rt(!1),
       ej.custom = "Personalizado";
       let eF = rt(So.backgroundURL);
       Tn(eF, (e$) => {
-        (So.backgroundURL = e$),
+        ((So.backgroundURL = e$),
           e$ === e7.backgroundURL
             ? localStorage.removeItem("smartphone@background")
-            : localStorage.setItem("smartphone@background", e$);
+            : localStorage.setItem("smartphone@background", e$));
       });
       let eB = So.settings.forceBackground,
         eH = rt(
           So.backgroundURL === e7.backgroundURL
             ? "default"
             : null !=
-              (e0 =
-                ((e8 = So.backgroundURL),
-                null == (e2 = Object.entries(Sc).find((e$) => e$[1].url === e8))
-                  ? void 0
-                  : e2[0]))
-            ? e0
-            : "custom"
+                (e0 =
+                  ((e8 = So.backgroundURL),
+                  null ==
+                  (e2 = Object.entries(Sc).find((e$) => e$[1].url === e8))
+                    ? void 0
+                    : e2[0]))
+              ? e0
+              : "custom",
         );
       return (
         Tn(eH, (e$) => {
@@ -7814,18 +7828,18 @@ const Tc = rt(!1),
             "default" === e$
               ? e7.backgroundURL || So.backgroundURL
               : "custom" !== e$
-              ? null == (e0 = Sc[e$])
-                ? void 0
-                : e0.url
-              : "Link da imagem";
+                ? null == (e0 = Sc[e$])
+                  ? void 0
+                  : e0.url
+                : "Link da imagem";
         }),
         Tn(e9, (e$) => e3(e$)),
         Tn(
           () => e7.zoom,
           (e$) => {
-            localStorage.setItem("smartphone@zoom", Number(e$).toFixed(0)),
-              So.updateZoom();
-          }
+            (localStorage.setItem("smartphone@zoom", Number(e$).toFixed(0)),
+              So.updateZoom());
+          },
         ),
         {
           settings: e7,
@@ -7835,11 +7849,11 @@ const Tc = rt(!1),
           forceBackground: eB,
           WallpapersOptions: ej,
           reset: function () {
-            (eV.value = 50),
+            ((eV.value = 50),
               (eN.value = !1),
               localStorage.setItem("smartphone@zoom", "100"),
               (e7.zoom = 100),
-              So.updateZoom();
+              So.updateZoom());
           },
           zoomOptions: e5,
           storage: e6,
@@ -7857,7 +7871,7 @@ const Tc = rt(!1),
                 (e$) => {
                   e1.value = e$;
                 },
-                () => {}
+                () => {},
               );
           },
         }
@@ -7889,7 +7903,7 @@ const Tc = rt(!1),
         class: "fas fa-phone fa-3x text-blue-500",
       }),
     ],
-    -1
+    -1,
   ),
   Vc = {
     class: "flex flex-col ml-5",
@@ -7904,7 +7918,7 @@ const Tc = rt(!1),
       class: "text-2xl",
     },
     "Plano de fundo",
-    -1
+    -1,
   ),
   Uc = {
     key: 1,
@@ -7915,7 +7929,7 @@ const Tc = rt(!1),
       class: "text-2xl",
     },
     "URL",
-    -1
+    -1,
   ),
   jc = {
     class: "mt-3",
@@ -7926,7 +7940,7 @@ const Tc = rt(!1),
       class: "text-2xl",
     },
     "Zoom",
-    -1
+    -1,
   ),
   zc = {
     class: "my-6",
@@ -7937,7 +7951,7 @@ const Tc = rt(!1),
       class: "text-2xl",
     },
     "Som em notifica\xe7\xf5es",
-    -1
+    -1,
   ),
   Hc = Pl(
     "hr",
@@ -7945,7 +7959,7 @@ const Tc = rt(!1),
       class: "border-theme",
     },
     null,
-    -1
+    -1,
   ),
   qc = {
     class: "mt-4 flex items-center justify-between",
@@ -7956,7 +7970,7 @@ const Tc = rt(!1),
       class: "text-3xl",
     },
     "Modo escuro",
-    -1
+    -1,
   ),
   Wc = {
     class: "mt-6 flex items-center justify-between",
@@ -7967,7 +7981,7 @@ const Tc = rt(!1),
       class: "text-3xl",
     },
     "N\xe3o perturbe",
-    -1
+    -1,
   ),
   Jc = {
     class: "mt-6 flex items-center justify-between",
@@ -7978,7 +7992,7 @@ const Tc = rt(!1),
       class: "text-3xl",
     },
     "Liga\xe7\xe3o an\xf4nima",
-    -1
+    -1,
   ),
   Yc = Pl(
     "i",
@@ -7986,7 +8000,7 @@ const Tc = rt(!1),
       class: "fas fa-microphone text-4xl",
     },
     null,
-    -1
+    -1,
   );
 Ec.render = function (e$, e0, e8, e2, e3, e1) {
   let e6 = dl("app-select"),
@@ -8002,7 +8016,7 @@ Ec.render = function (e$, e0, e8, e2, e3, e1) {
             onClick: e0[1] || (e0[1] = (e0) => e$.$router.back()),
             class: "absolute top-16 left-0 px-4",
           },
-          [e2.settings.isAndroid ? (wl(), _l("i", Lc)) : (wl(), _l("i", Ic))]
+          [e2.settings.isAndroid ? (wl(), _l("i", Lc)) : (wl(), _l("i", Ic))],
         ),
         Pl(
           "h1",
@@ -8013,7 +8027,7 @@ Ec.render = function (e$, e0, e8, e2, e3, e1) {
             ],
           },
           "Configura\xe7\xf5es",
-          2
+          2,
         ),
       ]),
       Pl("div", Oc, [
@@ -8032,12 +8046,12 @@ Ec.render = function (e$, e0, e8, e2, e3, e1) {
                 "h1",
                 null,
                 g(e2.identity.name + " " + e2.identity.firstname),
-                1
+                1,
               ),
               Pl("h1", null, g(e2.identity.phone), 1),
             ]),
           ],
-          2
+          2,
         ),
         e2.forceBackground
           ? Ml("", !0)
@@ -8055,7 +8069,7 @@ Ec.render = function (e$, e0, e8, e2, e3, e1) {
                 },
                 null,
                 8,
-                ["options", "modelValue"]
+                ["options", "modelValue"],
               ),
             ])),
         "custom" === e2.backgroundType
@@ -8072,7 +8086,7 @@ Ec.render = function (e$, e0, e8, e2, e3, e1) {
                 },
                 null,
                 8,
-                ["modelValue"]
+                ["modelValue"],
               ),
             ]))
           : Ml("", !0),
@@ -8089,7 +8103,7 @@ Ec.render = function (e$, e0, e8, e2, e3, e1) {
             },
             null,
             8,
-            ["modelValue", "options"]
+            ["modelValue", "options"],
           ),
         ]),
         Pl("div", zc, [
@@ -8106,9 +8120,9 @@ Ec.render = function (e$, e0, e8, e2, e3, e1) {
                 class: "block w-full",
               },
               null,
-              512
+              512,
             ),
-            [[ns, e2.volume]]
+            [[ns, e2.volume]],
           ),
         ]),
         Hc,
@@ -8123,7 +8137,7 @@ Ec.render = function (e$, e0, e8, e2, e3, e1) {
             },
             null,
             8,
-            ["modelValue"]
+            ["modelValue"],
           ),
         ]),
         Pl("div", Wc, [
@@ -8137,7 +8151,7 @@ Ec.render = function (e$, e0, e8, e2, e3, e1) {
             },
             null,
             8,
-            ["modelValue"]
+            ["modelValue"],
           ),
         ]),
         Pl("div", Jc, [
@@ -8151,7 +8165,7 @@ Ec.render = function (e$, e0, e8, e2, e3, e1) {
             },
             null,
             8,
-            ["modelValue"]
+            ["modelValue"],
           ),
         ]),
         Pl(
@@ -8160,7 +8174,7 @@ Ec.render = function (e$, e0, e8, e2, e3, e1) {
             class: "absolute bottom-8 text-red-500",
             onClick: e0[9] || (e0[9] = (...e$) => e2.reset && e2.reset(...e$)),
           },
-          " Restaurar configura\xe7\xf5es "
+          " Restaurar configura\xe7\xf5es ",
         ),
         e2.microphone
           ? Ml("", !0)
@@ -8175,7 +8189,7 @@ Ec.render = function (e$, e0, e8, e2, e3, e1) {
                   (e0[10] = (...e$) =>
                     e2.askForMicrophone && e2.askForMicrophone(...e$)),
               },
-              [Yc]
+              [Yc],
             )),
       ]),
     ])
@@ -8220,7 +8234,7 @@ const tu = {
       class: "fal fa-address-book text-5xl",
     },
     null,
-    -1
+    -1,
   ),
   au = Pl(
     "span",
@@ -8228,7 +8242,7 @@ const tu = {
       class: "block text-lg",
     },
     "Contatos",
-    -1
+    -1,
   ),
   su = Pl(
     "i",
@@ -8236,7 +8250,7 @@ const tu = {
       class: "fal fa-wrench text-5xl",
     },
     null,
-    -1
+    -1,
   ),
   ou = Pl(
     "span",
@@ -8244,7 +8258,7 @@ const tu = {
       class: "block text-lg",
     },
     "Servi\xe7os",
-    -1
+    -1,
   ),
   ru = Pl(
     "i",
@@ -8252,7 +8266,7 @@ const tu = {
       class: "fas fa-th text-5xl",
     },
     null,
-    -1
+    -1,
   ),
   iu = Pl(
     "span",
@@ -8260,7 +8274,7 @@ const tu = {
       class: "block text-lg",
     },
     "Teclado",
-    -1
+    -1,
   ),
   cu = Pl(
     "i",
@@ -8268,7 +8282,7 @@ const tu = {
       class: "fal fa-clock text-5xl",
     },
     null,
-    -1
+    -1,
   ),
   uu = Pl(
     "span",
@@ -8276,7 +8290,7 @@ const tu = {
       class: "block text-lg",
     },
     "Recentes",
-    -1
+    -1,
   ),
   du = Pl(
     "i",
@@ -8284,7 +8298,7 @@ const tu = {
       class: "far fa-ban text-5xl",
     },
     null,
-    -1
+    -1,
   ),
   pu = Pl(
     "span",
@@ -8292,7 +8306,7 @@ const tu = {
       class: "block text-lg",
     },
     "Bloqueios",
-    -1
+    -1,
   );
 tu.render = function (e$, e0, e8, e2, e3, e1) {
   return (
@@ -8310,7 +8324,7 @@ tu.render = function (e$, e0, e8, e2, e3, e1) {
           onClick: e0[1] || (e0[1] = (e0) => e$.$router.replace("/contacts")),
         },
         [lu, au],
-        2
+        2,
       ),
       e2.hasServices
         ? (wl(),
@@ -8329,7 +8343,7 @@ tu.render = function (e$, e0, e8, e2, e3, e1) {
                 (e0[2] = (e0) => e$.$router.replace("/contacts/services")),
             },
             [su, ou],
-            2
+            2,
           ))
         : Ml("", !0),
       Pl(
@@ -8345,7 +8359,7 @@ tu.render = function (e$, e0, e8, e2, e3, e1) {
             e0[3] || (e0[3] = (e0) => e$.$router.replace("/contacts/dial")),
         },
         [ru, iu],
-        2
+        2,
       ),
       Pl(
         "button",
@@ -8360,7 +8374,7 @@ tu.render = function (e$, e0, e8, e2, e3, e1) {
             e0[4] || (e0[4] = (e0) => e$.$router.replace("/contacts/history")),
         },
         [cu, uu],
-        2
+        2,
       ),
       Pl(
         "button",
@@ -8375,7 +8389,7 @@ tu.render = function (e$, e0, e8, e2, e3, e1) {
             e0[5] || (e0[5] = (e0) => e$.$router.replace("/contacts/blocks")),
         },
         [du, pu],
-        2
+        2,
       ),
     ])
   );
@@ -8397,11 +8411,14 @@ const fu = {
               (e$) =>
                 !e0.value ||
                 e$.name.toLowerCase().includes(e0.value.toLowerCase()) ||
-                e$.phone.includes(e0.value)
+                e$.phone.includes(e0.value),
             )
             .map(
-              (e$) => ((e$.blocked = So.settings.blocks.includes(e$.phone)), e$)
-            )
+              (e$) => (
+                (e$.blocked = So.settings.blocks.includes(e$.phone)),
+                e$
+              ),
+            ),
         );
       return {
         query: e0,
@@ -8412,10 +8429,10 @@ const fu = {
           So.pusher.emit("CALL_TO", e$.phone, e0);
         },
         removeContact: function (e$) {
-          So.backend.removeContact(e$.id),
+          (So.backend.removeContact(e$.id),
             (So.contacts.value = So.contacts.value.filter(
-              (e0) => e0.id != e$.id
-            ));
+              (e0) => e0.id != e$.id,
+            )));
         },
         blockContact: function (e$) {
           So.backend.block(e$.phone).then(() => {
@@ -8435,7 +8452,7 @@ const fu = {
       class: "far fa-plus text-blue-400",
     },
     null,
-    -1
+    -1,
   ),
   bu = {
     class: "flex-shrink-0 p-5",
@@ -8461,7 +8478,7 @@ const fu = {
       class: "fab fa-whatsapp text-green-500 text-2xl",
     },
     null,
-    -1
+    -1,
   ),
   Cu = Pl(
     "i",
@@ -8469,7 +8486,7 @@ const fu = {
       class: "far fa-phone pl-5 text-lightBlue-400 text-2xl",
     },
     null,
-    -1
+    -1,
   ),
   _u = Pl(
     "i",
@@ -8477,7 +8494,7 @@ const fu = {
       class: "far fa-video pl-5 text-blue-700 text-2xl",
     },
     null,
-    -1
+    -1,
   ),
   Au = Pl(
     "i",
@@ -8485,7 +8502,7 @@ const fu = {
       class: "far fa-pencil pl-5 text-blue-500 text-2xl",
     },
     null,
-    -1
+    -1,
   ),
   Su = Pl(
     "i",
@@ -8493,7 +8510,7 @@ const fu = {
       class: "far fa-ban pl-5 text-red-500 text-2xl",
     },
     null,
-    -1
+    -1,
   ),
   Tu = Pl(
     "i",
@@ -8501,7 +8518,7 @@ const fu = {
       class: "far fa-trash-alt pl-5 text-red-500 text-2xl",
     },
     null,
-    -1
+    -1,
   );
 fu.render = function (e$, e0, e8, e2, e3, e1) {
   let e6 = dl("Header"),
@@ -8518,7 +8535,7 @@ fu.render = function (e$, e0, e8, e2, e3, e1) {
                 e0[1] || (e0[1] = (e0) => e$.$router.push("/contacts/create")),
               class: "absolute right-6",
             },
-            [hu]
+            [hu],
           ),
         ]),
         _: 1,
@@ -8534,9 +8551,9 @@ fu.render = function (e$, e0, e8, e2, e3, e1) {
               placeholder: "Buscar",
             },
             null,
-            512
+            512,
           ),
-          [[ns, e2.query]]
+          [[ns, e2.query]],
         ),
       ]),
       Pl("div", gu, [
@@ -8569,7 +8586,7 @@ fu.render = function (e$, e0, e8, e2, e3, e1) {
                         },
                         [wu],
                         8,
-                        ["onClick"]
+                        ["onClick"],
                       ),
                       Pl(
                         "button",
@@ -8578,7 +8595,7 @@ fu.render = function (e$, e0, e8, e2, e3, e1) {
                         },
                         [Cu],
                         8,
-                        ["onClick"]
+                        ["onClick"],
                       ),
                       e2.supportsVideoCall
                         ? (wl(),
@@ -8590,7 +8607,7 @@ fu.render = function (e$, e0, e8, e2, e3, e1) {
                             },
                             [_u],
                             8,
-                            ["onClick"]
+                            ["onClick"],
                           ))
                         : Ml("", !0),
                       Pl(
@@ -8601,7 +8618,7 @@ fu.render = function (e$, e0, e8, e2, e3, e1) {
                         },
                         [Au],
                         8,
-                        ["onClick"]
+                        ["onClick"],
                       ),
                       e0.blocked
                         ? Ml("", !0)
@@ -8614,7 +8631,7 @@ fu.render = function (e$, e0, e8, e2, e3, e1) {
                             },
                             [Su],
                             8,
-                            ["onClick"]
+                            ["onClick"],
                           )),
                       Pl(
                         "button",
@@ -8623,14 +8640,14 @@ fu.render = function (e$, e0, e8, e2, e3, e1) {
                         },
                         [Tu],
                         8,
-                        ["onClick"]
+                        ["onClick"],
                       ),
                     ]),
-                  ]
+                  ],
                 )
-              )
+              ),
             ),
-            128
+            128,
           )),
         ]),
       ]),
@@ -8656,16 +8673,16 @@ const Eu = {
           return e8.phone === So.identity.phone
             ? e0("Voc\xea n\xe3o pode adicionar a si mesmo")
             : e8.phone
-            ? e8.name
-              ? void So.backend.addContact(e8.phone, e8.name).then((e8) => {
-                  e8 instanceof Object
-                    ? (So.contacts.value.push(e8),
-                      e$.back(),
-                      So.pusher.emit("ADD_CONTACT", e8))
-                    : e0("Este telefone n\xe3o existe!");
-                })
-              : e0("Preencha o nome do contato")
-            : e0("Preencha o n\xfamero de telefone");
+              ? e8.name
+                ? void So.backend.addContact(e8.phone, e8.name).then((e8) => {
+                    e8 instanceof Object
+                      ? (So.contacts.value.push(e8),
+                        e$.back(),
+                        So.pusher.emit("ADD_CONTACT", e8))
+                      : e0("Este telefone n\xe3o existe!");
+                  })
+                : e0("Preencha o nome do contato")
+              : e0("Preencha o n\xfamero de telefone");
         },
       };
     },
@@ -8679,7 +8696,7 @@ const Eu = {
       class: "far fa-user-plus text-blue-400",
     },
     null,
-    -1
+    -1,
   ),
   Lu = {
     class: "flex-1 overflow-y-auto bg-theme text-theme p-5",
@@ -8690,7 +8707,7 @@ const Eu = {
       class: "text-xl",
     },
     "Nome",
-    -1
+    -1,
   ),
   Ou = {
     class: "mt-2",
@@ -8701,7 +8718,7 @@ const Eu = {
       class: "text-xl",
     },
     "Telefone",
-    -1
+    -1,
   );
 Eu.render = function (e$, e0, e8, e2, e3, e1) {
   let e6 = dl("Header");
@@ -8716,7 +8733,7 @@ Eu.render = function (e$, e0, e8, e2, e3, e1) {
               onClick: e0[1] || (e0[1] = (...e$) => e2.save && e2.save(...e$)),
               class: "absolute top-16 right-4",
             },
-            [Pu]
+            [Pu],
           ),
         ]),
         _: 1,
@@ -8736,9 +8753,9 @@ Eu.render = function (e$, e0, e8, e2, e3, e1) {
                   "w-full p-3 rounded-lg bg-theme border border-theme focus:border-blue-400",
               },
               null,
-              512
+              512,
             ),
-            [[ns, e2.contact.name]]
+            [[ns, e2.contact.name]],
           ),
         ]),
         Pl("div", Ou, [
@@ -8755,9 +8772,9 @@ Eu.render = function (e$, e0, e8, e2, e3, e1) {
                   "w-full p-3 rounded-lg bg-theme border border-theme focus:border-blue-400",
               },
               null,
-              512
+              512,
             ),
-            [[ns, e2.contact.phone]]
+            [[ns, e2.contact.phone]],
           ),
         ]),
       ]),
@@ -8784,18 +8801,18 @@ const Vu = {
             return e2.phone === So.identity.phone
               ? e8("Voc\xea n\xe3o pode adicionar a si mesmo")
               : e2.phone
-              ? e2.name
-                ? e2.phone != e3.phone &&
-                  So.contacts.value.some((e$) => e$.phone == e2.phone)
-                  ? e8("Voc\xea j\xe1 possui um contato com este n\xfamero")
-                  : void So.backend
-                      .updateContact(e2.id, e2.phone, e2.name)
-                      .then((e0) => {
-                        if (e0.error) return e8(e0.error);
-                        Object.assign(e3, e0), So.sortContacts(), e$.back();
-                      })
-                : e8("Preencha o nome do contato")
-              : e8("Preencha o n\xfamero de telefone");
+                ? e2.name
+                  ? e2.phone != e3.phone &&
+                    So.contacts.value.some((e$) => e$.phone == e2.phone)
+                    ? e8("Voc\xea j\xe1 possui um contato com este n\xfamero")
+                    : void So.backend
+                        .updateContact(e2.id, e2.phone, e2.name)
+                        .then((e0) => {
+                          if (e0.error) return e8(e0.error);
+                          (Object.assign(e3, e0), So.sortContacts(), e$.back());
+                        })
+                  : e8("Preencha o nome do contato")
+                : e8("Preencha o n\xfamero de telefone");
           },
         }
       );
@@ -8810,7 +8827,7 @@ const Vu = {
       class: "far fa-user-edit text-blue-400",
     },
     null,
-    -1
+    -1,
   ),
   Uu = {
     class: "flex-1 overflow-y-auto bg-theme text-theme p-5",
@@ -8821,7 +8838,7 @@ const Vu = {
       class: "text-xl",
     },
     "Nome",
-    -1
+    -1,
   ),
   ju = {
     class: "mt-2",
@@ -8832,7 +8849,7 @@ const Vu = {
       class: "text-xl",
     },
     "Telefone",
-    -1
+    -1,
   );
 Vu.render = function (e$, e0, e8, e2, e3, e1) {
   let e6 = dl("Header");
@@ -8847,7 +8864,7 @@ Vu.render = function (e$, e0, e8, e2, e3, e1) {
               onClick: e0[1] || (e0[1] = (...e$) => e2.save && e2.save(...e$)),
               class: "absolute top-16 right-4",
             },
-            [Nu]
+            [Nu],
           ),
         ]),
         _: 1,
@@ -8867,9 +8884,9 @@ Vu.render = function (e$, e0, e8, e2, e3, e1) {
                   "w-full p-3 rounded-lg bg-theme border border-theme focus:border-blue-400",
               },
               null,
-              512
+              512,
             ),
-            [[ns, e2.contact.name]]
+            [[ns, e2.contact.name]],
           ),
         ]),
         Pl("div", ju, [
@@ -8886,9 +8903,9 @@ Vu.render = function (e$, e0, e8, e2, e3, e1) {
                   "w-full p-3 rounded-lg bg-theme border border-theme focus:border-blue-400",
               },
               null,
-              512
+              512,
             ),
-            [[ns, e2.contact.phone]]
+            [[ns, e2.contact.phone]],
           ),
         ]),
       ]),
@@ -8914,14 +8931,14 @@ const zu = {
           let e8 = e$.value;
           if (!e8.content) return e0("Informe um motivo");
           let e2 = await So.getPlayerCoords();
-          So.backend
+          (So.backend
             .service_request(e8.service.number, e8.content, e2)
             .then((e8) => {
               (null == e8 ? void 0 : e8.error)
                 ? e0(e8.error)
                 : ((e$.value = null), e0("Chamado efetuado."));
             }),
-            (e8.content = null);
+            (e8.content = null));
         },
         services: e8,
       };
@@ -8949,7 +8966,7 @@ const zu = {
       class: "text-2xl",
     },
     "Motivo do chamado",
-    -1
+    -1,
   ),
   Ju = {
     class: "flex justify-between mt-2",
@@ -8996,16 +9013,16 @@ zu.render = function (e$, e0, e8, e2, e3, e1) {
                         e0[2] ||
                         (e0[2] = us(
                           is(() => {}, ["prevent"]),
-                          ["enter"]
+                          ["enter"],
                         )),
                       class:
                         "block w-full h-80 resize-none bg-theme border border-theme rounded-md p-2 fancy-scroll",
                       maxlength: "200",
                     },
                     null,
-                    544
+                    544,
                   ),
-                  [[ns, e2.serviceOffer.content]]
+                  [[ns, e2.serviceOffer.content]],
                 ),
               ]),
               Pl("div", Ju, [
@@ -9016,7 +9033,7 @@ zu.render = function (e$, e0, e8, e2, e3, e1) {
                     onClick:
                       e0[3] || (e0[3] = (e$) => (e2.serviceOffer = null)),
                   },
-                  " Cancelar "
+                  " Cancelar ",
                 ),
                 Pl(
                   "button",
@@ -9027,7 +9044,7 @@ zu.render = function (e$, e0, e8, e2, e3, e1) {
                       (e0[4] = (...e$) =>
                         e2.broadcastService && e2.broadcastService(...e$)),
                   },
-                  " Enviar "
+                  " Enviar ",
                 ),
               ]),
             ]))
@@ -9064,14 +9081,14 @@ zu.render = function (e$, e0, e8, e2, e3, e1) {
                             },
                             null,
                             8,
-                            ["onClick"]
+                            ["onClick"],
                           ),
                         ]),
-                      ]
+                      ],
                     )
-                  )
+                  ),
                 ),
-                128
+                128,
               )),
             ])),
       ]),
@@ -9116,14 +9133,14 @@ const td = {
             return e2.value == So.identity.phone
               ? e8("N\xfamero inv\xe1lido")
               : e3.length > 128
-              ? e8("Nome inv\xe1lido")
-              : void So.backend.addContact(e2.value, e3).then((e$) => {
-                  e$ instanceof Object
-                    ? (So.contacts.value.push(e$),
-                      (e2.value = ""),
-                      So.pusher.emit("ADD_CONTACT", e$))
-                    : e8("Este n\xfamero n\xe3o existe");
-                });
+                ? e8("Nome inv\xe1lido")
+                : void So.backend.addContact(e2.value, e3).then((e$) => {
+                    e$ instanceof Object
+                      ? (So.contacts.value.push(e$),
+                        (e2.value = ""),
+                        So.pusher.emit("ADD_CONTACT", e$))
+                      : e8("Este n\xfamero n\xe3o existe");
+                  });
         },
         backspace: function () {
           let e$ = e2.value;
@@ -9175,7 +9192,7 @@ const ld = {
       class: "fal fa-user-plus",
     },
     null,
-    -1
+    -1,
   ),
   fd = Pl(
     "i",
@@ -9183,7 +9200,7 @@ const ld = {
       class: "fal fa-backspace",
     },
     null,
-    -1
+    -1,
   ),
   md = {
     class: "grid grid-cols-3 gap-12 mt-4",
@@ -9194,7 +9211,7 @@ const ld = {
       class: "fas fa-video text-4xl",
     },
     null,
-    -1
+    -1,
   ),
   bd = Pl(
     "i",
@@ -9202,7 +9219,7 @@ const ld = {
       class: "fas fa-phone-alt text-4xl",
     },
     null,
-    -1
+    -1,
   );
 an();
 const gd = nd((e$, e0, e8, e2, e3, e1) => {
@@ -9224,7 +9241,7 @@ const gd = nd((e$, e0, e8, e2, e3, e1) => {
                 number: "",
                 onClick: e0[1] || (e0[1] = (e$) => e2.add(1)),
               },
-              "1"
+              "1",
             ),
             Pl(
               "button",
@@ -9232,7 +9249,7 @@ const gd = nd((e$, e0, e8, e2, e3, e1) => {
                 number: "",
                 onClick: e0[2] || (e0[2] = (e$) => e2.add(2)),
               },
-              "2"
+              "2",
             ),
             Pl(
               "button",
@@ -9240,7 +9257,7 @@ const gd = nd((e$, e0, e8, e2, e3, e1) => {
                 number: "",
                 onClick: e0[3] || (e0[3] = (e$) => e2.add(3)),
               },
-              "3"
+              "3",
             ),
           ]),
           Pl("div", cd, [
@@ -9250,7 +9267,7 @@ const gd = nd((e$, e0, e8, e2, e3, e1) => {
                 number: "",
                 onClick: e0[4] || (e0[4] = (e$) => e2.add(4)),
               },
-              "4"
+              "4",
             ),
             Pl(
               "button",
@@ -9258,7 +9275,7 @@ const gd = nd((e$, e0, e8, e2, e3, e1) => {
                 number: "",
                 onClick: e0[5] || (e0[5] = (e$) => e2.add(5)),
               },
-              "5"
+              "5",
             ),
             Pl(
               "button",
@@ -9266,7 +9283,7 @@ const gd = nd((e$, e0, e8, e2, e3, e1) => {
                 number: "",
                 onClick: e0[6] || (e0[6] = (e$) => e2.add(6)),
               },
-              "6"
+              "6",
             ),
           ]),
           Pl("div", ud, [
@@ -9276,7 +9293,7 @@ const gd = nd((e$, e0, e8, e2, e3, e1) => {
                 number: "",
                 onClick: e0[7] || (e0[7] = (e$) => e2.add(7)),
               },
-              "7"
+              "7",
             ),
             Pl(
               "button",
@@ -9284,7 +9301,7 @@ const gd = nd((e$, e0, e8, e2, e3, e1) => {
                 number: "",
                 onClick: e0[8] || (e0[8] = (e$) => e2.add(8)),
               },
-              "8"
+              "8",
             ),
             Pl(
               "button",
@@ -9292,7 +9309,7 @@ const gd = nd((e$, e0, e8, e2, e3, e1) => {
                 number: "",
                 onClick: e0[9] || (e0[9] = (e$) => e2.add(9)),
               },
-              "9"
+              "9",
             ),
           ]),
           Pl("div", dd, [
@@ -9302,7 +9319,7 @@ const gd = nd((e$, e0, e8, e2, e3, e1) => {
                 number: "",
                 onClick: e0[10] || (e0[10] = (e$) => e2.save()),
               },
-              [pd]
+              [pd],
             ),
             Pl(
               "button",
@@ -9310,7 +9327,7 @@ const gd = nd((e$, e0, e8, e2, e3, e1) => {
                 number: "",
                 onClick: e0[11] || (e0[11] = (e$) => e2.add(0)),
               },
-              "0"
+              "0",
             ),
             Pl(
               "button",
@@ -9318,7 +9335,7 @@ const gd = nd((e$, e0, e8, e2, e3, e1) => {
                 number: "",
                 onClick: e0[12] || (e0[12] = (e$) => e2.backspace()),
               },
-              [fd]
+              [fd],
             ),
           ]),
           Pl("div", md, [
@@ -9329,7 +9346,7 @@ const gd = nd((e$, e0, e8, e2, e3, e1) => {
                 class: "blue-gradient rounded-full text-white",
                 onClick: e0[13] || (e0[13] = (e$) => e2.call(!0)),
               },
-              [hd]
+              [hd],
             ),
             Pl(
               "button",
@@ -9338,7 +9355,7 @@ const gd = nd((e$, e0, e8, e2, e3, e1) => {
                 class: "green-gradient rounded-full text-white",
                 onClick: e0[14] || (e0[14] = (e$) => e2.call()),
               },
-              [bd]
+              [bd],
             ),
           ]),
         ]),
@@ -9347,7 +9364,7 @@ const gd = nd((e$, e0, e8, e2, e3, e1) => {
     ])
   );
 });
-(td.render = gd), (td.__scopeId = "data-v-a03b3120");
+((td.render = gd), (td.__scopeId = "data-v-a03b3120"));
 const vd = {
     components: {
       Header: Zc,
@@ -9364,7 +9381,7 @@ const vd = {
       return (
         So.backend.getPhoneCalls().then((e8) => {
           e$.value = e8.map(
-            (e$) => ((e$.callback = e$.initiator == e0 || !e$.anonymous), e$)
+            (e$) => ((e$.callback = e$.initiator == e0 || !e$.anonymous), e$),
           );
         }),
         {
@@ -9453,24 +9470,24 @@ vd.render = function (e$, e0, e8, e2, e3, e1) {
                             "refused" === e0.status && e0.target == e2.myPhone
                               ? (wl(), _l("i", Ad))
                               : "ok" === e0.status
-                              ? (wl(),
-                                _l(
-                                  "i",
-                                  {
-                                    key: 1,
-                                    class: [
-                                      "fas",
-                                      [
-                                        e0.video
-                                          ? "fa-video"
-                                          : "fa-phone transform rotate-90",
+                                ? (wl(),
+                                  _l(
+                                    "i",
+                                    {
+                                      key: 1,
+                                      class: [
+                                        "fas",
+                                        [
+                                          e0.video
+                                            ? "fa-video"
+                                            : "fa-phone transform rotate-90",
+                                        ],
                                       ],
-                                    ],
-                                  },
-                                  null,
-                                  2
-                                ))
-                              : (wl(), _l("i", Sd)),
+                                    },
+                                    null,
+                                    2,
+                                  ))
+                                : (wl(), _l("i", Sd)),
                           ]),
                           Pl("div", Td, [
                             Pl(
@@ -9479,30 +9496,30 @@ vd.render = function (e$, e0, e8, e2, e3, e1) {
                               g(
                                 e0.callback
                                   ? e$.$filters.getNameByPhone(e2.other(e0))
-                                  : "(An\xf4nimo)"
+                                  : "(An\xf4nimo)",
                               ),
-                              1
+                              1,
                             ),
                             Pl(
                               "span",
                               Rd,
                               g(e$.$filters.duration(e0.duration)),
-                              1
+                              1,
                             ),
                           ]),
                           Pl(
                             "span",
                             Pd,
                             g(e$.$filters.unixToDayOfMonth(e0.created_at)),
-                            1
+                            1,
                           ),
                         ],
                         8,
-                        ["onClick"]
+                        ["onClick"],
                       )
-                    )
+                    ),
                   ),
-                  128
+                  128,
                 )),
               ]))
             : (wl(),
@@ -9562,7 +9579,7 @@ const Ld = {
         class: "fal fa-times text-4xl text-gray-500",
       }),
     ],
-    -1
+    -1,
   );
 Ld.render = function (e$, e0, e8, e2, e3, e1) {
   let e6 = dl("Header"),
@@ -9599,11 +9616,11 @@ Ld.render = function (e$, e0, e8, e2, e3, e1) {
                           Ud,
                         ],
                         8,
-                        ["onClick"]
+                        ["onClick"],
                       )
-                    )
+                    ),
                   ),
-                  128
+                  128,
                 )),
               ]))
             : (wl(), _l("h1", Vd, " Nenhum n\xfamero bloqueado "))
@@ -9670,7 +9687,7 @@ const $d = {
       class: "mx-auto font-bold",
     },
     "Mensagens",
-    -1
+    -1,
   ),
   Bd = {
     key: 0,
@@ -9692,7 +9709,7 @@ const $d = {
       class: "absolute top-3 left-4 text-gray-500 fas fa-search text-xl",
     },
     null,
-    -1
+    -1,
   ),
   Kd = {
     class: "flex-1 overflow-y-auto hide-scroll",
@@ -9728,7 +9745,7 @@ $d.render = function (e$, e0, e8, e2, e3, e1) {
             onClick:
               e0[1] || (e0[1] = (e$) => (e2.notifications = !e2.notifications)),
           },
-          [e2.notifications ? (wl(), _l("i", Bd)) : (wl(), _l("i", Hd))]
+          [e2.notifications ? (wl(), _l("i", Bd)) : (wl(), _l("i", Hd))],
         ),
       ]),
       Pl("div", qd, [
@@ -9746,9 +9763,9 @@ $d.render = function (e$, e0, e8, e2, e3, e1) {
                   "w-full bg-theme border border-theme rounded-full p-2 pl-12 pr-6 text-2xl",
               },
               null,
-              512
+              512,
             ),
-            [[ns, e2.query]]
+            [[ns, e2.query]],
           ),
         ]),
       ]),
@@ -9781,9 +9798,9 @@ $d.render = function (e$, e0, e8, e2, e3, e1) {
                             e0.message.content ||
                               (e0.message.image
                                 ? "📷 Foto"
-                                : "\uD83C\uDF0E Localiza\xe7\xe3o")
+                                : "\uD83C\uDF0E Localiza\xe7\xe3o"),
                           ),
-                          1
+                          1,
                         ))
                       : (wl(), _l("p", Zd, "Nenhuma mensagem...")),
                   ]),
@@ -9793,16 +9810,16 @@ $d.render = function (e$, e0, e8, e2, e3, e1) {
                         "p",
                         Qd,
                         g(e$.$filters.unixToRelative(e0.message.created_at)),
-                        1
+                        1,
                       ))
                     : Ml("", !0),
                 ],
                 8,
-                ["onClick"]
+                ["onClick"],
               )
-            )
+            ),
           ),
-          128
+          128,
         )),
       ]),
     ])
@@ -9821,7 +9838,7 @@ const ep = {
           Lt(
             () =>
               !e8.value &&
-              document.querySelector(".overflow-y-auto").scrollTo(0, 9e6)
+              document.querySelector(".overflow-y-auto").scrollTo(0, 9e6),
           );
         }),
         {
@@ -9883,7 +9900,7 @@ const np = {
       class: "fal fa-paper-plane text-gray-600 text-3xl",
     },
     null,
-    -1
+    -1,
   );
 an();
 const pp = tp(
@@ -9899,7 +9916,7 @@ const pp = tp(
               e0[1] ||
               (e0[1] = (...e0) => e$.$router.back && e$.$router.back(...e0)),
           },
-          [e2.isAndroid ? (wl(), _l("i", ap)) : (wl(), _l("i", sp))]
+          [e2.isAndroid ? (wl(), _l("i", ap)) : (wl(), _l("i", sp))],
         ),
         Pl(
           "h1",
@@ -9913,7 +9930,7 @@ const pp = tp(
             ],
           },
           g(e$.$filters.getNameByPhone(e2.id).substr(0, 12)),
-          3
+          3,
         ),
       ]),
       Pl("ul", op, [
@@ -9961,34 +9978,34 @@ const pp = tp(
                             },
                             null,
                             8,
-                            ["src"]
+                            ["src"],
                           ))
                         : e0.location
-                        ? (wl(),
-                          _l(
-                            "img",
-                            {
-                              key: 1,
-                              class: "rounded-xl",
-                              src: e$.$asset("/stock/maps.jpg"),
-                              onClick: (e$) => e2.updateGPS(e0.location),
-                            },
-                            null,
-                            8,
-                            ["src", "onClick"]
-                          ))
-                        : Ml("", !0),
+                          ? (wl(),
+                            _l(
+                              "img",
+                              {
+                                key: 1,
+                                class: "rounded-xl",
+                                src: e$.$asset("/stock/maps.jpg"),
+                                onClick: (e$) => e2.updateGPS(e0.location),
+                              },
+                              null,
+                              8,
+                              ["src", "onClick"],
+                            ))
+                          : Ml("", !0),
                       Pl("p", ip, g(e0.content), 1),
                     ],
                     8,
-                    ["received"]
+                    ["received"],
                   ),
                 ],
-                2
+                2,
               )
-            )
+            ),
           ),
-          128
+          128,
         )),
       ]),
       Pl("div", cp, [
@@ -10008,9 +10025,9 @@ const pp = tp(
                   "w-full bg-theme border border-theme rounded-full p-4 pr-16 text-2xl",
               },
               null,
-              544
+              544,
             ),
-            [[ns, e2.content]]
+            [[ns, e2.content]],
           ),
           Pl(
             "button",
@@ -10018,21 +10035,21 @@ const pp = tp(
               class: "absolute top-2 right-6",
               onClick: e0[4] || (e0[4] = (...e$) => e2.send && e2.send(...e$)),
             },
-            [dp]
+            [dp],
           ),
         ]),
       ]),
     ])
-  )
+  ),
 );
-(ep.render = pp), (ep.__scopeId = "data-v-ec3dade0");
+((ep.render = pp), (ep.__scopeId = "data-v-ec3dade0"));
 const fp = ho.callback;
-Tn(fp, (e$) => {
+(Tn(fp, (e$) => {
   e$ && VO.push("/gallery");
 }),
   So.pusher.on("Route:afterEach", (e$) => {
     "/gallery" != e$.path && fp.value && (fp.value = null);
-  });
+  }));
 const mp = {
     setup() {
       jl("setDark")();
@@ -10044,13 +10061,13 @@ const mp = {
           e0
             .map((e$) => e$.folder)
             .filter((e$, e0, e8) => e8.indexOf(e$) == e0)
-            .sort()
+            .sort(),
         ),
         e1 = da(() => e0.filter((e$) => e$.folder === e2.value));
       return (
         e0.checked ||
           So.backend.gallery().then((e$) => {
-            Object.assign(e0, e$), (e0.checked = !0);
+            (Object.assign(e0, e$), (e0.checked = !0));
           }),
         {
           isAndroid: e8,
@@ -10093,7 +10110,7 @@ const mp = {
       class: "fal fa-camera text-yellow-500",
     },
     null,
-    -1
+    -1,
   ),
   yp = {
     class: "flex-1 overflow-x-auto hide-scroll",
@@ -10108,7 +10125,7 @@ const mp = {
       class: "fas fa-folder text-yellow-500 text-6xl",
     },
     null,
-    -1
+    -1,
   ),
   Cp = {
     class: "ml-4",
@@ -10132,7 +10149,7 @@ mp.render = function (e$, e0, e8, e2, e3, e1) {
                 onClick: e0[1] || (e0[1] = (e$) => (e2.path = null)),
                 class: "absolute top-16 px-4",
               },
-              [e2.isAndroid ? (wl(), _l("i", gp)) : (wl(), _l("i", vp))]
+              [e2.isAndroid ? (wl(), _l("i", gp)) : (wl(), _l("i", vp))],
             ))
           : Ml("", !0),
         Pl(
@@ -10144,7 +10161,7 @@ mp.render = function (e$, e0, e8, e2, e3, e1) {
             ],
           },
           g(null != (e6 = e2.folderLang[e2.path]) ? e6 : "Galeria"),
-          3
+          3,
         ),
         e2.callback
           ? Ml("", !0)
@@ -10158,7 +10175,7 @@ mp.render = function (e$, e0, e8, e2, e3, e1) {
                   (e0[2] = (...e$) => e2.takePhoto && e2.takePhoto(...e$)),
                 class: "absolute top-16 right-4 px-4",
               },
-              [xp]
+              [xp],
             )),
       ]),
       Pl("div", yp, [
@@ -10191,13 +10208,13 @@ mp.render = function (e$, e0, e8, e2, e3, e1) {
                           },
                           null,
                           12,
-                          ["onClick"]
+                          ["onClick"],
                         ),
-                      ]
+                      ],
                     )
-                  )
+                  ),
                 ),
-                128
+                128,
               )),
             ]))
           : (wl(),
@@ -10219,11 +10236,11 @@ mp.render = function (e$, e0, e8, e2, e3, e1) {
                       },
                       [wp, Pl("h1", Cp, g(e2.folderLang[e$]), 1)],
                       8,
-                      ["onClick"]
+                      ["onClick"],
                     )
-                  )
+                  ),
                 ),
-                128
+                128,
               )),
             ])),
       ]),
@@ -10281,7 +10298,7 @@ Ap.render = function (e$, e0, e8, e2, e3, e1) {
           },
           null,
           8,
-          ["src"]
+          ["src"],
         ),
         Pl("button", {
           onClick: e0[2] || (e0[2] = (e$) => e2.next(1)),
@@ -10294,7 +10311,7 @@ Ap.render = function (e$, e0, e8, e2, e3, e1) {
 };
 class Pp {
   constructor(e$) {
-    (this.readyState = 0), (this.call = e$);
+    ((this.readyState = 0), (this.call = e$));
     let e0 = So.settings.videoServer;
     if (
       ((this.isAudioUDP = "rtc" == e$.mode),
@@ -10317,16 +10334,16 @@ class Pp {
             "stun:stun2.l.google.com:19302",
           ],
         });
-      (this.peer = new RTCPeerConnection({
+      ((this.peer = new RTCPeerConnection({
         iceServers: e8,
       })),
         (this.peer.onicecandidate = ({ candidate: e$ }) =>
           this.onicecandidate(e$)),
         (this.peer.ontrack = ({ streams: e$ }) => this.onstreams(e$)),
         (this.peer.ondatachannel = ({ channel: e$ }) => {
-          (this.channels[e$.label] = e$),
-            (e$.onmessage = ({ data: e$ }) => this.blobCallback(Ip(e$)));
-        });
+          ((this.channels[e$.label] = e$),
+            (e$.onmessage = ({ data: e$ }) => this.blobCallback(Ip(e$))));
+        }));
     }
   }
   addStream(e$) {
@@ -10342,7 +10359,7 @@ class Pp {
     let e$ = await this.peer.createOffer({
       offerToReceiveAudio: !0,
     });
-    return await this.peer.setLocalDescription(e$), e$;
+    return (await this.peer.setLocalDescription(e$), e$);
   }
   setAnswer(e$) {
     return this.peer.setRemoteDescription(e$);
@@ -10352,7 +10369,7 @@ class Pp {
     let e0 = this.peer.createAnswer({
       offerToReceiveAudio: !0,
     });
-    return await this.peer.setLocalDescription(e0), e0;
+    return (await this.peer.setLocalDescription(e0), e0);
   }
   addIceCandidate(e$) {
     this.peer.addIceCandidate(e$);
@@ -10367,7 +10384,7 @@ class Pp {
     ro.start();
     let e8 = ro.canvas,
       e2 = document.createElement("canvas");
-    (e2.width = 375), (e2.height = 812);
+    ((e2.width = 375), (e2.height = 812));
     let e3 = e2.getContext("2d");
     for (; this.readyState; ) {
       let e1 = Date.now();
@@ -10380,14 +10397,14 @@ class Pp {
         0,
         0,
         375,
-        812
+        812,
       );
       let e6 = await new Promise((e$) => e2.toBlob(e$, "image/jpeg", 0.3));
-      this.isVideoUDP
+      (this.isVideoUDP
         ? null == (e0 = this.channels.video) || e0.send(await e6.arrayBuffer())
         : this.socket.readyState == WebSocket.OPEN && this.socket.send(e6),
         e$(e6, !0),
-        await Lp(42 - (Date.now() - e1));
+        await Lp(42 - (Date.now() - e1)));
     }
     ro.stop();
   }
@@ -10395,27 +10412,27 @@ class Pp {
     if (((this.blobCallback = e$), this.isVideoUDP)) {
       if (this.call.owner) {
         let e0 = this.peer.createDataChannel("video");
-        (e0.onmessage = ({ data: e0 }) => e$(Ip(e0))),
-          (e0.onopen = () => (this.channels.video = e0));
+        ((e0.onmessage = ({ data: e0 }) => e$(Ip(e0))),
+          (e0.onopen = () => (this.channels.video = e0)));
       }
-      (this.readyState = 1), this._addVideoStream(e$);
+      ((this.readyState = 1), this._addVideoStream(e$));
     } else {
       let e8 = So.settings.videoServer;
-      10 > e8.lastIndexOf("/") && (e8 += "/"),
+      (10 > e8.lastIndexOf("/") && (e8 += "/"),
         (e8 += this.call.room),
         (this.socket = new WebSocket(e8)),
         (this.socket.onopen = () => {
-          (this.readyState = 1), this._addVideoStream(e$);
+          ((this.readyState = 1), this._addVideoStream(e$));
         }),
         (this.socket.onmessage = ({ data: e0 }) => e$(e0)),
-        (this.socket.onclose = () => (this.readyState = 0));
+        (this.socket.onclose = () => (this.readyState = 0)));
     }
   }
   close() {
     var e$, e0;
-    (this.readyState = 0),
+    ((this.readyState = 0),
       null == (e$ = this.peer) || e$.close(),
-      null == (e0 = this.socket) || e0.close();
+      null == (e0 = this.socket) || e0.close());
     let { room: e8, mode: e2 } = this.call;
     ["mumble-voip", "voip", "pma-voice"].includes(e2)
       ? So.client.exports(e2, "removePlayerFromCall", e8)
@@ -10453,7 +10470,7 @@ const Op = {
         },
         eU = null;
       async function ej() {
-        document
+        (document
           .querySelectorAll("audio[audioEffect]")
           .forEach((e$) => e$.pause()),
           So.client.playAnim("toCall", !0),
@@ -10469,8 +10486,9 @@ const Op = {
               ) {
                 let e2 = e8.getContext("2d"),
                   e3 = new Image();
-                (e3.onload = () => e2.drawImage(e3, 0, 0, e8.width, e8.height)),
-                  (e3.src = URL.createObjectURL(e$));
+                ((e3.onload = () =>
+                  e2.drawImage(e3, 0, 0, e8.width, e8.height)),
+                  (e3.src = URL.createObjectURL(e$)));
               }
             }),
             So.client.SetInVideoCall(!0)),
@@ -10479,11 +10497,11 @@ const Op = {
           (e4.isAudioUDP || (e3.isVideo && e4.isVideoUDP)) &&
             e3.owner &&
             ez("setOffer", await e4.createOffer()),
-          (eU = setInterval(() => (e1.value += 1), 1e3));
+          (eU = setInterval(() => (e1.value += 1), 1e3)));
       }
 
       function eD(e$) {
-        (So.currentCall.value = null),
+        ((So.currentCall.value = null),
           e7.back(),
           eU && clearInterval(eU),
           So.client.setState("inCall", !1),
@@ -10493,9 +10511,9 @@ const Op = {
           So.visible.value
             ? So.client.playAnim("callToText", !0)
             : So.client.playAnim("fromCall"),
-          e$ && So.backend.endPhoneCall(e3.room);
+          e$ && So.backend.endPhoneCall(e3.room));
       }
-      e4.isAudioUDP &&
+      (e4.isAudioUDP &&
         (navigator.mediaDevices
           .getUserMedia({
             audio: {
@@ -10506,10 +10524,10 @@ const Op = {
           .catch(() => console.error("No available stream")),
         (e4.onstreams = (e$) => {
           let e0 = new Audio();
-          (e0.autoplay = !0), (e0.srcObject = e$[0]);
+          ((e0.autoplay = !0), (e0.srcObject = e$[0]));
         })),
         e4.peer && (e4.onicecandidate = (e$) => e$ && ez("addCandidate", e$)),
-        So.onceRoute("CALL_READY", ej);
+        So.onceRoute("CALL_READY", ej));
       let ez = (e$, ...e0) => So.backend.call_p2p(e$, e0),
         eF = {
           setOffer: async (e$) => ez("setAnswer", await e4.createAnswer(e$)),
@@ -10525,7 +10543,7 @@ const Op = {
         }),
         vn(() => {
           let e$ = document.getElementById(e3.owner ? "dial" : "ring");
-          (e$.currentTime = 0), e$.play();
+          ((e$.currentTime = 0), e$.play());
         }),
         So.onceRoute("CALL_END", () => eD()),
         {
@@ -10539,18 +10557,18 @@ const Op = {
           duration: e1,
           audios: e9,
           accept: function () {
-            So.backend.answerPhoneCall(e3.room), ej();
+            (So.backend.answerPhoneCall(e3.room), ej());
           },
           block: function () {
-            (So.currentCall.value = null),
+            ((So.currentCall.value = null),
               e7.back(),
               So.backend.block(e3.contact.phone),
-              So.settings.blocks.push(e3.contact.phone);
+              So.settings.blocks.push(e3.contact.phone));
           },
           refuse: function () {
-            (So.currentCall.value = null),
+            ((So.currentCall.value = null),
               e7.back(),
-              So.backend.refusePhoneCall(e3.room);
+              So.backend.refusePhoneCall(e3.room));
           },
           end: eD,
         }
@@ -10600,7 +10618,7 @@ const Vp = {
       class: "fas fa-phone transform rotate-225",
     },
     null,
-    -1
+    -1,
   ),
   Hp = Pl(
     "h1",
@@ -10608,7 +10626,7 @@ const Vp = {
       class: "text-white text-xl text-center mt-3",
     },
     "Recusar",
-    -1
+    -1,
   ),
   qp = Pl(
     "i",
@@ -10616,7 +10634,7 @@ const Vp = {
       class: "fas fa-ban",
     },
     null,
-    -1
+    -1,
   ),
   Gp = Pl(
     "h1",
@@ -10624,7 +10642,7 @@ const Vp = {
       class: "text-white text-xl text-center mt-3",
     },
     "Bloquear",
-    -1
+    -1,
   ),
   Wp = {
     key: 0,
@@ -10640,7 +10658,7 @@ const Vp = {
       class: "text-white text-xl text-center mt-3",
     },
     "Atender",
-    -1
+    -1,
   ),
   Xp = {
     key: 1,
@@ -10652,7 +10670,7 @@ const Vp = {
       class: "fas fa-times",
     },
     null,
-    -1
+    -1,
   ),
   Zp = Pl(
     "h1",
@@ -10660,7 +10678,7 @@ const Vp = {
       class: "text-white text-xl mt-3",
     },
     "Encerrar",
-    -1
+    -1,
   );
 an();
 const Qp = Mp(
@@ -10683,9 +10701,9 @@ const Qp = Mp(
           g(
             e2.call.isAnonymous && !e2.call.owner
               ? "An\xf4nimo"
-              : e2.call.contact.name.substr(0, 16)
+              : e2.call.contact.name.substr(0, 16),
           ),
-          1
+          1,
         ),
         Pl("span", Dp, g(e$.$filters.duration(e2.duration)), 1),
         e2.video.big
@@ -10705,7 +10723,7 @@ const Qp = Mp(
                       "text-white w-24 h-24 bg-gradient-to-r from-red-500 to-red-600 rounded-full",
                     onClick: e0[4] || (e0[4] = (e$) => e2.end(!0)),
                   },
-                  [Yp]
+                  [Yp],
                 ),
                 Zp,
               ]))
@@ -10721,7 +10739,7 @@ const Qp = Mp(
                         e0[1] ||
                         (e0[1] = (...e$) => e2.refuse && e2.refuse(...e$)),
                     },
-                    [Bp]
+                    [Bp],
                   ),
                   Hp,
                 ]),
@@ -10735,7 +10753,7 @@ const Qp = Mp(
                         e0[2] ||
                         (e0[2] = (...e$) => e2.block && e2.block(...e$)),
                     },
-                    [qp]
+                    [qp],
                   ),
                   Gp,
                 ]),
@@ -10753,7 +10771,7 @@ const Qp = Mp(
                       e2.call.isVideo
                         ? (wl(), _l("i", Wp))
                         : (wl(), _l("i", Kp)),
-                    ]
+                    ],
                   ),
                   Jp,
                 ]),
@@ -10769,7 +10787,7 @@ const Qp = Mp(
           },
           null,
           8,
-          ["src"]
+          ["src"],
         ),
         Pl(
           "audio",
@@ -10781,14 +10799,14 @@ const Qp = Mp(
           },
           null,
           8,
-          ["src"]
+          ["src"],
         ),
       ],
-      4
+      4,
     )
-  )
+  ),
 );
-(Op.render = Qp), (Op.__scopeId = "data-v-58ae5e69");
+((Op.render = Qp), (Op.__scopeId = "data-v-58ae5e69"));
 const ef = {},
   tf = Pl(
     "div",
@@ -10796,14 +10814,15 @@ const ef = {},
       class: "h-12 bg-whatsapp-dark",
     },
     null,
-    -1
+    -1,
   ),
   nf = {
     class: "pt-4 bg-whatsapp text-white text-left",
   };
 ef.render = function (e$, e0) {
   return (
-    wl(), _l(bl, null, [tf, Pl("div", nf, [Zt(e$.$slots, "default")])], 64)
+    wl(),
+    _l(bl, null, [tf, Pl("div", nf, [Zt(e$.$slots, "default")])], 64)
   );
 };
 const lf = {
@@ -10871,10 +10890,10 @@ lf.render = function (e$, e0, e8, e2, e3, e1) {
                 Pl("p", of, g(e$.label), 1),
               ],
               10,
-              ["onClick"]
-            )
+              ["onClick"],
+            ),
         ),
-        64
+        64,
       )),
     ])
   );
@@ -10894,9 +10913,9 @@ const rf = {
       return (
         Tn(e3, (e$) => So.storage.set("whatsapp-sensitive", String(e$))),
         So.backend.wpp_getProfile().then((e$) => {
-          (e1.value = e$.avatarURL || So.asset("/stock/user.svg")),
+          ((e1.value = e$.avatarURL || So.asset("/stock/user.svg")),
             (e8.value = !!e$.read_receipts),
-            (e0.value = !1);
+            (e0.value = !1));
         }),
         Tn(e2, (e$) => So.setNotificationFor("whatsapp", e$)),
         Tn(e8, (e$) => {
@@ -10911,14 +10930,14 @@ const rf = {
           changeAvatar: async function () {
             try {
               let e$ = await So.useAnyImage("/whatsapp", !0);
-              (e1.value = e$), So.backend.wpp_updateAvatar(e$);
+              ((e1.value = e$), So.backend.wpp_updateAvatar(e$));
             } catch (e0) {}
           },
           deleteMessages: function () {
-            So.backend
+            (So.backend
               .wpp_deleteMessages()
               .then(() => e$("Todas as mensagens privadas foram apagadas")),
-              So.pusher.emit("WHATSAPP_DELETE_MESSAGES");
+              So.pusher.emit("WHATSAPP_DELETE_MESSAGES"));
           },
         }
       );
@@ -10941,7 +10960,7 @@ const rf = {
       class: "fas fa-camera",
     },
     null,
-    -1
+    -1,
   ),
   ff = {
     class: "border-t border-theme pt-3 flex-1 flex flex-col",
@@ -10955,7 +10974,7 @@ const rf = {
       class: "text-3xl",
     },
     "Confirma\xe7\xe3o de Leitura",
-    -1
+    -1,
   ),
   bf = {
     class: "flex justify-between mt-3",
@@ -10966,7 +10985,7 @@ const rf = {
       class: "text-3xl",
     },
     "Notifica\xe7\xf5es",
-    -1
+    -1,
   ),
   vf = {
     class: "flex justify-between mt-3",
@@ -10977,7 +10996,7 @@ const rf = {
       class: "text-3xl",
     },
     "Conte\xfado sens\xedvel",
-    -1
+    -1,
   ),
   yf = {
     class: "mt-auto",
@@ -10999,7 +11018,7 @@ rf.render = function (e$, e0, e8, e2, e3, e1) {
             },
             null,
             8,
-            ["src"]
+            ["src"],
           ),
           Pl(
             "button",
@@ -11010,7 +11029,7 @@ rf.render = function (e$, e0, e8, e2, e3, e1) {
               class:
                 "absolute bottom-0 right-40 px-4 py-2 rounded-full bg-gray-400 text-black",
             },
-            [pf]
+            [pf],
           ),
         ]),
         Pl("div", ff, [
@@ -11025,7 +11044,7 @@ rf.render = function (e$, e0, e8, e2, e3, e1) {
               },
               null,
               8,
-              ["modelValue"]
+              ["modelValue"],
             ),
           ]),
           Pl("div", bf, [
@@ -11039,7 +11058,7 @@ rf.render = function (e$, e0, e8, e2, e3, e1) {
               },
               null,
               8,
-              ["modelValue"]
+              ["modelValue"],
             ),
           ]),
           Pl("div", vf, [
@@ -11053,7 +11072,7 @@ rf.render = function (e$, e0, e8, e2, e3, e1) {
               },
               null,
               8,
-              ["modelValue"]
+              ["modelValue"],
             ),
           ]),
           Pl("div", yf, [
@@ -11066,7 +11085,7 @@ rf.render = function (e$, e0, e8, e2, e3, e1) {
                   (e0[5] = (...e$) =>
                     e2.deleteMessages && e2.deleteMessages(...e$)),
               },
-              "Apagar todas as mensagens"
+              "Apagar todas as mensagens",
             ),
           ]),
         ]),
@@ -11079,7 +11098,7 @@ const kf = Ze([]),
 
 function Af(e$, e0 = null) {
   let e8 = kf.find((e0) => e0.id == e$);
-  return e8 && e0 && Object.assign(e8, e0), e8;
+  return (e8 && e0 && Object.assign(e8, e0), e8);
 }
 
 function Sf(e$) {
@@ -11095,8 +11114,8 @@ function Tf(e$, e0) {
     e$ == So.identity.phone ? e0 : e$
   );
 }
-So.pusher.on("WHATSAPP_GROUP", (e$) => {
-  (e$.phone = "group" + e$.id), kf.push(e$);
+(So.pusher.on("WHATSAPP_GROUP", (e$) => {
+  ((e$.phone = "group" + e$.id), kf.push(e$));
 }),
   So.pusher.on("WHATSAPP_GROUP_PHOTO", ({ id: e$, avatarURL: e0 }) => {
     Af(e$, {
@@ -11115,7 +11134,7 @@ So.pusher.on("WHATSAPP_GROUP", (e$) => {
   So.pusher.on("WHATSAPP_READED", (e$) => delete Cf[e$]),
   So.pusher.on(
     "WHATSAPP_AVATAR",
-    ({ phone: e$, avatarURL: e0 }) => (_f[e$] = e0)
+    ({ phone: e$, avatarURL: e0 }) => (_f[e$] = e0),
   ),
   So.pusher.on("ADD_CONTACT", async ({ phone: e$ }) => {
     let e0 = await So.backend.wpp_getAvatar(e$);
@@ -11129,14 +11148,14 @@ So.pusher.on("WHATSAPP_GROUP", (e$) => {
     else {
       e$.other = Tf(e$);
       let e0 = wf.findIndex((e0) => Tf(e0) == e$.other);
-      -1 != e0 ? wf.splice(e0, 1, e$) : wf.push(e$),
+      (-1 != e0 ? wf.splice(e0, 1, e$) : wf.push(e$),
         e$.sender != So.identity.phone &&
-          (Cf[e$.channel_id] = (Cf[e$.channel_id] || 0) + 1);
+          (Cf[e$.channel_id] = (Cf[e$.channel_id] || 0) + 1));
     }
   }),
   So.pusher.on("WHATSAPP_DELETE_MESSAGES", () => {
     $s(wf, (e$) => !e$.target.startsWith("group"));
-  });
+  }));
 var Ef = {
   loaded: !1,
   groups: kf,
@@ -11144,20 +11163,20 @@ var Ef = {
   unread: Cf,
   avatars: _f,
   async ready() {
-    (this.loaded = !0), await So.backend.wpp_getProfile();
+    ((this.loaded = !0), await So.backend.wpp_getProfile());
     let e$ = await So.backend.wpp_getResume();
     for (let [e0, e8] of (e$.groups.forEach(
-      (e$) => (e$.phone = "group" + e$.id)
+      (e$) => (e$.phone = "group" + e$.id),
     ),
     e$.messages.forEach((e$) => (e$.other = Tf(e$))),
     Object.entries(e$)))
       Object.assign(this[e0], e8);
-    So.pusher.once("REFRESH", () => {
+    (So.pusher.once("REFRESH", () => {
       for (let e$ of ((this.loaded = !1),
       [this.groups, this.messages, this.unread, this.avatars]))
         for (let e0 in e$) delete e$[e0];
     }),
-      (this.loaded = !0);
+      (this.loaded = !0));
   },
 };
 const Rf = {
@@ -11182,7 +11201,7 @@ const Rf = {
           return e6.value.filter((e0) =>
             e$
               ? Bs(eU(e0)).toLowerCase().includes(e$) || eU(e0).includes(e$)
-              : 1
+              : 1,
           );
         }),
         { groups: e7, messages: e5, unread: eV, avatars: eN } = Ef;
@@ -11218,8 +11237,9 @@ const Rf = {
           (So.backend.getPhoneCalls().then((e$) => {
             e6.value = e$.map(
               (e$) => (
-                (e$.callback = e$.initiator == e0.value || !e$.anonymous), e$
-              )
+                (e$.callback = e$.initiator == e0.value || !e$.anonymous),
+                e$
+              ),
             );
           }),
           (e9 = Date.now() + 5e3));
@@ -11256,13 +11276,13 @@ const Rf = {
                     e$
                       ? Bs(e0.other).toLowerCase().includes(e$) ||
                         e0.other.includes(e$)
-                      : 1
+                      : 1,
                   )
-                  .map((e$) => ej(e$.other))
+                  .map((e$) => ej(e$.other)),
               ),
               e$
                 ? (e0.push(
-                    ...e7.filter((e0) => e0.name.toLowerCase().includes(e$))
+                    ...e7.filter((e0) => e0.name.toLowerCase().includes(e$)),
                   ),
                   So.contacts.value.forEach((e8) => {
                     e0.some((e$) => e$.phone == e8.phone) ||
@@ -11310,7 +11330,7 @@ const Rf = {
                   "text-blue-500 self-center",
                 ],
               ].filter((e$) => e$),
-              20
+              20,
             );
             0 === e0
               ? So.backend.wpp_deleteMessages(e$.phone).then(() => {
@@ -11352,7 +11372,7 @@ const Lf = {
       class: "fas fa-users",
     },
     null,
-    -1
+    -1,
   ),
   Vf = Pl(
     "i",
@@ -11360,7 +11380,7 @@ const Lf = {
       class: "fas fa-cog",
     },
     null,
-    -1
+    -1,
   ),
   Df = {
     class:
@@ -11390,7 +11410,7 @@ const Lf = {
       class: "fas fa-search absolute left-2 top-3.5 text-xl",
     },
     null,
-    -1
+    -1,
   ),
   Bf = {
     class:
@@ -11436,7 +11456,7 @@ const Lf = {
       class: "text-5xl font-bold",
     },
     "Configura\xe7\xf5es",
-    -1
+    -1,
   ),
   em = {
     key: 4,
@@ -11452,7 +11472,7 @@ const Lf = {
       class: "text-5xl font-bold",
     },
     "Chamadas",
-    -1
+    -1,
   ),
   lm = {
     class: "text-theme",
@@ -11509,7 +11529,7 @@ const cm = Pf((e$, e0, e8, e2, e3, e1) => {
                         (e0[1] = (e$) => (e2.searching = !e2.searching)),
                       class: "absolute top-16 right-32",
                     },
-                    [e2.searching ? (wl(), _l("i", If)) : (wl(), _l("i", Of))]
+                    [e2.searching ? (wl(), _l("i", If)) : (wl(), _l("i", Of))],
                   ),
                   Pl(
                     "button",
@@ -11519,7 +11539,7 @@ const cm = Pf((e$, e0, e8, e2, e3, e1) => {
                         (e0[2] = (e0) => e$.$router.push("/whatsapp/create")),
                       class: "absolute top-16 right-16",
                     },
-                    [Mf]
+                    [Mf],
                   ),
                   Pl(
                     "button",
@@ -11527,7 +11547,7 @@ const cm = Pf((e$, e0, e8, e2, e3, e1) => {
                       onClick: e0[3] || (e0[3] = (e$) => (e2.tab = "settings")),
                       class: "absolute top-16 right-4",
                     },
-                    [Vf]
+                    [Vf],
                   ),
                   Pl("div", Df, [
                     (wl(),
@@ -11556,15 +11576,15 @@ const cm = Pf((e$, e0, e8, e2, e3, e1) => {
                             },
                             g(e$),
                             11,
-                            ["onClick"]
-                          )
+                            ["onClick"],
+                          ),
                       ),
-                      64
+                      64,
                     )),
                   ]),
                 ]),
                 _: 1,
-              }
+              },
             ))
           : Ml("", !0),
         e2.searching && ("chats" == e2.tab || "contacts" == e2.tab)
@@ -11582,7 +11602,7 @@ const cm = Pf((e$, e0, e8, e2, e3, e1) => {
                 },
                 null,
                 8,
-                ["modelValue"]
+                ["modelValue"],
               ),
             ]))
           : Ml("", !0),
@@ -11597,7 +11617,7 @@ const cm = Pf((e$, e0, e8, e2, e3, e1) => {
                       "h1",
                       jf,
                       g("chats" == e2.tab ? "Conversas" : "Contatos"),
-                      1
+                      1,
                     ),
                     Pl("div", Ff, [
                       Zn(
@@ -11612,9 +11632,9 @@ const cm = Pf((e$, e0, e8, e2, e3, e1) => {
                             placeholder: "Pesquisar",
                           },
                           null,
-                          512
+                          512,
                         ),
-                        [[ns, e2.query]]
+                        [[ns, e2.query]],
                       ),
                       zf,
                     ]),
@@ -11631,7 +11651,7 @@ const cm = Pf((e$, e0, e8, e2, e3, e1) => {
                               (e0[6] = (e0) =>
                                 e$.$router.push("/whatsapp/create")),
                           },
-                          " Novo grupo "
+                          " Novo grupo ",
                         ))
                       : Ml("", !0),
                   ])),
@@ -11649,7 +11669,7 @@ const cm = Pf((e$, e0, e8, e2, e3, e1) => {
                         {
                           onContextmenu: is(
                             (e$) => e2.onContext(e0),
-                            ["prevent", "stop"]
+                            ["prevent", "stop"],
                           ),
                           key: e0.id,
                           onClick: (e8) =>
@@ -11666,7 +11686,7 @@ const cm = Pf((e$, e0, e8, e2, e3, e1) => {
                             },
                             null,
                             8,
-                            ["src"]
+                            ["src"],
                           ),
                           Pl("div", Bf, [
                             Pl("div", Hf, [
@@ -11678,10 +11698,10 @@ const cm = Pf((e$, e0, e8, e2, e3, e1) => {
                                     Gf,
                                     g(
                                       e$.$filters.unixToHHMM(
-                                        e0.message.created_at
-                                      )
+                                        e0.message.created_at,
+                                      ),
                                     ),
-                                    1
+                                    1,
                                   ))
                                 : Ml("", !0),
                             ]),
@@ -11704,7 +11724,7 @@ const cm = Pf((e$, e0, e8, e2, e3, e1) => {
                                             ],
                                           },
                                           null,
-                                          2
+                                          2,
                                         ))
                                       : Ml("", !0),
                                     Il(
@@ -11714,7 +11734,7 @@ const cm = Pf((e$, e0, e8, e2, e3, e1) => {
                                             null == (e8 = e0.message.content)
                                               ? void 0
                                               : e8.match(
-                                                  /(http)?s?:?(\/\/[^"']*\.(?:webm))/
+                                                  /(http)?s?:?(\/\/[^"']*\.(?:webm))/,
                                                 )
                                           )
                                             ? e2.contentDefaults.audio
@@ -11725,20 +11745,20 @@ const cm = Pf((e$, e0, e8, e2, e3, e1) => {
                                                   e0.message.image
                                                     ? "image"
                                                     : "location"
-                                                ]
+                                                ],
                                         ),
-                                      1
+                                      1,
                                     ),
                                   ]))
                                 : e0.phone != e0.id
-                                ? (wl(),
-                                  _l("span", Jf, " Nenhuma mensagem... "))
-                                : (wl(),
-                                  _l(
-                                    "span",
-                                    Xf,
-                                    " Clique para iniciar uma conversa "
-                                  )),
+                                  ? (wl(),
+                                    _l("span", Jf, " Nenhuma mensagem... "))
+                                  : (wl(),
+                                    _l(
+                                      "span",
+                                      Xf,
+                                      " Clique para iniciar uma conversa ",
+                                    )),
                               e0.unread
                                 ? (wl(), _l("span", Yf, g(e0.unread), 1))
                                 : Ml("", !0),
@@ -11746,129 +11766,132 @@ const cm = Pf((e$, e0, e8, e2, e3, e1) => {
                           ]),
                         ],
                         40,
-                        ["onContextmenu", "onClick"]
+                        ["onContextmenu", "onClick"],
                       )
                     );
                   }),
-                  128
+                  128,
                 )),
               ]),
             ]))
           : "settings" == e2.tab
-          ? (wl(),
-            _l(
-              e7,
-              {
-                key: 3,
-              },
-              {
-                default: Pf(() => [
-                  e2.android ? Ml("", !0) : (wl(), _l("div", Zf, [Qf])),
-                ]),
-                _: 1,
-              }
-            ))
-          : (wl(),
-            _l("div", em, [
-              e2.android ? Ml("", !0) : (wl(), _l("div", tm, [nm])),
-              Pl("ul", lm, [
-                (wl(!0),
-                _l(
-                  bl,
-                  null,
-                  fa(
-                    e2.calls,
-                    (e0) => (
-                      wl(),
-                      _l(
-                        "li",
-                        {
-                          key: e0.id,
-                          class: "border-b border-theme p-5 flex items-center",
-                        },
-                        [
-                          Pl(
-                            "img",
-                            {
-                              class: "w-20 h-20 rounded-full",
-                              src: e2.getAvatar(e0.callback && e2.other(e0)),
-                            },
-                            null,
-                            8,
-                            ["src"]
-                          ),
-                          Pl("div", am, [
+            ? (wl(),
+              _l(
+                e7,
+                {
+                  key: 3,
+                },
+                {
+                  default: Pf(() => [
+                    e2.android ? Ml("", !0) : (wl(), _l("div", Zf, [Qf])),
+                  ]),
+                  _: 1,
+                },
+              ))
+            : (wl(),
+              _l("div", em, [
+                e2.android ? Ml("", !0) : (wl(), _l("div", tm, [nm])),
+                Pl("ul", lm, [
+                  (wl(!0),
+                  _l(
+                    bl,
+                    null,
+                    fa(
+                      e2.calls,
+                      (e0) => (
+                        wl(),
+                        _l(
+                          "li",
+                          {
+                            key: e0.id,
+                            class:
+                              "border-b border-theme p-5 flex items-center",
+                          },
+                          [
                             Pl(
-                              "h1",
-                              sm,
-                              g(
-                                e0.callback
-                                  ? e$.$filters.getNameByPhone(e2.other(e0))
-                                  : "(An\xf4nimo)"
-                              ),
-                              1
+                              "img",
+                              {
+                                class: "w-20 h-20 rounded-full",
+                                src: e2.getAvatar(e0.callback && e2.other(e0)),
+                              },
+                              null,
+                              8,
+                              ["src"],
                             ),
-                            Pl("span", om, [
+                            Pl("div", am, [
                               Pl(
-                                "i",
-                                {
-                                  class: [
-                                    "fal fa-long-arrow-left",
-                                    {
-                                      "text-red-500": "ok" != e0.status,
-                                      "text-green-500": "ok" == e0.status,
-                                      "transform -rotate-45":
-                                        e0.target == e2.myPhone,
-                                      "rotate-135": e0.target != e2.myPhone,
-                                    },
-                                  ],
-                                },
-                                null,
-                                2
+                                "h1",
+                                sm,
+                                g(
+                                  e0.callback
+                                    ? e$.$filters.getNameByPhone(e2.other(e0))
+                                    : "(An\xf4nimo)",
+                                ),
+                                1,
                               ),
-                              Il(
-                                " " +
-                                  g(
-                                    e$.$filters.unixToDayOfMonth(e0.created_at)
-                                  ),
-                                1
-                              ),
-                            ]),
-                          ]),
-                          e0.callback
-                            ? (wl(),
-                              _l(
-                                "button",
-                                {
-                                  key: 0,
-                                  class: [
-                                    "ml-auto text-3xl",
-                                    [
-                                      e2.android
-                                        ? "text-whatsapp"
-                                        : "text-blue-ios",
+                              Pl("span", om, [
+                                Pl(
+                                  "i",
+                                  {
+                                    class: [
+                                      "fal fa-long-arrow-left",
+                                      {
+                                        "text-red-500": "ok" != e0.status,
+                                        "text-green-500": "ok" == e0.status,
+                                        "transform -rotate-45":
+                                          e0.target == e2.myPhone,
+                                        "rotate-135": e0.target != e2.myPhone,
+                                      },
                                     ],
+                                  },
+                                  null,
+                                  2,
+                                ),
+                                Il(
+                                  " " +
+                                    g(
+                                      e$.$filters.unixToDayOfMonth(
+                                        e0.created_at,
+                                      ),
+                                    ),
+                                  1,
+                                ),
+                              ]),
+                            ]),
+                            e0.callback
+                              ? (wl(),
+                                _l(
+                                  "button",
+                                  {
+                                    key: 0,
+                                    class: [
+                                      "ml-auto text-3xl",
+                                      [
+                                        e2.android
+                                          ? "text-whatsapp"
+                                          : "text-blue-ios",
+                                      ],
+                                    ],
+                                    onClick: (e$) =>
+                                      e0.callback && e2.createCall(e0),
+                                  },
+                                  [
+                                    e0.video
+                                      ? (wl(), _l("i", rm))
+                                      : (wl(), _l("i", im)),
                                   ],
-                                  onClick: (e$) =>
-                                    e0.callback && e2.createCall(e0),
-                                },
-                                [
-                                  e0.video
-                                    ? (wl(), _l("i", rm))
-                                    : (wl(), _l("i", im)),
-                                ],
-                                10,
-                                ["onClick"]
-                              ))
-                            : Ml("", !0),
-                        ]
-                      )
-                    )
-                  ),
-                  128
-                )),
-              ]),
-            ])),
+                                  10,
+                                  ["onClick"],
+                                ))
+                              : Ml("", !0),
+                          ],
+                        )
+                      ),
+                    ),
+                    128,
+                  )),
+                ]),
+              ])),
         e2.android
           ? Ml("", !0)
           : (wl(),
@@ -11881,14 +11904,14 @@ const cm = Pf((e$, e0, e8, e2, e3, e1) => {
               },
               null,
               8,
-              ["tab", "onChange"]
+              ["tab", "onChange"],
             )),
       ],
-      2
+      2,
     )
   );
 });
-(Rf.render = cm), (Rf.__scopeId = "data-v-1e353ded");
+((Rf.render = cm), (Rf.__scopeId = "data-v-1e353ded"));
 const um = {
     props: ["src"],
     setup(e$) {
@@ -11898,7 +11921,7 @@ const um = {
           offset: 0,
         }),
         e8 = new Audio();
-      (e8.oncanplay = () => (e0.offset = 0)),
+      ((e8.oncanplay = () => (e0.offset = 0)),
         fetch(e$.src)
           .then((e$) => e$.blob())
           .then((e$) => {
@@ -11912,17 +11935,17 @@ const um = {
         }),
         e8.addEventListener("ended", () => {
           e0.playing = !1;
-        });
+        }));
       let e2 = da(() => (e0.duration ? (e0.offset / e0.duration) * 95 : 0));
       return {
         state: e0,
         resume() {
-          e8.play(),
+          (e8.play(),
             (e0.playing = !0),
-            e0.offset >= e0.duration && (e8.currentTime = 0);
+            e0.offset >= e0.duration && (e8.currentTime = 0));
         },
         pause() {
-          e8.pause(), (e0.playing = !1);
+          (e8.pause(), (e0.playing = !1));
         },
         percent: e2,
       };
@@ -11937,7 +11960,7 @@ const um = {
       class: "fas fa-play text-gray-400",
     },
     null,
-    -1
+    -1,
   ),
   fm = Pl(
     "i",
@@ -11945,7 +11968,7 @@ const um = {
       class: "fas fa-pause text-gray-400",
     },
     null,
-    -1
+    -1,
   ),
   mm = {
     class: "ml-4 flex-1 h-1 bg-gray-200",
@@ -11965,7 +11988,7 @@ um.render = function (e$, e0, e8, e2, e3, e1) {
               key: 1,
               onClick: e0[2] || (e0[2] = (e$) => e2.pause()),
             },
-            [fm]
+            [fm],
           ))
         : (wl(),
           _l(
@@ -11974,7 +11997,7 @@ um.render = function (e$, e0, e8, e2, e3, e1) {
               key: 0,
               onClick: e0[1] || (e0[1] = (e$) => e2.resume()),
             },
-            [pm]
+            [pm],
           )),
       Pl("div", mm, [
         Pl(
@@ -11987,7 +12010,7 @@ um.render = function (e$, e0, e8, e2, e3, e1) {
             },
           },
           null,
-          4
+          4,
         ),
         Pl(
           "div",
@@ -11999,7 +12022,7 @@ um.render = function (e$, e0, e8, e2, e3, e1) {
             class: "relative bottom-3 rounded-full w-5 h-5 bg-blue-400",
           },
           null,
-          4
+          4,
         ),
       ]),
       Pl("span", hm, g(e$.$filters.duration(e2.state.duration)), 1),
@@ -12028,9 +12051,9 @@ const bm = {
         e9 = rt(So.contacts.value.find((e$) => e$.phone === eN));
 
       function eU(e$) {
-        return e$.location && (e$.location = JSON.parse(e$.location)), e$;
+        return (e$.location && (e$.location = JSON.parse(e$.location)), e$);
       }
-      e9.value ||
+      (e9.value ||
         (eN.startsWith("group")
           ? (e9.value = {
               id: eN,
@@ -12043,12 +12066,12 @@ const bm = {
             })),
         So.getPlayerCoords().then((e$) => (e4.value = e$)),
         So.backend.wpp_getChat(eN).then((e$) => {
-          (e9.value.id = e$.id),
+          ((e9.value.id = e$.id),
             e$.name && (e9.value.name = e$.name),
             (e9.value.avatarURL = e$.avatarURL || So.asset("/stock/user.svg")),
             (e6.value = e$.messages.map(eU)),
-            Lt(() => eD(!0));
-        });
+            Lt(() => eD(!0)));
+        }));
       let ej = 0;
 
       function eD(e$, e0) {
@@ -12068,13 +12091,13 @@ const bm = {
         if ("location" === e$) e3.push(await So.getPlayerCoords());
         else if ("camera" === e$)
           try {
-            (e3[2] = "image"), e3.push(await co().request(!1, "/whatsapp"));
+            ((e3[2] = "image"), e3.push(await co().request(!1, "/whatsapp")));
           } catch (e6) {
             return;
           }
         else if ("gallery" === e$)
           try {
-            (e3[2] = "image"), e3.push(await fo());
+            ((e3[2] = "image"), e3.push(await fo()));
           } catch (e4) {
             return;
           }
@@ -12087,24 +12110,24 @@ const bm = {
             return e8("Link inv\xe1lido");
           e3.push(e5);
         } else if (!e3[1]) return;
-        So.backend.wpp_sendMessage(...e3).then((e$) => {
+        (So.backend.wpp_sendMessage(...e3).then((e$) => {
           e$.error && e8(e$.error);
         }),
           (e1.value = ""),
-          delete e7.attachments;
+          delete e7.attachments);
       }
 
       function eF(e$) {
         e$.channel_id == e9.value.id &&
           (e6.value.push(eU(e$)), Lt(() => eD(!1, e$.sender == e0)));
       }
-      So.onceRoute("WHATSAPP_MESSAGE", eF),
+      (So.onceRoute("WHATSAPP_MESSAGE", eF),
         So.onceRoute("WHATSAPP_READ", (e$) => {
           e$ === eN &&
             e6.value.forEach((e$) => {
               e$.sender == e0 && (e$.saw_at = Math.floor(Date.now() / 1e3));
             });
-        });
+        }));
       let eB = [
         "#ef5350",
         "#EC407A",
@@ -12147,23 +12170,23 @@ const bm = {
               if (!e5.value) return clearInterval(e0);
               e5.value.duration += 1;
             }, 1e3);
-          e$.start(),
+          (e$.start(),
             (e5.value = {
               duration: 0,
               recorder: e$,
               stop(e0 = !1) {
-                (e5.value = null),
+                ((e5.value = null),
                   e0 &&
                     (e$.ondataavailable = (e$) =>
                       to.upload(e$.data, "webm").then(
                         (e$) => {
                           ez("audio", e$);
                         },
-                        () => e8("Falha ao salvar \xe1udio")
+                        () => e8("Falha ao salvar \xe1udio"),
                       )),
-                  e$.stop();
+                  e$.stop());
               },
-            });
+            }));
         },
         getColorForPhone: function (e$) {
           return eB[parseInt(e$.replace(/-/g, "")) % eB.length];
@@ -12191,7 +12214,7 @@ const bm = {
         },
         addAttachment: function () {
           let e$ = ["camera", "gallery", "location"];
-          So.settings.allowUnsafeURL && e$.splice(2, 0, "image"),
+          (So.settings.allowUnsafeURL && e$.splice(2, 0, "image"),
             go()
               .request(
                 [
@@ -12203,9 +12226,9 @@ const bm = {
                   ],
                   ["Localiza\xe7\xe3o", "text-blue-500 self-center"],
                 ],
-                30
+                30,
               )
-              .then((e0) => e$[e0] && ez(e$[e0]));
+              .then((e0) => e$[e0] && ez(e$[e0])));
         },
         onContextImage: async function (e$) {
           let e0 = await go().request(
@@ -12213,14 +12236,14 @@ const bm = {
               ["Ver imagem", "text-blue-500 self-center"],
               ["Salvar imagem", "text-blue-500 self-center"],
             ],
-            20
+            20,
           );
           if (0 === e0) e3(e$);
           else if (1 === e0) {
             if (So.gallery.some((e0) => e0.url == e$))
               return e8("Esta imagem j\xe1 est\xe1 salva");
             So.backend.gallery_save("/downloads", e$).then((e$) => {
-              So.gallery.push(e$), So.gallery.sort((e$, e0) => e0.id - e$.id);
+              (So.gallery.push(e$), So.gallery.sort((e$, e0) => e0.id - e$.id));
             });
           }
         },
@@ -12251,7 +12274,7 @@ const vm = {
       class: "far fa-arrow-left text-3xl",
     },
     null,
-    -1
+    -1,
   ),
   km = Pl(
     "i",
@@ -12259,7 +12282,7 @@ const vm = {
       class: "fas fa-user-plus pl-3 text-2xl",
     },
     null,
-    -1
+    -1,
   ),
   wm = {
     key: 0,
@@ -12271,7 +12294,7 @@ const vm = {
       class: "fas fa-video text-2xl",
     },
     null,
-    -1
+    -1,
   ),
   _m = Pl(
     "i",
@@ -12279,7 +12302,7 @@ const vm = {
       class: "fas fa-phone transform rotate-90 text-2xl",
     },
     null,
-    -1
+    -1,
   ),
   Am = {
     key: 1,
@@ -12292,7 +12315,7 @@ const vm = {
       class: "cupertino-icons text-blue-ios",
     },
     "chevron_back",
-    -1
+    -1,
   ),
   Tm = Pl(
     "i",
@@ -12300,7 +12323,7 @@ const vm = {
       class: "fas fa-user-plus pl-3 text-2xl text-blue-ios",
     },
     null,
-    -1
+    -1,
   ),
   Em = {
     key: 0,
@@ -12312,7 +12335,7 @@ const vm = {
       class: "fal fa-video text-blue-ios text-4xl",
     },
     null,
-    -1
+    -1,
   ),
   Pm = Pl(
     "i",
@@ -12320,7 +12343,7 @@ const vm = {
       class: "cupertino-icons text-4xl text-blue-ios",
     },
     "phone",
-    -1
+    -1,
   ),
   Lm = {
     class: "flex-1 overflow-y-auto hide-scroll p-5 relative",
@@ -12353,7 +12376,7 @@ const vm = {
       class: "far fa-trash-alt text-red-500",
     },
     null,
-    -1
+    -1,
   ),
   jm = {
     key: 3,
@@ -12365,7 +12388,7 @@ const vm = {
       class: "far fa-paperclip text-3xl",
     },
     null,
-    -1
+    -1,
   ),
   zm = {
     key: 0,
@@ -12396,7 +12419,7 @@ const vm = {
         width: "24",
       }),
     ],
-    -1
+    -1,
   ),
   Hm = Pl(
     "g",
@@ -12412,7 +12435,7 @@ const vm = {
         }),
       ]),
     ],
-    -1
+    -1,
   ),
   qm = {
     key: 1,
@@ -12428,7 +12451,7 @@ const vm = {
       class: "fal fa-plus text-4xl text-blue-ios",
     },
     null,
-    -1
+    -1,
   ),
   Km = {
     key: 0,
@@ -12467,7 +12490,7 @@ const Xm = gm((e$, e0, e8, e2, e3, e1) => {
                             e$.$router.back && e$.$router.back(...e0)),
                         class: "absolute top-16 left-4",
                       },
-                      [ym]
+                      [ym],
                     ),
                     Pl(
                       "img",
@@ -12485,7 +12508,7 @@ const Xm = gm((e$, e0, e8, e2, e3, e1) => {
                       },
                       null,
                       8,
-                      ["src"]
+                      ["src"],
                     ),
                     Pl(
                       "h1",
@@ -12502,9 +12525,9 @@ const Xm = gm((e$, e0, e8, e2, e3, e1) => {
                           g(
                             null == (e3 = e2.chat.name)
                               ? void 0
-                              : e3.slice(0, 20)
+                              : e3.slice(0, 20),
                           ) + " ",
-                          1
+                          1,
                         ),
                         e2.chat.unknown
                           ? (wl(),
@@ -12517,10 +12540,10 @@ const Xm = gm((e$, e0, e8, e2, e3, e1) => {
                                   (e0[3] = (...e$) =>
                                     e2.saveContact && e2.saveContact(...e$)),
                               },
-                              [km]
+                              [km],
                             ))
                           : Ml("", !0),
-                      ]
+                      ],
                     ),
                     e2.chat.isGroup
                       ? Ml("", !0)
@@ -12537,7 +12560,7 @@ const Xm = gm((e$, e0, e8, e2, e3, e1) => {
                                     (e0[5] = (e$) => e2.createCall(!0)),
                                   class: "mr-8",
                                 },
-                                [Cm]
+                                [Cm],
                               ))
                             : Ml("", !0),
                           Pl(
@@ -12547,14 +12570,14 @@ const Xm = gm((e$, e0, e8, e2, e3, e1) => {
                                 e0[6] || (e0[6] = (e$) => e2.createCall()),
                               class: "mr-8",
                             },
-                            [_m]
+                            [_m],
                           ),
                         ])),
                   ]),
                 ];
               }),
               _: 1,
-            }
+            },
           ))
         : (wl(),
           _l("div", Am, [
@@ -12566,7 +12589,7 @@ const Xm = gm((e$, e0, e8, e2, e3, e1) => {
                   (e0[7] = (...e0) =>
                     e$.$router.back && e$.$router.back(...e0)),
               },
-              [Sm]
+              [Sm],
             ),
             Pl(
               "img",
@@ -12579,7 +12602,7 @@ const Xm = gm((e$, e0, e8, e2, e3, e1) => {
               },
               null,
               8,
-              ["src"]
+              ["src"],
             ),
             Pl(
               "h1",
@@ -12597,9 +12620,9 @@ const Xm = gm((e$, e0, e8, e2, e3, e1) => {
                     null ==
                       (e7 = null == (e4 = e2.chat.name) ? void 0 : e4.slice)
                       ? void 0
-                      : e7.call(e4, 0, 20)
+                      : e7.call(e4, 0, 20),
                   ) + " ",
-                  1
+                  1,
                 ),
                 e2.chat.unknown
                   ? (wl(),
@@ -12612,10 +12635,10 @@ const Xm = gm((e$, e0, e8, e2, e3, e1) => {
                           (e0[8] = (...e$) =>
                             e2.saveContact && e2.saveContact(...e$)),
                       },
-                      [Tm]
+                      [Tm],
                     ))
                   : Ml("", !0),
-              ]
+              ],
             ),
             e2.chat.isGroup
               ? Ml("", !0)
@@ -12631,7 +12654,7 @@ const Xm = gm((e$, e0, e8, e2, e3, e1) => {
                             e0[10] || (e0[10] = (e$) => e2.createCall(!0)),
                           class: "mr-10",
                         },
-                        [Rm]
+                        [Rm],
                       ))
                     : Ml("", !0),
                   Pl(
@@ -12639,7 +12662,7 @@ const Xm = gm((e$, e0, e8, e2, e3, e1) => {
                     {
                       onClick: e0[11] || (e0[11] = (e$) => e2.createCall()),
                     },
-                    [Pm]
+                    [Pm],
                   ),
                 ])),
           ])),
@@ -12684,7 +12707,7 @@ const Xm = gm((e$, e0, e8, e2, e3, e1) => {
                               },
                             },
                             g(e$.$filters.getNameByPhone(e8.sender)),
-                            5
+                            5,
                           ))
                         : Ml("", !0),
                       e8.image
@@ -12695,7 +12718,7 @@ const Xm = gm((e$, e0, e8, e2, e3, e1) => {
                               {
                                 onContextmenu: is(
                                   (e$) => e2.onContextImage(e8.image),
-                                  ["prevent", "stop"]
+                                  ["prevent", "stop"],
                                 ),
                                 class: [
                                   "w-full rounded-lg",
@@ -12712,49 +12735,52 @@ const Xm = gm((e$, e0, e8, e2, e3, e1) => {
                               },
                               null,
                               42,
-                              ["onContextmenu", "src"]
+                              ["onContextmenu", "src"],
                             ),
                           ]))
                         : e8.location
-                        ? (wl(),
-                          _l(
-                            "div",
-                            {
-                              key: 2,
-                              class: "flex flex-col items-center",
-                              onClick: (e$) => e2.updateGPS(e8.location),
-                            },
-                            [
-                              Pl(
-                                "img",
-                                {
-                                  class: "border rounded-lg",
-                                  onLoad:
-                                    e0[13] ||
-                                    (e0[13] = (...e$) =>
-                                      e2.ajustSize && e2.ajustSize(...e$)),
-                                  src: "/stock/maps.jpg",
-                                  alt: "",
-                                },
-                                null,
-                                32
-                              ),
-                              Pl("div", Om, [
-                                Mm,
+                          ? (wl(),
+                            _l(
+                              "div",
+                              {
+                                key: 2,
+                                class: "flex flex-col items-center",
+                                onClick: (e$) => e2.updateGPS(e8.location),
+                              },
+                              [
                                 Pl(
-                                  "span",
+                                  "img",
+                                  {
+                                    class: "border rounded-lg",
+                                    onLoad:
+                                      e0[13] ||
+                                      (e0[13] = (...e$) =>
+                                        e2.ajustSize && e2.ajustSize(...e$)),
+                                    src: "/stock/maps.jpg",
+                                    alt: "",
+                                  },
                                   null,
-                                  g(
-                                    e$.$filters.vdist2(e2.location, e8.location)
-                                  ),
-                                  1
+                                  32,
                                 ),
-                              ]),
-                            ],
-                            8,
-                            ["onClick"]
-                          ))
-                        : Ml("", !0),
+                                Pl("div", Om, [
+                                  Mm,
+                                  Pl(
+                                    "span",
+                                    null,
+                                    g(
+                                      e$.$filters.vdist2(
+                                        e2.location,
+                                        e8.location,
+                                      ),
+                                    ),
+                                    1,
+                                  ),
+                                ]),
+                              ],
+                              8,
+                              ["onClick"],
+                            ))
+                          : Ml("", !0),
                       e$.$filters.isAudio(e8.content)
                         ? (wl(),
                           _l(
@@ -12765,7 +12791,7 @@ const Xm = gm((e$, e0, e8, e2, e3, e1) => {
                             },
                             null,
                             8,
-                            ["src"]
+                            ["src"],
                           ))
                         : Ml("", !0),
                       Pl("div", null, [
@@ -12773,7 +12799,7 @@ const Xm = gm((e$, e0, e8, e2, e3, e1) => {
                           "span",
                           Vm,
                           g(e$.$filters.isAudio(e8.content) ? "" : e8.content),
-                          1
+                          1,
                         ),
                         Pl("span", Dm, [
                           Il(g(e$.$filters.unixToHHMM(e8.created_at)) + " ", 1),
@@ -12791,19 +12817,19 @@ const Xm = gm((e$, e0, e8, e2, e3, e1) => {
                                   ],
                                 },
                                 null,
-                                2
+                                2,
                               ))
                             : Ml("", !0),
                         ]),
                       ]),
                     ],
-                    2
+                    2,
                   ),
-                ]
+                ],
               )
-            )
+            ),
           ),
-          128
+          128,
         )),
       ]),
       e2.recording
@@ -12815,7 +12841,7 @@ const Xm = gm((e$, e0, e8, e2, e3, e1) => {
               {
                 onClick: e0[14] || (e0[14] = (e$) => e2.recording.stop()),
               },
-              [$m]
+              [$m],
             ),
           ]))
         : Ml("", !0),
@@ -12837,9 +12863,9 @@ const Xm = gm((e$, e0, e8, e2, e3, e1) => {
                     "flex-1 p-3.5 px-4 pr-14 text-2xl text-theme rounded-full",
                 },
                 null,
-                544
+                544,
               ),
-              [[ns, e2.text]]
+              [[ns, e2.text]],
             ),
             Pl(
               "button",
@@ -12847,7 +12873,7 @@ const Xm = gm((e$, e0, e8, e2, e3, e1) => {
                 class: "absolute right-28",
                 onClick: e0[17] || (e0[17] = (e$) => e2.addAttachment()),
               },
-              [Fm]
+              [Fm],
             ),
             Pl(
               "button",
@@ -12862,7 +12888,7 @@ const Xm = gm((e$, e0, e8, e2, e3, e1) => {
                 e2.recording
                   ? (wl(), _l("i", qm))
                   : (wl(), _l("svg", zm, [Bm, Hm])),
-              ]
+              ],
             ),
           ]))
         : (wl(),
@@ -12875,7 +12901,7 @@ const Xm = gm((e$, e0, e8, e2, e3, e1) => {
                   (e0[19] = (...e$) =>
                     e2.addAttachment && e2.addAttachment(...e$)),
               },
-              [Wm]
+              [Wm],
             ),
             Zn(
               Pl(
@@ -12889,9 +12915,9 @@ const Xm = gm((e$, e0, e8, e2, e3, e1) => {
                     "ml-4 bg-theme rounded-3xl bg-theme border border-theme w-full p-2 px-4 text-2xl text-theme",
                 },
                 null,
-                544
+                544,
               ),
-              [[ns, e2.text]]
+              [[ns, e2.text]],
             ),
             Pl(
               "button",
@@ -12902,13 +12928,13 @@ const Xm = gm((e$, e0, e8, e2, e3, e1) => {
                   (e0[22] = (e$) =>
                     e2.recording ? e2.recording.stop(!0) : e2.startRecording()),
               },
-              [e2.recording ? (wl(), _l("i", Km)) : (wl(), _l("i", Jm))]
+              [e2.recording ? (wl(), _l("i", Km)) : (wl(), _l("i", Jm))],
             ),
           ])),
     ])
   );
 });
-(bm.render = Xm), (bm.__scopeId = "data-v-21268b06");
+((bm.render = Xm), (bm.__scopeId = "data-v-21268b06"));
 const Ym = rt(So.asset("/stock/user.svg")),
   Zm = rt(""),
   Qm = Ze([So.identity.phone]),
@@ -12948,7 +12974,7 @@ const Ym = rt(So.asset("/stock/user.svg")),
             else if (e2) {
               Ym.value = e2;
               let e1 = new Image();
-              (e1.onload = () => (e3.value = !0)), (e1.src = e2);
+              ((e1.onload = () => (e3.value = !0)), (e1.src = e2));
             }
           } catch (e6) {}
         },
@@ -12963,13 +12989,15 @@ const Ym = rt(So.asset("/stock/user.svg")),
             return e8("Nome inv\xe1lido");
           if (Qm.length < 2) return e8("Usu\xe1rios insuficientes");
           let e0 = Qm.filter((e$, e0) => e0);
-          So.backend.wpp_createGroup(Zm.value.trim(), Ym.value, e0).then(() => {
-            e2.back();
-          }),
+          (So.backend
+            .wpp_createGroup(Zm.value.trim(), Ym.value, e0)
+            .then(() => {
+              e2.back();
+            }),
             (Ym.value = So.asset("/stock/user.svg")),
             (Zm.value = ""),
             (Qm.length = 0),
-            Qm.push(So.identity.phone);
+            Qm.push(So.identity.phone));
         },
       };
     },
@@ -12985,7 +13013,7 @@ const lh = {
       class: "far fa-arrow-left",
     },
     null,
-    -1
+    -1,
   ),
   sh = Pl(
     "h1",
@@ -12993,7 +13021,7 @@ const lh = {
       class: "absolute left-16 font-bold",
     },
     "Criar Grupo",
-    -1
+    -1,
   ),
   oh = {
     key: 1,
@@ -13005,7 +13033,7 @@ const lh = {
       class: "text-5xl font-bold",
     },
     "Criar Grupo",
-    -1
+    -1,
   ),
   ih = {
     class: "flex-1 p-5",
@@ -13019,7 +13047,7 @@ const lh = {
       class: "fas fa-link text-white text-xl",
     },
     null,
-    -1
+    -1,
   ),
   dh = Pl("label", null, "Nome", -1),
   ph = {
@@ -13041,7 +13069,7 @@ const lh = {
       class: "far fa-times text-red-500",
     },
     null,
-    -1
+    -1,
   ),
   bh = {
     key: 0,
@@ -13053,7 +13081,7 @@ const lh = {
       class: "far fa-user-plus text-blue-500",
     },
     null,
-    -1
+    -1,
   ),
   vh = {
     key: 0,
@@ -13093,13 +13121,13 @@ const xh = nh((e$, e0, e8, e2, e3, e1) => {
                             e$.$router.back && e$.$router.back(...e0)),
                         class: "absolute left-0 px-4",
                       },
-                      [ah]
+                      [ah],
                     ),
                     sh,
                   ]),
                 ]),
                 _: 1,
-              }
+              },
             ))
           : (wl(), _l("div", oh, [rh])),
         Pl("div", ih, [
@@ -13112,7 +13140,7 @@ const xh = nh((e$, e0, e8, e2, e3, e1) => {
               },
               null,
               8,
-              ["src"]
+              ["src"],
             ),
             Pl(
               "button",
@@ -13124,7 +13152,7 @@ const xh = nh((e$, e0, e8, e2, e3, e1) => {
                 ],
               },
               [uh],
-              2
+              2,
             ),
           ]),
           Pl("div", null, [
@@ -13140,14 +13168,14 @@ const xh = nh((e$, e0, e8, e2, e3, e1) => {
               },
               null,
               8,
-              ["modelValue"]
+              ["modelValue"],
             ),
           ]),
           Pl(
             "label",
             ph,
             "Membros (" + g(e2.invited.length) + "/" + g(e2.maxMembers) + ")",
-            1
+            1,
           ),
           Pl("ul", fh, [
             (wl(!0),
@@ -13177,15 +13205,15 @@ const xh = nh((e$, e0, e8, e2, e3, e1) => {
                               },
                               [hh],
                               8,
-                              ["onClick"]
+                              ["onClick"],
                             ),
                           ]))
                         : Ml("", !0),
-                    ]
+                    ],
                   )
-                )
+                ),
               ),
-              128
+              128,
             )),
             (wl(!0),
             _l(
@@ -13206,7 +13234,7 @@ const xh = nh((e$, e0, e8, e2, e3, e1) => {
                         "span",
                         null,
                         g(e$.$filters.getNameByPhone(e0.phone)),
-                        1
+                        1,
                       ),
                       e2.invited.length < e2.maxMembers
                         ? (wl(),
@@ -13219,15 +13247,15 @@ const xh = nh((e$, e0, e8, e2, e3, e1) => {
                               },
                               [gh],
                               8,
-                              ["onClick"]
+                              ["onClick"],
                             ),
                           ]))
                         : Ml("", !0),
-                    ]
+                    ],
                   )
-                )
+                ),
               ),
-              128
+              128,
             )),
           ]),
           e2.invited.length > 1
@@ -13241,17 +13269,17 @@ const xh = nh((e$, e0, e8, e2, e3, e1) => {
                       (e0[4] = (...e$) => e2.submit && e2.submit(...e$)),
                     class: "bg-blue-500 px-6 p-3 rounded-xl text-white",
                   },
-                  "Criar"
+                  "Criar",
                 ),
               ]))
             : Ml("", !0),
         ]),
       ],
-      2
+      2,
     )
   );
 });
-(th.render = xh), (th.__scopeId = "data-v-f8c9758a");
+((th.render = xh), (th.__scopeId = "data-v-f8c9758a"));
 const yh = da(() => {
     var e$;
     return null != (e$ = So.settings.whatsappMaxMembers) ? e$ : 100;
@@ -13291,10 +13319,10 @@ const yh = da(() => {
       }
       return (
         So.backend.wpp_getGroup(e6).then((e$) => {
-          (e$.isOwner = e$.owner === So.identity.phone),
+          ((e$.isOwner = e$.owner === So.identity.phone),
             Object.assign(e1, e$),
             (null == e$ ? void 0 : e$.id) ||
-              (e2.back(), e0("Grupo inv\xe1lido (Sem ID)"));
+              (e2.back(), e0("Grupo inv\xe1lido (Sem ID)")));
         }),
         (e7.empty = () => {}),
         {
@@ -13312,14 +13340,14 @@ const yh = da(() => {
                 : e2 &&
                   e7("wpp_updateGroupAvatar", [e1.id, e2]).then(
                     () => (e1.avatarURL = e2),
-                    e7.empty
+                    e7.empty,
                   );
             } catch (e3) {}
           },
           updateName: async function (e$) {
             e7("wpp_updateGroupName", [e1.id, e$]).then(
               () => (e1.name = e$),
-              e7.empty
+              e7.empty,
             );
           },
           removeMember: function (e$) {
@@ -13328,7 +13356,7 @@ const yh = da(() => {
                 e0 &&
                 e7("wpp_removeFromGroup", [e1.id, e$]).then(() => {
                   e1.members = e1.members.filter((e0) => e0 != e$);
-                }, e7.empty)
+                }, e7.empty),
             );
           },
           leaveGroup: async function () {
@@ -13340,21 +13368,21 @@ const yh = da(() => {
           promoteMember: async function (e$) {
             if (
               !(await e8(
-                "Deseja transferir a posse do grupo para " + Bs(e$) + "?"
+                "Deseja transferir a posse do grupo para " + Bs(e$) + "?",
               ))
             )
               return;
             let e2 = await e7("wpp_promote", [e1.id, e$]);
             if (null == e2 ? void 0 : e2.error) return e0(e2.error);
             let e3 = e1.members.indexOf(e$);
-            e1.members.splice(e3, 1, So.identity.phone),
+            (e1.members.splice(e3, 1, So.identity.phone),
               (e1.owner = e$),
-              (e1.isOwner = !1);
+              (e1.isOwner = !1));
           },
           inviteMember: function (e$) {
             e7("wpp_inviteToGroup", [e1.id, e$]).then(
               () => e1.members.push(e$),
-              e7.empty
+              e7.empty,
             );
           },
         }
@@ -13375,7 +13403,7 @@ const Ch = {
       class: "far fa-arrow-left",
     },
     null,
-    -1
+    -1,
   ),
   Sh = {
     class: "absolute left-16 font-bold",
@@ -13390,7 +13418,7 @@ const Ch = {
       class: "text-5xl font-bold",
     },
     "Editar Grupo",
-    -1
+    -1,
   ),
   Rh = {
     class: "flex-1 p-5",
@@ -13405,7 +13433,7 @@ const Ch = {
       class: "fas fa-link text-white text-xl",
     },
     null,
-    -1
+    -1,
   ),
   Ih = {
     class: "mt-4",
@@ -13416,7 +13444,7 @@ const Ch = {
       for: "block m-2",
     },
     "Nome do Grupo",
-    -1
+    -1,
   ),
   Mh = {
     key: 1,
@@ -13438,7 +13466,7 @@ const Ch = {
       class: "far fa-chevron-up text-green-500",
     },
     null,
-    -1
+    -1,
   ),
   Uh = Pl(
     "i",
@@ -13446,7 +13474,7 @@ const Ch = {
       class: "far fa-times text-red-500",
     },
     null,
-    -1
+    -1,
   ),
   $h = Pl(
     "i",
@@ -13454,7 +13482,7 @@ const Ch = {
       class: "far fa-user-plus text-blue-500",
     },
     null,
-    -1
+    -1,
   ),
   jh = {
     key: 2,
@@ -13492,21 +13520,21 @@ const zh = wh((e$, e0, e8, e2, e3, e1) => {
                             e$.$router.back && e$.$router.back(...e0)),
                         class: "absolute left-0 px-4",
                       },
-                      [Ah]
+                      [Ah],
                     ),
                     Pl(
                       "h1",
                       Sh,
                       g(
-                        null == (e8 = e2.group.name) ? void 0 : e8.slice(0, 20)
+                        null == (e8 = e2.group.name) ? void 0 : e8.slice(0, 20),
                       ),
-                      1
+                      1,
                     ),
                   ]),
                 ];
               }),
               _: 1,
-            }
+            },
           ))
         : (wl(), _l("div", Th, [Eh])),
       Pl("div", Rh, [
@@ -13521,7 +13549,7 @@ const zh = wh((e$, e0, e8, e2, e3, e1) => {
                 },
                 null,
                 8,
-                ["src"]
+                ["src"],
               ),
               e2.group.isOwner
                 ? (wl(),
@@ -13536,7 +13564,7 @@ const zh = wh((e$, e0, e8, e2, e3, e1) => {
                       ],
                     },
                     [Lh],
-                    2
+                    2,
                   ))
                 : Ml("", !0),
             ]))
@@ -13554,7 +13582,7 @@ const zh = wh((e$, e0, e8, e2, e3, e1) => {
             },
             null,
             8,
-            ["value"]
+            ["value"],
           ),
         ]),
         e2.group.members
@@ -13568,7 +13596,7 @@ const zh = wh((e$, e0, e8, e2, e3, e1) => {
                   "/" +
                   g(e2.maxMembers) +
                   ")",
-                1
+                1,
               ),
               Pl("ul", Vh, [
                 (wl(!0),
@@ -13591,7 +13619,7 @@ const zh = wh((e$, e0, e8, e2, e3, e1) => {
                             "span",
                             null,
                             g(e$.$filters.getNameByPhone(e0)),
-                            1
+                            1,
                           ),
                           e2.group.isOwner && e0 != e2.group.owner
                             ? (wl(),
@@ -13607,7 +13635,7 @@ const zh = wh((e$, e0, e8, e2, e3, e1) => {
                                       },
                                       [Nh],
                                       8,
-                                      ["onClick"]
+                                      ["onClick"],
                                     ))
                                   : Ml("", !0),
                                 e2.group.members.includes(e0)
@@ -13621,29 +13649,29 @@ const zh = wh((e$, e0, e8, e2, e3, e1) => {
                                       },
                                       [Uh],
                                       8,
-                                      ["onClick"]
+                                      ["onClick"],
                                     ))
                                   : e2.group.members.length < 99
-                                  ? (wl(),
-                                    _l(
-                                      "button",
-                                      {
-                                        key: 2,
-                                        onClick: (e$) => e2.inviteMember(e0),
-                                        class: "pl-3",
-                                      },
-                                      [$h],
-                                      8,
-                                      ["onClick"]
-                                    ))
-                                  : Ml("", !0),
+                                    ? (wl(),
+                                      _l(
+                                        "button",
+                                        {
+                                          key: 2,
+                                          onClick: (e$) => e2.inviteMember(e0),
+                                          class: "pl-3",
+                                        },
+                                        [$h],
+                                        8,
+                                        ["onClick"],
+                                      ))
+                                    : Ml("", !0),
                               ]))
                             : Ml("", !0),
-                        ]
+                        ],
                       )
-                    )
+                    ),
                   ),
-                  128
+                  128,
                 )),
               ]),
             ]))
@@ -13659,7 +13687,7 @@ const zh = wh((e$, e0, e8, e2, e3, e1) => {
                     (e0[4] = (...e$) => e2.leaveGroup && e2.leaveGroup(...e$)),
                   class: "text-red-500",
                 },
-                "Sair do grupo"
+                "Sair do grupo",
               ),
             ]))
           : Ml("", !0),
@@ -13675,7 +13703,7 @@ const zh = wh((e$, e0, e8, e2, e3, e1) => {
                       e2.destroyGroup && e2.destroyGroup(...e$)),
                   class: "text-red-500",
                 },
-                "Excluir o grupo"
+                "Excluir o grupo",
               ),
             ]))
           : Ml("", !0),
@@ -13683,7 +13711,7 @@ const zh = wh((e$, e0, e8, e2, e3, e1) => {
     ])
   );
 });
-(kh.render = zh), (kh.__scopeId = "data-v-491341e1");
+((kh.render = zh), (kh.__scopeId = "data-v-491341e1"));
 const Bh = {
     props: ["footer", "hasBell"],
     setup() {
@@ -13770,7 +13798,7 @@ Bh.render = function (e$, e0, e8, e2, e3, e1) {
             onClick: e0[1] || (e0[1] = (e0) => e$.$router.back()),
             class: "absolute top-16 px-5",
           },
-          [e2.isAndroid ? (wl(), _l("i", Gh)) : (wl(), _l("i", Wh))]
+          [e2.isAndroid ? (wl(), _l("i", Gh)) : (wl(), _l("i", Wh))],
         ),
         Pl("h1", Kh, [
           Zt(e$.$slots, "header"),
@@ -13785,7 +13813,7 @@ Bh.render = function (e$, e0, e8, e2, e3, e1) {
                     (e0[2] = (e$) => (e2.notifications = !e2.notifications)),
                   class: "absolute top-20 right-8 w-6 h-4 flex flex-center",
                 },
-                [e2.notifications ? (wl(), _l("i", Jh)) : (wl(), _l("i", Xh))]
+                [e2.notifications ? (wl(), _l("i", Jh)) : (wl(), _l("i", Xh))],
               ))
             : Ml("", !0),
         ]),
@@ -13822,16 +13850,16 @@ Bh.render = function (e$, e0, e8, e2, e3, e1) {
                           class: e0.icon,
                         },
                         null,
-                        2
+                        2,
                       ),
                       Pl("h1", Qh, g(e0.name), 1),
                     ],
                     10,
-                    ["onClick"]
+                    ["onClick"],
                   )
-                )
+                ),
               ),
-              128
+              128,
             )),
           ]))
         : Ml("", !0),
@@ -13870,17 +13898,17 @@ for (let kM of ["direct", "groups", "listening"]) {
     },
     {
       deep: !0,
-    }
+    },
   );
 }
-An(() => So.backend.tor_subscribe(eb.groups)),
+(An(() => So.backend.tor_subscribe(eb.groups)),
   So.pusher.on("TOR_MESSAGE", (e$) => {
     let e0 = String(e$.sender);
     e0 != eb.id &&
       e$.channel.startsWith("dm:") &&
       !eb.direct.includes(e0) &&
       eb.direct.unshift(e0);
-  });
+  }));
 const tb = {
     components: {
       Page: Bh,
@@ -13906,10 +13934,10 @@ const tb = {
                   ? -1
                   : 1
                 : e$.message == e0.message
-                ? 0
-                : e$.message
-                ? -1
-                : 1
+                  ? 0
+                  : e$.message
+                    ? -1
+                    : 1,
             );
         }),
         So.onceRoute("TOR_MESSAGE", (e$) => {
@@ -13970,7 +13998,7 @@ const tb = {
       class: "fa fa-pen",
     },
     null,
-    -1
+    -1,
   );
 tb.render = function (e$, e0, e8, e2, e3, e1) {
   let e6 = dl("Page");
@@ -14010,7 +14038,7 @@ tb.render = function (e$, e0, e8, e2, e3, e1) {
                         },
                         null,
                         8,
-                        ["src"]
+                        ["src"],
                       ),
                       Pl("div", lb, [
                         Pl("div", ab, [
@@ -14022,10 +14050,10 @@ tb.render = function (e$, e0, e8, e2, e3, e1) {
                                 ob,
                                 g(
                                   e$.$filters.unixToRelative(
-                                    e0.message.created_at
-                                  )
+                                    e0.message.created_at,
+                                  ),
                                 ),
-                                1
+                                1,
                               ))
                             : Ml("", !0),
                         ]),
@@ -14037,22 +14065,22 @@ tb.render = function (e$, e0, e8, e2, e3, e1) {
                                   _l(
                                     "span",
                                     ib,
-                                    "\uD83C\uDF0E Localiza\xe7\xe3o"
+                                    "\uD83C\uDF0E Localiza\xe7\xe3o",
                                   ))
                                 : e0.message.image
-                                ? (wl(), _l("span", cb, "📷 Foto"))
-                                : (wl(),
-                                  _l("span", ub, g(e0.message.content), 1)),
+                                  ? (wl(), _l("span", cb, "📷 Foto"))
+                                  : (wl(),
+                                    _l("span", ub, g(e0.message.content), 1)),
                             ]))
                           : (wl(), _l("p", db, "Nenhuma mensagem...")),
                       ]),
                     ],
                     8,
-                    ["onClick"]
+                    ["onClick"],
                   )
-                )
+                ),
               ),
-              128
+              128,
             )),
           ]),
           Pl(
@@ -14063,11 +14091,11 @@ tb.render = function (e$, e0, e8, e2, e3, e1) {
               class:
                 "absolute bottom-40 right-8 w-24 h-24 bg-tor text-white rounded-full",
             },
-            [pb]
+            [pb],
           ),
         ]),
         _: 1,
-      }
+      },
     )
   );
 };
@@ -14091,10 +14119,10 @@ const fb = {
                   ? -1
                   : 1
                 : e$.message == e0.message
-                ? 0
-                : e$.message
-                ? -1
-                : 1
+                  ? 0
+                  : e$.message
+                    ? -1
+                    : 1,
             );
         }),
         So.onceRoute("TOR_MESSAGE", (e$) => {
@@ -14129,7 +14157,7 @@ const fb = {
         class: "fas fa-users text-4xl text-gray-500",
       }),
     ],
-    -1
+    -1,
   ),
   bb = {
     class: "text-2xl flex-1",
@@ -14167,7 +14195,7 @@ const fb = {
       class: "fa fa-search",
     },
     null,
-    -1
+    -1,
   );
 fb.render = function (e$, e0, e8, e2, e3, e1) {
   let e6 = dl("Page");
@@ -14210,10 +14238,10 @@ fb.render = function (e$, e0, e8, e2, e3, e1) {
                                 xb,
                                 g(
                                   e$.$filters.unixToRelative(
-                                    e0.message.created_at
-                                  )
+                                    e0.message.created_at,
+                                  ),
                                 ),
-                                1
+                                1,
                               ))
                             : Ml("", !0),
                         ]),
@@ -14225,22 +14253,22 @@ fb.render = function (e$, e0, e8, e2, e3, e1) {
                                   _l(
                                     "span",
                                     kb,
-                                    "\uD83C\uDF0E Localiza\xe7\xe3o"
+                                    "\uD83C\uDF0E Localiza\xe7\xe3o",
                                   ))
                                 : e0.message.image
-                                ? (wl(), _l("span", wb, "📷 Foto"))
-                                : (wl(),
-                                  _l("span", Cb, g(e0.message.content), 1)),
+                                  ? (wl(), _l("span", wb, "📷 Foto"))
+                                  : (wl(),
+                                    _l("span", Cb, g(e0.message.content), 1)),
                             ]))
                           : (wl(), _l("p", _b, "Nenhuma mensagem...")),
                       ]),
                     ],
                     8,
-                    ["onClick"]
+                    ["onClick"],
                   )
-                )
+                ),
               ),
-              128
+              128,
             )),
           ]),
           Pl(
@@ -14251,11 +14279,11 @@ fb.render = function (e$, e0, e8, e2, e3, e1) {
               class:
                 "absolute bottom-40 right-8 w-24 h-24 bg-tor text-white rounded-full",
             },
-            [Ab]
+            [Ab],
           ),
         ]),
         _: 1,
-      }
+      },
     )
   );
 };
@@ -14269,7 +14297,7 @@ const Sb = {
         e8 = !e0.value.match(/^\d+$/),
         e2 = rt(e8 ? "#" + e0.value : eb.getNickname(e0.value)),
         e3 = da(() =>
-          e8 ? eb.groups.includes(e0.value) : eb.direct.includes(e0.value)
+          e8 ? eb.groups.includes(e0.value) : eb.direct.includes(e0.value),
         ),
         e1 = e$.params.id,
         e6 = rt(""),
@@ -14307,7 +14335,7 @@ const Sb = {
                 let e8 = JSON.parse(e0.content);
                 3 === e8.length && ((e0.location = e8), (e0.content = ""));
               } catch (e2) {}
-            (e4.value = e$), Lt(() => e5(!0));
+            ((e4.value = e$), Lt(() => e5(!0)));
           })
           .catch((e$) => console.error(e$)),
         So.onceRoute("TOR_MESSAGE", (e$) => {
@@ -14324,8 +14352,8 @@ const Sb = {
           blocks: e7,
           addAttachment: async function () {
             let e$ = ["camera", "gallery", "location"];
-            So.settings.allowUnsafeURL && e$.splice(2, 0, "image"),
-              e8 || So.isDisabled("tor-payments") || e$.push("payment");
+            (So.settings.allowUnsafeURL && e$.splice(2, 0, "image"),
+              e8 || So.isDisabled("tor-payments") || e$.push("payment"));
             let e2 = await go().request(
               [
                 ["C\xe2mera", "text-blue-500 text-center"],
@@ -14337,7 +14365,7 @@ const Sb = {
                   "text-blue-500 text-center",
                 ],
               ],
-              7 * e$.length
+              7 * e$.length,
             );
             try {
               switch (e$[e2]) {
@@ -14356,7 +14384,7 @@ const Sb = {
                     So.lockAndProceed(() =>
                       So.backend.tor_pay(parseInt(e0.value), e1).then((e$) => {
                         So.alert(null == e$ ? void 0 : e$.error);
-                      })
+                      }),
                     );
               }
             } catch (e6) {}
@@ -14402,7 +14430,7 @@ const Eb = {
       class: "fas fa-users text-2xl text-gray-500",
     },
     null,
-    -1
+    -1,
   ),
   Lb = {
     class: "ml-auto",
@@ -14413,7 +14441,7 @@ const Eb = {
       class: "fas fa-user-tag",
     },
     null,
-    -1
+    -1,
   ),
   Ob = {
     key: 0,
@@ -14445,7 +14473,7 @@ const Eb = {
       class: "far fa-paper-plane",
     },
     null,
-    -1
+    -1,
   ),
   Fb = Pl(
     "i",
@@ -14453,7 +14481,7 @@ const Eb = {
       class: "far fa-paperclip transform rotate-180",
     },
     null,
-    -1
+    -1,
   );
 an();
 const zb = Tb((e$, e0, e8, e2, e3, e1) => {
@@ -14480,7 +14508,7 @@ const zb = Tb((e$, e0, e8, e2, e3, e1) => {
                   },
                   null,
                   8,
-                  ["src"]
+                  ["src"],
                 )),
             Pl("h1", null, g(e2.nickname), 1),
             Pl("div", Lb, [
@@ -14497,7 +14525,7 @@ const zb = Tb((e$, e0, e8, e2, e3, e1) => {
                         (e0[1] = (...e$) =>
                           e2.changeNickname && e2.changeNickname(...e$)),
                     },
-                    [Ib]
+                    [Ib],
                   )),
               Pl(
                 "button",
@@ -14508,7 +14536,7 @@ const zb = Tb((e$, e0, e8, e2, e3, e1) => {
                     (e0[2] = (...e$) =>
                       e2.togglePinned && e2.togglePinned(...e$)),
                 },
-                [e2.isPinned ? (wl(), _l("i", Ob)) : (wl(), _l("i", Mb))]
+                [e2.isPinned ? (wl(), _l("i", Ob)) : (wl(), _l("i", Mb))],
               ),
             ]),
           ]),
@@ -14528,7 +14556,7 @@ const zb = Tb((e$, e0, e8, e2, e3, e1) => {
                   placeholder: "Mensagem",
                 },
                 null,
-                544
+                544,
               ),
               [
                 [
@@ -14539,7 +14567,7 @@ const zb = Tb((e$, e0, e8, e2, e3, e1) => {
                     trim: !0,
                   },
                 ],
-              ]
+              ],
             ),
             e2.input
               ? (wl(),
@@ -14550,7 +14578,7 @@ const zb = Tb((e$, e0, e8, e2, e3, e1) => {
                     onClick: e0[7] || (e0[7] = (e$) => e2.addMessage()),
                     class: "p-4 text-gray-500",
                   },
-                  [jb]
+                  [jb],
                 ))
               : (wl(),
                 _l(
@@ -14563,7 +14591,7 @@ const zb = Tb((e$, e0, e8, e2, e3, e1) => {
                         e2.addAttachment && e2.addAttachment(...e$)),
                     class: "p-4 text-gray-500",
                   },
-                  [Fb]
+                  [Fb],
                 )),
           ]),
         ]),
@@ -14606,7 +14634,7 @@ const zb = Tb((e$, e0, e8, e2, e3, e1) => {
                               },
                               null,
                               8,
-                              ["src"]
+                              ["src"],
                             )),
                         Pl(
                           "ul",
@@ -14628,7 +14656,7 @@ const zb = Tb((e$, e0, e8, e2, e3, e1) => {
                                     },
                                     "Usu\xe1rio " + g(e8[0].sender),
                                     9,
-                                    ["onClick"]
+                                    ["onClick"],
                                   ),
                                 ]))
                               : Ml("", !0),
@@ -14670,29 +14698,29 @@ const zb = Tb((e$, e0, e8, e2, e3, e1) => {
                                             },
                                             null,
                                             40,
-                                            ["src"]
+                                            ["src"],
                                           ))
                                         : e8.location
-                                        ? (wl(),
-                                          _l(
-                                            "img",
-                                            {
-                                              key: 1,
-                                              onClick: (e$) =>
-                                                e2.setLocation(e8.location),
-                                              class: "w-full rounded",
-                                              onLoad:
-                                                e0[4] ||
-                                                (e0[4] = (...e$) =>
-                                                  e2.ajustSize &&
-                                                  e2.ajustSize(...e$)),
-                                              src: "/stock/maps.jpg",
-                                            },
-                                            null,
-                                            40,
-                                            ["onClick"]
-                                          ))
-                                        : Ml("", !0),
+                                          ? (wl(),
+                                            _l(
+                                              "img",
+                                              {
+                                                key: 1,
+                                                onClick: (e$) =>
+                                                  e2.setLocation(e8.location),
+                                                class: "w-full rounded",
+                                                onLoad:
+                                                  e0[4] ||
+                                                  (e0[4] = (...e$) =>
+                                                    e2.ajustSize &&
+                                                    e2.ajustSize(...e$)),
+                                                src: "/stock/maps.jpg",
+                                              },
+                                              null,
+                                              40,
+                                              ["onClick"],
+                                            ))
+                                          : Ml("", !0),
                                       Pl("p", Db, [
                                         Pl("span", Nb, g(e8.content), 1),
                                         Pl(
@@ -14702,38 +14730,38 @@ const zb = Tb((e$, e0, e8, e2, e3, e1) => {
                                             e$.$filters.unixToHHMM(
                                               null != (e3 = e8.created_at)
                                                 ? e3
-                                                : Date.now()
-                                            )
+                                                : Date.now(),
+                                            ),
                                           ),
-                                          1
+                                          1,
                                         ),
                                       ]),
                                     ],
-                                    2
+                                    2,
                                   )
                                 );
                               }),
-                              128
+                              128,
                             )),
                           ],
-                          2
+                          2,
                         ),
                       ],
-                      2
+                      2,
                     ),
-                  ]
+                  ],
                 )
-              )
+              ),
             ),
-            128
+            128,
           )),
         ]),
         _: 1,
-      }
+      },
     )
   );
 });
-(Sb.render = zb), (Sb.__scopeId = "data-v-1fdef7f8");
+((Sb.render = zb), (Sb.__scopeId = "data-v-1fdef7f8"));
 const Bb = {
     components: {
       Page: Bh,
@@ -14781,7 +14809,7 @@ const Bb = {
       class: "fal fa-times text-red-500",
     },
     null,
-    -1
+    -1,
   ),
   Xb = {
     class: "text-xl mb-4",
@@ -14795,7 +14823,7 @@ const Bb = {
       class: "fas fa-reply",
     },
     null,
-    -1
+    -1,
   ),
   Qb = Il(" Conversar"),
   eg = Pl(
@@ -14804,7 +14832,7 @@ const Bb = {
       class: "far fa-plus",
     },
     null,
-    -1
+    -1,
   );
 Bb.render = function (e$, e0, e8, e2, e3, e1) {
   let e6 = dl("Page");
@@ -14838,7 +14866,7 @@ Bb.render = function (e$, e0, e8, e2, e3, e1) {
                       },
                       null,
                       8,
-                      ["src"]
+                      ["src"],
                     ),
                     Pl("div", Gb, [
                       Pl("div", Wb, [
@@ -14853,7 +14881,7 @@ Bb.render = function (e$, e0, e8, e2, e3, e1) {
                               },
                               [Jb],
                               8,
-                              ["onClick"]
+                              ["onClick"],
                             ))
                           : Ml("", !0),
                       ]),
@@ -14870,7 +14898,7 @@ Bb.render = function (e$, e0, e8, e2, e3, e1) {
                             },
                             null,
                             8,
-                            ["onClick", "src"]
+                            ["onClick", "src"],
                           ))
                         : Ml("", !0),
                       Pl("p", Yb, "Autor: " + g(e0.anom_id), 1),
@@ -14883,14 +14911,14 @@ Bb.render = function (e$, e0, e8, e2, e3, e1) {
                         },
                         [Zb, Qb],
                         8,
-                        ["onClick"]
+                        ["onClick"],
                       ),
                     ]),
-                  ]
+                  ],
                 )
-              )
+              ),
             ),
-            128
+            128,
           )),
         ]),
         Pl(
@@ -14901,7 +14929,7 @@ Bb.render = function (e$, e0, e8, e2, e3, e1) {
             class:
               "absolute bottom-40 right-8 w-24 h-24 bg-tor text-white rounded-full",
           },
-          [eg]
+          [eg],
         ),
       ]),
       _: 1,
@@ -14926,7 +14954,7 @@ const tg = Ze({}),
                 ["Galeria", "text-center"],
               ],
               20,
-              !0
+              !0,
             );
             tg.image = e$ ? await fo() : await co(!1, "/tor");
           } catch (e0) {}
@@ -14980,7 +15008,7 @@ const ug = lg((e$, e0, e8, e2, e3, e1) => {
                   tabindex: "1",
                 },
                 null,
-                512
+                512,
               ),
               [
                 [
@@ -14991,7 +15019,7 @@ const ug = lg((e$, e0, e8, e2, e3, e1) => {
                     trim: !0,
                   },
                 ],
-              ]
+              ],
             ),
             rg,
             Zn(
@@ -15003,7 +15031,7 @@ const ug = lg((e$, e0, e8, e2, e3, e1) => {
                   tabindex: "1",
                 },
                 null,
-                512
+                512,
               ),
               [
                 [
@@ -15014,7 +15042,7 @@ const ug = lg((e$, e0, e8, e2, e3, e1) => {
                     trim: !0,
                   },
                 ],
-              ]
+              ],
             ),
             ig,
             e2.form.image
@@ -15028,7 +15056,7 @@ const ug = lg((e$, e0, e8, e2, e3, e1) => {
                   },
                   null,
                   8,
-                  ["src"]
+                  ["src"],
                 ))
               : (wl(),
                 _l(
@@ -15038,7 +15066,7 @@ const ug = lg((e$, e0, e8, e2, e3, e1) => {
                     onClick: e0[3] || (e0[3] = (e$) => e2.addImage()),
                     class: "bg-tor p-2",
                   },
-                  "Clique para adicionar"
+                  "Clique para adicionar",
                 )),
             Pl("div", cg, [
               Pl(
@@ -15047,17 +15075,17 @@ const ug = lg((e$, e0, e8, e2, e3, e1) => {
                   onClick: e0[4] || (e0[4] = (e$) => e2.publish()),
                   class: "bg-tor p-2",
                 },
-                "Publicar"
+                "Publicar",
               ),
             ]),
           ]),
         ]),
         _: 1,
-      }
+      },
     )
   );
 });
-(ng.render = ug), (ng.__scopeId = "data-v-a969c978");
+((ng.render = ug), (ng.__scopeId = "data-v-a969c978"));
 const dg = {
     components: {
       Page: Bh,
@@ -15066,10 +15094,10 @@ const dg = {
       let e$ = rt([]);
       return (
         So.backend.tor_payments().then((e0) => {
-          e0.forEach((e$) => {
+          (e0.forEach((e$) => {
             e$.sending = e$.sender == eb.id;
           }),
-            (e$.value = e0);
+            (e$.value = e0));
         }),
         {
           state: eb,
@@ -15128,7 +15156,7 @@ dg.render = function (e$, e0, e8, e2, e3, e1) {
                       },
                       null,
                       8,
-                      ["src"]
+                      ["src"],
                     ),
                     Pl(
                       "div",
@@ -15149,7 +15177,7 @@ dg.render = function (e$, e0, e8, e2, e3, e1) {
                                   g(e$.$filters.intToMoney(e0.amount)) +
                                   " para @" +
                                   g(e0.target),
-                                1
+                                1,
                               ))
                             : (wl(),
                               _l(
@@ -15159,18 +15187,18 @@ dg.render = function (e$, e0, e8, e2, e3, e1) {
                                   g(e$.$filters.intToMoney(e0.amount)) +
                                   " de @" +
                                   g(e0.sender),
-                                1
+                                1,
                               )),
                         ]),
                       ],
-                      2
+                      2,
                     ),
                   ],
-                  2
+                  2,
                 )
-              )
+              ),
             ),
-            128
+            128,
           )),
         ]),
       ]),
@@ -15188,14 +15216,14 @@ const gg = {
           verified: 1,
           avatarURL: "/stock/user.jpg",
         }
-      : {}
+      : {},
   ),
   stories: rt([]),
   storiesSeen: {},
   addStory(e$) {
-    this.stories.value.push(e$),
+    (this.stories.value.push(e$),
       delete this.storiesSeen[e$.author.username],
-      this.sortStory();
+      this.sortStory());
   },
   remStory(e$) {
     let e0 = this.stories.value,
@@ -15218,7 +15246,7 @@ const gg = {
         <span class="ml-5">${zs(e$)}</span>
       </div>`,
         })),
-        50
+        50,
       )
       .then((e$) => e$ && VO.push("/instagram/profiles/" + e$));
   },
@@ -15232,7 +15260,7 @@ const gg = {
     return e$;
   },
   markAsSeen(e$) {
-    (this.storiesSeen[e$] = !0), this.sortStory();
+    ((this.storiesSeen[e$] = !0), this.sortStory());
   },
   sortStory() {
     this.stories.value.sort((e$, e0) => {
@@ -15241,21 +15269,21 @@ const gg = {
       return e$.author.username == e0.author.username
         ? 0
         : e$.author.username == this.profile.username
-        ? -1
-        : e0.author.username == this.profile.username
-        ? 1
-        : e8 != e2
-        ? e8
-          ? 1
-          : -1
-        : e$.author.username.localeCompare(e0.author.username);
+          ? -1
+          : e0.author.username == this.profile.username
+            ? 1
+            : e8 != e2
+              ? e8
+                ? 1
+                : -1
+              : e$.author.username.localeCompare(e0.author.username);
     });
   },
   async loadStories() {
-    (this.stories.value = await So.backend.ig_getStories()), this.sortStory();
+    ((this.stories.value = await So.backend.ig_getStories()), this.sortStory());
   },
 };
-So.pusher.on("REFRESH", () => {
+(So.pusher.on("REFRESH", () => {
   gg.profile = {};
 }),
   So.pusher.on("INSTAGRAM_STORY", (e$) => {
@@ -15263,7 +15291,7 @@ So.pusher.on("REFRESH", () => {
   }),
   So.pusher.on("INSTAGRAM_DELETE_STORY", (e$) => {
     gg.remStory(e$);
-  });
+  }));
 const vg = {
     props: ["back"],
     setup() {
@@ -15277,7 +15305,7 @@ const vg = {
         logo: e8,
         logout: function () {
           for (let e0 in gg.profile) delete gg.profile[e0];
-          So.backend.ig_logout(), e$.replace("/instagram/login");
+          (So.backend.ig_logout(), e$.replace("/instagram/login"));
         },
       };
     },
@@ -15292,7 +15320,7 @@ const vg = {
       class: "far fa-sign-out",
     },
     null,
-    -1
+    -1,
   );
 vg.render = function (e$, e0, e8, e2, e3, e1) {
   return (
@@ -15309,7 +15337,7 @@ vg.render = function (e$, e0, e8, e2, e3, e1) {
         },
         null,
         12,
-        ["src"]
+        ["src"],
       ),
       Pl(
         "button",
@@ -15317,7 +15345,7 @@ vg.render = function (e$, e0, e8, e2, e3, e1) {
           class: "absolute top-16 right-20",
           onClick: e0[1] || (e0[1] = (e$) => e2.logout()),
         },
-        [yg]
+        [yg],
       ),
       Pl(
         "button",
@@ -15337,9 +15365,9 @@ vg.render = function (e$, e0, e8, e2, e3, e1) {
               ],
             },
             null,
-            2
+            2,
           ),
-        ]
+        ],
       ),
     ])
   );
@@ -15361,7 +15389,7 @@ const kg = {
                     url: e0,
                   },
                 }),
-              200
+              200,
             );
           } catch (e8) {}
         },
@@ -15374,7 +15402,7 @@ const kg = {
       class: "w-full h-28",
     },
     null,
-    -1
+    -1,
   ),
   Cg = {
     class:
@@ -15386,7 +15414,7 @@ const kg = {
       class: "fal fa-home-alt text-3xl",
     },
     null,
-    -1
+    -1,
   ),
   Ag = {
     key: 0,
@@ -15398,7 +15426,7 @@ const kg = {
       class: "fal fa-search text-3xl",
     },
     null,
-    -1
+    -1,
   ),
   Tg = {
     key: 0,
@@ -15410,7 +15438,7 @@ const kg = {
       class: "fal fa-plus-square text-3xl",
     },
     null,
-    -1
+    -1,
   ),
   Rg = {
     key: 0,
@@ -15422,7 +15450,7 @@ const kg = {
       class: "fal fa-heart text-3xl",
     },
     null,
-    -1
+    -1,
   ),
   Lg = {
     key: 0,
@@ -15449,7 +15477,7 @@ kg.render = function (e$, e0, e8, e2, e3, e1) {
               "/instagram" === e$.$route.path
                 ? (wl(), _l("div", Ag))
                 : Ml("", !0),
-            ]
+            ],
           ),
           Pl(
             "button",
@@ -15463,7 +15491,7 @@ kg.render = function (e$, e0, e8, e2, e3, e1) {
               "/instagram/search" === e$.$route.path
                 ? (wl(), _l("div", Tg))
                 : Ml("", !0),
-            ]
+            ],
           ),
           Pl(
             "button",
@@ -15477,7 +15505,7 @@ kg.render = function (e$, e0, e8, e2, e3, e1) {
               "/instagram/create" === e$.$route.path
                 ? (wl(), _l("div", Rg))
                 : Ml("", !0),
-            ]
+            ],
           ),
           Pl(
             "button",
@@ -15492,7 +15520,7 @@ kg.render = function (e$, e0, e8, e2, e3, e1) {
               "/instagram/notifications" === e$.$route.path
                 ? (wl(), _l("div", Lg))
                 : Ml("", !0),
-            ]
+            ],
           ),
           Pl(
             "button",
@@ -15501,7 +15529,7 @@ kg.render = function (e$, e0, e8, e2, e3, e1) {
                 e0[5] ||
                 (e0[5] = (e0) =>
                   e$.$router.replace(
-                    "/instagram/profiles/" + e2.profile.username
+                    "/instagram/profiles/" + e2.profile.username,
                   )),
               class: "mx-auto",
             },
@@ -15514,13 +15542,13 @@ kg.render = function (e$, e0, e8, e2, e3, e1) {
                 },
                 null,
                 8,
-                ["src"]
+                ["src"],
               ),
-            ]
+            ],
           ),
         ]),
       ],
-      64
+      64,
     )
   );
 };
@@ -15583,7 +15611,7 @@ Ig.render = function (e$, e0, e8, e2, e3, e1) {
                   },
                   null,
                   8,
-                  ["src"]
+                  ["src"],
                 ),
                 Pl("div", Vg, [
                   Dg,
@@ -15599,7 +15627,7 @@ Ig.render = function (e$, e0, e8, e2, e3, e1) {
                     },
                     null,
                     8,
-                    ["modelValue"]
+                    ["modelValue"],
                   ),
                 ]),
                 Pl("div", Ng, [
@@ -15612,7 +15640,7 @@ Ig.render = function (e$, e0, e8, e2, e3, e1) {
                       class:
                         "mt-5 bg-blue-500 p-3 text-white w-full rounded-xl",
                     },
-                    " Publicar "
+                    " Publicar ",
                   ),
                 ]),
               ]))
@@ -15620,7 +15648,7 @@ Ig.render = function (e$, e0, e8, e2, e3, e1) {
         ]),
         Pl(e7),
       ],
-      64
+      64,
     )
   );
 };
@@ -15636,8 +15664,8 @@ const Ug = {
         e4 = e3.path.endsWith("/posts/" + e0.id),
         e7 = da(() =>
           gg.stories.value.some(
-            (e$) => e$.author.username == e0.author.username
-          )
+            (e$) => e$.author.username == e0.author.username,
+          ),
         );
 
       function e5() {
@@ -15652,7 +15680,7 @@ const Ug = {
               Lt(() => {
                 let e$ = document.querySelector("ul[comments]");
                 e8.value || e$.scrollTo(0, 9e6);
-              })
+              }),
             ),
             So.onceRoute(
               "INSTAGRAM_LIKE",
@@ -15661,7 +15689,7 @@ const Ug = {
                   (e2
                     ? e0.likes.push(e8)
                     : (e0.likes = e0.likes.filter((e$) => e$ != e8)));
-              }
+              },
             ),
             So.onceRoute("INSTAGRAM_REPLY", (e$) => {
               e0.id == e$.post_id && e0.comments.push(e$);
@@ -15673,7 +15701,7 @@ const Ug = {
                   (e2
                     ? e0.likes.push(e8)
                     : (e0.likes = e0.likes.filter((e$) => e$ != e8)));
-              }
+              },
             ),
             So.onceRoute("INSTAGRAM_REPLY", ({ post_id: e$ }) => {
               e$ == e0.id && (e0.comments += 1);
@@ -15690,7 +15718,7 @@ const Ug = {
           like: e5,
           showOptions: async function () {
             let e$ = {};
-            (e0.profile_id == e2.id || So.identity.moderator) &&
+            ((e0.profile_id == e2.id || So.identity.moderator) &&
               (e$.delete = "Excluir publica\xe7\xe3o"),
               e0.profile_id != e2.id &&
                 (!So.localhost &&
@@ -15725,7 +15753,7 @@ const Ug = {
                     case "unfollow":
                       So.backend.ig_setFollow(e0.profile_id, !1);
                   }
-                });
+                }));
           },
           handleImageClick: function () {
             e4 ? e6(e0.image) : e1.push("/instagram/posts/" + e0.id);
@@ -15748,7 +15776,7 @@ const jg = {
       class: "far fa-ellipsis-v",
     },
     null,
-    -1
+    -1,
   ),
   Bg = {
     class: "p-3 flex items-center",
@@ -15770,7 +15798,7 @@ const jg = {
       },
     },
     null,
-    -1
+    -1,
   ),
   Wg = {
     key: 0,
@@ -15852,10 +15880,10 @@ const ov = $g((e$, e0, e8, e2, e3, e1) => {
               },
               null,
               8,
-              ["src"]
+              ["src"],
             ),
           ],
-          2
+          2,
         ),
         Pl(
           "h3",
@@ -15865,11 +15893,11 @@ const ov = $g((e$, e0, e8, e2, e3, e1) => {
               e0[1] ||
               (e0[1] = (e0) =>
                 e$.$router.replace(
-                  "/instagram/profiles/" + e8.post.author.username
+                  "/instagram/profiles/" + e8.post.author.username,
                 )),
           },
           g(null != (e6 = e8.post.author.name) ? e6 : e8.post.author.username),
-          1
+          1,
         ),
         (null == (e4 = e8.post.author) ? void 0 : e4.verified)
           ? (wl(),
@@ -15884,7 +15912,7 @@ const ov = $g((e$, e0, e8, e2, e3, e1) => {
             class: "ml-auto text-theme px-6 py-3",
             onClick: e0[2] || (e0[2] = (e$) => e2.showOptions()),
           },
-          [zg]
+          [zg],
         ),
       ]),
       Pl(
@@ -15904,7 +15932,7 @@ const ov = $g((e$, e0, e8, e2, e3, e1) => {
         },
         null,
         8,
-        ["src"]
+        ["src"],
       ),
       Pl("div", Bg, [
         Pl(
@@ -15917,7 +15945,7 @@ const ov = $g((e$, e0, e8, e2, e3, e1) => {
               ? (wl(), _l("i", qg))
               : (wl(), _l("i", Hg)),
             Il(" " + g(e8.post.likes.length.toLocaleString("pt-BR")), 1),
-          ]
+          ],
         ),
         Pl(
           "button",
@@ -15936,11 +15964,11 @@ const ov = $g((e$, e0, e8, e2, e3, e1) => {
                   "span",
                   Wg,
                   g(e8.post.comments.length.toLocaleString("pt-BR")),
-                  1
+                  1,
                 ))
               : (wl(),
                 _l("span", Kg, g(e8.post.comments.toLocaleString("pt-BR")), 1)),
-          ]
+          ],
         ),
         Pl("span", Jg, g(e$.$filters.unixToDayOfMonth(e8.post.created_at)), 1),
       ]),
@@ -15970,20 +15998,20 @@ const ov = $g((e$, e0, e8, e2, e3, e1) => {
                     [
                       Pl("b", ev, g(e$.author.username), 1),
                       Pl("span", tv, g(e$.content), 1),
-                    ]
+                    ],
                   )
-                )
+                ),
               ),
-              128
+              128,
             )),
           ]))
         : e8.post.content
-        ? (wl(),
-          _l("div", nv, [
-            Pl("b", lv, g(e8.post.author.username), 1),
-            Pl("span", av, g(e8.post.content), 1),
-          ]))
-        : Ml("", !0),
+          ? (wl(),
+            _l("div", nv, [
+              Pl("b", lv, g(e8.post.author.username), 1),
+              Pl("span", av, g(e8.post.content), 1),
+            ]))
+          : Ml("", !0),
       Array.isArray(e8.post.comments)
         ? (wl(),
           _l("div", sv, [
@@ -16000,14 +16028,14 @@ const ov = $g((e$, e0, e8, e2, e3, e1) => {
                     e0[7] ||
                     (e0[7] = us(
                       (...e$) => e2.reply && e2.reply(...e$),
-                      ["enter"]
+                      ["enter"],
                     )),
                   placeholder: "Adicione um coment\xe1rio",
                 },
                 null,
-                544
+                544,
               ),
-              [[ns, e2.comment]]
+              [[ns, e2.comment]],
             ),
             Pl(
               "button",
@@ -16017,14 +16045,14 @@ const ov = $g((e$, e0, e8, e2, e3, e1) => {
                   e0[8] || (e0[8] = (...e$) => e2.reply && e2.reply(...e$)),
               },
               "Post",
-              2
+              2,
             ),
           ]))
         : Ml("", !0),
     ])
   );
 });
-(Ug.render = ov), (Ug.__scopeId = "data-v-1e9271c0");
+((Ug.render = ov), (Ug.__scopeId = "data-v-1e9271c0"));
 const rv = {
     setup() {
       let e$ = cc(),
@@ -16032,21 +16060,21 @@ const rv = {
         e8 = rt(0),
         e2 = rt(e0.params.id),
         e3 = da(() =>
-          gg.stories.value.filter((e$) => e$.author.username == e2.value)
+          gg.stories.value.filter((e$) => e$.author.username == e2.value),
         ),
         e1 = da(() => e3.value[e8.value]),
         e6 = gg.stories.value.map((e$) => e$.author.username).filter(qs),
         e4 = da(
-          () => e2.value === gg.profile.username || So.identity.moderator
+          () => e2.value === gg.profile.username || So.identity.moderator,
         );
 
       function e7(e$) {
-        (e8.value = 0), (e2.value = e$), e3.effect();
+        ((e8.value = 0), (e2.value = e$), e3.effect());
       }
 
       function e5() {
         let e0 = e6.indexOf(e2.value) + 1;
-        gg.markAsSeen(e2.value), e0 < e6.length ? e7(e6[e0]) : e$.back();
+        (gg.markAsSeen(e2.value), e0 < e6.length ? e7(e6[e0]) : e$.back());
       }
       return (
         Tn(e2, (e0) => e$.replace("/instagram/stories/" + e0)),
@@ -16090,7 +16118,7 @@ const cv = {
       class: "fas fa-chevron-left text-blue-400",
     },
     null,
-    -1
+    -1,
   ),
   dv = {
     class: "text-theme",
@@ -16101,7 +16129,7 @@ const cv = {
       class: "far fa-trash-alt text-red-500",
     },
     null,
-    -1
+    -1,
   ),
   fv = {
     key: 2,
@@ -16139,7 +16167,7 @@ const gv = iv((e$, e0, e8, e2, e3, e1) => {
               onClick: e0[1] || (e0[1] = (e0) => e$.$router.back()),
               class: "absolute top-16 left-0 px-5",
             },
-            [uv]
+            [uv],
           ),
           Pl("span", dv, [
             Il(g(e$.$route.params.id.substr(0, 16)) + " ", 1),
@@ -16162,7 +16190,7 @@ const gv = iv((e$, e0, e8, e2, e3, e1) => {
                     (e0[2] = (...e$) => e2.destroy && e2.destroy(...e$)),
                   class: "absolute top-16 right-0 px-5",
                 },
-                [pv]
+                [pv],
               ))
             : Ml("", !0),
         ]),
@@ -16178,7 +16206,7 @@ const gv = iv((e$, e0, e8, e2, e3, e1) => {
             },
           },
           null,
-          4
+          4,
         ),
         e2.current.video
           ? (wl(),
@@ -16194,7 +16222,7 @@ const gv = iv((e$, e0, e8, e2, e3, e1) => {
               },
               null,
               40,
-              ["src"]
+              ["src"],
             ))
           : (wl(),
             _l(
@@ -16206,7 +16234,7 @@ const gv = iv((e$, e0, e8, e2, e3, e1) => {
               },
               null,
               8,
-              ["src"]
+              ["src"],
             )),
         Pl("button", {
           class: "absolute left-0 h-1/3 w-5/12",
@@ -16222,7 +16250,7 @@ const gv = iv((e$, e0, e8, e2, e3, e1) => {
               "h1",
               fv,
               g(null == (e7 = e2.stories[e2.index]) ? void 0 : e7.content),
-              1
+              1,
             ))
           : Ml("", !0),
         Pl("div", mv, [
@@ -16244,18 +16272,18 @@ const gv = iv((e$, e0, e8, e2, e3, e1) => {
                     e0 == e2.index
                       ? (wl(), _l("div", hv))
                       : (wl(), _l("div", bv)),
-                  ]
+                  ],
                 )
-              )
+              ),
             ),
-            128
+            128,
           )),
         ]),
-      ]
+      ],
     )
   );
 });
-(rv.render = gv), (rv.__scopeId = "data-v-5e4237d2");
+((rv.render = gv), (rv.__scopeId = "data-v-5e4237d2"));
 const vv = {
     components: {
       Header: vg,
@@ -16276,7 +16304,7 @@ const vv = {
       return (
         Tn(e6, (e$) => So.setNotificationFor("instagram", e$)),
         So.backend.ig_getTimeline().then((e$) => {
-          (e8.length = 0), Object.assign(e8, e$);
+          ((e8.length = 0), Object.assign(e8, e$));
         }),
         So.onceRoute("INSTAGRAM_POST", (e$) => {
           e8.unshift(e$) > 100 && (e8.length = 100);
@@ -16316,7 +16344,7 @@ const vv = {
                     So.settings.allowUnsafeURL && ["Imagem", "self-center"],
                   ],
                   25,
-                  !0
+                  !0,
                 ),
                 e2,
                 e1 = "";
@@ -16327,8 +16355,8 @@ const vv = {
                     1 == e8
                       ? await e3.request(!1, "/instagram")
                       : 2 == e8
-                      ? await fo()
-                      : await So.promptImageURL());
+                        ? await fo()
+                        : await So.promptImageURL());
               let e6 = await e$("Status");
               So.backend.ig_createStory(e1, e6, e2);
             } catch (e4) {}
@@ -16360,7 +16388,7 @@ const vv = {
       class: "fas fa-plus text-base text-white",
     },
     null,
-    -1
+    -1,
   ),
   Av = Pl(
     "h1",
@@ -16368,7 +16396,7 @@ const vv = {
       class: "text-lg text-center",
     },
     "Seu story",
-    -1
+    -1,
   ),
   Sv = Pl(
     "i",
@@ -16376,7 +16404,7 @@ const vv = {
       class: "fas fa-plus text-base text-white",
     },
     null,
-    -1
+    -1,
   ),
   Tv = {
     class: "w-28 overflow-x-hidden text-lg text-center",
@@ -16404,7 +16432,7 @@ vv.render = function (e$, e0, e8, e2, e3, e1) {
                     },
                     null,
                     8,
-                    ["src"]
+                    ["src"],
                   ),
                   Pl(
                     "button",
@@ -16413,7 +16441,7 @@ vv.render = function (e$, e0, e8, e2, e3, e1) {
                         e0[1] ||
                         (e0[1] = is(
                           (...e$) => e2.createStory && e2.createStory(...e$),
-                          ["stop"]
+                          ["stop"],
                         )),
                       class: [
                         e2.dark ? "border-black" : "border-white",
@@ -16421,7 +16449,7 @@ vv.render = function (e$, e0, e8, e2, e3, e1) {
                       ],
                     },
                     [_v],
-                    2
+                    2,
                   ),
                 ]),
                 Av,
@@ -16463,7 +16491,7 @@ vv.render = function (e$, e0, e8, e2, e3, e1) {
                           },
                           null,
                           8,
-                          ["src"]
+                          ["src"],
                         ),
                         e2.profile.username == e3
                           ? (wl(),
@@ -16480,28 +16508,28 @@ vv.render = function (e$, e0, e8, e2, e3, e1) {
                                   (e0[2] = is(
                                     (...e$) =>
                                       e2.createStory && e2.createStory(...e$),
-                                    ["stop"]
+                                    ["stop"],
                                   )),
                               },
                               [Sv],
-                              2
+                              2,
                             ))
                           : Ml("", !0),
                       ],
                       10,
-                      ["onClick"]
+                      ["onClick"],
                     ),
                     Pl(
                       "h1",
                       Tv,
                       g(e2.profile.username == e3 ? "Seu story" : e3),
-                      1
+                      1,
                     ),
-                  ]
+                  ],
                 )
-              )
+              ),
             ),
-            128
+            128,
           )),
         ]),
         Pl("ul", null, [
@@ -16527,15 +16555,15 @@ vv.render = function (e$, e0, e8, e2, e3, e1) {
                       },
                       null,
                       8,
-                      ["post"]
+                      ["post"],
                     ),
                   ],
                   8,
-                  ["postid"]
+                  ["postid"],
                 )
-              )
+              ),
             ),
-            128
+            128,
           )),
         ]),
       ]),
@@ -16552,9 +16580,9 @@ const Ev = {
         e2 = So.settings.instagramLogo;
       return (
         So.backend.ig_accounts().then(async (e2) => {
-          (e8.value = e2),
+          ((e8.value = e2),
             (e0.value = await So.backend.ig_max_accounts()),
-            (e$.value = !1);
+            (e$.value = !1));
         }),
         gg.profile.id && VO.replace("/instagram"),
         {
@@ -16614,7 +16642,7 @@ Ev.render = function (e$, e0, e8, e2, e3, e1) {
             },
             null,
             12,
-            ["src"]
+            ["src"],
           ),
         ]),
         Pl("ul", Iv, [
@@ -16641,14 +16669,14 @@ Ev.render = function (e$, e0, e8, e2, e3, e1) {
                       },
                       null,
                       8,
-                      ["src"]
+                      ["src"],
                     ),
                     Pl("div", Ov, [
                       Pl(
                         "h1",
                         Mv,
                         g(null != (e0 = e$.name) ? e0 : e$.username),
-                        1
+                        1,
                       ),
                       Pl("h3", Vv, "@" + g(e$.username), 1),
                     ]),
@@ -16661,13 +16689,13 @@ Ev.render = function (e$, e0, e8, e2, e3, e1) {
                       },
                       "Login",
                       8,
-                      ["onClick"]
+                      ["onClick"],
                     ),
-                  ]
+                  ],
                 )
               );
             }),
-            128
+            128,
           )),
         ]),
         e2.max > e2.accounts.length
@@ -16694,10 +16722,10 @@ Ev.render = function (e$, e0, e8, e2, e3, e1) {
                     class:
                       "w-2/3 text-center bg-blue-500 rounded-xl text-white text-2xl p-2",
                   },
-                  "Criar uma conta"
+                  "Criar uma conta",
                 ),
               ],
-              2
+              2,
             ))
           : Ml("", !0),
       ]));
@@ -16727,7 +16755,7 @@ const Dv = rt(""),
           var e0;
           if (
             ["register", "search", "create", "liked", "stories"].includes(
-              null == (e0 = Uv.value) ? void 0 : e0.toLowerCase()
+              null == (e0 = Uv.value) ? void 0 : e0.toLowerCase(),
             )
           )
             return e$("Este nome n\xe3o pode ser utilizado");
@@ -16762,7 +16790,7 @@ const Dv = rt(""),
       class: "text-center text-gray-500 text-xl mt-2",
     },
     "Clique na imagem para alterar",
-    -1
+    -1,
   ),
   qv = {
     key: 0,
@@ -16799,7 +16827,7 @@ jv.render = function (e$, e0, e8, e2, e3, e1) {
           },
           null,
           12,
-          ["src"]
+          ["src"],
         ),
       ]),
       Pl("div", Bv, [
@@ -16814,7 +16842,7 @@ jv.render = function (e$, e0, e8, e2, e3, e1) {
           },
           null,
           8,
-          ["src"]
+          ["src"],
         ),
       ]),
       Hv,
@@ -16834,7 +16862,7 @@ jv.render = function (e$, e0, e8, e2, e3, e1) {
                 },
                 null,
                 8,
-                ["modelValue"]
+                ["modelValue"],
               ),
             ]),
             Pl("div", Kv, [
@@ -16850,7 +16878,7 @@ jv.render = function (e$, e0, e8, e2, e3, e1) {
                 },
                 null,
                 8,
-                ["modelValue"]
+                ["modelValue"],
               ),
             ]),
             Pl("div", Xv, [
@@ -16866,7 +16894,7 @@ jv.render = function (e$, e0, e8, e2, e3, e1) {
                 },
                 null,
                 8,
-                ["modelValue"]
+                ["modelValue"],
               ),
             ]),
             Pl("div", Zv, [
@@ -16880,7 +16908,7 @@ jv.render = function (e$, e0, e8, e2, e3, e1) {
                   class:
                     "w-full text-center bg-blue-500 rounded-xl text-white p-3",
                 },
-                "Cadastre-se"
+                "Cadastre-se",
               ),
             ]),
           ]))
@@ -16906,7 +16934,7 @@ const Qv = {
       return (
         Tn(e$, (e$) => {
           if (!e$) return (e0.value = []);
-          clearTimeout(e8), (e8 = setTimeout(e2, 500));
+          (clearTimeout(e8), (e8 = setTimeout(e2, 500)));
         }),
         {
           query: e$,
@@ -16930,7 +16958,7 @@ const Qv = {
       class: "fal fa-search absolute inset-y-5 left-4 text-gray-400 text-lg",
     },
     null,
-    -1
+    -1,
   ),
   ax = {
     key: 0,
@@ -16965,7 +16993,7 @@ Qv.render = function (e$, e0, e8, e2, e3, e1) {
             },
             null,
             8,
-            ["modelValue"]
+            ["modelValue"],
           ),
         ]),
       ]),
@@ -16999,7 +17027,7 @@ Qv.render = function (e$, e0, e8, e2, e3, e1) {
                           },
                           null,
                           8,
-                          ["src"]
+                          ["src"],
                         ),
                       ]),
                       Pl("span", null, g(e0.username), 1),
@@ -17012,11 +17040,11 @@ Qv.render = function (e$, e0, e8, e2, e3, e1) {
                         : Ml("", !0),
                     ],
                     8,
-                    ["onClick"]
+                    ["onClick"],
                   )
-                )
+                ),
               ),
-              128
+              128,
             )),
           ])),
       Pl(e5),
@@ -17036,7 +17064,7 @@ const rx = {
         So.backend
           .ig_notifications()
           .then((e8) => {
-            (e0.value = e8), (e$.value = !1);
+            ((e0.value = e8), (e$.value = !1));
           })
           .then(() => So.backend.ig_saw_notifications()),
         {
@@ -17085,53 +17113,53 @@ rx.render = function (e$, e0, e8, e2, e3, e1) {
             }),
           ]))
         : e2.notifications.length
-        ? (wl(),
-          _l("ul", dx, [
-            (wl(!0),
-            _l(
-              bl,
-              null,
-              fa(e2.notifications, (e0) => {
-                var e8;
-                return (
-                  wl(),
-                  _l(
-                    "li",
-                    {
-                      key: e0.id,
-                      class: "flex items-start mb-5",
-                    },
-                    [
-                      Pl(
-                        "img",
-                        {
-                          class: "w-24 h-24 rounded-full",
-                          src:
-                            null != (e8 = e0.avatarURL)
-                              ? e8
-                              : e$.$asset("/stock/user.svg"),
-                        },
-                        null,
-                        8,
-                        ["src"]
-                      ),
-                      Pl("p", px, [
-                        Il(g(e0.content) + " ", 1),
+          ? (wl(),
+            _l("ul", dx, [
+              (wl(!0),
+              _l(
+                bl,
+                null,
+                fa(e2.notifications, (e0) => {
+                  var e8;
+                  return (
+                    wl(),
+                    _l(
+                      "li",
+                      {
+                        key: e0.id,
+                        class: "flex items-start mb-5",
+                      },
+                      [
                         Pl(
-                          "span",
-                          fx,
-                          g(e$.$filters.unixToRelative(e0.created_at)),
-                          1
+                          "img",
+                          {
+                            class: "w-24 h-24 rounded-full",
+                            src:
+                              null != (e8 = e0.avatarURL)
+                                ? e8
+                                : e$.$asset("/stock/user.svg"),
+                          },
+                          null,
+                          8,
+                          ["src"],
                         ),
-                      ]),
-                    ]
-                  )
-                );
-              }),
-              128
-            )),
-          ]))
-        : (wl(), _l("h1", ux, "Nenhuma notifica\xe7\xe3o")),
+                        Pl("p", px, [
+                          Il(g(e0.content) + " ", 1),
+                          Pl(
+                            "span",
+                            fx,
+                            g(e$.$filters.unixToRelative(e0.created_at)),
+                            1,
+                          ),
+                        ]),
+                      ],
+                    )
+                  );
+                }),
+                128,
+              )),
+            ]))
+          : (wl(), _l("h1", ux, "Nenhuma notifica\xe7\xe3o")),
       Pl(e7),
     ])
   );
@@ -17146,7 +17174,7 @@ const mx = {
       let e$ = jl("alert"),
         e0 = Ze({}),
         e8 = Ze({});
-      Object.assign(e8, gg.profile), Object.assign(e0, gg.profile);
+      (Object.assign(e8, gg.profile), Object.assign(e0, gg.profile));
       let e2 = da(() => {
         for (let e$ of ["name", "username", "bio"])
           if (e0[e$] != e8[e$]) return !0;
@@ -17157,9 +17185,9 @@ const mx = {
         changeAvatar: async function () {
           try {
             let e$ = await So.useAnyImage("/instagram", !0);
-            (e0.avatarURL = e8.avatarURL = e$),
+            ((e0.avatarURL = e8.avatarURL = e$),
               (gg.profile.avatarURL = e$),
-              So.backend.ig_changeAvatar(e$);
+              So.backend.ig_changeAvatar(e$));
           } catch (e2) {}
         },
         hasChanges: e2,
@@ -17176,9 +17204,9 @@ const mx = {
                 for (let e3 of gg.stories.value)
                   e3.author.username == e0.username &&
                     (e3.author.username = e8.username);
-                gg.sortStory(),
+                (gg.sortStory(),
                   Object.assign(e0, e8),
-                  Object.assign(gg.profile, e8);
+                  Object.assign(gg.profile, e8));
               }
             });
         },
@@ -17200,7 +17228,7 @@ const mx = {
       class: "text-gray-400 font-semibold text-2xl",
     },
     "Nome",
-    -1
+    -1,
   ),
   xx = {
     class: "mt-6 mx-4",
@@ -17211,7 +17239,7 @@ const mx = {
       class: "text-gray-400 font-semibold text-2xl",
     },
     "Usu\xe1rio",
-    -1
+    -1,
   ),
   kx = {
     class: "mt-6 mx-4",
@@ -17222,7 +17250,7 @@ const mx = {
       class: "text-gray-400 font-semibold text-2xl",
     },
     "Bio",
-    -1
+    -1,
   ),
   Cx = Pl(
     "i",
@@ -17230,7 +17258,7 @@ const mx = {
       class: "fal fa-check mr-2",
     },
     null,
-    -1
+    -1,
   ),
   _x = Il(" Salvar ");
 mx.render = function (e$, e0, e8, e2, e3, e1) {
@@ -17249,7 +17277,7 @@ mx.render = function (e$, e0, e8, e2, e3, e1) {
           },
           null,
           8,
-          ["src"]
+          ["src"],
         ),
         Pl(
           "button",
@@ -17259,7 +17287,7 @@ mx.render = function (e$, e0, e8, e2, e3, e1) {
               (e0[1] = (...e$) => e2.changeAvatar && e2.changeAvatar(...e$)),
             class: "font-semibold text-blue-500",
           },
-          " Mudar foto de perfil "
+          " Mudar foto de perfil ",
         ),
       ]),
       Pl("div", gx, [
@@ -17274,9 +17302,9 @@ mx.render = function (e$, e0, e8, e2, e3, e1) {
               class: "block w-full bg-transparent p-1 border-b border-theme",
             },
             null,
-            512
+            512,
           ),
-          [[ns, e2.profile.name]]
+          [[ns, e2.profile.name]],
         ),
       ]),
       Pl("div", xx, [
@@ -17291,9 +17319,9 @@ mx.render = function (e$, e0, e8, e2, e3, e1) {
               class: "block w-full bg-transparent p-1 border-b border-theme",
             },
             null,
-            512
+            512,
           ),
-          [[ns, e2.profile.username]]
+          [[ns, e2.profile.username]],
         ),
       ]),
       Pl("div", kx, [
@@ -17308,9 +17336,9 @@ mx.render = function (e$, e0, e8, e2, e3, e1) {
               class: "block w-full bg-transparent p-1 border-b border-theme",
             },
             null,
-            512
+            512,
           ),
-          [[ns, e2.profile.bio]]
+          [[ns, e2.profile.bio]],
         ),
       ]),
       e2.hasChanges
@@ -17323,7 +17351,7 @@ mx.render = function (e$, e0, e8, e2, e3, e1) {
               class:
                 "absolute bottom-32 right-4 bg-blue-500 text-white rounded-xl p-2 px-4",
             },
-            [Cx, _x]
+            [Cx, _x],
           ))
         : Ml("", !0),
       Pl(e4),
@@ -17346,7 +17374,7 @@ const Ax = {
         e2.last > Date.now() ||
           ((e2.last = Date.now() + 1e3),
           So.backend.ig_setFollow(e0.value.id, e$).then(() => {
-            (e0.value.isFollowed = e$), (e0.value.followers += e$ ? 1 : -1);
+            ((e0.value.isFollowed = e$), (e0.value.followers += e$ ? 1 : -1));
           }));
       }
       return (
@@ -17355,7 +17383,7 @@ const Ax = {
             ? ((e$.profile.isYou = e$.profile.id == gg.profile.id),
               (e0.value = e$.profile),
               (e0.value.hasStory = gg.stories.value.some(
-                (e0) => e0.author.username == e$.profile.username
+                (e0) => e0.author.username == e$.profile.username,
               )),
               e8.push(...e$.posts))
             : (e0.value = !1);
@@ -17415,7 +17443,7 @@ const Ax = {
       class: "text-gray-500",
     },
     "Posts",
-    -1
+    -1,
   ),
   Vx = {
     class: "font-bold block",
@@ -17426,7 +17454,7 @@ const Ax = {
       class: "text-gray-500",
     },
     "Seguidores",
-    -1
+    -1,
   ),
   Nx = {
     class: "font-bold block",
@@ -17437,7 +17465,7 @@ const Ax = {
       class: "text-gray-500",
     },
     "Seguindo",
-    -1
+    -1,
   ),
   $x = {
     class: "text-2xl mb-4 mx-4",
@@ -17467,115 +17495,120 @@ Ax.render = function (e$, e0, e8, e2, e3, e1) {
       !1 === e2.profile
         ? (wl(), _l("h1", Tx, "Perfil n\xe3o encontrado"))
         : e2.profile
-        ? (wl(),
-          _l("div", Ex, [
-            Pl("div", Rx, [
-              Pl("div", Px, [
-                Pl(
-                  "div",
-                  {
-                    class: [
-                      "w-28 h-28",
-                      {
-                        "bg-instagram rounded-full": e2.profile.hasStory,
-                      },
+          ? (wl(),
+            _l("div", Ex, [
+              Pl("div", Rx, [
+                Pl("div", Px, [
+                  Pl(
+                    "div",
+                    {
+                      class: [
+                        "w-28 h-28",
+                        {
+                          "bg-instagram rounded-full": e2.profile.hasStory,
+                        },
+                      ],
+                    },
+                    [
+                      Pl(
+                        "img",
+                        {
+                          src: e2.profile.avatarURL,
+                          class: "w-28 h-28 p-0.5 rounded-full",
+                        },
+                        null,
+                        8,
+                        ["src"],
+                      ),
                     ],
-                  },
-                  [
+                    2,
+                  ),
+                  Pl("div", Lx, [
+                    Pl("div", Ix, [
+                      Pl("span", Ox, g(e2.profile.posts || 0), 1),
+                      Mx,
+                    ]),
                     Pl(
-                      "img",
+                      "div",
                       {
-                        src: e2.profile.avatarURL,
-                        class: "w-28 h-28 p-0.5 rounded-full",
+                        class: "text-center text-2xl",
+                        onClick:
+                          e0[1] ||
+                          (e0[1] = (...e$) =>
+                            e2.getFollowers && e2.getFollowers(...e$)),
                       },
-                      null,
-                      8,
-                      ["src"]
+                      [Pl("span", Vx, g(e2.profile.followers || 0), 1), Dx],
                     ),
-                  ],
-                  2
-                ),
-                Pl("div", Lx, [
-                  Pl("div", Ix, [
-                    Pl("span", Ox, g(e2.profile.posts || 0), 1),
-                    Mx,
+                    Pl(
+                      "div",
+                      {
+                        class: "text-center text-2xl",
+                        onClick:
+                          e0[2] ||
+                          (e0[2] = (...e$) =>
+                            e2.getFollowing && e2.getFollowing(...e$)),
+                      },
+                      [Pl("span", Nx, g(e2.profile.following || 0), 1), Ux],
+                    ),
                   ]),
-                  Pl(
-                    "div",
-                    {
-                      class: "text-center text-2xl",
-                      onClick:
-                        e0[1] ||
-                        (e0[1] = (...e$) =>
-                          e2.getFollowers && e2.getFollowers(...e$)),
-                    },
-                    [Pl("span", Vx, g(e2.profile.followers || 0), 1), Dx]
-                  ),
-                  Pl(
-                    "div",
-                    {
-                      class: "text-center text-2xl",
-                      onClick:
-                        e0[2] ||
-                        (e0[2] = (...e$) =>
-                          e2.getFollowing && e2.getFollowing(...e$)),
-                    },
-                    [Pl("span", Nx, g(e2.profile.following || 0), 1), Ux]
-                  ),
                 ]),
-              ]),
-              Pl("div", $x, [
-                Pl("h1", jx, [
-                  Il(
-                    g(
-                      null != (e6 = e2.profile.name) ? e6 : e2.profile.username
-                    ) + " ",
-                    1
-                  ),
-                  e2.profile.verified
+                Pl("div", $x, [
+                  Pl("h1", jx, [
+                    Il(
+                      g(
+                        null != (e6 = e2.profile.name)
+                          ? e6
+                          : e2.profile.username,
+                      ) + " ",
+                      1,
+                    ),
+                    e2.profile.verified
+                      ? (wl(),
+                        _l(e7, {
+                          key: 0,
+                          class: "inline ml-1 mb-0.5 w-6 h-6",
+                        }))
+                      : Ml("", !0),
+                  ]),
+                  Pl("p", null, g(e2.profile.bio), 1),
+                ]),
+                Pl("div", Fx, [
+                  e2.profile.isYou
                     ? (wl(),
-                      _l(e7, {
-                        key: 0,
-                        class: "inline ml-1 mb-0.5 w-6 h-6",
-                      }))
-                    : Ml("", !0),
+                      _l(
+                        "button",
+                        {
+                          key: 0,
+                          onClick:
+                            e0[3] ||
+                            (e0[3] = (e0) =>
+                              e$.$router.push("/instagram/edit")),
+                          class:
+                            "block w-full border border-theme p-1 rounded-xl",
+                        },
+                        " Editar perfil ",
+                      ))
+                    : (wl(),
+                      _l(
+                        "button",
+                        {
+                          key: 1,
+                          onClick:
+                            e0[4] ||
+                            (e0[4] = (e$) =>
+                              e2.setFollow(!e2.profile.isFollowed)),
+                          class:
+                            "block w-full bg-blue-500 p-1 text-white rounded-xl",
+                        },
+                        g(
+                          e2.profile.isFollowed ? "Deixar de seguir" : "Seguir",
+                        ),
+                        1,
+                      )),
                 ]),
-                Pl("p", null, g(e2.profile.bio), 1),
               ]),
-              Pl("div", Fx, [
-                e2.profile.isYou
-                  ? (wl(),
-                    _l(
-                      "button",
-                      {
-                        key: 0,
-                        onClick:
-                          e0[3] ||
-                          (e0[3] = (e0) => e$.$router.push("/instagram/edit")),
-                        class:
-                          "block w-full border border-theme p-1 rounded-xl",
-                      },
-                      " Editar perfil "
-                    ))
-                  : (wl(),
-                    _l(
-                      "button",
-                      {
-                        key: 1,
-                        onClick:
-                          e0[4] ||
-                          (e0[4] = (e$) =>
-                            e2.setFollow(!e2.profile.isFollowed)),
-                        class:
-                          "block w-full bg-blue-500 p-1 text-white rounded-xl",
-                      },
-                      g(e2.profile.isFollowed ? "Deixar de seguir" : "Seguir"),
-                      1
-                    )),
-              ]),
-            ]),
-          ]))
-        : Ml("", !0),
+            ]))
+          : Ml("", !0),
       Pl("ul", zx, [
         (wl(!0),
         _l(
@@ -17601,15 +17634,15 @@ Ax.render = function (e$, e0, e8, e2, e3, e1) {
                       },
                     },
                     null,
-                    4
+                    4,
                   ),
                 ],
                 8,
-                ["onClick"]
+                ["onClick"],
               )
-            )
+            ),
           ),
-          128
+          128,
         )),
       ]),
       e2.profile && !e2.posts.length
@@ -17632,7 +17665,7 @@ const Hx = {
         e2 = uc();
       return (
         So.backend.ig_getPost(e2.params.id).then((e8) => {
-          (e0.value = e8), (e$.value = !1);
+          ((e0.value = e8), (e$.value = !1));
         }),
         So.onceRoute("INSTAGRAM_DESTROY", (e$) => {
           var e2;
@@ -17666,18 +17699,18 @@ Hx.render = function (e$, e0, e8, e2, e3, e1) {
       e2.loading
         ? (wl(), _l("div", Gx))
         : e2.post
-        ? (wl(),
-          _l(
-            e4,
-            {
-              key: 1,
-              post: e2.post,
-            },
-            null,
-            8,
-            ["post"]
-          ))
-        : (wl(), _l("h1", Wx, "Post n\xe3o encontrado")),
+          ? (wl(),
+            _l(
+              e4,
+              {
+                key: 1,
+                post: e2.post,
+              },
+              null,
+              8,
+              ["post"],
+            ))
+          : (wl(), _l("h1", Wx, "Post n\xe3o encontrado")),
     ])
   );
 };
@@ -17713,7 +17746,7 @@ Jx.render = function (e$, e0, e8, e2, e3, e1) {
               var e8;
               return e$.$router.push(
                 "/twitter/profiles/" +
-                  (null == (e8 = e2.profile) ? void 0 : e8.id)
+                  (null == (e8 = e2.profile) ? void 0 : e8.id),
               );
             }),
           class: "absolute left-8 w-12 h-12 rounded-full",
@@ -17721,7 +17754,7 @@ Jx.render = function (e$, e0, e8, e2, e3, e1) {
         },
         null,
         8,
-        ["src"]
+        ["src"],
       ),
       e2.logo
         ? (wl(),
@@ -17734,7 +17767,7 @@ Jx.render = function (e$, e0, e8, e2, e3, e1) {
             },
             null,
             8,
-            ["src"]
+            ["src"],
           ))
         : (wl(),
           _l("i", {
@@ -17771,7 +17804,7 @@ const Yx = {
         },
         retweet() {
           So.backend["twitter_" + (e2.retweeted ? "unretweet" : "retweet")](
-            e3
+            e3,
           ).then((e$) => {
             e0.emit("setRetweet", e3, e$);
           });
@@ -17780,12 +17813,12 @@ const Yx = {
           So.backend["twitter_" + (e2.liked ? "dislike" : "like")](e3).then(
             (e$) => {
               e0.emit("setLike", e3, e$);
-            }
+            },
           );
         },
         showOptions() {
           let e$ = {};
-          (e2.author.id === Kx.value.id || So.identity.moderator) &&
+          ((e2.author.id === Kx.value.id || So.identity.moderator) &&
             (e$.delete = "Excluir tweet"),
             (e$.view = "Ver tweet"),
             go()
@@ -17796,8 +17829,8 @@ const Yx = {
                     ? So.backend.twitter_destroy(e3)
                     : "view" === e$ && this.redirect();
                 },
-                () => {}
-              );
+                () => {},
+              ));
         },
       };
     },
@@ -17812,7 +17845,7 @@ const Yx = {
       class: "fas fa-retweet",
     },
     null,
-    -1
+    -1,
   ),
   ey = {
     class: "flex",
@@ -17835,7 +17868,7 @@ const Yx = {
       class: "fas fa-ellipsis-v",
     },
     null,
-    -1
+    -1,
   ),
   oy = {
     class: "text-2xl",
@@ -17849,7 +17882,7 @@ const Yx = {
       class: "far fa-comment mr-2",
     },
     null,
-    -1
+    -1,
   ),
   cy = Pl(
     "i",
@@ -17857,7 +17890,7 @@ const Yx = {
       class: "far fa-retweet mr-2",
     },
     null,
-    -1
+    -1,
   );
 Yx.render = function (e$, e0, e8, e2, e3, e1) {
   let e6 = dl("app-verified");
@@ -17887,7 +17920,7 @@ Yx.render = function (e$, e0, e8, e2, e3, e1) {
                     e0[1] ||
                     (e0[1] = (e0) =>
                       e$.$router.push(
-                        "/twitter/profiles/" + e8.post.author.id
+                        "/twitter/profiles/" + e8.post.author.id,
                       )),
                   class: "w-20 h-20 rounded-full",
                   src: e8.post.author.avatarURL,
@@ -17895,7 +17928,7 @@ Yx.render = function (e$, e0, e8, e2, e3, e1) {
                 },
                 null,
                 8,
-                ["src"]
+                ["src"],
               ),
               Pl("div", ty, [
                 Pl("div", ny, [
@@ -17915,10 +17948,10 @@ Yx.render = function (e$, e0, e8, e2, e3, e1) {
                       " \xb7 " +
                       g(
                         e$.$filters.unixToRelative(
-                          null != (e3 = e8.post.created_at) ? e3 : 0
-                        )
+                          null != (e3 = e8.post.created_at) ? e3 : 0,
+                        ),
                       ),
-                    1
+                    1,
                   ),
                   Pl(
                     "button",
@@ -17929,7 +17962,7 @@ Yx.render = function (e$, e0, e8, e2, e3, e1) {
                         (e0[2] = (...e$) =>
                           e2.showOptions && e2.showOptions(...e$)),
                     },
-                    [sy]
+                    [sy],
                   ),
                 ]),
                 Pl("p", oy, g(e8.post.content), 1),
@@ -17941,7 +17974,7 @@ Yx.render = function (e$, e0, e8, e2, e3, e1) {
                         e0[3] ||
                         (e0[3] = (...e$) => e2.redirect && e2.redirect(...e$)),
                     },
-                    [iy, Pl("span", null, g(e8.post.comments), 1)]
+                    [iy, Pl("span", null, g(e8.post.comments), 1)],
                   ),
                   Pl(
                     "button",
@@ -17954,7 +17987,7 @@ Yx.render = function (e$, e0, e8, e2, e3, e1) {
                       },
                     },
                     [cy, Pl("span", null, g(e8.post.retweets), 1)],
-                    2
+                    2,
                   ),
                   Pl(
                     "button",
@@ -17977,11 +18010,11 @@ Yx.render = function (e$, e0, e8, e2, e3, e1) {
                           ],
                         },
                         null,
-                        2
+                        2,
                       ),
                       Pl("span", null, g(e8.post.likes), 1),
                     ],
-                    2
+                    2,
                   ),
                 ]),
               ]),
@@ -17989,7 +18022,7 @@ Yx.render = function (e$, e0, e8, e2, e3, e1) {
           ];
         }),
         _: 1,
-      }
+      },
     )
   );
 };
@@ -18005,14 +18038,13 @@ const uy = {
       for (
         ;
         -1 != (e8 = e0.findIndex((e0) => e0.id == e$ || e0.tweet_id == e$));
-
       )
         e0.splice(e8, 1);
     });
     let e8 = (e$, e8, e2 = 1) =>
       So.onceRoute(e$, (e$) => {
         e0.filter(
-          (e0) => e0.id == e$ || (e0.tweet_id == e$ && e0.retweeted_by)
+          (e0) => e0.id == e$ || (e0.tweet_id == e$ && e0.retweeted_by),
         ).forEach((e$) => {
           e$[e8] += e2;
         });
@@ -18026,14 +18058,14 @@ const uy = {
       {
         setLike: function (e$, e8) {
           e0.filter(
-            (e0) => e0.id == e$ || (e0.tweet_id == e$ && e0.retweeted_by)
+            (e0) => e0.id == e$ || (e0.tweet_id == e$ && e0.retweeted_by),
           ).forEach((e$) => {
             e$.liked = e8;
           });
         },
         setRetweet: function (e$, e8) {
           e0.filter(
-            (e0) => e0.id == e$ || (e0.tweet_id == e$ && e0.retweeted_by)
+            (e0) => e0.id == e$ || (e0.tweet_id == e$ && e0.retweeted_by),
           ).forEach((e$) => (e$.retweeted = e8));
           let e2 = e0.findIndex((e0) => e0.tweet_id == e$ && e0.retweeted_by);
           !e8 && e2 >= 0 && e0.splice(e2, 1);
@@ -18066,11 +18098,11 @@ uy.render = function (e$, e0, e8, e2, e3, e1) {
               },
               null,
               8,
-              ["post", "onSetLike", "onSetRetweet"]
+              ["post", "onSetLike", "onSetRetweet"],
             )
-          )
+          ),
         ),
-        128
+        128,
       )),
     ])
   );
@@ -18112,8 +18144,8 @@ const dy = {
           e0
             ? ((Kx.value = e0),
               So.backend.twitter_timeline().then((e0) => {
-                Object.assign(e$, e0),
-                  So.onceRoute("TWITTER_TWEET", (e0) => e$.unshift(e0));
+                (Object.assign(e$, e0),
+                  So.onceRoute("TWITTER_TWEET", (e0) => e$.unshift(e0)));
               }))
             : "/twitter" === VO.currentRoute.value.path &&
               VO.replace("/twitter/register");
@@ -18148,7 +18180,7 @@ dy.render = function (e$, e0, e8, e2, e3, e1) {
           },
           null,
           8,
-          ["all"]
+          ["all"],
         ),
       ]))
     : (wl(), _l("div", fy));
@@ -18204,7 +18236,7 @@ const ky = hy(
               (e0[1] = (...e0) => e$.$router.back && e$.$router.back(...e0)),
             class: "absolute left-4 text-3xl text-twitter",
           },
-          "Cancelar"
+          "Cancelar",
         ),
         e2.logo
           ? (wl(),
@@ -18217,7 +18249,7 @@ const ky = hy(
               },
               null,
               8,
-              ["src"]
+              ["src"],
             ))
           : (wl(), _l("i", vy)),
       ]),
@@ -18233,9 +18265,9 @@ const ky = hy(
               placeholder: "Nome",
             },
             null,
-            512
+            512,
           ),
-          [[ns, e2.form.name]]
+          [[ns, e2.form.name]],
         ),
         Zn(
           Pl(
@@ -18248,9 +18280,9 @@ const ky = hy(
               placeholder: "Nome de usu\xe1rio",
             },
             null,
-            512
+            512,
           ),
-          [[ns, e2.form.username]]
+          [[ns, e2.form.username]],
         ),
         Zn(
           Pl(
@@ -18263,9 +18295,9 @@ const ky = hy(
               placeholder: "Biografia",
             },
             null,
-            512
+            512,
           ),
-          [[ns, e2.form.bio]]
+          [[ns, e2.form.bio]],
         ),
         Pl("div", yy, [
           Pl(
@@ -18275,14 +18307,14 @@ const ky = hy(
                 e0[5] || (e0[5] = (...e$) => e2.register && e2.register(...e$)),
               class: "bg-twitter text-white p-2 px-4 rounded-full",
             },
-            "Cadastrar"
+            "Cadastrar",
           ),
         ]),
       ]),
     ])
-  )
+  ),
 );
-(my.render = ky), (my.__scopeId = "data-v-571aa757");
+((my.render = ky), (my.__scopeId = "data-v-571aa757"));
 const wy = {
     setup() {
       jl("setDark")();
@@ -18331,7 +18363,7 @@ const Ty = Cy(
             class:
               "bg-twitter text-white text-2xl font-bold px-6 py-2 rounded-full",
           },
-          "Tweet"
+          "Tweet",
         ),
       ]),
       Pl("div", Sy, [
@@ -18344,7 +18376,7 @@ const Ty = Cy(
           },
           null,
           8,
-          ["src"]
+          ["src"],
         ),
         Zn(
           Pl(
@@ -18357,15 +18389,15 @@ const Ty = Cy(
               placeholder: "O que est\xe1 acontecendo?",
             },
             null,
-            512
+            512,
           ),
-          [[ns, e2.form.content]]
+          [[ns, e2.form.content]],
         ),
       ]),
     ])
-  )
+  ),
 );
-(wy.render = Ty), (wy.__scopeId = "data-v-4a7be0d9");
+((wy.render = Ty), (wy.__scopeId = "data-v-4a7be0d9"));
 const Ey = {
     components: {
       Timeline: uy,
@@ -18394,27 +18426,27 @@ const Ey = {
         An(() => {
           e$.params.id &&
             So.backend.twitter_view(e$.params.id).then((e$) => {
-              (e2.value = e$.tweet),
+              ((e2.value = e$.tweet),
                 (e3.length = 0),
-                Object.assign(e3, e$.comments);
+                Object.assign(e3, e$.comments));
               let [e0, e8] = Us(e$.tweet.created_at);
-              (e6.value = e0), (e1.value = e8);
+              ((e6.value = e0), (e1.value = e8));
             });
         }),
         vn(() => {
           let e$ = (e$, e0) =>
             So.onceRoute(e$, (e$) => e$ == e2.value.id && e0());
-          So.onceRoute("TWITTER_DESTROY", (e$) => {
+          (So.onceRoute("TWITTER_DESTROY", (e$) => {
             if (e2.value.id != e$) {
               let e1 = e3.indexOf((e0) => e0.id == e$);
               return e1 >= 0 && e3.index(e1);
             }
-            e0.back(), e8("Este tweet foi exclu\xeddo");
+            (e0.back(), e8("Este tweet foi exclu\xeddo"));
           }),
             e$("TWITTER_LIKE", () => e2.value.likes++),
             e$("TWITTER_RETWEET", () => e2.value.retweets++),
             e$("TWITTER_DISLIKE", () => e2.value.likes--),
-            e$("TWITTER_UNRETWEET", () => e2.value.retweets--);
+            e$("TWITTER_UNRETWEET", () => e2.value.retweets--));
         }),
         {
           content: e4,
@@ -18423,7 +18455,7 @@ const Ey = {
             e$ &&
               So.backend.twitter_reply(parseInt(e2.value.id), e$).then((e$) => {
                 if (e$.error) return e8(e$.error);
-                e$ && e3.unshift(e$), (e4.value = "");
+                (e$ && e3.unshift(e$), (e4.value = ""));
               });
           },
           mine: Kx,
@@ -18434,7 +18466,7 @@ const Ey = {
           comments: e3,
           like: function () {
             So.backend["twitter_" + (e2.value.liked ? "dislike" : "like")](
-              e2.value.id
+              e2.value.id,
             ).then((e$) => {
               e2.value.liked = e$;
             });
@@ -18459,7 +18491,7 @@ const Ey = {
       class: "h-16 flex-shrink-0 bg-theme",
     },
     null,
-    -1
+    -1,
   ),
   Ly = {
     class: "overflow-y-auto hide-scroll",
@@ -18513,7 +18545,7 @@ const Ey = {
       class: "fal fa-comment text-4xl",
     },
     null,
-    -1
+    -1,
   ),
   Ky = Pl(
     "i",
@@ -18521,7 +18553,7 @@ const Ey = {
       class: "fal fa-retweet text-4xl",
     },
     null,
-    -1
+    -1,
   ),
   Jy = {
     key: 1,
@@ -18539,7 +18571,7 @@ const Ey = {
       class: "fal fa-level-up transform-flip-x mr-2",
     },
     null,
-    -1
+    -1,
   ),
   Qy = Il(" Respondendo "),
   ek = {
@@ -18568,14 +18600,14 @@ Ey.render = function (e$, e0, e8, e2, e3, e1) {
                       e0[1] ||
                       (e0[1] = (e0) =>
                         e$.$router.push(
-                          "/twitter/profiles/" + e2.tweet.author.id
+                          "/twitter/profiles/" + e2.tweet.author.id,
                         )),
                     class: "w-24 h-24 rounded-full",
                     src: e2.tweet.author.avatarURL,
                   },
                   null,
                   8,
-                  ["src"]
+                  ["src"],
                 ),
                 Pl("div", My, [
                   Pl("div", Vy, [
@@ -18600,7 +18632,7 @@ Ey.render = function (e$, e0, e8, e2, e3, e1) {
                   g(e2.date) +
                   " \xb7 Twitter for " +
                   g(e2.android ? "willid" : "WillOS"),
-                1
+                1,
               ),
               Pl("div", $y, [
                 Pl("p", jy, [Pl("b", Fy, g(e2.tweet.retweets), 1), zy]),
@@ -18616,7 +18648,7 @@ Ey.render = function (e$, e0, e8, e2, e3, e1) {
                 e0[2] ||
                 (e0[2] = (e$) => (e2.content = null == e2.content ? "" : null)),
             },
-            [Wy]
+            [Wy],
           ),
           Pl(
             "button",
@@ -18628,7 +18660,7 @@ Ey.render = function (e$, e0, e8, e2, e3, e1) {
               },
             },
             [Ky],
-            2
+            2,
           ),
           Pl(
             "button",
@@ -18650,10 +18682,10 @@ Ey.render = function (e$, e0, e8, e2, e3, e1) {
                   ],
                 },
                 null,
-                2
+                2,
               ),
             ],
-            2
+            2,
           ),
         ]),
         null != e2.content
@@ -18675,7 +18707,7 @@ Ey.render = function (e$, e0, e8, e2, e3, e1) {
                     class:
                       "bg-twitter px-6 py-2 text-xl text-white rounded-full",
                   },
-                  "Responder"
+                  "Responder",
                 ),
               ]),
               Pl("div", tk, [
@@ -18687,7 +18719,7 @@ Ey.render = function (e$, e0, e8, e2, e3, e1) {
                   },
                   null,
                   8,
-                  ["src"]
+                  ["src"],
                 ),
                 Zn(
                   Pl(
@@ -18698,9 +18730,9 @@ Ey.render = function (e$, e0, e8, e2, e3, e1) {
                         (e0[6] = us(
                           is(
                             (...e$) => e2.createReply && e2.createReply(...e$),
-                            ["prevent"]
+                            ["prevent"],
                           ),
-                          ["enter"]
+                          ["enter"],
                         )),
                       class:
                         "ml-3 mt-5 w-full h-36 bg-transparent text-theme resize-none hide-scroll",
@@ -18709,9 +18741,9 @@ Ey.render = function (e$, e0, e8, e2, e3, e1) {
                       placeholder: "Tweete sua resposta",
                     },
                     null,
-                    544
+                    544,
                   ),
-                  [[ns, e2.content]]
+                  [[ns, e2.content]],
                 ),
               ]),
             ]))
@@ -18723,7 +18755,7 @@ Ey.render = function (e$, e0, e8, e2, e3, e1) {
           },
           null,
           8,
-          ["all"]
+          ["all"],
         ),
       ]),
     ])
@@ -18754,11 +18786,11 @@ const nk = {
                   avatarURL: "https://picsum.photos/200",
                 },
                 content: "Hello world " + e0,
-              }))
+              })),
           )),
         So.backend.twitter_profile(e$.params.id).then((e$) => {
-          (e0.value = null == e$ ? void 0 : e$.profile),
-            Object.assign(e8, null == e$ ? void 0 : e$.posts);
+          ((e0.value = null == e$ ? void 0 : e$.profile),
+            Object.assign(e8, null == e$ ? void 0 : e$.posts));
         }),
         {
           dark: So.darkTheme,
@@ -18786,7 +18818,7 @@ const nk = {
       class: "h-12 flex-shrink-0 bg-theme-accent",
     },
     null,
-    -1
+    -1,
   ),
   sk = {
     key: 0,
@@ -18823,7 +18855,7 @@ const nk = {
       class: "text-gray-500",
     },
     "Seguindo",
-    -1
+    -1,
   ),
   bk = {
     class: "ml-6",
@@ -18835,7 +18867,7 @@ const nk = {
       class: "text-gray-500",
     },
     "Seguidores",
-    -1
+    -1,
   );
 nk.render = function (e$, e0, e8, e2, e3, e1) {
   var e6, e4, e7, e5;
@@ -18857,7 +18889,7 @@ nk.render = function (e$, e0, e8, e2, e3, e1) {
                 },
                 null,
                 8,
-                ["src"]
+                ["src"],
               ),
               Pl(
                 "img",
@@ -18871,7 +18903,7 @@ nk.render = function (e$, e0, e8, e2, e3, e1) {
                 },
                 null,
                 10,
-                ["src"]
+                ["src"],
               ),
             ]),
             Pl("div", rk, [
@@ -18887,35 +18919,36 @@ nk.render = function (e$, e0, e8, e2, e3, e1) {
                       class:
                         "mr-4 px-6 rounded-full text-twitter border border-twitter",
                     },
-                    "Editar perfil"
+                    "Editar perfil",
                   ))
                 : e2.profile.isFollowed
-                ? (wl(),
-                  _l(
-                    "button",
-                    {
-                      key: 1,
-                      onClick:
-                        e0[2] ||
-                        (e0[2] = (...e$) => e2.unfollow && e2.unfollow(...e$)),
-                      class:
-                        "mr-4 px-6 rounded-full text-twitter border border-twitter",
-                    },
-                    "Deixar de seguir"
-                  ))
-                : (wl(),
-                  _l(
-                    "button",
-                    {
-                      key: 2,
-                      onClick:
-                        e0[3] ||
-                        (e0[3] = (...e$) => e2.follow && e2.follow(...e$)),
-                      class:
-                        "mr-4 px-6 rounded-full text-twitter border border-twitter",
-                    },
-                    "Seguir"
-                  )),
+                  ? (wl(),
+                    _l(
+                      "button",
+                      {
+                        key: 1,
+                        onClick:
+                          e0[2] ||
+                          (e0[2] = (...e$) =>
+                            e2.unfollow && e2.unfollow(...e$)),
+                        class:
+                          "mr-4 px-6 rounded-full text-twitter border border-twitter",
+                      },
+                      "Deixar de seguir",
+                    ))
+                  : (wl(),
+                    _l(
+                      "button",
+                      {
+                        key: 2,
+                        onClick:
+                          e0[3] ||
+                          (e0[3] = (...e$) => e2.follow && e2.follow(...e$)),
+                        class:
+                          "mr-4 px-6 rounded-full text-twitter border border-twitter",
+                      },
+                      "Seguir",
+                    )),
             ]),
             Pl("div", ik, [
               Pl("div", ck, [
@@ -18936,7 +18969,7 @@ nk.render = function (e$, e0, e8, e2, e3, e1) {
                     "b",
                     null,
                     g(null != (e7 = e2.profile.following) ? e7 : 0),
-                    1
+                    1,
                   ),
                   mk,
                   hk,
@@ -18946,7 +18979,7 @@ nk.render = function (e$, e0, e8, e2, e3, e1) {
                     "b",
                     null,
                     g(null != (e5 = e2.profile.followers) ? e5 : 0),
-                    1
+                    1,
                   ),
                   gk,
                   vk,
@@ -18960,7 +18993,7 @@ nk.render = function (e$, e0, e8, e2, e3, e1) {
               },
               null,
               8,
-              ["all"]
+              ["all"],
             ),
           ]))
         : Ml("", !0),
@@ -18986,7 +19019,7 @@ const xk = Ze({}),
         save: function () {
           So.backend.twitter_save(xk).then((e0) => {
             if (e0.error) return e$(e0.error);
-            Object.assign(xk, e0), Object.assign(Kx.value, e0);
+            (Object.assign(xk, e0), Object.assign(Kx.value, e0));
           });
         },
         changeAvatar: async function () {
@@ -18999,7 +19032,7 @@ const xk = Ze({}),
           e0("Link da imagem").then((e$) => {
             if (e$) {
               let e0 = new Image();
-              (e0.onload = () => (xk.bannerURL = e$)), (e0.src = e$);
+              ((e0.onload = () => (xk.bannerURL = e$)), (e0.src = e$));
             }
           });
         },
@@ -19021,7 +19054,7 @@ const wk = {
       class: "far text-2xl fa-arrow-left",
     },
     null,
-    -1
+    -1,
   ),
   Ak = Pl("h1", null, "Editar perfil", -1),
   Sk = {
@@ -19036,7 +19069,7 @@ const wk = {
       class: "fas fa-camera opacity-75",
     },
     null,
-    -1
+    -1,
   ),
   Rk = {
     class: "absolute left-8 top-36 flex flex-center",
@@ -19047,7 +19080,7 @@ const wk = {
       class: "fas fa-camera opacity-75",
     },
     null,
-    -1
+    -1,
   ),
   Lk = {
     class: "px-5 mt-20",
@@ -19079,7 +19112,7 @@ const Uk = kk((e$, e0, e8, e2, e3, e1) => {
               (e0[1] = (...e0) => e$.$router.back && e$.$router.back(...e0)),
             class: "px-5 text-twitter",
           },
-          [_k]
+          [_k],
         ),
         Ak,
         e2.hasChanges
@@ -19092,7 +19125,7 @@ const Uk = kk((e$, e0, e8, e2, e3, e1) => {
                   e0[2] || (e0[2] = (...e$) => e2.save && e2.save(...e$)),
                 class: "ml-auto text-twitter text-2xl px-5",
               },
-              "Salvar"
+              "Salvar",
             ))
           : Ml("", !0),
       ]),
@@ -19106,7 +19139,7 @@ const Uk = kk((e$, e0, e8, e2, e3, e1) => {
                 (e0[3] = (...e$) => e2.changeBanner && e2.changeBanner(...e$)),
               class: "absolute inset-0 w-full text-center text-white",
             },
-            [Ek]
+            [Ek],
           ),
           Pl(
             "img",
@@ -19117,7 +19150,7 @@ const Uk = kk((e$, e0, e8, e2, e3, e1) => {
             },
             null,
             8,
-            ["src"]
+            ["src"],
           ),
         ]),
         Pl("div", Rk, [
@@ -19130,7 +19163,7 @@ const Uk = kk((e$, e0, e8, e2, e3, e1) => {
               class:
                 "absolute inset-0 w-full rounded-full text-center text-white",
             },
-            [Pk]
+            [Pk],
           ),
           Pl(
             "img",
@@ -19144,7 +19177,7 @@ const Uk = kk((e$, e0, e8, e2, e3, e1) => {
             },
             null,
             10,
-            ["src"]
+            ["src"],
           ),
         ]),
       ]),
@@ -19161,9 +19194,9 @@ const Uk = kk((e$, e0, e8, e2, e3, e1) => {
                 class: "border-b border-theme p-1",
               },
               null,
-              512
+              512,
             ),
-            [[ns, e2.form.name]]
+            [[ns, e2.form.name]],
           ),
         ]),
         Pl("div", Mk, [
@@ -19178,9 +19211,9 @@ const Uk = kk((e$, e0, e8, e2, e3, e1) => {
                 class: "border-b border-theme p-1",
               },
               null,
-              512
+              512,
             ),
-            [[ns, e2.form.username]]
+            [[ns, e2.form.username]],
           ),
         ]),
         Pl("div", Dk, [
@@ -19195,16 +19228,16 @@ const Uk = kk((e$, e0, e8, e2, e3, e1) => {
                 class: "border-b border-theme p-1",
               },
               null,
-              512
+              512,
             ),
-            [[ns, e2.form.bio]]
+            [[ns, e2.form.bio]],
           ),
         ]),
       ]),
     ])
   );
 });
-(yk.render = Uk), (yk.__scopeId = "data-v-1576647c");
+((yk.render = Uk), (yk.__scopeId = "data-v-1576647c"));
 const $k = new Map();
 
 function jk(e$, e0) {
@@ -19218,11 +19251,11 @@ function jk(e$, e0) {
   for (let e6 = 25; e6 <= 600; e6 += 25)
     e3.push(
       setTimeout(() => {
-        e2(600 == e6 ? e0 : e8() - e1), 600 == e6 && $k.delete(e$);
-      }, e6)
+        (e2(600 == e6 ? e0 : e8() - e1), 600 == e6 && $k.delete(e$));
+      }, e6),
     );
   $k.set(e$, () => {
-    e3.forEach(clearTimeout), e2(e0);
+    (e3.forEach(clearTimeout), e2(e0));
   });
 }
 const Fk = {
@@ -19234,9 +19267,9 @@ const Fk = {
     return {
       container: e$,
       down: function (e3) {
-        (e2 = !0),
+        ((e2 = !0),
           (e0 = e3.pageX - e$.value.offsetLeft),
-          (e8 = e$.value.scrollLeft);
+          (e8 = e$.value.scrollLeft));
       },
       up: function () {
         e2 = !1;
@@ -19262,14 +19295,14 @@ Fk.render = function (e$, e0, e8, e2, e3, e1) {
           e0[1] ||
           (e0[1] = is(
             (...e$) => e2.down && e2.down(...e$),
-            ["stop", "prevent"]
+            ["stop", "prevent"],
           )),
         onMouseup: e0[2] || (e0[2] = (...e$) => e2.up && e2.up(...e$)),
         onMouseleave: e0[3] || (e0[3] = (...e$) => e2.up && e2.up(...e$)),
         onMousemove: e0[4] || (e0[4] = (...e$) => e2.move && e2.move(...e$)),
       },
       [Zt(e$.$slots, "default")],
-      544
+      544,
     )
   );
 };
@@ -19331,7 +19364,7 @@ const zk = rt(),
       alt: "",
     },
     null,
-    -1
+    -1,
   ),
   Kk = {
     key: 2,
@@ -19367,10 +19400,10 @@ const zk = rt(),
           Pl("path", {
             d: "M222 122.6 c0 -0.3 1.5 -2.6 3.4 -5.1 1.9 -2.4 4.5 -7 5.8 -10.2 2.3 -5.8 2.3 -6.2 2.6 -54.5 l0.3 -48.8 18 0 17.9 0 0 39.8 c0 42.4 -0.3 46.1 -5.1 55.5 -4.5 8.8 -16.6 18.2 -27.9 21.5 -4.4 1.4 -15 2.6 -15 1.8z",
           }),
-        ]
+        ],
       ),
     ],
-    -1
+    -1,
   ),
   Xk = {
     key: 3,
@@ -19422,10 +19455,10 @@ const zk = rt(),
               d: "M1011 865 c-259 -256 -284 -273 -424 -283 -79 -5 -79 -5 160 -244 131 -132 258 -254 283 -273 89 -66 221 -83 346 -44 68 21 68 21 337 288 269 266 269 266 210 273 -32 4 -87 20 -123 34 -59 25 -86 48 -291 251 -163 162 -232 223 -249 223 -16 0 -85 -62 -249 -225z m458 -99 c148 -148 217 -210 252 -227 27 -12 49 -25 49 -29 0 -4 -84 -90 -188 -192 -186 -183 -188 -185 -254 -203 -45 -12 -82 -16 -114 -11 -92 12 -129 38 -310 218 -96 94 -174 174 -173 177 0 3 26 18 57 33 45 22 99 69 262 233 113 113 207 205 210 205 3 0 97 -92 209 -204z",
             }),
           ]),
-        ]
+        ],
       ),
     ],
-    -1
+    -1,
   ),
   tw = Pl(
     "span",
@@ -19433,7 +19466,7 @@ const zk = rt(),
       class: "text-2xl",
     },
     "Pix",
-    -1
+    -1,
   ),
   nw = Pl(
     "i",
@@ -19441,7 +19474,7 @@ const zk = rt(),
       class: "fal fa-usd-circle",
     },
     null,
-    -1
+    -1,
   ),
   lw = Pl(
     "span",
@@ -19449,7 +19482,7 @@ const zk = rt(),
       class: "text-2xl",
     },
     "Transferir",
-    -1
+    -1,
   ),
   aw = Pl(
     "i",
@@ -19457,7 +19490,7 @@ const zk = rt(),
       class: "fal fa-file-invoice-dollar",
     },
     null,
-    -1
+    -1,
   ),
   sw = Pl(
     "span",
@@ -19465,7 +19498,7 @@ const zk = rt(),
       class: "text-2xl",
     },
     "Extrato",
-    -1
+    -1,
   ),
   ow = Pl(
     "i",
@@ -19473,7 +19506,7 @@ const zk = rt(),
       class: "fal fa-user-friends",
     },
     null,
-    -1
+    -1,
   ),
   rw = Pl(
     "span",
@@ -19481,7 +19514,7 @@ const zk = rt(),
       class: "text-2xl",
     },
     "Cobrar",
-    -1
+    -1,
   ),
   iw = Pl(
     "i",
@@ -19489,7 +19522,7 @@ const zk = rt(),
       class: "fal fa-file-invoice",
     },
     null,
-    -1
+    -1,
   ),
   cw = Pl(
     "span",
@@ -19497,7 +19530,7 @@ const zk = rt(),
       class: "text-2xl",
     },
     "Faturas",
-    -1
+    -1,
   ),
   uw = Pl(
     "i",
@@ -19505,7 +19538,7 @@ const zk = rt(),
       class: "fal fa-gavel",
     },
     null,
-    -1
+    -1,
   ),
   dw = Pl(
     "span",
@@ -19513,7 +19546,7 @@ const zk = rt(),
       class: "text-2xl",
     },
     "Multas",
-    -1
+    -1,
   );
 Bk.render = function (e$, e0, e8, e2, e3, e1) {
   let e6 = dl("HorizontalScroll");
@@ -19541,74 +19574,74 @@ Bk.render = function (e$, e0, e8, e2, e3, e1) {
                     },
                     null,
                     8,
-                    ["src"]
+                    ["src"],
                   ))
                 : "nubank" == e2.bankType
-                ? (wl(), _l("div", Gk, [Wk]))
-                : "nubank2" == e2.bankType
-                ? (wl(), _l("div", Kk, [Jk]))
-                : "southBank" == e2.bankType
-                ? (wl(), _l("h1", Xk, "SouthBank"))
-                : "fleeca" == e2.bankType
-                ? (wl(),
-                  _l(
-                    "img",
-                    {
-                      key: 4,
-                      class: "h-12 mx-auto",
-                      src: e$.$asset("/stock/fleeca.png"),
-                      alt: "",
-                    },
-                    null,
-                    8,
-                    ["src"]
-                  ))
-                : "nxbank" == e2.bankType
-                ? (wl(), _l("img", Yk))
-                : "CPBank" == e2.bankType
-                ? (wl(),
-                  _l(
-                    "img",
-                    {
-                      key: 6,
-                      class: "h-12 mt-4 mx-auto",
-                      src: e$.$asset("/apps/cpbank.svg"),
-                    },
-                    null,
-                    8,
-                    ["src"]
-                  ))
-                : "picpay" == e2.bankType
-                ? (wl(),
-                  _l(
-                    "img",
-                    {
-                      key: 7,
-                      class: "h-14 mt-2 mx-auto",
-                      src: e$.$asset("/stock/picpay.svg"),
-                    },
-                    null,
-                    8,
-                    ["src"]
-                  ))
-                : "bdc" == e2.bankType
-                ? (wl(),
-                  _l(
-                    "img",
-                    {
-                      key: 8,
-                      class: "h-24 mx-auto",
-                      src: e$.$asset("/apps/bdc.svg"),
-                    },
-                    null,
-                    8,
-                    ["src"]
-                  ))
-                : "itau" == e2.bankType
-                ? (wl(), _l("img", Zk))
-                : "bb" == e2.bankType
-                ? (wl(), _l("img", Qk))
-                : Ml("", !0),
+                  ? (wl(), _l("div", Gk, [Wk]))
+                  : "nubank2" == e2.bankType
+                    ? (wl(), _l("div", Kk, [Jk]))
+                    : "southBank" == e2.bankType
+                      ? (wl(), _l("h1", Xk, "SouthBank"))
+                      : "fleeca" == e2.bankType
+                        ? (wl(),
+                          _l(
+                            "img",
+                            {
+                              key: 4,
+                              class: "h-12 mx-auto",
+                              src: e$.$asset("/stock/fleeca.png"),
+                              alt: "",
+                            },
+                            null,
+                            8,
+                            ["src"],
+                          ))
+                        : "nxbank" == e2.bankType
+                          ? (wl(), _l("img", Yk))
+                          : "CPBank" == e2.bankType
+                            ? (wl(),
+                              _l(
+                                "img",
+                                {
+                                  key: 6,
+                                  class: "h-12 mt-4 mx-auto",
+                                  src: e$.$asset("/apps/cpbank.svg"),
+                                },
+                                null,
+                                8,
+                                ["src"],
+                              ))
+                            : "picpay" == e2.bankType
+                              ? (wl(),
+                                _l(
+                                  "img",
+                                  {
+                                    key: 7,
+                                    class: "h-14 mt-2 mx-auto",
+                                    src: e$.$asset("/stock/picpay.svg"),
+                                  },
+                                  null,
+                                  8,
+                                  ["src"],
+                                ))
+                              : "bdc" == e2.bankType
+                                ? (wl(),
+                                  _l(
+                                    "img",
+                                    {
+                                      key: 8,
+                                      class: "h-24 mx-auto",
+                                      src: e$.$asset("/apps/bdc.svg"),
+                                    },
+                                    null,
+                                    8,
+                                    ["src"],
+                                  ))
+                                : "itau" == e2.bankType
+                                  ? (wl(), _l("img", Zk))
+                                  : "bb" == e2.bankType
+                                    ? (wl(), _l("img", Qk))
+                                    : Ml("", !0),
             ]))
           : Ml("", !0),
         Zt(e$.$slots, "default"),
@@ -19635,7 +19668,7 @@ Bk.render = function (e$, e0, e8, e2, e3, e1) {
                           class:
                             "w-40 p-4 flex flex-col justify-between text-white bank-light rounded-lg mr-6",
                         },
-                        [ew, tw]
+                        [ew, tw],
                       ))
                     : Ml("", !0),
                   Pl(
@@ -19647,7 +19680,7 @@ Bk.render = function (e$, e0, e8, e2, e3, e1) {
                       class:
                         "w-40 p-4 flex flex-col justify-between text-white bank-light rounded-lg mr-6",
                     },
-                    [nw, lw]
+                    [nw, lw],
                   ),
                   Pl(
                     "div",
@@ -19658,7 +19691,7 @@ Bk.render = function (e$, e0, e8, e2, e3, e1) {
                       class:
                         "w-40 p-4 flex flex-col justify-between text-white bank-light rounded-lg mr-6",
                     },
-                    [aw, sw]
+                    [aw, sw],
                   ),
                   e2.hasInvoices
                     ? (wl(),
@@ -19673,7 +19706,7 @@ Bk.render = function (e$, e0, e8, e2, e3, e1) {
                           class:
                             "w-40 p-4 flex flex-col justify-between text-white bank-light rounded-lg mr-6",
                         },
-                        [ow, rw]
+                        [ow, rw],
                       ))
                     : Ml("", !0),
                   e2.hasInvoices
@@ -19688,7 +19721,7 @@ Bk.render = function (e$, e0, e8, e2, e3, e1) {
                           class:
                             "w-40 p-4 flex flex-col justify-between text-white bank-light rounded-lg mr-6",
                         },
-                        [iw, cw]
+                        [iw, cw],
                       ))
                     : Ml("", !0),
                   e2.hasFines
@@ -19703,17 +19736,17 @@ Bk.render = function (e$, e0, e8, e2, e3, e1) {
                           class:
                             "w-40 p-4 flex flex-col justify-between text-white bank-light rounded-lg mr-6",
                         },
-                        [uw, dw]
+                        [uw, dw],
                       ))
                     : Ml("", !0),
                 ]),
                 _: 1,
-              }
+              },
             ))
           : Ml("", !0),
       ],
       8,
-      ["bankType"]
+      ["bankType"],
     )
   );
 };
@@ -19722,7 +19755,7 @@ const pw = {
       Page: Bk,
     },
     setup() {
-      jl("setDark")(!0), jl("alert");
+      (jl("setDark")(!0), jl("alert"));
       let e$ = So.identity,
         e0 = rt(!0),
         e8 = rt(0),
@@ -19731,9 +19764,9 @@ const pw = {
         e1 = rt(So.hasNotificationFor("bank"));
       return (
         So.backend.bank_index().then((e$) => {
-          (e8.value = e$.balance),
+          ((e8.value = e$.balance),
             (e3.value = e$.fines),
-            (e2.value = e$.invoices);
+            (e2.value = e$.invoices));
         }),
         Tn(e1, (e$) => So.setNotificationFor("bank", e$)),
         So.onceRoute("BANK", ({ value: e$ }) => jk(e8, e8.value + e$)),
@@ -19783,10 +19816,10 @@ const pw = {
         {
           class: "ml-5",
         },
-        "Conta"
+        "Conta",
       ),
     ],
-    -1
+    -1,
   ),
   xw = Pl(
     "h1",
@@ -19794,7 +19827,7 @@ const pw = {
       class: "text-gray-600 text-3xl mb-5",
     },
     "Saldo dispon\xedvel",
-    -1
+    -1,
   ),
   yw = {
     key: 0,
@@ -19822,10 +19855,10 @@ const pw = {
         {
           class: "ml-5",
         },
-        "Faturas"
+        "Faturas",
       ),
     ],
-    -1
+    -1,
   ),
   _w = Pl(
     "h1",
@@ -19833,7 +19866,7 @@ const pw = {
       class: "text-gray-600 text-3xl mb-5",
     },
     "Fatura atual",
-    -1
+    -1,
   ),
   Aw = {
     key: 0,
@@ -19861,10 +19894,10 @@ const pw = {
         {
           class: "ml-5",
         },
-        "Multas"
+        "Multas",
       ),
     ],
-    -1
+    -1,
   ),
   Rw = Pl(
     "h1",
@@ -19872,7 +19905,7 @@ const pw = {
       class: "text-gray-600 text-3xl mb-5",
     },
     "Fatura atual",
-    -1
+    -1,
   ),
   Pw = {
     key: 0,
@@ -19911,9 +19944,9 @@ pw.render = function (e$, e0, e8, e2, e3, e1) {
                       ],
                     },
                     null,
-                    2
+                    2,
                   ),
-                ]
+                ],
               ),
               Pl(
                 "button",
@@ -19930,9 +19963,9 @@ pw.render = function (e$, e0, e8, e2, e3, e1) {
                       class: ["far", e2.visible ? "fa-eye" : "fa-eye-slash"],
                     },
                     null,
-                    2
+                    2,
                   ),
-                ]
+                ],
               ),
             ]),
           ]),
@@ -19999,7 +20032,7 @@ const Iw = {
           submit: function () {
             let e8 = Number(e3.value.replace(/\D/g, ""));
             So.confirm(
-              "Deseja transferir " + js(e8) + " para a chave " + e1.value + "?"
+              "Deseja transferir " + js(e8) + " para a chave " + e1.value + "?",
             ).then((e2) => {
               e2 &&
                 So.lockAndProceed(() =>
@@ -20013,7 +20046,7 @@ const Iw = {
                             value: e8,
                           },
                         });
-                  })
+                  }),
                 );
             });
           },
@@ -20032,7 +20065,7 @@ const Mw = {
       class: "fal fa-times text-4xl text-gray-600",
     },
     null,
-    -1
+    -1,
   ),
   Dw = {
     key: 0,
@@ -20046,7 +20079,7 @@ const Mw = {
       class: "font-semibold",
     },
     "Qual \xe9 o valor da transfer\xeancia?",
-    -1
+    -1,
   ),
   $w = {
     class: "mt-4 text-3xl",
@@ -20067,7 +20100,7 @@ const Mw = {
       class: "fas fa-arrow-right",
     },
     null,
-    -1
+    -1,
   ),
   qw = {
     key: 1,
@@ -20081,7 +20114,7 @@ const Mw = {
       class: "text-gray-700 font-semibold",
     },
     "Chave Pix",
-    -1
+    -1,
   ),
   Kw = {
     key: 0,
@@ -20100,7 +20133,7 @@ const Mw = {
       src: "https://i.imgur.com/2BHyIED.jpg",
     },
     null,
-    -1
+    -1,
   ),
   Zw = Pl(
     "h1",
@@ -20108,7 +20141,7 @@ const Mw = {
       class: "font-semibold",
     },
     "Pronto, enviamos sua transfer\xeancia",
-    -1
+    -1,
   ),
   Qw = {
     class: "flex flex-col items-center mt-8 p-4 py-12 border",
@@ -20125,7 +20158,7 @@ const Mw = {
       class: "text-gray-600",
     },
     "Agora mesmo",
-    -1
+    -1,
   );
 an();
 const lC = Ow((e$, e0, e8, e2, e3, e1) => {
@@ -20149,7 +20182,7 @@ const lC = Ow((e$, e0, e8, e2, e3, e1) => {
                   (e0[1] = (...e0) =>
                     e$.$router.back && e$.$router.back(...e0)),
               },
-              [Vw]
+              [Vw],
             ),
             0 == e2.step
               ? (wl(),
@@ -20164,7 +20197,7 @@ const lC = Ow((e$, e0, e8, e2, e3, e1) => {
                         g(e$.$currency) +
                           " " +
                           g(e2.balance.toLocaleString("pt-BR")),
-                        1
+                        1,
                       ),
                     ]),
                   ]),
@@ -20179,16 +20212,16 @@ const lC = Ow((e$, e0, e8, e2, e3, e1) => {
                               e0[2] ||
                               (e0[2] = us(
                                 (e$) => (0 != e2.value ? (e2.step = 1) : null),
-                                ["enter"]
+                                ["enter"],
                               )),
                             "onUpdate:modelValue":
                               e0[3] || (e0[3] = (e$) => (e2.value = e$)),
                             class: "w-full font-bold border-b pl-20",
                           },
                           null,
-                          544
+                          544,
                         ),
-                        [[ns, e2.value]]
+                        [[ns, e2.value]],
                       ),
                     ]),
                   ]),
@@ -20208,68 +20241,68 @@ const lC = Ow((e$, e0, e8, e2, e3, e1) => {
                       ],
                     },
                     [Hw],
-                    2
+                    2,
                   ),
                 ]))
               : 1 == e2.step
-              ? (wl(),
-                _l("div", qw, [
-                  Pl("div", Gw, [
-                    Ww,
-                    Zn(
-                      Pl(
-                        "input",
-                        {
-                          "onUpdate:modelValue":
-                            e0[5] || (e0[5] = (e$) => (e2.key = e$)),
-                          class: "w-full mt-8 pb-2 border-b font-bold",
-                        },
-                        null,
-                        512
-                      ),
-                      [[ns, e2.key]]
-                    ),
-                  ]),
-                  e2.key.trim()
-                    ? (wl(),
-                      _l("div", Kw, [
+                ? (wl(),
+                  _l("div", qw, [
+                    Pl("div", Gw, [
+                      Ww,
+                      Zn(
                         Pl(
-                          "button",
+                          "input",
                           {
-                            onClick:
-                              e0[6] ||
-                              (e0[6] = (...e$) =>
-                                e2.submit && e2.submit(...e$)),
-                            class:
-                              "w-full rounded-full bank-light text-white p-5",
+                            "onUpdate:modelValue":
+                              e0[5] || (e0[5] = (e$) => (e2.key = e$)),
+                            class: "w-full mt-8 pb-2 border-b font-bold",
                           },
-                          " Transferir para essa chave "
+                          null,
+                          512,
                         ),
-                      ]))
-                    : Ml("", !0),
-                ]))
-              : 2 == e2.step
-              ? (wl(),
-                _l("div", Jw, [
-                  Pl("div", Xw, [
-                    Yw,
-                    Zw,
-                    Pl("div", Qw, [
-                      Pl("p", eC, g(e$.$currency) + " " + g(e2.value), 1),
-                      Pl("p", null, "para " + g(e$.name), 1),
-                      Pl("p", tC, [nC, Il(" • " + g(e$.time), 1)]),
+                        [[ns, e2.key]],
+                      ),
                     ]),
-                  ]),
-                ]))
-              : Ml("", !0),
+                    e2.key.trim()
+                      ? (wl(),
+                        _l("div", Kw, [
+                          Pl(
+                            "button",
+                            {
+                              onClick:
+                                e0[6] ||
+                                (e0[6] = (...e$) =>
+                                  e2.submit && e2.submit(...e$)),
+                              class:
+                                "w-full rounded-full bank-light text-white p-5",
+                            },
+                            " Transferir para essa chave ",
+                          ),
+                        ]))
+                      : Ml("", !0),
+                  ]))
+                : 2 == e2.step
+                  ? (wl(),
+                    _l("div", Jw, [
+                      Pl("div", Xw, [
+                        Yw,
+                        Zw,
+                        Pl("div", Qw, [
+                          Pl("p", eC, g(e$.$currency) + " " + g(e2.value), 1),
+                          Pl("p", null, "para " + g(e$.name), 1),
+                          Pl("p", tC, [nC, Il(" • " + g(e$.time), 1)]),
+                        ]),
+                      ]),
+                    ]))
+                  : Ml("", !0),
           ]),
         ]),
         _: 1,
-      }
+      },
     )
   );
 });
-(Iw.render = lC), (Iw.__scopeId = "data-v-2b331752");
+((Iw.render = lC), (Iw.__scopeId = "data-v-2b331752"));
 const aC = {
     components: {
       Page: Bk,
@@ -20298,7 +20331,7 @@ const aC = {
               { name: e2, error: e6 } = await So.backend.bank_confirm(e1.value);
             if (!e2) return So.alert(e6);
             So.confirm(
-              "Deseja transferir " + js(e8) + " para " + e2 + "?"
+              "Deseja transferir " + js(e8) + " para " + e2 + "?",
             ).then((e3) => {
               e3 &&
                 So.lockAndProceed(() =>
@@ -20312,7 +20345,7 @@ const aC = {
                             value: e8,
                           },
                         });
-                  })
+                  }),
                 );
             });
           },
@@ -20331,7 +20364,7 @@ const oC = {
       class: "fal fa-times text-4xl text-gray-600",
     },
     null,
-    -1
+    -1,
   ),
   iC = {
     key: 0,
@@ -20345,7 +20378,7 @@ const oC = {
       class: "font-semibold",
     },
     "Qual \xe9 o valor da transfer\xeancia?",
-    -1
+    -1,
   ),
   dC = {
     class: "mt-4 text-3xl",
@@ -20366,7 +20399,7 @@ const oC = {
       class: "fas fa-arrow-right",
     },
     null,
-    -1
+    -1,
   ),
   gC = {
     key: 1,
@@ -20380,7 +20413,7 @@ const oC = {
       class: "text-gray-700 font-semibold",
     },
     "Passaporte",
-    -1
+    -1,
   ),
   yC = Pl(
     "button",
@@ -20388,7 +20421,7 @@ const oC = {
       class: "w-full rounded-full bank-light text-white p-5",
     },
     " Transferir para esse passaporte ",
-    -1
+    -1,
   );
 an();
 const kC = sC((e$, e0, e8, e2, e3, e1) => {
@@ -20412,7 +20445,7 @@ const kC = sC((e$, e0, e8, e2, e3, e1) => {
                   (e0[1] = (...e0) =>
                     e$.$router.back && e$.$router.back(...e0)),
               },
-              [rC]
+              [rC],
             ),
             0 == e2.step
               ? (wl(),
@@ -20427,7 +20460,7 @@ const kC = sC((e$, e0, e8, e2, e3, e1) => {
                         g(e$.$currency) +
                           " " +
                           g(e2.balance.toLocaleString("pt-BR")),
-                        1
+                        1,
                       ),
                     ]),
                   ]),
@@ -20442,16 +20475,16 @@ const kC = sC((e$, e0, e8, e2, e3, e1) => {
                               e0[2] ||
                               (e0[2] = us(
                                 (e$) => (0 != e2.value ? (e2.step = 1) : null),
-                                ["enter"]
+                                ["enter"],
                               )),
                             "onUpdate:modelValue":
                               e0[3] || (e0[3] = (e$) => (e2.value = e$)),
                             class: "w-full font-bold border-b pl-20",
                           },
                           null,
-                          544
+                          544,
                         ),
-                        [[ns, e2.value]]
+                        [[ns, e2.value]],
                       ),
                     ]),
                   ]),
@@ -20471,52 +20504,53 @@ const kC = sC((e$, e0, e8, e2, e3, e1) => {
                       ],
                     },
                     [bC],
-                    2
+                    2,
                   ),
                 ]))
               : 1 == e2.step
-              ? (wl(),
-                _l("div", gC, [
-                  Pl("div", vC, [
-                    xC,
-                    Zn(
-                      Pl(
-                        "input",
-                        {
-                          "onUpdate:modelValue":
-                            e0[5] || (e0[5] = (e$) => (e2.passport = e$)),
-                          class: "w-full mt-8 pb-2 border-b font-bold",
-                        },
-                        null,
-                        512
+                ? (wl(),
+                  _l("div", gC, [
+                    Pl("div", vC, [
+                      xC,
+                      Zn(
+                        Pl(
+                          "input",
+                          {
+                            "onUpdate:modelValue":
+                              e0[5] || (e0[5] = (e$) => (e2.passport = e$)),
+                            class: "w-full mt-8 pb-2 border-b font-bold",
+                          },
+                          null,
+                          512,
+                        ),
+                        [[ns, e2.passport]],
                       ),
-                      [[ns, e2.passport]]
-                    ),
-                  ]),
-                  e2.passport >= 0
-                    ? (wl(),
-                      _l(
-                        "div",
-                        {
-                          key: 0,
-                          onClick:
-                            e0[6] ||
-                            (e0[6] = (...e$) => e2.submit && e2.submit(...e$)),
-                          class: "absolute inset-x-8 bottom-8",
-                        },
-                        [yC]
-                      ))
-                    : Ml("", !0),
-                ]))
-              : Ml("", !0),
+                    ]),
+                    e2.passport >= 0
+                      ? (wl(),
+                        _l(
+                          "div",
+                          {
+                            key: 0,
+                            onClick:
+                              e0[6] ||
+                              (e0[6] = (...e$) =>
+                                e2.submit && e2.submit(...e$)),
+                            class: "absolute inset-x-8 bottom-8",
+                          },
+                          [yC],
+                        ))
+                      : Ml("", !0),
+                  ]))
+                : Ml("", !0),
           ]),
         ]),
         _: 1,
-      }
+      },
     )
   );
 });
-(aC.render = kC), (aC.__scopeId = "data-v-2062cc68");
+((aC.render = kC), (aC.__scopeId = "data-v-2062cc68"));
 const wC = {
     components: {
       Page: Bk,
@@ -20545,7 +20579,7 @@ const _C = {
       class: "fal fa-times text-4xl text-gray-600",
     },
     null,
-    -1
+    -1,
   ),
   SC = {
     class: "p-8",
@@ -20557,7 +20591,7 @@ const _C = {
       src: "https://i.imgur.com/2BHyIED.jpg",
     },
     null,
-    -1
+    -1,
   ),
   EC = Pl(
     "h1",
@@ -20565,7 +20599,7 @@ const _C = {
       class: "font-semibold",
     },
     "Pronto, enviamos sua transfer\xeancia",
-    -1
+    -1,
   ),
   RC = {
     class: "flex flex-col items-center mt-8 p-4 py-12 border",
@@ -20582,7 +20616,7 @@ const _C = {
       class: "text-gray-600",
     },
     "Agora mesmo",
-    -1
+    -1,
   );
 an();
 const OC = CC((e$, e0, e8, e2, e3, e1) => {
@@ -20606,7 +20640,7 @@ const OC = CC((e$, e0, e8, e2, e3, e1) => {
                   (e0[1] = (...e0) =>
                     e$.$router.back && e$.$router.back(...e0)),
               },
-              [AC]
+              [AC],
             ),
             Pl("div", null, [
               Pl("div", SC, [
@@ -20622,11 +20656,11 @@ const OC = CC((e$, e0, e8, e2, e3, e1) => {
           ]),
         ]),
         _: 1,
-      }
+      },
     )
   );
 });
-(wC.render = OC), (wC.__scopeId = "data-v-180baeb8");
+((wC.render = OC), (wC.__scopeId = "data-v-180baeb8"));
 const MC = {
     components: {
       Page: Bk,
@@ -20643,9 +20677,10 @@ const MC = {
             (e$) =>
               (e0.value = e$.map(
                 (e$) => (
-                  (e$.description = e$.description.replace(/<[^>]*>/g, "")), e$
-                )
-              ))
+                  (e$.description = e$.description.replace(/<[^>]*>/g, "")),
+                  e$
+                ),
+              )),
           ),
         {
           balance: e$,
@@ -20663,7 +20698,7 @@ const MC = {
       class: "far fa-chevron-left",
     },
     null,
-    -1
+    -1,
   ),
   NC = {
     class: "p-8",
@@ -20674,7 +20709,7 @@ const MC = {
       class: "text-gray-600",
     },
     "Saldo dispon\xedvel",
-    -1
+    -1,
   ),
   $C = {
     class: "mt-2 font-bold text-5xl",
@@ -20685,7 +20720,7 @@ const MC = {
       class: "w-full",
     },
     null,
-    -1
+    -1,
   ),
   FC = {
     class: "flex flex-col h-full w-full overflow-y-auto hide-scroll",
@@ -20696,7 +20731,7 @@ const MC = {
       class: "font-bold text-4xl px-8 pt-8 pb-4",
     },
     "Hist\xf3rico",
-    -1
+    -1,
   ),
   BC = {
     key: 0,
@@ -20712,7 +20747,7 @@ const MC = {
       class: "fal fa-history",
     },
     null,
-    -1
+    -1,
   ),
   GC = Il(" Nenhuma atividade recente ");
 MC.render = function (e$, e0, e8, e2, e3, e1) {
@@ -20736,7 +20771,7 @@ MC.render = function (e$, e0, e8, e2, e3, e1) {
                   (e0[1] = (...e0) =>
                     e$.$router.back && e$.$router.back(...e0)),
               },
-              [DC]
+              [DC],
             ),
             Pl("div", NC, [
               UC,
@@ -20744,7 +20779,7 @@ MC.render = function (e$, e0, e8, e2, e3, e1) {
                 "h1",
                 $C,
                 g(e$.$currency) + " " + g(e2.balance.toLocaleString("pt-BR")),
-                1
+                1,
               ),
             ]),
             jC,
@@ -20770,11 +20805,11 @@ MC.render = function (e$, e0, e8, e2, e3, e1) {
                           e$.created_at
                             ? (wl(), _l("p", BC, g(e$.created_at), 1))
                             : Ml("", !0),
-                        ]
+                        ],
                       )
-                    )
+                    ),
                   ),
-                  128
+                  128,
                 )),
                 e2.statements.length
                   ? Ml("", !0)
@@ -20784,7 +20819,7 @@ MC.render = function (e$, e0, e8, e2, e3, e1) {
           ]),
         ]),
         _: 1,
-      }
+      },
     )
   );
 };
@@ -20802,8 +20837,8 @@ const WC = {
           e2.value.filter(
             (e$) =>
               ("sent" === e0.value ? e$.payee_id : e$.payer_id) ===
-              So.identity.user_id
-          )
+              So.identity.user_id,
+          ),
         );
       return (
         So.backend.bank_getBalance().then((e$) => (e8.value = e$)),
@@ -20836,7 +20871,7 @@ const WC = {
       class: "far fa-chevron-left",
     },
     null,
-    -1
+    -1,
   ),
   XC = {
     class: "px-8 pb-8 w-full border-b",
@@ -20847,7 +20882,7 @@ const WC = {
       class: "text-4xl text-gray-600 font-semibold",
     },
     "Saldo dispon\xedvel",
-    -1
+    -1,
   ),
   ZC = {
     class: "mt-4 text-5xl font-bold",
@@ -20880,7 +20915,7 @@ const WC = {
       class: "fal fa-file-invoice-dollar",
     },
     null,
-    -1
+    -1,
   ),
   r_ = Il(" Nenhuma fatura em aberto ");
 WC.render = function (e$, e0, e8, e2, e3, e1) {
@@ -20904,7 +20939,7 @@ WC.render = function (e$, e0, e8, e2, e3, e1) {
                   (e0[1] = (...e0) =>
                     e$.$router.back && e$.$router.back(...e0)),
               },
-              [JC]
+              [JC],
             ),
             Pl("div", XC, [
               YC,
@@ -20912,7 +20947,7 @@ WC.render = function (e$, e0, e8, e2, e3, e1) {
                 "p",
                 ZC,
                 g(e$.$currency) + " " + g(e2.balance.toLocaleString("pt-BR")),
-                1
+                1,
               ),
             ]),
             Pl("div", QC, [
@@ -20928,7 +20963,7 @@ WC.render = function (e$, e0, e8, e2, e3, e1) {
                   ],
                 },
                 "Recebidas",
-                2
+                2,
               ),
               Pl(
                 "button",
@@ -20942,7 +20977,7 @@ WC.render = function (e$, e0, e8, e2, e3, e1) {
                   ],
                 },
                 "Enviadas",
-                2
+                2,
               ),
             ]),
             Pl("ul", e_, [
@@ -20969,7 +21004,7 @@ WC.render = function (e$, e0, e8, e2, e3, e1) {
                             g(e0.name) +
                               " - " +
                               g(e$.$filters.unixToRelative(e0.created_at)),
-                            1
+                            1,
                           ),
                         ]),
                         Pl(
@@ -20978,7 +21013,7 @@ WC.render = function (e$, e0, e8, e2, e3, e1) {
                           g(e$.$currency) +
                             " " +
                             g(e0.value.toLocaleString("pt-BR")),
-                          1
+                          1,
                         ),
                         "received" === e2.tab
                           ? (wl(),
@@ -20992,21 +21027,21 @@ WC.render = function (e$, e0, e8, e2, e3, e1) {
                               },
                               " Pagar ",
                               8,
-                              ["onClick"]
+                              ["onClick"],
                             ))
                           : Ml("", !0),
-                      ]
+                      ],
                     )
-                  )
+                  ),
                 ),
-                128
+                128,
               )),
               e2.filtered.length ? Ml("", !0) : (wl(), _l("p", s_, [o_, r_])),
             ]),
           ]),
         ]),
         _: 1,
-      }
+      },
     )
   );
 };
@@ -21031,22 +21066,22 @@ const i_ = {
           step: e1,
           submit: function () {
             let e4 = Number(e2.value.replace(/\D/g, ""));
-            e0(!0),
+            (e0(!0),
               So.backend
                 .bank_storeInvoice(e8.value, e4, e3.value)
                 .then((e0) => {
                   if (e0.error) e$(e0.error);
                   else {
                     let e8 = new Date();
-                    (e0.time =
+                    ((e0.time =
                       e8.getHours() +
                       "h" +
                       String(e8.getMinutes()).padStart(2, 0)),
                       (e6.value = e0),
-                      (e1.value = 2);
+                      (e1.value = 2));
                   }
                 })
-                .finally(() => e0(!1));
+                .finally(() => e0(!1)));
           },
           passport: e8,
           value: e2,
@@ -21065,7 +21100,7 @@ const i_ = {
       class: "far fa-chevron-left",
     },
     null,
-    -1
+    -1,
   ),
   d_ = {
     key: 0,
@@ -21079,7 +21114,7 @@ const i_ = {
       class: "text-3xl text-gray-500",
     },
     "Passaporte",
-    -1
+    -1,
   ),
   m_ = {
     class: "px-8 pb-8",
@@ -21090,7 +21125,7 @@ const i_ = {
       class: "text-3xl text-gray-500",
     },
     "Valor da fatura",
-    -1
+    -1,
   ),
   b_ = {
     class: "mt-4 relative text-5xl",
@@ -21107,7 +21142,7 @@ const i_ = {
       class: "text-3xl text-gray-500",
     },
     "Raz\xe3o",
-    -1
+    -1,
   ),
   y_ = Pl(
     "button",
@@ -21115,7 +21150,7 @@ const i_ = {
       class: "w-full rounded-full bank-light text-white p-5",
     },
     " Criar fatura ",
-    -1
+    -1,
   ),
   k_ = {
     key: 1,
@@ -21128,7 +21163,7 @@ const i_ = {
       src: "https://i.imgur.com/2BHyIED.jpg",
     },
     null,
-    -1
+    -1,
   ),
   C_ = Pl(
     "h1",
@@ -21136,7 +21171,7 @@ const i_ = {
       class: "font-semibold",
     },
     "Pronto, enviamos sua fatura",
-    -1
+    -1,
   ),
   __ = {
     class: "flex flex-col items-center mt-8 p-4 py-12 border",
@@ -21153,7 +21188,7 @@ const i_ = {
       class: "text-gray-600",
     },
     "Agora mesmo",
-    -1
+    -1,
   );
 i_.render = function (e$, e0, e8, e2, e3, e1) {
   let e6 = dl("Page");
@@ -21176,7 +21211,7 @@ i_.render = function (e$, e0, e8, e2, e3, e1) {
                   (e0[1] = (...e0) =>
                     e$.$router.back && e$.$router.back(...e0)),
               },
-              [u_]
+              [u_],
             ),
             1 == e2.step
               ? (wl(),
@@ -21193,9 +21228,9 @@ i_.render = function (e$, e0, e8, e2, e3, e1) {
                           class: "w-full mt-4 font-bold border-b text-5xl",
                         },
                         null,
-                        512
+                        512,
                       ),
-                      [[ns, e2.passport]]
+                      [[ns, e2.passport]],
                     ),
                   ]),
                   Pl("div", m_, [
@@ -21212,9 +21247,9 @@ i_.render = function (e$, e0, e8, e2, e3, e1) {
                             class: "w-full font-bold border-b pl-20",
                           },
                           null,
-                          512
+                          512,
                         ),
-                        [[ns, e2.value]]
+                        [[ns, e2.value]],
                       ),
                     ]),
                   ]),
@@ -21232,9 +21267,9 @@ i_.render = function (e$, e0, e8, e2, e3, e1) {
                           class: "w-full mt-4 font-bold text-4xl pb-2 border-b",
                         },
                         null,
-                        512
+                        512,
                       ),
-                      [[ns, e2.reason]]
+                      [[ns, e2.reason]],
                     ),
                   ]),
                   e2.passport >= 0 && 0 != e2.value && e2.reason.trim()
@@ -21248,33 +21283,33 @@ i_.render = function (e$, e0, e8, e2, e3, e1) {
                             (e0[5] = (...e$) => e2.submit && e2.submit(...e$)),
                           class: "absolute inset-x-8 bottom-8",
                         },
-                        [y_]
+                        [y_],
                       ))
                     : Ml("", !0),
                 ]))
               : 2 == e2.step
-              ? (wl(),
-                _l("div", k_, [
-                  w_,
-                  C_,
-                  Pl("div", __, [
-                    Pl(
-                      "p",
-                      A_,
-                      g(e$.$currency) +
-                        " " +
-                        g(e2.receipt.value.toLocaleString("pt-BR")),
-                      1
-                    ),
-                    Pl("p", null, "para " + g(e2.receipt.name), 1),
-                    Pl("p", S_, [T_, Il(" • " + g(e2.receipt.time), 1)]),
-                  ]),
-                ]))
-              : Ml("", !0),
+                ? (wl(),
+                  _l("div", k_, [
+                    w_,
+                    C_,
+                    Pl("div", __, [
+                      Pl(
+                        "p",
+                        A_,
+                        g(e$.$currency) +
+                          " " +
+                          g(e2.receipt.value.toLocaleString("pt-BR")),
+                        1,
+                      ),
+                      Pl("p", null, "para " + g(e2.receipt.name), 1),
+                      Pl("p", S_, [T_, Il(" • " + g(e2.receipt.time), 1)]),
+                    ]),
+                  ]))
+                : Ml("", !0),
           ]),
         ]),
         _: 1,
-      }
+      },
     )
   );
 };
@@ -21316,7 +21351,7 @@ const E_ = {
       class: "far fa-chevron-left",
     },
     null,
-    -1
+    -1,
   ),
   L_ = {
     class: "px-8 pb-8 w-full border-b",
@@ -21327,7 +21362,7 @@ const E_ = {
       class: "text-4xl text-gray-600 font-semibold",
     },
     "Saldo dispon\xedvel",
-    -1
+    -1,
   ),
   O_ = {
     class: "mt-4 text-5xl font-bold",
@@ -21338,7 +21373,7 @@ const E_ = {
       class: "px-8 py-8 font-bold text-3xl",
     },
     "Multas",
-    -1
+    -1,
   ),
   V_ = {
     class: "flex-1 w-full overflow-y-auto hide-scroll",
@@ -21365,7 +21400,7 @@ const E_ = {
       class: "fal fa-gavel",
     },
     null,
-    -1
+    -1,
   ),
   z_ = Il(" Nenhuma multa pendente ");
 E_.render = function (e$, e0, e8, e2, e3, e1) {
@@ -21389,7 +21424,7 @@ E_.render = function (e$, e0, e8, e2, e3, e1) {
                   (e0[1] = (...e0) =>
                     e$.$router.back && e$.$router.back(...e0)),
               },
-              [P_]
+              [P_],
             ),
             Pl("div", L_, [
               I_,
@@ -21397,7 +21432,7 @@ E_.render = function (e$, e0, e8, e2, e3, e1) {
                 "p",
                 O_,
                 g(e$.$currency) + " " + g(e2.balance.toLocaleString("pt-BR")),
-                1
+                1,
               ),
             ]),
             M_,
@@ -21427,7 +21462,7 @@ E_.render = function (e$, e0, e8, e2, e3, e1) {
                           g(e$.$currency) +
                             " " +
                             g(e0.total.toLocaleString("pt-BR")),
-                          1
+                          1,
                         ),
                         Pl(
                           "button",
@@ -21437,20 +21472,20 @@ E_.render = function (e$, e0, e8, e2, e3, e1) {
                           },
                           " Pagar ",
                           8,
-                          ["onClick"]
+                          ["onClick"],
                         ),
-                      ]
+                      ],
                     )
-                  )
+                  ),
                 ),
-                128
+                128,
               )),
               e2.fines.length ? Ml("", !0) : (wl(), _l("p", j_, [F_, z_])),
             ]),
           ]),
         ]),
         _: 1,
-      }
+      },
     )
   );
 };
@@ -21479,9 +21514,9 @@ const B_ = {
       }
 
       function e7(e$) {
-        (e2.value = "details"), (e3.value = e$);
+        ((e2.value = "details"), (e3.value = e$));
       }
-      Tn(e6, (e$) => So.setNotificationFor("paypal", e$)),
+      (Tn(e6, (e$) => So.setNotificationFor("paypal", e$)),
         So.localhost &&
           e1.value.push({
             id: 1,
@@ -21493,16 +21528,16 @@ const B_ = {
           }),
         So.onceRoute("PAYPAL", ({ value: e$ }) => jk(e8, e8.value + e$)),
         (e4.add = e4(1)),
-        (e4.rem = e4(-1));
+        (e4.rem = e4(-1)));
       let e5 = Ze({}),
         eV = Ze({}),
         eN = Ze({
           bank: 0,
         });
       So.backend.paypal_index().then((e$) => {
-        (e8.value = e$.balance),
+        ((e8.value = e$.balance),
           (eN.bank = e$.bank),
-          (e1.value = e$.transactions);
+          (e1.value = e$.transactions));
       });
       let e9 = da(() => e1.value.find((e$) => "payment" === e$.type));
       return {
@@ -21519,14 +21554,14 @@ const B_ = {
         submitSend: function () {
           var e0;
           let e8 = parseInt(
-            null == (e0 = e5.value) ? void 0 : e0.replace(/\D/g, "")
+            null == (e0 = e5.value) ? void 0 : e0.replace(/\D/g, ""),
           );
           e5.user_id
             ? e8
               ? So.lockAndProceed(() =>
                   So.backend
                     .paypal_send(e5.user_id, e8, e5.message)
-                    .then(e4.rem)
+                    .then(e4.rem),
                 )
               : e$("Digite o valor a ser transferido")
             : e$("Digite o passaporte do jogador");
@@ -21535,11 +21570,11 @@ const B_ = {
         submitTransfer: function () {
           var e0;
           let e8 = parseInt(
-            null == (e0 = eV.value) ? void 0 : e0.replace(/\D/g, "")
+            null == (e0 = eV.value) ? void 0 : e0.replace(/\D/g, ""),
           );
           e8
             ? So.lockAndProceed(() =>
-                So.backend.paypal_transfer(e8).then(e4.rem)
+                So.backend.paypal_transfer(e8).then(e4.rem),
               )
             : e$("Digite o valor a ser transferido");
         },
@@ -21547,11 +21582,11 @@ const B_ = {
         submitDeposit: function () {
           var e0;
           let e8 = parseInt(
-            null == (e0 = eN.value) ? void 0 : e0.replace(/\D/g, "")
+            null == (e0 = eN.value) ? void 0 : e0.replace(/\D/g, ""),
           );
           e8
             ? So.lockAndProceed(() =>
-                So.backend.paypal_deposit(e8).then(e4.add)
+                So.backend.paypal_deposit(e8).then(e4.add),
               )
             : e$("Digite o valor de dep\xf3sito");
         },
@@ -21574,7 +21609,7 @@ const B_ = {
       class: "fas fa-chevron-left",
     },
     null,
-    -1
+    -1,
   ),
   K_ = {
     key: 1,
@@ -21609,7 +21644,7 @@ const B_ = {
       class: "font-bold mb-2",
     },
     "Saldo do PayPal",
-    -1
+    -1,
   ),
   lA = {
     class: "align-top",
@@ -21626,7 +21661,7 @@ const B_ = {
       class: "far fa-list-ul mr-4",
     },
     null,
-    -1
+    -1,
   ),
   rA = Il(" Ver toda atividade "),
   iA = {
@@ -21657,7 +21692,7 @@ const B_ = {
         d: "M14.1 27.2l7.1 7.2 16.7-16.8",
       }),
     ],
-    -1
+    -1,
   ),
   dA = {
     class: "mt-3 px-3",
@@ -21684,7 +21719,7 @@ const B_ = {
       class: "font-bold py-4",
     },
     "MENSAGEM",
-    -1
+    -1,
   ),
   vA = Pl("hr", null, null, -1),
   xA = {
@@ -21699,7 +21734,7 @@ const B_ = {
       class: "font-bold py-4",
     },
     "DATA",
-    -1
+    -1,
   ),
   wA = Pl("hr", null, null, -1),
   CA = {
@@ -21714,7 +21749,7 @@ const B_ = {
       class: "font-bold py-4",
     },
     "C\xd3DIGO DE TRANSA\xc7\xc3O",
-    -1
+    -1,
   ),
   SA = Pl("hr", null, null, -1),
   TA = {
@@ -21800,7 +21835,7 @@ const B_ = {
       class: "fal fa-money-bill-wave-alt",
     },
     null,
-    -1
+    -1,
   ),
   QA = Pl(
     "span",
@@ -21808,7 +21843,7 @@ const B_ = {
       class: "block",
     },
     "Enviar",
-    -1
+    -1,
   ),
   eS = {
     class: "text-center mt-auto",
@@ -21819,7 +21854,7 @@ const B_ = {
       class: "fal fa-university",
     },
     null,
-    -1
+    -1,
   ),
   nS = Pl(
     "span",
@@ -21827,7 +21862,7 @@ const B_ = {
       class: "block",
     },
     "Sacar",
-    -1
+    -1,
   ),
   lS = {
     class: "text-center mt-auto",
@@ -21838,7 +21873,7 @@ const B_ = {
       class: "fal fa-piggy-bank",
     },
     null,
-    -1
+    -1,
   ),
   sS = Pl(
     "span",
@@ -21846,7 +21881,7 @@ const B_ = {
       class: "block",
     },
     "Depositar",
-    -1
+    -1,
   );
 B_.render = function (e$, e0, e8, e2, e3, e1) {
   let e6 = dl("app-input");
@@ -21873,7 +21908,7 @@ B_.render = function (e$, e0, e8, e2, e3, e1) {
                   W_,
                   Il(" " + g("resume" == e2.action ? "Apps" : "Resumo"), 1),
                 ])),
-          ]
+          ],
         ),
         Pl(
           "h1",
@@ -21891,9 +21926,9 @@ B_.render = function (e$, e0, e8, e2, e3, e1) {
               ? "resume" == e2.action
                 ? e$.$filters.nameByApp.paypal
                 : "Resumo"
-              : e$.$filters.nameByApp.paypal
+              : e$.$filters.nameByApp.paypal,
           ),
-          3
+          3,
         ),
       ]),
       "resume" == e2.action
@@ -21907,9 +21942,11 @@ B_.render = function (e$, e0, e8, e2, e3, e1) {
                       "span",
                       Z_,
                       g(
-                        e$.$filters.unixToDayOfMonth(e2.firstPayment.created_at)
+                        e$.$filters.unixToDayOfMonth(
+                          e2.firstPayment.created_at,
+                        ),
                       ),
-                      1
+                      1,
                     ),
                   ]),
                   Pl("p", Q_, [
@@ -21917,15 +21954,15 @@ B_.render = function (e$, e0, e8, e2, e3, e1) {
                       g(
                         e2.firstPayment.user_id == e2.identity.user_id
                           ? "Voc\xea"
-                          : e2.firstPayment.fullName
+                          : e2.firstPayment.fullName,
                       ) + " enviou ",
-                      1
+                      1,
                     ),
                     Pl(
                       "b",
                       null,
                       g(e$.$filters.intToMoney(e2.firstPayment.value)),
-                      1
+                      1,
                     ),
                   ]),
                   Pl(
@@ -21936,7 +21973,7 @@ B_.render = function (e$, e0, e8, e2, e3, e1) {
                         (e0[2] = (e$) => e2.openPayment(e2.firstPayment)),
                       class: "mt-8 border-2 px-6 py-1 rounded-full",
                     },
-                    "Ver detalhes"
+                    "Ver detalhes",
                   ),
                 ]))
               : Ml("", !0),
@@ -21962,9 +21999,9 @@ B_.render = function (e$, e0, e8, e2, e3, e1) {
                         ],
                       },
                       null,
-                      2
+                      2,
                     ),
-                  ]
+                  ],
                 ),
               ]),
               Pl("span", lA, g(e$.$currency), 1),
@@ -21977,297 +22014,305 @@ B_.render = function (e$, e0, e8, e2, e3, e1) {
                   class: "text-paypal-light",
                   onClick: e0[4] || (e0[4] = (e$) => (e2.action = "activity")),
                 },
-                [oA, rA]
+                [oA, rA],
               ),
             ]),
           ]))
         : "details" == e2.action
-        ? (wl(),
-          _l("div", iA, [
-            Pl("div", cA, [
-              uA,
-              Pl("div", dA, [
-                "withdraw" === e2.payment.type
-                  ? (wl(),
-                    _l(
-                      "p",
-                      pA,
-                      " Voc\xea sacou " +
-                        g(e$.$filters.intToMoney(e2.payment.value)),
-                      1
-                    ))
-                  : "deposit" === e2.payment.type
-                  ? (wl(),
-                    _l(
-                      "p",
-                      fA,
-                      " Voc\xea depositou " +
-                        g(e$.$filters.intToMoney(e2.payment.value)),
-                      1
-                    ))
-                  : e2.payment.user_id === e2.identity.user_id
-                  ? (wl(),
-                    _l(
-                      "p",
-                      mA,
-                      " Voc\xea enviou " +
-                        g(e$.$filters.intToMoney(e2.payment.value)) +
-                        " para " +
-                        g(e2.payment.fullName),
-                      1
-                    ))
-                  : (wl(),
-                    _l(
-                      "p",
-                      hA,
-                      " Voc\xea recebeu " +
-                        g(e$.$filters.intToMoney(e2.payment.value)) +
-                        " de " +
-                        g(e2.payment.fullName),
-                      1
-                    )),
+          ? (wl(),
+            _l("div", iA, [
+              Pl("div", cA, [
+                uA,
+                Pl("div", dA, [
+                  "withdraw" === e2.payment.type
+                    ? (wl(),
+                      _l(
+                        "p",
+                        pA,
+                        " Voc\xea sacou " +
+                          g(e$.$filters.intToMoney(e2.payment.value)),
+                        1,
+                      ))
+                    : "deposit" === e2.payment.type
+                      ? (wl(),
+                        _l(
+                          "p",
+                          fA,
+                          " Voc\xea depositou " +
+                            g(e$.$filters.intToMoney(e2.payment.value)),
+                          1,
+                        ))
+                      : e2.payment.user_id === e2.identity.user_id
+                        ? (wl(),
+                          _l(
+                            "p",
+                            mA,
+                            " Voc\xea enviou " +
+                              g(e$.$filters.intToMoney(e2.payment.value)) +
+                              " para " +
+                              g(e2.payment.fullName),
+                            1,
+                          ))
+                        : (wl(),
+                          _l(
+                            "p",
+                            hA,
+                            " Voc\xea recebeu " +
+                              g(e$.$filters.intToMoney(e2.payment.value)) +
+                              " de " +
+                              g(e2.payment.fullName),
+                            1,
+                          )),
+                ]),
               ]),
-            ]),
-            e2.payment.description
-              ? (wl(),
-                _l("div", bA, [
-                  gA,
-                  vA,
-                  Pl("span", xA, g(e2.payment.description), 1),
-                ]))
-              : Ml("", !0),
-            Pl("div", yA, [
-              kA,
-              wA,
-              Pl(
-                "span",
-                CA,
-                g(e$.$filters.unixToDatetime(e2.payment.created_at)),
-                1
-              ),
-            ]),
-            Pl("div", _A, [AA, SA, Pl("span", TA, g(e2.payment.id), 1)]),
-          ]))
-        : "activity" == e2.action
-        ? (wl(),
-          _l("div", EA, [
-            Pl("ul", null, [
-              (wl(!0),
-              _l(
-                bl,
-                null,
-                fa(
-                  e2.extract,
-                  (e0) => (
-                    wl(),
-                    _l(
-                      "li",
-                      {
-                        onClick: (e$) => e2.openPayment(e0),
-                        key: e0.id,
-                        class: "flex items-center border-b p-4 shadow",
-                      },
-                      [
-                        Pl("div", RA, [
-                          e0.user_id != e0.target
-                            ? (wl(), _l("i", PA))
-                            : "withdraw" == e0.type
-                            ? (wl(), _l("i", LA))
-                            : "deposit" == e0.type
-                            ? (wl(), _l("i", IA))
-                            : Ml("", !0),
-                        ]),
-                        Pl("div", OA, [
-                          Pl(
-                            "span",
-                            MA,
-                            g(
-                              "payment" == e0.type
-                                ? "Pagamento"
-                                : "withdraw" == e0.type
-                                ? "Saque"
-                                : "Dep\xf3sito"
-                            ),
-                            1
-                          ),
-                          Pl(
-                            "span",
-                            VA,
-                            g(e$.$filters.unixToDate(e0.created_at)),
-                            1
-                          ),
-                        ]),
-                        Pl("div", DA, [
-                          Pl(
-                            "span",
-                            {
-                              class: [
-                                "text-2xl",
-                                e0.user_id == e0.target && "withdraw" == e0.type
-                                  ? "text-red-500"
-                                  : 0,
-                                e0.user_id != e0.target &&
-                                e0.user_id == e2.identity.user_id
-                                  ? "text-red-500"
-                                  : 0,
-                              ],
-                            },
-                            g(e$.$filters.intToMoney(e0.value)),
-                            3
-                          ),
-                        ]),
-                      ],
-                      8,
-                      ["onClick"]
-                    )
-                  )
+              e2.payment.description
+                ? (wl(),
+                  _l("div", bA, [
+                    gA,
+                    vA,
+                    Pl("span", xA, g(e2.payment.description), 1),
+                  ]))
+                : Ml("", !0),
+              Pl("div", yA, [
+                kA,
+                wA,
+                Pl(
+                  "span",
+                  CA,
+                  g(e$.$filters.unixToDatetime(e2.payment.created_at)),
+                  1,
                 ),
-                128
-              )),
-            ]),
-          ]))
-        : "send" == e2.action
-        ? (wl(),
-          _l("div", NA, [
-            Pl(
-              e6,
-              {
-                modelValue: e2.send.user_id,
-                "onUpdate:modelValue":
-                  e0[5] || (e0[5] = (e$) => (e2.send.user_id = e$)),
-                format: "int",
-                noborder: "1",
-                class: "bg-transparent border-b border-blue-400",
-                placeholder: "Passaporte",
-              },
-              null,
-              8,
-              ["modelValue"]
-            ),
-            Pl("div", UA, [
-              Pl(
-                e6,
-                {
-                  modelValue: e2.send.value,
-                  "onUpdate:modelValue":
-                    e0[6] || (e0[6] = (e$) => (e2.send.value = e$)),
-                  format: "money",
-                  noborder: "1",
-                  class: "bg-transparent border-b border-blue-400",
-                  placeholder: "Valor a ser enviado",
-                },
-                null,
-                8,
-                ["modelValue"]
-              ),
-              Pl("small", $A, [
-                jA,
-                Pl("b", null, g(e$.$filters.intToMoney(e2.balance)), 1),
               ]),
-            ]),
-            Pl("div", FA, [
-              Pl(
-                e6,
-                {
-                  modelValue: e2.send.message,
-                  "onUpdate:modelValue":
-                    e0[7] || (e0[7] = (e$) => (e2.send.message = e$)),
-                  class: "rounded-full px-6",
-                  placeholder: "Deixa uma mensagem",
-                  maxlength: "250",
-                },
-                null,
-                8,
-                ["modelValue"]
-              ),
-              Pl(
-                "button",
-                {
-                  onClick:
-                    e0[8] ||
-                    (e0[8] = (...e$) => e2.submitSend && e2.submitSend(...e$)),
-                  class:
-                    "ml-4 p-4 px-8 bg-paypal-light text-white font-semibold rounded-full",
-                },
-                "Transferir"
-              ),
-            ]),
-          ]))
-        : "transfer" == e2.action
-        ? (wl(),
-          _l("div", zA, [
-            Pl(
-              e6,
-              {
-                modelValue: e2.transfer.value,
-                "onUpdate:modelValue":
-                  e0[9] || (e0[9] = (e$) => (e2.transfer.value = e$)),
-                noborder: "1",
-                format: "money",
-                placeholder: "Valor para transferir",
-                class: "bg-transparent border-b border-blue-400",
-              },
-              null,
-              8,
-              ["modelValue"]
-            ),
-            Pl("small", BA, [
-              HA,
-              Pl("b", null, g(e$.$filters.intToMoney(e2.balance)), 1),
-            ]),
-            Pl("div", qA, [
-              Pl(
-                "button",
-                {
-                  onClick:
-                    e0[10] ||
-                    (e0[10] = (...e$) =>
-                      e2.submitTransfer && e2.submitTransfer(...e$)),
-                  class:
-                    "bg-paypal-light p-4 px-8 text-white font-semibold rounded-full",
-                },
-                "Sacar"
-              ),
-            ]),
-          ]))
-        : "deposit" == e2.action
-        ? (wl(),
-          _l("div", GA, [
-            Pl(
-              e6,
-              {
-                modelValue: e2.deposit.value,
-                "onUpdate:modelValue":
-                  e0[11] || (e0[11] = (e$) => (e2.deposit.value = e$)),
-                noborder: "1",
-                format: "money",
-                placeholder: "Valor para depositar",
-                class: "bg-transparent border-b border-blue-400",
-              },
-              null,
-              8,
-              ["modelValue"]
-            ),
-            Pl("small", WA, [
-              KA,
-              Pl("b", null, g(e$.$filters.intToMoney(e2.deposit.bank)), 1),
-            ]),
-            Pl("div", JA, [
-              Pl(
-                "button",
-                {
-                  onClick:
-                    e0[12] ||
-                    (e0[12] = (...e$) =>
-                      e2.submitDeposit && e2.submitDeposit(...e$)),
-                  class:
-                    "bg-paypal-light p-4 px-8 text-white font-semibold rounded-full",
-                },
-                "Depositar"
-              ),
-            ]),
-          ]))
-        : Ml("", !0),
+              Pl("div", _A, [AA, SA, Pl("span", TA, g(e2.payment.id), 1)]),
+            ]))
+          : "activity" == e2.action
+            ? (wl(),
+              _l("div", EA, [
+                Pl("ul", null, [
+                  (wl(!0),
+                  _l(
+                    bl,
+                    null,
+                    fa(
+                      e2.extract,
+                      (e0) => (
+                        wl(),
+                        _l(
+                          "li",
+                          {
+                            onClick: (e$) => e2.openPayment(e0),
+                            key: e0.id,
+                            class: "flex items-center border-b p-4 shadow",
+                          },
+                          [
+                            Pl("div", RA, [
+                              e0.user_id != e0.target
+                                ? (wl(), _l("i", PA))
+                                : "withdraw" == e0.type
+                                  ? (wl(), _l("i", LA))
+                                  : "deposit" == e0.type
+                                    ? (wl(), _l("i", IA))
+                                    : Ml("", !0),
+                            ]),
+                            Pl("div", OA, [
+                              Pl(
+                                "span",
+                                MA,
+                                g(
+                                  "payment" == e0.type
+                                    ? "Pagamento"
+                                    : "withdraw" == e0.type
+                                      ? "Saque"
+                                      : "Dep\xf3sito",
+                                ),
+                                1,
+                              ),
+                              Pl(
+                                "span",
+                                VA,
+                                g(e$.$filters.unixToDate(e0.created_at)),
+                                1,
+                              ),
+                            ]),
+                            Pl("div", DA, [
+                              Pl(
+                                "span",
+                                {
+                                  class: [
+                                    "text-2xl",
+                                    e0.user_id == e0.target &&
+                                    "withdraw" == e0.type
+                                      ? "text-red-500"
+                                      : 0,
+                                    e0.user_id != e0.target &&
+                                    e0.user_id == e2.identity.user_id
+                                      ? "text-red-500"
+                                      : 0,
+                                  ],
+                                },
+                                g(e$.$filters.intToMoney(e0.value)),
+                                3,
+                              ),
+                            ]),
+                          ],
+                          8,
+                          ["onClick"],
+                        )
+                      ),
+                    ),
+                    128,
+                  )),
+                ]),
+              ]))
+            : "send" == e2.action
+              ? (wl(),
+                _l("div", NA, [
+                  Pl(
+                    e6,
+                    {
+                      modelValue: e2.send.user_id,
+                      "onUpdate:modelValue":
+                        e0[5] || (e0[5] = (e$) => (e2.send.user_id = e$)),
+                      format: "int",
+                      noborder: "1",
+                      class: "bg-transparent border-b border-blue-400",
+                      placeholder: "Passaporte",
+                    },
+                    null,
+                    8,
+                    ["modelValue"],
+                  ),
+                  Pl("div", UA, [
+                    Pl(
+                      e6,
+                      {
+                        modelValue: e2.send.value,
+                        "onUpdate:modelValue":
+                          e0[6] || (e0[6] = (e$) => (e2.send.value = e$)),
+                        format: "money",
+                        noborder: "1",
+                        class: "bg-transparent border-b border-blue-400",
+                        placeholder: "Valor a ser enviado",
+                      },
+                      null,
+                      8,
+                      ["modelValue"],
+                    ),
+                    Pl("small", $A, [
+                      jA,
+                      Pl("b", null, g(e$.$filters.intToMoney(e2.balance)), 1),
+                    ]),
+                  ]),
+                  Pl("div", FA, [
+                    Pl(
+                      e6,
+                      {
+                        modelValue: e2.send.message,
+                        "onUpdate:modelValue":
+                          e0[7] || (e0[7] = (e$) => (e2.send.message = e$)),
+                        class: "rounded-full px-6",
+                        placeholder: "Deixa uma mensagem",
+                        maxlength: "250",
+                      },
+                      null,
+                      8,
+                      ["modelValue"],
+                    ),
+                    Pl(
+                      "button",
+                      {
+                        onClick:
+                          e0[8] ||
+                          (e0[8] = (...e$) =>
+                            e2.submitSend && e2.submitSend(...e$)),
+                        class:
+                          "ml-4 p-4 px-8 bg-paypal-light text-white font-semibold rounded-full",
+                      },
+                      "Transferir",
+                    ),
+                  ]),
+                ]))
+              : "transfer" == e2.action
+                ? (wl(),
+                  _l("div", zA, [
+                    Pl(
+                      e6,
+                      {
+                        modelValue: e2.transfer.value,
+                        "onUpdate:modelValue":
+                          e0[9] || (e0[9] = (e$) => (e2.transfer.value = e$)),
+                        noborder: "1",
+                        format: "money",
+                        placeholder: "Valor para transferir",
+                        class: "bg-transparent border-b border-blue-400",
+                      },
+                      null,
+                      8,
+                      ["modelValue"],
+                    ),
+                    Pl("small", BA, [
+                      HA,
+                      Pl("b", null, g(e$.$filters.intToMoney(e2.balance)), 1),
+                    ]),
+                    Pl("div", qA, [
+                      Pl(
+                        "button",
+                        {
+                          onClick:
+                            e0[10] ||
+                            (e0[10] = (...e$) =>
+                              e2.submitTransfer && e2.submitTransfer(...e$)),
+                          class:
+                            "bg-paypal-light p-4 px-8 text-white font-semibold rounded-full",
+                        },
+                        "Sacar",
+                      ),
+                    ]),
+                  ]))
+                : "deposit" == e2.action
+                  ? (wl(),
+                    _l("div", GA, [
+                      Pl(
+                        e6,
+                        {
+                          modelValue: e2.deposit.value,
+                          "onUpdate:modelValue":
+                            e0[11] ||
+                            (e0[11] = (e$) => (e2.deposit.value = e$)),
+                          noborder: "1",
+                          format: "money",
+                          placeholder: "Valor para depositar",
+                          class: "bg-transparent border-b border-blue-400",
+                        },
+                        null,
+                        8,
+                        ["modelValue"],
+                      ),
+                      Pl("small", WA, [
+                        KA,
+                        Pl(
+                          "b",
+                          null,
+                          g(e$.$filters.intToMoney(e2.deposit.bank)),
+                          1,
+                        ),
+                      ]),
+                      Pl("div", JA, [
+                        Pl(
+                          "button",
+                          {
+                            onClick:
+                              e0[12] ||
+                              (e0[12] = (...e$) =>
+                                e2.submitDeposit && e2.submitDeposit(...e$)),
+                            class:
+                              "bg-paypal-light p-4 px-8 text-white font-semibold rounded-full",
+                          },
+                          "Depositar",
+                        ),
+                      ]),
+                    ]))
+                  : Ml("", !0),
       Pl("div", XA, [
         Pl("div", YA, [
           Pl(
@@ -22276,7 +22321,7 @@ B_.render = function (e$, e0, e8, e2, e3, e1) {
               onClick: e0[13] || (e0[13] = (e$) => (e2.action = "send")),
               class: "bg-paypal-light text-white p-5 rounded-full",
             },
-            [ZA]
+            [ZA],
           ),
           QA,
         ]),
@@ -22287,7 +22332,7 @@ B_.render = function (e$, e0, e8, e2, e3, e1) {
               onClick: e0[14] || (e0[14] = (e$) => (e2.action = "transfer")),
               class: "bg-paypal-light text-white p-5 rounded-full",
             },
-            [tS]
+            [tS],
           ),
           nS,
         ]),
@@ -22298,7 +22343,7 @@ B_.render = function (e$, e0, e8, e2, e3, e1) {
               onClick: e0[15] || (e0[15] = (e$) => (e2.action = "deposit")),
               class: "bg-paypal-light text-white p-5 rounded-full",
             },
-            [aS]
+            [aS],
           ),
           sS,
         ]),
@@ -22333,7 +22378,7 @@ oS.render = function (e$, e0, e8, e2, e3, e1) {
           onClick: e0[1] || (e0[1] = (e0) => e$.$router.back()),
           class: "absolute top-16 left-0 px-4",
         },
-        [e2.isAndroid ? (wl(), _l("i", iS)) : (wl(), _l("i", cS))]
+        [e2.isAndroid ? (wl(), _l("i", iS)) : (wl(), _l("i", cS))],
       ),
       Pl(
         "h1",
@@ -22347,7 +22392,7 @@ oS.render = function (e$, e0, e8, e2, e3, e1) {
           ],
         },
         g(e8.title || "OLX"),
-        3
+        3,
       ),
     ])
   );
@@ -22391,7 +22436,7 @@ const uS = {
       class: "fal fa-trash-alt",
     },
     null,
-    -1
+    -1,
   );
 uS.render = function (e$, e0, e8, e2, e3, e1) {
   return e8.data.id
@@ -22406,7 +22451,7 @@ uS.render = function (e$, e0, e8, e2, e3, e1) {
           },
           null,
           8,
-          ["src"]
+          ["src"],
         ),
         Pl("div", pS, [
           Pl("h1", fS, g(e8.data.title), 1),
@@ -22424,7 +22469,7 @@ uS.render = function (e$, e0, e8, e2, e3, e1) {
                         e0[1] ||
                         (e0[1] = (...e$) => e2.destroy && e2.destroy(...e$)),
                     },
-                    [gS]
+                    [gS],
                   ))
                 : Ml("", !0),
               Pl(
@@ -22435,7 +22480,7 @@ uS.render = function (e$, e0, e8, e2, e3, e1) {
                     (e0[2] = (e0) => e$.$router.push("/olx/" + e8.data.id)),
                   class: "bg-olx px-6 py-2 text-white rounded-xl",
                 },
-                " Ver mais "
+                " Ver mais ",
               ),
             ]),
           ]),
@@ -22454,7 +22499,7 @@ const vS = {},
       class: "fal fa-home-alt text-4xl block",
     },
     null,
-    -1
+    -1,
   ),
   kS = Pl(
     "span",
@@ -22462,7 +22507,7 @@ const vS = {},
       class: "text-base font-bold",
     },
     "In\xedcio",
-    -1
+    -1,
   ),
   wS = Pl(
     "i",
@@ -22470,7 +22515,7 @@ const vS = {},
       class: "fal fa-bullhorn text-4xl block",
     },
     null,
-    -1
+    -1,
   ),
   CS = Pl(
     "span",
@@ -22478,7 +22523,7 @@ const vS = {},
       class: "text-base font-bold",
     },
     "Anunciar",
-    -1
+    -1,
   ),
   _S = Pl(
     "i",
@@ -22486,7 +22531,7 @@ const vS = {},
       class: "fal fa-search text-4xl block",
     },
     null,
-    -1
+    -1,
   ),
   AS = Pl(
     "span",
@@ -22494,7 +22539,7 @@ const vS = {},
       class: "text-base font-bold",
     },
     "Buscar",
-    -1
+    -1,
   ),
   SS = Pl(
     "i",
@@ -22502,7 +22547,7 @@ const vS = {},
       class: "fal fa-box text-4xl block",
     },
     null,
-    -1
+    -1,
   ),
   TS = Pl(
     "span",
@@ -22510,7 +22555,7 @@ const vS = {},
       class: "text-base font-bold",
     },
     "Seus an\xfancios",
-    -1
+    -1,
   );
 vS.render = function (e$, e0, e8, e2, e3, e1) {
   return (
@@ -22525,7 +22570,7 @@ vS.render = function (e$, e0, e8, e2, e3, e1) {
           },
         },
         [yS, kS],
-        2
+        2,
       ),
       Pl(
         "button",
@@ -22536,7 +22581,7 @@ vS.render = function (e$, e0, e8, e2, e3, e1) {
           },
         },
         [wS, CS],
-        2
+        2,
       ),
       Pl(
         "button",
@@ -22547,7 +22592,7 @@ vS.render = function (e$, e0, e8, e2, e3, e1) {
           },
         },
         [_S, AS],
-        2
+        2,
       ),
       Pl(
         "button",
@@ -22558,7 +22603,7 @@ vS.render = function (e$, e0, e8, e2, e3, e1) {
           },
         },
         [SS, TS],
-        2
+        2,
       ),
     ])
   );
@@ -22594,7 +22639,7 @@ const ES = {
       class: "mt-32",
     },
     null,
-    -1
+    -1,
   );
 ES.render = function (e$, e0, e8, e2, e3, e1) {
   let e6 = dl("Header"),
@@ -22629,13 +22674,13 @@ ES.render = function (e$, e0, e8, e2, e3, e1) {
                     },
                     null,
                     8,
-                    ["data"]
+                    ["data"],
                   ),
-                ]
+                ],
               )
-            )
+            ),
           ),
-          128
+          128,
         )),
       ]),
       LS,
@@ -22654,7 +22699,7 @@ const IS = rt(""),
       Footer: vS,
     },
     setup() {
-      jl("setDark")(!0), co();
+      (jl("setDark")(!0), co());
       let e$ = cc(),
         e0 = jl("alert");
       return {
@@ -22684,16 +22729,16 @@ const IS = rt(""),
               ? e2.price
                 ? e2.images.length
                   ? ((e2.price = parseInt(
-                      null == (e8 = e2.price) ? void 0 : e8.replace(/\D/g, "")
+                      null == (e8 = e2.price) ? void 0 : e8.replace(/\D/g, ""),
                     )),
                     void So.backend.olx_createAd(e2).then((e8) => {
                       if (e8.error) return e0(e8.error);
-                      e$.replace("/olx"),
+                      (e$.replace("/olx"),
                         (IS.value = ""),
                         (OS.value = ""),
                         (MS.value = void 0),
                         (VS.value = ""),
-                        (DS.value = []);
+                        (DS.value = []));
                     }))
                   : e0("Ao menos uma imagem \xe9 obrigat\xf3ria.")
                 : e0("Insira um pre\xe7o")
@@ -22735,7 +22780,7 @@ const IS = rt(""),
       class: "fas fa-plus",
     },
     null,
-    -1
+    -1,
   );
 NS.render = function (e$, e0, e8, e2, e3, e1) {
   let e6 = dl("Header"),
@@ -22762,7 +22807,7 @@ NS.render = function (e$, e0, e8, e2, e3, e1) {
             },
             null,
             8,
-            ["modelValue"]
+            ["modelValue"],
           ),
         ]),
         Pl("div", FS, [
@@ -22784,7 +22829,7 @@ NS.render = function (e$, e0, e8, e2, e3, e1) {
             },
             null,
             8,
-            ["modelValue"]
+            ["modelValue"],
           ),
         ]),
         Pl("div", BS, [
@@ -22801,7 +22846,7 @@ NS.render = function (e$, e0, e8, e2, e3, e1) {
             },
             null,
             8,
-            ["modelValue"]
+            ["modelValue"],
           ),
         ]),
         Pl("div", qS, [
@@ -22814,7 +22859,7 @@ NS.render = function (e$, e0, e8, e2, e3, e1) {
                   e0[4] ||
                   (e0[4] = us(
                     is(() => {}, ["prevent"]),
-                    ["enter"]
+                    ["enter"],
                   )),
                 class:
                   "resize-none p-3 bg-theme border border-theme rounded-lg fancy-scroll w-full text-3xl",
@@ -22824,9 +22869,9 @@ NS.render = function (e$, e0, e8, e2, e3, e1) {
                 rows: "8",
               },
               null,
-              544
+              544,
             ),
-            [[ns, e2.description]]
+            [[ns, e2.description]],
           ),
           Pl("span", WS, g(e2.description.length) + "/1024", 1),
         ]),
@@ -22850,11 +22895,11 @@ NS.render = function (e$, e0, e8, e2, e3, e1) {
                     },
                     null,
                     8,
-                    ["src"]
+                    ["src"],
                   )
-                )
+                ),
               ),
-              128
+              128,
             )),
             e2.images.length < 3
               ? (wl(),
@@ -22868,7 +22913,7 @@ NS.render = function (e$, e0, e8, e2, e3, e1) {
                     class:
                       "w-24 h-24 border-2 border-olx flex flex-center text-olx",
                   },
-                  [XS]
+                  [XS],
                 ))
               : Ml("", !0),
           ]),
@@ -22881,7 +22926,7 @@ NS.render = function (e$, e0, e8, e2, e3, e1) {
             class:
               "absolute bottom-16 right-8 bg-olx p-3 px-6 text-white rounded-xl mt-2 block ml-auto",
           },
-          "Publicar"
+          "Publicar",
         ),
       ]),
     ])
@@ -22901,12 +22946,12 @@ const YS = {
 
       function e3() {
         let e2 = e$.value || "%";
-        "%" != e2 && (e2 = "%" + e2 + "%"),
-          So.backend.olx_search(e2, e0.value).then((e$) => (e8.value = e$));
+        ("%" != e2 && (e2 = "%" + e2 + "%"),
+          So.backend.olx_search(e2, e0.value).then((e$) => (e8.value = e$)));
       }
       return (
         Tn(e$, () => {
-          clearTimeout(e2), (e2 = setTimeout(e3, 500));
+          (clearTimeout(e2), (e2 = setTimeout(e3, 500)));
         }),
         Tn(e0, () => e3()),
         e3(),
@@ -22933,7 +22978,7 @@ const YS = {
       class: "mt-32",
     },
     null,
-    -1
+    -1,
   );
 YS.render = function (e$, e0, e8, e2, e3, e1) {
   let e6 = dl("Header"),
@@ -22958,7 +23003,7 @@ YS.render = function (e$, e0, e8, e2, e3, e1) {
           },
           null,
           8,
-          ["modelValue"]
+          ["modelValue"],
         ),
         Pl(
           e7,
@@ -22978,7 +23023,7 @@ YS.render = function (e$, e0, e8, e2, e3, e1) {
           },
           null,
           8,
-          ["modelValue"]
+          ["modelValue"],
         ),
       ]),
       Pl("ul", eT, [
@@ -23003,13 +23048,13 @@ YS.render = function (e$, e0, e8, e2, e3, e1) {
                     },
                     null,
                     8,
-                    ["data"]
+                    ["data"],
                   ),
-                ]
+                ],
               )
-            )
+            ),
           ),
-          128
+          128,
         )),
       ]),
       tT,
@@ -23059,7 +23104,7 @@ const nT = {
       class: "fal fa-chevron-left fa-2x",
     },
     null,
-    -1
+    -1,
   ),
   rT = Pl(
     "i",
@@ -23067,7 +23112,7 @@ const nT = {
       class: "fal fa-chevron-right fa-2x",
     },
     null,
-    -1
+    -1,
   ),
   iT = {
     class: "p-3 overflow-y-auto-hide-scroll",
@@ -23090,7 +23135,7 @@ const nT = {
       class: "border-theme",
     },
     null,
-    -1
+    -1,
   ),
   mT = {
     class: "py-3",
@@ -23101,7 +23146,7 @@ const nT = {
       class: "font-semibold mb-4 text-4xl",
     },
     "Descri\xe7\xe3o",
-    -1
+    -1,
   ),
   bT = {
     class: "text-2xl opacity-75 break-words",
@@ -23112,7 +23157,7 @@ const nT = {
       class: "border-theme",
     },
     null,
-    -1
+    -1,
   ),
   vT = {
     class: "py-3",
@@ -23123,7 +23168,7 @@ const nT = {
       class: "font-semibold mb-4 text-4xl",
     },
     "Anunciante",
-    -1
+    -1,
   ),
   yT = {
     class: "text-2xl",
@@ -23134,7 +23179,7 @@ const nT = {
       class: "opacity-75",
     },
     "Nome: ",
-    -1
+    -1,
   ),
   wT = {
     class: "opacity-50",
@@ -23145,7 +23190,7 @@ const nT = {
       class: "opacity-75",
     },
     "Passaporte: ",
-    -1
+    -1,
   ),
   _T = {
     class: "opacity-50",
@@ -23156,7 +23201,7 @@ const nT = {
       class: "opacity-75",
     },
     "Telefone: ",
-    -1
+    -1,
   ),
   ST = {
     class: "select-text opacity-50",
@@ -23167,7 +23212,7 @@ const nT = {
       class: "fab fa-whatsapp",
     },
     null,
-    -1
+    -1,
   ),
   ET = {
     key: 1,
@@ -23178,7 +23223,7 @@ const nT = {
       class: "p-3 text-center opacity-75 font-semibold",
     },
     "An\xfancio n\xe3o encontrado",
-    -1
+    -1,
   );
 nT.render = function (e$, e0, e8, e2, e3, e1) {
   let e6 = dl("Header");
@@ -23204,7 +23249,7 @@ nT.render = function (e$, e0, e8, e2, e3, e1) {
                           (e2.imgIndex = Math.max(0, e2.imgIndex - 1))),
                       class: "absolute text-white h-full w-2/12",
                     },
-                    [oT]
+                    [oT],
                   ))
                 : Ml("", !0),
               Pl(
@@ -23219,7 +23264,7 @@ nT.render = function (e$, e0, e8, e2, e3, e1) {
                 },
                 null,
                 8,
-                ["src"]
+                ["src"],
               ),
               e2.imgIndex < e2.ad.images.length - 1
                 ? (wl(),
@@ -23232,11 +23277,11 @@ nT.render = function (e$, e0, e8, e2, e3, e1) {
                         (e0[2] = (e$) =>
                           (e2.imgIndex = Math.min(
                             e2.ad.images.length - 1,
-                            e2.imgIndex + 1
+                            e2.imgIndex + 1,
                           ))),
                       class: "absolute top-0 right-0 text-white h-full w-2/12",
                     },
-                    [rT]
+                    [rT],
                   ))
                 : Ml("", !0),
             ]),
@@ -23248,7 +23293,7 @@ nT.render = function (e$, e0, e8, e2, e3, e1) {
                   "span",
                   pT,
                   "Publicado em " + g(e$.$filters.unixToDate(e2.ad.created_at)),
-                  1
+                  1,
                 ),
               ]),
               fT,
@@ -23276,10 +23321,10 @@ nT.render = function (e$, e0, e8, e2, e3, e1) {
                               e0[3] ||
                               (e0[3] = (e0) =>
                                 e$.$router.push(
-                                  "/whatsapp/" + e2.ad.author.phone
+                                  "/whatsapp/" + e2.ad.author.phone,
                                 )),
                           },
-                          [TT]
+                          [TT],
                         ))
                       : Ml("", !0),
                   ]),
@@ -23288,8 +23333,8 @@ nT.render = function (e$, e0, e8, e2, e3, e1) {
             ]),
           ]))
         : !1 === e2.ad
-        ? (wl(), _l("div", ET, [RT]))
-        : Ml("", !0),
+          ? (wl(), _l("div", ET, [RT]))
+          : Ml("", !0),
     ])
   );
 };
@@ -23341,7 +23386,7 @@ const PT = {
       class: "fal fa-trash-alt text-red-500",
     },
     null,
-    -1
+    -1,
   ),
   NT = {
     key: 1,
@@ -23353,7 +23398,7 @@ const PT = {
       class: "text-theme font-semibold text-center",
     },
     "Voc\xea n\xe3o possui an\xfancios",
-    -1
+    -1,
   ),
   $T = Pl(
     "div",
@@ -23361,7 +23406,7 @@ const PT = {
       class: "mt-32",
     },
     null,
-    -1
+    -1,
   );
 PT.render = function (e$, e0, e8, e2, e3, e1) {
   var e6;
@@ -23399,7 +23444,7 @@ PT.render = function (e$, e0, e8, e2, e3, e1) {
                           },
                           null,
                           8,
-                          ["src"]
+                          ["src"],
                         ),
                         Pl("div", OT, [
                           Pl("h1", MT, g(e0.title), 1),
@@ -23413,19 +23458,19 @@ PT.render = function (e$, e0, e8, e2, e3, e1) {
                           },
                           [DT],
                           8,
-                          ["onClick"]
+                          ["onClick"],
                         ),
-                      ]
+                      ],
                     )
-                  )
+                  ),
                 ),
-                128
+                128,
               )),
             ]),
           ]))
         : e2.ads
-        ? (wl(), _l("div", NT, [UT]))
-        : Ml("", !0),
+          ? (wl(), _l("div", NT, [UT]))
+          : Ml("", !0),
       $T,
     ])
   );
@@ -23454,7 +23499,7 @@ jT.render = function (e$, e0) {
           },
           null,
           12,
-          ["src"]
+          ["src"],
         ),
       ]),
       Pl("button", null, [
@@ -23474,7 +23519,7 @@ jT.render = function (e$, e0) {
           },
           null,
           12,
-          ["src"]
+          ["src"],
         ),
       ]),
       Pl("button", null, [
@@ -23494,7 +23539,7 @@ jT.render = function (e$, e0) {
           },
           null,
           12,
-          ["src"]
+          ["src"],
         ),
       ]),
       Pl("button", null, [
@@ -23514,7 +23559,7 @@ jT.render = function (e$, e0) {
           },
           null,
           12,
-          ["src"]
+          ["src"],
         ),
       ]),
     ])
@@ -23602,7 +23647,7 @@ const zT = {
       class: "text-gray-500 text-center text-xl mt-4",
     },
     "N\xe3o encontramos ningu\xe9m compat\xedvel com voc\xea.",
-    -1
+    -1,
   );
 zT.render = function (e$, e0, e8, e2, e3, e1) {
   let e6 = dl("Header");
@@ -23622,7 +23667,7 @@ zT.render = function (e$, e0, e8, e2, e3, e1) {
                 },
                 null,
                 8,
-                ["src"]
+                ["src"],
               ),
               Pl("div", GT, [
                 Pl("div", WT, [
@@ -23639,7 +23684,7 @@ zT.render = function (e$, e0, e8, e2, e3, e1) {
                       ],
                     },
                     null,
-                    2
+                    2,
                   ),
                   Pl("span", YT, g(e2.peer.online ? "Online" : "Offline"), 1),
                 ]),
@@ -23661,11 +23706,11 @@ zT.render = function (e$, e0, e8, e2, e3, e1) {
                                 class: "text-xl tinder-chip",
                               },
                               g(e$),
-                              1
+                              1,
                             )
-                          )
+                          ),
                         ),
-                        128
+                        128,
                       )),
                     ]))
                   : Ml("", !0),
@@ -23690,9 +23735,9 @@ zT.render = function (e$, e0, e8, e2, e3, e1) {
                         },
                         null,
                         8,
-                        ["src"]
+                        ["src"],
                       ),
-                    ]
+                    ],
                   ))
                 : Ml("", !0),
               Pl(
@@ -23709,9 +23754,9 @@ zT.render = function (e$, e0, e8, e2, e3, e1) {
                     },
                     null,
                     8,
-                    ["src"]
+                    ["src"],
                   ),
-                ]
+                ],
               ),
               Pl(
                 "button",
@@ -23727,9 +23772,9 @@ zT.render = function (e$, e0, e8, e2, e3, e1) {
                     },
                     null,
                     8,
-                    ["src"]
+                    ["src"],
                   ),
-                ]
+                ],
               ),
               Pl(
                 "button",
@@ -23745,9 +23790,9 @@ zT.render = function (e$, e0, e8, e2, e3, e1) {
                     },
                     null,
                     8,
-                    ["src"]
+                    ["src"],
                   ),
-                ]
+                ],
               ),
             ]),
           ]))
@@ -23761,7 +23806,7 @@ zT.render = function (e$, e0, e8, e2, e3, e1) {
               },
               null,
               8,
-              ["src"]
+              ["src"],
             ),
             nE,
           ])),
@@ -23789,7 +23834,7 @@ const lE = Ze({
         takeSelfie: async function () {
           try {
             let e0 = await So.useAnyImage("/tinder", !0);
-            (lE.image = e0), e$(!1);
+            ((lE.image = e0), e$(!1));
           } catch (e8) {}
         },
         next: function () {
@@ -23804,10 +23849,10 @@ const lE = Ze({
                       if (!e3) return (e2.value = "Preencha a bio");
                       if (e3.length > 1024)
                         return (e2.value = "Limite de caracteres ultrapassado");
-                      (lE.bio = e3),
+                      ((lE.bio = e3),
                         So.backend.tinder_register(lE).then(() => {
                           e0.replace("/tinder");
-                        });
+                        }));
                     }
                   } else {
                     let e1 = e8.target;
@@ -23867,7 +23912,7 @@ const oE = {
       class: "text-xl text-white block text-center mt-4",
     },
     "Clique na imagem para alterar",
-    -1
+    -1,
   ),
   cE = {
     key: 1,
@@ -23883,7 +23928,7 @@ const oE = {
       class: "text-xl text-gray-400 mt-2",
     },
     "\xc9 assim que o seu nome vai aparecer no Tinder e voc\xea n\xe3o poder\xe1 alter\xe1-lo depois.",
-    -1
+    -1,
   ),
   pE = {
     key: 1,
@@ -23895,7 +23940,7 @@ const oE = {
       class: "text-xl text-gray-400 mt-2",
     },
     "Sua idade ser\xe1 p\xfablica.",
-    -1
+    -1,
   ),
   mE = {
     key: 2,
@@ -23907,7 +23952,7 @@ const oE = {
       class: "text-2xl tinder-gray",
     },
     "Selecione o seu g\xeanero.",
-    -1
+    -1,
   ),
   bE = {
     class: "flex items-center",
@@ -23918,7 +23963,7 @@ const oE = {
       class: "ml-2 text-2xl tinder-gray",
     },
     "Mostrar meu g\xeanero no perfil",
-    -1
+    -1,
   ),
   vE = {
     key: 3,
@@ -23930,7 +23975,7 @@ const oE = {
       class: "text-2xl tinder-gray",
     },
     "Selecione at\xe9 3",
-    -1
+    -1,
   ),
   yE = {
     class: "flex items-center",
@@ -23941,7 +23986,7 @@ const oE = {
       class: "ml-2 text-2xl tinder-gray",
     },
     "Mostrar minha orienta\xe7\xe3o no meu perfil",
-    -1
+    -1,
   ),
   wE = {
     key: 4,
@@ -23953,7 +23998,7 @@ const oE = {
       class: "text-2xl tinder-gray",
     },
     "Sua prefer\xeancia \xe9 por",
-    -1
+    -1,
   ),
   _E = {
     key: 5,
@@ -23965,7 +24010,7 @@ const oE = {
       class: "text-xl tinder-gray",
     },
     "Escreva a sua biografia",
-    -1
+    -1,
   ),
   SE = Pl(
     "p",
@@ -23973,7 +24018,7 @@ const oE = {
       class: "text-xl tinder-gray",
     },
     "\xc9 assim que a sua biografia vai aparecer no Tinder, mas voc\xea poder\xe1 alter\xe1-la depois.",
-    -1
+    -1,
   ),
   TE = {
     key: 6,
@@ -24007,7 +24052,7 @@ const PE = sE((e$, e0, e8, e2, e3, e1) => {
               },
               null,
               8,
-              ["src"]
+              ["src"],
             ),
             e2.payload.name
               ? e2.payload.age
@@ -24037,16 +24082,16 @@ const PE = sE((e$, e0, e8, e2, e3, e1) => {
                                     e0[11] ||
                                     (e0[11] = us(
                                       is(() => {}, ["prevent"]),
-                                      ["enter"]
+                                      ["enter"],
                                     )),
                                   class:
                                     "border h-80 fancy-scroll rounded-xl text-xl w-full resize-none p-4",
                                   spellcheck: "false",
                                 },
                                 null,
-                                544
+                                544,
                               ),
-                              [[ns, e2.tmp.bio]]
+                              [[ns, e2.tmp.bio]],
                             ),
                             SE,
                           ]))
@@ -24078,10 +24123,10 @@ const PE = sE((e$, e0, e8, e2, e3, e1) => {
                                   },
                                   g(e$),
                                   11,
-                                  ["onClick"]
-                                )
+                                  ["onClick"],
+                                ),
                             ),
-                            64
+                            64,
                           )),
                         ]))
                     : (wl(),
@@ -24120,10 +24165,10 @@ const PE = sE((e$, e0, e8, e2, e3, e1) => {
                                 },
                                 g(e$),
                                 11,
-                                ["onClick"]
-                              )
+                                ["onClick"],
+                              ),
                           ),
-                          64
+                          64,
                         )),
                         Pl("div", yE, [
                           Zn(
@@ -24139,9 +24184,9 @@ const PE = sE((e$, e0, e8, e2, e3, e1) => {
                                 },
                               },
                               null,
-                              512
+                              512,
                             ),
-                            [[ls, e2.payload.show_tags]]
+                            [[ls, e2.payload.show_tags]],
                           ),
                           kE,
                         ]),
@@ -24162,7 +24207,7 @@ const PE = sE((e$, e0, e8, e2, e3, e1) => {
                           ],
                         },
                         " Homem ",
-                        2
+                        2,
                       ),
                       Pl(
                         "button",
@@ -24178,7 +24223,7 @@ const PE = sE((e$, e0, e8, e2, e3, e1) => {
                           ],
                         },
                         " Mulher ",
-                        2
+                        2,
                       ),
                       Pl("div", bE, [
                         Zn(
@@ -24194,9 +24239,9 @@ const PE = sE((e$, e0, e8, e2, e3, e1) => {
                               },
                             },
                             null,
-                            512
+                            512,
                           ),
-                          [[ls, e2.payload.show_gender]]
+                          [[ls, e2.payload.show_gender]],
                         ),
                         gE,
                       ]),
@@ -24212,7 +24257,7 @@ const PE = sE((e$, e0, e8, e2, e3, e1) => {
                             e0[4] ||
                             (e0[4] = us(
                               (...e$) => e2.next && e2.next(...e$),
-                              ["enter"]
+                              ["enter"],
                             )),
                           "onUpdate:modelValue":
                             e0[5] || (e0[5] = (e$) => (e2.tmp.age = e$)),
@@ -24223,9 +24268,9 @@ const PE = sE((e$, e0, e8, e2, e3, e1) => {
                           class: "mx-auto block w-full border-b text-gray-800",
                         },
                         null,
-                        544
+                        544,
                       ),
-                      [[ns, e2.tmp.age]]
+                      [[ns, e2.tmp.age]],
                     ),
                     fE,
                   ]))
@@ -24240,7 +24285,7 @@ const PE = sE((e$, e0, e8, e2, e3, e1) => {
                           e0[2] ||
                           (e0[2] = us(
                             (...e$) => e2.next && e2.next(...e$),
-                            ["enter"]
+                            ["enter"],
                           )),
                         "onUpdate:modelValue":
                           e0[3] || (e0[3] = (e$) => (e2.tmp.name = e$)),
@@ -24250,9 +24295,9 @@ const PE = sE((e$, e0, e8, e2, e3, e1) => {
                         class: "mx-auto block w-full border-b text-gray-800",
                       },
                       null,
-                      544
+                      544,
                     ),
-                    [[ns, e2.tmp.name]]
+                    [[ns, e2.tmp.name]],
                   ),
                   dE,
                 ])),
@@ -24269,7 +24314,7 @@ const PE = sE((e$, e0, e8, e2, e3, e1) => {
                         (e0[12] = (...e$) => e2.next && e2.next(...e$)),
                       class: "tinder-gray font-semibold text-4xl",
                     },
-                    " CONTINUAR "
+                    " CONTINUAR ",
                   ),
                 ])),
           ]))
@@ -24283,7 +24328,7 @@ const PE = sE((e$, e0, e8, e2, e3, e1) => {
               },
               null,
               8,
-              ["src"]
+              ["src"],
             ),
             Pl(
               "div",
@@ -24306,16 +24351,16 @@ const PE = sE((e$, e0, e8, e2, e3, e1) => {
                   },
                   null,
                   8,
-                  ["src"]
+                  ["src"],
                 ),
-              ]
+              ],
             ),
             iE,
           ])),
     ])
   );
 });
-(aE.render = PE), (aE.__scopeId = "data-v-0181de71");
+((aE.render = PE), (aE.__scopeId = "data-v-0181de71"));
 const LE = {
     components: {
       Header: jT,
@@ -24348,7 +24393,7 @@ const OE = {
       class: "text-gray-500 text-xl mt-2",
     },
     "Ainda ningu\xe9m te curtiu, mas eu curto voc\xea.",
-    -1
+    -1,
   ),
   DE = {
     key: 1,
@@ -24375,7 +24420,7 @@ const UE = IE((e$, e0, e8, e2, e3, e1) => {
               },
               null,
               8,
-              ["src"]
+              ["src"],
             ),
             VE,
           ]))
@@ -24404,23 +24449,23 @@ const UE = IE((e$, e0, e8, e2, e3, e1) => {
                         },
                         null,
                         8,
-                        ["src"]
+                        ["src"],
                       ),
                       Pl("p", NE, [
                         Pl("b", null, g(e$.name), 1),
                         Pl("span", null, ", " + g(e$.age), 1),
                       ]),
-                    ]
+                    ],
                   )
-                )
+                ),
               ),
-              128
+              128,
             )),
           ])),
     ])
   );
 });
-(LE.render = UE), (LE.__scopeId = "data-v-b5909498");
+((LE.render = UE), (LE.__scopeId = "data-v-b5909498"));
 const $E = {
     components: {
       Header: jT,
@@ -24433,8 +24478,8 @@ const $E = {
             .filter((e$) => e$.last_message)
             .sort(
               (e$, e0) =>
-                e0.last_message.created_at - e$.last_message.created_at
-            )
+                e0.last_message.created_at - e$.last_message.created_at,
+            ),
         ),
         e8 = da(() => e$.value.filter((e$) => !e$.last_message));
       return (
@@ -24465,7 +24510,7 @@ const $E = {
       class: "text-tinder text-2xl",
     },
     "Novos Matches",
-    -1
+    -1,
   ),
   BE = {
     class:
@@ -24535,16 +24580,16 @@ $E.render = function (e$, e0, e8, e2, e3, e1) {
                           },
                           null,
                           8,
-                          ["src"]
+                          ["src"],
                         ),
                         Pl("h1", HE, g(e0.name), 1),
                       ],
                       8,
-                      ["onClick"]
+                      ["onClick"],
                     )
-                  )
+                  ),
                 ),
-                128
+                128,
               )),
             ]),
           ]))
@@ -24580,7 +24625,7 @@ $E.render = function (e$, e0, e8, e2, e3, e1) {
                         },
                         null,
                         8,
-                        ["src"]
+                        ["src"],
                       ),
                       Pl("div", WE, [
                         Pl("h1", KE, g(e0.name), 1),
@@ -24589,7 +24634,7 @@ $E.render = function (e$, e0, e8, e2, e3, e1) {
                             "p",
                             XE,
                             g(e0.last_message.content.substr(0, 32)),
-                            1
+                            1,
                           ),
                           Pl(
                             "p",
@@ -24598,20 +24643,20 @@ $E.render = function (e$, e0, e8, e2, e3, e1) {
                               e$.$filters.unixToHHMM(
                                 null != (e8 = e0.last_message.created_at)
                                   ? e8
-                                  : Date.now() / 1e3
-                              )
+                                  : Date.now() / 1e3,
+                              ),
                             ),
-                            1
+                            1,
                           ),
                         ]),
                       ]),
                     ],
                     8,
-                    ["onClick"]
+                    ["onClick"],
                   )
                 );
               }),
-              128
+              128,
             )),
           ]))
         : Ml("", !0),
@@ -24647,7 +24692,7 @@ const ZE = {
         So.backend.tinder_chat(e2).then((e$) => {
           var { messages: e0, avatars: e8 } = e$,
             e2 = o(e$, ["messages", "avatars"]);
-          (e1.value = e2),
+          ((e1.value = e2),
             (e6.value = e8),
             e4.push(
               ...(function (e$) {
@@ -24657,15 +24702,15 @@ const ZE = {
                   e8.length && e8[e8.length - 1].sender != e2.sender
                     ? (e0.push(e8), (e8 = [e2]))
                     : e8.push(e2);
-                return e8.length && e0.push(e8), e0;
-              })(e0)
+                return (e8.length && e0.push(e8), e0);
+              })(e0),
             ),
-            e7("auto");
+            e7("auto"));
         }),
         So.onceRoute("TINDER_MESSAGE", (e$) => {
           if (e$.sender != e2 && e$.target != e2) return;
           let e0 = e4[e4.length - 1];
-          e0 && e0[0].sender == e$.sender ? e0.push(e$) : e4.push([e$]), e7();
+          (e0 && e0[0].sender == e$.sender ? e0.push(e$) : e4.push([e$]), e7());
         }),
         So.onceRoute("TINDER_DISMATCH", (e$) => {
           e$ == e2 && e0.back();
@@ -24688,7 +24733,8 @@ const ZE = {
           },
           dismatch: async function () {
             e8("Deseja dar dismatch?").then(
-              (e$) => e$ && So.backend.tinder_dismatch(e2).then(() => e0.back())
+              (e$) =>
+                e$ && So.backend.tinder_dismatch(e2).then(() => e0.back()),
             );
           },
           like: function (e$) {
@@ -24712,7 +24758,7 @@ const eR = {
       class: "far fa-chevron-left text-5xl text-gray-400",
     },
     null,
-    -1
+    -1,
   ),
   lR = {
     class: "text-center",
@@ -24726,7 +24772,7 @@ const eR = {
       class: "fas fa-times text-5xl text-tinder",
     },
     null,
-    -1
+    -1,
   ),
   oR = {
     class: "flex-1 overflow-y-auto hide-scroll px-4",
@@ -24762,7 +24808,7 @@ const pR = QE((e$, e0, e8, e2, e3, e1) => {
             onClick: e0[1] || (e0[1] = (e0) => e$.$router.back()),
             class: "absolute top-20 px-8",
           },
-          [nR]
+          [nR],
         ),
         Pl("div", lR, [
           Pl(
@@ -24776,7 +24822,7 @@ const pR = QE((e$, e0, e8, e2, e3, e1) => {
             },
             null,
             8,
-            ["src"]
+            ["src"],
           ),
           Pl("p", aR, g(e2.chat.name), 1),
         ]),
@@ -24786,7 +24832,7 @@ const pR = QE((e$, e0, e8, e2, e3, e1) => {
             onClick: e0[2] || (e0[2] = (e$) => e2.dismatch()),
             class: "absolute top-20 right-8",
           },
-          [sR]
+          [sR],
         ),
       ]),
       Pl("div", oR, [
@@ -24809,7 +24855,7 @@ const pR = QE((e$, e0, e8, e2, e3, e1) => {
                     "h1",
                     rR,
                     g(e$.$filters.unixToLocale(e0[0].created_at)),
-                    1
+                    1,
                   ),
                   Pl(
                     "div",
@@ -24830,7 +24876,7 @@ const pR = QE((e$, e0, e8, e2, e3, e1) => {
                         },
                         null,
                         8,
-                        ["src"]
+                        ["src"],
                       ),
                       Pl(
                         "div",
@@ -24888,32 +24934,32 @@ const pR = QE((e$, e0, e8, e2, e3, e1) => {
                                                 ],
                                               },
                                               null,
-                                              2
+                                              2,
                                             ),
                                           ],
                                           8,
-                                          ["onClick"]
+                                          ["onClick"],
                                         ))
                                       : Ml("", !0),
                                   ],
                                   8,
-                                  ["sender"]
+                                  ["sender"],
                                 )
-                              )
+                              ),
                             ),
-                            128
+                            128,
                           )),
                         ],
-                        2
+                        2,
                       ),
                     ],
-                    2
+                    2,
                   ),
-                ]
+                ],
               )
-            )
+            ),
           ),
-          128
+          128,
         )),
       ]),
       Pl("div", uR, [
@@ -24928,7 +24974,7 @@ const pR = QE((e$, e0, e8, e2, e3, e1) => {
                   e0[4] ||
                   (e0[4] = us(
                     (...e$) => e2.sendMessage && e2.sendMessage(...e$),
-                    ["enter"]
+                    ["enter"],
                   )),
                 maxlength: "255",
                 type: "text",
@@ -24936,9 +24982,9 @@ const pR = QE((e$, e0, e8, e2, e3, e1) => {
                 placeholder: "Digite uma mensagem",
               },
               null,
-              544
+              544,
             ),
-            [[ns, e2.content]]
+            [[ns, e2.content]],
           ),
           Pl(
             "button",
@@ -24948,14 +24994,14 @@ const pR = QE((e$, e0, e8, e2, e3, e1) => {
                 (e0[5] = (...e$) => e2.sendMessage && e2.sendMessage(...e$)),
               class: "ml-4 text-gray-400 text-2xl",
             },
-            "Enviar"
+            "Enviar",
           ),
         ]),
       ]),
     ])
   );
 });
-(ZE.render = pR), (ZE.__scopeId = "data-v-a4dd8eb2");
+((ZE.render = pR), (ZE.__scopeId = "data-v-a4dd8eb2"));
 const fR = {
     components: {
       Header: jT,
@@ -24969,7 +25015,7 @@ const fR = {
         Tn(e8, (e$) => So.setNotificationFor("tinder", e$)),
         Tn(
           () => e0.value.target,
-          (e$, e0) => e0 && So.backend.tinder_changeTarget(e$)
+          (e$, e0) => e0 && So.backend.tinder_changeTarget(e$),
         ),
         So.backend.tinder().then((e$) => (e0.value = e$)),
         {
@@ -24978,7 +25024,7 @@ const fR = {
           changeAvatar: async function () {
             try {
               let e$ = await So.useAnyImage("/tinder", !0);
-              await So.backend.tinder_changeAvatar(e$), (e0.value.image = e$);
+              (await So.backend.tinder_changeAvatar(e$), (e0.value.image = e$));
             } catch (e8) {}
           },
           changeBio: function () {
@@ -25024,7 +25070,7 @@ const hR = {
       class: "text-gray-500 text-2xl",
     },
     "Biografia",
-    -1
+    -1,
   ),
   wR = {
     class: "mx-4 mt-4",
@@ -25042,7 +25088,7 @@ const hR = {
       class: "text-3xl",
     },
     "Notifica\xe7\xf5es",
-    -1
+    -1,
   ),
   TR = {
     class: "text-center mt-32",
@@ -25068,7 +25114,7 @@ const ER = mR((e$, e0, e8, e2, e3, e1) => {
                 },
                 null,
                 8,
-                ["src"]
+                ["src"],
               ),
               Pl("img", {
                 onClick: e0[1] || (e0[1] = (e$) => e2.changeAvatar()),
@@ -25101,9 +25147,9 @@ const ER = mR((e$, e0, e8, e2, e3, e1) => {
                     spellcheck: "false",
                   },
                   null,
-                  544
+                  544,
                 ),
-                [[ns, e2.profile.bio]]
+                [[ns, e2.profile.bio]],
               ),
             ]),
             Pl("div", wR, [
@@ -25122,7 +25168,7 @@ const ER = mR((e$, e0, e8, e2, e3, e1) => {
                 },
                 null,
                 8,
-                ["modelValue"]
+                ["modelValue"],
               ),
             ]),
             Pl("div", _R, [
@@ -25137,7 +25183,7 @@ const ER = mR((e$, e0, e8, e2, e3, e1) => {
                   },
                   null,
                   8,
-                  ["modelValue"]
+                  ["modelValue"],
                 ),
               ]),
             ]),
@@ -25151,7 +25197,7 @@ const ER = mR((e$, e0, e8, e2, e3, e1) => {
                       e2.deleteAccount && e2.deleteAccount(...e$)),
                   class: "bg-red-600 text-white rounded p-2 px-4 text-2xl",
                 },
-                "Excluir minha conta"
+                "Excluir minha conta",
               ),
             ]),
           ]))
@@ -25159,7 +25205,7 @@ const ER = mR((e$, e0, e8, e2, e3, e1) => {
     ])
   );
 });
-(fR.render = ER), (fR.__scopeId = "data-v-dfd1e998");
+((fR.render = ER), (fR.__scopeId = "data-v-dfd1e998"));
 const RR = {
   setup() {
     jl("setDark")();
@@ -25196,7 +25242,7 @@ RR.render = function (e$, e0, e8, e2, e3, e1) {
       },
       null,
       8,
-      ["src"]
+      ["src"],
     )
   );
 };
@@ -25229,7 +25275,7 @@ PR.render = function (e$, e0, e8, e2, e3, e1) {
             (e0[1] = (...e0) => e$.$router.back && e$.$router.back(...e0)),
           class: "absolute top-16 left-0 px-4",
         },
-        [e2.isAndroid ? (wl(), _l("i", IR)) : (wl(), _l("i", OR))]
+        [e2.isAndroid ? (wl(), _l("i", IR)) : (wl(), _l("i", OR))],
       ),
       Pl(
         "h1",
@@ -25243,7 +25289,7 @@ PR.render = function (e$, e0, e8, e2, e3, e1) {
           ],
         },
         g(e8.title),
-        3
+        3,
       ),
       Zt(e$.$slots, "default"),
     ])
@@ -25265,12 +25311,12 @@ const MR = {
           return e$
             ? e3.value.filter(
                 ({ title: e0, author: e2 }) =>
-                  e8(e0, e$) || e8(e2.name, e$) || e8(e2.phone, e$)
+                  e8(e0, e$) || e8(e2.name, e$) || e8(e2.phone, e$),
               )
             : e3.value;
         }),
         e6 = da(() =>
-          e3.value.some((e$) => e$.author.user_id == So.identity.user_id)
+          e3.value.some((e$) => e$.author.user_id == So.identity.user_id),
         );
       return (
         So.backend.yellowpages_index().then((e$) => (e3.value = e$)),
@@ -25289,9 +25335,9 @@ const MR = {
                 e$ &&
                 So.backend.yellowpages_destroy().then(() => {
                   e3.value = e3.value.filter(
-                    (e$) => e$.author.user_id != So.identity.user_id
+                    (e$) => e$.author.user_id != So.identity.user_id,
                   );
-                })
+                }),
             );
           },
         }
@@ -25307,7 +25353,7 @@ const MR = {
       class: "far fa-times text-red-500",
     },
     null,
-    -1
+    -1,
   ),
   NR = Pl(
     "i",
@@ -25315,7 +25361,7 @@ const MR = {
       class: "far fa-plus text-blue-500",
     },
     null,
-    -1
+    -1,
   ),
   UR = {
     class: "flex-shrink p-5 relative",
@@ -25356,7 +25402,7 @@ MR.render = function (e$, e0, e8, e2, e3, e1) {
                       e0[1] ||
                       (e0[1] = (...e$) => e2.destroy && e2.destroy(...e$)),
                   },
-                  [DR]
+                  [DR],
                 ))
               : (wl(),
                 _l(
@@ -25368,13 +25414,13 @@ MR.render = function (e$, e0, e8, e2, e3, e1) {
                       e0[2] ||
                       (e0[2] = (e0) => e$.$router.push("/yellowpages/create")),
                   },
-                  [NR]
+                  [NR],
                 )),
           ]),
           _: 1,
         },
         8,
-        ["title"]
+        ["title"],
       ),
       Pl("div", UR, [
         Pl(
@@ -25386,7 +25432,7 @@ MR.render = function (e$, e0, e8, e2, e3, e1) {
             ],
           },
           null,
-          2
+          2,
         ),
         Pl(
           e4,
@@ -25398,7 +25444,7 @@ MR.render = function (e$, e0, e8, e2, e3, e1) {
           },
           null,
           8,
-          ["modelValue"]
+          ["modelValue"],
         ),
       ]),
       Pl("ul", $R, [
@@ -25428,14 +25474,14 @@ MR.render = function (e$, e0, e8, e2, e3, e1) {
                       },
                       g(e$.author.phone),
                       9,
-                      ["onClick"]
+                      ["onClick"],
                     ),
                   ]),
-                ]
+                ],
               )
-            )
+            ),
           ),
-          128
+          128,
         )),
       ]),
     ])
@@ -25486,9 +25532,9 @@ BR.render = function (e$, e0, e8, e2, e3, e1) {
                 "block p-4 text-3xl text-theme w-full h-64 bg-theme border border-theme resize-none rounded-xl",
             },
             null,
-            512
+            512,
           ),
-          [[ns, e2.title]]
+          [[ns, e2.title]],
         ),
         Pl(
           "button",
@@ -25498,7 +25544,7 @@ BR.render = function (e$, e0, e8, e2, e3, e1) {
             class:
               "block ml-auto mt-4 px-4 py-3 rounded-xl bg-yellow-400 text-yellow-700",
           },
-          "Publicar"
+          "Publicar",
         ),
       ]),
     ])
@@ -25518,10 +25564,10 @@ const WR = {
     },
     methods: {
       clear() {
-        (this.result = 0),
+        ((this.result = 0),
           (this.tmp_value = 0),
           (this.operator = void 0),
-          (this.lastOperation = void 0);
+          (this.lastOperation = void 0));
       },
       invert() {
         this.result *= -1;
@@ -25530,27 +25576,27 @@ const WR = {
         this.result = (this.result / 100) * this.tmp_value;
       },
       addNumber(e$) {
-        (0 != this.result && !0 !== this.reset) ||
+        ((0 != this.result && !0 !== this.reset) ||
           ((this.result = ""), (this.reset = !1)),
-          (this.result += e$.toString());
+          (this.result += e$.toString()));
       },
       addPoint() {
         this.result.includes(".") || (this.result += ".");
       },
       setOperator(e$) {
-        0 != this.tmp_value && this.calculate(),
+        (0 != this.tmp_value && this.calculate(),
           (this.tmp_value = this.result),
           (this.operator = e$),
-          (this.reset = !0);
+          (this.reset = !0));
       },
       equal() {
         if (!this.operator && this.lastOperation) {
           let [e$, e0] = this.lastOperation;
-          (this.operator = e$),
+          ((this.operator = e$),
             (this.tmp_value = this.result),
-            (this.result = e0);
+            (this.result = e0));
         }
-        this.calculate(), (this.tmp_value = 0), (this.operator = void 0);
+        (this.calculate(), (this.tmp_value = 0), (this.operator = void 0));
       },
       calculate() {
         let e$ = 0,
@@ -25569,8 +25615,8 @@ const WR = {
           case "/":
             e$ = e0 / e8;
         }
-        (this.lastOperation = [this.operator, e8]),
-          (this.result = e$.toString());
+        ((this.lastOperation = [this.operator, e8]),
+          (this.result = e$.toString()));
       },
     },
   },
@@ -25589,7 +25635,7 @@ const WR = {
       class: "fas fa-divide",
     },
     null,
-    -1
+    -1,
   ),
   ZR = {
     class: "flex justify-around mt-4",
@@ -25600,7 +25646,7 @@ const WR = {
       class: "fas fa-times",
     },
     null,
-    -1
+    -1,
   ),
   eP = {
     class: "flex justify-around mt-4",
@@ -25611,7 +25657,7 @@ const WR = {
       class: "fas fa-minus",
     },
     null,
-    -1
+    -1,
   ),
   nP = {
     class: "flex justify-around mt-4",
@@ -25622,7 +25668,7 @@ const WR = {
       class: "fas fa-plus",
     },
     null,
-    -1
+    -1,
   ),
   aP = {
     class: "flex justify-around mt-4",
@@ -25633,7 +25679,7 @@ const WR = {
       class: "fas fa-equals",
     },
     null,
-    -1
+    -1,
   );
 WR.render = function (e$, e0, e8, e2, e3, e1) {
   return (
@@ -25656,9 +25702,9 @@ WR.render = function (e$, e0, e8, e2, e3, e1) {
               disabled: "",
             },
             null,
-            4
+            4,
           ),
-          [[ns, e3.result]]
+          [[ns, e3.result]],
         ),
         Pl("div", XR, [
           Pl(
@@ -25668,7 +25714,7 @@ WR.render = function (e$, e0, e8, e2, e3, e1) {
               onClick:
                 e0[2] || (e0[2] = (...e$) => e1.clear && e1.clear(...e$)),
             },
-            "AC"
+            "AC",
           ),
           Pl(
             "div",
@@ -25677,7 +25723,7 @@ WR.render = function (e$, e0, e8, e2, e3, e1) {
               onClick:
                 e0[3] || (e0[3] = (...e$) => e1.invert && e1.invert(...e$)),
             },
-            "+/-"
+            "+/-",
           ),
           Pl(
             "div",
@@ -25686,7 +25732,7 @@ WR.render = function (e$, e0, e8, e2, e3, e1) {
               onClick:
                 e0[4] || (e0[4] = (...e$) => e1.percent && e1.percent(...e$)),
             },
-            "%"
+            "%",
           ),
           Pl(
             "div",
@@ -25695,7 +25741,7 @@ WR.render = function (e$, e0, e8, e2, e3, e1) {
                 "bg-orange-400 text-white w-28 py-8 text-center rounded-full",
               onClick: e0[5] || (e0[5] = (e$) => e1.setOperator("/")),
             },
-            [YR]
+            [YR],
           ),
         ]),
         Pl("div", ZR, [
@@ -25714,10 +25760,10 @@ WR.render = function (e$, e0, e8, e2, e3, e1) {
                 },
                 g(e$),
                 9,
-                ["onClick"]
-              )
+                ["onClick"],
+              ),
             ),
-            64
+            64,
           )),
           Pl(
             "div",
@@ -25726,7 +25772,7 @@ WR.render = function (e$, e0, e8, e2, e3, e1) {
                 "bg-orange-400 text-white w-28 text-center py-8 rounded-full",
               onClick: e0[6] || (e0[6] = (e$) => e1.setOperator("*")),
             },
-            [QR]
+            [QR],
           ),
         ]),
         Pl("div", eP, [
@@ -25745,10 +25791,10 @@ WR.render = function (e$, e0, e8, e2, e3, e1) {
                 },
                 g(e$),
                 9,
-                ["onClick"]
-              )
+                ["onClick"],
+              ),
             ),
-            64
+            64,
           )),
           Pl(
             "div",
@@ -25757,7 +25803,7 @@ WR.render = function (e$, e0, e8, e2, e3, e1) {
                 "bg-orange-400 text-white w-28 text-center py-8 rounded-full",
               onClick: e0[7] || (e0[7] = (e$) => e1.setOperator("-")),
             },
-            [tP]
+            [tP],
           ),
         ]),
         Pl("div", nP, [
@@ -25776,10 +25822,10 @@ WR.render = function (e$, e0, e8, e2, e3, e1) {
                 },
                 g(e$),
                 9,
-                ["onClick"]
-              )
+                ["onClick"],
+              ),
             ),
-            64
+            64,
           )),
           Pl(
             "div",
@@ -25788,7 +25834,7 @@ WR.render = function (e$, e0, e8, e2, e3, e1) {
                 "bg-orange-400 text-white w-28 text-center py-8 rounded-full",
               onClick: e0[8] || (e0[8] = (e$) => e1.setOperator("+")),
             },
-            [lP]
+            [lP],
           ),
         ]),
         Pl("div", aP, [
@@ -25798,7 +25844,7 @@ WR.render = function (e$, e0, e8, e2, e3, e1) {
               onClick: e0[9] || (e0[9] = (e$) => e1.addNumber(0)),
               class: "bg-gray-800 text-white w-60 py-8 pl-12 rounded-full",
             },
-            "0"
+            "0",
           ),
           Pl(
             "div",
@@ -25809,7 +25855,7 @@ WR.render = function (e$, e0, e8, e2, e3, e1) {
               class:
                 "bg-gray-800 text-white w-28 py-8 text-center rounded-full",
             },
-            "."
+            ".",
           ),
           Pl(
             "div",
@@ -25819,7 +25865,7 @@ WR.render = function (e$, e0, e8, e2, e3, e1) {
               onClick:
                 e0[11] || (e0[11] = (...e$) => e1.equal && e1.equal(...e$)),
             },
-            [sP]
+            [sP],
           ),
         ]),
       ]),
@@ -25856,7 +25902,7 @@ oP.render = function (e$, e0, e8, e2, e3, e1) {
             e0[1] ||
             (e0[1] = (...e0) => e$.$router.back && e$.$router.back(...e0)),
         },
-        [e2.isAndroid ? (wl(), _l("i", iP)) : (wl(), _l("i", cP))]
+        [e2.isAndroid ? (wl(), _l("i", iP)) : (wl(), _l("i", cP))],
       ),
       Pl(
         "h1",
@@ -25870,7 +25916,7 @@ oP.render = function (e$, e0, e8, e2, e3, e1) {
           ],
         },
         g(e8.title),
-        3
+        3,
       ),
       Zt(e$.$slots, "default"),
     ])
@@ -25890,16 +25936,16 @@ const uP = {
         change: function (e$, e0) {
           let e2 = e8.value,
             e3 = e2[e0];
-          (e2[e0] = e2[e$]),
+          ((e2[e0] = e2[e$]),
             (e2[e$] = e3),
-            localStorage.setItem("smartphone@notes", JSON.stringify(e2));
+            localStorage.setItem("smartphone@notes", JSON.stringify(e2)));
         },
         destroy: function (e0) {
           e$("Deseja apagar essa anota\xe7\xe3o?").then((e$) => {
             if (e$) {
               let e2 = e8.value;
-              e2.splice(e0, 1),
-                localStorage.setItem("smartphone@notes", JSON.stringify(e2));
+              (e2.splice(e0, 1),
+                localStorage.setItem("smartphone@notes", JSON.stringify(e2)));
             }
           });
         },
@@ -25915,7 +25961,7 @@ const uP = {
       class: "far fa-plus text-note",
     },
     null,
-    -1
+    -1,
   ),
   fP = {
     class: "flex-grow overflow-y-auto hide-scroll",
@@ -25926,7 +25972,7 @@ const uP = {
       class: "fas fa-chevron-up text-lg text-note",
     },
     null,
-    -1
+    -1,
   ),
   hP = Pl(
     "i",
@@ -25934,7 +25980,7 @@ const uP = {
       class: "fas fa-chevron-down text-lg text-note",
     },
     null,
-    -1
+    -1,
   ),
   bP = {
     class: "ml-4 flex flex-col",
@@ -25956,7 +26002,7 @@ const uP = {
       class: "far fa-trash-alt text-note text-xl",
     },
     null,
-    -1
+    -1,
   );
 uP.render = function (e$, e0, e8, e2, e3, e1) {
   let e6 = dl("Header");
@@ -25977,11 +26023,11 @@ uP.render = function (e$, e0, e8, e2, e3, e1) {
                 onClick:
                   e0[1] || (e0[1] = (e0) => e$.$router.push("/notes/create")),
               },
-              [pP]
+              [pP],
             ),
           ]),
           _: 1,
-        }
+        },
       ),
       Pl("ul", fP, [
         (wl(!0),
@@ -26015,12 +26061,12 @@ uP.render = function (e$, e0, e8, e2, e3, e1) {
                               key: 0,
                               onClick: is(
                                 (e$) => e2.change(e3, e3 - 1),
-                                ["stop"]
+                                ["stop"],
                               ),
                             },
                             [mP],
                             8,
-                            ["onClick"]
+                            ["onClick"],
                           ))
                         : Ml("", !0),
                       e3 < e2.notes.length - 1
@@ -26031,15 +26077,15 @@ uP.render = function (e$, e0, e8, e2, e3, e1) {
                               key: 1,
                               onClick: is(
                                 (e$) => e2.change(e3, e3 + 1),
-                                ["stop"]
+                                ["stop"],
                               ),
                             },
                             [hP],
                             8,
-                            ["onClick"]
+                            ["onClick"],
                           ))
                         : Ml("", !0),
-                    ]
+                    ],
                   ),
                   Pl("div", bP, [
                     e8.text.trim()
@@ -26049,7 +26095,7 @@ uP.render = function (e$, e0, e8, e2, e3, e1) {
                       "p",
                       xP,
                       g(new Date(e8.updated_at).toLocaleString("pt-BR")),
-                      1
+                      1,
                     ),
                   ]),
                   Pl(
@@ -26060,15 +26106,15 @@ uP.render = function (e$, e0, e8, e2, e3, e1) {
                     },
                     [yP],
                     8,
-                    ["onClick"]
+                    ["onClick"],
                   ),
                 ],
                 8,
-                ["onClick"]
+                ["onClick"],
               )
-            )
+            ),
           ),
-          128
+          128,
         )),
       ]),
     ])
@@ -26091,16 +26137,16 @@ const kP = {
             let e2 = JSON.parse(
                 null != (e8 = localStorage.getItem("smartphone@notes"))
                   ? e8
-                  : "[]"
+                  : "[]",
               ),
               e3 = Date.now();
-            e2.push({
+            (e2.push({
               text: e0.value,
               created_at: e3,
               updated_at: e3,
             }),
               localStorage.setItem("smartphone@notes", JSON.stringify(e2)),
-              e$.back();
+              e$.back());
           },
         }
       );
@@ -26115,7 +26161,7 @@ const kP = {
       class: "far fa-file text-note",
     },
     null,
-    -1
+    -1,
   );
 kP.render = function (e$, e0, e8, e2, e3, e1) {
   let e6 = dl("Header");
@@ -26136,11 +26182,11 @@ kP.render = function (e$, e0, e8, e2, e3, e1) {
                 onClick:
                   e0[1] || (e0[1] = (...e$) => e2.save && e2.save(...e$)),
               },
-              [CP]
+              [CP],
             ),
           ]),
           _: 1,
-        }
+        },
       ),
       Zn(
         Pl(
@@ -26150,16 +26196,16 @@ kP.render = function (e$, e0, e8, e2, e3, e1) {
               e0[2] ||
               (e0[2] = us(
                 is(() => {}, ["prevent"]),
-                ["enter"]
+                ["enter"],
               )),
             maxlength: "10000",
             class: "flex-1 w-full p-2 fancy-scroll resize-none bg-theme",
             "onUpdate:modelValue": e0[3] || (e0[3] = (e$) => (e2.text = e$)),
           },
           null,
-          544
+          544,
         ),
-        [[ns, e2.text]]
+        [[ns, e2.text]],
       ),
     ])
   );
@@ -26177,10 +26223,10 @@ const _P = {
         text: e8,
         save: function () {
           let e2 = JSON.parse(localStorage.getItem("smartphone@notes"));
-          (e2[e0].text = e8.value),
+          ((e2[e0].text = e8.value),
             (e2[e0].updated_at = Date.now()),
             localStorage.setItem("smartphone@notes", JSON.stringify(e2)),
-            e$.back();
+            e$.back());
         },
       };
     },
@@ -26194,7 +26240,7 @@ const _P = {
       class: "far fa-pencil text-note",
     },
     null,
-    -1
+    -1,
   );
 _P.render = function (e$, e0, e8, e2, e3, e1) {
   let e6 = dl("Header");
@@ -26215,11 +26261,11 @@ _P.render = function (e$, e0, e8, e2, e3, e1) {
                 onClick:
                   e0[1] || (e0[1] = (...e$) => e2.save && e2.save(...e$)),
               },
-              [SP]
+              [SP],
             ),
           ]),
           _: 1,
-        }
+        },
       ),
       Zn(
         Pl(
@@ -26229,16 +26275,16 @@ _P.render = function (e$, e0, e8, e2, e3, e1) {
               e0[2] ||
               (e0[2] = us(
                 is(() => {}, ["prevent"]),
-                ["enter"]
+                ["enter"],
               )),
             maxlength: "10000",
             class: "flex-1 w-full p-2 fancy-scroll resize-none bg-theme",
             "onUpdate:modelValue": e0[3] || (e0[3] = (e$) => (e2.text = e$)),
           },
           null,
-          544
+          544,
         ),
-        [[ns, e2.text]]
+        [[ns, e2.text]],
       ),
     ])
   );
@@ -26262,7 +26308,7 @@ const TP = Ze([]),
                   created_at: Date.now() / 1e3 - 300,
                 },
               ]
-            : []
+            : [],
         ),
         e2 = rt(),
         e3 = rt(So.localhost),
@@ -26284,7 +26330,7 @@ const TP = Ze([]),
           notifications: e1,
           destroy: async function (e$) {
             (await So.confirm(
-              "Tem certeza que deseja excluir esta not\xedcia?"
+              "Tem certeza que deseja excluir esta not\xedcia?",
             )) && So.backend.weazel_destroy(e$);
           },
           title: e0,
@@ -26294,7 +26340,7 @@ const TP = Ze([]),
             e2.value != e$ &&
               ((e2.value = e$),
               So.backend.weazel_tag(e$).then((e$) => {
-                (e8.length = 0), e8.push(...e$);
+                ((e8.length = 0), e8.push(...e$));
               }));
           },
         }
@@ -26332,7 +26378,7 @@ const TP = Ze([]),
       class: "fas fa-pen-alt",
     },
     null,
-    -1
+    -1,
   ),
   DP = {
     class: "flex-1 overflow-y-auto hide-scroll",
@@ -26367,7 +26413,7 @@ const TP = Ze([]),
       class: "far fa-eye ml-2 mr-1",
     },
     null,
-    -1
+    -1,
   ),
   GP = {
     key: 0,
@@ -26379,7 +26425,7 @@ const TP = Ze([]),
       class: "fas fa-pen-alt",
     },
     null,
-    -1
+    -1,
   ),
   KP = Pl(
     "i",
@@ -26387,7 +26433,7 @@ const TP = Ze([]),
       class: "far fa-trash-alt",
     },
     null,
-    -1
+    -1,
   );
 EP.render = function (e$, e0, e8, e2, e3, e1) {
   return (
@@ -26400,7 +26446,7 @@ EP.render = function (e$, e0, e8, e2, e3, e1) {
             onClick: e0[1] || (e0[1] = (e0) => e$.$router.back()),
             class: "absolute top-16 px-5",
           },
-          [e2.isAndroid ? (wl(), _l("i", LP)) : (wl(), _l("i", IP))]
+          [e2.isAndroid ? (wl(), _l("i", LP)) : (wl(), _l("i", IP))],
         ),
         Pl(
           "h1",
@@ -26414,7 +26460,7 @@ EP.render = function (e$, e0, e8, e2, e3, e1) {
             ],
           },
           g(e2.title),
-          3
+          3,
         ),
         Pl(
           "button",
@@ -26423,7 +26469,7 @@ EP.render = function (e$, e0, e8, e2, e3, e1) {
               e0[2] || (e0[2] = (e$) => (e2.notifications = !e2.notifications)),
             class: "absolute top-20 right-8 w-6 h-4 flex flex-center",
           },
-          [e2.notifications ? (wl(), _l("i", OP)) : (wl(), _l("i", MP))]
+          [e2.notifications ? (wl(), _l("i", OP)) : (wl(), _l("i", MP))],
         ),
       ]),
       e2.isJournalist
@@ -26437,7 +26483,7 @@ EP.render = function (e$, e0, e8, e2, e3, e1) {
               class:
                 "bg-weazel w-24 h-24 absolute bottom-8 right-8 rounded-full",
             },
-            [VP]
+            [VP],
           ))
         : Ml("", !0),
       Pl("div", DP, [
@@ -26459,11 +26505,11 @@ EP.render = function (e$, e0, e8, e2, e3, e1) {
                   },
                   g(e$),
                   9,
-                  ["onClick"]
+                  ["onClick"],
                 )
-              )
+              ),
             ),
-            128
+            128,
           )),
         ]),
         Pl("ul", UP, [
@@ -26492,10 +26538,10 @@ EP.render = function (e$, e0, e8, e2, e3, e1) {
                           g(
                             e$.$filters.ellipsis(
                               e0.description.split("\n")[0],
-                              120
-                            )
+                              120,
+                            ),
                           ),
-                          1
+                          1,
                         ),
                       ]),
                       e0.imageURL
@@ -26509,7 +26555,7 @@ EP.render = function (e$, e0, e8, e2, e3, e1) {
                             },
                             null,
                             8,
-                            ["src"]
+                            ["src"],
                           ))
                         : Ml("", !0),
                     ]),
@@ -26517,7 +26563,7 @@ EP.render = function (e$, e0, e8, e2, e3, e1) {
                       Pl("span", HP, [
                         Il(
                           g(e$.$filters.unixToRelative(e0.created_at)) + " ",
-                          1
+                          1,
                         ),
                         qP,
                         Il(" " + g(e0.views.toLocaleString()), 1),
@@ -26531,39 +26577,39 @@ EP.render = function (e$, e0, e8, e2, e3, e1) {
                                 onClick: is(
                                   (e8) =>
                                     e$.$router.push(
-                                      "/weazel/" + e0.id + "/edit"
+                                      "/weazel/" + e0.id + "/edit",
                                     ),
-                                  ["stop"]
+                                  ["stop"],
                                 ),
                                 class: "ml-auto text-blue-600",
                               },
                               [WP],
                               8,
-                              ["onClick"]
+                              ["onClick"],
                             ),
                             Pl(
                               "button",
                               {
                                 onClick: is(
                                   (e$) => e2.destroy(e0.id),
-                                  ["stop"]
+                                  ["stop"],
                                 ),
                                 class: "ml-auto text-red-600",
                               },
                               [KP],
                               8,
-                              ["onClick"]
+                              ["onClick"],
                             ),
                           ]))
                         : Ml("", !0),
                     ]),
                   ],
                   8,
-                  ["onClick"]
+                  ["onClick"],
                 )
-              )
+              ),
             ),
-            128
+            128,
           )),
         ]),
       ]),
@@ -26591,11 +26637,11 @@ const JP = {
   },
   methods: {
     changeValue({ target: e$ }) {
-      "money" === this.format
+      ("money" === this.format
         ? (e$.value = this.$filters.moneyStringToInt(e$.value))
         : "int" === this.format &&
           (e$.value = Math.floor(e$.value.replace(/\D/g, ""))),
-        this.$emit("update:modelValue", e$.value);
+        this.$emit("update:modelValue", e$.value));
     },
   },
 };
@@ -26619,7 +26665,7 @@ JP.render = function (e$, e0, e8, e2, e3, e1) {
       },
       null,
       42,
-      ["type", "value"]
+      ["type", "value"],
     )
   );
 };
@@ -26663,7 +26709,7 @@ XP.render = function (e$, e0, e8, e2, e3, e1) {
           },
           "Escolha uma op\xe7\xe3o",
           8,
-          ["selected"]
+          ["selected"],
         ),
         (wl(!0),
         _l(
@@ -26682,15 +26728,15 @@ XP.render = function (e$, e0, e8, e2, e3, e1) {
                 },
                 g(e$),
                 9,
-                ["value", "selected"]
+                ["value", "selected"],
               )
-            )
+            ),
           ),
-          128
+          128,
         )),
       ],
       42,
-      ["value"]
+      ["value"],
     )
   );
 };
@@ -26731,7 +26777,7 @@ const YP = Ze({
               (e$) => {
                 YP.imageURL = e$;
               },
-              () => {}
+              () => {},
             );
           },
           onPublishClick: function () {
@@ -26787,7 +26833,7 @@ ZP.render = function (e$, e0, e8, e2, e3, e1) {
             onClick: e0[1] || (e0[1] = (e0) => e$.$router.back()),
             class: "absolute top-16 px-5",
           },
-          [e2.isAndroid ? (wl(), _l("i", tL)) : (wl(), _l("i", nL))]
+          [e2.isAndroid ? (wl(), _l("i", tL)) : (wl(), _l("i", nL))],
         ),
         Pl(
           "h1",
@@ -26801,7 +26847,7 @@ ZP.render = function (e$, e0, e8, e2, e3, e1) {
             ],
           },
           g(e2.form.id ? "Editar not\xedcia" : "Criar not\xedcia"),
-          3
+          3,
         ),
       ]),
       Pl("div", lL, [
@@ -26817,7 +26863,7 @@ ZP.render = function (e$, e0, e8, e2, e3, e1) {
             },
             null,
             8,
-            ["modelValue"]
+            ["modelValue"],
           ),
         ]),
         Pl("div", null, [
@@ -26832,7 +26878,7 @@ ZP.render = function (e$, e0, e8, e2, e3, e1) {
             },
             null,
             8,
-            ["modelValue"]
+            ["modelValue"],
           ),
         ]),
         Pl("div", null, [
@@ -26848,7 +26894,7 @@ ZP.render = function (e$, e0, e8, e2, e3, e1) {
             },
             null,
             8,
-            ["modelValue", "options"]
+            ["modelValue", "options"],
           ),
         ]),
         Pl("div", null, [
@@ -26864,9 +26910,9 @@ ZP.render = function (e$, e0, e8, e2, e3, e1) {
                 rows: "8",
               },
               null,
-              512
+              512,
             ),
-            [[ns, e2.form.description]]
+            [[ns, e2.form.description]],
           ),
         ]),
         Pl("div", null, [
@@ -26883,7 +26929,7 @@ ZP.render = function (e$, e0, e8, e2, e3, e1) {
             },
             null,
             8,
-            ["modelValue"]
+            ["modelValue"],
           ),
         ]),
         Pl("div", null, [
@@ -26904,7 +26950,7 @@ ZP.render = function (e$, e0, e8, e2, e3, e1) {
                 },
                 null,
                 8,
-                ["src"]
+                ["src"],
               ))
             : (wl(),
               _l(
@@ -26917,7 +26963,7 @@ ZP.render = function (e$, e0, e8, e2, e3, e1) {
                       e2.onImageClick && e2.onImageClick(...e$)),
                   class: "bg-weazel block p-2 rounded mt-1",
                 },
-                "Adicionar"
+                "Adicionar",
               )),
         ]),
         Pl("div", uL, [
@@ -26934,7 +26980,7 @@ ZP.render = function (e$, e0, e8, e2, e3, e1) {
                       e2.onPreviewClick && e2.onPreviewClick(...e$)),
                   class: "bg-weazel p-2 px-4 mr-4 rounded mt-1",
                 },
-                "Prever notifica\xe7\xe3o"
+                "Prever notifica\xe7\xe3o",
               )),
           Pl(
             "button",
@@ -26945,7 +26991,7 @@ ZP.render = function (e$, e0, e8, e2, e3, e1) {
                   e2.onPublishClick && e2.onPublishClick(...e$)),
               class: "bg-weazel p-2 px-4 rounded mt-1",
             },
-            "Publicar"
+            "Publicar",
           ),
         ]),
       ]),
@@ -26968,7 +27014,7 @@ const dL = {
                 videoURL: "",
                 created_at: Date.now() / 1e3,
               }
-            : {}
+            : {},
         ),
         e2 = da(() => {
           if ("string" != typeof e8.videoURL) return null;
@@ -27032,7 +27078,7 @@ dL.render = function (e$, e0, e8, e2, e3, e1) {
             onClick: e0[1] || (e0[1] = (e0) => e$.$router.back()),
             class: "absolute top-16 px-5",
           },
-          [e2.isAndroid ? (wl(), _l("i", mL)) : (wl(), _l("i", hL))]
+          [e2.isAndroid ? (wl(), _l("i", mL)) : (wl(), _l("i", hL))],
         ),
         Pl(
           "h1",
@@ -27046,7 +27092,7 @@ dL.render = function (e$, e0, e8, e2, e3, e1) {
             ],
           },
           g(null != (e6 = e2.post.title) ? e6 : "Carregando..."),
-          3
+          3,
         ),
       ]),
       e2.post.description
@@ -27065,7 +27111,7 @@ dL.render = function (e$, e0, e8, e2, e3, e1) {
                     },
                     null,
                     8,
-                    ["src"]
+                    ["src"],
                   ))
                 : Ml("", !0),
               e2.videoURL
@@ -27084,7 +27130,7 @@ dL.render = function (e$, e0, e8, e2, e3, e1) {
                     },
                     null,
                     8,
-                    ["src"]
+                    ["src"],
                   ))
                 : Ml("", !0),
               Pl("div", xL, [
@@ -27094,7 +27140,7 @@ dL.render = function (e$, e0, e8, e2, e3, e1) {
                   g(e$.$filters.unixToRelative(e2.post.created_at)) +
                     " - Em " +
                     g(e2.post.tag),
-                  1
+                  1,
                 ),
                 Pl("h1", null, g(e2.post.author), 1),
               ]),
@@ -27142,25 +27188,25 @@ const wL = {},
         if (!eN) {
           for (eN = !0; e$ > 0; ) {
             if (!e8.value || !e0.value) return;
-            (e8.value.innerHTML = (e$ / 1e3).toFixed(2) + "s"),
+            ((e8.value.innerHTML = (e$ / 1e3).toFixed(2) + "s"),
               (e0.value.style.width = (e$ / 15e3) * 100 + "%"),
               (e$ -= 40),
-              await eo(40);
+              await eo(40));
           }
-          (eN = !1), (e8.value.innerHTML = ""), (e0.value.style.width = "0%");
+          ((eN = !1), (e8.value.innerHTML = ""), (e0.value.style.width = "0%"));
         }
       }
 
       function eU(e$, e0, e8) {
         return new Promise((e2) => {
           e$.animate([e0], e8).onfinish = () => {
-            Object.assign(e$.style, e0), e2();
+            (Object.assign(e$.style, e0), e2());
           };
         });
       }
       return (
         e5("CASINO_DOUBLE", (e0) => {
-          (async function (e0) {
+          ((async function (e0) {
             let e8 = 826.75 + 7 * CL.indexOf(e0),
               e2 = e$.value;
             if (e2 instanceof HTMLElement) {
@@ -27169,7 +27215,7 @@ const wL = {},
               let e1 = `translateX(-${
                 e8 + 3 * Math.random() * (Math.random() > 0.5 ? 1 : -1)
               }rem)`;
-              await eU(
+              (await eU(
                 e2,
                 {
                   transform: e1,
@@ -27177,7 +27223,7 @@ const wL = {},
                 {
                   duration: 8e3,
                   easing: "ease-in-out",
-                }
+                },
               ),
                 await eU(
                   e2,
@@ -27188,7 +27234,7 @@ const wL = {},
                     duration: 500,
                     delay: 1e3,
                     easing: "ease-out",
-                  }
+                  },
                 ),
                 await eo(2e3),
                 await eU(
@@ -27199,27 +27245,27 @@ const wL = {},
                   {
                     duration: 500,
                     delay: 2e3,
-                  }
+                  },
                 ),
-                (e2.style.opacity = 0.5);
+                (e2.style.opacity = 0.5));
               let e5 = 0 == (e3 = e0) ? "white" : e3 < 8 ? "red" : "black",
                 eV = e6[e5].mine * ("white" == e5 ? 14 : 2);
-              e4.push(e5) > 10 && e4.shift(), e7(eV);
+              (e4.push(e5) > 10 && e4.shift(), e7(eV));
             }
           })(e0),
-            (e1.value = !0);
+            (e1.value = !0));
         }),
         e5("CASINO_DOUBLE_RESET", () => {
           for (let e$ in e6)
-            (e6[e$].size = 0), (e6[e$].amount = 0), (e6[e$].mine = 0);
+            ((e6[e$].size = 0), (e6[e$].amount = 0), (e6[e$].mine = 0));
           e1.value = !1;
         }),
         e5("CASINO_DOUBLE_BET", ({ color: e$, amount: e0 }) => {
-          (e6[e$].size += 1), (e6[e$].amount += e0);
+          ((e6[e$].size += 1), (e6[e$].amount += e0));
         }),
         So.backend.casino_double().then(async (e$) => {
           if ((e4.push(...e$.last), "rolling" === e$.status))
-            (e1.value = !0), await e9(e$.delay);
+            ((e1.value = !0), await e9(e$.delay));
           else if ("bet" === e$.status) {
             for (let [e0, [e8, e2]] of Object.entries(e$.aggregate))
               Object.assign(e6[e0], {
@@ -27279,7 +27325,7 @@ const wL = {},
       class: "text-lg text-white mb-1",
     },
     "\xdaltimas rodadas",
-    -1
+    -1,
   ),
   PL = {
     class: "flex space-x-6",
@@ -27312,7 +27358,7 @@ const wL = {},
         class: "h-full rounded-full w-1.5 bg-white mx-auto",
       }),
     ],
-    -1
+    -1,
   ),
   DL = {
     class: "mx-5 rounded-xl overflow-hidden",
@@ -27346,7 +27392,7 @@ const wL = {},
       class: "text-gray-300 text-xl",
     },
     "Selecionar cor",
-    -1
+    -1,
   ),
   HL = {
     class: "grid grid-cols-3 gap-5",
@@ -27364,7 +27410,7 @@ const wL = {},
         class: "far fa-circle text-4xl",
       }),
     ],
-    -1
+    -1,
   ),
   WL = Pl(
     "h1",
@@ -27372,7 +27418,7 @@ const wL = {},
       class: "mr-auto text-white text-2xl ml-4",
     },
     "Vit\xf3ria 2x",
-    -1
+    -1,
   ),
   KL = {
     class: "text-xl text-right",
@@ -27395,7 +27441,7 @@ const wL = {},
       class: "mr-auto text-white text-2xl ml-4",
     },
     "Vit\xf3ria 14x",
-    -1
+    -1,
   ),
   eI = {
     class: "text-xl text-right",
@@ -27419,7 +27465,7 @@ const wL = {},
         class: "far fa-circle text-4xl",
       }),
     ],
-    -1
+    -1,
   ),
   sI = Pl(
     "h1",
@@ -27427,7 +27473,7 @@ const wL = {},
       class: "mr-auto text-white text-2xl ml-4",
     },
     "Vit\xf3ria 2x",
-    -1
+    -1,
   ),
   oI = {
     class: "text-xl text-right",
@@ -27477,21 +27523,21 @@ AL.render = function (e$, e0, e8, e2, e3, e1) {
                                   class: "w-4",
                                   src: e$.$asset(
                                     "/apps/blaze.svg",
-                                    "casinoLogo"
+                                    "casinoLogo",
                                   ),
                                   alt: "",
                                 },
                                 null,
                                 8,
-                                ["src"]
+                                ["src"],
                               ))
                             : (wl(), _l("i", LL)),
                         ],
-                        2
+                        2,
                       )
-                    )
+                    ),
                   ),
-                  128
+                  128,
                 )),
               ]),
             ]),
@@ -27520,8 +27566,8 @@ AL.render = function (e$, e0, e8, e2, e3, e1) {
                                 0 == e0
                                   ? "bg-white"
                                   : e0 > 7
-                                  ? "bg-blaze-black text-white"
-                                  : "bg-blaze-red text-white",
+                                    ? "bg-blaze-black text-white"
+                                    : "bg-blaze-red text-white",
                               ],
                             },
                             [
@@ -27534,24 +27580,24 @@ AL.render = function (e$, e0, e8, e2, e3, e1) {
                                       class: "w-12",
                                       src: e$.$asset(
                                         "/apps/blaze.svg",
-                                        "casinoLogo"
+                                        "casinoLogo",
                                       ),
                                       alt: "",
                                     },
                                     null,
                                     8,
-                                    ["src"]
+                                    ["src"],
                                   ))
                                 : (wl(), _l("span", $L, g(e0), 1)),
                             ],
-                            2
+                            2,
                           )
-                        )
+                        ),
                       ),
-                      128
+                      128,
                     )),
                   ],
-                  512
+                  512,
                 ),
               ]),
             ]),
@@ -27570,9 +27616,9 @@ AL.render = function (e$, e0, e8, e2, e3, e1) {
                     type: "text",
                   },
                   null,
-                  512
+                  512,
                 ),
-                [[ns, e2.amount]]
+                [[ns, e2.amount]],
               ),
               Pl("h1", zL, g(e2.currency), 1),
             ]),
@@ -27583,7 +27629,7 @@ AL.render = function (e$, e0, e8, e2, e3, e1) {
                 class:
                   "border w-32 rounded-xl text-2xl border-gray-600 text-gray-200",
               },
-              " \xbd "
+              " \xbd ",
             ),
             Pl(
               "button",
@@ -27592,7 +27638,7 @@ AL.render = function (e$, e0, e8, e2, e3, e1) {
                 class:
                   "border w-32 rounded-xl text-2xl border-gray-600 text-gray-200",
               },
-              " 2x "
+              " 2x ",
             ),
           ]),
           BL,
@@ -27609,7 +27655,7 @@ AL.render = function (e$, e0, e8, e2, e3, e1) {
                 onClick: e0[4] || (e0[4] = (e$) => (e2.color = "red")),
               },
               " x2 ",
-              2
+              2,
             ),
             Pl(
               "button",
@@ -27623,7 +27669,7 @@ AL.render = function (e$, e0, e8, e2, e3, e1) {
                 onClick: e0[5] || (e0[5] = (e$) => (e2.color = "white")),
               },
               " x14 ",
-              2
+              2,
             ),
             Pl(
               "button",
@@ -27637,7 +27683,7 @@ AL.render = function (e$, e0, e8, e2, e3, e1) {
                 onClick: e0[6] || (e0[6] = (e$) => (e2.color = "black")),
               },
               " x2 ",
-              2
+              2,
             ),
           ]),
           Pl(
@@ -27652,7 +27698,7 @@ AL.render = function (e$, e0, e8, e2, e3, e1) {
               ],
             },
             g(e2.waiting ? "Esperando" : "Come\xe7ar o jogo"),
-            3
+            3,
           ),
         ]),
         Pl("div", qL, [
@@ -27663,7 +27709,7 @@ AL.render = function (e$, e0, e8, e2, e3, e1) {
               "h1",
               JL,
               g(e2.pretty(e2.bets.red.size)) + " Total de Apostas",
-              1
+              1,
             ),
             Pl("h1", XL, g(e$.$filters.intToMoney(e2.bets.red.amount)), 1),
           ]),
@@ -27679,7 +27725,7 @@ AL.render = function (e$, e0, e8, e2, e3, e1) {
               },
               null,
               8,
-              ["src"]
+              ["src"],
             ),
           ]),
           QL,
@@ -27688,7 +27734,7 @@ AL.render = function (e$, e0, e8, e2, e3, e1) {
               "h1",
               tI,
               g(e2.pretty(e2.bets.white.size)) + " Total de Apostas",
-              1
+              1,
             ),
             Pl("h1", nI, g(e$.$filters.intToMoney(e2.bets.white.amount)), 1),
           ]),
@@ -27701,13 +27747,13 @@ AL.render = function (e$, e0, e8, e2, e3, e1) {
               "h1",
               rI,
               g(e2.pretty(e2.bets.black.size)) + " Total de Apostas",
-              1
+              1,
             ),
             Pl("h1", iI, g(e$.$filters.intToMoney(e2.bets.black.amount)), 1),
           ]),
         ]),
       ],
-      64
+      64,
     )
   );
 };
@@ -27729,7 +27775,7 @@ const cI = {
         eU,
         ej = !1;
       async function eD(e$, e0 = 15e3) {
-        clearInterval(ej),
+        (clearInterval(ej),
           (ej = setInterval(() => {
             if (e$ <= 0)
               return (
@@ -27742,49 +27788,51 @@ const cI = {
               ((e5.value.innerHTML = (e$ / 1e3).toFixed(2) + "s"),
               (eV.value.style.width = (e$ / e0) * 100 + "%"),
               (e$ = Math.max(0, e$ - 40)));
-          }, 40));
+          }, 40)));
       }
 
       function ez(e$ = 1) {
-        (e0.value = e$),
+        ((e0.value = e$),
           (eU = setInterval(() => {
             let e$ = e0.value;
             e0.value += 0.005 * Math.floor(e$);
-          }, 50));
+          }, 50)));
       }
       return (
         So.backend.casino_crash().then(async (e$) => {
-          e7.push(...e$.last),
+          (e7.push(...e$.last),
             (e6.value = e$.totalBet),
             "waiting" === e$.status && e$.delay
               ? await eD(e$.delay)
               : "crashing" === e$.status
-              ? (await ez(e$.multiplier), e$.totalBet || (e2.value = !0))
-              : "ending" === e$.status &&
-                ((e4.value = !0), (e0.value = e$.multiplier), (e2.value = !0));
+                ? (await ez(e$.multiplier), e$.totalBet || (e2.value = !0))
+                : "ending" === e$.status &&
+                  ((e4.value = !0),
+                  (e0.value = e$.multiplier),
+                  (e2.value = !0)));
         }),
         eN("CASINO_CRASH_CASHOUT", (e$) => (e8.value = e$)),
         eN("CASINO_CRASH_ENDING", (e$) => {
-          clearInterval(eU),
+          (clearInterval(eU),
             e7.push(e$) > 10 && e7.shift(),
             (e0.value = e$),
             (e4.value = !0),
             (e2.value = !0),
-            eD(5e3, 5e3);
+            eD(5e3, 5e3));
         }),
         eN("CASINO_CRASH_REFRESH", () => {
-          (e2.value = !1),
+          ((e2.value = !1),
             (e0.value = 0),
             (e4.value = !1),
             (e6.value = 0),
-            (e8.value = null);
+            (e8.value = null));
         }),
         eN("CASINO_CRASH", (e$) => {
-          (e0.value = 1), e$ ? (e4.value = !0) : ez();
+          ((e0.value = 1), e$ ? (e4.value = !0) : ez());
         }),
         eN("CASINO_CRASH_WARMUP", () => eD(15e3)),
         wn(() => {
-          clearInterval(eU), clearInterval(ej);
+          (clearInterval(eU), clearInterval(ej));
         }),
         {
           currency: e$,
@@ -27804,7 +27852,7 @@ const cI = {
                 parseFloat(
                   null == (e0 = null == (e$ = e1.value) ? void 0 : e$.replace)
                     ? void 0
-                    : e0.call(e$, ",", ".")
+                    : e0.call(e$, ",", "."),
                 ) || null;
               So.backend.casino_crash_bet(e8, e4).then((e$) => {
                 e$.error
@@ -27881,7 +27929,7 @@ const dI = {
       class: "bg-red-700 leading-loose text-xl",
     },
     "CRASHED",
-    -1
+    -1,
   ),
   wI = {
     key: 1,
@@ -27897,7 +27945,7 @@ const dI = {
       },
     },
     "",
-    -1
+    -1,
   ),
   _I = {
     class: "flex justify-between",
@@ -27917,7 +27965,7 @@ const dI = {
       class: "text-xl text-gray-300",
     },
     "Auto retirar",
-    -1
+    -1,
   ),
   RI = Pl(
     "h1",
@@ -27925,7 +27973,7 @@ const dI = {
       class: "absolute right-4 top-16 font-bold text-gray-300",
     },
     "X",
-    -1
+    -1,
   );
 an();
 const PI = uI(
@@ -27955,11 +28003,11 @@ const PI = uI(
                     ],
                   },
                   g(e$.toFixed(2)),
-                  3
+                  3,
                 )
-              )
+              ),
             ),
-            128
+            128,
           )),
         ]),
         Pl("div", mI, [Pl("div", hI, null, 512), Pl("h1", bI, null, 512)]),
@@ -27972,7 +28020,7 @@ const PI = uI(
                   "p",
                   xI,
                   "VOC\xca GANHOU! " + g(e$.$filters.intToMoney(e2.won[1])),
-                  1
+                  1,
                 ),
               ]),
             ]))
@@ -27998,10 +28046,11 @@ const PI = uI(
                       kI,
                     ]))
                   : e2.multiplier
-                  ? (wl(), _l("div", wI, g(e2.multiplier.toFixed(2)) + "x ", 1))
-                  : Ml("", !0),
+                    ? (wl(),
+                      _l("div", wI, g(e2.multiplier.toFixed(2)) + "x ", 1))
+                    : Ml("", !0),
               ],
-              2
+              2,
             ))
           : Ml("", !0),
         CI,
@@ -28021,7 +28070,7 @@ const PI = uI(
               ],
             },
             " Parar " + g(e$.$filters.intToMoney(e2.totalBet * e2.multiplier)),
-            3
+            3,
           ))
         : (wl(),
           _l(
@@ -28037,7 +28086,7 @@ const PI = uI(
               ],
             },
             g(e2.waiting ? "Esperando" : "Come\xe7ar o jogo"),
-            3
+            3,
           )),
       Pl("div", _I, [
         Pl("div", AI, [
@@ -28053,9 +28102,9 @@ const PI = uI(
                 type: "text",
               },
               null,
-              512
+              512,
             ),
-            [[ns, e2.amount]]
+            [[ns, e2.amount]],
           ),
           Pl("h1", SI, g(e2.currency), 1),
         ]),
@@ -28066,7 +28115,7 @@ const PI = uI(
             class:
               "border w-32 rounded-xl text-2xl border-gray-600 text-gray-200",
           },
-          " \xbd "
+          " \xbd ",
         ),
         Pl(
           "button",
@@ -28075,7 +28124,7 @@ const PI = uI(
             class:
               "border w-32 rounded-xl text-2xl border-gray-600 text-gray-200",
           },
-          " 2x "
+          " 2x ",
         ),
       ]),
       Pl("div", TI, [
@@ -28092,22 +28141,22 @@ const PI = uI(
               type: "text",
             },
             null,
-            512
+            512,
           ),
-          [[ns, e2.cashout]]
+          [[ns, e2.cashout]],
         ),
         RI,
       ]),
     ])
-  )
+  ),
 );
-(cI.render = PI), (cI.__scopeId = "data-v-6c02b606");
+((cI.render = PI), (cI.__scopeId = "data-v-6c02b606"));
 const LI = Ze({
   revealed: {},
 });
 
 function II() {
-  Object.keys(LI).forEach((e$) => delete LI[e$]), (LI.revealed = {});
+  (Object.keys(LI).forEach((e$) => delete LI[e$]), (LI.revealed = {}));
 }
 const OI = {
     setup() {
@@ -28136,19 +28185,19 @@ const OI = {
               .casino_mine_click(e$)
               .then((e0) => {
                 if (e0.error) return So.alert(e0.error);
-                "mine" == e0[0] && (LI.lost = !0),
+                ("mine" == e0[0] && (LI.lost = !0),
                   (LI.revealed[e$] = e0[0]),
-                  (LI.reward = e0[1]);
+                  (LI.reward = e0[1]));
               })
               .finally(() => (LI.clicking = !1)));
         },
         play: function () {
           if (LI.lost) II();
           else if (LI.id)
-            (LI.clicking = !0),
+            ((LI.clicking = !0),
               So.backend.casino_mine_finish().then((e$) => {
                 e$.error ? So.alert(e$.error) : (e3(e$.reward), II());
-              });
+              }));
           else {
             let e$ = parseInt(e0.value) || 0;
             So.backend.casino_mine_start(e$, e8.value).then((e0) => {
@@ -28160,7 +28209,7 @@ const OI = {
           e2.value &&
             So.backend.casino_mine_finish().then((e$) => {
               if (e$.error) return So.alert(e$.error);
-              e3(e$.reward), II();
+              (e3(e$.reward), II());
             });
         },
       };
@@ -28200,7 +28249,7 @@ const OI = {
       class: "text-white",
     },
     "Quantidade de minas",
-    -1
+    -1,
   ),
   BI = {
     key: 2,
@@ -28212,7 +28261,7 @@ const OI = {
       class: "text-white",
     },
     "Pr\xeamio",
-    -1
+    -1,
   );
 OI.render = function (e$, e0, e8, e2, e3, e1) {
   return (
@@ -28239,15 +28288,15 @@ OI.render = function (e$, e0, e8, e2, e3, e1) {
                   "diamond" == e2.game.revealed[e0]
                     ? (wl(), _l("i", DI))
                     : "mine" == e2.game.revealed[e0]
-                    ? (wl(), _l("i", NI))
-                    : Ml("", !0),
+                      ? (wl(), _l("i", NI))
+                      : Ml("", !0),
                 ],
                 8,
-                ["onClick"]
+                ["onClick"],
               )
-            )
+            ),
           ),
-          128
+          128,
         )),
       ]),
       e2.game.id
@@ -28267,9 +28316,9 @@ OI.render = function (e$, e0, e8, e2, e3, e1) {
                     type: "text",
                   },
                   null,
-                  512
+                  512,
                 ),
-                [[ns, e2.amount]]
+                [[ns, e2.amount]],
               ),
               Pl("h1", jI, g(e2.currency), 1),
             ]),
@@ -28280,7 +28329,7 @@ OI.render = function (e$, e0, e8, e2, e3, e1) {
                 class:
                   "border w-32 rounded-xl text-2xl border-gray-600 text-gray-200",
               },
-              " \xbd "
+              " \xbd ",
             ),
             Pl(
               "button",
@@ -28289,7 +28338,7 @@ OI.render = function (e$, e0, e8, e2, e3, e1) {
                 class:
                   "border w-32 rounded-xl text-2xl border-gray-600 text-gray-200",
               },
-              " 2x "
+              " 2x ",
             ),
           ])),
       e2.game.id
@@ -28308,7 +28357,7 @@ OI.render = function (e$, e0, e8, e2, e3, e1) {
               },
               null,
               8,
-              ["value"]
+              ["value"],
             ),
           ]))
         : (wl(),
@@ -28326,9 +28375,9 @@ OI.render = function (e$, e0, e8, e2, e3, e1) {
                   type: "text",
                 },
                 null,
-                512
+                512,
               ),
-              [[ns, e2.mines]]
+              [[ns, e2.mines]],
             ),
           ])),
       !e2.game.id || e2.game.lost
@@ -28341,7 +28390,7 @@ OI.render = function (e$, e0, e8, e2, e3, e1) {
               class: "bg-blaze-red w-full py-4 text-xl text-white rounded-lg",
             },
             g(e2.game.lost ? "Jogar novamente" : "Jogar"),
-            1
+            1,
           ))
         : (wl(),
           _l(
@@ -28358,7 +28407,7 @@ OI.render = function (e$, e0, e8, e2, e3, e1) {
               ],
             },
             " Finalizar ",
-            2
+            2,
           )),
     ])
   );
@@ -28377,10 +28426,10 @@ const qI = {
 
       function e3(e$) {
         var e0;
-        (e0 = e8),
+        ((e0 = e8),
           $k.has(e0) && $k.get(e0)(),
           $k.delete(e0),
-          jk(e8, e8.value + e$);
+          jk(e8, e8.value + e$));
       }
 
       function e1() {
@@ -28405,7 +28454,7 @@ const qI = {
               let e0 = e$.endsWith(".css");
               if (
                 document.querySelector(
-                  `link[href="${e$}"]${e0 ? '[rel="stylesheet"]' : ""}`
+                  `link[href="${e$}"]${e0 ? '[rel="stylesheet"]' : ""}`,
                 )
               )
                 return;
@@ -28417,28 +28466,28 @@ const qI = {
                 document.head.appendChild(e8),
                 e0
                   ? new Promise((e$, e0) => {
-                      e8.addEventListener("load", e$),
-                        e8.addEventListener("error", e0);
+                      (e8.addEventListener("load", e$),
+                        e8.addEventListener("error", e0));
                     })
                   : void 0
               );
-            })
+            }),
           ).then(() => e$());
         })(
           () =>
             __import__(
-              "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js"
+              "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js",
             ),
-          void 0
+          void 0,
         ),
         $l("setBalance", (e$) => jk(e8, e$)),
         $l("addBalance", e3),
         $l("onceTab", function (e$, e0) {
-          e2.push({
+          (e2.push({
             event: e$,
             callback: e0,
           }),
-            So.pusher.on(e$, e0);
+            So.pusher.on(e$, e0));
         }),
         So.pusher.on("CASINO_INCREMENT", e3),
         Tn(e0, e1),
@@ -28458,7 +28507,7 @@ const qI = {
                     e$ && (e8.value += e0);
                   });
               },
-              () => {}
+              () => {},
             );
           },
           withdraw: function () {
@@ -28471,7 +28520,7 @@ const qI = {
                     e$ && (e8.value -= e0);
                   });
               },
-              () => {}
+              () => {},
             );
           },
         }
@@ -28506,7 +28555,7 @@ const qI = {
       class: "fas fa-exchange",
     },
     null,
-    -1
+    -1,
   ),
   ZI = {
     class:
@@ -28547,7 +28596,7 @@ const qI = {
         fill: "#8C9099",
       }),
     ],
-    -1
+    -1,
   ),
   eO = Pl(
     "h1",
@@ -28555,7 +28604,7 @@ const qI = {
       class: "mt-2",
     },
     "Double",
-    -1
+    -1,
   ),
   tO = Pl(
     "svg",
@@ -28580,7 +28629,7 @@ const qI = {
         fill: "#414952",
       }),
     ],
-    -1
+    -1,
   ),
   nO = Pl(
     "h1",
@@ -28588,7 +28637,7 @@ const qI = {
       class: "mt-2",
     },
     "Crash",
-    -1
+    -1,
   ),
   lO = Pl(
     "svg",
@@ -28621,7 +28670,7 @@ const qI = {
         fill: "#414952",
       }),
     ],
-    -1
+    -1,
   ),
   aO = Pl(
     "h1",
@@ -28629,7 +28678,7 @@ const qI = {
       class: "mt-2",
     },
     "Mine",
-    -1
+    -1,
   );
 qI.render = function (e$, e0, e8, e2, e3, e1) {
   let e6 = dl("Double"),
@@ -28648,7 +28697,7 @@ qI.render = function (e$, e0, e8, e2, e3, e1) {
           },
           null,
           8,
-          ["src"]
+          ["src"],
         ),
         Pl("div", KI, [
           Pl("h1", JI, g(e2.currency), 1),
@@ -28662,7 +28711,7 @@ qI.render = function (e$, e0, e8, e2, e3, e1) {
             class:
               "bg-blaze-red text-white text-xl font-bold h-14 px-4 ml-5 rounded-lg",
           },
-          " Depositar "
+          " Depositar ",
         ),
         Pl(
           "button",
@@ -28672,7 +28721,7 @@ qI.render = function (e$, e0, e8, e2, e3, e1) {
             class:
               "bg-blaze-red text-white text-xl font-bold h-14 px-4 ml-5 rounded-lg",
           },
-          [YI]
+          [YI],
         ),
       ]),
       "double" == e2.tab
@@ -28687,11 +28736,11 @@ qI.render = function (e$, e0, e8, e2, e3, e1) {
             key: 1,
           }))
         : "mine" == e2.tab
-        ? (wl(),
-          _l(e7, {
-            key: 2,
-          }))
-        : Ml("", !0),
+          ? (wl(),
+            _l(e7, {
+              key: 2,
+            }))
+          : Ml("", !0),
       Pl("div", ZI, [
         Pl(
           "button",
@@ -28699,7 +28748,7 @@ qI.render = function (e$, e0, e8, e2, e3, e1) {
             onClick: e0[3] || (e0[3] = (e$) => (e2.tab = "double")),
             class: "mx-auto flex flex-col flex-center",
           },
-          [QI, eO]
+          [QI, eO],
         ),
         Pl(
           "button",
@@ -28707,7 +28756,7 @@ qI.render = function (e$, e0, e8, e2, e3, e1) {
             onClick: e0[4] || (e0[4] = (e$) => (e2.tab = "crash")),
             class: "mx-auto flex flex-col flex-center",
           },
-          [tO, nO]
+          [tO, nO],
         ),
         Pl(
           "button",
@@ -28715,7 +28764,7 @@ qI.render = function (e$, e0, e8, e2, e3, e1) {
             onClick: e0[5] || (e0[5] = (e$) => (e2.tab = "mine")),
             class: "mx-auto flex flex-col flex-center",
           },
-          [lO, aO]
+          [lO, aO],
         ),
       ]),
     ])
@@ -28743,11 +28792,11 @@ const sO = {
           game: e0,
           columns: e$,
           newGame: function (e2, e3) {
-            (e$.length = 0),
+            ((e$.length = 0),
               (e0.state = "playing"),
               (e0.bombs = e3),
               (e0.marked = 0),
-              (e0.time = 0);
+              (e0.time = 0));
             for (let e1 = 0; e1 < e2; e1++) {
               let e6 = [];
               for (let e4 = 0; e4 < e2; e4++)
@@ -28774,12 +28823,12 @@ const sO = {
                   e1 = e3.filter(
                     (e$) =>
                       e$ != e2 &&
-                      1.9 > Math.sqrt((e$.x - e2.x) ** 2 + (e$.y - e2.y) ** 2)
+                      1.9 > Math.sqrt((e$.x - e2.x) ** 2 + (e$.y - e2.y) ** 2),
                   ),
                   e6 = e1.reduce((e$, e0) => e$ + e0.mine, 0);
-                0 == e6 ? e1.forEach((e$) => e8(e$)) : (e2.nearby = e6),
+                (0 == e6 ? e1.forEach((e$) => e8(e$)) : (e2.nearby = e6),
                   e3.reduce((e$, e0) => e$ + e0.revealed, 0) ==
-                    e3.length - e0.bombs && (e0.state = "win");
+                    e3.length - e0.bombs && (e0.state = "win"));
               }
             }
           },
@@ -28867,10 +28916,10 @@ sO.render = function (e$, e0, e8, e2, e3, e1) {
                 },
                 [Pl("h3", null, g(e$) + "x" + g(e$), 1)],
                 8,
-                ["onClick"]
-              )
+                ["onClick"],
+              ),
           ),
-          64
+          64,
         )),
       ]),
       Pl("div", iO, [
@@ -28908,7 +28957,7 @@ sO.render = function (e$, e0, e8, e2, e3, e1) {
                             onClick: (e0) => e2.reveal(e$),
                             onContextmenu: is(
                               (e0) => e2.mark(e$),
-                              ["prevent", "stop"]
+                              ["prevent", "stop"],
                             ),
                           },
                           [
@@ -28916,33 +28965,33 @@ sO.render = function (e$, e0, e8, e2, e3, e1) {
                               e$.marked
                                 ? (wl(), _l("i", uO))
                                 : e$.revealed && e$.mine
-                                ? (wl(), _l("i", dO))
-                                : (wl(),
-                                  _l(
-                                    "p",
-                                    {
-                                      key: 2,
-                                      nearby: e$.nearby,
-                                      class: "font-bold",
-                                    },
-                                    g(e$.nearby || ""),
-                                    9,
-                                    ["nearby"]
-                                  )),
+                                  ? (wl(), _l("i", dO))
+                                  : (wl(),
+                                    _l(
+                                      "p",
+                                      {
+                                        key: 2,
+                                        nearby: e$.nearby,
+                                        class: "font-bold",
+                                      },
+                                      g(e$.nearby || ""),
+                                      9,
+                                      ["nearby"],
+                                    )),
                             ]),
                           ],
                           42,
-                          ["onClick", "onContextmenu"]
+                          ["onClick", "onContextmenu"],
                         )
-                      )
+                      ),
                     ),
-                    128
+                    128,
                   )),
-                ]
+                ],
               )
-            )
+            ),
           ),
-          128
+          128,
         )),
       ]),
       "playing" == e2.game.state
@@ -28963,11 +29012,11 @@ sO.render = function (e$, e0, e8, e2, e3, e1) {
                   "h1",
                   gO,
                   "Voc\xea venceu em " + g(e$.$filters.duration(e2.game.time)),
-                  1
+                  1,
                 ))
               : "defeat" == e2.game.state
-              ? (wl(), _l("h1", vO, "Voc\xea perdeu"))
-              : (wl(), _l("h1", xO, "Escolha um modo de jogo")),
+                ? (wl(), _l("h1", vO, "Voc\xea perdeu"))
+                : (wl(), _l("h1", xO, "Escolha um modo de jogo")),
           ])),
     ])
   );
@@ -29002,7 +29051,7 @@ const yO = {
       frameborder: "0",
     },
     "\r\n    ",
-    -1
+    -1,
   );
 yO.render = function (e$, e0, e8, e2, e3, e1) {
   return (
@@ -29017,7 +29066,7 @@ yO.render = function (e$, e0, e8, e2, e3, e1) {
               e0[1] ||
               (e0[1] = (...e0) => e$.$router.back && e$.$router.back(...e0)),
           },
-          [e2.isAndroid ? (wl(), _l("i", CO)) : (wl(), _l("i", _O))]
+          [e2.isAndroid ? (wl(), _l("i", CO)) : (wl(), _l("i", _O))],
         ),
         Pl(
           "h1",
@@ -29031,7 +29080,7 @@ yO.render = function (e$, e0, e8, e2, e3, e1) {
             ],
           },
           "Truco",
-          2
+          2,
         ),
       ]),
       AO,
@@ -29068,7 +29117,7 @@ const SO = {
       frameborder: "0",
     },
     "\r\n    ",
-    -1
+    -1,
   );
 SO.render = function (e$, e0, e8, e2, e3, e1) {
   return (
@@ -29083,7 +29132,7 @@ SO.render = function (e$, e0, e8, e2, e3, e1) {
               e0[1] ||
               (e0[1] = (...e0) => e$.$router.back && e$.$router.back(...e0)),
           },
-          [e2.isAndroid ? (wl(), _l("i", RO)) : (wl(), _l("i", PO))]
+          [e2.isAndroid ? (wl(), _l("i", RO)) : (wl(), _l("i", PO))],
         ),
         Pl(
           "h1",
@@ -29097,7 +29146,7 @@ SO.render = function (e$, e0, e8, e2, e3, e1) {
             ],
           },
           "Gulper",
-          2
+          2,
         ),
       ]),
       LO,
@@ -29447,7 +29496,7 @@ const IO = [
             {
               path: eU.path,
             },
-            e1
+            e1,
           ),
           eD = e3.createHref(eU.fullPath);
         return zr(eU, ej, {
@@ -29492,7 +29541,7 @@ const IO = [
         {
           redirectedFrom: void 0,
           href: eG,
-        }
+        },
       );
     }
 
@@ -29531,7 +29580,7 @@ const IO = [
               hash: e$.hash,
               params: e$.params,
             },
-            e2
+            e2,
           )
         );
       }
@@ -29552,7 +29601,7 @@ const IO = [
             force: eN,
             replace: e9,
           }),
-          e0 || e6
+          e0 || e6,
         );
       let ez = e6,
         eH,
@@ -29588,10 +29637,10 @@ const IO = [
                     force: eN,
                     replace: e9,
                   }),
-                  e0 || ez
+                  e0 || ez,
                 );
             } else e$ = eq(ez, e4, !0, e9, eV);
-            return eG(ez, e4, e$), e$;
+            return (eG(ez, e4, e$), e$);
           })
       );
     }
@@ -29627,14 +29676,14 @@ const IO = [
         ic(e8)
           .then(() => {
             for (let e2 of ((e8 = []), e1.list())) e8.push(ec(e2, e$, e0));
-            return e8.push(e5), ic(e8);
+            return (e8.push(e5), ic(e8));
           })
           .then(() => {
             for (let e2 of ((e8 = tc(e3, "beforeRouteUpdate", e$, e0)), e3))
               e2.updateGuards.forEach((e2) => {
                 e8.push(ec(e2, e$, e0));
               });
-            return e8.push(e5), ic(e8);
+            return (e8.push(e5), ic(e8));
           })
           .then(() => {
             for (let e2 of ((e8 = []), e$.matched))
@@ -29643,18 +29692,18 @@ const IO = [
                   for (let e3 of e2.beforeEnter) e8.push(ec(e3, e$, e0));
                 else e8.push(ec(e2.beforeEnter, e$, e0));
               }
-            return e8.push(e5), ic(e8);
+            return (e8.push(e5), ic(e8));
           })
           .then(
             () => (
               e$.matched.forEach((e$) => (e$.enterCallbacks = {})),
               (e8 = tc(e4, "beforeRouteEnter", e$, e0)).push(e5),
               ic(e8)
-            )
+            ),
           )
           .then(() => {
             for (let e2 of ((e8 = []), e6.list())) e8.push(ec(e2, e$, e0));
-            return e8.push(e5), ic(e8);
+            return (e8.push(e5), ic(e8));
           })
           .catch((e$) => (xi(e$, 8) ? e$ : Promise.reject(e$)))
       );
@@ -29669,7 +29718,7 @@ const IO = [
       if (e6) return e6;
       let e4 = e0 === mi,
         e5 = Fr ? history.state : {};
-      e8 &&
+      (e8 &&
         (e2 || e4
           ? e3.replace(
               e$.fullPath,
@@ -29677,13 +29726,13 @@ const IO = [
                 {
                   scroll: e4 && e5 && e5.scroll,
                 },
-                e1
-              )
+                e1,
+              ),
             )
           : e3.push(e$.fullPath, e1)),
         (e7.value = e$),
         t$(e$, e0, e8, e4),
-        eJ();
+        eJ());
     }
     let eW,
       eK,
@@ -29691,7 +29740,7 @@ const IO = [
       eY = Qi();
 
     function eQ(e$) {
-      return eJ(e$), eY.list().forEach((e0) => e0(e$)), Promise.reject(e$);
+      return (eJ(e$), eY.list().forEach((e0) => e0(e$)), Promise.reject(e$));
     }
 
     function eJ(e$) {
@@ -29706,24 +29755,27 @@ const IO = [
               zr(e4, {
                 replace: !0,
               }),
-              e6
+              e6,
             ).catch(Hr);
           e5 = e6;
           let eV = e7.value;
-          Fr && ((e2 = ri(eV.fullPath, e8.delta)), (e1 = si()), ii.set(e2, e1)),
+          (Fr &&
+            ((e2 = ri(eV.fullPath, e8.delta)), (e1 = si()), ii.set(e2, e1)),
             eZ(e6, eV)
               .catch((e$) =>
                 xi(e$, 12)
                   ? e$
                   : xi(e$, 2)
-                  ? (eB(e$.to, e6).catch(Hr), Promise.reject())
-                  : (e8.delta && e3.go(-e8.delta, !1), eQ(e$))
+                    ? (eB(e$.to, e6).catch(Hr), Promise.reject())
+                    : (e8.delta && e3.go(-e8.delta, !1), eQ(e$)),
               )
               .then((e$) => {
-                (e$ = e$ || eq(e6, eV, !1)) && e8.delta && e3.go(-e8.delta, !1),
-                  eG(e6, eV, e$);
+                ((e$ = e$ || eq(e6, eV, !1)) &&
+                  e8.delta &&
+                  e3.go(-e8.delta, !1),
+                  eG(e6, eV, e$));
               })
-              .catch(Hr);
+              .catch(Hr));
         })),
         eX.list().forEach(([e0, e8]) => (e$ ? e8(e$) : e0())),
         eX.reset());
@@ -29736,7 +29788,7 @@ const IO = [
         (!e2 &&
           (function (e$) {
             let e0 = ii.get(e$);
-            return ii.delete(e$), e0;
+            return (ii.delete(e$), e0);
           })(ri(e0.fullPath, 0))) ||
         ((e3 || !e2) && history.state && history.state.scroll) ||
         null;
@@ -29795,7 +29847,7 @@ const IO = [
       },
       install(e$) {
         var e0;
-        e$.component("RouterLink", lc),
+        (e$.component("RouterLink", lc),
           e$.component("RouterView", rc),
           (e$.config.globalProperties.$router = this),
           Object.defineProperty(e$.config.globalProperties, "$route", {
@@ -29804,17 +29856,17 @@ const IO = [
           Fr &&
             !t8 &&
             e7.value === mi &&
-            ((t8 = !0), eB((e0 = e3.location)).catch((e$) => {}));
+            ((t8 = !0), eB((e0 = e3.location)).catch((e$) => {})));
         let e8 = {};
         for (let e2 in mi) e8[e2] = da(() => e7.value[e2]);
-        e$.provide(Ur, this), e$.provide($r, Ze(e8)), e$.provide(jr, e7);
+        (e$.provide(Ur, this), e$.provide($r, Ze(e8)), e$.provide(jr, e7));
         let e1 = e$.unmount;
-        t2.add(e$),
+        (t2.add(e$),
           (e$.unmount = function () {
-            t2.delete(e$),
+            (t2.delete(e$),
               t2.size < 1 && (eW(), (e7.value = mi), (t8 = !1), (eK = !1)),
-              e1();
-          });
+              e1());
+          }));
       },
     };
   })({
@@ -29831,8 +29883,8 @@ var VO = OO;
 const DO = () => VO.currentRoute.value.path,
   NO = new Map();
 for (let [kM, wM] of (NO.set("GPS", ({ location: [e$, e0] }) => {
-  So.client.SetNewWaypoint(e$, e0),
-    So.addNotification("gps", "GPS", "O destino foi marcado em seu GPS");
+  (So.client.SetNewWaypoint(e$, e0),
+    So.addNotification("gps", "GPS", "O destino foi marcado em seu GPS"));
 }),
 NO.set(
   "WHATSAPP_MESSAGE",
@@ -29840,25 +29892,25 @@ NO.set(
     if (e$ != So.identity.phone) {
       let e1 = Bs(e$),
         e6 = e2 ? "📷 Foto" : e3 ? "\uD83C\uDF0E Localiza\xe7\xe3o" : e8;
-      e6.match(/(http)?s?:?(\/\/[^"']*\.(?:webm|ogg))/)
+      (e6.match(/(http)?s?:?(\/\/[^"']*\.(?:webm|ogg))/)
         ? (e6 = "\uD83D\uDD0A \xc1udio")
         : e6.length > 40 && (e6 = e6.substr(0, 40) + "..."),
         e0 && DO() != `/whatsapp/group${e0.id}`
           ? So.addNotification("whatsapp", e0.name, `<b>${e1}:</b> ${e6}`)
           : e0 ||
             DO() == `/whatsapp/${e$}` ||
-            So.addNotification("whatsapp", e1, e6);
+            So.addNotification("whatsapp", e1, e6));
     }
-  }
+  },
 ),
 NO.set("WHATSAPP_GROUP_KICK", ({ name: e$ }) =>
-  So.addNotification("whatsapp", e$, "Voc\xea foi removido do grupo")
+  So.addNotification("whatsapp", e$, "Voc\xea foi removido do grupo"),
 ),
 NO.set("WHATSAPP_GROUP_DESTROY", ({ name: e$ }) =>
-  So.addNotification("whatsapp", e$, "O grupo foi exclu\xeddo")
+  So.addNotification("whatsapp", e$, "O grupo foi exclu\xeddo"),
 ),
 NO.set("INSTAGRAM_NOTIFY", (e$) =>
-  So.addNotification("instagram", Zs("instagram"), zs(e$))
+  So.addNotification("instagram", Zs("instagram"), zs(e$)),
 ),
 NO.set("PAYPAL", ({ sender: e$, value: e0 }) => {
   let e8 = Bs(e$);
@@ -29866,8 +29918,8 @@ NO.set("PAYPAL", ({ sender: e$, value: e0 }) => {
     "paypal",
     "PayPal",
     `<b class="text-black">${e8}</b> transferiu <b class="text-black">${js(
-      e0
-    )}</b> para sua conta`
+      e0,
+    )}</b> para sua conta`,
   );
 }),
 NO.set("BANK", ({ sender: e$, value: e0 }) => {
@@ -29876,26 +29928,26 @@ NO.set("BANK", ({ sender: e$, value: e0 }) => {
     "bank",
     Zs("bank"),
     `<b class="text-black">${e8}</b> transferiu <b class="text-black">${js(
-      e0
-    )}</b> para sua conta`
+      e0,
+    )}</b> para sua conta`,
   );
 }),
 NO.set("BANK_NOTIFY", ({ title: e$, subtitle: e0 }) =>
-  So.addNotification("bank", e$, e0)
+  So.addNotification("bank", e$, e0),
 ),
 NO.set("BANK_INVOICE", ({ value: e$ }) =>
   So.addNotification(
     "bank",
     "Fatura recebida",
-    `Voc\xea recebeu uma fatura no valor de ${js(e$)}`
-  )
+    `Voc\xea recebeu uma fatura no valor de ${js(e$)}`,
+  ),
 ),
 NO.set("BANK_INVOICE_RECEIPT", ({ value: e$, name: e0 }) =>
   So.addNotification(
     "bank",
     `${e0} pagou uma fatura`,
-    `Foram creditados ${js(e$)} em sua conta`
-  )
+    `Foram creditados ${js(e$)} em sua conta`,
+  ),
 ),
 NO.set(
   "TINDER_MESSAGE",
@@ -29903,14 +29955,14 @@ NO.set(
     e2 != So.identity.user_id &&
       DO() != `/tinder/chats/${e$}` &&
       So.addNotification("tinder", e0, e8);
-  }
+  },
 ),
 NO.set("TINDER_MATCH", ({ profile: { name: e$ } }) =>
   So.addNotification(
     "tinder",
     "Match!",
-    `Voc\xea agora tem um match com ${e$}! <i class="fas fa-heart text-red-500"></i>`
-  )
+    `Voc\xea agora tem um match com ${e$}! <i class="fas fa-heart text-red-500"></i>`,
+  ),
 ),
 NO.set("TWITTER_NOTIFY", (e$) => {
   let [e0, e8] = Array.isArray(e$) ? e$ : [null, e$];
@@ -29930,17 +29982,17 @@ NO.set("TOR_MESSAGE", (e$) => {
     let e8 = e$.location
       ? "\uD83C\uDF0E Localiza\xe7\xe3o"
       : e$.image
-      ? "📷 Foto"
-      : e$.content;
+        ? "📷 Foto"
+        : e$.content;
     So.addNotification(
       "tor",
       e0 ? eb.getNickname(e$.sender) : "#" + e$.channel,
-      e8
+      e8,
     );
   }
 }),
 NO.set("WEAZEL", (e$) =>
-  So.addNotification("weazel", e$.title, e$.description)
+  So.addNotification("weazel", e$.title, e$.description),
 ),
 NO.set("CUSTOM_NOTIFY", ({ app: e$, title: e0, subtitle: e8 }) => {
   So.addNotification(e$, e0, e8);
@@ -29955,12 +30007,12 @@ NO.set("SMS", (e$) => {
     So.hasNotificationFor("sms") && DO() != "/sms/" + e0)
   ) {
     let e1 = e8.substr(0, 40);
-    e8.length > 40 && (e1 += "..."),
+    (e8.length > 40 && (e1 += "..."),
       So.addNotification(
         "sms",
         Bs(e0),
-        e2 ? "📷 Foto" : e3 ? "\uD83C\uDF0E Localiza\xe7\xe3o" : e1
-      );
+        e2 ? "📷 Foto" : e3 ? "\uD83C\uDF0E Localiza\xe7\xe3o" : e1,
+      ));
   }
 }),
 NO.entries()))
@@ -29980,7 +30032,7 @@ if (!So.localhost) {
   let e6 = null != (t = globalThis.safeEval) ? t : "eval",
     e4 = [UO, $O, jO, FO].map((e$) => So.client[e6](e$));
   Promise.all(e4).then(() => {
-    So.client.__clear(), (globalThis.safeEval = null);
+    (So.client.__clear(), (globalThis.safeEval = null));
   });
 }
 const zO = {
@@ -30016,8 +30068,8 @@ const zO = {
       if (So.localhost) {
         e8.value = !0;
         let eH = document.querySelector("body");
-        (eH.style.backgroundColor = "blue"),
-          (eH.style.backgroundSize = "100vw 100vh");
+        ((eH.style.backgroundColor = "blue"),
+          (eH.style.backgroundSize = "100vw 100vh"));
       }
       let eZ =
         (e$) =>
@@ -30028,39 +30080,39 @@ const zO = {
               title: e0,
               max: e8,
               callback: function (e0) {
-                e2(e0), (e$.value = null);
+                (e2(e0), (e$.value = null));
               },
             };
           });
-      $l("videoCamera", () =>
+      ($l("videoCamera", () =>
         new Promise((e$, e0) => {
           ez.value = [e$, e0];
-        }).finally(() => (ez.value = null))
+        }).finally(() => (ez.value = null)),
       ),
         $l("alert", (So.alert = (e$) => (e6.value = e$))),
         $l("prompt", (So.prompt = eZ(e7))),
         $l("confirm", (So.confirm = eZ(e4))),
         $l(
           "setDark",
-          (e$) => (e0.value = null != e$ ? e$ : So.darkTheme.value)
+          (e$) => (e0.value = null != e$ ? e$ : So.darkTheme.value),
         ),
         $l("setLoading", (e$) => (eF.value = e$)),
         So.fetchSettings(),
-        So.localhost && So.created();
+        So.localhost && So.created());
       let eG = rt(!1);
       Tn(eG, (e$) => So.client.setInput(e$));
       let eq = {
         open() {
           var e$;
-          (eB = Date.now() + 500),
+          ((eB = Date.now() + 500),
             (e8.value = !0),
             (null == (e$ = e3.value) ? void 0 : e$.accepted) ||
               So.client.playAnim("toText", !0),
-            So.client.setState("usingPhone", !0);
+            So.client.setState("usingPhone", !0));
         },
         async close() {
           var e0;
-          ["/call", "/"].includes(e$.currentRoute.value.path) ||
+          (["/call", "/"].includes(e$.currentRoute.value.path) ||
             e$.push("/home"),
             [e6, e7, e5, e4, ez].forEach((e$) => (e$.value = null)),
             (e8.value = !1),
@@ -30068,7 +30120,7 @@ const zO = {
             (null == (e0 = e3.value) ? void 0 : e0.accepted) ||
               So.client.playAnim("fromText"),
             So.client.close(),
-            So.client.setState("usingPhone", !1);
+            So.client.setState("usingPhone", !1));
         },
         pusher(e$, e0) {
           So.pusher.emit(e$, e0);
@@ -30094,21 +30146,21 @@ const zO = {
           if ("/home" == e3) e2 = !0;
           else if (ez.value) ez.value = null;
           else if ("/call" != e3 && "/" != e3)
-            return [e6, e4, e7].forEach((e$) => (e$.value = null)), e$.back();
+            return ([e6, e4, e7].forEach((e$) => (e$.value = null)), e$.back());
         }
         e2 && eq.close();
       }
       return (
         So.pusher.on("REDIRECT", (e0) => {
-          So.visible.value || So.client.open(),
+          (So.visible.value || So.client.open(),
             "/home" != e$.currentRoute.value.path && e$.replace("/home"),
-            e$.push(e0);
+            e$.push(e0));
         }),
         So.pusher.on("CALL_REQUEST", async (e0) => {
           So.storage.doNotDisturb.value ||
             ((await So.client.isAlive()) &&
               ((e0.contact = So.contacts.value.find(
-                (e$) => e$.phone == e0.initiator.phone
+                (e$) => e$.phone == e0.initiator.phone,
               ) || {
                 name: e0.isAnonymous ? "An\xf4nimo" : e0.initiator.phone,
                 phone: e0.initiator.phone,
@@ -30118,7 +30170,7 @@ const zO = {
                 So.addNotification(
                   e0.isVideo ? "facetime" : "phone",
                   e0.isVideo ? "Chamada de V\xeddeo" : "Chamada de Voz",
-                  e0.contact.name + " est\xe1 te ligando"
+                  e0.contact.name + " est\xe1 te ligando",
                 ),
               e$.push("/call")));
         }),
@@ -30141,40 +30193,40 @@ const zO = {
         }),
         So.pusher.on("SET_VISIBLE", (e$) => (e8.value = e$)),
         So.pusher.on("REFRESH", () => {
-          e$.replace("/"),
+          (e$.replace("/"),
             (So.identity.phone = null),
             So.fetchSettings(),
-            So.backend.ig_logout();
+            So.backend.ig_logout());
         }),
         So.pusher.on(
           "SERVICE_RESPONSE",
-          () => (e6.value = "Seu chamado foi atendido")
+          () => (e6.value = "Seu chamado foi atendido"),
         ),
         So.pusher.on(
           "SERVICE_REJECT",
-          () => (e6.value = "Seu chamado foi rejeitado")
+          () => (e6.value = "Seu chamado foi rejeitado"),
         ),
         So.pusher.on("PHONE_CHANGE", ({ from: e$, to: e0 }) => {
           var e8;
-          So.contacts.value.forEach((e8) => {
+          (So.contacts.value.forEach((e8) => {
             e8.phone == e$ && (e8.phone = e0);
           }),
             (null == (e8 = So.identity) ? void 0 : e8.phone) == e$ &&
-              (So.identity.phone = e0);
+              (So.identity.phone = e0));
         }),
         So.pusher.on("UPLOAD_SCREENSHOT", ({ url: e$, body: e0 = {} }) => {
           let e8 = new FormData();
           for (let e2 in e0) e8.set(e2, e0[e2]);
-          ro.start(),
+          (ro.start(),
             setTimeout(async () => {
               let e0 = await ro.createBlob();
-              e8.append("file", e0, Date.now() + ".jpg"),
+              (e8.append("file", e0, Date.now() + ".jpg"),
                 fetch(e$, {
                   method: "POST",
                   body: e8,
                 }),
-                ro.stop();
-            }, 200);
+                ro.stop());
+            }, 200));
         }),
         (globalThis.pusher = So.pusher),
         So.localhost && (globalThis.store = So),
@@ -30186,7 +30238,7 @@ const zO = {
           ({ data: { event: e$, args: e0 } }) => {
             var e8;
             null == (e8 = eq[e$]) || e8.call(eq, ...e0);
-          }
+          },
         ),
         window.addEventListener("contextmenu", () => {
           eG.value = !eG.value;
@@ -30195,10 +30247,10 @@ const zO = {
         So.pusher.on("keydown", eW),
         So.pusher.on("setDark", (e$) => (e0.value = e$)),
         So.pusher.on("prompt", (e$) =>
-          eZ(e7)(e$).then((e$) => So.client.fPrompt(e$))
+          eZ(e7)(e$).then((e$) => So.client.fPrompt(e$)),
         ),
         So.pusher.on("confirm", (e$) =>
-          eZ(e4)(e$).then((e$) => So.client.fConfirm(e$))
+          eZ(e4)(e$).then((e$) => So.client.fConfirm(e$)),
         ),
         So.pusher.on("alert", (e$) => (e6.value = e$)),
         {
@@ -30255,7 +30307,7 @@ const HO = {
       class: "fas fa-times text-white text-3xl",
     },
     null,
-    -1
+    -1,
   ),
   ZO = {
     class: "marvel-device iphone-x",
@@ -30282,7 +30334,7 @@ const HO = {
       class: "fas fa-signal-alt pr-2",
     },
     null,
-    -1
+    -1,
   ),
   sM = Pl(
     "i",
@@ -30290,7 +30342,7 @@ const HO = {
       class: "fas fa-wifi pr-2",
     },
     null,
-    -1
+    -1,
   ),
   oM = {
     key: 0,
@@ -30306,7 +30358,7 @@ const HO = {
       class: "fas fa-spinner-third animate-spin text-5xl text-white",
     },
     null,
-    -1
+    -1,
   );
 an();
 const cM = BO((e$, e0, e8, e2, e3, e1) => {
@@ -30353,7 +30405,7 @@ const cM = BO((e$, e0, e8, e2, e3, e1) => {
                       },
                       null,
                       8,
-                      ["src"]
+                      ["src"],
                     ),
                     Pl("div", qO, [
                       GO,
@@ -30384,7 +30436,7 @@ const cM = BO((e$, e0, e8, e2, e3, e1) => {
                           },
                           null,
                           8,
-                          ["src"]
+                          ["src"],
                         ),
                         Pl("div", WO, [
                           Pl("h1", null, g(e$.title), 1),
@@ -30395,20 +30447,20 @@ const cM = BO((e$, e0, e8, e2, e3, e1) => {
                             },
                             null,
                             8,
-                            ["innerHTML"]
+                            ["innerHTML"],
                           ),
                         ]),
-                      ]
+                      ],
                     )
-                  )
+                  ),
                 ),
-                128
+                128,
               )),
             ]),
             _: 1,
           },
           8,
-          ["style"]
+          ["style"],
         ),
         e2.imageFocused
           ? (wl(),
@@ -30422,7 +30474,7 @@ const cM = BO((e$, e0, e8, e2, e3, e1) => {
                         e0[1] || (e0[1] = (e$) => (e2.imageFocused = null)),
                       class: "block ml-auto p-3 mr-2",
                     },
-                    [YO]
+                    [YO],
                   ),
                 ]),
                 Pl(
@@ -30436,7 +30488,7 @@ const cM = BO((e$, e0, e8, e2, e3, e1) => {
                   },
                   null,
                   8,
-                  ["src"]
+                  ["src"],
                 ),
               ]),
             ]))
@@ -30462,7 +30514,7 @@ const cM = BO((e$, e0, e8, e2, e3, e1) => {
                       },
                       null,
                       8,
-                      ["type", "src"]
+                      ["type", "src"],
                     ),
                     Pl("div", QO, [
                       "/boot" != e$.$route.path
@@ -30487,7 +30539,7 @@ const cM = BO((e$, e0, e8, e2, e3, e1) => {
                                 e2.android ? Ml("", !0) : (wl(), _l("i", oM)),
                               ]),
                             ],
-                            2
+                            2,
                           ))
                         : Ml("", !0),
                       e2.loading ? (wl(), _l("div", rM, [iM])) : Ml("", !0),
@@ -30501,7 +30553,7 @@ const cM = BO((e$, e0, e8, e2, e3, e1) => {
                             },
                             null,
                             8,
-                            ["content"]
+                            ["content"],
                           ))
                         : Ml("", !0),
                       e2.prompt
@@ -30512,10 +30564,10 @@ const cM = BO((e$, e0, e8, e2, e3, e1) => {
                               {
                                 key: 3,
                               },
-                              e2.prompt
+                              e2.prompt,
                             ),
                             null,
-                            16
+                            16,
                           ))
                         : Ml("", !0),
                       e2.confirm
@@ -30529,7 +30581,7 @@ const cM = BO((e$, e0, e8, e2, e3, e1) => {
                             },
                             null,
                             8,
-                            ["title", "callback"]
+                            ["title", "callback"],
                           ))
                         : Ml("", !0),
                       Pl(e5),
@@ -30541,7 +30593,7 @@ const cM = BO((e$, e0, e8, e2, e3, e1) => {
                         {
                           default: BO(() => [Pl(eV)]),
                           _: 1,
-                        }
+                        },
                       ),
                       e2.paint.original
                         ? (wl(),
@@ -30559,7 +30611,7 @@ const cM = BO((e$, e0, e8, e2, e3, e1) => {
                             },
                             null,
                             8,
-                            ["callback"]
+                            ["callback"],
                           ))
                         : Ml("", !0),
                       Pl(
@@ -30580,28 +30632,28 @@ const cM = BO((e$, e0, e8, e2, e3, e1) => {
                                   [ds, !e2.paint.original && !e2.recording],
                                 ]),
                               ],
-                              1024
+                              1024,
                             )),
                           ]),
                           _: 1,
-                        }
+                        },
                       ),
                     ]),
                   ],
-                  512
+                  512,
                 ),
-                [[ds, e2.visible]]
+                [[ds, e2.visible]],
               ),
             ]),
             _: 1,
-          }
+          },
         ),
       ],
-      64
+      64,
     )
   );
 });
-(zO.render = cM), (zO.__scopeId = "data-v-16768605");
+((zO.render = cM), (zO.__scopeId = "data-v-16768605"));
 const uM = {
     props: {
       modelValue: {
@@ -30638,16 +30690,16 @@ const fM = dM(
           },
           null,
           40,
-          ["checked"]
+          ["checked"],
         ),
         pM,
       ],
       8,
-      ["android"]
+      ["android"],
     )
-  )
+  ),
 );
-(uM.render = fM), (uM.__scopeId = "data-v-e073d7c8");
+((uM.render = fM), (uM.__scopeId = "data-v-e073d7c8"));
 const mM = {
     props: ["white"],
     setup(e$) {
@@ -30659,7 +30711,7 @@ const mM = {
   },
   hM = Ol(
     '<div class="bar1"></div><div class="bar2"></div><div class="bar3"></div><div class="bar4"></div><div class="bar5"></div><div class="bar6"></div><div class="bar7"></div><div class="bar8"></div><div class="bar9"></div><div class="bar10"></div><div class="bar11"></div><div class="bar12"></div>',
-    12
+    12,
   );
 mM.render = function (e$, e0, e8, e2, e3, e1) {
   return (
@@ -30673,7 +30725,7 @@ mM.render = function (e$, e0, e8, e2, e3, e1) {
         },
       },
       [hM],
-      4
+      4,
     )
   );
 };
@@ -30691,7 +30743,7 @@ const bM = {},
       fill: "#2196f3",
     },
     null,
-    -1
+    -1,
   ),
   xM = Pl(
     "path",
@@ -30700,12 +30752,12 @@ const bM = {},
       fill: "#fafafa",
     },
     null,
-    -1
+    -1,
   );
-(bM.render = function (e$, e0) {
-  return wl(), _l("svg", gM, [vM, xM]);
+((bM.render = function (e$, e0) {
+  return (wl(), _l("svg", gM, [vM, xM]));
 }),
-  (globalThis.GameView = lo);
+  (globalThis.GameView = lo));
 const yM = ((...e$) => {
   let e0 = (ms || (ms = rl(fs))).createApp(...e$),
     { mount: e8 } = e0;
@@ -30716,8 +30768,8 @@ const yM = ((...e$) => {
       })(e$);
       if (!e2) return;
       let e3 = e0._component;
-      M(e3) || e3.render || e3.template || (e3.template = e2.innerHTML),
-        (e2.innerHTML = "");
+      (M(e3) || e3.render || e3.template || (e3.template = e2.innerHTML),
+        (e2.innerHTML = ""));
       let e1 = e8(e2);
       return (
         e2 instanceof Element &&
@@ -30728,7 +30780,7 @@ const yM = ((...e$) => {
     e0
   );
 })(zO);
-yM.component("AppInput", JP),
+(yM.component("AppInput", JP),
   yM.component("AppSelect", XP),
   yM.component("AppToggle", uM),
   yM.component("AppLoading", mM),
@@ -30740,4 +30792,4 @@ yM.component("AppInput", JP),
   Object.defineProperty(yM.config.globalProperties, "$currency", {
     get: () => So.settings.currency,
   }),
-  yM.mount("#root");
+  yM.mount("#root"));
