@@ -192,7 +192,7 @@ Config.robberys = {
             ['main'] = vector3(-1220.7, -341.21, 37.7323),
             ['trollys'] = {
                 {coords = vector3(-1221.6, -343.99, 36.7322), heading = 343.0, type = 'diamond'},
-                {coords = vector3(-1219.5, -342.73, 36.7322), heading = 118.0, type = 'goldbar'},
+                {coords = vector3(-1219.5, -342.73, 36.7322), heading = 118.0, type = 'gold'},
             },
             ['actions'] = {
                 ['lockbox_1']      =  {coords  = vector3(-1220.7, -341.21, 37.7323), heading = 27.0, length = 1.8,  width = 0.5, debugPoly = false, minZ = 37.2160, maxZ = 38.960, options = {{type = "client", event = "bettaheist:client:actions", icon = "fa-solid fa-hand", label = "Furar caixa", scene = 'lockbox_1',      canInteract = function() return not HeistSync['lockbox_1'] end}},     distance = 1.5},
