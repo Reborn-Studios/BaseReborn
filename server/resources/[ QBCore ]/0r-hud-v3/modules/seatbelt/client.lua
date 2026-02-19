@@ -53,7 +53,7 @@ function seatbelt.ToggleSeatBelt(state)
     end
     local message = locale(isSeatbeltOn and 'seatbelt_on' or 'seatbelt_off')
     Utils.Notify(message, 'inform')
-    TriggerEvent('InteractSound_CL:PlayOnOne', isSeatbeltOn and 'carbuckle' or 'carunbuckle', 0.25)
+    TriggerEvent('vrp_sound:source', isSeatbeltOn and 'belt' or 'unbelt', 0.5)
 end
 
 ---Get current seat belt state
