@@ -608,7 +608,7 @@ CreateThread(function()
 								tankBone = GetEntityBoneIndexByName(veh, "engine")
 							end
 							isBike = true
-						elseif vehClass ~= 13 then
+						else
 							tankBone = GetEntityBoneIndexByName(veh, "petrolcap")
 							if tankBone == -1 then
 								tankBone = GetEntityBoneIndexByName(veh, "petroltank_l")
