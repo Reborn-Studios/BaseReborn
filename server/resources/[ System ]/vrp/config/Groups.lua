@@ -446,6 +446,14 @@ local groups = {
 }
 
 do
+	local PoliceGroups = module('vrp',"config/PoliceGroups")() or {}
+	for k,v in pairs(PoliceGroups) do
+		groups[k] = v
+	end
+	local AllGroups = GlobalState["AllGroups"] or {}
+	for k,v in pairs(AllGroups) do
+		groups[k] = v
+	end
 	local paisanaGroups = {}
 	for k,v in pairs(groups) do
 		if v._config and v._config.gtype then
@@ -469,14 +477,6 @@ do
 		end
 	end
 	for k,v in pairs(paisanaGroups) do
-		groups[k] = v
-	end
-	local AllGroups = GlobalState["AllGroups"] or {}
-	for k,v in pairs(AllGroups) do
-		groups[k] = v
-	end
-	local PoliceGroups = module('vrp',"config/PoliceGroups")() or {}
-	for k,v in pairs(PoliceGroups) do
 		groups[k] = v
 	end
 end
