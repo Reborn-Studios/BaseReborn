@@ -208,6 +208,25 @@ AddEventHandler("vRP:BucketServer", function(source, value, bucket)
         SetPlayerRoutingBucket(source, 0)
     end
 end)
+
+exports("Bucket",function(source,Mode,Route)
+	local Mode = Mode
+	local Route = Route
+	local source = source
+
+	if Mode == "Enter" then
+		SetPlayerRoutingBucket(source,Route)
+		Player(source).state.Route = Route
+
+		if Route > 0 then
+			SetRoutingBucketEntityLockdownMode(Route,"strict")
+			SetRoutingBucketPopulationEnabled(Route,false)
+		end
+	else
+		SetPlayerRoutingBucket(source,0)
+		Player(source).state.Route = 0
+	end
+end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- Hosting Session
 -----------------------------------------------------------------------------------------------------------------------------------------

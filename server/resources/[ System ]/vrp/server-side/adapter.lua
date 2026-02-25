@@ -431,7 +431,10 @@ end
 
 function vRP.FullName(Passport)
     local identity = vRP.getUserIdentity(Passport)
-    return identity["name"].." "..identity["name2"]
+    if identity then
+        return identity["name"].." "..identity["name2"]
+    end
+    return ""
 end
 
 function vRP.GetPhone(Passport)
@@ -443,6 +446,7 @@ function vRP.Account(License)
     return {
         ['License'] = userAccount["identifier"],
         ['Chars'] = userAccount["chars"],
+        ['Characters'] = userAccount["chars"],
         ['Premium'] = userAccount["premium"],
         ['Whitelist'] = userAccount["whitelist"],
         ['Gemstone'] = userAccount["gems"]
@@ -576,12 +580,12 @@ function vRP.InventoryItemAmount(Passport, Item)
     if Source then
         if GetResourceState("ox_inventory") == "started" then
             local itemData = exports.ox_inventory:GetItem(Source, Item, nil, false)
-            return { itemData.count, itemData.name }
+            return { itemData.count, itemData.name, itemData.slot }
         else
             local Inventory = vRP.Inventory(Passport) or {}
             for k, v in pairs(Inventory) do
                 if splitString(Item, "-")[1] == splitString(v["item"], "-")[1] then
-                    return { v["amount"], v["item"] }
+                    return { v["amount"], v["item"], v["slot"] }
                 end
             end
         end
@@ -614,12 +618,15 @@ function vRP.ItemAmount(Passport,Item)
 end
 
 function vRP.ConsultItem(Passport, Item, Amount)
-    if vRP.Source(Passport) then
-        if Amount > vRP.InventoryItemAmount(Passport,Item)[1] then
-            return false
-        end
-    end
-    return true
+    local Passport = parseInt(Passport)
+	local Amount = parseInt(Amount) or 1
+	local ItemAmount,ItemName,ItemSlot = table.unpack(vRP.InventoryItemAmount(Passport,Item))
+
+	if ItemAmount >= Amount then
+		return { Amount = ItemAmount, Item = ItemName, Slot = ItemSlot }
+	end
+
+	return false
 end
 
 function vRP.Request(source,Message,Accept,Reject)
@@ -734,8 +741,9 @@ function vRP.DiscordAvatar(Passport)
 end
 
 function vRP.Hierarchy(Permission)
-    if Groups[Permission] and Groups[Permission]["Hierarchy"] then
-        return Groups[Permission]["Hierarchy"]
+    local Group = vRP.getGroup(Permission)
+    if Group and Group._config and Group._config.grade then
+        return tonumber(Group._config.grade)
     end
     return false
 end
@@ -751,10 +759,94 @@ function vRP.DataGroups(Permission)
     return UserGroups
 end
 
-function vRP.Permissions()
+function vRP.Permissions(Permission, Column)
+    local Consult = exports["oxmysql"]:query_async("SELECT * FROM permissions WHERE permiss = @Permission", { Permission = Permission })[1] or {}
+    local Default = {
+        Members = 10,
+        Experience = 0,
+        Points = 0,
+        Bank = 0,
+        Premium = 0,
+        Tags = 3,
+        Announces = 3
+    }
 
+    if Column == "Premium" then
+        return tonumber(Consult[Column]) or Default[Column]
+    end
+
+    return Consult[Column] and tonumber(Consult[Column]) or Default[Column] or 0
 end
 
 function vRP.AmountService(Perm,Grade)
+	return #vRP.NumPermission(Perm)
+end
 
+function vRP.NameHierarchy(Permission,Level)
+	return Permission
+end
+
+function vRP.HasTable(Passport,Table)
+	local Passport = tostring(Passport)
+
+	for _,Permission in ipairs(Table) do
+		if vRP.HasGroup(Passport,Permission) then
+			return Permission
+		end
+	end
+
+	return false
+end
+
+function vRP.SelectVehicle(Passport,Model)
+	local consult = vRP.query("vRP/get_vehicles",{ user_id = Passport, vehicle = Model })
+    if consult[1] then
+        return consult[1]
+    end
+    return false
+end
+
+function vRP.DatatableInformation(Passport,Mode)
+	local Passport = parseInt(Passport)
+
+	return vRP.Datatable(Passport)[Mode]
+end
+
+function vRP.UpdateDatatable(Passport,Mode,Value)
+	local Datatable = vRP.Datatable(Passport) or vRP.UserData(Passport,"Datatable")
+
+	Datatable[Mode] = Value
+
+	vRP.Query("playerdata/SetData",{ Passport = Passport, Name = "Datatable", Information = json.encode(Datatable) })
+end
+
+function vRP.InsertPrison(Passport,Amount)
+	vRP.InitPrison(Passport,Amount)
+end
+
+function vRP.HasService(Passport,Permission)
+    return vRP.HasGroup(Passport,Permission)
+end
+
+local Playing = {}
+function vRP.Playing(Passport,Permission)
+	local Return = 0
+	local CurrentTimer = os.time()
+	local Passport = tostring(Passport)
+	local Consult = vRP.GetSrvData("Playing:"..Passport)
+	local BaseTimer = Consult[Permission] or 0
+
+	if Playing[Permission] and Playing[Permission][Passport] then
+		Return = BaseTimer + (CurrentTimer - Playing[Permission][Passport])
+	end
+
+	return Return
+end
+
+function vRP.Update(Name,Params)
+    return vRP.Query(Name,Params)
+end
+
+function vRP.SingleQuery(Name,Params)
+	return vRP.Query(Name,Params)[1]
 end

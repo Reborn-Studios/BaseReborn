@@ -125,6 +125,22 @@ function splitString(str,symbol)
 
 	return tableResult
 end
+
+function SplitOne(Name,Symbol)
+	if not Symbol then
+		Symbol = "-"
+	end
+
+	return splitString(Name,Symbol)[1]
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- DOTTED
+-----------------------------------------------------------------------------------------------------------------------------------------
+function Dotted(Value)
+	local Value = parseInt(Value)
+	local Left,Number,Right = string.match(Value,"^([^%d]*%d)(%d*)(.-)$")
+	return Left..(Number:reverse():gsub("(%d%d%d)","%1."):reverse())..Right
+end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- MATHLEGTH
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -158,6 +174,10 @@ function completeTimers(seconds)
 	elseif seconds > 0 then
 		return string.format("<b>%d Segundos</b>",seconds)
 	end
+end
+
+function CompleteTimers(seconds)
+	return completeTimers(seconds)
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- MINIMALTIMERS
