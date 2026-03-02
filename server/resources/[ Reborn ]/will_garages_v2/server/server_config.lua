@@ -451,6 +451,10 @@ function checkArrestedVehicle(source,user_id,data,vname)
             valordetido = 5/100
         end
         local vehPrice = will.getVehiclePrice(vname)*valordetido
+        if vehPrice <= 0 then
+            execute("will/set_arrest",{ plate = data.plate, arrest = 0, time = os.time() + 7*24*60*60 })
+            return true
+        end
         local status = request(source,"O veículo "..vname.." está detido, deseja acionar o seguro pagando <b>R$"..tostring(vehPrice).."</b>?",60)
         if status then
             if paymentMethod(user_id, vehPrice) then

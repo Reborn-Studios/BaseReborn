@@ -512,7 +512,6 @@ function QBCore.Player.Login(source, citizenid, newData)
         local dataTable = json.decode(json.encode(newData))
         if citizenid then
             local UserData = {}
-            Wait()
             local PlayerData = MySQL.Sync.fetchSingle('SELECT * FROM characters where id = ?', { citizenid })
             if PlayerData then
                 local group = vRP.getUserGroupByType(citizenid, "job")

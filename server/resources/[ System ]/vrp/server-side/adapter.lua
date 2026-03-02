@@ -629,6 +629,47 @@ function vRP.ConsultItem(Passport, Item, Amount)
 	return false
 end
 
+function vRP.CleanSlot(Passport,Slot)
+    local Passport = parseInt(Passport)
+    local Slot = tostring(Slot)
+    local source = vRP.Source(Passport)
+    local Inventory = vRP.Inventory(Passport)
+
+    if not (source and Inventory and Inventory[Slot]) then
+        return false
+    end
+
+    local Item = Inventory[Slot].item
+    local Amount = Inventory[Slot].amount
+
+    Inventory[Slot] = nil
+
+    if ItemTypeCheck(Item,"Armamento") or ItemTypeCheck(Item,"Arremesso") then
+        TriggerClientEvent("inventory:verifyWeapon",source,Item)
+    end
+
+    if ItemUnique(Item) then
+        vRP.RemSrvData(SplitUnique(Item))
+    end
+
+    local Execute = ItemExecute(Item)
+    if Execute and Execute.Event and Execute.Type and not vRP.ConsultItem(Passport,Item) then
+        if Execute.Type == "Client" then
+            TriggerClientEvent(Execute.Event,source)
+        else
+            TriggerEvent(Execute.Event,source,Passport)
+        end
+    end
+
+    if ItemExist(Item) then
+        TriggerClientEvent("inventory:NotifyItem",source,{ Item,-Amount })
+    end
+
+    TriggerClientEvent("inventory:Update",source)
+
+    return true
+end
+
 function vRP.Request(source,Message,Accept,Reject)
 	return vRP.request(source,Message,30)
 end

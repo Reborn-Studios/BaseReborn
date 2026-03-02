@@ -212,7 +212,24 @@ RegisterCommand("EmergencyFunctions",function()
 		if LocalPlayer["state"]["Police"] then
 			if GetEntityHealth(Ped) > 100 and not IsPedInAnyVehicle(Ped, false) then
 				exports["dynamic"]:AddButton("Anuncio Policia","Fazer um anúncio para todos os moradores.","dynamic:EmergencyAnnounce","",false,true)
-				exports["dynamic"]:AddButton("Computador","Computador de bordo policial.","police:Open","",false,false)
+				if GetResourceState("mdt") == "started" then
+					local PoliceGroups = { "PMESP", "PMERJ", "ROTA", "BOPE", "BAEP", "CORE", "FT", "TOR", "GCM" }
+					local HasPolice = false
+					for k,v in pairs(PoliceGroups) do
+						for k2,v2 in pairs(LocalPlayer["state"]) do
+							if k2:find(v) then
+								HasPolice = true
+								exports["dynamic"]:AddButton("Computador","Computador de bordo policial.","mdt:Open",v,false,false)
+								break
+							end
+						end
+					end
+					if not HasPolice then
+						exports["dynamic"]:AddButton("Computador","Computador de bordo policial.","mdt:Open",v,false,false)
+					end
+				else
+					exports["dynamic"]:AddButton("Computador","Computador de bordo policial.","police:Open","",false,false)
+				end
 
 				exports["dynamic"]:AddMenu("Jogador","Pessoa mais próxima de você.","player")
 				exports["dynamic"]:AddButton("Carregar","Carregar a pessoa mais próxima.","inventory:Carry","","player",true)

@@ -142,6 +142,26 @@ function Dotted(Value)
 	return Left..(Number:reverse():gsub("(%d%d%d)","%1."):reverse())..Right
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- COUNTTALBE
+-----------------------------------------------------------------------------------------------------------------------------------------
+function CountTable(Table)
+	local Number = 0
+
+	for _ in pairs(Table) do
+		Number = Number + 1
+	end
+
+	return Number
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- SPLITUNIQUE
+-----------------------------------------------------------------------------------------------------------------------------------------
+function SplitUnique(Item)
+	local Name = splitString(Item,"-")
+
+	return Name[1] and Name[3] and Name[1]..":"..Name[3] or false
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- MATHLEGTH
 -----------------------------------------------------------------------------------------------------------------------------------------
 function mathLegth(n)
@@ -293,7 +313,7 @@ if not IsDuplicityVersion() then
 	}
 	function DrawBase3D(x,y,z,text)
 		if rbnBlips[text] and HasStreamedTextureDictLoaded("rbn_blips") then
-			DrawMarker(9, x, y, z, 0.0, 0.0, 0.0, 90.0, 90.0, 0.0, 1.5, 1.5, 1.5, 255, 255, 255, 255, false, true, 2, false, "rbn_blips", text, false)
+			DrawMarker(9, x, y, z, 0.0, 0.0, 0.0, 90.0, 90.0, 0.0, 1.0, 1.0, 1.0, 255, 255, 255, 255, false, true, 2, false, "rbn_blips", text, false)
 		else
 			local _,_x,_y = World3dToScreen2d(x,y,z)
 			SetTextFont(2)

@@ -44,7 +44,9 @@ vRP.Prepare("playerdata/SetData","REPLACE INTO vrp_user_data (user_id,dkey,dvalu
 vRP.prepare("vRP/set_srvdata","REPLACE INTO vrp_srv_data(dkey,dvalue) VALUES(@key,@value)")
 vRP.prepare("vRP/get_srvdata","SELECT dvalue FROM vrp_srv_data WHERE dkey = @key")
 vRP.prepare("entitydata/setData","REPLACE INTO vrp_srv_data(dkey,dvalue) VALUES(@dkey,@value)")
-vRP.prepare("entitydata/getData","SELECT dvalue FROM vrp_srv_data WHERE dkey = @dkey OR Name = @Name")
+vRP.prepare("entitydata/getData","SELECT dvalue FROM vrp_srv_data WHERE dkey = @dkey")
+vRP.prepare("entitydata/GetData","SELECT dvalue AS Information FROM vrp_srv_data WHERE dkey = @Name")
+vRP.prepare("entitydata/SetData","REPLACE INTO vrp_srv_data(dkey,dvalue) VALUES(@Name,@Information)")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PREPARE permissions
 -----------------------------------------------------------------------------------------------------------------------------------------
