@@ -176,16 +176,7 @@ CreateThread(function()
             timing = 4
             if not notified then
                 notified = true
-                lib.showTextUI('SafeZone',{
-                    position = "left-center",
-                    icon = 'shield',
-                    iconAnimation = "bounce",
-                    style = {
-                        borderRadius = 5,
-                        backgroundColor = '#48BB78',
-                        color = 'white'
-                    }
-                })
+                SendNUIMessage({ action = "safezone", status = true })
                 SetLocalPlayerAsGhost(true)
                 NetworkSetFriendlyFireOption(false)
                 SetEntityInvincible(ped,true)
@@ -223,7 +214,7 @@ CreateThread(function()
 			end
         elseif notified then
             notified = false
-            lib.hideTextUI()
+            SendNUIMessage({ action = "safezone", status = false })
             SetLocalPlayerAsGhost(false)
             NetworkSetFriendlyFireOption(true)
             SetEntityInvincible(ped,false)

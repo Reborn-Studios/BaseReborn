@@ -70,3 +70,24 @@ h6 {
   background-color: black;
   transform: scale(1.03);
 }
+
+#safezone {
+  position: absolute;
+  top: 50%;
+  left: 1%;
+  background: linear-gradient(
+    to left,
+    rgba(123, 236, 123, 0.6),
+    rgba(2, 134, 2, 0.6)
+  );
+  padding: 0.5vw;
+  border-radius: 7px;
+  color: white;
+  font-weight: 700;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  display: none;
+}
+
+#safe-shield {
+  width: 1.5vw;
+}

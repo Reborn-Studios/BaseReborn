@@ -34,6 +34,13 @@ Elevadores = {
         }
         playBell();
       }
+      if (event.data.action === "safezone") {
+        if (event.data.status) {
+          $("#safezone").fadeIn(500);
+        } else {
+          $("#safezone").fadeOut(500);
+        }
+      }
     });
     document.onkeyup = function (event) {
       if (event.which == 27) {
@@ -42,7 +49,7 @@ Elevadores = {
           {
             action: "close",
           },
-          false
+          false,
         );
       }
     };
@@ -53,7 +60,7 @@ Elevadores = {
         "<h6>Elevador</h6>" +
         "<div class='andares'>" +
         "</div>" +
-        "</div>"
+        "</div>",
     );
     let buttonTemplate =
       "<button class='andar' onclick='Elevadores.teleport(" +
@@ -81,7 +88,7 @@ Elevadores = {
         elevatorId: elevatorId,
         andarId: andarId,
       },
-      false
+      false,
     );
   },
   sendData: function (requestType, data, delay) {
@@ -92,7 +99,7 @@ Elevadores = {
     setTimeout(function () {
       $.post(
         `https://${GetParentResourceName()}/` + requestType,
-        JSON.stringify(data)
+        JSON.stringify(data),
       );
     }, delayTime);
   },
