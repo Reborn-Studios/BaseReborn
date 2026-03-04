@@ -45,9 +45,9 @@ Config.locais = {
 		itens = {}, 									-- Itens que serão dados aos membros da facção vencedora (apenas os que participaram da dominação)
 		receive_itens = 30,								-- Entrega de itens a cada 30 minutos
 	},
-	["Exemplo"] = {
-		coords = { 2541.42,2277.36,31.74 }, 			-- COORDENADA DO CENTRO DA ÁREA DE DOMINAÇÃO / BLIP
-		tempo_para_dominar = 500, 						-- CASO NINGUÉM ATINJA O LIMITE DE PONTOS, APÓS ESSE TEMPO ACABAR, A EQUIPE QUE ESTIVER MANTENDO A LIDERANÇA GANHARÁ (em segundos)
+	["Teatro"] = {
+		coords = { 696.81,606.86,128.92 }, 			-- COORDENADA DO CENTRO DA ÁREA DE DOMINAÇÃO / BLIP
+		tempo_para_dominar = 900, 						-- CASO NINGUÉM ATINJA O LIMITE DE PONTOS, APÓS ESSE TEMPO ACABAR, A EQUIPE QUE ESTIVER MANTENDO A LIDERANÇA GANHARÁ (em segundos)
 		tamanho_area = 170, 							-- TAMANHO DA ÁREA DE DOMINAÇÃO
 		cooldown = 60*60*24*3, 							-- TEMPO PARA ÁREA PODER SER DOMINADA NOVAMENTE (padrão 7 dias)
 		sets = { 										-- APENAS OS SETS QUE POSSUIREM ESSA PERMISSÃO, FARÃO EFEITO NA PONTUAÇÃO TOTAL / PODERÁ STARTAR A DOMINAÇÃO
@@ -67,17 +67,76 @@ Config.locais = {
 			perdendo = 1, 								-- Quantos pontos cada player da facção que estiver perdendo irá retirar do total
 			modo_pontuacao = "fixo", 					-- Modo pontuação: (distancia/fixo).
 		},
-		grupo = 'Exemplo', 								-- Grupo que será dado aos vencedores (e removido dos perdedores)
+		grupo = 'Teatro', 								-- Grupo que será dado aos vencedores (e removido dos perdedores)
 		webhook = '', 									-- WebHook pra log
-		itens = { 										-- Itens que serão dados aos membros da facção vencedora (apenas os que participaram da dominação)
-			['weed'] = { quantidade_min = 2, quantidade_max = 4 }, 
-			['cocaine'] = { quantidade_min = 1, quantidade_max = 1 },
+		itens = {},
+		receive_itens = 30,								-- Entrega de itens a cada 30 minutos
+	},
+	["Petroleira"] = {
+		coords = { 1617.9,-2243.29,107.17 }, 			-- COORDENADA DO CENTRO DA ÁREA DE DOMINAÇÃO / BLIP
+		tempo_para_dominar = 900, 						-- CASO NINGUÉM ATINJA O LIMITE DE PONTOS, APÓS ESSE TEMPO ACABAR, A EQUIPE QUE ESTIVER MANTENDO A LIDERANÇA GANHARÁ (em segundos)
+		tamanho_area = 170, 							-- TAMANHO DA ÁREA DE DOMINAÇÃO
+		cooldown = 60*60*24*3, 							-- TEMPO PARA ÁREA PODER SER DOMINADA NOVAMENTE (padrão 7 dias)
+		sets = { 										-- APENAS OS SETS QUE POSSUIREM ESSA PERMISSÃO, FARÃO EFEITO NA PONTUAÇÃO TOTAL / PODERÁ STARTAR A DOMINAÇÃO
+			"cassino.permissao",
+			"motoclub.permissao",
+			"milicia.permissao",
+			"bahamas.permissao",
+			"mafia.permissao",
+			"vanilla.permissao",
+			"verdes.permissao",
+			"vermelhos.permissao",
+			"azuis.permissao",
 		},
+		pontos = { 										-- CONFIGURAÇÃO GERAL DA PONTUAÇÃO
+			limite = 50,
+			ganhando = 1, 								-- Quantos pontos cada player da facção que estiver ganhando irá somar ao total
+			perdendo = 1, 								-- Quantos pontos cada player da facção que estiver perdendo irá retirar do total
+			modo_pontuacao = "fixo", 					-- Modo pontuação: (distancia/fixo).
+		},
+		grupo = 'Petroleira', 								-- Grupo que será dado aos vencedores (e removido dos perdedores)
+		webhook = '', 									-- WebHook pra log
+		itens = {},
+		receive_itens = 30,								-- Entrega de itens a cada 30 minutos
+	},
+	["Madeireira"] = {
+		coords = { -469.87,5356.89,80.76 }, 			-- COORDENADA DO CENTRO DA ÁREA DE DOMINAÇÃO / BLIP
+		tempo_para_dominar = 900, 						-- CASO NINGUÉM ATINJA O LIMITE DE PONTOS, APÓS ESSE TEMPO ACABAR, A EQUIPE QUE ESTIVER MANTENDO A LIDERANÇA GANHARÁ (em segundos)
+		tamanho_area = 170, 							-- TAMANHO DA ÁREA DE DOMINAÇÃO
+		cooldown = 60*60*24*3, 							-- TEMPO PARA ÁREA PODER SER DOMINADA NOVAMENTE (padrão 7 dias)
+		sets = { 										-- APENAS OS SETS QUE POSSUIREM ESSA PERMISSÃO, FARÃO EFEITO NA PONTUAÇÃO TOTAL / PODERÁ STARTAR A DOMINAÇÃO
+			"cassino.permissao",
+			"motoclub.permissao",
+			"milicia.permissao",
+			"bahamas.permissao",
+			"mafia.permissao",
+			"vanilla.permissao",
+			"verdes.permissao",
+			"vermelhos.permissao",
+			"azuis.permissao",
+		},
+		pontos = { 										-- CONFIGURAÇÃO GERAL DA PONTUAÇÃO
+			limite = 50,
+			ganhando = 1, 								-- Quantos pontos cada player da facção que estiver ganhando irá somar ao total
+			perdendo = 1, 								-- Quantos pontos cada player da facção que estiver perdendo irá retirar do total
+			modo_pontuacao = "fixo", 					-- Modo pontuação: (distancia/fixo).
+		},
+		grupo = 'Madeireira', 								-- Grupo que será dado aos vencedores (e removido dos perdedores)
+		webhook = '', 									-- WebHook pra log
+		itens = {},
 		receive_itens = 30,								-- Entrega de itens a cada 30 minutos
 	},
 }
 
 -- Usar cores do: https://docs.fivem.net/docs/game-references/blips/
 Config.fac_color = {
-	['Admin'] = 3,
+	["cassino.permissao"] = 15,
+	["motoclub.permissao"] = 6,
+	["milicia.permissao"] = 10,
+	["bahamas.permissao"] = 17,
+	["mafia.permissao"] = 22,
+	["vanilla.permissao"] = 5,
+	["verdes.permissao"] = 2,
+	["vermelhos.permissao"] = 1,
+	["azuis.permissao"] = 3,
 }
