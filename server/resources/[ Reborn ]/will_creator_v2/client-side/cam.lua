@@ -201,6 +201,8 @@ function IntroCam(data)
 end
 
 function EnableMulticharCam()
+    ShutdownLoadingScreen()
+    ShutdownLoadingScreenNui()
     local coords = GetOffsetFromEntityInWorldCoords(PlayerPedId(), 0, 2.0, 0)
     RenderScriptCams(false, false, 0, true, false)
     if MulticharCam then

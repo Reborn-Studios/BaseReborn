@@ -29,11 +29,11 @@ CreateThread(function()
             -- Desativar hud
             TriggerEvent("hudActived",false)
             TriggerEvent("hud:Active",false)
-            ShutdownLoadingScreen()
-            ShutdownLoadingScreenNui()
             if Config.EnableMultichar then
                 CharacterSelect()
             else
+                ShutdownLoadingScreen()
+                ShutdownLoadingScreenNui()
                 Wait(2000)
                 PlayCharacter()
             end
@@ -134,9 +134,11 @@ end
 
 function ApplyClothes(Ped, Data)
     if not Data then return end
-    Data = ConvertClothes(Data)
     SendDebug(("ApplyClothes - %s | %s"):format(Data["pants"],Data["torso"]))
-	if Data["pants"] and Data["torso"] then
+    if GetResourceState("will_skinshop") == "started" then
+        TriggerEvent("skinshop:Apply",Data)
+	elseif Data["pants"] and Data["torso"] then
+        Data = ConvertClothes(Data)
         SendDebug(("Pants - Torso - %s | %s"):format(Data["pants"]["item"],Data["torso"]["item"]))
 		SetPedComponentVariation(Ped,4,Data["pants"]["item"] or 0,Data["pants"]["texture"] or 0,1)
 		SetPedComponentVariation(Ped,3,Data["arms"]["item"] or 0,Data["arms"]["texture"] or 0,1)
@@ -180,8 +182,6 @@ function ApplyClothes(Ped, Data)
 		end
     elseif Data.modelhash or Data.model then
         vRP.setCustomization(Data)
-    else
-        TriggerEvent("skinshop:Apply",Data)
 	end
 end
 
