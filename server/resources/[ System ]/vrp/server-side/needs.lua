@@ -61,6 +61,22 @@ function vRP.clientUpgradeThirst(amount)
 	vRP.upgradeThirst(user_id,amount)
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- GETTHIRST
+-----------------------------------------------------------------------------------------------------------------------------------------
+function vRP.getThirst(user_id)
+	local data = vRP.getUserDataTable(user_id)
+	if data then
+		if data.thirst == nil then
+			data.thirst = 100
+		else
+			if data.thirst >= 100 then
+				data.thirst = 100
+			end
+		end
+		return data.thirst
+	end
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- UPGRADEHUNGER
 -----------------------------------------------------------------------------------------------------------------------------------------
 function vRP.upgradeHunger(user_id,amount)
@@ -95,6 +111,22 @@ function vRP.clientUpgradeHunger(amount)
 	local source = source
 	local user_id = vRP.getUserId(source)
 	vRP.upgradeHunger(user_id,amount)
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- GETHUNGER
+-----------------------------------------------------------------------------------------------------------------------------------------
+function vRP.getHunger(user_id)
+	local data = vRP.getUserDataTable(user_id)
+	if data then
+		if data.hunger == nil then
+			data.hunger = 100
+		else
+			if data.hunger >= 100 then
+				data.hunger = 100
+			end
+		end
+		return data.hunger
+	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- DOWNGRADETHIRST
@@ -179,6 +211,22 @@ function vRP.upgradeStress(user_id,amount)
 			{ name = "stress", percent = data.stress },
 		})
         TriggerClientEvent("hud:client:UpdateStress",source,data.stress)
+	end
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- GETSTRESS
+-----------------------------------------------------------------------------------------------------------------------------------------
+function vRP.getStress(user_id,amount)
+	local data = vRP.getUserDataTable(user_id)
+	if data then
+		if data.stress == nil then
+			data.stress = 0
+		else
+			if data.stress >= 100 then
+				data.stress = 100
+			end
+		end
+		return data.stress
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
