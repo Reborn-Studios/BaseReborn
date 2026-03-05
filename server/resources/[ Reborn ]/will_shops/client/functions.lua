@@ -626,7 +626,11 @@ CreateThread(function()
 								textModifiedPosition.z = -0.2
 							end
 						end
-						tankPosition = GetWorldPositionOfEntityBone(veh, tankBone)
+						if tankBone then
+							tankPosition = GetWorldPositionOfEntityBone(veh, tankBone)
+						else
+							tankPosition = GetEntityCoords(veh)
+						end
 						local vehFuel = GetVehicleFuelLevel(veh)
 						local vehPlate = GetVehicleNumberPlateText(veh)
 						if tankPosition and #(coords - tankPosition) < 1.2 and vehFuel < 100.0 then
