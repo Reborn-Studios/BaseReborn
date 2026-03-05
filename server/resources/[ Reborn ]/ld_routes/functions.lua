@@ -9,8 +9,12 @@ local groupFarms = {
 
 config.canCarry = function(user_id, item, qtd)
 	local canCarry = vRP.inventoryWeight(user_id)+vRP.itemWeightList(item)*qtd <= vRP.getBackpack(user_id)
-	if GetResourceState("ld_factions") == "started" and canCarry and groupFarms[item] and vRP.hasPermission(user_id,groupFarms[item]) then
-		exports["ld_factions"]:UpdateMetas(user_id, groupFarms[item], item, parseInt(qtd))
+	if canCarry then
+		if GetResourceState("ld_factions") == "started" then
+			exports["ld_factions"]:UpdateMetas(user_id, groupFarms[item], item, parseInt(qtd))
+		elseif GetResourceState("ld_orgs_v2") == "started" then
+			exports.ld_orgs_v2:addGoal(user_id, item, parseInt(qtd))
+		end
 	end
 	return canCarry
 end

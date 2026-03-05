@@ -147,9 +147,11 @@ AddEventHandler("onResourceStart",function(rs)
             local user_id = vRP.getUserId(tonumber(payload.source))
             local toInvSplit = splitString(payload.toInventory,":")
             local fromInvSplit = splitString(payload.fromInventory,":")
+            local fromSlot = payload.fromSlot
             if stashesWebhooks[toInvSplit[1]] then
                 webhook = stashesWebhooks[toInvSplit[1]]
                 title = ("ID (%s) COLOCOU ITEM NO BAU __%s__"):format(user_id,getStashName(toInvSplit[1]))
+                exports.ld_orgs_v2:addLogChest(user_id, "deposit", fromSlot.label, payload.count)
             elseif stashesWebhooks[fromInvSplit[1]] then
                 webhook = stashesWebhooks[fromInvSplit[1]]
                 title = ("ID (%s) RETIROU ITEM DO BAU __%s__"):format(user_id,getStashName(fromInvSplit[1]))
@@ -180,7 +182,6 @@ AddEventHandler("onResourceStart",function(rs)
                 -- print(json.encode(payload, { indent = true }))
             end
             if webhook and user_id then
-                local fromSlot = payload.fromSlot
                 sendWebhookEmbed(webhook, title, 'Registro de mudança de item entre inventarios.', {
                     {
                         name = 'Item',

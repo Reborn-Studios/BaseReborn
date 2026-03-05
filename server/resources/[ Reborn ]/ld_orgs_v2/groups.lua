@@ -88,7 +88,9 @@ Config.Groups = {
 
             Goals = { -- METAS (Pode ser ajustado pelo lider)
                 defaultReward = 500, -- Valor padrao da recompensa
-                itens = {}
+                itens = {
+                    ["toolbox"] = 10
+                }
             }
         },
 
@@ -181,7 +183,13 @@ Config.Groups = {
 
             Goals = { -- METAS (Pode ser ajustado pelo lider)
                 defaultReward = 500, -- Valor padrao da recompensa
-                itens = {}
+                itens = {
+                    ['ammo-9'] = 30, -- Quantidade padrao da recompensa
+                    ['ammo-45'] = 30, -- Quantidade padrao da recompensa
+                    ['ammo-rifle'] = 30, -- Quantidade padrao da recompensa
+                    ['ammo-rifle2'] = 30, -- Quantidade padrao da recompensa
+                    ['ammo-shotgun'] = 30, -- Quantidade padrao da recompensa
+                }
             }
         },
 
@@ -210,7 +218,22 @@ Config.Groups = {
 
             Goals = { -- METAS (Pode ser ajustado pelo lider)
                 defaultReward = 500, -- Valor padrao da recompensa
-                itens = {}
+                itens = {
+                    ["lockpick"] = 5,
+                    ["blackcard"] = 2,
+                    ["bluecard"] = 2,
+                    ["c4"] = 3,
+                    ["vest"] = 2,
+                    ["handcuff"] = 5,
+                    ["rope"] = 5,
+                    ["hood"] = 5,
+                    ["bag"] = 5,
+                    ["drill"] = 3,
+                    ["thermite_h"] = 3,
+                    ["yacht_drill"] = 3,
+                    ["hack_usb"] = 3,
+                    ["cutter"] = 3,
+                }
             }
         },
 
@@ -239,7 +262,17 @@ Config.Groups = {
 
             Goals = { -- METAS (Pode ser ajustado pelo lider)
                 defaultReward = 500, -- Valor padrao da recompensa
-                itens = {}
+                itens = {
+                    ["WEAPON_PISTOL"] = 2,
+                    ["WEAPON_PISTOL_MK2"] = 2,
+                    ["WEAPON_SMG_MK2"] = 2,
+                    ["WEAPON_MICROSMG"] = 2,
+                    ["WEAPON_MINISMG"] = 2,
+                    ["WEAPON_ASSAULTRIFLE"] = 2,
+                    ["WEAPON_ASSAULTRIFLE_MK2"] = 2,
+                    ["WEAPON_CARBINERIFLE"] = 2,
+                    ["WEAPON_CARBINERIFLE_MK2"] = 2,
+                }
             }
         },
 
