@@ -190,3 +190,30 @@ Farms.itemList = {
 	{ item = "lean", priceMin = 650, priceMax = 800, randMin = 3, randMax = 5 }, 
 	{ item = "lsd", priceMin = 650, priceMax = 800, randMin = 3, randMax = 5 },
 }
+
+-----------------------------------------------
+-- TUTORIAL DE COMO FAZER MAIS FARMS DE DROGAS
+-----------------------------------------------
+
+-- 1°: Pegar blip inicial com /cds2 (x,y,z,h)
+-- 2°: Colar no sceneCds tambem
+-- 3°: Deixar ['rotation'] = vec3(0.0, 0.0, h)
+-- 4°: Fazer a cena
+-- 5°: Copiar as coordenadas de onde foi parar
+-- 6°: Fazer a substração dos valores
+
+-- Exemplo:
+    -- Coordenada do blip: 2302.00, 4785.00, 37.00, 75.0
+    -- Coordenada do sceneCds: 2302.00, 4785.00, 37.00
+    -- ['rotation'] = vec3(0.0, 0.0, 75.0)
+
+    -- Fazer a cena e pegar as coordenadas com /cds2 de novo
+    -- (2297.93,4778.16,38.0,178.0)
+    -- (Se o heading for muito diferente, que nesse exemplo foi 178.0 e o certo era 75.0, então faça +180.0: 255.0)
+    -- Subtrair: (2302.00 - 2297.93, 4785.00 - 4778.16, 37.00 - 38.0):
+    -- Resultado: 4.07, 6.84, -1.0
+    -- sceneCds: ( 2302.00 + 4.07, 4785.00 + 6.84, 37.00 + (-1.0) )
+
+    -- Final: 
+    -- ['sceneCds'] = vec3(2306.07, 4791.84, 36.0),
+    -- ['rotation'] = vec3(0.0, 0.0, 255.0),
