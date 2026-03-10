@@ -133,3 +133,12 @@ function sendWebhookMessage(webhook, place, winner, facs)
         }
     }), { ['Content-Type'] = 'application/json' })
 end
+
+RegisterNetEvent("rbn_domination:dominando")
+AddEventHandler("rbn_domination:dominando",function(distance,place)
+    local source = source
+    Player(source).state:set("inPvp",true,true)
+    SetTimeout(60000,function ()
+        Player(source).state:set("inPvp",false,true)
+    end)
+end)
