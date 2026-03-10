@@ -17,7 +17,7 @@ Config.UseItem = true -- Use item to open radio, this will work only for QB or E
 Config.UseItemName = "radio" -- Item name to open radio
 Config.UseRadioKey = 'u' -- Use radio key to open radio, if you want to disable this set it to false (command should be enabled if you want to use keybind)
 
-Config.UseRanges = true
+Config.UseRanges = false
 Config.DisableRangesForJobs = { 'police', 'ambulance' } -- disable ranges for custom jobs, example: { 'police', 'ambulance' }, used only for ESX and QB
 Config.disableAutoSpectateModeDetection = false -- If disabled, ranges wont take effect on person who is spectating
 Config.DefaultRadioFilter = {
