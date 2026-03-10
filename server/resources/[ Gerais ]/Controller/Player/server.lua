@@ -816,6 +816,19 @@ RegisterCommand("seat",function(source,args,rawCommand)
 		end
 	end
 end)
+
+CreateThread(function ()
+	for i=1,5 do
+		RegisterCommand("p"..i,function(source,args,rawCommand)
+			local user_id = vRP.getUserId(source)
+			if user_id then
+				if vRPclient.getHealth(source) > 101 and not Player(source).state.Handcuff then
+					TriggerClientEvent("vrp_player:SeatPlayer",source,tostring(i - 1))
+				end
+			end
+		end)
+	end
+end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- ONDUTY
 -----------------------------------------------------------------------------------------------------------------------------------------
