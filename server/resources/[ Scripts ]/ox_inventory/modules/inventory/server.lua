@@ -2748,7 +2748,7 @@ exports('InspectInventory', Inventory.InspectInventory)
 
 lib.callback.register("ox_inventory:openHouseVault",function(source, houseName, vault)
 	if not RegisteredStashes[houseName] then
-		exports.ox_inventory:RegisterStash(houseName, houseName, 42, vault * 1000, source)
+		exports.ox_inventory:RegisterStash(houseName, houseName, 42, vault * 1000)
 	end
 	exports.ox_inventory:forceOpenInventory(source, 'stash', houseName)
 end)
