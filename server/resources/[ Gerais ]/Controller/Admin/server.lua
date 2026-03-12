@@ -51,7 +51,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterCommand("say",function(source,args,rawCommand)
 	if HasPermission(source,"say") then
-		TriggerClientEvent("Notify",-1,"Anuncio Prefeitura",rawCommand:sub(4),15000)
+		TriggerClientEvent("Notify",-1,"aviso","Anuncio Prefeitura",rawCommand:sub(4),15000)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------

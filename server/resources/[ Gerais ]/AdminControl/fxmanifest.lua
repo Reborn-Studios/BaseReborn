@@ -29,5 +29,5 @@ server_scripts {
 }
 
 files {
-	'web/*'
+	'web/**'
 }

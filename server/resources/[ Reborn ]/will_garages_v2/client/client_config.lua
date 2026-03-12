@@ -71,6 +71,8 @@ function applyModifies(nveh,engine,fuel,tuning,vehDoors,vehWindows,vehTyres,vnam
 				SetVehicleLivery(nveh, tonumber(tuning.livery))
 			end
         end
+	elseif GetResourceState("lscustoms") == "started" then
+        TriggerEvent("lscustoms:Apply", nveh, tuning)
 	else
 		vehicleMods(nveh,tuning)
 	end
