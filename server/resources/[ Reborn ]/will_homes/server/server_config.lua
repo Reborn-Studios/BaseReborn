@@ -29,6 +29,7 @@ CreateThread(function()
     prepare('will/update_extends',"UPDATE `will_homes` SET extends = @extends WHERE house_id = @id")
     prepare('will/update_home','UPDATE `will_homes` SET owner = @owner, tax = @tax WHERE house_id = @id')
     prepare('will/update_theme',"UPDATE `will_homes` SET theme = @theme WHERE house_id = @id")
+	prepare('will/update_vault',"UPDATE `will_homes` SET vault = @vault WHERE house_id = @id")
     prepare('will/get_vault',"SELECT vault FROM will_homes WHERE house_id = @id")
     prepare('will/sell_home',"DELETE FROM `will_homes` WHERE house_id = @id")
     prepare('will/get_homeuserid',"SELECT * FROM will_homes WHERE owner = @owner")
@@ -275,4 +276,59 @@ CreateThread(function ()
 		end
 		Wait(1)
 	end
+end)
+
+exports("Homes",function ()
+    return CacheHouses
+end)
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- UPGRADE DE BAU
+-----------------------------------------------------------------------------------------------------------------------------------------
+local UPGRADE_CHEST_VALUE = 50		-- Aumento de bau
+
+local loaded = false
+AddEventHandler("onResourceStart",function(rs)
+    if rs == "ox_inventory" or rs == GetCurrentResourceName() then
+        Wait(500)
+        if loaded then return end
+        loaded = true
+        if GetResourceState("ox_inventory") == "missing" then return end
+        exports.ox_inventory:registerHook('swapItems', function(payload)
+            if payload.toType ~= "stash" then
+                return true
+            end
+            local user_id = vRP.getUserId(tonumber(payload.source))
+			local consult = vRP.query("homes/get_homepermissions",{ user_id = user_id, home = payload.toInventory })
+			local fromSlot = payload.fromSlot
+			local quantity = payload.count
+			if consult[1] and quantity >= 1 then
+				local vault = tonumber(consult[1].vault)
+				local newQuantity = quantity * UPGRADE_CHEST_VALUE
+				if vault then
+					vault = vault + newQuantity
+					if vault > Config.maxChestWeight then
+						TriggerClientEvent("Notify",payload.source,"negado","Excedeu o limite no baú.",5000)
+						return false
+					end
+				else
+					vault = newQuantity
+				end
+				if exports.ox_inventory:RemoveItem(payload.source, fromSlot.name, quantity) then
+					TriggerClientEvent("Notify",payload.source,"sucesso","Bau aumentado em "..newQuantity.."kg.",5000)
+					exports.ox_inventory:RegisterStash(payload.toInventory, payload.toInventory, 42, vault * 1000)
+					execute('will/update_vault', { vault = vault, id = consult[1].house_id })
+					TriggerClientEvent("ox_inventory:closeInventory",payload.source)
+					return false
+				else
+					return false
+				end
+            end
+            return true
+        end, {
+			itemFilter = {
+				upgradechest = true,
+			},
+		})
+    end
 end)

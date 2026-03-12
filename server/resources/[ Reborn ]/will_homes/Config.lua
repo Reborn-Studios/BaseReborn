@@ -15,6 +15,8 @@ Config.taxTime = 7                  -- Dias para pagar taxa de casa
 
 Config.delHomeTime = 5              -- Dias para casa ficar sem dono (Se não pagar a taxa)
 
+Config.maxChestWeight = 500         -- Quantidade maxima do peso de bau
+
 Config.houseTaxes = function(id)    -- Preço das taxas
     if not id then return 0 end
     local house = {}

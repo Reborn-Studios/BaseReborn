@@ -2088,4 +2088,15 @@ return {
 			image = "cutter.png",
 		}
 	},
+
+	["upgradechest"] = {
+		label = "Aumento de baú",
+		weight = 500,
+		stack = true,
+		close = true,
+		description = "Utilize em baús de casas para aumentar o peso",
+		client = {
+			image = "upgradechest.png",
+		}
+	},
 }

@@ -318,6 +318,21 @@ function GetSpawns(src)
             table.insert(UserSpawns, v)
         end
     end
+    if GetResourceState("will_homes") == "started" then
+        local consult = vRP.query("will/get_homeuserid",{ owner = user_id })
+        if consult and consult[1] then
+            local AllHomes = exports['will_homes']:Homes()
+            if AllHomes[tonumber(consult[1].house_id)] then
+                local coords = AllHomes[tonumber(consult[1].house_id)].coords.house_in
+                table.insert(UserSpawns, {
+                    label = "Casa "..consult[1].name,
+                    x = coords.x,
+                    y = coords.y,
+                    z = coords.z,
+                })
+            end
+        end
+    end
     return UserSpawns
 end
 
