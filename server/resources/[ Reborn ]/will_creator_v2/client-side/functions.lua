@@ -135,10 +135,10 @@ end
 function ApplyClothes(Ped, Data)
     if not Data then return end
     SendDebug(("ApplyClothes - %s | %s"):format(Data["pants"],Data["torso"]))
-    if GetResourceState("will_skinshop") == "started" then
+    Data = ConvertClothes(Data)
+    if GetResourceState("will_skinshop") == "started" and not LocalPlayer.state["Creation"] then
         TriggerEvent("skinshop:Apply",Data)
 	elseif Data["pants"] and Data["torso"] then
-        Data = ConvertClothes(Data)
         SendDebug(("Pants - Torso - %s | %s"):format(Data["pants"]["item"],Data["torso"]["item"]))
 		SetPedComponentVariation(Ped,4,Data["pants"]["item"] or 0,Data["pants"]["texture"] or 0,1)
 		SetPedComponentVariation(Ped,3,Data["arms"]["item"] or 0,Data["arms"]["texture"] or 0,1)
