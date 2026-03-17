@@ -59,6 +59,9 @@ end
 ---@param name string
 ---@param data? table<string | string>
 function QueryExecute(name, data)
+    if name == "will_creator_v2/delete_playerskin" and data and data.user_id then
+        QueryExecute("will_creator_v2/delete_character", { id = data.user_id })
+    end
     if Config.Base == "cn" then
 		return vRP.Query(name, data)
     end
@@ -493,4 +496,6 @@ CreateThread(function()
     PrepareQuery("will_creator_v2/countChars","SELECT "..dbColumns[Config.Base]['accounts']['chars'].." FROM "..dbColumns[Config.Base]['accounts']['table'].." WHERE "..dbColumns[Config.Base]['chars']['identifier'].." = @identifier")
     -- insert char infos
     PrepareQuery("will_creator_v2/create_characters","INSERT INTO "..dbColumns[Config.Base]['chars']['table'].."("..dbColumns[Config.Base]['chars']['identifier']..","..dbColumns[Config.Base]['chars']['name']..","..dbColumns[Config.Base]['chars']['name2']..") VALUES(@identifier,@name,@name2)")
+    -- delete char infos
+    PrepareQuery("will_creator_v2/delete_character","DELETE FROM "..dbColumns[Config.Base]['chars']['table'].." WHERE "..dbColumns[Config.Base]['chars']['user_id'].." = @id")
 end)
