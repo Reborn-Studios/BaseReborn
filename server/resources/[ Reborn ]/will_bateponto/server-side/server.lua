@@ -21,8 +21,9 @@ function cnVRP.checkBateponto(Index)
         vCLIENT.verify(source)
         Wait(2000)
         for k,v in pairs(Config.data[Index].groups) do
+            local paisanaGroup = "Paisana"..v.group
             if vRP.hasGroup(user_id,v.group) then
-                vRP.addUserGroup(user_id,v.paisanaGroup)
+                vRP.addUserGroup(user_id,paisanaGroup)
                 TriggerEvent("vrp_blipsystem:serviceExit",source)
                 vCLIENT.exit(source)
                 if Config.data[Index].webhook then
@@ -33,10 +34,16 @@ function cnVRP.checkBateponto(Index)
                     end
                 end
                 break
-            elseif vRP.hasGroup(user_id,v.paisanaGroup) then
+            elseif vRP.hasGroup(user_id,paisanaGroup) then
                 vRP.addUserGroup(user_id,v.group)
                 serviceTime[user_id] = os.time()
-                TriggerEvent("vrp_blipsystem:serviceEnter",source,"Policial",77)
+                if Index == "Police" then
+                    TriggerEvent("vrp_blipsystem:serviceEnter",source,"Policial",77)
+                elseif Index == "Medic" then
+                    TriggerEvent("vrp_blipsystem:serviceEnter",source,"Paramedico",83)
+                elseif Index == "Mechanic" then
+                    TriggerEvent("vrp_blipsystem:serviceEnter",source,"Mecanico",51)
+                end
                 vCLIENT.enter(source)
                 if Config.data[Index].webhook then
                     Config.func.sendDiscord(Config.data[Index].webhook,"ID:"..user_id,"Entrou em serviço")
@@ -107,7 +114,7 @@ end)
 
 -- Entrar de Paisana quando relogar
 AddEventHandler("vRP:playerSpawn",function(user_id,source)
-    Wait(1000)
+    Wait(5000)
     for Index,data in pairs(Config.data) do
         for k,v in pairs(data.groups) do
             if vRP.hasGroup(user_id,v.group) then

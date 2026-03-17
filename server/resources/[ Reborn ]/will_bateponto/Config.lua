@@ -20,57 +20,13 @@ Config.data = {
             {-218.51,1571.4,343.13},
             {-341.55,-1406.11,31.96},
             {-292.19,6122.03,34.41},
+
+            {-1261.45,333.72,66.49}, -- BOPE
+            {367.12,-1606.85,29.3},  -- CORE
+            {-921.69,-2030.05,9.41}, -- PCERJ
+            -- {}
         },
-        groups = {
-            [1] = {
-                group = "Recruta",
-                paisanaGroup = "PaisanaRecruta",
-            },
-            [2] = {
-                group = "Soldado",
-                paisanaGroup = "PaisanaSoldado",
-            },
-            [3] = {
-                group = "Cabo",
-                paisanaGroup = "PaisanaCabo",
-            },
-            [4] = {
-                group = "3Sargento",
-                paisanaGroup = "Paisana3Sargento",
-            },
-            [5] = {
-                group = "2Sargento",
-                paisanaGroup = "Paisana2Sargento",
-            },
-            [6] = {
-                group = "Sargento",
-                paisanaGroup = "PaisanaSargento",
-            },
-            [7] = {
-                group = "Sub.Tenente",
-                paisanaGroup = "PaisanaSub.Tenente",
-            },
-            [8] = {
-                group = "Tenente",
-                paisanaGroup = "PaisanaTenente",
-            },
-            [9] = {
-                group = "Major",
-                paisanaGroup = "PaisanaMajor",
-            },
-            [10] = {
-                group = "Capitao",
-                paisanaGroup = "PaisanaCapitao",
-            },
-            [11] = {
-                group = "Coronel",
-                paisanaGroup = "PaisanaCoronel",
-            },
-            [12] = {
-                group = "Delegado",
-                paisanaGroup = "PaisanaDelegado",
-            },
-        }
+        groups = {}
     },
     ['Medic'] = {
         webhook = Webhooks.webhooktogglemedic,
@@ -80,15 +36,12 @@ Config.data = {
         groups = {
             [1] = {
                 group = "Enfermeiro",
-                paisanaGroup = "PaisanaEnfermeiro",
             },
             [2] = {
                 group = "Medico",
-                paisanaGroup = "PaisanaMedico",
             },
             [3] = {
                 group = "Diretor",
-                paisanaGroup = "PaisanaDiretor",
             },
         }
     },
@@ -100,15 +53,20 @@ Config.data = {
         groups = {
             [1] = {
                 group = "Mecanico",
-                paisanaGroup = "PaisanaMecanico",
             },
             [2] = {
                 group = "Mecanicolider",
-                paisanaGroup = "PaisanaMecanicolider",
             }
         }
     }
 }
+
+CreateThread(function ()
+    local PoliceGroups = module('vrp',"config/PoliceGroups")() or {}
+    for k,v in pairs(PoliceGroups) do
+        table.insert(Config.data.Police.groups,{ group = k })
+    end
+end)
 
 Config.func = {
     getUserId = function(source)
