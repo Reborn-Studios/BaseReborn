@@ -150,7 +150,13 @@ function ResetPed(source)
 			vRP.upgradeThirst(user_id,100)
 			vRP.upgradeHunger(user_id,100)
 			Wait(2000)
-			vRPclient.teleport(source,resetCoords[1], resetCoords[2], resetCoords[3])
+			local ResetCoord = resetCoords['default']
+			for perm,coord in pairs(resetCoords['perms']) do
+				if vRP.hasPermission(user_id,perm) then
+					ResetCoord = coord
+				end
+			end
+			vRPclient.teleport(source,ResetCoord[1], ResetCoord[2], ResetCoord[3])
 			Wait(1000)
 			SvTunnel.SetPedInBed(source)
 			Wait(1000)

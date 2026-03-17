@@ -33,7 +33,12 @@ Config.Survival = {
     -- Tempo de morte
     ['deathTimer'] = 60,
     -- Coordenadas para reviver
-    ['reviveCoords'] = { 1139.18,-1573.4,35.39 },
+    ['reviveCoords'] = {
+        ['default'] = { 1139.18,-1573.4,35.39 },
+        ['perms'] = {
+            ['policia.permissao'] = { 131.54,-407.7,41.07 },
+        }
+    },
     -- Preço de do /socorro
     ['socorroValue'] = 10000,
 }
