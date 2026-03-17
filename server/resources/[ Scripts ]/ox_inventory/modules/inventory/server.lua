@@ -1366,6 +1366,7 @@ function Inventory.RemoveItem(inv, item, count, metadata, slot, ignoreTotal)
 			end
 		end
 
+		inv.weight = Inventory.CalculateWeight(inv.items)
 		if removed > 0 then
 			inv.changed = true
 
@@ -1642,6 +1643,7 @@ lib.callback.register('ox_inventory:swapItems', function(source, data)
 	local playerInventory = Inventory(source)
 
 	if not playerInventory then return end
+	playerInventory.weight = Inventory.CalculateWeight(playerInventory.items)
 
 	local toInventory = (data.toType == 'player' and playerInventory) or Inventory(playerInventory.open)
 	local fromInventory = (data.fromType == 'player' and playerInventory) or Inventory(playerInventory.open)

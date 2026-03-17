@@ -172,7 +172,7 @@ return {
 			vector3(-428.79,-1728.35,19.79),
         },
         targets = {
-			{ loc = vec3(-428.79,-1728.35,19.79), length = 0.5, width = 3.0, heading = 270.0, minZ = 18.5, maxZ = 21.0, distance = 6 }
+			{ loc = vec3(-428.79,-1728.35,19.79), length = 0.9, width = 3.0, heading = 270.0, minZ = 18.5, maxZ = 21.0, distance = 6 }
         }
     },
 
