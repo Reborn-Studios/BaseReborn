@@ -399,6 +399,11 @@ function transferVehicle(source, nplayer, vehicle, plate)
     local nuser_id = getUserId(nplayer)
     local identity = getUserIdentity(nuser_id)
     if nplayer and identity then
+        local consult = vRP.query("will/rent_veh",{ user_id = user_id, vehicle = vehicle })
+        if consult[1] then
+            TriggerClientEvent("Notify",source,"negado","Você não pode vender esse veiculo!",5000)
+            return
+        end
         if request(source, "Deseja transferir o veiculo "..vehicle.." para "..identity.name.." ?", 30) then
         	local vehData = query("will/get_user_plate", { plate = plate })
             if vehData[1] and parseInt(vehData[1]['user_id']) == user_id then
