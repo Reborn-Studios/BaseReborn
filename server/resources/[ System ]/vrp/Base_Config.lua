@@ -16,26 +16,6 @@ Reborn.license = function()
     }
 end
 
---####----####----####----
---##   VARIABLES   ##--
---####----####----####----
-
-GlobalState['Basics'] = {
-    ['ServerName'] = "Reborn Studios",
-    ['Discord'] = "https://discord.gg/8unYr9MUdx",
-    ['MaxHealth'] = 400,
-    ['CityLogo'] = "https://api.rebornsystem.com.br/imagens/RebornLogo.png",
-    ['ServerStore'] = "",
-    ['Identifier'] = "steam",                   -- "steam" / "license" / "discord" / "fivem"
-    ['Whitelist'] = false,
-    ['Theme'] = "default",                      -- "default", "SP", "RJ"
-    ['Debug'] = false
-}
-
-GlobalState['Inventory'] = "ox_inventory"       -- "ld_inventory" / "ox_inventory" / "custom"
-
-GlobalState['WeaponWheel'] = false               -- Utilizado para o ox_inventory / Ao ativar, as armas não terão mais durabilidade e metadatas
-
 ----####----####----####----##
 ----##    IMG DIRETORIO    -##
 ----####----####----####----##
@@ -84,10 +64,11 @@ end
 ----####----####----####----##
 
 Reborn.needs = function()
+    local BaseConfig = exports['AdminControl']:GetControlFile("baseconfig") or {}
     return {
-        ['Tempo'] = 90,         -- Segundos
-        ['Fome'] = 2,           -- Total de 100
-        ['Sede'] = 1,           -- Total de 100
+        ['Tempo'] = BaseConfig.Needs?.Tempo or 90,         -- Segundos
+        ['Fome'] = BaseConfig.Needs?.Fome or 2,           -- Total de 100
+        ['Sede'] = BaseConfig.Needs?.Sede or 1,           -- Total de 100
     }
 end
 
@@ -96,10 +77,11 @@ end
 --####----####----####----
 
 Reborn.npcControl = function()
+    local BaseConfig = exports['AdminControl']:GetControlFile("baseconfig") or {}
     return {
-        ['PedDensity'] = 0.5,           -- Quantidade de npc na rua (0.0 a 0.99)
-        ['VehicleDensity'] = 0.4,       -- Quantidade de veiculos de npc na rua (0.0 a 0.99)
-        ['ParkedVehicle'] = 0.4,        -- Quantidade de veiculos estacionados (0.0 a 0.99)
+        ['PedDensity'] = BaseConfig.NpcControl?.PedDensity or 0.5,           -- Quantidade de npc na rua (0.0 a 0.99)
+        ['VehicleDensity'] = BaseConfig.NpcControl?.VehicleDensity or 0.4,       -- Quantidade de veiculos de npc na rua (0.0 a 0.99)
+        ['ParkedVehicle'] = BaseConfig.NpcControl?.ParkedVehicle or 0.4,        -- Quantidade de veiculos estacionados (0.0 a 0.99)
     }
 end
 -- Caso deseja tirar os npc, deixa tudo 0.0
@@ -109,10 +91,11 @@ end
 ----####----####----##
 
 Reborn.maintenance = function()
+    local BaseConfig = exports['AdminControl']:GetControlFile("baseconfig") or {}
     return {
-        enabled = false,
-        text = "Servidor em manutenção",
-        licenses = {
+        enabled = BaseConfig.Maintenance?.enabled or false,
+        text = BaseConfig.Maintenance?.text or "Servidor em manutenção",
+        licenses = BaseConfig.Maintenance?.licenses or {
             [""] = true
         }
     }
@@ -123,10 +106,11 @@ end
 ----####----####----####----##
 
 Reborn.autoReload = function()
+    local BaseConfig = exports['AdminControl']:GetControlFile("baseconfig") or {}
     return {
-        ['Enabled'] = false,                        -- Ativar/desativar auto-restart do servidor
-        ['RecurringTime'] = 12 * 60 * 60 * 1000,    -- Reiniciar após 12 horas
-        ['Timers'] = {                              -- Horarios programados para reiniciar
+        ['Enabled'] = BaseConfig.AutoReload?.Enabled or false,                        -- Ativar/desativar auto-restart do servidor
+        ['RecurringTime'] = BaseConfig.AutoReload?.RecurringTime or 12 * 60 * 60 * 1000,    -- Reiniciar após 12 horas
+        ['Timers'] = BaseConfig.AutoReload?.Timers or {                              -- Horarios programados para reiniciar
             ['10:00'] = true,
             ['18:00'] = true,
         },
@@ -185,10 +169,11 @@ end
 --####----####--
 
 Reborn.segurity_code = function()
+    local BaseConfig = exports['AdminControl']:GetControlFile("baseconfig") or {}
     return {
-        code = "Reborn",                    -- Codigo de segurança
-        start_id = 1,                       -- Inicio dos Ids
-        start_bank = 25000,                 -- Dinheiro inicial no banco
+        code = BaseConfig.Wipe?.Password or "Reborn",                    -- Codigo de segurança
+        start_id = BaseConfig.Wipe?.StartId or 1,                       -- Inicio dos Ids
+        start_bank = BaseConfig.Wipe?.StartBank or 25000,                 -- Dinheiro inicial no banco
         db_tables = {
             'accounts',
             'permissions',

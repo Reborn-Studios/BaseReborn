@@ -70,6 +70,10 @@ Config.Commands = {
 		['command'] = "managehouses",
 		['perm'] = "owner.permissao"
 	},
+	['baseconfig'] = {
+		['command'] = "baseconfig",
+		['perm'] = "owner.permissao"
+	},
 }
 
 Config.DefaultStash = {

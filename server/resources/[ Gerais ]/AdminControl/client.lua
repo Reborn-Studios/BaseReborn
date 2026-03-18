@@ -16,6 +16,14 @@ function Client.openMainMenu()
                 end
             },
             {
+                title = 'Base Config',
+                description = 'Abrir base config',
+                icon = "fa-solid fa-gear",
+                onSelect = function ()
+                    ExecuteCommand(Config.Commands["baseconfig"]['command'])
+                end
+            },
+            {
                 title = 'Grupos',
                 description = 'Gerenciar grupos',
                 icon = "fa-solid fa-users",
@@ -234,3 +242,7 @@ function DrawLocalText(text,x,y)
 	AddTextComponentString(text)
 	DrawText(x,y)
 end
+
+exports("GetControlFile",function (file)
+    return ServerControl.GetControlFile(file)
+end)

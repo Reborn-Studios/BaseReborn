@@ -1,0 +1,41 @@
+{
+  "Needs": {
+    "Sede": 1,
+    "Tempo": 90,
+    "Fome": 1
+  },
+  "MaxHealth": 400,
+  "Discord": "https://discord.gg/8unYr9MUdx",
+  "Wipe": {
+    "StartBank": 10000,
+    "Password": "reborn",
+    "StartId": 1
+  },
+  "Identifier": "steam",
+  "Whitelist": false,
+  "Maintenance": {
+    "licenses": {},
+    "text": "Manutenção em andamento...",
+    "enabled": false
+  },
+  "ServerName": "Reborn Studios",
+  "CityColorHex": "#5C1A80",
+  "NpcControl": {
+    "ParkedVehicle": 30,
+    "VehicleDensity": 30,
+    "PedDensity": 40
+  },
+  "AutoReload": {
+    "Timer1": 1773871200000,
+    "Timers": {
+      "19:00": true,
+      "09:00": true
+    },
+    "RecurringTime": 43200000,
+    "Enabled": false,
+    "Timer2": 1773835200000
+  },
+  "Theme": "default",
+  "Debug": true,
+  "CityColor": "rgb(92, 26, 128)"
+}
