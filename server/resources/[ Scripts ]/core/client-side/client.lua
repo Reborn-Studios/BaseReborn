@@ -270,9 +270,9 @@ local weaponsDamage = {
 	['WEAPON_PUMPSHOTGUN'] = 2.0,
 }
 
-local npcControl = Reborn.npcControl()
-
 CreateThread(function()
+	Wait(1000)
+	local npcControl = Reborn.npcControl()
 	while true do
 		-- NPC CONTROL
 		SetPedDensityMultiplierThisFrame(npcControl['PedDensity'])

@@ -14,7 +14,7 @@ Config.Framework = 'vrp' -- 'vrp', 'esx', 'qb'
 Config.Target = 'ox'    -- 'ox', 'qb','target' (vrp), false
 
 -- Ativar o debug
-Config.Debug = false
+Config.Debug = GlobalState['Basics']['Debug']
 
 -- Dar bonus conforme tenha policia
 Config.GiveBonusOnPolice = true

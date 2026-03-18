@@ -11,7 +11,7 @@ Config.imageDirect = Reborn.images().."/%s.png"
 --- Progress bar
 -----------------------
 
-Config.progressColor = "#ff8c00"
+Config.progressColor = GlobalState['Basics']['CityColorHex']
 
 Config.progressType = 2         -- 1 | 2
 

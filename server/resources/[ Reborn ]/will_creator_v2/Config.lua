@@ -12,7 +12,7 @@ Config = {}
 -- "vrpex" | "creative" | "summerz" | "cn"
 Config.Base = "creative"
 
-Config.Debug = false
+Config.Debug = GlobalState['Basics']['Debug']
 
 -- ####################
 --      MULTI CHAR

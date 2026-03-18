@@ -1,6 +1,6 @@
 Config = Config or {}
 
-Config.debug = false -- Enable or disable debug mode (true/false)
+Config.debug = GlobalState['Basics']['Debug'] -- Enable or disable debug mode (true/false)
 
 Config.creditScore = {
     enabled = true, -- [default true] Enable or disable credit score completely (true/false)

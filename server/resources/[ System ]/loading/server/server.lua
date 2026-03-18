@@ -13,6 +13,10 @@ CreateThread(function ()
         }
         changedText = true
     end
+    if data["selectedColor"] ~= GlobalState['Basics']['CityColorHex'] then
+        data["selectedColor"] = GlobalState['Basics']['CityColorHex']
+        changedText = true
+    end
     for k,v in pairs(data["socialHeaders"]) do
         if v["type"] == "discord" and data["socialHeaders"][k]["link"] ~= GlobalState['Basics']['Discord'] then
             data["socialHeaders"][k]["link"] = GlobalState['Basics']['Discord']

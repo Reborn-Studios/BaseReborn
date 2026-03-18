@@ -258,8 +258,8 @@ end
 -- HUNGER / THIRST
 -----------------------------------------------------------------------------------------------------------------------------------------
 CreateThread(function()
-	local needs = Reborn.needs()
 	while true do
+		local needs = Reborn.needs()
 		Wait(needs['Tempo']*1000)
 		local users = vRP.getUsers()
 		for k,v in pairs(users) do

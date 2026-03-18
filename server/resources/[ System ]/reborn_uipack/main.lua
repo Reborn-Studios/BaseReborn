@@ -23,7 +23,7 @@ RegisterNuiCallback("getConfig", function(data, callback)
   local debugMode = GetConvarInt("reborn:debug", 0) == 1
 
   local config = {
-    primaryColor = GetConvar("reborn:primaryColor", "#682bca"),
+    primaryColor = GetConvar("reborn:primaryColor", GlobalState['Basics']['CityColorHex']),
     notificationDuration = GetConvarInt("reborn:notificationDuration", 3000),
     progressCancelKey = GetConvar("reborn:progressCancelKey", "X"),
     notifyPosition = GetConvar("reborn:notificationPosition", "top-center"),

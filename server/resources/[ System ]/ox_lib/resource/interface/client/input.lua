@@ -30,7 +30,7 @@ local input
 ---@param rows string[] | InputDialogRowProps[]
 ---@param options InputDialogOptionsProps[]?
 ---@return string[] | number[] | boolean[] | nil
-function lib.inputDialog(heading, rows, options)
+function lib.inputDialog2(heading, rows, options)
     if input then return end
     input = promise.new()
 

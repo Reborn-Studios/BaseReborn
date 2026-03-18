@@ -462,3 +462,56 @@ end)
 RegisterNUICallback("menu_state",function(data,cb)
 	menu_state = data
 end)
+
+RegisterNUICallback("Theme",function(Data,Callback)
+	Callback({
+		shadow = true,
+		main = GlobalState['Basics']['CityColorHex'],
+		mainText = "#ffffff",
+		common = "#6fc66a",
+		rare = "#6ac6c5",
+		epic = "#c66a75",
+		legendary = "#c6986a",
+		accept = {
+			letter = "#dcffe9",
+			background = "#3fa466"
+		},
+		reject = {
+			letter = "#ffe8e8",
+			background = "#ad4443"
+		},
+		chat = {
+			Police = {
+				background = "#16468b",
+				letter = "#ffffff"
+			},
+			Paramedic = {
+				background = "#c127cf",
+				letter = "#ffffff"
+			},
+			Mechanic = {
+				background = "#d4780f",
+				letter = "#ffffff"
+			},
+			Ilegal = {
+				background = "#3b3b3b",
+				letter = "#ffffff"
+			}
+		},
+		pause = {
+			premium = true,
+			propertys = true,
+			store = true,
+			battlepass = true,
+			boxes = true,
+			marketplace = true,
+			skinweapon = true,
+			ranking = true,
+			daily = true,
+			code = true,
+			map = true,
+			settings = true,
+			disconnect = true
+		}
+	})
+end)

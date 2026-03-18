@@ -51,7 +51,7 @@ end)
 RegisterNUICallback("Theme",function(Data,Callback)
 	Callback({
 		shadow = true,
-		main = "7335d8f2",
+		main = GlobalState['Basics']['CityColorHex'],
 		mainText = "#ffffff",
 	})
 end)

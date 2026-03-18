@@ -1,6 +1,6 @@
 Config = {}
 
-Config.Debug = false
+Config.Debug = GlobalState['Basics']['Debug']
 Config.UseTarget = true
 Config.ShowMarker = true
 Config.ShowOSD = true
