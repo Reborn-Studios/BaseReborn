@@ -36,6 +36,6 @@
     "Timer2": 1773835200000
   },
   "Theme": "default",
-  "Debug": true,
+  "Debug": false,
   "CityColor": "rgb(92, 26, 128)"
 }

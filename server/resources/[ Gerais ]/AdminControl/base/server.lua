@@ -9,7 +9,7 @@ end)
 local function saveData(Data)
     local BaseConfig = GetControlFile("baseconfig")
     for key,v in pairs(BaseConfig) do
-        if Data[key] then
+        if Data[key] ~= nil then
             if type(Data[key]) == "table" then
                 for k,d in pairs(Data[key]) do
                     if Data[key][k] ~= v[k] then
@@ -48,7 +48,7 @@ AddEventHandler("AdminControl:saveBaseConfig",function (data)
     BaseData.Identifier = data[5] or BasicsConfig['Identifier']
     BaseData.Whitelist = data[6] or BasicsConfig['Whitelist']
     BaseData.Theme = data[7] or BasicsConfig['Theme']
-    BaseData.Debug = data[8] or BasicsConfig['Debug']
+    BaseData.Debug = data[8]
     saveData(BaseData)
     BasicsConfig = BaseData
     GlobalState:set("Basics",BasicsConfig,true)
