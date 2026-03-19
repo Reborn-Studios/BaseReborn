@@ -285,7 +285,19 @@ api.addGlobalVehicle(convert({
     distance = 1.0,
     options = {
         {
-            job = "police",
+            job = {
+                ["police"] = 0,
+                ["polmilitar"] = 0,
+                ["polcivil"] = 0,
+                ["polrota"] = 0,
+                ["polbaep"] = 0,
+                ["polft"] = 0,
+                ["poltor"] = 0,
+                ["polgcm"] = 0,
+                ["polcore"] = 0,
+                ["polbope"] = 0,
+                ["polpmerj"] = 0,
+            },
             icon = "fa-regular fa-id-card",
             event = "police:runPlate",
             label = "Verificar Placa",
