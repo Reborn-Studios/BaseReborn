@@ -33,7 +33,7 @@ RegisterCommand("car",function(source,args,rawCommand)
             local x,y,z = Coords["x"],Coords["y"],Coords["z"]
             local plate = generatePlateNumber()
             adminVehs[plate] = user_id
-            local netid = will.spawnVehicle(args[1],x,y,z,heading,{plate=plate},true)
+            local netid = will.spawnVehicle(args[1],x,y,z,heading,{plate=plate},true,GetPlayerRoutingBucket(source))
             local nveh = NetworkGetEntityFromNetworkId(netid)
 			SetPedIntoVehicle(Ped,nveh,-1)
 			SendDiscord("ID: "..user_id, "Spawnou o **"..args[1].."**\n Coordenadas: "..tD(x)..", "..tD(y)..", "..tD(z))
@@ -284,6 +284,7 @@ function will.spawnVehicle(vname,x,y,z,h,data,interior,bucket)
             spawnedVehsInside[source][vehPlate] = nveh
         else
             SetVehicleDoorsLocked(nveh,2)   -- Trancado
+            -- SetPedIntoVehicle(GetPlayerPed(source),nveh,-1) -- Spawnar com player dentro do carro
         end
 	    return netid
     elseif nveh then
