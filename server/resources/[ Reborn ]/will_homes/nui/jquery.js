@@ -65,7 +65,7 @@ const requestPageHouses = async (page) => {
   $(".pageHouses").html(
     `<div class="loading-container">
       <img src="./svg/loading.svg" alt="loading" class="spin-anim" />
-    </div>`
+    </div>`,
   );
   $(".pagination").html("");
   await __wait__(500);
@@ -78,7 +78,7 @@ const requestPageHouses = async (page) => {
       for (let i = 0; i < x.houses.length; i++) {
         __addHousePainel__(x.houses[i], x.houses[i].index);
       }
-    }
+    },
   );
   refreshPagination();
 };
@@ -91,7 +91,7 @@ const refreshPagination = () => {
       $(".pagination").append(
         `<div class="page" onclick="requestPageHouses('${index + 1}')">${
           index + 1
-        }</div>`
+        }</div>`,
       );
     }
   }
@@ -122,13 +122,13 @@ __addHousePainel__ = (x, index) => {
   for (let i = 0; i < x.stars; i++) {
     // $(`.starscard-${index}`).append(`<i class="fas fa-star star"></i>`);
     $(`.starscard-${index}`).append(
-      `<img src="./svg/star.svg" style="width: 1vw;height: 2vh;" class="star" />`
+      `<img src="./svg/star.svg" style="width: 1vw;height: 2vh;" class="star" />`,
     );
   }
   for (let i = 0; i < 5 - x.stars; i++) {
     // $(`.starscard-${index}`).append(`<i class="fas fa-star nostar"></i>`);
     $(`.starscard-${index}`).append(
-      `<img src="./svg/nostar.svg" style="width: 1vw;height: 2vh;" class="nostar" />`
+      `<img src="./svg/nostar.svg" style="width: 1vw;height: 2vh;" class="nostar" />`,
     );
   }
 };
@@ -171,12 +171,12 @@ __init__ = (x) => {
   } */
   for (let i = 0; i < house.stars; i++) {
     $(".stars").append(
-      `<img src="./svg/star.svg" style="width: 1vw;height: 2vh;" class="star" />`
+      `<img src="./svg/star.svg" style="width: 1vw;height: 2vh;" class="star" />`,
     );
   }
   for (let i = 0; i < 5 - house.stars; i++) {
     $(".stars").append(
-      `<img src="./svg/nostar.svg" style="width: 1vw;height: 2vh;" class="nostar" />`
+      `<img src="./svg/nostar.svg" style="width: 1vw;height: 2vh;" class="nostar" />`,
     );
   }
   if (house.garage == true) {
@@ -237,10 +237,15 @@ __click_ = async (x) => {
       break;
     case "pay-tax":
       await __loading__();
+      $(".modal").hide("fade");
+      setTimeout(() => {
+        $(".container").css("display", "none");
+        $.post("https://will_homes/close", JSON.stringify({}), function (x) {});
+      }, 500);
       $.post(
         "https://will_homes/updateTax",
         JSON.stringify({ id: cur_id }),
-        function (x) {}
+        function (x) {},
       );
       break;
     case "visit-house":
@@ -253,7 +258,7 @@ __click_ = async (x) => {
       $.post(
         "https://will_homes/visit",
         JSON.stringify({ id: cur_id }),
-        function (x) {}
+        function (x) {},
       );
       break;
     case "with-cash":
@@ -266,7 +271,7 @@ __click_ = async (x) => {
       $.post(
         "https://will_homes/tryBuy",
         JSON.stringify({ id: cur_id }),
-        function (x) {}
+        function (x) {},
       );
       break;
     case "with-gems":
@@ -279,7 +284,7 @@ __click_ = async (x) => {
       $.post(
         "https://will_homes/tryBuyGems",
         JSON.stringify({ id: cur_id }),
-        function (x) {}
+        function (x) {},
       );
       break;
     case "sell-house":
@@ -298,7 +303,7 @@ __click_ = async (x) => {
       $.post(
         "https://will_homes/trySell",
         JSON.stringify({ id: cur_id }),
-        function (x) {}
+        function (x) {},
       );
       break;
     case "transfer-house":
@@ -318,7 +323,7 @@ __click_ = async (x) => {
       $.post(
         "https://will_homes/tryTransfer",
         JSON.stringify({ id: cur_id, nuser_id }),
-        function (x) {}
+        function (x) {},
       );
       break;
     case "home":
@@ -330,14 +335,14 @@ __click_ = async (x) => {
       $.post(
         "https://will_homes/enterHouse",
         JSON.stringify({ id: cur_id }),
-        function (x) {}
+        function (x) {},
       );
       break;
     case "theme":
       $.post(
         "https://will_homes/changeTheme",
         JSON.stringify({ id: cur_id, theme: $(x).data("theme") }),
-        function (x) {}
+        function (x) {},
       );
       await __loading__();
       $(".container").hide("fade");
@@ -364,7 +369,7 @@ __click_ = async (x) => {
       $.post(
         "https://will_homes/table",
         JSON.stringify({ tid: tid, turl: $("#u_" + tid).val() }),
-        function (x) {}
+        function (x) {},
       );
       $.post("https://will_homes/close", JSON.stringify({}), function (x) {});
       break;
@@ -390,15 +395,15 @@ __click_ = async (x) => {
           $("#friends").html("");
           $.each(ppl_all, function (i, v) {
             $("#all").append(
-              `<a class="pl" data-info="add-house-f" data-id="${v.id}" data-name="${v.name}" >${v.name} <i class="fa-thin fa-plus"></i></a>`
+              `<a class="pl" data-info="add-house-f" data-id="${v.id}" data-name="${v.name}" >${v.name} <i class="fa-thin fa-plus"></i></a>`,
             );
           });
           $.each(ppl_h, function (i, v) {
             $("#friends").append(
-              `<a class="pl" data-info="remove-house-f" data-id="${v.id}" data-name="${v.name}" >${v.name} <i class="fa-thin fa-minus"></i></a>`
+              `<a class="pl" data-info="remove-house-f" data-id="${v.id}" data-name="${v.name}" >${v.name} <i class="fa-thin fa-minus"></i></a>`,
             );
           });
-        }
+        },
       );
       break;
     case "add-house-f":
@@ -407,10 +412,10 @@ __click_ = async (x) => {
       $.post(
         "https://will_homes/AddFriends",
         JSON.stringify({ id: cur_id, pid: xid, name: xname }),
-        function (data) {}
+        function (data) {},
       );
       $("#friends").append(
-        `<a class="pl" data-info="remove-house-f" data-id="${xid}" data-name="${xname}"  >${xname} <i class="fa-thin fa-minus"></i></a>`
+        `<a class="pl" data-info="remove-house-f" data-id="${xid}" data-name="${xname}"  >${xname} <i class="fa-thin fa-minus"></i></a>`,
       );
       x.remove();
       break;
@@ -420,10 +425,10 @@ __click_ = async (x) => {
       $.post(
         "https://will_homes/RemoveFriends",
         JSON.stringify({ id: cur_id, pid: xid, name: xname }),
-        function (data) {}
+        function (data) {},
       );
       $("#all").append(
-        `<a class="pl" data-info="add-house-f" data-id="${xid}" data-name="${xname}"  >${xname} <i class="fa-thin fa-plus"></i></a>`
+        `<a class="pl" data-info="add-house-f" data-id="${xid}" data-name="${xname}"  >${xname} <i class="fa-thin fa-plus"></i></a>`,
       );
       x.remove();
       break;
@@ -432,7 +437,7 @@ __click_ = async (x) => {
       $.post(
         "https://will_homes/StreamFriends",
         JSON.stringify({ id: cur_id }),
-        function (data) {}
+        function (data) {},
       );
       break;
   }
@@ -485,7 +490,7 @@ __manage__ = (x) => {
   $(".scrl").html("");
   $.each(x.theme, function (i, v) {
     $(".scrl").append(
-      `<div class="wall" style="background: url(./interiors/${i}.png);background-size: cover;"><a data-info="theme" data-theme="${i}" href="#">Selecionar</a></div>`
+      `<div class="wall" style="background: url(./interiors/${i}.png);background-size: cover;"><a data-info="theme" data-theme="${i}" href="#">Selecionar</a></div>`,
     );
   });
   $(".scrl").append(`
@@ -507,7 +512,7 @@ function fixImages() {
 
   for (let i = 0; i < button.length; i++) {
     button[i].addEventListener("click", () =>
-      i == 0 ? gotoPrev() : gotoNext()
+      i == 0 ? gotoPrev() : gotoNext(),
     );
   }
 
