@@ -360,10 +360,12 @@ RegisterCommand("creator",function(source, args)
         if args[1] and tonumber(args[1]) ~= nil then
             local target = UserSource(tonumber(args[1]) or 0)
             if target then
-                TriggerClientEvent('will_creator_v2:client:CreateCharacter', target)
+                local gender = GetBarber(tonumber(args[1]) or 0)?.gender
+                TriggerClientEvent('will_creator_v2:client:CreateCharacter', target, gender)
             end
         else
-            TriggerClientEvent('will_creator_v2:client:CreateCharacter', source)
+            local gender = GetBarber(user_id)?.gender
+            TriggerClientEvent('will_creator_v2:client:CreateCharacter', source, gender)
         end
     end
 end, false)
