@@ -122,6 +122,5 @@ function Server.getLicenses()
         return a.label < b.label
     end)
     r(options)
-    print(json.encode(options))
     return r:wait()
 end

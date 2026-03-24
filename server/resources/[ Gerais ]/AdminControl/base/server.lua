@@ -75,9 +75,9 @@ AddEventHandler("AdminControl:saveNpcControlConfig",function (data)
     local source = source
     local NpcControl = {}
     local BaseConfig = GetControlFile("baseconfig")
-    NpcControl.PedDensity = data[1] and data[1] / 100 or BaseConfig.NpcControl.PedDensity
-    NpcControl.VehicleDensity = data[2] and data[2] / 100 or BaseConfig.NpcControl.VehicleDensity
-    NpcControl.ParkedVehicle = data[3] and data[3] / 100 or BaseConfig.NpcControl.ParkedVehicle
+    NpcControl.PedDensity = data[1] and (data[1] / 100) or BaseConfig.NpcControl.PedDensity
+    NpcControl.VehicleDensity = data[2] and (data[2] / 100) or BaseConfig.NpcControl.VehicleDensity
+    NpcControl.ParkedVehicle = data[3] and (data[3] / 100) or BaseConfig.NpcControl.ParkedVehicle
     saveData({ NpcControl = NpcControl })
     TriggerClientEvent("Notify",source,"sucesso","Controle de NPC salvo com sucesso! Serão aplicadas após RR",5000)
 end)

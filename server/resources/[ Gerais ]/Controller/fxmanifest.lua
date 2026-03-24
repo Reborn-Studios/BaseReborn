@@ -16,7 +16,10 @@ server_scripts {
 	"**/server.lua",
 }
 
-shared_script '@ox_lib/init.lua'
+shared_scripts {
+	"@ox_lib/init.lua",
+	"@reborn_uipack/init.lua",
+}
 
 files {
 	"Web/*",
