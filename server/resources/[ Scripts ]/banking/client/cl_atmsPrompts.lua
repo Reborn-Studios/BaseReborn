@@ -8,6 +8,7 @@ local atmModels = Config.atmModels
 CreateThread(function()
   exports["ox_target"]:addModel(atmModels,{
 		{
+			distance = 2,
 			label = "Abrir ATM",
 			icon = "fa-solid fa-money-bill-transfer",
 			event = "Banking:openAtm"

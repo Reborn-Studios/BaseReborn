@@ -24,6 +24,7 @@ CreateThread(function ()
 			canInteract = function()
 				return not LocalPlayer.state.Police
 			end,
+			distance = 2,
 			event = 'vrp_cashmachine:machineRobbery',
 			icon = 'fa-solid fa-cash-register',
 			label = "Roubar",
@@ -36,6 +37,7 @@ CreateThread(function ()
 			canInteract = function()
 				return not LocalPlayer.state.Police
 			end,
+			distance = 2,
 			icon = "fa-solid fa-cash-register",
 			event = "cashRegister:robberyMachine",
 			label = "Roubar",
