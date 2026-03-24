@@ -285,3 +285,15 @@ CreateThread(function()
     Wait(2000)
     TriggerServerEvent('custom:getCash')
 end)
+
+local hoodToggle = false
+
+RegisterNetEvent("vrp_hud:toggleHood")
+AddEventHandler("vrp_hud:toggleHood",function ()
+    hoodToggle = not hoodToggle
+    if hoodToggle then
+        DoScreenFadeOut(0)
+    else
+        DoScreenFadeIn(0)
+    end
+end)
