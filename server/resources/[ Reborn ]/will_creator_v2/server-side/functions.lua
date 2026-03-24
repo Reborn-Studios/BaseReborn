@@ -293,7 +293,7 @@ function ReloadPlayer(src)
     local nped = GetPlayerPed(src)
     local health = GetEntityHealth(nped)
     local armour = GetPedArmour(nped)
-    if skin and user_id then
+    if skin and user_id and vRP.GetHealth(src) > 101 then
         TriggerClientEvent("will_creator_v2:reloadPlayer",src,{
             skin = skin,
             clothes = clothes,

@@ -121,7 +121,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterCommand("PlayerFunctions",function()
 	local Ped = PlayerPedId()
-	if not LocalPlayer["state"]["Commands"] and not LocalPlayer["state"]["Handcuff"] and not LocalPlayer["state"]["Prison"] and not Dynamic and not IsPauseMenuActive() and GetEntityHealth(Ped) > 100 then
+	if not LocalPlayer["state"]["Commands"] and not LocalPlayer["state"]["Handcuff"] and not LocalPlayer["state"]["Prison"] and not Dynamic and not IsPauseMenuActive() and GetEntityHealth(Ped) > 101 then
 		if LocalPlayer["state"]["Premium"] then
 			exports["dynamic"]:AddButton("VIP status","Verificar VIP.","dynamic:checkVipStatus","","others",false)
 		end
@@ -210,7 +210,7 @@ RegisterCommand("EmergencyFunctions",function()
 	if (LocalPlayer["state"]["Police"] or LocalPlayer["state"]["Paramedic"] or LocalPlayer["state"]["Mechanic"]) and not IsPauseMenuActive() and not LocalPlayer["state"]["Commands"] and not LocalPlayer["state"]["Handcuff"] and not LocalPlayer["state"]["Prison"] and not Dynamic then
 		local Ped = PlayerPedId()
 		if LocalPlayer["state"]["Police"] then
-			if GetEntityHealth(Ped) > 100 and not IsPedInAnyVehicle(Ped, false) then
+			if GetEntityHealth(Ped) > 101 and not IsPedInAnyVehicle(Ped, false) then
 				exports["dynamic"]:AddButton("Anuncio Policia","Fazer um anúncio para todos os moradores.","dynamic:EmergencyAnnounce","",false,true)
 				if GetResourceState("mdt") == "started" then
 					local PoliceGroups = { "PMESP", "PMERJ", "ROTA", "BOPE", "BAEP", "CORE", "FT", "TOR", "GCM" }
@@ -230,6 +230,9 @@ RegisterCommand("EmergencyFunctions",function()
 				else
 					exports["dynamic"]:AddButton("Computador","Computador de bordo policial.","police:Open","",false,false)
 				end
+				if GetResourceState("perimeter") == "started" then
+					TriggerEvent("perimeter:Dynamic")
+				end
 
 				exports["dynamic"]:AddMenu("Jogador","Pessoa mais próxima de você.","player")
 				exports["dynamic"]:AddButton("Carregar","Carregar a pessoa mais próxima.","inventory:Carry","","player",true)
@@ -247,10 +250,10 @@ RegisterCommand("EmergencyFunctions",function()
 						end
 					end
 				end
+				exports["dynamic"]:Open()
 			end
-			exports["dynamic"]:Open()
 		elseif LocalPlayer["state"]["Paramedic"] then
-			if GetEntityHealth(Ped) > 100 and not IsPedInAnyVehicle(Ped, false) then
+			if GetEntityHealth(Ped) > 101 and not IsPedInAnyVehicle(Ped, false) then
 				exports["dynamic"]:AddButton("Anuncio Paramedic","Fazer um anúncio para todos os moradores.","dynamic:EmergencyAnnounceMedic","",false,true)
 				exports["dynamic"]:AddMenu("Jogador","Pessoa mais próxima de você.","player")
 				exports["dynamic"]:AddButton("Carregar","Carregar a pessoa mais próxima.","inventory:Carry","","player",true)
