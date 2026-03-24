@@ -154,7 +154,7 @@ RegisterCommand("chave",function(source, args)
             end
         end,
         ["list"] = function()
-            local myvehicles = query("will/get_vehicles", {user_id = user_id})
+            local myvehicles = query("will/get_owned_vehicles", {user_id = user_id})
             local list = "Chaves emprestadas:"
             if #myvehicles > 0 then
                 for i, veh in ipairs(myvehicles) do
@@ -653,7 +653,7 @@ local maxVehs = {
 }
 
 exports('checkMaxVehs',function(user_id)
-    local myvehicles = enableMaxVehs and query("will/get_vehicles", {user_id = user_id}) or {}
+    local myvehicles = enableMaxVehs and query("will/get_owned_vehicles", {user_id = user_id}) or {}
     local maxVeh = 5
     if enableMaxVehs then
         for perm, veh in pairs(maxVehs) do
@@ -720,7 +720,8 @@ CreateThread(function()
 	prepare("will/add_work_veh","INSERT IGNORE INTO "..Config.vehicleDB.."(user_id,vehicle,plate,engine,body,fuel,work) VALUES(@user_id,@vehicle,@plate,@engine,@body,@fuel,'true')")
 	prepare("will/rem_vehicle","DELETE FROM "..Config.vehicleDB.." WHERE user_id = @user_id AND vehicle = @vehicle")
 	prepare("will/get_vehicle","SELECT * FROM "..Config.vehicleDB.." WHERE user_id = @user_id AND vehicle = @vehicle")
-	prepare("will/get_vehicles","SELECT * FROM "..Config.vehicleDB.." WHERE user_id = @user_id AND work = 'false'")
+	prepare("will/get_vehicles","SELECT * FROM "..Config.vehicleDB.." WHERE user_id = @user_id")
+	prepare("will/get_owned_vehicles","SELECT * FROM "..Config.vehicleDB.." WHERE user_id = @user_id AND work = 'false'")
 	prepare("will/get_user_plate","SELECT * FROM "..Config.vehicleDB.." WHERE plate = @plate")
 	prepare("will/update_vehicles_plates","UPDATE "..Config.vehicleDB.." SET plate = @plate WHERE user_id = @user_id AND vehicle = @vehicle")
 	prepare("will/update_vehicles","UPDATE "..Config.vehicleDB.." SET engine = @engine, body = @body, fuel = @fuel, doors = @doors, windows = @windows, tyres = @tyres WHERE plate = @plate")
