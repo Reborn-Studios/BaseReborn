@@ -293,7 +293,16 @@ AddEventHandler("vrp_hud:toggleHood",function ()
     hoodToggle = not hoodToggle
     if hoodToggle then
         DoScreenFadeOut(0)
+        SetPedComponentVariation(PlayerPedId(),1,37,0,0)
     else
         DoScreenFadeIn(0)
+        SetPedComponentVariation(PlayerPedId(),1,0,0,0)
+    end
+end)
+
+RegisterNetEvent("vrp_survival:FadeOutIn")
+AddEventHandler("vrp_survival:FadeOutIn",function()
+    if hoodToggle then
+        SetPedComponentVariation(PlayerPedId(),1,0,0,0)
     end
 end)
