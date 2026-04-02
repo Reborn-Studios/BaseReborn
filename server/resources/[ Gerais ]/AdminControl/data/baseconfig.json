@@ -21,9 +21,9 @@
   "ServerName": "Reborn Studios",
   "CityColorHex": "#5C1A80",
   "NpcControl": {
-    "ParkedVehicle": 30,
-    "VehicleDensity": 30,
-    "PedDensity": 40
+    "ParkedVehicle": 0.3,
+    "VehicleDensity": 0.3,
+    "PedDensity": 0.4
   },
   "AutoReload": {
     "Timer1": 1773871200000,
