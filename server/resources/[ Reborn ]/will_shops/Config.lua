@@ -149,7 +149,7 @@ local shopsProducts = {
         ["watch"] = 50,
     },
     ['Posto'] = {
-        ['gallon'] = 500,
+        ['WEAPON_PETROLCAN'] = 500,
         ['fuel'] = 0.085,
     },
 }
