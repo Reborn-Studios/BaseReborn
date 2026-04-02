@@ -734,11 +734,7 @@ function loadESXPlayer(identifier, playerId, isNew)
     Wait(100)
   end
   local result = vRP.query("vRP/get_vrp_users", { id = user_id })
-  local result2 = {}
-  local frameworkTables = Reborn.frameworkTables()
-  if frameworkTables['users'] then
-    result2 = MySQL.prepare.await(loadPlayer, { identifier })
-  end
+  local result2 = MySQL.prepare.await(loadPlayer, { identifier }) or {}
   local myJob = nil
   local allJobs = Reborn.groups()
   local user_groups = vRP.getUserGroups(user_id)
