@@ -437,7 +437,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName, rAmount, data)
 
 						if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
 							local check = vPLAYER.gsrCheck(nplayer)
-							if parseInt(check) > 0 then
+							if check then
 								TriggerClientEvent("Notify",source,"sucesso","Resultado positivo.",5000)
 							else
 								TriggerClientEvent("Notify",source,"negado","Resultado negativo.",3000)
@@ -1521,6 +1521,10 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName, rAmount, data)
 				TriggerEvent("garages:vehicleLock",source,vehNet)
 			end
 		end
+	end
+
+	if itemName == "remote_control" then
+		TriggerClientEvent("will_television:openRemote",source)
 	end
 
 	Player(source)["state"]["Commands"] = false
