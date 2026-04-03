@@ -275,6 +275,11 @@ CreateThread(function()
     end
 end)
 
+RegisterNetEvent("will_creator_v2:openBarber")
+AddEventHandler("will_creator_v2:openBarber",function()
+    OpenBarbershop()
+end)
+
 RegisterNetEvent("will_creator_v2:openAdmin")
 AddEventHandler("will_creator_v2:openAdmin",function()
     OpenAdminPainel()

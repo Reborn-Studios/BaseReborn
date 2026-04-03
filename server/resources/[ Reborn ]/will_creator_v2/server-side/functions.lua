@@ -370,6 +370,13 @@ RegisterCommand("creator",function(source, args)
     end
 end, false)
 
+RegisterCommand("barbershop",function(source)
+    local user_id = GetUserId(source)
+    if vRP.hasPermission(user_id, "admin.permissao") or vRP.hasPermission(user_id, "Admin") then
+        TriggerClientEvent('will_creator_v2:openBarber', source)
+    end
+end)
+
 RegisterCommand("creatoradm",function (source)
     local user_id = GetUserId(source)
     if vRP.hasPermission(user_id, "admin.permissao") or vRP.hasPermission(user_id, "Admin") then
