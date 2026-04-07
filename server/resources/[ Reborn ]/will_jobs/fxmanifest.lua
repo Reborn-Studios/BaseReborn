@@ -27,6 +27,5 @@ server_scripts {
 
 files {
 	"web-side/index.html",
-	"web-side/assets/*.css",
-	"web-side/assets/*.js",
+	"web-side/assets/**",
 }

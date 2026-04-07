@@ -18,7 +18,7 @@ Config.deleteVeh = true
 Config.jobs = {
 	["Lixeiro"] = {
 		text = "~g~[E]~w~ COLETAR",
-		image = "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjvN44X6d1hH09QkyguOSuqxe3JmUjv4t8CuTlAdxHBrBnJR6igWXTNCN0EtY-Aj4rmCBaYwN0X9p5svGd8E3XTMeY93SlG5u1f6mmzBtjt1Z-t5Jv_P4iS49_IGyDi_KNKjqSsqTUgyhqp/s1600/trabalho_de_lixeiro_traduzido_e_sem_erros-774611.png",
+		image = "./assets/images/lixeiro.png",
 		description = "Recolha lixo pela cidade e contribua para um ambiente mais limpo.",
 		steps = {
 			[1] = {
@@ -68,7 +68,7 @@ Config.jobs = {
 	
 	["Taxi"] = {
 		text = "~g~[E]~w~ RECEBER CIDADÃO",
-		image = "https://assetsio.gnwcdn.com/gta-online-downtown-cab-company-building-and-taxi.jpg?width=1600&height=900&fit=crop&quality=100&format=png&enable=upscale&auto=webp",
+		image = "./assets/images/taxi.png",
 		description = "Transporte passageiros pela cidade e ganhe dinheiro com corridas.",
 		steps = {
 			[1] = {
@@ -89,7 +89,7 @@ Config.jobs = {
 		startEvent = "will_jobs:initTaxi",
 
 		vehicleConfig = {
-			vehicle = "taxi",
+			vehicle = "cdataxi",
 			coords = vector4(900.87,-180.86,73.91,240.18)
 		},
 
@@ -117,7 +117,7 @@ Config.jobs = {
 
 	["Entregador"] = {
 		text = "~g~[E]~w~ COLETAR",
-		image = "https://img.gta5-mods.com/q95/images/uber-delivery-bag-exclusive-for-franklin/e10958-uberbag-mod_07.jpg",
+		image = "./assets/images/entregador.png",
 		description = "Faça entregas de diversos itens para diferentes locais.",
 		steps = {
 			[1] = {
@@ -140,9 +140,9 @@ Config.jobs = {
 		vehicleConfig = {
 			vehUpgrades = function(exp)
 				if exp > 5 then
-					return "lectro"
+					return "carroavalanches"
 				end
-				return "enduro"
+				return "carroentregas"
 			end,
 			coords = vector4(157.2,-1479.66,29.15,330.59)
 		},
@@ -171,7 +171,7 @@ Config.jobs = {
 
 	["Lenhador"] = {
 		text = "~g~[E]~w~ COLETAR",
-		image = "",
+		image = "./assets/images/lenhador.png",
 		description = "Corte e colete madeira nas florestas para venda e uso.",
 		steps = {
 			[1] = {
@@ -229,7 +229,7 @@ Config.jobs = {
 
 	["Motorista"] = {
 		text = "~g~[E]~w~ RECEBER PASSAGEIROS",
-		image = "https://cs1.gtaall.com.br/attachments/2019-08/original/6a7b4eb9796eaae00b4050e41666a994eea55be2/10914-002.jpg",
+		image = "./assets/images/motorista.png",
 		description = "Transporte mercadorias de um ponto a outro da cidade.",
 		steps = {
 			[1] = {
@@ -278,7 +278,7 @@ Config.jobs = {
 
 	["Transportador"] = {
 		text = "~g~[E]~w~ COLETAR",
-		image = "https://media-rockstargames-com.akamaized.net/tina-uploads/tina-modules/385k/7c74b5d03ee6f1629f52b4d67437562fb18547de.jpg",
+		image = "./assets/images/transportador.png",
 		salary = 2800,
 		description = "Realize transporte de cargas pesadas entre localidades.",
 		steps = {
@@ -329,7 +329,7 @@ Config.jobs = {
 	["Caminhoneiro"] = {
 		text = "~g~[E]~w~ COLETAR CARGA",
 		blipDistance = 10.0,
-		image = "https://pm1.aminoapps.com/6460/0976693660157286a61b558926826f30d7aaf808_hq.jpg",
+		image = "./assets/images/caminhoneiro.png",
 		salary = 3300,
 		description = "Faça entregas de grandes cargas com seu caminhão.",
 		steps = {
@@ -385,7 +385,7 @@ Config.jobs = {
 
 	["Bombeiro"] = {
 		text = "",
-		image = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKmKkwzxX-Nqu53Cq06geXs-X6PVQXFiK6pw&s",
+		image = "./assets/images/bombeiro.png",
 		salary = 3200,
 		description = "Apague incêndios e resgate pessoas em situações de perigo.",
 		steps = {
@@ -429,7 +429,7 @@ Config.jobs = {
 	
 	["Mergulhador"] = {
 		text = "~g~[E]~w~ COLETAR",
-		image = "https://psverso.com.br/wp-content/uploads/2023/12/GTA-5-Como-pegar-equipamento-e-roupa-de-mergulho.webp",
+		image = "./assets/images/mergulhador.png",
 		salary = 2400,
 		description = "Mergulhe e recupere tesouros subaquáticos.",
 		steps = {
@@ -473,7 +473,7 @@ Config.jobs = {
 
 	["Salva_vidas"] = {
 		text = "~g~[E]~w~ OBSERVAR",
-		image = "https://img.gta5-mods.com/q95/images/guarda-vidas-sc/959a08-GTA5%202017-02-09%2019-10-50-28.png",
+		image = "./assets/images/salvavidas.png",
 		salary = 2440,
 		description = "Fique atento e salve os cidadãos em apuros.",
 		steps = {
