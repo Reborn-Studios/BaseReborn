@@ -59,6 +59,18 @@ function vRP.getJobFromGroup(group)
 	return { [group] = "0" }
 end
 
+function vRP.getGroupFromJob(job,grade)
+	local QBGroups = GetQBGroups()
+	local grade = tonumber(grade) or 0
+	for Group,v in pairs(QBGroups) do
+		if v.job == job and tonumber(v.grade) == grade then
+			return Group
+		end
+	end
+end
+
+exportHandler("qb-core","GetGroupFromJob",vRP.getGroupFromJob)
+
 function vRP.getGroup(group)
 	if group and groups[group] then
 		return groups[group]
