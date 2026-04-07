@@ -27,10 +27,7 @@ Config.MulticharDefaultCoords = vector4(-609.92,-134.14,39.01,155.01)
 -- Coordenadas por permissão
 Config.Multichar = {
     [1] = {
-        ['perms'] = { "Coronel", "Capitao", "Major",
-            "Tenente", "Sub.Tenente", "Sargento", "2Sargento",
-            "3Sargento", "Cabo", "Soldado", "Recruta"
-        },
+        ['perms'] = { "policia.permissao" },
         ['coords'] = vector4(142.08,-352.9,43.26,303.2),
         ['anim'] = { ["dict"] = "mp_player_int_uppersalute", ["name"] = "mp_player_int_salute" }
     },

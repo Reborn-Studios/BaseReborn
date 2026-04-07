@@ -11,6 +11,7 @@ MulticharCam = nil
 AnimActived = false
 CustomCamLocation = nil
 HeadingToCam = GetEntityHeading(PlayerPedId())
+local Groups = module("vrp","config/Groups") or {}
 
 -- #########################
 --      CREATOR
@@ -160,11 +161,20 @@ function IntroCam(data)
     local myJob = nil
     if data then
         if data.permiss then
-            for k,v in pairs(Config.Multichar) do
-                for l,perm in pairs(v['perms']) do
-                    if perm == data.permiss then
-                        myJob = k
-                        break
+            local Group = Groups[data.permiss]
+            if Group then
+                for k,v in pairs(Config.Multichar) do
+                    for l,perm in pairs(v['perms']) do
+                        if perm == data.permiss then
+                            myJob = k
+                            break
+                        end
+                        for l2,perm2 in pairs(Group) do
+                            if perm2 == perm then
+                                myJob = k
+                                break
+                            end
+                        end
                     end
                 end
             end
