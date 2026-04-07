@@ -301,13 +301,15 @@ AddEventHandler("onResourceStart",function(rs)
             local user_id = vRP.getUserId(tonumber(payload.source))
 			local consult = vRP.query("homes/get_homepermissions",{ user_id = user_id, home = payload.toInventory })
 			local fromSlot = payload.fromSlot
-			local quantity = payload.count
+			local quantity = tonumber(payload.count)
 			if consult[1] and quantity >= 1 then
 				local vault = tonumber(consult[1].vault)
 				local newQuantity = quantity * UPGRADE_CHEST_VALUE
 				if vault then
 					vault = vault + newQuantity
-					if vault > Config.maxChestWeight then
+					local theme = Config.Houses[payload.toInventory] and Config.Houses[payload.toInventory].theme or "apartment3"
+					local maxChestWeight = Config.Aparts[theme].maxChestWeight
+					if vault > maxChestWeight then
 						TriggerClientEvent("Notify",payload.source,"negado","Excedeu o limite no baú.",5000)
 						return false
 					end
