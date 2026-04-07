@@ -141,7 +141,7 @@ function handleTransaction(A0_2, A1_2, A2_2, A3_2, A4_2, A5_2)
   local actionLower = string.lower(action)
 
   if actionLower == "transfer" then
-    local targetId = fetchUserSourceById(targetUserId)
+    local targetId = fetchUserSourceById(tonumber(targetUserId))
     if not targetId then return end
     if targetId == sourceId then
       logDebug("User ID: " .. sourceId .. " attempted to transfer money to themselves")
@@ -151,9 +151,8 @@ function handleTransaction(A0_2, A1_2, A2_2, A3_2, A4_2, A5_2)
       logDebug("User ID: " .. sourceId .. " attempted to transfer money to a non-existent player")
       return { type = "error", response = "no_target" }
     end
-
     if string.lower(account) == "personal" then
-      logDebug("User ID: " .. sourceId .. " is transferring money to " .. targetId .. " from their personal account")
+      logDebug("User ID: " .. sourceId .. " is transferring money to " .. targetUserId .. " from their personal account")
       local current = getUserPrimaryAccount(sourceId)
       if amount > current then
         resultType, resultResponse = "error", "no_money"
@@ -162,7 +161,7 @@ function handleTransaction(A0_2, A1_2, A2_2, A3_2, A4_2, A5_2)
         removeAcountMoney(sourceId, amount)
         addAccountMoney(targetId, amount)
         resultType, resultResponse = "success", "transfer_success"
-        logDebug("User ID: " .. sourceId .. " has successfully transferred money to " .. targetId)
+        logDebug("User ID: " .. sourceId .. " has successfully transferred money to " .. targetUserId)
       end
 
       local transactions = json.decode(row.transactions) or {}

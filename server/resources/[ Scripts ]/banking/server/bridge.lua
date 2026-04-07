@@ -40,7 +40,7 @@ function fetchUserSourceById(id)
         return playerData.source
     elseif framework == 'QBCore' then
         local playerData = QBCore.Functions.GetPlayerByCitizenId(id)
-        return playerData and playerData.source
+        return playerData and playerData.PlayerData.source
     end
 end
 

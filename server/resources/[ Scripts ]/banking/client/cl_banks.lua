@@ -87,7 +87,9 @@ RegisterNUICallback("bankingAction", function(A0_2, A1_2)
   end)
 
   local result = Callbacks.Await("manageAccount", A0_2)
-  Config.notify(result.type, (Lang.client[result.response] or "An error occurred while processing your request."))
+  if result then
+    Config.notify(result.type, (Lang.client[result.response] or "An error occurred while processing your request."))
+  end
 
   SendNUIMessage({
     action = "resyncBankingData",
