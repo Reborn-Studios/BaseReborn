@@ -9,6 +9,7 @@ cfg_s.webhookaddcar = ""
 cfg_s.rent_time = 3
 
 CreateThread(function()
+    prepare("will/get_all_stock","SELECT * FROM will_conce")
     prepare("will/get_estoque","SELECT * FROM will_conce WHERE vehicle = @vehicle")
     prepare("will/att_estoque","UPDATE will_conce SET estoque = @estoque WHERE vehicle = @vehicle")
     
@@ -65,6 +66,7 @@ end
 cfg_s.buy_vehicle = function(user_id,category,vehicle,tuning,indexConce)
     if user_id and category and vehicle and tuning then
         local nplayer = getUserSource(user_id)
+        if not nplayer then return end
         if vRP.getFines(user_id) > 0 then
 			TriggerClientEvent("Notify",nplayer,"aviso","Multas pendentes encontradas.",3000)
 			return false
@@ -85,7 +87,9 @@ cfg_s.buy_vehicle = function(user_id,category,vehicle,tuning,indexConce)
                                     execute('will/rem_rent',{user_id = user_id,vehicle = vehicle})
                                     addVehicle(user_id, vehicle, plate)
                                     if hasEstoque then
-                                        execute('will/att_estoque',{estoque = (vehStock[1].estoque - 1),vehicle = vehicle })
+                                        local quantity = (vehStock[1].estoque - 1)
+                                        execute('will/att_estoque',{estoque = quantity,vehicle = vehicle })
+                                        VehsStocks[vehicle] = quantity
                                     end
                                     if GetResourceState("ld_tunners") == "started" then
                                         local tunning2 = { primaryColor = tuning.customPcolor }
@@ -112,22 +116,27 @@ cfg_s.buy_vehicle = function(user_id,category,vehicle,tuning,indexConce)
                     if tryPayment(user_id,price,ConceVehicles[category][vehicle].vip) then
                         local plate = vRP.generatePlateNumber()
                         if hasEstoque then
-                            execute('will/att_estoque',{estoque = (vehStock[1].estoque - 1),vehicle = vehicle })
+                            local quantity = (vehStock[1].estoque - 1)
+                            execute('will/att_estoque',{estoque = quantity, vehicle = vehicle })
+                            VehsStocks[vehicle] = quantity
                         end
                         addVehicle(user_id, vehicle, plate)
                         if GetResourceState("ld_tunners") == "started" then
                             local tunning2 = { primaryColor = tuning.customPcolor }
                             vRP.setSData("mods:"..plate,json.encode(tunning2))
+                        elseif GetResourceState("lscustoms") == "started" then
+                            vRP.setSData('custom:'..user_id..":"..vehicle,json.encode({ PrimaryColour = { Type = 0, Color = tuning.customPcolor } }))
                         else
                             vRP.setSData('custom:'..user_id..":"..vehicle,json.encode(tuning))
                         end
-
                         TriggerClientEvent('Notify',nplayer,"sucesso","Sua compra foi aprovada pelo nossso gerente!")
                         webhook(cfg_s.webhook_comprar,'```[Concessionaria compra]\n[ID]:'..user_id.."\n[VALOR]:"..price.."[VEICULO]:"..vehicle..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").."\n```")
                     else
                         TriggerClientEvent('Notify',nplayer,'negado',"Você não possui dinheiro suficiente para comprar este veiculo!",5000)
                     end
                 end
+            else
+                TriggerClientEvent('Notify',nplayer,'negado',"Veiculo sem estoque!",5000)
             end
         end
     end
@@ -142,6 +151,7 @@ end
 
 cfg_s.rent_vehicle = function(user_id,categoria,vehicle,indexConce)
     local source = getUserSource(user_id)
+    if not source then return end
     if vRP.getFines(user_id) > 0 then
         TriggerClientEvent("Notify",source,"aviso","Multas pendentes encontradas.",3000)
         return false
@@ -182,6 +192,29 @@ RegisterCommand("admconce",function(source,args,rawCommand)
     if user_id then
         if (vRP.hasPermission(user_id,"Admin") or vRP.hasPermission(user_id,"admin.permissao")) then
             TriggerClientEvent("will_conce_v2:openAdmin",source)
+        end
+    end
+end)
+
+RegisterCommand("inserir_estoque",function(source,args,rawCommand)
+    local user_id = getUserId(source)
+    if user_id then
+        if (vRP.hasPermission(user_id,"Admin") or vRP.hasPermission(user_id,"admin.permissao")) then
+            if args[1] then
+                local stock = tonumber(args[1]) or 0
+                for category,vehicles in pairs(config.veiculos) do
+                    for veh,v in pairs(vehicles) do
+                        if VehsStocks[veh] then
+                            execute('will/att_estoque',{ estoque = stock, vehicle = veh })
+                        else
+                            execute("will/insert_stock", { vehicle = veh, estoque = stock })
+                        end
+                        VehsStocks[veh] = stock
+                    end
+                end
+            else
+                TriggerClientEvent('Notify',source,'negado',"Utilize /inserir_estoque (quantidade) para todos os veiculos")
+            end
         end
     end
 end)

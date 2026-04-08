@@ -190,6 +190,7 @@ RegisterNUICallback('load_vehicle',function(data,cb)
             local price = ConceVehicles[category] and ConceVehicles[category][model] and ConceVehicles[category][model].valor or 5000
             local chest = ConceVehicles[category] and ConceVehicles[category][model] and ConceVehicles[category][model].peso or 40
             cb({
+                stock = srv.getVehStock(model),
                 horsePower = horsePower,
                 initialDrive = acelerationTime,
                 vehMass = vehMass,

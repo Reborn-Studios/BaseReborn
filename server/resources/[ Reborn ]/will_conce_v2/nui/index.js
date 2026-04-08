@@ -272,10 +272,21 @@ function showVehicle(vehicle) {
                     <span class="py-2">PREÇO</span>
                     <span class="veh-data py-2 font-bold">${infos.price}</span>
                   </div>
-                  <div class="veh-info flex justify-between items-center">
-                    <span class="py-2">POTÊNCIA</span>
-                    <span class="veh-data py-2 font-bold">${infos.horsePower}</span>
-                  </div>
+                  ${
+                    infos.stock
+                      ? `
+                    <div class="veh-info flex justify-between items-center">
+                      <span class="py-2">ESTOQUE</span>
+                      <span class="veh-data py-2 font-bold">${infos.stock}</span>
+                    </div>
+                    `
+                      : `
+                    <div class="veh-info flex justify-between items-center">
+                      <span class="py-2">POTÊNCIA</span>
+                      <span class="veh-data py-2 font-bold">${infos.horsePower}</span>
+                    </div>
+                  `
+                  }
                   <div class="veh-info flex justify-between items-center">
                     <span class="py-2">0-100</span>
                     <span class="veh-data py-2 font-bold">${infos.initialDrive.toFixed(2)}</span>

@@ -46,7 +46,7 @@ end
 
 function prepare(name, query)
     if config.base == "cn" then
-        vRP.Prepare(name, data)
+        vRP.Prepare(name, query)
     else
         vRP.prepare(name, query)
     end
