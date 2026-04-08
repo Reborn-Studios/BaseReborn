@@ -237,7 +237,7 @@ RegisterNUICallback('buy_vehicle',function(data,cb)
         ['customPcolor'] = { actualRbg.r, actualRbg.g, actualRbg.b }
     }
     if model and category then
-        srv.buy_vehicle(category,model,tuning)
+        srv.buy_vehicle(category,model,tuning,indexConce)
     end
 end)
 -------------------------------------------------------
@@ -247,7 +247,7 @@ RegisterNUICallback('rent_vehicle',function(data,cb)
     local model = data.vehicle
     local categoria = data.category
     if model and categoria then
-        srv.register_rent(categoria,model)
+        srv.register_rent(categoria,model,indexConce)
     end
 end)
 
@@ -274,9 +274,9 @@ init_cam = function(indexConce)
     end
 	cam = CreateCam("DEFAULT_SCRIPTED_CAMERA",true)
 	SetCamCoord(cam,coord.x,coord.y,coord.z+1)
-    PointCamAtCoord(cam,config.conce[indexConce].spaw_vehicle.x,config.conce[indexConce].spaw_vehicle.y,config.conce[indexConce].spaw_vehicle.z+1)
+    PointCamAtCoord(cam,config.conce[indexConce].spaw_vehicle.x,config.conce[indexConce].spaw_vehicle.y,config.conce[indexConce].spaw_vehicle.z)
 	SetCamActive(cam,true)
-    SetCamRot(cam,350.0,0.0,0.0,1)
+    SetCamRot(cam,350.0,0.0,30.0,1)
 	RenderScriptCams(true,false,cam,false,false)
 end
 

@@ -8,7 +8,7 @@ window.addEventListener("message", function (event) {
   const item = event.data;
 
   if (item["action"] === "show") {
-    $(".background").fadeIn(500);
+    $(".container2").fadeIn(500);
     $(".init-painel").fadeIn(500);
     if (item["ip"]) {
       imageIP = item["ip"];
@@ -41,12 +41,16 @@ window.addEventListener("message", function (event) {
 
 function closePainel() {
   $(".init-painel").hide();
-  $(".background").fadeOut(500);
+  $(".container2").fadeOut(500);
   $(".admMenu").fadeOut(500);
   $(".vehs-painel").hide();
-  $(".vehicle-infos").hide();
+  $(".veh-infos-container").hide();
   $.post("https://" + GetParentResourceName() + "/close");
 }
+
+$(".esc-btn").on("click", function () {
+  closePainel();
+});
 
 function initPainel(vehicles) {
   if (vehicles) {
@@ -54,15 +58,25 @@ function initPainel(vehicles) {
     for (const [vehType, vehs] of Object.entries(vehicles)) {
       $(".categories").append(
         `
-                <div class="vehcategory" onclick="showCategory(\'` +
+                <div class="vehcategory relative" onclick="showCategory(\'` +
           vehType +
           `\')">
-                    <div class="p-9 flex flex-col justify-center items-center">
-                        <h2 class="font-bold">${vehType.toUpperCase()}</h2>
-                        <img src="./assets/${vehType}.png" onerror="this.onerror=null;this.src='./assets/classic.png';" alt="super-car" class="categoryimg">
-                    </div>
+                  <div class="w-full">
+                    <h2 class="font-bold absolute bottom-5 left-5 z-10 text-xl">
+                      ${vehType.toUpperCase()}
+                    </h2>
+                    <img
+                      src="./assets/${vehType}.png"
+                      onerror="
+                        this.onerror = null;
+                        this.src = './assets/classic.png';
+                      "
+                      alt="super-car"
+                      class="w-full categoryimg"
+                    />
+                  </div>
                 </div>
-            `
+            `,
       );
     }
   }
@@ -74,19 +88,59 @@ function showCategory(category) {
   $(".init-painel").fadeOut(500);
   $(".vehs-painel").fadeIn(500);
   $(".vehs-painel").html(`
-    <div class="backArrow animate-pulse absolute cursor-pointer" onclick="backScreen()"><img src="assets/arrow.png" alt="arrow"></div>
-    <h2 class="title font-bold text-xl mb-5">${category.toUpperCase()}</h2>
-    <label class="inline-block pl-[0.15rem] hover:cursor-pointer" for="flexSwitchCheckDefault">Nome</label>
-    <input class="mr-2 mt-[0.3rem] h-3.5 w-8 appearance-none rounded-[0.4375rem] bg-neutral-300 before:pointer-events-none before:absolute before:h-3.5 before:w-3.5 before:rounded-full before:bg-transparent before:content-[''] after:absolute after:z-[2] after:-mt-[0.1875rem] after:h-5 after:w-5 after:rounded-full after:border-none after:bg-neutral-100 after:shadow-[0_0px_3px_0_rgb(0_0_0_/_7%),_0_2px_2px_0_rgb(0_0_0_/_4%)] after:transition-[background-color_0.2s,transform_0.2s] after:content-[''] checked:bg-primary checked:after:absolute checked:after:z-[2] checked:after:-mt-[3px] checked:after:ml-[1.0625rem] checked:after:h-5 checked:after:w-5 checked:after:rounded-full checked:after:border-none checked:after:bg-primary checked:after:shadow-[0_3px_1px_-2px_rgba(0,0,0,0.2),_0_2px_2px_0_rgba(0,0,0,0.14),_0_1px_5px_0_rgba(0,0,0,0.12)] checked:after:transition-[background-color_0.2s,transform_0.2s] checked:after:content-[''] hover:cursor-pointer focus:outline-none focus:ring-0 focus:before:scale-100 focus:before:opacity-[0.12] focus:before:shadow-[3px_-1px_0px_13px_rgba(0,0,0,0.6)] focus:before:transition-[box-shadow_0.2s,transform_0.2s] focus:after:absolute focus:after:z-[1] focus:after:block focus:after:h-5 focus:after:w-5 focus:after:rounded-full focus:after:content-[''] checked:focus:border-primary checked:focus:bg-primary checked:focus:before:ml-[1.0625rem] checked:focus:before:scale-100 checked:focus:before:shadow-[3px_-1px_0px_13px_#3b71ca] checked:focus:before:transition-[box-shadow_0.2s,transform_0.2s] dark:bg-neutral-600 dark:after:bg-neutral-400 dark:checked:bg-primary dark:checked:after:bg-primary dark:focus:before:shadow-[3px_-1px_0px_13px_rgba(255,255,255,0.4)] dark:checked:focus:before:shadow-[3px_-1px_0px_13px_#3b71ca]"
-        type="checkbox"
-        role="switch"
-        id="flexSwitchCheckDefault"
-        onchange="showVehicles()"
-    />
-    <label class="inline-block pl-[0.15rem] hover:cursor-pointer" for="flexSwitchCheckDefault">Preço</label>
-    <div class="content-border">
-        <div class="vehicles grid grid-cols-5 gap-1"></div>
+    <div class="backArrow absolute cursor-pointer">
+      <img src="assets/arrow.png" alt="arrow" onclick="backScreen()" />
     </div>
+    <div class="flex justify-between">
+      <div class="flex gap-2 mb-4">
+        <div class="hex-icon">
+          <svg
+            viewBox="0 0 40 40"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <polygon
+              points="20,2 37,11 37,29 20,38 3,29 3,11"
+              stroke="#00d4bc"
+              stroke-width="1.5"
+              fill="rgba(0,212,188,0.8)"
+              style="position: relative; box-shadow: 20px 20px 20px black"
+            >
+              <img
+                src="./assets/vehicle.svg"
+                style="position: absolute"
+                width="25"
+                height="25"
+              />
+            </polygon>
+          </svg>
+        </div>
+        <div class="flex flex-col items-start">
+          <h2 class="font-semibold text-sm text-white/60">
+            SELECIONE UM VEÍCULO
+          </h2>
+          <h2 class="title font-bold text-3xl">${category.toUpperCase()}</h2>
+        </div>
+      </div>
+      <label class="inline-block pl-[0.15rem] hover:cursor-pointer" for="flexSwitchCheckDefault">Nome</label>
+      <input class="mr-2 mt-[0.3rem] h-3.5 w-8 appearance-none rounded-[0.4375rem] bg-neutral-300 before:pointer-events-none before:absolute before:h-3.5 before:w-3.5 before:rounded-full before:bg-transparent before:content-[''] after:absolute after:z-[2] after:-mt-[0.1875rem] after:h-5 after:w-5 after:rounded-full after:border-none after:bg-neutral-100 after:shadow-[0_0px_3px_0_rgb(0_0_0_/_7%),_0_2px_2px_0_rgb(0_0_0_/_4%)] after:transition-[background-color_0.2s,transform_0.2s] after:content-[''] checked:bg-primary checked:after:absolute checked:after:z-[2] checked:after:-mt-[3px] checked:after:ml-[1.0625rem] checked:after:h-5 checked:after:w-5 checked:after:rounded-full checked:after:border-none checked:after:bg-primary checked:after:shadow-[0_3px_1px_-2px_rgba(0,0,0,0.2),_0_2px_2px_0_rgba(0,0,0,0.14),_0_1px_5px_0_rgba(0,0,0,0.12)] checked:after:transition-[background-color_0.2s,transform_0.2s] checked:after:content-[''] hover:cursor-pointer focus:outline-none focus:ring-0 focus:before:scale-100 focus:before:opacity-[0.12] focus:before:shadow-[3px_-1px_0px_13px_rgba(0,0,0,0.6)] focus:before:transition-[box-shadow_0.2s,transform_0.2s] focus:after:absolute focus:after:z-[1] focus:after:block focus:after:h-5 focus:after:w-5 focus:after:rounded-full focus:after:content-[''] checked:focus:border-primary checked:focus:bg-primary checked:focus:before:ml-[1.0625rem] checked:focus:before:scale-100 checked:focus:before:shadow-[3px_-1px_0px_13px_#3b71ca] checked:focus:before:transition-[box-shadow_0.2s,transform_0.2s] dark:bg-neutral-600 dark:after:bg-neutral-400 dark:checked:bg-primary dark:checked:after:bg-primary dark:focus:before:shadow-[3px_-1px_0px_13px_rgba(255,255,255,0.4)] dark:checked:focus:before:shadow-[3px_-1px_0px_13px_#3b71ca]"
+          type="checkbox"
+          role="switch"
+          id="flexSwitchCheckDefault"
+          onchange="showVehicles()"
+      />
+      <label class="inline-block pl-[0.15rem] hover:cursor-pointer" for="flexSwitchCheckDefault">Preço</label>
+      <div class="veh-select-header-right" style="margin-bottom: 0">
+        <div class="close-group">
+          <div class="close-text-stack">
+            <span class="close-label" style="text-align: end">Fechar</span>
+            <span class="close-sub">Pressione ESC</span>
+          </div>
+          <div class="esc-btn">ESC</div>
+        </div>
+      </div>
+    </div>
+    <div class="vehicles grid grid-cols-3 gap-4"></div>
 `);
   showVehicles(vehs);
 }
@@ -126,17 +180,25 @@ function showVehicles(vehs) {
       value = info.valor + " Gemas";
     }
     let list = `
-        <div class="vehcategory max-h-44" onclick="showVehicle('${
+        <div class="vehcategory h-64 w-full relative" onclick="showVehicle('${
           info.spawn
         }')">
-            <div class="px-5 flex flex-col justify-center items-center">
-                <h2 class="vehName mx-5 mt-2">${info.nome.toUpperCase()}</h2>
-                <h3 class="font-bold">${value}</h3>
+            <div class="">
+              <h2 class="vehName font-bold absolute z-10 bottom-5 left-3">
+                ${info.nome.toUpperCase()}
+              </h2>
+              <h3
+                class="font-bold absolute z-10 bottom-0 left-3 text-[#00c851]"
+              >
+                ${value}
+              </h3>
             </div>
-            <img src="${imageIP}/${
-      info.spawn
-    }.png" onerror="this.onerror=null;this.src='https://api.rebornsystem.com.br/garages_v2/noveh.png';" class="vehicleimage">
-        </div>
+            <img
+              src="${imageIP}/${info.spawn}.png"
+              onerror="this.onerror=null;this.src='https://api.rebornsystem.com.br/garages_v2/noveh.png';"
+              class="absolute vehicleimage top-0 left-0"
+            />
+          </div>
         `;
     $(".vehicles").append(list);
   }
@@ -157,88 +219,127 @@ function showVehicle(vehicle) {
           infos.price = infos.price + " Gemas";
         }
         $(".vehs-painel").hide();
-        $(".background").hide();
-        $(".vehicle-infos").show();
+        $(".container2").hide();
+        $(".veh-infos-container").show();
         $(".vehicle-infos").html(`
-                <h2 class="title font-bold text-xl mb-5">${infos.nome.toUpperCase()}</h2>
-                <div class="content-border">
-                    <div class="infos grid grid-cols-2 gap-2">
-                        <div class="veh-info col-span-2 p-6 flex justify-center">
-                            <img class="image-info" src="${imageIP}/${vehicle}.png" onerror="this.onerror=null;this.src='https://i.imgur.com/acV4tCt.png';" >
-                        </div>
-                        <div class="veh-info flex justify-between items-center">
-                            <span class="px-10 py-2">BAU</span>
-                            <span class="veh-data py-2 font-bold">${
-                              infos.chest
-                            }</span>
-                        </div>
-                        <div class="veh-info flex justify-between items-center">
-                            <span class="px-10 py-2">PREÇO</span>
-                            <span class="veh-data py-2 font-bold">${
-                              infos.price
-                            }</span>
-                        </div>
-                        <div class="veh-info flex justify-between items-center">
-                            <span class="px-10 py-2">HP</span>
-                            <span class="veh-data py-2 font-bold">${
-                              infos.horsePower
-                            }</span>
-                        </div>
-                        <div class="veh-info flex justify-between items-center">
-                            <span class="px-10 py-2">0-100</span>
-                            <span class="veh-data py-2 font-bold">${infos.initialDrive.toFixed(
-                              2
-                            )}</span>
-                        </div>
-                        <div class="veh-info flex justify-between items-center">
-                            <span class="px-10 py-2">PESO</span>
-                            <span class="veh-data py-2 font-bold">${
-                              infos.vehMass
-                            }</span>
-                        </div>
-                        <div class="veh-info flex justify-between items-center">
-                            <span class="px-10 py-2">PESSOAS</span>
-                            <span class="veh-data py-2 font-bold">${
-                              infos.seats
-                            }</span>
-                        </div>
-                        <div class="veh-info freecam p-5 col-span-2 flex justify-center items-center" onclick="freeCam()">
-                            <button>CAMERA LIVRE</button>
-                        </div>
-                        <div class="veh-info col-span-2 p-4 flex justify-evenly items-center">
-                            <h3>ESCOLHA A COR</h3>
-                            <div id="choose-color" class="flex flex-wrap">
-                                <div id="white" class="choose-color-circle"></div>
-                                <div id="black" class="choose-color-circle"></div>
-                                <div id="grey" class="choose-color-circle"></div>
-                                <div id="yellow" class="choose-color-circle"></div>
-                                <div id="green" class="choose-color-circle"></div>
-                                <div id="red" class="choose-color-circle"></div>
-                                <div id="blue" class="choose-color-circle"></div>
-                                <div id="purple" class="choose-color-circle"></div>
-                                <div id="petrol" class="choose-color-circle"></div>
-                                <div id="cyan" class="choose-color-circle"></div>
-                                <div id="orange" class="choose-color-circle"></div>
-                                <div id="dark-blue" class="choose-color-circle"></div>
-                            </div>
-                        </div>
-                        <div class="button-back flex justify-center" onclick="backVehicles()">
-                            <button>VOLTAR</button>
-                        </div>
-                        <div class="button-test-drive flex justify-center" onclick="testDrive('${vehicle}')">
-                            <button>TEST-DRIVE</button>
-                        </div>
-                        <div class="button-rent flex justify-center" onclick="rentVehicle('${vehicle}')">
-                            <button>ALUGAR</button>
-                        </div>
-                        <div class="button-order flex justify-center" onclick="buyVehicle('${vehicle}')">
-                            <button>COMPRAR</button>
-                        </div>
+                <div class="flex gap-2 justify-self-end justify-end">
+                  <div class="flex flex-col">
+                    <h3 class="font-semibold text-sm text-white/50 self-end">
+                      ${actualCategory.toUpperCase()}
+                    </h3>
+                    <h2 class="title font-bold text-2xl mb-5 self-end">${infos.nome.toUpperCase()}</h2>
+                  </div>
+                  <div class="hex-icon">
+                    <svg
+                      viewBox="0 0 40 40"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <polygon
+                        points="20,2 37,11 37,29 20,38 3,29 3,11"
+                        stroke="#00d4bc"
+                        stroke-width="1.5"
+                        fill="rgba(0,212,188,0.8)"
+                        style="position: relative; box-shadow: 20px 20px 20px black"
+                      >
+                        <img
+                          src="./assets/vehicle.svg"
+                          style="position: absolute"
+                          width="25"
+                          height="25"
+                        />
+                      </polygon>
+                    </svg>
+                  </div>
+                </div>
+                <div class="flex items-center gap-2 justify-end mb-2">
+                  <span class="info-circle">i</span>
+                  <h2 class="title font-bold text-md">INFORMAÇÕES</h2>
+                </div>
+                <div class="divider"></div>
+                <div class="infos grid grid-cols-2 gap-2">
+                  <div class="relative col-span-2 flex justify-center w-full h-44">
+                    <img
+                      class="veh-img-info object-cover absolute top-0 left-0 w-full h-full rounded"
+                      src="${imageIP}/${vehicle}.png" onerror="this.onerror=null;this.src='https://i.imgur.com/acV4tCt.png';" >
+                    />
+                  </div>
+                  <div class="veh-info flex justify-between items-center w-[12vw]">
+                    <span class="py-2">BAÚ</span>
+                    <span class="veh-data py-2 font-bold">${infos.chest}</span>
+                  </div>
+                  <div class="veh-info flex justify-between items-center w-[12vw]">
+                    <span class="py-2">PREÇO</span>
+                    <span class="veh-data py-2 font-bold">${infos.price}</span>
+                  </div>
+                  <div class="veh-info flex justify-between items-center">
+                    <span class="py-2">POTÊNCIA</span>
+                    <span class="veh-data py-2 font-bold">${infos.horsePower}</span>
+                  </div>
+                  <div class="veh-info flex justify-between items-center">
+                    <span class="py-2">0-100</span>
+                    <span class="veh-data py-2 font-bold">${infos.initialDrive.toFixed(2)}</span>
+                  </div>
+                  <div class="veh-info flex justify-between items-center">
+                    <span class="py-2">PESO</span>
+                    <span class="veh-data py-2 font-bold">${infos.vehMass}</span>
+                  </div>
+                  <div class="veh-info flex justify-between items-center">
+                    <span class="py-2">LUGARES</span>
+                    <span class="veh-data py-2 font-bold">${infos.seats}</span>
+                  </div>
+                  <div
+                    class="veh-info freecam w-full p-4 col-span-2 flex justify-center items-center"
+                    onclick="freeCam()"
+                  >
+                    <button>CAMERA LIVRE</button>
+                  </div>
+                  <div
+                    class="veh-info w-full col-span-2 p-3 flex justify-evenly items-center"
+                  >
+                    <div id="choose-color" class="flex flex-wrap">
+                      <div id="white" class="choose-color-circle"></div>
+                      <div id="black" class="choose-color-circle"></div>
+                      <div id="grey" class="choose-color-circle"></div>
+                      <div id="yellow" class="choose-color-circle"></div>
+                      <div id="green" class="choose-color-circle"></div>
+                      <div id="red" class="choose-color-circle"></div>
+                      <div id="blue" class="choose-color-circle"></div>
+                      <div id="purple" class="choose-color-circle"></div>
+                      <div id="petrol" class="choose-color-circle"></div>
+                      <div id="cyan" class="choose-color-circle"></div>
+                      <div id="orange" class="choose-color-circle"></div>
+                      <div id="dark-blue" class="choose-color-circle"></div>
                     </div>
+                  </div>
+                  <div
+                    class="button-back flex justify-center rounded-lg"
+                    onclick="backVehicles()"
+                  >
+                    <button>VOLTAR</button>
+                  </div>
+                  <div
+                    class="button-test-drive flex justify-center rounded-lg"
+                    onclick="testDrive('${vehicle}')"
+                  >
+                    <button>TEST-DRIVE</button>
+                  </div>
+                  <div
+                    class="button-rent flex justify-center rounded-lg"
+                    onclick="rentVehicle('${vehicle}')"
+                  >
+                    <button>ALUGAR</button>
+                  </div>
+                  <div
+                    class="button-order flex justify-center rounded-lg"
+                    onclick="buyVehicle('${vehicle}')"
+                  >
+                    <button>COMPRAR</button>
+                  </div>
                 </div>
             `);
       }
-    }
+    },
   );
 }
 
@@ -263,7 +364,7 @@ function testDrive(vehicle) {
           curTest -= 1;
         }, 1000);
       }
-    }
+    },
   );
   closePainel();
 }
@@ -271,7 +372,7 @@ function testDrive(vehicle) {
 function rentVehicle(vehicle) {
   $.post(
     "https://will_conce_v2/rent_vehicle",
-    JSON.stringify({ vehicle, category: actualCategory })
+    JSON.stringify({ vehicle, category: actualCategory }),
   );
   closePainel();
 }
@@ -308,7 +409,7 @@ var RGBvalues = (function () {
     var flag = false,
       obj;
     c = c.map(function (n, i) {
-      return i !== 3 ? parseInt(n, 10) : (flag = true), parseFloat(n);
+      return (i !== 3 ? parseInt(n, 10) : (flag = true), parseFloat(n));
     });
     obj = {
       r: c[0],
@@ -327,7 +428,7 @@ var RGBvalues = (function () {
       return _splitRGB(col);
     } else {
       console.log(
-        "!Ooops! RGBvalues.color(" + col + ") : HEX, RGB, or RGBa strings only"
+        "!Ooops! RGBvalues.color(" + col + ") : HEX, RGB, or RGBa strings only",
       );
     }
   };
@@ -342,7 +443,7 @@ $(document).on("click", ".choose-color-circle", function (e) {
   $.post(
     "https://will_conce_v2/change_color",
     JSON.stringify({ rgb: rgb }),
-    function (x) {}
+    function (x) {},
   );
 });
 
@@ -352,16 +453,16 @@ function backScreen() {
 }
 
 function backVehicles() {
-  $(".background").fadeIn(500);
+  $(".container2").fadeIn(500);
   $(".vehs-painel").fadeIn(500);
-  $(".vehicle-infos").fadeOut(500);
+  $(".veh-infos-container").fadeOut(500);
 }
 
 function buyVehicle(vehicle) {
   closePainel();
   $.post(
     "https://" + GetParentResourceName() + "/buy_vehicle",
-    JSON.stringify({ vehicle, category: actualCategory })
+    JSON.stringify({ vehicle, category: actualCategory }),
   );
 }
 
@@ -424,7 +525,7 @@ function addStock() {
   if (vehicle && stock) {
     $.post(
       "https://" + GetParentResourceName() + "/add_stock",
-      JSON.stringify({ stock, vehicle })
+      JSON.stringify({ stock, vehicle }),
     );
   }
 }
@@ -435,7 +536,7 @@ function userVehFunc(mode) {
   if (passport && vehicle) {
     $.post(
       "https://" + GetParentResourceName() + "/change_user_veh",
-      JSON.stringify({ passport, vehicle, mode })
+      JSON.stringify({ passport, vehicle, mode }),
     );
   }
 }
