@@ -472,6 +472,7 @@ RegisterNUICallback("Theme",function(Data,Callback)
 		rare = "#6ac6c5",
 		epic = "#c66a75",
 		legendary = "#c6986a",
+		currency = "R$",
 		accept = {
 			letter = "#dcffe9",
 			background = "#3fa466"
