@@ -882,6 +882,37 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName, rAmount, data)
 		until active[user_id] == nil
 	end
 
+	if itemName == "emptybottle" then
+		local status,style = vPLAYER.checkFountain(source)
+		if status then
+			active[user_id] = rAmount*3
+			TriggerClientEvent('cancelando',source,true)
+			TriggerClientEvent("Progress",source,parseInt(rAmount*3000))
+			if style == "fountain" then
+				TriggerClientEvent('ld-inv:Client:CloseInventory',source)
+				vRPclient._playAnim(source,false,{"amb@prop_human_parking_meter@female@idle_a","idle_a_female"},true)
+			elseif style == "floor" then
+				TriggerClientEvent('ld-inv:Client:CloseInventory',source)
+				vRPclient._playAnim(source,false,{"amb@world_human_bum_wash@male@high@base","base"},true)
+			end
+			repeat
+				if active[user_id] == 0 then
+					active[user_id] = nil
+					vRPclient.stopAnim(source)
+					TriggerClientEvent('cancelando',source,false)
+					if vRP.tryGetInventoryItem(user_id,itemName,parseInt(rAmount),true) then
+						if style == "floor" then
+							vRP.giveInventoryItem(user_id,"dirtywater",parseInt(rAmount))
+						else
+							vRP.giveInventoryItem(user_id,"water",parseInt(rAmount))
+						end
+					end
+				end
+				Citizen.Wait(0)
+			until active[user_id] == nil
+		end
+	end
+
 	if itemName == "dirtywater" then
 		active[user_id] = 10
 		vRPclient.stopActived(source)

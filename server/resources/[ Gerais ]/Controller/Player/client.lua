@@ -1262,3 +1262,20 @@ RegisterNetEvent("towdriver:invokeTow")
 AddEventHandler("towdriver:invokeTow",function()
 	ExecuteCommand("rebocar")
 end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- CHECK FOUNTAIN
+-----------------------------------------------------------------------------------------------------------------------------------------
+function PlvRP.checkFountain()
+	local ped = PlayerPedId()
+	local coords = GetEntityCoords(ped)
+
+	if DoesObjectOfTypeExistAtCoords(coords,0.7,GetHashKey("prop_watercooler"),true) or DoesObjectOfTypeExistAtCoords(coords,0.7,GetHashKey("prop_watercooler_dark"),true) then
+		return true,"fountain"
+	end
+
+	if IsEntityInWater(ped) then
+		return true,"floor"
+	end
+
+	return false
+end
