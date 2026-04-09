@@ -42,66 +42,42 @@ $(document).ready(function () {
       $(".mycodeBox").html(event.data.code);
       number = event.data.price;
       $(".bigPrizePrice").html(
-        "R$" + number.toLocaleString("pt-BR", { minimumFractionDigits: 0 })
+        "R$" + number.toLocaleString("pt-BR", { minimumFractionDigits: 0 }),
       );
     } else if (event.data.action == "listed") {
-      html =
-        `
-      <div class="prizeBoxs">
-      <div class="prizeNumber">` +
-        event.data.k +
-        `</div>
-      <div class="noprizeBox">
-        <div class="prizeName">Dinheiro</div>
-        <div
-          class="prizeImg"
-          style="background-image: url(./img/prize.png)"
-        ></div>
-        <div class="prizePrice">$ ` +
-        event.data.price +
-        `</div>
-      </div>
-    </div>
+      html = `
+        <div class="prizeBoxs">
+          <div class="prizeNumber">NÍVEL ${event.data.k}</div>
+          <div class="noprizeBox">
+            <div class="prizeName">Recompensa</div>
+            <div class="prizeImg" style="background-image: url(./img/prize.png)"></div>
+            <div class="prizePrice">R$ ${event.data.price}</div>
+          </div>
+        </div>
       `;
       $(".prizeSide").prepend(html);
     } else if (event.data.action == "listed-ok") {
-      html =
-        `
-      <div class="prizeBoxs" >
-      <div class="prizeNumber">` +
-        event.data.k +
-        `</div>
-      <div class="noprizeBox" style="background: radial-gradient(110.31% 110.31% at 50% 50%, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0) 100%);">
-        <div class="prizeName">Dinheiro</div>
-        <div
-          class="prizeImg"
-          style="background-image: url(./img/prize-okok.png)"
-        ></div>
-        <div class="prizePrice">$ ` +
-        event.data.price +
-        `</div>
-      </div>
-    </div>
+      html = `
+        <div class="prizeBoxs">
+          <div class="prizeNumber">NÍVEL ${event.data.k}</div>
+          <div class="prizeBox">
+            <div class="prizeName">Resgatado</div>
+            <div class="prizeImg" style="background-image: url(./img/prize-okok.png)"></div>
+            <div class="prizePrice">R$ ${event.data.price}</div>
+          </div>
+        </div>
       `;
       $(".prizeSide").prepend(html);
     } else if (event.data.action == "listed-okok") {
-      html =
-        `
-      <div class="prizeBoxs">
-      <div class="prizeNumber">` +
-        event.data.k +
-        `</div>
-      <div class="noprizeBox" style="background: radial-gradient(80% 80% at 50% 50%, rgba(0, 148, 255, 0.43) 0%, rgba(0, 148, 255, 0) 100%), radial-gradient(110.31% 110.31% at 50% 50%, rgba(255, 255, 255, 0.21) 0%, rgba(255, 255, 255, 0) 100%); ">
-        <div class="prizeName">Dinheiro</div>
-        <div
-          class="prizeImg"
-          style="background-image: url(./img/prize-ok.png)"
-        ></div>
-        <div class="prizePrice">$ ` +
-        event.data.price +
-        `</div>
-      </div>
-    </div>
+      html = `
+        <div class="prizeBoxs">
+          <div class="prizeNumber">NÍVEL ${event.data.k}</div>
+          <div class="prizeBox">
+            <div class="prizeName">Disponível</div>
+            <div class="prizeImg" style="background-image: url(./img/prize-ok.png)"></div>
+            <div class="prizePrice">R$ ${event.data.price}</div>
+          </div>
+        </div>
       `;
       $(".prizeSide").prepend(html);
     }
@@ -166,7 +142,7 @@ function accept(usedCode) {
       "https://will_login/accept",
       JSON.stringify({
         code: $("#code_input").val(),
-      })
+      }),
     );
   }
   setTimeout(function () {
@@ -184,7 +160,7 @@ function accept(usedCode) {
               <div>
                 <div class="textinfo">${veh.title} <span>${veh.days} dias</span></div>
                 <div class="nocodeButton" onclick="rewardVehicle('${veh.index}')">
-                  Resgatar
+                  Resgatar Agora
                 </div>
               </div>
               <img
@@ -368,7 +344,7 @@ function openReferenceMenu() {
           timer: 2000,
         });
       }
-    }
+    },
   );
 }
 

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -16,27 +16,27 @@
     <link rel="stylesheet" href="main.css" />
   </head>
   <body>
-    <img class="characterimg" src="./img/character.png" />
-    <div class="firstScreen" style="display: block">
+    <div class="firstScreen">
       <div class="loginMenu" style="display: none">
         <div class="titleSide">
-          <div class="subTitle">Primeira Etapa</div>
-          <div class="Title">CADASTRO DE <span>USUARIO</span></div>
+          <div class="subTitle">Passo 01</div>
+          <div class="Title">CRIAR <span>CONTA</span></div>
+          <div class="titleInfo">
+            Preencha seus dados para começar sua jornada
+          </div>
         </div>
         <div class="loginBox">
-          <div class="textinfo">
-            Informações do usuário <span> Digite</span>
-          </div>
+          <div class="textinfo">Informações <span>Pessoais</span></div>
           <div class="codeinputBox" id="name_container">
             <input type="text" id="name_input" required="required" />
-            <span>Nome...</span>
+            <span>Nome completo</span>
             <div class="pasteButton">
               <i class="fa-solid fa-user"></i>
             </div>
           </div>
           <div class="codeinputBox" id="email_container">
             <input type="text" id="email_input" required="required" />
-            <span>Email...</span>
+            <span>E-mail</span>
             <div class="pasteButton">
               <i class="fa-solid fa-envelope"></i>
             </div>
@@ -48,7 +48,7 @@
               maxlength="16"
               required="required"
             />
-            <span>WhatsApp...</span>
+            <span>WhatsApp</span>
             <div class="pasteButton">
               <i class="fa-solid fa-phone"></i>
             </div>
@@ -60,99 +60,90 @@
               required="required"
               maxlength="10"
             />
-            <span>01/01/2000</span>
+            <span>Data de Nascimento</span>
             <div class="pasteButton">
               <i class="fa-solid fa-calendar-days"></i>
             </div>
           </div>
-          <div class="textinfo">
-            Onde nos encontrou? <span> Selecione</span>
-          </div>
+          <div class="textinfo">Como nos conheceu? <span>Origem</span></div>
           <div class="selectWhere">
             <select id="findwhere">
               <option value="fivem">Lista FiveM</option>
-              <option value="season">Ultima Season</option>
+              <option value="season">Última Season</option>
               <option value="tiktok">TikTok</option>
               <option value="others">Outros</option>
             </select>
           </div>
-          <div class="nextButton" onclick="nextStep()">PROXIMO</div>
+          <div class="nextButton" onclick="nextStep()">PRÓXIMO PASSO</div>
         </div>
       </div>
       <div class="discordMenu" style="display: none">
         <div class="titleSide">
-          <div class="subTitle">Segunda Etapa</div>
-          <div class="Title">CONEXÃO AO <span>DISCORD</span></div>
+          <div class="subTitle">Passo 02</div>
+          <div class="Title">CONEXÃO <span>DISCORD</span></div>
           <div class="titleInfo">
-            Siga as instruções para se conectar ao discord
+            Sincronize sua conta para obter acesso à cidade
           </div>
         </div>
         <div class="discordBox">
           <div class="firstStep">
             <div class="textinfo">
-              <b>1° PASSO:</b>
+              <b>TOKEN DE ACESSO</b>
             </div>
             <div class="stepInfo">
-              Copie o Token abaixo e cole na sala de whitelist do Discord
+              Copie o código abaixo e cole no canal de Whitelist em nosso
+              Discord
             </div>
             <div class="stepBox" onclick="copyToken()">
-              <span style="font-size: 1vw">SEU TOKEN</span>
-              <span id="token">1</span>
+              <span id="token">...</span>
               <i class="fa-solid fa-copy"></i>
             </div>
           </div>
           <div class="secondStep">
             <div class="textinfo">
-              <b>2° PASSO:</b>
+              <b>COMUNIDADE</b>
             </div>
-            <div class="stepInfo">Entre em nosso Discord</div>
+            <div class="stepInfo">
+              Entre em nosso servidor oficial do Discord
+            </div>
             <div class="stepBox" onclick="openDiscord()">
-              <span style="font-size: 1vw">DISCORD</span>
+              <span>DISCORD</span>
               <i class="fa-brands fa-discord"></i>
             </div>
           </div>
-          <div class="nextButton" onclick="openReferenceMenu()">CONFIRMAR</div>
+          <div class="nextButton" onclick="openReferenceMenu()">
+            VERIFICAR ACESSO
+          </div>
         </div>
       </div>
       <div class="referenceMenu" style="display: none">
         <div class="titleSide">
-          <div class="subTitle">Terceira Etapa</div>
-          <div class="Title">SISTEMA DE <span>REFERENCIA</span></div>
+          <div class="subTitle">Passo 03</div>
+          <div class="Title">SISTEMA DE <span>REFERÊNCIA</span></div>
           <div class="titleInfo">
-            Se você tiver um codigo de convite, insira-o que o dono receberá uma
-            conquista
+            Possui um código de convite? Insira-o para ganhar bônus exclusivos
           </div>
         </div>
         <div class="referencesBox">
-          <div class="textinfo">
-            Codigo de Referencia <span>Codigo de Amigo</span>
-          </div>
+          <div class="textinfo">CÓDIGO DE AMIGO <span>Opcional</span></div>
           <div class="codeinputBox">
             <input type="text" id="code_input" required="required" />
-            <span>Codigo...</span>
+            <span>Digite o código...</span>
             <div class="pasteButton">
               <i class="fa-solid fa-barcode"></i>
             </div>
           </div>
-          <div class="codeAcceptButton" onclick="accept(true)">CONFIRMAR</div>
-          <div class="nocodeText">Você não tem um codigo de referencia</div>
-          <div class="nocodeButton" onclick="accept()">Não tenho um codigo</div>
+          <div class="codeAcceptButton" onclick="accept(true)">
+            CONFIRMAR CÓDIGO
+          </div>
+          <div class="nocodeButton" onclick="accept()">NÃO TENHO UM CÓDIGO</div>
         </div>
         <div class="infoSide">
           <div class="infoBox">
             <i class="fa-solid fa-circle-info"></i>
             <div class="infobottomText">
-              Informação 1<br /><span
-                >Se você tiver um codigo, insira com cuidado, codigos com erros
-                não serão resgatados</span
-              >
-            </div>
-          </div>
-          <div class="infoBox">
-            <i class="fa-solid fa-circle-info"></i>
-            <div class="infobottomText">
-              Informação 2<br /><span
-                >Se você não tiver um codigo, use: Não tenho um codigo.</span
+              DICA<br /><span
+                >Códigos digitados incorretamente não serão validados.</span
               >
             </div>
           </div>
@@ -160,58 +151,14 @@
       </div>
       <div class="vehicleMenu" style="display: none">
         <div class="titleSide">
-          <div class="subTitle">Quarta Etapa</div>
-          <div class="Title">VEICULO <span>GRATIS</span></div>
-          <div class="titleInfo">Escolha o seu veiculo VIP gratuitamente</div>
+          <div class="subTitle">Passo 04</div>
+          <div class="Title">RECOMPENSA <span>INICIAL</span></div>
+          <div class="titleInfo">
+            Escolha um veículo VIP para começar sua jornada
+          </div>
         </div>
         <div class="vehiclesContainer">
-          <div class="vehicleBox">
-            <div>
-              <div class="textinfo">Mercedes GT63 <span>5 dias</span></div>
-              <div class="nocodeButton" onclick="rewardVehicle('mercedesgt63')">
-                Resgatar
-              </div>
-            </div>
-            <img
-              src="https://api.rebornsystem.com.br/imagens/mercedesgt63.png"
-              alt="Mercedes GT63"
-            />
-          </div>
-          <div class="vehicleBox">
-            <div>
-              <div class="textinfo">Range Rover <span>7 dias</span></div>
-              <div class="nocodeButton" onclick="rewardVehicle('rangerover')">
-                Resgatar
-              </div>
-            </div>
-            <img
-              src="https://api.rebornsystem.com.br/imagens/rangerover.png"
-              alt="Range Rover"
-            />
-          </div>
-          <div class="vehicleBox">
-            <div>
-              <div class="textinfo">Yamaha R1 <span>10 dias</span></div>
-              <div class="nocodeButton" onclick="rewardVehicle('r1')">
-                Resgatar
-              </div>
-            </div>
-            <img
-              src="https://api.rebornsystem.com.br/imagens/r1.png"
-              alt="Yamaha R1"
-            />
-          </div>
-        </div>
-        <div class="infoSide">
-          <div class="infoBox">
-            <i class="fa-solid fa-circle-info"></i>
-            <div class="infobottomText">
-              Informação<br /><span
-                >O veiculo escolhido é por tempo limitado. Após os dias o
-                veículo sera recolhido!</span
-              >
-            </div>
-          </div>
+          <!-- Carregado via JS -->
         </div>
       </div>
     </div>
