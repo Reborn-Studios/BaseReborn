@@ -1,39 +1,41 @@
-@font-face {
-  font-family: "Bebas Nue";
-  src: url("fonts/BebasNeuePro-Regular.ttf") format("truetype");
-}
-@font-face {
-  font-family: "Bebas Nue";
-  src: url("fonts/BebasNeuePro-Thin.ttf") format("truetype");
-  font-weight: 100;
-}
-@font-face {
-  font-family: "Bebas Nue";
-  src: url("fonts/BebasNeuePro-Light.ttf") format("truetype");
-  font-weight: 200;
-}
-@font-face {
-  font-family: "Bebas Nue";
-  src: url("fonts/BebasNeuePro-Middle.ttf") format("truetype");
-  font-weight: 300;
-}
-@font-face {
-  font-family: "Bebas Nue";
-  src: url("fonts/BebasNeuePro-Italic.ttf") format("truetype");
-  font-style: italic;
-}
-@font-face {
-  font-family: "Bebas Nue";
-  src: url("fonts/BebasNeuePro-Bold.ttf") format("truetype");
-  font-weight: 700;
+:root {
+  --bg: #0a0a0a;
+  --surface: #111111;
+  --surface2: #191919;
+  --border: rgba(255, 255, 255, 0.08);
+  --border-hi: rgba(255, 255, 255, 0.18);
+  --text: #f0f0f0;
+  --muted: #777;
+  --accent: #c8f04d;
+  --accent-dk: #a3c83d;
+  --danger: #e05252;
+  --blue: #3b82f6;
+  --radius-sm: 6px;
+  --radius: 14px;
+  --radius-lg: 22px;
+  --mono: "DM Serif Display", Georgia, serif;
+  --sans: "DM Sans", system-ui, sans-serif;
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.buy {
-  width: 800px;
-  height: 625px;
-  background: url(bg.png);
-  background-size: cover;
-  color: #ccdb45;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
 }
 
 .center {
@@ -43,566 +45,707 @@
   transform: translate(-50%, -50%);
 }
 
-.ev {
-  width: 200px;
-  height: 200px;
-  background: url(interiors/modern.png);
-  background-size: cover;
-  position: absolute;
-  left: 12%;
-  top: 15%;
-  box-shadow: 0px 0px 20px black;
-}
-
-.stars {
-  position: absolute;
-  left: 12%;
-  top: 50%;
-  font-size: 24px;
-}
-
-.nostar {
-  margin-left: 10px;
-  background: -webkit-linear-gradient(#515359, #515359);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow: 0px 0px 4px #666666;
-}
-
 .star {
-  margin-left: 10px;
-  background: -webkit-linear-gradient(#31bc20, #1c8e44);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow: 0px 0px 4px #31bc20;
+  color: var(--accent);
+  font-size: 11px;
+  margin-right: 2px;
+  filter: drop-shadow(0 0 4px var(--accent));
+}
+.nostar {
+  color: #333;
+  font-size: 11px;
+  margin-right: 2px;
+}
+.starscard {
+  display: flex;
+  align-items: center;
+  gap: 1px;
 }
 
-.evb {
-  z-index: 5;
-  width: 125px;
-  height: 50px;
-  background: linear-gradient(0deg, #ffd132, #fbd233);
+/* ─────────────────────────────────────────
+   HOUSES LIST PANEL
+───────────────────────────────────────── */
+.housesMain {
+  font-family: var(--sans);
   position: absolute;
-  top: 8%;
-  left: 16.5%;
-  border-radius: 30px;
-  box-shadow: 0px 0px 18px #fbd233;
-  color: black;
-}
-
-.evb span {
-  position: absolute;
-  font-size: 24px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  letter-spacing: 2px;
-  font-weight: bold;
+  width: 68vw;
+  max-height: 64vh;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 28px 28px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  overflow-y: auto;
 }
 
-.house_info {
-  position: absolute;
-  top: 5%;
-  right: 10%;
-  width: 350px;
-  height: 400px;
-  padding-top: 40px;
+.housesHeader {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 16px;
 }
 
-.infos {
-  position: absolute;
-  bottom: 15%;
-  width: 250px;
-  height: 170px;
-  left: 9%;
+.housesHeader h2 {
+  font-family: var(--mono);
+  font-size: 26px;
+  font-weight: 400;
+  letter-spacing: -0.5px;
+  color: var(--text);
 }
 
-.g {
-  font-family: "Bebas Nue";
-  color: white;
-  text-align: center;
-  font-size: 20px;
-  margin-top: 12px;
+.housesCount {
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 1px;
+  text-transform: uppercase;
 }
 
-.g i {
-  margin-right: 5px;
+.pageHouses {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
 }
 
-.infos a {
+/* ─── House Card ─── */
+.housecard {
+  width: 15vw;
+  min-width: 160px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition:
+    border-color 0.3s var(--ease),
+    transform 0.3s var(--ease);
+}
+.housecard:hover {
+  border-color: var(--border-hi);
+  transform: translateY(-3px);
+}
+
+.housecard__img {
+  position: relative;
+  width: 100%;
+  height: 18vh;
+  overflow: hidden;
+}
+.housecard__img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   display: block;
-  text-align: center;
-  font-family: "Bebas Nue";
-  letter-spacing: 3px;
-  color: white;
-  text-decoration: none;
-  background: #dd4d38;
-  padding: 14px;
-  border-radius: 5px;
-  margin: 30px;
-  font-size: 21px;
-  opacity: 0.9;
-  box-shadow: 0px 0px 14px #dd4d38;
-  text-shadow: 0px 0px 15px white;
-  font-weight: 300;
-  transition: 0.6s;
+  transition: transform 0.5s var(--ease);
+}
+.housecard:hover .housecard__img img {
+  transform: scale(1.04);
 }
 
-.infos a:hover {
-  background: white;
-  color: #0f0f0f;
-  box-shadow: 0px 0px 14px white;
-}
-
-.house_info span {
-  font-size: 16px;
-  font-family: "Bebas Nue";
-  letter-spacing: 3px;
-  color: #fff;
+.housecard__badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: rgba(0, 0, 0, 0.7);
+  color: var(--accent);
+  font-size: 10px;
+  letter-spacing: 1.5px;
   text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 20px;
+  border: 1px solid rgba(200, 240, 77, 0.3);
 }
 
-.house_info h1 {
-  font-family: "Bebas Nue";
-  letter-spacing: 5px;
-  color: #fff;
-  text-transform: uppercase;
-  font-size: 43px;
-  margin-top: 8px;
-  font-weight: 300;
-  margin-bottom: 22px;
+.housecard__body {
+  padding: 12px 14px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
-.info_background {
-  background: rgba(82, 172, 255, 0.486);
-  padding: 0 5px;
-  border-top-right-radius: 15ch;
-  border-bottom-right-radius: 15ch;
+.housecard__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.buttons,
-.tax-button {
+.housecard__title {
+  font-family: var(--mono);
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--text);
+}
+
+.housecard__details {
+  display: flex;
+  gap: 10px;
+}
+.housecard__details span {
+  font-size: 11px;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.housecard__details i {
+  color: var(--accent);
+  font-size: 10px;
+}
+
+.housecard .loc {
   display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: 1px solid var(--border-hi);
+  color: var(--text);
+  border-radius: var(--radius-sm);
+  padding: 6px 12px;
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    border-color 0.2s;
+}
+.housecard .loc i {
+  color: var(--accent);
+}
+.housecard .loc:hover {
+  background: var(--border);
+  border-color: var(--accent);
 }
 
-.buttons a,
-.tax-button a {
-  text-align: center;
-  background: #3663d4;
-  color: white;
-  text-decoration: none;
-  border-radius: 5px;
-  font-size: 24px;
-  font-family: "Bebas Nue";
-  letter-spacing: 3px;
-  font-weight: 300;
-  text-transform: uppercase;
-  box-shadow: 0px 0px 10px #3663d4;
-  padding: 10px;
-  margin-left: 2px;
-  margin-right: 5px;
-  padding-left: 15px;
-  padding-right: 15px;
-  transition: 0.6s;
+/* Pagination */
+.pagination {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+}
+.pagination div {
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+}
+.page {
+  cursor: pointer;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  transition:
+    border-color 0.2s,
+    background 0.2s;
+}
+.page:hover {
+  border-color: var(--accent);
+  background: rgba(200, 240, 77, 0.07);
+}
+.selectedPage {
+  background: var(--accent);
+  color: #000;
+  border: 1px solid var(--accent);
+  font-weight: 600;
 }
 
-.buttons a:hover,
-.tax-button a:hover {
-  background: #fff;
-  color: #3663d4;
-  box-shadow: 0px 0px 10px #fff;
-}
-
+/* ─────────────────────────────────────────
+   MAIN CONTAINER / BG
+───────────────────────────────────────── */
 .container {
   margin: 0;
   overflow: hidden;
 }
 
 .bg {
-  width: -webkit-fill-available;
-  height: -webkit-fill-available;
+  width: 100vw;
+  height: 100vh;
   position: fixed;
-  background: radial-gradient(#3b9bb18f, #0000008c);
+  background: rgba(0, 0, 0, 0.78);
+  backdrop-filter: blur(8px);
 }
 
-#h_buy {
-  background: #3663d4;
-  color: #fff;
-  box-shadow: 0px 0px 14px #3663d4;
-}
-
-#h_buy:hover {
-  background: #fff;
-  color: #3663d4;
-  box-shadow: 0px 0px 14px #fff;
-}
-
-.manage,
-.friends {
-  width: -webkit-fill-available;
-  height: -webkit-fill-available;
-  background: #000000c7;
-  backdrop-filter: blur(5px);
-  border-radius: 15px;
-}
-
-.sellmodal,
-.transfermodal,
-.modal,
-.loading {
-  background: #000000c7;
-  border: 2px solid white;
-  border-radius: 15px;
-  color: #ffffff;
-}
-
-.modal {
-  height: 10vh;
-  padding: 2vw;
-}
-
-.buymodal {
+/* ─────────────────────────────────────────
+   BUY PANEL
+───────────────────────────────────────── */
+.buy {
+  width: 780px;
+  height: 600px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1vw;
-  background: #000000c7;
-  width: 30vw;
-  height: 15vh;
-  border: 2px solid white;
-  border-radius: 15px;
-  color: #ffffff;
 }
 
-.loading-container {
+/* house number badge */
+.buy__number {
+  position: absolute;
+  top: 22px;
+  left: 22px;
+  z-index: 10;
+}
+.buy__number span {
+  display: inline-block;
+  background: var(--accent);
+  color: #000;
+  font-family: var(--mono);
+  font-size: 18px;
+  font-weight: 700;
+  padding: 5px 16px;
+  border-radius: 30px;
+  letter-spacing: 2px;
+}
+
+.buy__preview {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 280px;
+  height: 100%;
+}
+
+.ev {
+  width: 320px;
+  height: 100%;
+  background: url(interiors/modern.png) center/cover no-repeat;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.ev::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, transparent 60%, var(--surface));
+}
+
+.stars {
+  position: absolute;
+  bottom: 22px;
+  left: 22px;
   display: flex;
-  align-items: center;
+  gap: 4px;
+}
+.stars .star,
+.stars .nostar {
+  font-size: 14px;
+}
+
+/* info column */
+.house_info {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 460px;
+  height: 100%;
+  padding: 32px 36px;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
-  width: 100%;
-  height: 50vh;
+  gap: 6px;
 }
 
-.spin-anim {
-  animation: spin 2s infinite linear;
+.info_row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.info_row--double {
+  flex-direction: row;
+  gap: 20px;
 }
 
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.info_block {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 14px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
 }
-
-.modal h1,
-.sellmodal h1,
-.transfermodal h1,
-.friends h1 {
-  color: white;
-  font-family: "Bebas Nue";
-  letter-spacing: 5px;
+.info_block span {
+  font-size: 10px;
+  letter-spacing: 1.5px;
   text-transform: uppercase;
+  color: var(--muted);
+}
+.info_block h1 {
+  font-family: var(--mono);
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--text);
+  letter-spacing: 0.5px;
+}
+.info_block--price {
+  background: transparent;
+  border: none;
+  padding: 4px 0;
+}
+.info_block--price h1 {
+  font-family: var(--mono);
+  font-size: 36px;
+  color: var(--accent);
+  letter-spacing: -0.5px;
+  filter: drop-shadow(0 0 12px rgba(200, 240, 77, 0.3));
+}
+
+/* action buttons */
+.buttons {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 18px;
+  border-radius: var(--radius-sm);
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  transition: all 0.2s var(--ease);
+  cursor: pointer;
+}
+.btn--blue {
+  background: rgba(59, 130, 246, 0.12);
+  border: 1px solid rgba(59, 130, 246, 0.35);
+  color: #93c5fd;
+}
+.btn--blue:hover {
+  background: rgba(59, 130, 246, 0.22);
+  border-color: #3b82f6;
+  color: #fff;
+}
+
+/* sidebar actions */
+.infos {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 280px;
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0 22px 30px;
+  gap: 8px;
+  z-index: 5;
+  margin-bottom: 1vh;
+}
+
+.infos__btn {
+  display: block;
   text-align: center;
-  font-size: 40px;
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 11px 16px;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border);
+  color: var(--text);
+  transition: all 0.25s var(--ease);
+}
+.infos__btn:hover {
+  background: rgba(255, 255, 255, 0.09);
+  border-color: var(--border-hi);
+}
+.infos__btn--primary {
+  background: rgba(59, 130, 246, 0.15);
+  border-color: rgba(59, 130, 246, 0.4);
+  color: #93c5fd;
+}
+.infos__btn--primary:hover {
+  background: #3b82f6;
+  color: #fff;
+  border-color: #3b82f6;
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+}
+
+/* ─────────────────────────────────────────
+   MODALS (generic)
+───────────────────────────────────────── */
+.modal,
+.sellmodal,
+.transfermodal {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  padding: 28px 32px;
+  min-width: 280px;
+}
+
+.modal__label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--muted);
+  text-align: center;
+  margin-bottom: 18px;
+}
+
+.sellmodal h1,
+.transfermodal h1 {
+  font-family: var(--mono);
+  font-size: 22px;
+  font-weight: 400;
+  text-align: center;
+  letter-spacing: 0;
+  margin-bottom: 16px;
+  color: var(--text);
+}
+
+y {
+  color: var(--accent);
+}
+
+.modal__btn {
+  display: block;
+  text-align: center;
+  padding: 10px 22px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 500;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border-hi);
+  color: var(--text);
+  margin-top: 8px;
+  transition: all 0.2s var(--ease);
+  cursor: pointer;
+}
+.modal__btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+.modal__btn--ghost {
+  background: transparent;
+  border-color: var(--border);
+  color: var(--muted);
+}
+.modal__btn--ghost:hover {
+  border-color: var(--border-hi);
+  color: var(--text);
+}
+
+/* Transfer input */
+.transfermodal input {
+  display: block;
+  width: 100%;
+  background: var(--surface2);
+  border: 1px solid var(--border-hi);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 14px;
+  padding: 10px 14px;
+  margin-bottom: 4px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.transfermodal input::placeholder {
+  color: var(--muted);
+}
+.transfermodal input:focus {
+  border-color: var(--accent);
+}
+
+/* ─────────────────────────────────────────
+   FRIENDS
+───────────────────────────────────────── */
+.friends {
+  width: 100vw;
+  height: 100vh;
+  background: rgba(10, 10, 10, 0.92);
+  backdrop-filter: blur(10px);
+}
+
+.friends > h1 {
+  font-family: var(--mono);
+  font-size: 30px;
+  font-weight: 400;
+  text-align: center;
+  color: var(--text);
+  letter-spacing: -0.5px;
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.friends > h1 em {
+  color: var(--accent);
+  font-style: italic;
 }
 
 .ic {
-  width: 50%;
-  height: 70%;
+  width: 500px;
+  height: 300px;
 }
 
 .players {
-  margin-left: 3.5%;
-  width: 45%;
-  height: 100%;
   float: left;
+  width: 46%;
+  margin: 0 2%;
+  height: 100%;
 }
 
 .players h1 {
-  background: #255eda;
-  color: black;
-  margin: 0;
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: none;
+  padding: 0 0 8px 0;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 8px;
 }
 
 .plylst {
   width: 100%;
   height: 90%;
-  background: #00000080;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
   overflow-y: auto;
 }
 
 .pl {
   position: relative;
   width: 100%;
-  height: 50px;
-  background: white;
-  display: block;
-  font-family: "Bebas Nue";
-  letter-spacing: 5px;
-  text-transform: uppercase;
-  text-align: center;
-  font-size: 24px;
-  line-height: 50px;
-  transition: 0.6s;
+  height: 44px;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  padding: 0 14px;
+  font-family: var(--sans);
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  color: var(--text);
+  border-bottom: 1px solid var(--border);
+  transition: background 0.15s;
+  cursor: pointer;
 }
-
 .pl:hover {
-  background: black;
-  color: white;
+  background: var(--surface2);
 }
-
 .pl i {
   position: absolute;
-  right: 10px;
-  top: 25%;
-}
-
-y {
-  color: #dada25;
+  right: 12px;
+  color: var(--muted);
 }
 
 .xcd {
   position: absolute !important;
-  top: 1%;
-  left: 5%;
-  display: block;
-  text-align: center;
-  background: #ffffffed;
-  color: black;
-  text-decoration: none;
-  border-radius: 1px;
-  font-size: 24px;
-  font-family: "Bebas Nue";
-  letter-spacing: 3px;
-  font-weight: 300;
-  margin-left: 2px;
-  margin-top: 20px;
-  padding: 10px;
+  top: 20px;
+  left: 24px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: var(--surface);
+  border: 1px solid var(--border-hi);
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1px;
   text-transform: uppercase;
-  margin-right: 5px;
-  padding-left: 15px;
-  padding-right: 15px;
-  transition: 0.6s;
-  border: 1px solid white;
+  color: var(--text);
+  transition: all 0.2s;
+}
+.xcd:hover {
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
-.modal a,
-.sellmodal a,
-.transfermodal a,
-.buymodal a {
-  /* position: relative; */
-  text-align: center;
-  background: #ffffffed;
-  color: black;
-  text-decoration: none;
-  border-radius: 15px;
-  font-size: 24px;
-  font-family: "Bebas Nue";
-  letter-spacing: 3px;
-  font-weight: 300;
-  margin-left: 7px;
-  margin-top: 20px;
-  padding: 10px;
-  text-transform: uppercase;
-  margin-right: 5px;
-  padding-left: 15px;
-  padding-right: 15px;
-  transition: 0.6s;
-  border: 1px solid white;
-}
-
-.modal a:hover,
-.sellmodal a:hover,
-.buymodal a:hover,
-.transfermodal a:hover {
-  background: #00000012 !important;
-  color: #ffffffed !important;
-  border: 1px solid white !important;
-}
-
-.transfermodal input {
-  width: 70px;
-  font-size: 18px;
-  font-family: "Bebas Nue";
-  font-style: italic;
-  text-align: center;
-  background: #ffffff;
-  border: none;
-  padding: 5px;
-}
-
-.modal a i,
-.sellmodal a i {
-  position: absolute;
-  left: 6%;
-  top: 28%;
-}
-
-.fa-spin {
-  color: white;
-  font-size: 24px;
+/* ─────────────────────────────────────────
+   MANAGE
+───────────────────────────────────────── */
+.manage {
+  width: 100vw;
+  height: 100vh;
+  /* background: rgba(10, 10, 10, 0.7); */
+  /* backdrop-filter: blur(10px); */
 }
 
 .icgm {
-  width: 85%;
-  height: 700px;
+  width: 80%;
+  height: 650px;
 }
 
-.icgm h1 {
-  font-family: "Bebas Nue";
-  color: white;
-  text-transform: uppercase;
-  font-size: 48px;
-  letter-spacing: 8px;
-  width: fit-content;
+.manage__header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
 }
-
-w {
-  background: white;
-  padding-left: 10px;
-  padding-right: 10px;
-  color: black;
-  text-shadow: 0px 0px 0px black;
+.manage__header h1 {
+  font-family: var(--mono);
+  color: var(--text);
+  font-size: 36px;
+  font-weight: 400;
+  letter-spacing: -0.5px;
+  flex: 1;
 }
-
-.cars {
-  width: -webkit-fill-available;
-  height: 570px;
-  border: 2px dashed white;
-}
-
-.car {
-  float: left;
-  width: 300px;
-  height: 200px;
-  background: #ffffff26;
-  margin-left: 16px;
-  margin-top: 20px;
-  border: 1px dashed white;
-  position: relative;
-}
-
-.car img {
-  width: 70%;
-  margin: 12px;
-}
-
-.car .alt {
-  width: -webkit-fill-available;
-  height: 50px;
-  position: absolute;
-  bottom: 0;
-  border-top: 1px dashed white;
-  overflow: hidden;
-}
-
-.car h2 {
-  font-size: 28px;
-  margin: 0;
-  color: white;
-  font-family: "Bebas Nue";
-  letter-spacing: 2px;
-  margin-left: 10px;
-  margin-top: 10px;
-}
-
-.fa-empty-set {
-  font-size: 72px;
-  color: white;
-}
-
-.w {
-  position: absolute;
-  right: 0;
-  padding-left: 15px;
-  transition: 0.1s;
-}
-
-.w:hover {
-  transform: skew(345deg);
-  box-shadow: 5px 5px 0px 0px rgb(0, 0, 0);
-}
-
-.walls,
-.tables {
-  width: 100%;
-  height: 450px;
-  border: 1px solid white;
-}
-
-.sag_ {
-  float: left;
-  margin-right: 5%;
-  display: inline;
-  position: absolute;
-  right: 0;
-}
-
-.yar {
-  position: absolute;
-  right: 0;
-  width: 156px;
-  height: 50px;
-  background: #ffffff;
-  clip-path: polygon(0 0, 100% 0%, 100% 100%, 23% 100%);
-  text-align: center;
-  z-index: 100;
-}
-
-.name_close {
-  width: 20px;
-  border-radius: 3px;
-}
-
-.yar h2 {
-  font-family: "Bebas Nue";
-  font-size: 44px;
-  margin: 0;
-  margin-left: 25px;
-  margin-right: 0px;
-  color: rgb(0, 0, 0);
+.manage__header h1 em {
+  color: var(--accent);
   font-style: italic;
 }
 
-.table {
-  width: 300px;
-  height: 250px;
-  margin-left: 15px;
-  margin-top: 15px;
-  background: url(./interiors/aqua.png);
-  background-size: cover;
-  float: left;
-  position: relative;
-  transition: 0.6s;
-  z-index: 50;
+.manage__tabs {
+  display: flex;
+  gap: 6px;
 }
 
-::-webkit-scrollbar {
-  width: 10px;
+w {
+  display: inline-block;
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+w:hover,
+w.active {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(200, 240, 77, 0.05);
 }
 
-::-webkit-scrollbar-track {
-  background: #f1f1f155;
-  margin-left: 10px;
-  margin-right: 10px;
+.close-btn {
+  background: transparent !important;
+  border: none !important;
+  color: var(--muted) !important;
+  font-size: 18px;
+  padding: 4px 8px !important;
+}
+.close-btn:hover {
+  color: var(--text) !important;
 }
 
-::-webkit-scrollbar-thumb {
-  background: #888;
-  margin-left: 10px;
-  margin-right: 10px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #555;
-  margin-left: 10px;
-  margin-right: 10px;
-}
+/* Walls / Tables panel */
 
 .wall a,
-.table a,
-.hname a {
+.table a {
   width: 100%;
   position: absolute;
   bottom: 0;
@@ -610,8 +753,8 @@ w {
   display: block;
   color: black;
   text-shadow: 0px 0px 20px black;
-  font-family: "Bebas Nue";
-  font-size: 34px;
+  font-family: var(--sans);
+  font-size: 24px;
   text-transform: uppercase;
   font-style: italic;
   font-weight: 800;
@@ -622,67 +765,48 @@ w {
 }
 
 .wall a:hover,
-.table a:hover,
-.hname a:hover {
+.table a:hover {
   background: black;
   color: white;
   text-shadow: 0px 0px 20px white;
 }
 
-.table input,
-.hname input {
-  width: -webkit-fill-available;
-  font-size: 24px;
-  font-family: "Bebas Nue";
+.walls,
+.tables {
+  width: 100%;
+  height: 550px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  position: relative;
+  background: var(--surface);
+  overflow: hidden;
+}
+
+.yar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: var(--accent);
+  padding: 4px 18px 4px 28px;
+  clip-path: polygon(12% 0, 100% 0, 100% 100%, 0 100%);
+  z-index: 10;
+}
+.yar h2 {
+  font-family: var(--mono);
+  font-size: 20px;
+  color: #000;
   font-style: italic;
-  position: absolute;
-  text-align: center;
-  background: #ffffff;
-  border: none;
-  padding: 5px;
+  font-weight: 400;
 }
 
-.hname input {
-  margin-left: 10%;
-  margin-right: 10%;
-  padding: 10px;
-  font-size: 40px;
-  background: unset;
-  border: 2px solid rgba(255, 255, 255, 0.781);
-  border-radius: 5px;
-  color: white;
-}
-
-.gs {
-  padding-left: 1%;
-  padding-right: 1.5%;
-}
-
-.gs i {
-  float: unset !important;
-  margin-right: unset !important;
-  line-height: unset !important;
-}
-
-.hname {
-  z-index: 1000;
-  width: 60%;
-  height: 300px;
-  border-radius: 5px;
-  position: absolute;
-  background: #000000f1;
-  box-shadow: 0px 0px 18px 1px black;
-  border: 2px solid #ffffffad;
-}
-
+/* Carousel scrl */
 .scrl {
   position: absolute;
-  top: 60%;
+  top: 55%;
   left: 50%;
   transform: translate(-50%, -50%);
   user-select: none;
 }
-
 .scrl .wall {
   position: absolute;
   top: 50%;
@@ -692,31 +816,27 @@ w {
   height: 400px;
   border-radius: 50%;
   overflow: hidden;
-  transition: all 300ms ease-in-out;
+  transition: all 300ms var(--ease);
   z-index: -1;
 }
-
 .wall {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
-
 .wall.active {
   opacity: 1;
   z-index: 99;
-  box-shadow: 0px 0px 105px -35px rgba(0, 0, 0, 0.75);
+  box-shadow: 0 0 60px rgba(200, 240, 77, 0.15);
 }
-
 .wall.prev {
   z-index: 2;
-  opacity: 0.25;
+  opacity: 0.2;
   transform: translate(-125%, -50%);
 }
-
 .wall.next {
   z-index: 2;
-  opacity: 0.25;
+  opacity: 0.2;
   transform: translate(25%, -50%);
 }
 
@@ -725,139 +845,138 @@ w {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 400px;
+  width: 360px;
   z-index: 100;
 }
-
 .button-container .button {
   color: #fff;
-  font-size: 32px;
+  font-size: 28px;
   cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.2s;
   position: relative;
-  opacity: 0.75;
-  transition: all 300ms ease-in-out;
 }
-
 .button-container .button:hover {
   opacity: 1;
 }
-
-.button-container .button:before {
+.button-container .button::before {
   content: "";
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 50px;
-  height: 50px;
-  background-color: rgba(0, 0, 0, 1);
+  width: 44px;
+  height: 44px;
+  background: rgba(0, 0, 0, 0.8);
   border-radius: 50%;
-  z-index: -99;
+  z-index: -1;
 }
-
 .button-container .button:nth-child(1) {
   float: left;
 }
-
 .button-container .button:nth-child(2) {
   float: right;
 }
 
-.housesMain {
-  font-family: "Bebas Nue";
-  position: absolute;
+/* Tables scrl2 */
+.scrl2 {
   display: flex;
-  flex-direction: column;
-  gap: 2vh;
-  top: 50%;
-  left: 50%;
-  width: 70vw;
-  height: 60vh;
-  background-color: #0f0f0f;
-  transform: translate(-50%, -50%);
-  padding: 2vw;
-  border-radius: 1vw;
-  color: whitesmoke;
+  flex-wrap: wrap;
+  gap: 14px;
+  padding: 60px 20px 20px;
   overflow-y: auto;
+  height: 100%;
 }
 
-.pageHouses {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1vw;
-}
-
-.housecard {
+.table {
+  width: 240px;
+  height: 200px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  float: left;
   position: relative;
-  width: 16vw;
-  /* height: 40vh; */
-  border: 1px solid white;
-  border-radius: 1vw;
+  transition: border-color 0.2s;
+}
+.table:hover {
+  border-color: var(--border-hi);
 }
 
-.housecard .title {
-  text-align: center;
-  font-size: 1.5vw;
-}
-
-.housecard ul {
-  font-size: 0.9vw;
-}
-
-.starscard {
-  padding-left: 1vw;
+.table input {
   width: 100%;
-}
-
-.housecard img {
-  width: 100%;
-  height: 20vh;
-  border-top-left-radius: 1vw;
-  border-top-right-radius: 1vw;
-}
-
-.housecard .loc {
-  display: flex;
-  gap: 0.3vw;
-  align-items: center;
+  position: absolute;
+  top: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(4px);
   border: none;
-  cursor: pointer;
-  padding: 0.6vw;
-  width: 7vw;
-  margin: 1vw auto;
-  font-family: "Bebas Nue";
-  font-size: 1vw;
-  font-weight: 700;
-  background-color: rgb(96, 255, 96);
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 12px;
+  padding: 8px 12px;
+  outline: none;
+}
+.table input::placeholder {
+  color: var(--muted);
 }
 
-.housecard .loc:hover {
-  background-color: rgb(48, 150, 48);
+.table a {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.8);
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 10px;
+  transition: background 0.2s;
+}
+.table a:hover {
+  background: var(--accent);
+  color: #000;
 }
 
-.pagination {
-  display: flex;
-  flex-wrap: wrap;
-  width: 68vw;
-  gap: 0.3vw;
-  justify-content: center;
+/* ─────────────────────────────────────────
+   LOADING
+───────────────────────────────────────── */
+.loading {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px;
+}
+.spin-anim {
+  width: 40px;
+  height: 40px;
+  animation: spin 1.2s linear infinite;
+  opacity: 0.6;
+  filter: invert(1);
+}
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
-.pagination div {
-  padding: 0.5vw;
-  border-radius: 0.1vw;
-  font-size: 1vw;
+/* ─────────────────────────────────────────
+   SCROLLBAR
+───────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 5px;
 }
-
-.page {
-  cursor: pointer;
-  background-color: #1c8e44;
+::-webkit-scrollbar-track {
+  background: transparent;
 }
-
-.pagination .page:hover {
-  background-color: #145c2d;
+::-webkit-scrollbar-thumb {
+  background: #2a2a2a;
+  border-radius: 10px;
 }
-
-.selectedPage {
-  background-color: #4d4d4d;
+::-webkit-scrollbar-thumb:hover {
+  background: #444;
 }

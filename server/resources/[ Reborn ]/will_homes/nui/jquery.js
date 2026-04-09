@@ -106,17 +106,23 @@ __housePainel__ = (quantity) => {
 __addHousePainel__ = (x, index) => {
   $(".pageHouses").append(`
     <div class="housecard">
-      <img src="./interiors/${x.photo || x.theme}.png" alt="${x.theme}" />
-      <div class="title">${x.name}</div>
-      <ul>
-        <li>${formatPrice(x.price)}</li>
-        <li>${x.garage ? "Possui garagem" : "Não possui garagem"}</li>
-      </ul>
-      <div class="starscard-${index}"></div>
-      <button class="loc" onclick="setLocation('${index}')">
-        <img src="./svg/location.svg" alt="" style="width: 1vw;height: 2vh;" />
-        <span>Localização</span>
-      </button>
+      <div class="housecard__img">
+        <img src="./interiors/${x.photo || x.theme}.png" alt="${x.theme}" />
+        <span class="housecard__badge">Nº ${index}</span>
+      </div>
+      <div class="housecard__body">
+        <div class="housecard__top">
+          <span class="housecard__title">${x.name}</span>
+          <div class="starscard-${index}"></div>
+        </div>
+        <div class="housecard__details">
+          <span><i class="fas fa-tag"></i> ${formatPrice(x.price)}</span>
+          <span><i class="fas fa-car"></i> ${x.garage ? "Possui garagem" : "Não possui garagem"}</span>
+        </div>
+        <button class="loc" onclick="setLocation('${index}')">
+          <i class="fas fa-location-dot"></i> Localização
+        </button>
+      </div>
     </div>
   `);
   for (let i = 0; i < x.stars; i++) {
@@ -136,7 +142,6 @@ __addHousePainel__ = (x, index) => {
 __init__ = (x) => {
   house = x.house;
   $(".container").show("fade");
-  $(".bg").show("fade");
   $(".buy").show("fade");
   $("#h_sell").css("display", "block");
   $("#h_transfer").css("display", "block");
@@ -447,7 +452,6 @@ _c_ = () => {
   $(".container").hide("fade");
   $(".manage").hide("fade");
   $(".buy").hide("fade");
-  $(".bg").hide("fade");
   $(".sellmodal").hide("fade");
   $(".friends").hide("fade");
   setTimeout(() => {
@@ -490,7 +494,9 @@ __manage__ = (x) => {
   $(".scrl").html("");
   $.each(x.theme, function (i, v) {
     $(".scrl").append(
-      `<div class="wall" style="background: url(./interiors/${i}.png);background-size: cover;"><a data-info="theme" data-theme="${i}" href="#">Selecionar</a></div>`,
+      `<div class="wall" style="background: url(./interiors/${i}.png);background-size: cover;">
+        <a data-info="theme" data-theme="${i}" href="#">Selecionar</a>
+      </div>`,
     );
   });
   $(".scrl").append(`

@@ -444,3 +444,64 @@ end)
 exports("Apartments",function ()
     return Config.Aparts
 end)
+
+
+local MAXPERPAGE = 40
+local PAINEL_INIT = vector3(338.05,-776.79,29.27)
+
+CreateThread(function ()
+    local blip = AddBlipForCoord(PAINEL_INIT)
+    SetBlipSprite(blip,414)
+    SetBlipAsShortRange(blip,true)
+    SetBlipColour(blip,47)
+    SetBlipScale(blip,0.5)
+    BeginTextCommandSetBlipName("STRING")
+    AddTextComponentString("Imobiliária")
+    EndTextCommandSetBlipName(blip)
+    while true do
+        local timeDistance = 500
+        local ped = PlayerPedId()
+        local coords = GetEntityCoords(ped)
+        local painelHousesCds = PAINEL_INIT
+        local distance = #(coords - painelHousesCds)
+        if distance <= 2.0 then
+            timeDistance = 1
+            DrawBase3D(painelHousesCds.x,painelHousesCds.y,painelHousesCds.z,"homes")
+            if IsControlJustPressed(1,38) then
+                SendNUIMessage({ action = "openHousePainel", quantity = math.ceil(#Houses/MAXPERPAGE) })
+                SetNuiFocus(true,true)
+            end
+        end
+		Wait(timeDistance)
+    end
+end)
+
+RegisterNuiCallback("requestHouses",function (data,cb)
+    local pagination = data.pagination
+    local maxHouses = pagination * MAXPERPAGE
+    local minHouses = maxHouses - MAXPERPAGE
+    local houses = {}
+    for k,v in pairs(Houses) do
+        if k > minHouses and k <= maxHouses then
+            v.index = k
+            houses[#houses + 1] = v
+        end
+    end
+    cb({ houses = houses })
+end)
+
+RegisterNuiCallback("setLocation",function (data)
+    if tonumber(data.index) and Houses[tonumber(data.index)] then
+        local coords = Houses[tonumber(data.index)].coords.house_in
+        SetNewWaypoint(coords.x,coords.y)
+        TriggerEvent("Notify","sucesso","Localização marcada.",5000)
+    end
+end)
+
+exports("MarkProperty",function (id)
+    if Houses[id] then
+        local coords = Houses[id].coords.house_in
+        SetNewWaypoint(coords.x,coords.y)
+        TriggerEvent("Notify","sucesso","Localização marcada.",5000)
+    end
+end)

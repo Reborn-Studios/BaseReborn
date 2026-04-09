@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -6,116 +6,154 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Homes</title>
     <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap"
+      rel="stylesheet"
+    />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
     <link
       rel="stylesheet"
-      href="https://cdn.jsdelivr.net/gh/hung1001/font-awesome-pro-v6@18657a9/css/all.min.css"
-    />
-    <script
-      src="https://kit.fontawesome.com/2b79ea4689.js"
-      crossorigin="anonymous"
-    ></script>
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
   </head>
   <body>
     <div class="housesMain" style="display: none">
+      <div class="housesHeader">
+        <h2>Imóveis</h2>
+        <span class="housesCount">2 disponíveis</span>
+      </div>
       <div class="pageHouses">
         <div class="housecard">
-          <img src="./interiors/apartment1.png" alt="apartment1" />
-          <div class="title">Hotel033</div>
-          <ul>
-            <li>Preço: R$550.000,00</li>
-            <li>Possui garagem: Sim</li>
-          </ul>
-          <div class="starscard">
-            <i class="fas fa-star star"></i><i class="fas fa-star star"></i
-            ><i class="fas fa-star star"></i><i class="fas fa-star nostar"></i
-            ><i class="fas fa-star nostar"></i>
+          <div class="housecard__img">
+            <img src="./interiors/apartment1.png" alt="apartment1" />
+            <span class="housecard__badge">Nº 033</span>
           </div>
-          <button class="loc">
-            <img src="./svg/location.svg" alt="" />
-            <span>Localização</span>
-          </button>
+          <div class="housecard__body">
+            <div class="housecard__top">
+              <span class="housecard__title">Hotel033</span>
+              <div class="starscard">
+                <i class="fas fa-star star"></i><i class="fas fa-star star"></i
+                ><i class="fas fa-star star"></i
+                ><i class="fas fa-star nostar"></i
+                ><i class="fas fa-star nostar"></i>
+              </div>
+            </div>
+            <div class="housecard__details">
+              <span><i class="fas fa-tag"></i> R$550.000</span>
+              <span><i class="fas fa-car"></i> Garagem</span>
+            </div>
+            <button class="loc">
+              <i class="fas fa-location-dot"></i> Localização
+            </button>
+          </div>
         </div>
         <div class="housecard">
-          <img src="./interiors/apartment2.png" alt="apartment1" />
-          <div class="title">Hotel033</div>
-          <ul>
-            <li>Preço: R$550.000,00</li>
-            <li>Possui garagem: Sim</li>
-          </ul>
-          <div class="starscard">
-            <i class="fas fa-star star"></i><i class="fas fa-star star"></i
-            ><i class="fas fa-star star"></i><i class="fas fa-star nostar"></i
-            ><i class="fas fa-star nostar"></i>
+          <div class="housecard__img">
+            <img src="./interiors/apartment2.png" alt="apartment2" />
+            <span class="housecard__badge">Nº 034</span>
+          </div>
+          <div class="housecard__body">
+            <div class="housecard__top">
+              <span class="housecard__title">Hotel034</span>
+              <div class="starscard">
+                <i class="fas fa-star star"></i><i class="fas fa-star star"></i
+                ><i class="fas fa-star star"></i
+                ><i class="fas fa-star nostar"></i
+                ><i class="fas fa-star nostar"></i>
+              </div>
+            </div>
+            <div class="housecard__details">
+              <span><i class="fas fa-tag"></i> R$550.000</span>
+              <span><i class="fas fa-car"></i> Garagem</span>
+            </div>
           </div>
         </div>
       </div>
       <div class="pagination"></div>
     </div>
     <div class="container" style="display: none">
-      <div class="bg" style="display: none"></div>
       <div class="buy center" style="display: none">
-        <div class="evb">
-          <span id="h_no">512</span>
-        </div>
-        <div class="ev"></div>
-        <div class="house_info">
-          <div class="info_background">
-            <span>Dono</span>
-            <h1 id="h_who">Ninguem</h1>
+        <div class="buy__number"><span id="h_no">512</span></div>
+        <div class="buy__preview">
+          <div class="ev"></div>
+          <div class="stars">
+            <i class="fas fa-star star"></i><i class="fas fa-star star"></i
+            ><i class="fas fa-star nostar"></i><i class="fas fa-star nostar"></i
+            ><i class="fas fa-star nostar"></i>
           </div>
-          <div>
-            <div class="info_background" style="margin-right: 42px">
+        </div>
+        <div class="house_info">
+          <div class="info_row">
+            <div class="info_block">
+              <span>Dono</span>
+              <h1 id="h_who">Ninguem</h1>
+            </div>
+          </div>
+          <div class="info_row info_row--double">
+            <div class="info_block">
               <span>Seguro</span>
               <h1 id="info_tax">7 Dias</h1>
             </div>
-            <div class="info_background">
+            <div class="info_block">
               <span>Garagem</span>
-              <h1 id="h_gp" style="font-size: 34px">Disponível</h1>
+              <h1 id="h_gp">Disponível</h1>
             </div>
           </div>
-          <div class="info_background">
-            <span style="display: none">Valor</span>
-            <h1 id="h_price">R$500,000</h1>
+          <div class="info_block info_block--price">
+            <h1 id="h_price">R$500.000</h1>
           </div>
           <div class="buttons">
-            <a href="#" data-info="home" class="enterHome"
-              ><i class="fas fa-solid fa-door-open"></i> Entrar</a
+            <a href="#" data-info="home" class="enterHome btn btn--blue"
+              ><i class="fas fa-door-open"></i> Entrar</a
             >
-            <a href="#" id="h_friends" data-info="friends"
+            <a href="#" id="h_friends" data-info="friends" class="btn btn--blue"
               ><i class="fa-solid fa-user-group"></i> Amigos</a
             >
           </div>
         </div>
         <div class="infos">
-          <a href="#" id="h_buy" data-info="buy-house">COMPRAR A CASA</a>
-          <a href="#" id="h_visit" data-info="visit-house">VISITAR</a>
-          <a href="#" id="h_sell" data-info="sell-house">VENDER A CASA</a>
-          <a href="#" id="h_transfer" data-info="transfer-house"
-            >TRANSFERIR A CASA</a
+          <a
+            href="#"
+            id="h_buy"
+            data-info="buy-house"
+            class="infos__btn infos__btn--primary"
+            >Comprar</a
           >
-        </div>
-        <div class="stars">
-          <i class="fas fa-star star"></i><i class="fas fa-star star"></i
-          ><i class="fas fa-star nostar"></i><i class="fas fa-star nostar"></i
-          ><i class="fas fa-star nostar"></i>
+          <a href="#" id="h_visit" data-info="visit-house" class="infos__btn"
+            >Visitar</a
+          >
+          <a href="#" id="h_sell" data-info="sell-house" class="infos__btn"
+            >Vender</a
+          >
+          <a
+            href="#"
+            id="h_transfer"
+            data-info="transfer-house"
+            class="infos__btn"
+            >Transferir</a
+          >
         </div>
       </div>
       <div class="modal center" style="display: none">
-        <a href="#" data-info="with-cash">Comprar com dinheiro</a>
-        <a href="#" data-info="with-gems">Comprar com gemas</a>
-        <a href="#" data-info="close-modal">Voltar</a>
+        <p class="modal__label">Selecione o método</p>
+        <a href="#" data-info="with-cash" class="modal__btn"
+          ><i class="fas fa-money-bill"></i> Dinheiro</a
+        >
+        <a href="#" data-info="with-gems" class="modal__btn"
+          ><i class="fas fa-gem"></i> Gemas</a
+        >
+        <a href="#" data-info="close-modal" class="modal__btn modal__btn--ghost"
+          >Voltar</a
+        >
       </div>
       <div class="friends center" style="display: none">
-        <h1>Quem pode usar <b>sua casa</b></h1>
+        <h1>Acesso à <em>sua casa</em></h1>
         <div class="ic center">
           <div class="players">
-            <h1>Pessoas por perto</h1>
+            <h1>Por perto</h1>
             <div class="plylst" id="all"></div>
           </div>
           <div class="players">
@@ -124,53 +162,46 @@
           </div>
         </div>
         <a href="#" class="xcd" data-info="close-and-save"
-          ><i class="fal fa-chevron-left"></i>Voltar</a
+          ><i class="fas fa-chevron-left"></i> Voltar</a
         >
       </div>
       <div class="sellmodal center" style="display: none">
-        <div class="center">
-          <h1>Valor:<br /><y id="h_sell_price"></y></h1>
-          <a href="#" data-info="sell-with-money">Vender</a>
-          <a href="#" data-info="close-modal">Voltar</a>
-        </div>
+        <p class="modal__label">Valor de venda</p>
+        <h1><y id="h_sell_price"></y></h1>
+        <a href="#" data-info="sell-with-money" class="modal__btn"
+          >Confirmar venda</a
+        >
+        <a href="#" data-info="close-modal" class="modal__btn modal__btn--ghost"
+          >Cancelar</a
+        >
       </div>
       <div class="transfermodal center" style="display: none">
-        <div class="center">
-          <h1>Transferir casa</h1>
-          <input type="text" id="transfer-user" placeholder="Passaporte..." />
-          <a href="#" data-info="transfer-home">Transferir</a>
-          <a href="#" data-info="close-modal">Voltar</a>
-        </div>
+        <p class="modal__label">Transferir casa</p>
+        <input type="text" id="transfer-user" placeholder="Passaporte..." />
+        <a href="#" data-info="transfer-home" class="modal__btn">Transferir</a>
+        <a href="#" data-info="close-modal" class="modal__btn modal__btn--ghost"
+          >Cancelar</a
+        >
       </div>
       <div class="manage center" style="display: none">
         <div class="icgm center">
           <div style="position: relative">
-            <h1>
-              <w>GERENCIAR</w> SUA CASA
-              <div class="sag_">
-                <w
-                  class="w"
-                  style="position: relative; cursor: pointer"
-                  data-info="walls_"
-                  >Paredes</w
-                >
-                <w
-                  class="w"
-                  style="position: relative; cursor: pointer"
-                  data-info="tables_"
-                  >Paineis</w
-                >
+            <div class="manage__header">
+              <h1>Gerenciar <em>Casa</em></h1>
+              <div class="manage__tabs">
+                <w class="w tab active" data-info="walls_">Paredes</w>
+                <w class="w tab" data-info="tables_">Painéis</w>
               </div>
-              <w class="w" data-info="close_"
+              <w class="w close-btn" data-info="close_"
                 ><i class="fa-regular fa-xmark"></i
               ></w>
-            </h1>
+            </div>
             <div class="walls">
               <div class="yar"><h2>Paredes</h2></div>
               <div class="scrl"></div>
             </div>
             <div class="tables" style="display: none">
-              <div class="yar"><h2>Paineis</h2></div>
+              <div class="yar"><h2>Painéis</h2></div>
               <div class="scrl2">
                 <div
                   class="table"
@@ -179,7 +210,7 @@
                     background-size: cover;
                   "
                 >
-                  <input type="text" placeholder="Coloque a url" id="u_1" />
+                  <input type="text" placeholder="URL da imagem" id="u_1" />
                   <a data-info="table" data-theme="1" href="#">Alterar</a>
                 </div>
                 <div
@@ -189,7 +220,7 @@
                     background-size: cover;
                   "
                 >
-                  <input type="text" placeholder="Coloque a url" id="u_2" />
+                  <input type="text" placeholder="URL da imagem" id="u_2" />
                   <a data-info="table" data-theme="2" href="#">Alterar</a>
                 </div>
               </div>
