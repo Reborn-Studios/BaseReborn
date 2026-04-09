@@ -5,6 +5,11 @@ local Blip = nil
 local Objects = {}
 local Active = false
 local FxAsset = "scr_indep_fireworks"
+
+AddRelationshipGroup('GuardPeds')
+SetRelationshipBetweenGroups(0, GetHashKey("GuardPeds"), GetHashKey("GuardPeds"))
+SetRelationshipBetweenGroups(5, GetHashKey("GuardPeds"), GetHashKey("PLAYER"))
+SetRelationshipBetweenGroups(5, GetHashKey("PLAYER"), GetHashKey("GuardPeds"))
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- SYSTEM
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -24,6 +29,31 @@ CreateThread(function()
 						FreezeEntityPosition(Objects[Number],true)
 						SetEntityLodDist(Objects[Number],0xFFFF)
 						SetEntityHeading(Objects[Number],v[2])
+
+						SetPedRelationshipGroupHash(Ped, GetHashKey('PLAYER'))
+
+						local model = "s_m_y_blackops_01"
+						LoadModel(model)
+						local guardPeds = CreatePed(26, GetHashKey(model),v[1], true, true)
+						NetworkRegisterEntityAsNetworked(guardPeds)
+						local networkID = NetworkGetNetworkIdFromEntity(guardPeds)
+						SetNetworkIdCanMigrate(networkID, true)
+						SetNetworkIdExistsOnAllMachines(networkID, true)
+						SetPedRandomComponentVariation(guardPeds, 0)
+						SetPedRandomProps(guardPeds)
+						SetEntityAsMissionEntity(guardPeds, false, false)
+						SetEntityVisible(guardPeds, true, false)
+						SetPedRelationshipGroupHash(guardPeds, GetHashKey("GuardPeds"))
+						SetPedAccuracy(guardPeds, 50)
+						SetPedArmour(guardPeds, 100)
+						SetPedCanSwitchWeapon(guardPeds, true)
+						SetPedDropsWeaponsWhenDead(guardPeds, false)
+						SetPedFleeAttributes(guardPeds, 0, false)
+						GiveWeaponToPed(guardPeds, GetHashKey('WEAPON_PISTOL'), 255, false, false)
+						local random = math.random(1, 2)
+						if random == 2 then
+							TaskGuardCurrentPosition(guardPeds, 10.0, 10.0, 1)
+						end
 
 						if Number ~= "1" then
 							exports["target"]:AddBoxZone("Helicrash:"..Number,v[1],1.25,2.0,{
