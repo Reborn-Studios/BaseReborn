@@ -1,1 +1,337 @@
-function _0xc4e7(_0x427f5f,_0x37405c){const _0x55096f=_0x5509();return _0xc4e7=function(_0xc4e70b,_0x5ca618){_0xc4e70b=_0xc4e70b-0x98;let _0x4b6e31=_0x55096f[_0xc4e70b];return _0x4b6e31;},_0xc4e7(_0x427f5f,_0x37405c);}const _0x1e3939=_0xc4e7;(function(_0x1b0b39,_0x1e900f){const _0x4a5ae9=_0xc4e7,_0x57468b=_0x1b0b39();while(!![]){try{const _0x42e170=parseInt(_0x4a5ae9(0xed))/0x1*(-parseInt(_0x4a5ae9(0xe3))/0x2)+-parseInt(_0x4a5ae9(0xa8))/0x3+-parseInt(_0x4a5ae9(0xa4))/0x4*(parseInt(_0x4a5ae9(0xd3))/0x5)+-parseInt(_0x4a5ae9(0xf0))/0x6*(-parseInt(_0x4a5ae9(0xad))/0x7)+-parseInt(_0x4a5ae9(0xe2))/0x8+-parseInt(_0x4a5ae9(0xbe))/0x9*(-parseInt(_0x4a5ae9(0xb5))/0xa)+parseInt(_0x4a5ae9(0xbd))/0xb;if(_0x42e170===_0x1e900f)break;else _0x57468b['push'](_0x57468b['shift']());}catch(_0x20f5b3){_0x57468b['push'](_0x57468b['shift']());}}}(_0x5509,0x2ed51));function _0x5509(){const _0x526126=['body','.png','1210048MaFWad','426ytzYIT','.itemsBackground','#rewards','<button\x20onclick=\x22ClaimReward()\x22\x20id=\x22battlepass-claim\x22>RESGATAR</button>','<br/>',')\x20center\x20center\x20no-repeat;background-size:cover;background-origin:content-box;\x22></div>\x0a\x09\x09\x09\x09<div\x20id=\x22battlepass-reward-title\x22>','hide','rewards','\x0a\x09\x09\x09<td>\x0a\x09\x09\x09\x09<div\x20id=\x22lootbox-not-available\x22>\x0a\x09\x09\x09\x09\x09INDISPONIVEL<br/>COM\x20COINS\x0a\x09\x09\x09\x09</div>\x0a\x09\x09\x09\x09<button\x20id=\x22lootbox-not-available-open\x22>COMPRAR</button>\x0a\x09\x09\x09</td>','%\x22></div></div>','537kfmzLI','%\x20x','</span>\x20/\x20<span\x20id=\x22exp-goal\x22>','6yINSzH','./images/lootbox.png','<div\x20id=\x22battlepass-inprogress\x22\x20class=\x22w3-border\x22>EM\x20PROGRESSO\x20<div\x20class=\x22w3-red\x22\x20style=\x22width:','\x0a\x09\x09\x09\x09','desc','</span><br/>\x0a\x09\x09\x09<span\x20id=\x22exp-progress-desc\x22>XP\x20ATUAL</span>\x0a\x09\x09\x09</td>\x0a\x09\x09\x09<td><center><div\x20id=\x22levelbar\x22></div></center></td>\x0a\x09\x09</tr>\x0a\x09\x09</table>\x0a\x09\x09<script>\x0a\x09\x09var\x20bar\x20=\x20new\x20ProgressBar.Circle(levelbar,\x20{\x0a\x09\x09\x20\x20strokeWidth:\x2010,\x0a\x09\x09\x20\x20color:\x20\x27rgba(255,255,255,0.1)\x27,\x0a\x09\x09\x20\x20trailColor:\x20\x27rgba(255,255,255,0.2)\x27,\x0a\x09\x09\x20\x20trailWidth:\x201,\x0a\x09\x09\x20\x20easing:\x20\x27easeInOut\x27,\x0a\x09\x09\x20\x20duration:\x202000,\x0a\x09\x09\x20\x20svgStyle:\x20null,\x0a\x09\x09\x20\x20text:\x20{\x0a\x09\x09\x09value:\x20\x27\x27,\x0a\x09\x09\x09alignToBottom:\x20false\x0a\x09\x09\x20\x20},\x0a\x09\x09\x20\x20\x0a\x09\x09\x20\x20//\x20Set\x20default\x20step\x20function\x20for\x20all\x20animate\x20calls\x0a\x09\x09\x20\x20step:\x20(state,\x20bar)\x20=>\x20{\x0a\x09\x09\x09bar.path.setAttribute(\x27stroke\x27,\x20state.color);\x0a\x09\x09\x09var\x20value\x20=\x20Math.round(bar.value()\x20*\x20100);\x0a\x09\x09\x09bar.setText(\x22<span\x20id=\x27level-circle\x27>','luck','\x0a\x09\x09\x09</div>\x0a\x09\x09\x09<div\x20id=\x22unique\x22>UNIQUE</div>\x0a\x09\x09\x09<div\x20id=\x22lootbox-img\x22\x20style=\x22background:url(','reward','box','click','addEventListener','#exp-progress','\x0a\x09\x09\x09</div>\x0a\x09\x09</div>','lootboxes','level','append','./images/','<img\x20src=','remove',',\x20false)\x22\x20id=\x22lootbox-money-open\x22>COMPRAR</button>\x0a\x09\x09\x09</td>','item','<div\x20id=\x22battlepass-done\x22><i\x20class=\x22fas\x20fa-check\x22></i>FINALIZADO</div>','<div\x20id=\x22battlepass-accomp\x22>CONQUISTA</div>','#btn-buy-level','moneyPrice','each','nextLevelEta','1164NFtSAr','\x0a\x09\x09\x09\x09<div\x20id=\x22battlepass-reward-img\x22\x20style=\x22background:url(','Escape','enable','198219HYAfPI','maxXp','name','\x0a\x09<div\x20id=\x22exp-progress\x22>\x0a\x09\x09<table>\x0a\x09\x09<tr>\x0a\x09\x09\x09<td>\x0a\x09\x09\x09<span\x20id=\x22exp-current\x22>','</span><br/><span\x20id=\x27level-circle-desc\x27>NIVEL</span>\x22);\x0a\x09\x09\x09bar.text.style.color\x20=\x20state.color;\x0a\x09\x09\x20\x20}\x0a\x09\x09});\x0a\x09\x09\x0a\x09\x09bar.animate(','83797FbMbHW','</div>','length','\x0a\x09\x09\x09<td>\x0a\x09\x09\x09\x09<div\x20id=\x22lootbox-not-available\x22>\x0a\x09\x09\x09\x09\x09INDISPONIVEL<br/>COM\x20DINHEIRO\x0a\x09\x09\x09\x09</div>\x0a\x09\x09\x09\x09<button\x20id=\x22lootbox-not-available-open\x22>COMPRAR</button>\x0a\x09\x09\x09</td>','title','https://will_battlepass/reward','stringify','floor','737650AZWOmC','\x20minuto(s)',',\x20true)\x22\x20id=\x22lootbox-coins-open\x22>COMPRAR</button>\x0a\x09\x09\x09</td>','css','<span\x20class=\x22tooltiptext\x22>','#wrap','fadeOut','#lootboxes','5832145kvEnGH','18fXYhQQ','https://will_battlepass/quit','amount','</div>\x0a\x09\x09\x09\x09<div\x20id=\x22battlepass-reward-desc\x22>','\x0a\x09\x09\x09<td>\x0a\x09\x09\x09\x09<div\x20id=\x22lootbox-coins\x22>\x0a\x09\x09\x09\x09\x09COINS:<br/>\x0a\x09\x09\x09\x09\x09<span\x20id=\x22lootbox-coins-price\x22><i\x20class=\x22fas\x20fa-coins\x22></i>\x20','</span>\x0a\x09\x09\x09\x09</div>\x0a\x09\x09\x09\x09<button\x20onclick=\x22BuyLootbox(','fadeIn','type','transparent','<div\x20id=\x22lootbox-block\x22>\x0a\x09\x09\x09<div\x20id=\x22lootbox-drops\x22>\x0a\x09\x09\x09\x09<i\x20class=\x22fas\x20fa-info\x22></i>\x20DROPS\x0a\x09\x09\x09\x09','\x0a\x09\x09\x09<td>\x0a\x09\x09\x09\x09<div\x20id=\x22lootbox-money\x22>\x0a\x09\x09\x09\x09\x09PREÇO:<br/>\x0a\x09\x09\x09\x09\x09<span\x20id=\x22lootbox-money-price\x22>$','background','.bxItems','https://will_battlepass/buy_lootbox','</span>','lootboxes_re','label','#before-get-exp-time','key','html','coinPrice','2855wPCdvs','imgDirect','<div\x20class=\x22itemsBackground\x22><div\x20class=\x22bxItems\x22></div></div>','\x20/\x20100);\x0a\x09\x09\x0a\x09\x09</script>\x0a\x09</div>','./images','https://will_battlepass/buy_level','data','</div>\x0a\x09\x09\x09<table>\x0a\x09\x09\x09<tr>\x0a\x09\x09\x09\x09','post',')\x20center\x20center\x20no-repeat;background-size:cover;background-origin:content-box;\x22></div>\x0a\x09\x09\x09<div\x20id=\x22lootbox-title\x22>','.content-popup','\x20id=\x22itemPhoto\x22><div\x20id=\x22labelText\x22>','\x0a\x09\x09\x09</tr>\x0a\x09\x09\x09</table>\x0a\x09\x09</div>'];_0x5509=function(){return _0x526126;};return _0x5509();}let data=null,backgroundImg=_0x1e3939(0xd7),myReward;$(function(){const _0x4638fe=_0x1e3939;$(_0x4638fe(0xe0))[_0x4638fe(0xb8)](_0x4638fe(0xc9),_0x4638fe(0xc6)),window[_0x4638fe(0xfb)]('message',function(_0x3e1539){const _0xe3920=_0x4638fe;_0x3e1539['data'][_0xe3920(0xa7)]&&(data=_0x3e1539[_0xe3920(0xd9)][_0xe3920(0xd9)],SetupMenu(),$(_0xe3920(0xba))[_0xe3920(0xc4)](),data['imgDirect']&&data[_0xe3920(0xd4)]!==''&&(backgroundImg=data[_0xe3920(0xd4)])),_0x3e1539[_0xe3920(0xd9)]['openLootbox']&&sortLootbox(_0x3e1539[_0xe3920(0xd9)][_0xe3920(0xf9)]),_0x3e1539[_0xe3920(0xd9)][_0xe3920(0xf8)]&&(myReward=_0x3e1539[_0xe3920(0xd9)]['reward']);}),$(_0x4638fe(0xa0))[_0x4638fe(0xfa)](function(){const _0x32b17c=_0x4638fe;$(_0x32b17c(0xdd))[_0x32b17c(0xc4)](0x2bc);}),$('.confirm-buy')[_0x4638fe(0xfa)](function(){const _0x2bed18=_0x4638fe;$(_0x2bed18(0xdd))[_0x2bed18(0xe9)](),$(_0x2bed18(0xba))[_0x2bed18(0xbb)](),$[_0x2bed18(0xdb)](_0x2bed18(0xd8),JSON['stringify']({}));}),$('.closeBtn')[_0x4638fe(0xfa)](function(){const _0x4e6964=_0x4638fe;$(_0x4e6964(0xdd))[_0x4e6964(0xbb)](0xc8);}),document['onkeyup']=function(_0x5aed45){const _0x2c5df3=_0x4638fe;_0x5aed45[_0x2c5df3(0xd0)]==_0x2c5df3(0xa6)&&($('.content-popup')[_0x2c5df3(0xe9)](),$(_0x2c5df3(0xba))[_0x2c5df3(0xe9)](),$[_0x2c5df3(0xdb)](_0x2c5df3(0xbf),JSON[_0x2c5df3(0xb3)]({})));};});function SetupMenu(){const _0x30b609=_0x1e3939;GenerateProgress(),GenerateRewards(),GenerateLootboxes(),data[_0x30b609(0xa3)]!=0x0?$(_0x30b609(0xcf))['html'](data[_0x30b609(0xa3)]+_0x30b609(0xb6)):$(_0x30b609(0xcf))[_0x30b609(0xd1)]('RESGATAR\x20SUA\x20RECOMPENSA');}function ClaimReward(){const _0x12477=_0x1e3939;$(_0x12477(0xba))[_0x12477(0xe9)](),$[_0x12477(0xdb)](_0x12477(0xb2),JSON['stringify']({}));}function BuyLootbox(_0x2025c4,_0x3f789b){const _0x29f25e=_0x1e3939;$(_0x29f25e(0xba))[_0x29f25e(0xe9)](),$[_0x29f25e(0xdb)](_0x29f25e(0xcb),JSON[_0x29f25e(0xb3)]({'id':_0x2025c4,'useCoin':_0x3f789b}));}function GenerateProgress(){const _0x17bced=_0x1e3939;let _0x505cbf=Math[_0x17bced(0xb4)](data['xp']/data[_0x17bced(0xa9)]*0x64);$(_0x17bced(0xfc))[_0x17bced(0xd1)](_0x17bced(0xab)+data['xp']+_0x17bced(0xef)+data[_0x17bced(0xa9)]+_0x17bced(0xf5)+data[_0x17bced(0xff)]+_0x17bced(0xac)+_0x505cbf+_0x17bced(0xd6));}function GenerateRewards(){const _0x41d57d=_0x1e3939;let _0x17a21c='';for(let _0x23aa49=0x0;_0x23aa49<data[_0x41d57d(0xea)][_0x41d57d(0xaf)];_0x23aa49++){let _0x568985,_0x50991c,_0x15eb02=_0x23aa49+0x1;_0x23aa49%0x5==0x0&&(data['level']>=_0x15eb02&&data[_0x41d57d(0xff)]<_0x15eb02+0x5?_0x17a21c+='<div\x20class=\x22item\x20active\x22>':_0x17a21c+='<div\x20class=\x22item\x22>');if(data[_0x41d57d(0xff)]==_0x15eb02){let _0x361c27=Math[_0x41d57d(0xb4)](data['xp']/data[_0x41d57d(0xa9)]*0x64);_0x361c27==0x64?(_0x568985=_0x41d57d(0x9e),_0x50991c=_0x41d57d(0xe6)):(_0x568985=_0x41d57d(0x9f),_0x50991c=_0x41d57d(0xf2)+_0x361c27+_0x41d57d(0xec));}else{if(data[_0x41d57d(0xff)]<_0x15eb02)_0x568985='<div\x20id=\x22battlepass-waiting\x22>AGUARDE...</div>',_0x50991c='<div\x20id=\x22battlepass-received\x22>AGUARDE...</div>';else data['level']>_0x15eb02&&(_0x568985=_0x41d57d(0x9e),_0x50991c='<div\x20id=\x22battlepass-received\x22>ENTREGUE</div>');}let _0x1213e6=backgroundImg&&backgroundImg+'/'+data[_0x41d57d(0xea)][_0x23aa49][_0x41d57d(0x9d)]+_0x41d57d(0xe1)||_0x41d57d(0xf1);_0x17a21c+='\x0a\x09\x09<div\x20id=\x22battlepass-block\x22>\x0a\x09\x09\x09<div\x20id=\x22battlepass-level\x22>NIVEL\x20'+_0x15eb02+'</div>\x0a\x09\x09\x09<div\x20id=\x22battlepass-block-bg\x22>\x0a\x09\x09\x09\x09'+_0x568985+(_0x41d57d(0xa5)+_0x1213e6+_0x41d57d(0xe8))+data[_0x41d57d(0xea)][_0x23aa49][_0x41d57d(0xb1)]+_0x41d57d(0xc1)+data[_0x41d57d(0xea)][_0x23aa49][_0x41d57d(0xf4)]+'</div>\x0a\x09\x09\x09\x09'+_0x50991c+_0x41d57d(0xfd),_0x23aa49%0x5==0x4&&(_0x17a21c+=_0x41d57d(0xae));}$(_0x41d57d(0xe5))[_0x41d57d(0xd1)](_0x17a21c);}function GenerateLootboxes(){const _0x5633cf=_0x1e3939;$(_0x5633cf(0xbc))[_0x5633cf(0xd1)]('');for(let _0x118c77=0x0;_0x118c77<data['lootboxes'][_0x5633cf(0xaf)];_0x118c77++){let _0x4be9b9,_0x44c1d3,_0x51eac6=_0x118c77+0x1,_0x44989b=CreateTooltip(data[_0x5633cf(0xcd)][_0x118c77],data[_0x5633cf(0xfe)][_0x118c77][_0x5633cf(0xc5)]);data[_0x5633cf(0xfe)][_0x118c77][_0x5633cf(0xa1)]?_0x4be9b9=_0x5633cf(0xc8)+data[_0x5633cf(0xfe)][_0x118c77][_0x5633cf(0xa1)]+_0x5633cf(0xc3)+_0x51eac6+_0x5633cf(0x9c):_0x4be9b9=_0x5633cf(0xb0);data['lootboxes'][_0x118c77][_0x5633cf(0xd2)]?_0x44c1d3=_0x5633cf(0xc2)+data[_0x5633cf(0xfe)][_0x118c77][_0x5633cf(0xd2)]+_0x5633cf(0xc3)+_0x51eac6+_0x5633cf(0xb7):_0x44c1d3=_0x5633cf(0xeb);let _0x19be09=_0x5633cf(0x99)+data[_0x5633cf(0xfe)][_0x118c77]['name']+_0x5633cf(0xe1);$('#lootboxes')['append'](_0x5633cf(0xc7)+_0x44989b+(_0x5633cf(0xf7)+_0x19be09+_0x5633cf(0xdc))+data['lootboxes'][_0x118c77]['title']+_0x5633cf(0xda)+_0x4be9b9+_0x5633cf(0xf3)+_0x44c1d3+_0x5633cf(0xdf));}}function sortLootbox(_0x33da92){const _0x15dfab=_0x1e3939;$(_0x15dfab(0xe0))[_0x15dfab(0x98)](_0x15dfab(0xd5));let _0x590c0f=0x0,_0x445588=0x4,_0x31c85a=0x96;const _0x51dcbf=setInterval(()=>{const _0x1e737d=_0x15dfab;let _0x36c4df=backgroundImg&&backgroundImg+'/'+_0x33da92[_0x590c0f][_0x1e737d(0xaa)]+_0x1e737d(0xe1)||_0x1e737d(0xf1);$(_0x1e737d(0xca))[_0x1e737d(0xd1)](_0x1e737d(0x9a)+_0x36c4df+'\x20id=\x22itemPhoto\x22><div\x20id=\x22labelText\x22>'+_0x33da92[_0x590c0f]['label']+_0x1e737d(0xae)),_0x590c0f+=0x1,_0x33da92[_0x1e737d(0xaf)]===_0x590c0f&&(_0x590c0f=0x0),_0x445588<=0x0&&myReward&&(_0x36c4df=backgroundImg+'/'+_0x33da92[myReward-0x1][_0x1e737d(0xaa)]+_0x1e737d(0xe1),$(_0x1e737d(0xca))[_0x1e737d(0xd1)]('<img\x20src='+_0x36c4df+_0x1e737d(0xde)+_0x33da92[myReward-0x1][_0x1e737d(0xce)]+'</div>'),clearInterval(_0x51dcbf)),_0x31c85a+=0x32,_0x31c85a>0x1f4&&(_0x445588-=0x1,_0x31c85a=0x96);},_0x31c85a);setTimeout(()=>{const _0x3bdcc9=_0x15dfab;$(_0x3bdcc9(0xe4))[_0x3bdcc9(0x9b)]();},0x2134);}function CreateTooltip(_0x6daa86,_0x5b09d8){const _0x3e5f4c=_0x1e3939;let _0x227836=_0x3e5f4c(0xb9);return $[_0x3e5f4c(0xa2)](_0x6daa86,function(_0x32fd0b,_0x1f900a){const _0x4ead44=_0x3e5f4c;_0x1f900a[_0x4ead44(0xc0)]<0x2710?_0x227836+=_0x1f900a[_0x4ead44(0xf6)]+_0x4ead44(0xee)+_0x1f900a[_0x4ead44(0xc0)]+'\x20'+_0x1f900a['label']+_0x4ead44(0xe7):_0x227836+=_0x1f900a[_0x4ead44(0xf6)]+'%\x20'+_0x1f900a['label']+_0x4ead44(0xe7);}),_0x227836+=_0x3e5f4c(0xcc),_0x227836;}
+let data = null;
+let backgroundImg = "./images";
+let myReward;
+
+$(function () {
+  $("body").css("background", "transparent");
+
+  window.addEventListener("message", function (event) {
+    if (event.data.enable) {
+      data = event.data.data;
+
+      SetupMenu();
+      $("#wrap").fadeIn();
+      if (data.imgDirect && data.imgDirect !== "") {
+        backgroundImg = data.imgDirect;
+      }
+    }
+
+    if (event.data.openLootbox) {
+      sortLootbox(event.data.box);
+    }
+
+    if (event.data.reward) {
+      myReward = event.data.reward;
+    }
+  });
+
+  $("#btn-buy-level").click(function () {
+    $(".content-popup").fadeIn(700);
+  });
+
+  $(".confirm-buy").click(function () {
+    $(".content-popup").hide();
+    $("#wrap").fadeOut();
+    $.post("https://will_battlepass/buy_level", JSON.stringify({}));
+  });
+
+  $(".closeBtn").click(function () {
+    $(".content-popup").fadeOut(200);
+  });
+
+  document.onkeyup = function (event) {
+    if (event.key == "Escape") {
+      $(".content-popup").hide();
+      $("#wrap").hide();
+      $.post("https://will_battlepass/quit", JSON.stringify({}));
+    }
+  };
+});
+
+function SetupMenu() {
+  GenerateProgress();
+  GenerateRewards();
+  GenerateLootboxes();
+
+  if (data.nextLevelEta != 0) {
+    $("#before-get-exp-time").html(data.nextLevelEta + " minuto(s)");
+  } else {
+    $("#before-get-exp-time").html("RESGATAR SUA RECOMPENSA");
+  }
+}
+
+function ClaimReward() {
+  $("#wrap").hide();
+  $.post("https://will_battlepass/reward", JSON.stringify({}));
+}
+
+function BuyLootbox(id, useCoin) {
+  $("#wrap").hide();
+  $.post(
+    "https://will_battlepass/buy_lootbox",
+    JSON.stringify({ id, useCoin }),
+  );
+}
+
+function GenerateProgress() {
+  let xpPerc = Math.floor((data.xp / data.maxXp) * 100);
+
+  $("#exp-progress").html(
+    `
+	<div id="exp-progress">
+		<table>
+		<tr>
+			<td>
+			<span id="exp-current">` +
+      data.xp +
+      `</span> / <span id="exp-goal">` +
+      data.maxXp +
+      `</span><br/>
+			<span id="exp-progress-desc">XP ATUAL</span>
+			</td>
+			<td><center><div id="levelbar"></div></center></td>
+		</tr>
+		</table>
+		<script>
+		var bar = new ProgressBar.Circle(levelbar, {
+		  strokeWidth: 10,
+		  color: 'rgba(255,255,255,0.1)',
+		  trailColor: 'rgba(255,255,255,0.2)',
+		  trailWidth: 1,
+		  easing: 'easeInOut',
+		  duration: 2000,
+		  svgStyle: null,
+		  text: {
+			value: '',
+			alignToBottom: false
+		  },
+		  
+		  // Set default step function for all animate calls
+		  step: (state, bar) => {
+			bar.path.setAttribute('stroke', state.color);
+			var value = Math.round(bar.value() * 100);
+			bar.setText("<span id='level-circle'>` +
+      data.level +
+      `</span><br/><span id='level-circle-desc'>NIVEL</span>");
+			bar.text.style.color = state.color;
+		  }
+		});
+		
+		bar.animate(` +
+      xpPerc +
+      ` / 100);
+		
+		</script>
+	</div>`,
+  );
+}
+
+function GenerateRewards() {
+  let finalHTML = ``;
+
+  for (let i = 0; i < data.rewards.length; i++) {
+    let itemStatus;
+    let itemReceived;
+    let itemLevel = i + 1;
+
+    if (i % 5 == 0) {
+      if (data.level >= itemLevel && data.level < itemLevel + 5) {
+        finalHTML += `<div class="item active">`;
+      } else {
+        finalHTML += `<div class="item">`;
+      }
+    }
+
+    if (data.level == itemLevel) {
+      let xpPerc = Math.floor((data.xp / data.maxXp) * 100);
+
+      if (xpPerc == 100) {
+        itemStatus = `<div id="battlepass-done"><i class="fas fa-check"></i>FINALIZADO</div>`;
+        itemReceived = `<button onclick="ClaimReward()" id="battlepass-claim">RESGATAR</button>`;
+      } else {
+        itemStatus = `<div id="battlepass-accomp">CONQUISTA</div>`;
+        itemReceived =
+          `<div id="battlepass-inprogress" class="w3-border">EM PROGRESSO <div class="w3-red" style="width:` +
+          xpPerc +
+          `%"></div></div>`;
+      }
+    } else if (data.level < itemLevel) {
+      itemStatus = `<div id="battlepass-waiting">AGUARDE...</div>`;
+      itemReceived = `<div id="battlepass-received">AGUARDE...</div>`;
+    } else if (data.level > itemLevel) {
+      itemStatus = `<div id="battlepass-done"><i class="fas fa-check"></i>FINALIZADO</div>`;
+      itemReceived = `<div id="battlepass-received">ENTREGUE</div>`;
+    }
+    let itemImage =
+      (backgroundImg && `${backgroundImg}/${data.rewards[i].item}.png`) ||
+      "./images/lootbox.png";
+    finalHTML +=
+      `
+		<div id="battlepass-block">
+			<div id="battlepass-level">NIVEL ` +
+      itemLevel +
+      `</div>
+			<div id="battlepass-block-bg">
+				` +
+      itemStatus +
+      `
+				<div id="battlepass-reward-img" style="background:url(${itemImage}) center center no-repeat;background-size:cover;background-origin:content-box;"></div>
+				<div id="battlepass-reward-title">` +
+      data.rewards[i].title +
+      `</div>
+				<div id="battlepass-reward-desc">` +
+      data.rewards[i].desc +
+      `</div>
+				` +
+      itemReceived +
+      `
+			</div>
+		</div>`;
+
+    if (i % 5 == 4) {
+      finalHTML += `</div>`;
+    }
+  }
+
+  $("#rewards").html(finalHTML);
+}
+
+function GenerateLootboxes() {
+  $("#lootboxes").html("");
+
+  for (let i = 0; i < data.lootboxes.length; i++) {
+    let moneyText;
+    let coinText;
+    let lootboxId = i + 1;
+    let tooltip = CreateTooltip(data.lootboxes_re[i], data.lootboxes[i].type);
+
+    if (data.lootboxes[i].moneyPrice) {
+      moneyText =
+        `
+			<td>
+				<div id="lootbox-money">
+					PREÇO:<br/>
+					<span id="lootbox-money-price">$` +
+        data.lootboxes[i].moneyPrice +
+        `</span>
+				</div>
+				<button onclick="BuyLootbox(` +
+        lootboxId +
+        `, false)" id="lootbox-money-open">COMPRAR</button>
+			</td>`;
+    } else {
+      moneyText = `
+			<td>
+				<div id="lootbox-not-available">
+					INDISPONIVEL<br/>COM DINHEIRO
+				</div>
+				<button id="lootbox-not-available-open">COMPRAR</button>
+			</td>`;
+    }
+
+    if (data.lootboxes[i].coinPrice) {
+      coinText =
+        `
+			<td>
+				<div id="lootbox-coins">
+					DIAMANTES:<br/>
+					<span id="lootbox-coins-price"><i class="fa fa-diamond"></i> ` +
+        data.lootboxes[i].coinPrice +
+        `</span>
+				</div>
+				<button onclick="BuyLootbox(` +
+        lootboxId +
+        `, true)" id="lootbox-coins-open">COMPRAR</button>
+			</td>`;
+    } else {
+      coinText = `
+			<td>
+				<div id="lootbox-not-available">
+					INDISPONIVEL<br/>COM DIAMANTES
+				</div>
+				<button id="lootbox-not-available-open">COMPRAR</button>
+			</td>`;
+    }
+    let itemImage = `./images/${data.lootboxes[i].name}.png`;
+
+    $("#lootboxes").append(
+      `<div id="lootbox-block">
+			<div id="lootbox-drops">
+				<i class="fas fa-info"></i> DROPS
+				` +
+        tooltip +
+        `
+			</div>
+			<div id="unique">UNIQUE</div>
+			<div id="lootbox-img" style="background:url(${itemImage}) center center no-repeat;background-size:cover;background-origin:content-box;"></div>
+			<div id="lootbox-title">` +
+        data.lootboxes[i].title +
+        `</div>
+			<table>
+			<tr>
+				` +
+        moneyText +
+        `
+				` +
+        coinText +
+        `
+			</tr>
+			</table>
+		</div>`,
+    );
+  }
+}
+
+function sortLootbox(box) {
+  $("body").append(
+    '<div class="itemsBackground"><div class="bxItems"></div></div>',
+  );
+  let index = 0;
+  let timeout = 4;
+  let countdown = 150;
+  const interval = setInterval(() => {
+    let itemImage =
+      (backgroundImg && `${backgroundImg}/${box[index].name}.png`) ||
+      "./images/lootbox.png";
+    $(".bxItems").html(
+      `<img src=${itemImage} id="itemPhoto"><div id="labelText">${box[index].label}</div>`,
+    );
+    index += 1;
+    if (box.length === index) {
+      index = 0;
+    }
+    if (timeout <= 0 && myReward) {
+      itemImage = `${backgroundImg}/${box[myReward - 1].name}.png`;
+      $(".bxItems").html(
+        `<img src=${itemImage} id="itemPhoto"><div id="labelText">${
+          box[myReward - 1].label
+        }</div>`,
+      );
+      clearInterval(interval);
+    }
+    countdown += 50;
+    if (countdown > 500) {
+      timeout -= 1;
+      countdown = 150;
+    }
+  }, countdown);
+  setTimeout(() => {
+    $(".itemsBackground").remove();
+  }, 8500);
+}
+
+function CreateTooltip(data, type) {
+  let html = `<span class="tooltiptext">`;
+
+  $.each(data, function (index, info) {
+    if (info.amount < 10000) {
+      html += info.luck + `% x` + info.amount + ` ` + info.label + `<br/>`;
+    } else {
+      html += info.luck + `% ` + info.label + `<br/>`;
+    }
+  });
+
+  html += `</span>`;
+
+  return html;
+}
