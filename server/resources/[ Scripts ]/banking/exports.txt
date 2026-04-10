@@ -1,2 +1,0 @@
-exports.svdden_banking:addCredit(source, amount) // source = Player Server ID, amount = amount to add
-exports.svdden_banking:removeCredit(source, amount) // source = Player Server ID, amount = amount to remove
