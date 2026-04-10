@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -9,130 +9,267 @@
     <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
   </head>
   <body>
+    <!-- ===================== JOIN MENU ===================== -->
     <div class="joinMenu">
-      <h3 class="priceyesbutton" style="text-align: center">GARAGEM</h3>
-      <img
-        id="garageimg"
-        src="https://api.rebornsystem.com.br/garages_v2/luxe.png"
-        alt="Garagem"
-        srcset=""
-      />
-      <div>
-        <input type="number" id="inputGarage" placeholder="Passaporte" />
-        <button id="submitMenu">Entrar</button>
+      <div class="veh-select-header-right">
+        <div class="esc-btn">ESC</div>
+        <div class="close-group">
+          <div class="close-text-stack">
+            <span class="close-label">Fechar</span>
+            <span class="close-sub">Pressione ESC</span>
+          </div>
+        </div>
+      </div>
+      <div class="join-header">
+        <div class="hex-icon">
+          <svg
+            viewBox="0 0 40 40"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <polygon
+              points="20,2 37,11 37,29 20,38 3,29 3,11"
+              stroke="#00d4bc"
+              stroke-width="1.5"
+              fill="rgba(0,212,188,0.8)"
+              style="position: relative; box-shadow: 20px 20px 20px black"
+            >
+              <img
+                src="./icons/garage.svg"
+                style="position: absolute"
+                width="25"
+                height="25"
+              />
+            </polygon>
+          </svg>
+        </div>
+        <div class="join-header-text">
+          <span class="join-entry-label">ENTRADA</span>
+          <h2 class="join-title">GARAGEM INTERIOR</h2>
+        </div>
+      </div>
+      <div class="join-options">OPÇÕES <span class="info-circle">i</span></div>
+      <div class="divider"></div>
+      <div class="join-image-wrap">
+        <img
+          id="garageimg"
+          src="https://api.rebornsystem.com.br/garages_v2/luxe.png"
+          alt="Garagem"
+        />
+      </div>
+      <button id="submitMenu">ENTRAR</button>
+      <input type="number" id="inputGarage" placeholder="Passaporte" />
+      <p class="join-desc">
+        Clique para entrar na sua garagem ou digite o passaporte de alguém para
+        visitar.
+      </p>
+    </div>
+
+    <!-- ===================== VEHICLE OPTION MENU ===================== -->
+    <div class="vehicleOptionContainer">
+      <div class="backgorund-shadow"></div>
+      <div class="backgorund-shadow2"></div>
+      <div class="vehicleOptionMenu">
+        <div class="veh-select-header">
+          <div class="veh-select-header-left">
+            <div class="hex-icon">
+              <svg
+                viewBox="0 0 40 40"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <polygon
+                  points="20,2 37,11 37,29 20,38 3,29 3,11"
+                  stroke="#00d4bc"
+                  stroke-width="1.5"
+                  fill="rgba(0,212,188,0.8)"
+                  style="position: relative; box-shadow: 20px 20px 20px black"
+                >
+                  <img
+                    src="./icons/garage.svg"
+                    style="position: absolute"
+                    width="25"
+                    height="25"
+                  />
+                </polygon>
+              </svg>
+            </div>
+            <div class="veh-select-titles">
+              <span class="veh-select-subtitle"
+                >ESCOLHA OS VEÍCULOS QUE IRÃO APARECER DENTRO DA GARAGEM</span
+              >
+              <h2 class="veh-select-title">SELECIONAR VEÍCULOS</h2>
+            </div>
+          </div>
+          <div class="veh-select-header-right" style="margin-bottom: 0">
+            <div class="close-group">
+              <div class="close-text-stack">
+                <span class="close-label" style="text-align: end">Fechar</span>
+                <span class="close-sub">Pressione ESC</span>
+              </div>
+              <div class="esc-btn">ESC</div>
+            </div>
+          </div>
+        </div>
+        <ul class="vehicleOptions">
+          <li class="veh-option" data-veh="zentorno">
+            <h3>Zentorno</h3>
+            <img
+              src="https://api.rebornsystem.com.br/imagens/zentorno.png"
+              alt=""
+            />
+            <p>SELECIONAR</p>
+          </li>
+          <li class="veh-option" data-veh="t20">
+            <h3>T20</h3>
+            <img src="https://api.rebornsystem.com.br/imagens/T20.png" alt="" />
+            <p>SELECIONAR</p>
+          </li>
+        </ul>
+        <button id="veh-option-button">Confirmar</button>
       </div>
     </div>
-    <div class="vehicleOptionMenu">
-      <ul class="vehicleOptions">
-        <li class="veh-option" data-veh="zentorno">
-          <h3>Zentorno</h3>
-          <img src="./vehicleimage/Adder.png" alt="" />
-          <p>Selecionar</p>
-        </li>
-        <li class="veh-option" data-veh="t20">
-          <h3>T20</h3>
-          <img src="./vehicleimage/T20.png" alt="" />
-          <p>Selecionar</p>
-        </li>
-      </ul>
-      <button id="veh-option-button">Confirmar</button>
-    </div>
+
+    <!-- ===================== MAIN CONTAINER ===================== -->
     <div class="container" style="display: none">
       <div class="backgorund-shadow"></div>
-      <div class="left-infos">
-        <div class="cargaragetext">
+      <div class="backgorund-shadow2"></div>
+      <div class="vehiclesContainer">
+        <!-- Header -->
+        <div class="garage-header">
+          <div class="garage-header-left">
+            <div class="hex-icon large">
+              <svg
+                viewBox="0 0 40 40"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <polygon
+                  points="20,2 37,11 37,29 20,38 3,29 3,11"
+                  stroke="#00d4bc"
+                  stroke-width="1.5"
+                  fill="rgba(0,212,188,0.8)"
+                  style="position: relative; box-shadow: 20px 20px 20px black"
+                >
+                  <img
+                    src="./icons/garage.svg"
+                    style="position: absolute"
+                    width="25"
+                    height="25"
+                  />
+                </polygon>
+              </svg>
+            </div>
+            <div class="garage-title-stack">
+              <span class="garage-subtitle">SEUS VEÍCULOS</span>
+              <span class="garage-main-title">GARAGEM</span>
+            </div>
+          </div>
+          <div class="garage-header-center">
+            <div class="searchbox">
+              <input
+                id="searchvehicle"
+                type="text"
+                placeholder="Procurar veículo..."
+              />
+            </div>
+          </div>
+          <div class="garage-header-right closebutton">
+            <div class="close-text-stack">
+              <span class="close-label">Fechar</span>
+              <span class="close-sub">Pressione ESC</span>
+            </div>
+            <div class="esc-btn closeimg">ESC</div>
+          </div>
+        </div>
+
+        <!-- Left Info Panel -->
+        <!-- <div class="left-infos">
+          <div class="cargaragetext">
+            <img
+              src="https://api.rebornsystem.com.br/garages_v2/garagetext.png"
+              alt=""
+            />
+          </div>
+          <div class="sellprice">
+            <h3 class="vehicleprice">R$100000</h3>
+            <h2 class="sellpricecar">VENDER</h2>
+          </div>
+          <div class="transfer">
+            <input id="transfer" type="number" placeholder="ID" />
+            <h2 class="transfertovehicle">TRANSFERIR</h2>
+          </div>
+          <div class="veh-infos">
+            <div
+              class="platepng"
+              style="
+                background-image: url(&quot;https://api.rebornsystem.com.br/garages_v2/plate.png&quot;);
+              "
+            >
+              <h1>PLACA</h1>
+              <h2 class="platevehicle">JF89-13F8</h2>
+            </div>
+            <div
+              class="enginepng"
+              style="
+                background-image: url(&quot;https://api.rebornsystem.com.br/garages_v2/engine.png&quot;);
+              "
+            >
+              <h1>MOTOR</h1>
+              <h2 class="damagevehicle">90</h2>
+            </div>
+            <div
+              class="fuelbar"
+              style="
+                background-image: url(&quot;https://api.rebornsystem.com.br/garages_v2/fueltank.png&quot;);
+              "
+            >
+              <h1>GASOLINA</h1>
+              <h2 class="fuellevel">100</h2>
+            </div>
+            <div
+              class="windowpng"
+              style="
+                background-image: url(&quot;https://api.rebornsystem.com.br/garages_v2/window.png&quot;);
+              "
+            >
+              <h1>LATARIA</h1>
+              <h2 class="bodyhealth">100</h2>
+            </div>
+          </div>
+          <div class="delNearVeh">
+            <h1>GUARDAR VEICULO PROXIMO</h1>
+          </div>
+        </div> -->
+
+        <!-- Sell Confirm -->
+        <!-- <div class="priceyes" style="display: none">
+          <h4>TEM CERTEZA?</h4>
+          <h2 class="pricebutton">SIM</h2>
+          <h3 class="priceyesbutton">NÃO</h3>
           <img
-            src="https://api.rebornsystem.com.br/garages_v2/garagetext.png"
+            src="https://api.rebornsystem.com.br/garages_v2/yesno.png"
             alt=""
           />
-        </div>
-        <div class="sellprice">
-          <h3 class="vehicleprice">R$100000</h3>
-          <h2 class="sellpricecar">VENDER</h2>
-        </div>
-        <div class="transfer">
-          <input id="transfer" type="number" placeholder="ID" />
-          <h2 class="transfertovehicle">TRANSFERIR</h2>
-        </div>
-        <div class="veh-infos">
-          <div
-            class="platepng"
-            style="
-              background-image: url('https://api.rebornsystem.com.br/garages_v2/plate.png');
-            "
-          >
-            <h1>PLACA</h1>
-            <h2 class="platevehicle">JF89-13F8</h2>
-          </div>
-          <div
-            class="enginepng"
-            style="
-              background-image: url('https://api.rebornsystem.com.br/garages_v2/engine.png');
-            "
-          >
-            <h1>MOTOR</h1>
-            <h2 class="damagevehicle">90</h2>
-          </div>
-          <div
-            class="fuelbar"
-            style="
-              background-image: url('https://api.rebornsystem.com.br/garages_v2/fueltank.png');
-            "
-          >
-            <h1>GASOLINA</h1>
-            <h2 class="fuellevel">100</h2>
-          </div>
-          <div
-            class="windowpng"
-            style="
-              background-image: url('https://api.rebornsystem.com.br/garages_v2/window.png');
-            "
-          >
-            <h1>LATARIA</h1>
-            <h2 class="bodyhealth">100</h2>
-          </div>
-        </div>
-        <div class="delNearVeh">
-          <h1>GUARDAR VEICULO PROXIMO</h1>
-        </div>
+        </div> -->
+
+        <!-- Transfer Confirm -->
+        <!-- <div class="transferyes" style="display: none">
+          <h4>TEM CERTEZA?</h4>
+          <h2>SIM</h2>
+          <h3 class="transferyescar">NÃO</h3>
+          <img
+            src="https://api.rebornsystem.com.br/garages_v2/yesno.png"
+            alt=""
+          />
+        </div> -->
+
+        <!-- Vehicle Grid -->
+        <div class="selectedvehicle"></div>
       </div>
-      <div class="priceyes" style="display: none">
-        <h4>TEM CERTEZA?</h4>
-        <h2 class="pricebutton">SIM</h2>
-        <h3 class="priceyesbutton">NÃO</h3>
-        <img
-          src="https://api.rebornsystem.com.br/garages_v2/yesno.png"
-          alt=""
-        />
-      </div>
-      <div class="transferyes" style="display: none">
-        <h4>TEM CERTEZA?</h4>
-        <h2>SIM</h2>
-        <h3 class="transferyescar">NÃO</h3>
-        <img
-          src="https://api.rebornsystem.com.br/garages_v2/yesno.png"
-          alt=""
-        />
-      </div>
-      <div class="searchbox">
-        <input
-          id="searchvehicle"
-          type="text"
-          name=""
-          id=""
-          placeholder="Procurar carro"
-        />
-      </div>
-      <div class="closebutton">
-        <h2>Sair</h2>
-        <img
-          class="closeimg"
-          src="https://api.rebornsystem.com.br/garages_v2/close.png"
-          alt=""
-        />
-      </div>
-      <div class="selectedvehicle"></div>
     </div>
+
+    <!-- ===================== ADMIN MENU ===================== -->
     <div class="adminMenu" style="display: none">
       <div class="adminContainer">
         <h1>Registro de Garagem</h1>
@@ -183,9 +320,7 @@
             />
           </div>
           <div class="form-group" id="panelCoordinates" style="display: none">
-            <label for="panelCoordinates"
-              >Coordenadas para retirar veiculo:</label
-            >
+            <label>Coordenadas para retirar veiculo:</label>
             <div style="display: flex; gap: 1vw">
               <input type="text" id="panelCoordinatesInput" />
               <button type="button" id="getCoordinates">
@@ -199,6 +334,7 @@
         </form>
       </div>
     </div>
+
     <script src="script.js"></script>
   </body>
 </html>

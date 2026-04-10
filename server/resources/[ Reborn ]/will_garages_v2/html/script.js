@@ -19,7 +19,7 @@ $(document).ready(function () {
         a.remove();
       });
       $.post("https://will_garages_v2/closepage", JSON.stringify({}));
-      $(".vehicleOptionMenu").css("display", "none");
+      $(".vehicleOptionContainer").css("display", "none");
     }
   };
 });
@@ -46,17 +46,46 @@ window.addEventListener("message", function (event) {
     } else {
       $(".delNearVeh").css("display", "block");
     }
-
     $(".selectedvehicle").append(
       `
           <div class="vehiclemodel" data-garage="${data.garage}" data-plate="${data.plate}" data-impound="${data.impound}" data-damage = "${data.damage}" data-carmodel = "${data.model}" data-stored = "${data.stored}" data-body = "${data.body}" data-fuellevel = "${data.fuellevel}"  data-fiyat="${data.vehicleprice}">
-            <img class="hoverpng" src="https://api.rebornsystem.com.br/garages_v2/hower.png" alt="">
-            <img class="hovergri" src="https://api.rebornsystem.com.br/garages_v2/howergri.png" alt="">
-            <div class="vehicleimage">
-              <img src="${data.directory}/${data.photo}.png" onerror="this.onerror=null;this.src='https://api.rebornsystem.com.br/garages_v2/noveh.png';">
+            <img
+              class="vehiclemodel-img"
+              src="${data.directory}/${data.photo}.png"
+              onerror="this.onerror=null;this.src='https://api.rebornsystem.com.br/garages_v2/noveh.png';"
+            />
+            <div class="veh-infos">
+              <h2>${data.brand}</h2>
+              <h3 class="hidden-info">${data.plate}</h3>
             </div>
-            <h3 class="deneme" >${data.brand}</h3>
-            <h2 >${data.name}</h2>
+            <div class="hidden-info">
+              <div class="veh-status">
+                <div class="veh-status-info" id="veh-engine">
+                  <div>
+                    <img src="./icons/engine.svg" alt="" />
+                  </div>
+                  <div class="veh-status-bar">
+                    <div class="veh-status-value veh-status-engine"></div>
+                  </div>
+                </div>
+                <div class="veh-status-info" id="veh-fuel">
+                  <div>
+                    <img src="./icons/fuel.svg" alt="" />
+                  </div>
+                  <div class="veh-status-bar">
+                    <div class="veh-status-value veh-status-fuel"></div>
+                  </div>
+                </div>
+                <div class="veh-status-info" id="veh-body">
+                  <div>
+                    <img src="./icons/car.svg" alt="" />
+                  </div>
+                  <div class="veh-status-bar">
+                    <div class="veh-status-value veh-status-body"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
             <div class="spawnselectcar"> Selecionar </div>
             <div class="spawncar">Retirar Veículo</div>
             <div class="deletecar">Guardar Veículo</div>
@@ -76,7 +105,7 @@ window.addEventListener("message", function (event) {
     document.querySelectorAll(".vehiclemodel").forEach(function (a) {
       a.remove();
     });
-    $(".vehicleOptionMenu").css("display", "none");
+    $(".vehicleOptionContainer").css("display", "none");
   } else if (data.action == "openMenu") {
     openVehicleOptions(data);
   } else if (data.action == "admMenu") {
@@ -167,7 +196,7 @@ $(document).ready(function () {
 
 $(document).on("click", "#veh-option-button", function () {
   $(".container").css("display", "none");
-  $(".vehicleOptionMenu").css("display", "none");
+  $(".vehicleOptionContainer").css("display", "none");
   $.post("https://will_garages_v2/closepage", JSON.stringify({}));
   document.querySelectorAll(".vehiclemodel").forEach(function (a) {
     a.remove();
@@ -181,10 +210,24 @@ $(document).on("click", "#veh-option-button", function () {
 });
 
 function openVehicleOptions(data) {
-  $(".vehicleOptionMenu").css("display", "block");
+  $(".vehicleOptionContainer").css("display", "block");
   const { vehicles, imgDiret } = data;
   $(".vehicleOptions").empty();
-  for (const veh of vehicles) {
+  for (let i = 0; i < 20; i++) {
+    let veh = vehicles[i];
+    let list_item = `<li class='veh-option'></li>`;
+    if (veh) {
+      list_item = `
+      <li class="veh-option" data-veh="${veh.name}">          
+        <h3>${veh.vname}</h3>
+        <img src="${imgDiret}/${veh.name}.png" alt="${veh.vname}" onerror="this.onerror=null;this.src='https://api.rebornsystem.com.br/garages_v2/noveh.png';">
+        <p>Selecionar</p>
+      </li>
+      `;
+    }
+    $(".vehicleOptions").append(list_item);
+  }
+  /* for (const veh of vehicles) {
     list_item = `
       <li class="veh-option" data-veh="${veh.name}">          
         <h3>${veh.vname}</h3>
@@ -193,7 +236,7 @@ function openVehicleOptions(data) {
       </li>
       `;
     $(".vehicleOptions").append(list_item);
-  }
+  } */
   $(".veh-option").click(function () {
     const carname = $(this).attr("data-veh");
     let isActive = $(this).hasClass("active");
@@ -240,6 +283,7 @@ let lastmodel;
 
 $(document).on("click", ".spawnselectcar", function () {
   openPage();
+  $(".hidden-info").css("display", "none");
   let plate = $(this).parent().attr("data-plate");
   let damage = $(this).parent().attr("data-damage");
   let vehicleprice = $(this).parent().attr("data-fiyat");
@@ -248,28 +292,29 @@ $(document).on("click", ".spawnselectcar", function () {
   let model = $(this).parent().attr("data-carmodel");
   let impounds = $(this).parent().attr("data-impound");
   let garage = $(this).parent().attr("data-garage");
+  let fuellevel = $(this).parent().attr("data-fuellevel");
+  let hiddenInfos = $(this).parent().find(".hidden-info");
+  $(hiddenInfos).css("display", "block");
   lastmodel = model;
   laststored = stored;
   let damagee = parseInt(damage);
-  $(".hoverpng").css("display", "none");
-  $(".hovergri").css("display", "block");
-  $(".hoverpng").css("transform", "scale(0.5)");
-  let image = $(this).parent().find(".hoverpng");
   let damageee = damagee.toFixed(0);
-  let fuellevel = $(this).parent().attr("data-fuellevel");
   let fuell = parseInt(fuellevel);
   let fuelll = fuell.toFixed(0);
   lastplate = plate;
   lastprice = vehicleprice;
-  $(".vehicleprice").text("$ " + vehicleprice);
   $(".platevehicle").text(plate);
   let bodyy = parseInt(bodydamage);
   let body = bodyy.toFixed(0);
-  $(".bodyhealth").text(Number(body) / 10 + "% ");
-  $(".damagevehicle").text(Number(damageee) / 10 + "%");
-  $(".fuellevel").text(fuelll);
+
   let selectedCar = $(this).parent().find(".spawnselectcar");
   selectedCar.css("display", "none");
+  console.log(damageee, fuelll, body);
+
+  $(".veh-status-engine").css("width", Number(damageee) / 10 + "%");
+  $(".veh-status-fuel").css("width", fuelll + "%");
+  $(".veh-status-body").css("width", Number(body) / 10 + "%");
+
   if (impounds == "true") {
     laststored = 0;
     if (garage) {
@@ -279,25 +324,12 @@ $(document).on("click", ".spawnselectcar", function () {
     }
     let deletecar = $(this).parent().find(".deletecar");
     deletecar.css("display", "block");
-    $(".vehiclestoredpng").attr(
-      "src",
-      "https://api.rebornsystem.com.br/garages_v2/outveh.png",
-    );
   } else {
     laststored = 1;
     $(".stored").text("Estacionado");
     let spawnCar = $(this).parent().find(".spawncar");
     spawnCar.css("display", "block");
-    $(".vehiclestoredpng").attr(
-      "src",
-      "https://api.rebornsystem.com.br/garages_v2/park.png",
-    );
   }
-
-  image.css("display", "block");
-  setTimeout(function () {
-    image.css("transform", "scale(1.0)");
-  }, 10);
 });
 
 $(document).on("click", ".spawncar", function () {

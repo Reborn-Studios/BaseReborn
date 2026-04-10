@@ -12,9 +12,7 @@ ui_page {
 }
 
 files {
-	'html/*.css',
-	'html/*.js',
-	'html/*.html',
+	'html/**',
 }
 
 shared_script{
