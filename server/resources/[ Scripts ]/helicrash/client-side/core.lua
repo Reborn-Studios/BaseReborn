@@ -34,25 +34,25 @@ CreateThread(function()
 
 						local model = "s_m_y_blackops_01"
 						LoadModel(model)
-						local guardPeds = CreatePed(26, GetHashKey(model),v[1], true, true)
-						NetworkRegisterEntityAsNetworked(guardPeds)
-						local networkID = NetworkGetNetworkIdFromEntity(guardPeds)
+						Objects[Number.."ped"] = CreatePed(26, GetHashKey(model),v[1], true, true)
+						NetworkRegisterEntityAsNetworked(Objects[Number.."ped"])
+						local networkID = NetworkGetNetworkIdFromEntity(Objects[Number.."ped"])
 						SetNetworkIdCanMigrate(networkID, true)
 						SetNetworkIdExistsOnAllMachines(networkID, true)
-						SetPedRandomComponentVariation(guardPeds, 0)
-						SetPedRandomProps(guardPeds)
-						SetEntityAsMissionEntity(guardPeds, false, false)
-						SetEntityVisible(guardPeds, true, false)
-						SetPedRelationshipGroupHash(guardPeds, GetHashKey("GuardPeds"))
-						SetPedAccuracy(guardPeds, 50)
-						SetPedArmour(guardPeds, 100)
-						SetPedCanSwitchWeapon(guardPeds, true)
-						SetPedDropsWeaponsWhenDead(guardPeds, false)
-						SetPedFleeAttributes(guardPeds, 0, false)
-						GiveWeaponToPed(guardPeds, GetHashKey('WEAPON_PISTOL'), 255, false, false)
+						SetPedRandomComponentVariation(Objects[Number.."ped"], 0)
+						SetPedRandomProps(Objects[Number.."ped"])
+						SetEntityAsMissionEntity(Objects[Number.."ped"], false, false)
+						SetEntityVisible(Objects[Number.."ped"], true, false)
+						SetPedRelationshipGroupHash(Objects[Number.."ped"], GetHashKey("GuardPeds"))
+						SetPedAccuracy(Objects[Number.."ped"], 50)
+						SetPedArmour(Objects[Number.."ped"], 100)
+						SetPedCanSwitchWeapon(Objects[Number.."ped"], true)
+						SetPedDropsWeaponsWhenDead(Objects[Number.."ped"], false)
+						SetPedFleeAttributes(Objects[Number.."ped"], 0, false)
+						GiveWeaponToPed(Objects[Number.."ped"], GetHashKey('WEAPON_PISTOL'), 255, false, false)
 						local random = math.random(1, 2)
 						if random == 2 then
-							TaskGuardCurrentPosition(guardPeds, 10.0, 10.0, 1)
+							TaskGuardCurrentPosition(Objects[Number.."ped"], 10.0, 10.0, 1)
 						end
 
 						if Number ~= "1" then
@@ -68,6 +68,7 @@ CreateThread(function()
 									{
 										event = "helicrash:Open",
 										label = "Abrir",
+										icon = "fa-solid fa-helicopter",
 										tunnel = "shop",
 										service = "Helicrash-"..Number
 									}
@@ -79,6 +80,9 @@ CreateThread(function()
 			else
 				if Objects["1"] then
 					for Number,v in pairs(Objects) do
+						if Number ~= "1" then
+							exports["target"]:RemCircleZone("Helicrash:"..Number)
+						end
 						DeleteEntity(Objects[Number])
 						Objects[Number] = nil
 					end
