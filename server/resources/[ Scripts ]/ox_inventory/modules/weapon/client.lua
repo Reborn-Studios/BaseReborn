@@ -129,9 +129,6 @@ function Weapon.Disarm(currentWeapon, noAnim)
 		end
 
 		TriggerEvent('ox_inventory:currentWeapon')
-		if currentWeapon and currentWeapon.name then
-			TriggerEvent("inventory:CreateWeapon", currentWeapon.name)
-		end
 	end
 	currentWeapon = nil
 	inVehWeapon = nil
