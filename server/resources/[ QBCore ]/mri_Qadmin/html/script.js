@@ -98,7 +98,7 @@ AdminPanel.Init = function () {
           } else {
             var newMsg = AdminPanel.AdminChat[AdminPanel.AdminChat.length - 1];
             AdminPanel.ShowAdminChatAlert(
-              `<strong>${newMsg.Sender}</strong>: ${newMsg.Message}`
+              `<strong>${newMsg.Sender}</strong>: ${newMsg.Message}`,
             );
           }
           break;
@@ -142,34 +142,36 @@ AdminPanel.Init = function () {
         case "servermetrics": {
           AdminPanel.ServerMetrics = event.data.metrics;
           $("#metricsvehiclescount").html(
-            AdminPanel.NumberWithCommas(AdminPanel.ServerMetrics.VehicleCount)
+            AdminPanel.NumberWithCommas(AdminPanel.ServerMetrics.VehicleCount),
           );
           $("#metricscharactercount").html(
-            AdminPanel.NumberWithCommas(AdminPanel.ServerMetrics.CharacterCount)
+            AdminPanel.NumberWithCommas(
+              AdminPanel.ServerMetrics.CharacterCount,
+            ),
           );
           $("#metricsstaffcount").html(
-            AdminPanel.NumberWithCommas(AdminPanel.ServerMetrics.StaffCount)
+            AdminPanel.NumberWithCommas(AdminPanel.ServerMetrics.StaffCount),
           );
           $("#metricsbanscount").html(
-            AdminPanel.NumberWithCommas(AdminPanel.ServerMetrics.BansCount)
+            AdminPanel.NumberWithCommas(AdminPanel.ServerMetrics.BansCount),
           );
           $("#metricsunique").html(
-            AdminPanel.NumberWithCommas(AdminPanel.ServerMetrics.UniquePlayers)
+            AdminPanel.NumberWithCommas(AdminPanel.ServerMetrics.UniquePlayers),
           );
           $("#metricscash").html(
             "$" +
               AdminPanel.NumberWithCommas(
-                Math.trunc(AdminPanel.ServerMetrics.TotalCash)
-              )
+                Math.trunc(AdminPanel.ServerMetrics.TotalCash),
+              ),
           );
           $("#metricsbank").html(
             "$" +
               AdminPanel.NumberWithCommas(
-                Math.trunc(AdminPanel.ServerMetrics.TotalBank)
-              )
+                Math.trunc(AdminPanel.ServerMetrics.TotalBank),
+              ),
           );
           $("#metricsitems").html(
-            AdminPanel.NumberWithCommas(AdminPanel.ServerMetrics.TotalItems)
+            AdminPanel.NumberWithCommas(AdminPanel.ServerMetrics.TotalItems),
           );
           $("#loading").hide();
           AdminPanel.EnableNav();
@@ -412,7 +414,7 @@ AdminPanel.Init = function () {
           " / " +
           AdminPanel.MaxPlayers +
           " " +
-          AdminPanel.Language.PlayersOnlineTranslation
+          AdminPanel.Language.PlayersOnlineTranslation,
       );
 
       if (AdminPanel.EditingPlayerInfo) {
@@ -456,7 +458,7 @@ AdminPanel.Init = function () {
           // because we want this one to be offline safe
           $.post(
             `https://${GetParentResourceName()}/FirePlayerFromJob`,
-            JSON.stringify(AdminPanel.FiringCitizenId)
+            JSON.stringify(AdminPanel.FiringCitizenId),
           );
         }
       },
@@ -486,7 +488,7 @@ AdminPanel.Init = function () {
         if (result) {
           $.post(
             `https://${GetParentResourceName()}/FirePlayerFromGang`,
-            JSON.stringify(AdminPanel.FiringCitizenId)
+            JSON.stringify(AdminPanel.FiringCitizenId),
           );
         }
       },
@@ -497,7 +499,7 @@ AdminPanel.Init = function () {
     AdminPanel.BackTo = "joblist";
     $.post(
       `https://${GetParentResourceName()}/RequestViewPlayer`,
-      JSON.stringify($(this).data("player"))
+      JSON.stringify($(this).data("player")),
     );
     $("#loading").show();
     AdminPanel.ResetNav();
@@ -508,7 +510,7 @@ AdminPanel.Init = function () {
     AdminPanel.BackTo = "characterslist";
     $.post(
       `https://${GetParentResourceName()}/RequestViewPlayer`,
-      JSON.stringify($(this).data("player"))
+      JSON.stringify($(this).data("player")),
     );
     $("#loading").show();
     AdminPanel.ResetNav();
@@ -540,7 +542,7 @@ AdminPanel.Init = function () {
         if (result) {
           $.post(
             `https://${GetParentResourceName()}/DeleteCharacter`,
-            JSON.stringify(deletingChar)
+            JSON.stringify(deletingChar),
           );
         }
       },
@@ -571,7 +573,7 @@ AdminPanel.Init = function () {
         if (result != null) {
           $.post(
             `https://${GetParentResourceName()}/SetJobGrade`,
-            JSON.stringify({ citizenid: SetRankCitizenId, grade: result })
+            JSON.stringify({ citizenid: SetRankCitizenId, grade: result }),
           );
         }
       },
@@ -603,7 +605,7 @@ AdminPanel.Init = function () {
         if (result != null) {
           $.post(
             `https://${GetParentResourceName()}/SetGangGrade`,
-            JSON.stringify({ citizenid: SetRankCitizenId, grade: result })
+            JSON.stringify({ citizenid: SetRankCitizenId, grade: result }),
           );
         }
       },
@@ -614,7 +616,7 @@ AdminPanel.Init = function () {
     AdminPanel.BackTo = "ganglist";
     $.post(
       `https://${GetParentResourceName()}/RequestViewPlayer`,
-      JSON.stringify($(this).data("player"))
+      JSON.stringify($(this).data("player")),
     );
     $("#loading").show();
     AdminPanel.ResetNav();
@@ -641,7 +643,7 @@ AdminPanel.Init = function () {
         if (result) {
           $.post(
             `https://${GetParentResourceName()}/UnbanPlayer`,
-            JSON.stringify({ license: UnbanLicense })
+            JSON.stringify({ license: UnbanLicense }),
           );
         }
       },
@@ -672,7 +674,7 @@ AdminPanel.Init = function () {
         if (result) {
           $.post(
             `https://${GetParentResourceName()}/DeleteReport`,
-            JSON.stringify({ id: ReportID })
+            JSON.stringify({ id: ReportID }),
           );
         }
       },
@@ -708,7 +710,7 @@ AdminPanel.Init = function () {
             .css("bqckground-color", "lime");
           $.post(
             `https://${GetParentResourceName()}/ClaimReport`,
-            JSON.stringify({ id: ReportID })
+            JSON.stringify({ id: ReportID }),
           );
         }
       },
@@ -729,7 +731,7 @@ AdminPanel.Init = function () {
     AdminPanel.BackTo = "reports";
     $.post(
       `https://${GetParentResourceName()}/RequestViewPlayer`,
-      JSON.stringify($(this).data("player"))
+      JSON.stringify($(this).data("player")),
     );
     $("#loading").show();
     AdminPanel.ResetNav();
@@ -755,7 +757,7 @@ AdminPanel.Init = function () {
                     <strong>` +
             AdminPanel.Language.ReportInfoTranslation +
             `</strong> ${AdminPanel.ReportsList[reportId].Info}<br/>
-                `
+                `,
         );
 
         $("#reportsFooter").append(
@@ -769,7 +771,7 @@ AdminPanel.Init = function () {
             AdminPanel.Language.CloseTranslation +
             `</button>
 
-                `
+                `,
         );
         AdminPanel.ModalOpen = true;
         $("#reportmodal").modal("show");
@@ -801,7 +803,7 @@ AdminPanel.Init = function () {
         if (result != null) {
           $.post(
             `https://${GetParentResourceName()}/ReportReply`,
-            JSON.stringify({ name: id, message: result })
+            JSON.stringify({ name: id, message: result }),
           );
         }
       },
@@ -876,7 +878,7 @@ AdminPanel.Init = function () {
     if ($("#adminchattext").val() != "") {
       $.post(
         `https://${GetParentResourceName()}/AdminChatSend`,
-        JSON.stringify({ message: $("#adminchattext").val() })
+        JSON.stringify({ message: $("#adminchattext").val() }),
       );
       $("#adminchattext").val("");
     }
@@ -897,7 +899,7 @@ AdminPanel.Init = function () {
         //
         AdminPanel.ShowAlert(
           "danger",
-          AdminPanel.Language.EnterReasonLonger5Translation
+          AdminPanel.Language.EnterReasonLonger5Translation,
         );
         return;
       }
@@ -908,7 +910,7 @@ AdminPanel.Init = function () {
         AdminPanel.ShowAlert(
           "danger",
           "<strong>ERROR:</strong>" +
-            AdminPanel.Language.enterGangGradeTranslation
+            AdminPanel.Language.enterGangGradeTranslation,
         );
         return;
       }
@@ -918,7 +920,7 @@ AdminPanel.Init = function () {
         AdminPanel.ShowAlert(
           "danger",
           "<strong>ERROR:</strong>" +
-            AdminPanel.Language.enterJobGradeTranslation
+            AdminPanel.Language.enterJobGradeTranslation,
         );
         return;
       }
@@ -932,7 +934,7 @@ AdminPanel.Init = function () {
         AdminPanel.ShowAlert(
           "danger",
           "<strong>ERROR:</strong>" +
-            AdminPanel.Language.enterItemAmountTranslation
+            AdminPanel.Language.enterItemAmountTranslation,
         );
         return;
       }
@@ -944,7 +946,7 @@ AdminPanel.Init = function () {
     }
     $.post(
       `https://${GetParentResourceName()}/Action`,
-      JSON.stringify(AdminPanel.ConfirmingAction)
+      JSON.stringify(AdminPanel.ConfirmingAction),
     );
     $("#confirm").modal("hide");
     AdminPanel.ModalOpen = false;
@@ -990,7 +992,7 @@ AdminPanel.Init = function () {
           if (result) {
             $.post(
               `https://${GetParentResourceName()}/Action`,
-              JSON.stringify(AdminPanel.ConfirmingAction)
+              JSON.stringify(AdminPanel.ConfirmingAction),
             );
           }
         },
@@ -1018,7 +1020,7 @@ AdminPanel.Init = function () {
             AdminPanel.ConfirmingAction.reason = result;
             $.post(
               `https://${GetParentResourceName()}/Action`,
-              JSON.stringify(AdminPanel.ConfirmingAction)
+              JSON.stringify(AdminPanel.ConfirmingAction),
             );
           }
         },
@@ -1050,7 +1052,7 @@ AdminPanel.Init = function () {
             AdminPanel.ConfirmingAction.reason = result;
             $.post(
               `https://${GetParentResourceName()}/Action`,
-              JSON.stringify(AdminPanel.ConfirmingAction)
+              JSON.stringify(AdminPanel.ConfirmingAction),
             );
           }
         },
@@ -1094,7 +1096,7 @@ AdminPanel.Init = function () {
           `</option>
                 </select><br/>
                 <input type="text" class="form-control" id="reason" placeholder="Reason">
-            `
+            `,
       );
       $("#confirm").modal("show");
       AdminPanel.ModalOpen = true;
@@ -1123,7 +1125,7 @@ AdminPanel.Init = function () {
             AdminPanel.ConfirmingAction.amount = result;
             $.post(
               `https://${GetParentResourceName()}/Action`,
-              JSON.stringify(AdminPanel.ConfirmingAction)
+              JSON.stringify(AdminPanel.ConfirmingAction),
             );
           }
         },
@@ -1153,7 +1155,7 @@ AdminPanel.Init = function () {
             AdminPanel.ConfirmingAction.amount = result;
             $.post(
               `https://${GetParentResourceName()}/Action`,
-              JSON.stringify(AdminPanel.ConfirmingAction)
+              JSON.stringify(AdminPanel.ConfirmingAction),
             );
           }
         },
@@ -1184,7 +1186,7 @@ AdminPanel.Init = function () {
             AdminPanel.ConfirmingAction.model = result;
             $.post(
               `https://${GetParentResourceName()}/Action`,
-              JSON.stringify(AdminPanel.ConfirmingAction)
+              JSON.stringify(AdminPanel.ConfirmingAction),
             );
           }
         },
@@ -1214,7 +1216,7 @@ AdminPanel.Init = function () {
             AdminPanel.ConfirmingAction.amount = result;
             $.post(
               `https://${GetParentResourceName()}/Action`,
-              JSON.stringify(AdminPanel.ConfirmingAction)
+              JSON.stringify(AdminPanel.ConfirmingAction),
             );
           }
         },
@@ -1244,7 +1246,7 @@ AdminPanel.Init = function () {
             AdminPanel.ConfirmingAction.amount = result;
             $.post(
               `https://${GetParentResourceName()}/Action`,
-              JSON.stringify(AdminPanel.ConfirmingAction)
+              JSON.stringify(AdminPanel.ConfirmingAction),
             );
           }
         },
@@ -1256,7 +1258,7 @@ AdminPanel.Init = function () {
           AdminPanel.Language.setJobTranslation +
           `</strong> of ${AdminPanel.EditingPlayerInfo.name}?<br/>
                 <input type="text" class="form-control" id="jobname" placeholder="Grupo" style="margin-bottom:5px">
-            `
+            `,
       );
       $("#confirm").modal("show");
       AdminPanel.ModalOpen = true;
@@ -1271,7 +1273,7 @@ AdminPanel.Init = function () {
           `</strong> of ${AdminPanel.EditingPlayerInfo.name}?<br/>
                 <input type="text" class="form-control" id="gangname" placeholder="Gang" style="margin-bottom:5px">
                 <input type="text" class="form-control" id="ganggrade" placeholder="Grade">
-            `
+            `,
       );
       $("#confirm").modal("show");
       AdminPanel.ModalOpen = true;
@@ -1288,7 +1290,7 @@ AdminPanel.Init = function () {
                 <input type="number" class="form-control" id="itemamount" placeholder="` +
           AdminPanel.Language.amountTranslation +
           `">
-            `
+            `,
       );
       $("#confirm").modal("show");
       AdminPanel.ModalOpen = true;
@@ -1319,7 +1321,7 @@ AdminPanel.Init = function () {
             AdminPanel.ConfirmingAction.ipl = result;
             $.post(
               `https://${GetParentResourceName()}/Action`,
-              JSON.stringify(AdminPanel.ConfirmingAction)
+              JSON.stringify(AdminPanel.ConfirmingAction),
             );
           }
         },
@@ -1398,7 +1400,7 @@ AdminPanel.Init = function () {
             AdminPanel.ConfirmingAction.Distance = result;
             $.post(
               `https://${GetParentResourceName()}/Action`,
-              JSON.stringify(AdminPanel.ConfirmingAction)
+              JSON.stringify(AdminPanel.ConfirmingAction),
             );
           }
         },
@@ -1427,7 +1429,7 @@ AdminPanel.Init = function () {
             AdminPanel.ConfirmingAction.ipl = result;
             $.post(
               `https://${GetParentResourceName()}/Action`,
-              JSON.stringify(AdminPanel.ConfirmingAction)
+              JSON.stringify(AdminPanel.ConfirmingAction),
             );
           }
         },
@@ -1456,7 +1458,7 @@ AdminPanel.Init = function () {
           if (result) {
             $.post(
               `https://${GetParentResourceName()}/Action`,
-              JSON.stringify(AdminPanel.ConfirmingAction)
+              JSON.stringify(AdminPanel.ConfirmingAction),
             );
           }
         },
@@ -1481,7 +1483,7 @@ AdminPanel.Init = function () {
           if (result) {
             $.post(
               `https://${GetParentResourceName()}/Action`,
-              JSON.stringify(AdminPanel.ConfirmingAction)
+              JSON.stringify(AdminPanel.ConfirmingAction),
             );
           }
         },
@@ -1506,7 +1508,7 @@ AdminPanel.Init = function () {
           if (result) {
             $.post(
               `https://${GetParentResourceName()}/Action`,
-              JSON.stringify(AdminPanel.ConfirmingAction)
+              JSON.stringify(AdminPanel.ConfirmingAction),
             );
           }
         },
@@ -1531,7 +1533,7 @@ AdminPanel.Init = function () {
           if (result) {
             $.post(
               `https://${GetParentResourceName()}/Action`,
-              JSON.stringify(AdminPanel.ConfirmingAction)
+              JSON.stringify(AdminPanel.ConfirmingAction),
             );
           }
         },
@@ -1547,7 +1549,7 @@ AdminPanel.Init = function () {
                 <input type="text" id="rgb1" value="rgb(0, 0, 0)"><br/>
                 <span><strong>RGB Secondary</strong></span>
                 <input type="text" id="rgb2" value="rgb(0, 0, 0)">
-            `
+            `,
       );
       $("#rgb1").minicolors({ format: "rgb" });
       $("#rgb2").minicolors({ format: "rgb" });
@@ -1582,7 +1584,7 @@ AdminPanel.Init = function () {
             AdminPanel.ConfirmingAction.livery = result;
             $.post(
               `https://${GetParentResourceName()}/Action`,
-              JSON.stringify(AdminPanel.ConfirmingAction)
+              JSON.stringify(AdminPanel.ConfirmingAction),
             );
           }
         },
@@ -1614,7 +1616,7 @@ AdminPanel.Init = function () {
             AdminPanel.ConfirmingAction.model = result;
             $.post(
               `https://${GetParentResourceName()}/Action`,
-              JSON.stringify(AdminPanel.ConfirmingAction)
+              JSON.stringify(AdminPanel.ConfirmingAction),
             );
           }
         },
@@ -1646,7 +1648,7 @@ AdminPanel.Init = function () {
             AdminPanel.ConfirmingAction.message = result;
             $.post(
               `https://${GetParentResourceName()}/Action`,
-              JSON.stringify(AdminPanel.ConfirmingAction)
+              JSON.stringify(AdminPanel.ConfirmingAction),
             );
           }
         },
@@ -1672,7 +1674,7 @@ AdminPanel.Init = function () {
           if (result) {
             $.post(
               `https://${GetParentResourceName()}/Action`,
-              JSON.stringify(AdminPanel.ConfirmingAction)
+              JSON.stringify(AdminPanel.ConfirmingAction),
             );
           }
         },
@@ -1753,6 +1755,10 @@ AdminPanel.Init = function () {
             text: AdminPanel.Language.HALLOWEENTranslate,
             value: "HALLOWEEN",
           },
+          {
+            text: AdminPanel.Language.BLACKOUTTranslate,
+            value: "BLACKOUT",
+          },
         ],
         centerVertical: true,
         buttons: {
@@ -1771,7 +1777,7 @@ AdminPanel.Init = function () {
             AdminPanel.ConfirmingAction.weather = result;
             $.post(
               `https://${GetParentResourceName()}/Action`,
-              JSON.stringify(AdminPanel.ConfirmingAction)
+              JSON.stringify(AdminPanel.ConfirmingAction),
             );
           }
         },
@@ -1906,7 +1912,7 @@ AdminPanel.Init = function () {
             AdminPanel.ConfirmingAction.time = result;
             $.post(
               `https://${GetParentResourceName()}/Action`,
-              JSON.stringify(AdminPanel.ConfirmingAction)
+              JSON.stringify(AdminPanel.ConfirmingAction),
             );
           }
         },
@@ -1916,12 +1922,12 @@ AdminPanel.Init = function () {
         AdminPanel.EditingPlayerInfo.citizenid;
       $.post(
         `https://${GetParentResourceName()}/Action`,
-        JSON.stringify(AdminPanel.ConfirmingAction)
+        JSON.stringify(AdminPanel.ConfirmingAction),
       );
     } else {
       $.post(
         `https://${GetParentResourceName()}/Action`,
-        JSON.stringify(AdminPanel.ConfirmingAction)
+        JSON.stringify(AdminPanel.ConfirmingAction),
       );
     }
   });
@@ -1972,7 +1978,7 @@ AdminPanel.Init = function () {
     if ($("#inputSubject").val().length <= 5) {
       AdminPanel.ShowAlert(
         "danger",
-        AdminPanel.Language.EnterSubjectLonger5Translation
+        AdminPanel.Language.EnterSubjectLonger5Translation,
       );
       return;
     } else {
@@ -1984,7 +1990,7 @@ AdminPanel.Init = function () {
           subject: escapeHtml($("#inputSubject").val()),
           info: escapeHtml($("#inputInfo").val()),
           type: reportType,
-        })
+        }),
       );
       AdminPanel.CloseReportScreen();
     }
@@ -2005,11 +2011,11 @@ AdminPanel.Init = function () {
         "<strong>" +
           AdminPanel.Language.DarkModeTranslation +
           "</strong> " +
-          AdminPanel.Language.EnabledTranslation
+          AdminPanel.Language.EnabledTranslation,
       );
       $.post(
         `https://${GetParentResourceName()}/SaveSetting`,
-        JSON.stringify({ setting: "darkmode", value: 1 })
+        JSON.stringify({ setting: "darkmode", value: 1 }),
       );
     } else {
       Toast.setTheme(TOAST_THEME.LIGHT);
@@ -2025,11 +2031,11 @@ AdminPanel.Init = function () {
         "<strong>" +
           AdminPanel.Language.DarkModeTranslation +
           "</strong> " +
-          AdminPanel.Language.DisabledTranslation
+          AdminPanel.Language.DisabledTranslation,
       );
       $.post(
         `https://${GetParentResourceName()}/SaveSetting`,
-        JSON.stringify({ setting: "darkmode", value: 0 })
+        JSON.stringify({ setting: "darkmode", value: 0 }),
       );
     }
   });
@@ -2043,11 +2049,11 @@ AdminPanel.Init = function () {
         "<strong>" +
           AdminPanel.Language.SeeModeTranslation +
           "</strong> " +
-          AdminPanel.Language.EnabledTranslation
+          AdminPanel.Language.EnabledTranslation,
       );
       $.post(
         `https://${GetParentResourceName()}/SaveSetting`,
-        JSON.stringify({ setting: "seethrough", value: 1 })
+        JSON.stringify({ setting: "seethrough", value: 1 }),
       );
     } else {
       AdminPanel.SeeThroughModeEnabled = false;
@@ -2057,11 +2063,11 @@ AdminPanel.Init = function () {
         "<strong>" +
           AdminPanel.Language.SeeModeTranslation +
           "</strong> " +
-          AdminPanel.Language.DisabledTranslation
+          AdminPanel.Language.DisabledTranslation,
       );
       $.post(
         `https://${GetParentResourceName()}/SaveSetting`,
-        JSON.stringify({ setting: "seethrough", value: 0 })
+        JSON.stringify({ setting: "seethrough", value: 0 }),
       );
     }
   });
@@ -2074,11 +2080,11 @@ AdminPanel.Init = function () {
         "<strong>" +
           AdminPanel.Language.NotificationsTranslation +
           ":</strong> " +
-          AdminPanel.Language.EnabledTranslation
+          AdminPanel.Language.EnabledTranslation,
       );
       $.post(
         `https://${GetParentResourceName()}/SaveSetting`,
-        JSON.stringify({ setting: "Notifications", value: 1 })
+        JSON.stringify({ setting: "Notifications", value: 1 }),
       );
     } else {
       AdminPanel.NotificationsEnabled = false;
@@ -2087,11 +2093,11 @@ AdminPanel.Init = function () {
         "<strong>" +
           AdminPanel.Language.NotificationsTranslation +
           ":</strong> " +
-          AdminPanel.Language.DisabledTranslation
+          AdminPanel.Language.DisabledTranslation,
       );
       $.post(
         `https://${GetParentResourceName()}/SaveSetting`,
-        JSON.stringify({ setting: "Notifications", value: 0 })
+        JSON.stringify({ setting: "Notifications", value: 0 }),
       );
     }
   });
@@ -2102,11 +2108,11 @@ AdminPanel.Init = function () {
       "<strong>" +
         AdminPanel.Language.ThemeTranslation +
         ":</strong> " +
-        AdminPanel.Language.ChangedTranslation
+        AdminPanel.Language.ChangedTranslation,
     );
     $.post(
       `https://${GetParentResourceName()}/SaveSetting`,
-      JSON.stringify({ setting: "theme", value: $(this).val() })
+      JSON.stringify({ setting: "theme", value: $(this).val() }),
     );
     AdminPanel.SetTheme($(this).val());
   });
@@ -2172,7 +2178,7 @@ AdminPanel.PeformResourceAction = function (resourceName, action) {
   $("#resourcelist").hide();
   $.post(
     `https://${GetParentResourceName()}/ResourceAction`,
-    JSON.stringify({ resource: resourceName, action: action })
+    JSON.stringify({ resource: resourceName, action: action }),
   );
 };
 
@@ -2215,7 +2221,7 @@ AdminPanel.SetTheme = function (themeId) {
   }
   $("#accordionSidebar")
     .removeClass(
-      "bg-gradient-primary bg-gradient-secondary bg-gradient-success bg-gradient-info bg-gradient-warning bg-gradient-danger bg-gradient-yellow bg-gradient-dark"
+      "bg-gradient-primary bg-gradient-secondary bg-gradient-success bg-gradient-info bg-gradient-warning bg-gradient-danger bg-gradient-yellow bg-gradient-dark",
     )
     .addClass("bg-gradient-" + themeName);
 };
@@ -2237,10 +2243,10 @@ AdminPanel.SetupPlayerInfo = function () {
   AdminPanel.ResetNav();
   if (AdminPanel.EditingPlayerInfo !== undefined) {
     var date = new Date(
-      AdminPanel.EditingPlayerInfo.lastonline
+      AdminPanel.EditingPlayerInfo.lastonline,
     ).toLocaleDateString("en-US");
     var time = new Date(
-      AdminPanel.EditingPlayerInfo.lastonline
+      AdminPanel.EditingPlayerInfo.lastonline,
     ).toLocaleTimeString("en-US");
     var gender = AdminPanel.EditingPlayerInfo.gender
       ? '<span style="color:deeppink"><i class="fas fa-venus"></i> ' +
@@ -2274,7 +2280,7 @@ AdminPanel.SetupPlayerInfo = function () {
         ") " +
         (AdminPanel.EditingPlayerId == -1
           ? `<span class="badge badge-danger">OFFLINE</span>`
-          : `<span class="badge badge-success">${AdminPanel.EditingPlayerId}`)
+          : `<span class="badge badge-success">${AdminPanel.EditingPlayerId}`),
     );
     $("#steamid").html(AdminPanel.EditingPlayerInfo.steamid);
     $("#identifiers").html(AdminPanel.EditingPlayerInfo.identifiers);
@@ -2287,32 +2293,32 @@ AdminPanel.SetupPlayerInfo = function () {
     $("#gender").html(gender);
     $("#nationality").html(AdminPanel.EditingPlayerInfo.nationality);
     $("#hunger").html(
-      parseFloat(AdminPanel.EditingPlayerInfo.hunger).toFixed(2) + "%"
+      parseFloat(AdminPanel.EditingPlayerInfo.hunger).toFixed(2) + "%",
     );
     $("#foodprogress").css(
       "width",
-      parseFloat(AdminPanel.EditingPlayerInfo.hunger).toFixed(2) + "%"
+      parseFloat(AdminPanel.EditingPlayerInfo.hunger).toFixed(2) + "%",
     );
     $("#thirst").html(
-      parseFloat(AdminPanel.EditingPlayerInfo.thirst).toFixed(2) + "%"
+      parseFloat(AdminPanel.EditingPlayerInfo.thirst).toFixed(2) + "%",
     );
     $("#waterprogress").css(
       "width",
-      parseFloat(AdminPanel.EditingPlayerInfo.thirst).toFixed(2) + "%"
+      parseFloat(AdminPanel.EditingPlayerInfo.thirst).toFixed(2) + "%",
     );
     $("#health").html(
-      parseFloat(AdminPanel.EditingPlayerInfo.health).toFixed(2) + "%"
+      parseFloat(AdminPanel.EditingPlayerInfo.health).toFixed(2) + "%",
     );
     $("#healthprogress").css(
       "width",
-      parseFloat(AdminPanel.EditingPlayerInfo.health).toFixed(2) + "%"
+      parseFloat(AdminPanel.EditingPlayerInfo.health).toFixed(2) + "%",
     );
     $("#armour").html(
-      parseFloat(AdminPanel.EditingPlayerInfo.armor).toFixed(2) + "%"
+      parseFloat(AdminPanel.EditingPlayerInfo.armor).toFixed(2) + "%",
     );
     $("#armourprogress").css(
       "width",
-      parseFloat(AdminPanel.EditingPlayerInfo.armor).toFixed(2) + "%"
+      parseFloat(AdminPanel.EditingPlayerInfo.armor).toFixed(2) + "%",
     );
     $("#phoneno").html(AdminPanel.EditingPlayerInfo.phone);
     $("#injail").html(injail);
@@ -2325,7 +2331,7 @@ AdminPanel.SetupPlayerInfo = function () {
     $("#gangboss").html(AdminPanel.EditingPlayerInfo.gangboss);
     $("#charname").html(AdminPanel.EditingPlayerInfo.charname);
     $("#playerid").html(
-      AdminPanel.EditingPlayerId == -1 ? "OFFLINE" : AdminPanel.EditingPlayerId
+      AdminPanel.EditingPlayerId == -1 ? "OFFLINE" : AdminPanel.EditingPlayerId,
     );
     editingplayer = AdminPanel.EditingPlayerId;
     $("#playerpage").show();
@@ -2351,7 +2357,7 @@ AdminPanel.Clipboard = function (string) {
   fallbackCopyTextToClipboard(string);
   AdminPanel.ShowAlert(
     "success",
-    "<strong>SUCCESS:</strong> " + AdminPanel.Language.copiedTranslation
+    "<strong>SUCCESS:</strong> " + AdminPanel.Language.copiedTranslation,
   );
 };
 
@@ -2541,7 +2547,7 @@ AdminPanel.ResetJobList = function () {
         AdminPanel.Language.employeesTranslation +
         ` <strong>${value.length}</strong>
             </a>
-        `
+        `,
     );
     var string = `
         <ul class="list-group collapse" id="jobinfo${key}">
@@ -2588,7 +2594,7 @@ AdminPanel.ResetGangList = function () {
         AdminPanel.Language.membersTranslation +
         ` <strong>${value.length}</strong>
             </a>
-        `
+        `,
     );
 
     var string = `
@@ -2671,8 +2677,8 @@ AdminPanel.ResetReportsList = function () {
     if (item) {
       $("#reportslisttbody").append(`
                 <tr data-reportid="${item.ReportID}" ${
-        item.Claimed ? 'style="color:lime"' : 'style="color:red"'
-      }>
+                  item.Claimed ? 'style="color:lime"' : 'style="color:red"'
+                }>
                 <th scope="row">${item.SenderID}</th>
                 <td>${item.SenderName}</td>
                 <td>${AdminPanel.TimeSince(parseInt(item.ReportTime))}</td>
@@ -2737,7 +2743,7 @@ AdminPanel.ResetAdminChat = function () {
   AdminPanel.AdminChatOpen = true;
   $("#adminchatboxul").animate(
     { scrollTop: $("#adminchatboxul")[0].scrollHeight },
-    500
+    500,
   );
 };
 
@@ -2807,7 +2813,7 @@ $(document).on("dblclick", ".ItemDblC", function (e) {
                 Item: item,
                 Amount: result2,
                 Id: result,
-              })
+              }),
             );
           }
         },
@@ -2824,7 +2830,7 @@ AdminPanel.ResetLeaderboardList = function () {
   $("#maincoinleaderboard2").empty();
   $("#mainvehiclesleaderboard2").empty();
   AdminPanel.MoneyLeaderboard.sort(
-    (a, b) => parseFloat(b.cash) - parseFloat(a.cash)
+    (a, b) => parseFloat(b.cash) - parseFloat(a.cash),
   );
   for (const Player in AdminPanel.MoneyLeaderboard) {
     $("#maincashleaderboard2").append(`
@@ -2835,7 +2841,7 @@ AdminPanel.ResetLeaderboardList = function () {
             </tr>
         `);
     var date = new Date(
-      AdminPanel.MoneyLeaderboard[Player].lastseen
+      AdminPanel.MoneyLeaderboard[Player].lastseen,
     ).toLocaleDateString("en-US");
     $("#mainlastseenleaderboard2").append(`
             <tr>
@@ -2846,7 +2852,7 @@ AdminPanel.ResetLeaderboardList = function () {
         `);
   }
   AdminPanel.MoneyLeaderboard.sort(
-    (a, b) => parseFloat(b.bank) - parseFloat(a.bank)
+    (a, b) => parseFloat(b.bank) - parseFloat(a.bank),
   );
   for (const Player in AdminPanel.MoneyLeaderboard) {
     $("#mainbankleaderboard2").append(`
@@ -2858,7 +2864,7 @@ AdminPanel.ResetLeaderboardList = function () {
         `);
   }
   AdminPanel.MoneyLeaderboard.sort(
-    (a, b) => parseFloat(b.crypto) - parseFloat(a.crypto)
+    (a, b) => parseFloat(b.crypto) - parseFloat(a.crypto),
   );
   for (const Player in AdminPanel.MoneyLeaderboard) {
     if (AdminPanel.MoneyLeaderboard[Player].crypto !== undefined) {
@@ -2874,7 +2880,7 @@ AdminPanel.ResetLeaderboardList = function () {
   if (AdminPanel.MoneyLeaderboard[0].coin !== undefined) {
     $(".coinHidden").removeAttr("hidden");
     AdminPanel.MoneyLeaderboard.sort(
-      (a, b) => parseFloat(b.coin) - parseFloat(a.coin)
+      (a, b) => parseFloat(b.coin) - parseFloat(a.coin),
     );
     for (const Player in AdminPanel.MoneyLeaderboard) {
       $("#maincoinleaderboard2").append(`
@@ -2957,12 +2963,12 @@ AdminPanel.ResetVehiclesList = function () {
             <tr>
             <td style="cursor: pointer" id="${Vehicle}" class="VehicleDblC">${Vehicle}</td>
             <td>${AdminPanel.VehiclesList[Vehicle].brand} ${
-      AdminPanel.VehiclesList[Vehicle].name
-    }</td>
+              AdminPanel.VehiclesList[Vehicle].name
+            }</td>
             <td>${AdminPanel.VehiclesList[Vehicle].category}</td>
             <td>${AdminPanel.VehiclesList[Vehicle].shop}</td>
             <td>$${AdminPanel.NumberWithCommas(
-              AdminPanel.VehiclesList[Vehicle].price
+              AdminPanel.VehiclesList[Vehicle].price,
             )}</td>
             </tr>
         `);
@@ -2982,7 +2988,7 @@ AdminPanel.ResetVehiclesList = function () {
 $(document).on("dblclick", ".VehicleDblC", function (e) {
   $.post(
     `https://${GetParentResourceName()}/SpawnVehicle`,
-    JSON.stringify({ Vehicle: $(this).attr("id") })
+    JSON.stringify({ Vehicle: $(this).attr("id") }),
   );
 });
 
@@ -3048,7 +3054,7 @@ AdminPanel.ResetLogViewer = function () {
         item.from +
         "</td><td>" +
         item.message +
-        "</td></tr>"
+        "</td></tr>",
     );
   });
   $("#logslisttable").fancyTable({
@@ -3123,13 +3129,13 @@ AdminPanel.Refresh = function (data) {
   AdminPanel.PlayerList = $.parseJSON(data.playerlist);
   AdminPanel.ServerInformation = data.serverData;
   $("#playersonline").html(
-    AdminPanel.PlayerList.length + " / " + AdminPanel.MaxPlayers
+    AdminPanel.PlayerList.length + " / " + AdminPanel.MaxPlayers,
   );
   $("#numplayers").html(
     AdminPanel.PlayerList.length +
       " / " +
       AdminPanel.MaxPlayers +
-      " Players Online"
+      " Players Online",
   );
   $("#playersonlinebar").css({
     width: (AdminPanel.PlayerList.length / AdminPanel.MaxPlayers) * 100,
@@ -3142,19 +3148,19 @@ AdminPanel.Refresh = function (data) {
   AdminPanel.PlayerList.forEach(function (item, index) {
     if (item.role == "god") {
       $("#mainplayerlist2").append(
-        `<tr class="player" style="color:red" data-playerindex="${index}" data-id="${item.id}"><th scope="row">${item.id}</th><td>${item.name}</td><td>${item.charname}</td><td>${item.steamid}</td></tr>`
+        `<tr class="player" style="color:red" data-playerindex="${index}" data-id="${item.id}"><th scope="row">${item.id}</th><td>${item.name}</td><td>${item.charname}</td><td>${item.steamid}</td></tr>`,
       );
     } else if (item.role == "admin") {
       $("#mainplayerlist2").append(
-        `<tr class="player" style="color:orange" data-playerindex="${index}" data-id="${item.id}"><th scope="row">${item.id}</th><td>${item.name}</td><td>${item.charname}</td><td>${item.steamid}</td></tr>`
+        `<tr class="player" style="color:orange" data-playerindex="${index}" data-id="${item.id}"><th scope="row">${item.id}</th><td>${item.name}</td><td>${item.charname}</td><td>${item.steamid}</td></tr>`,
       );
     } else if (item.role == "mod") {
       $("#mainplayerlist2").append(
-        `<tr class="player" style="color:blue" data-playerindex="${index}" data-id="${item.id}"><th scope="row">${item.id}</th><td>${item.name}</td><td>${item.charname}</td><td>${item.steamid}</td></tr>`
+        `<tr class="player" style="color:blue" data-playerindex="${index}" data-id="${item.id}"><th scope="row">${item.id}</th><td>${item.name}</td><td>${item.charname}</td><td>${item.steamid}</td></tr>`,
       );
     } else {
       $("#mainplayerlist2").append(
-        `<tr class="player" data-playerindex="${index}" data-id="${item.id}"><th scope="row">${item.id}</th><td>${item.name}</td><td>${item.charname}</td><td>${item.steamid}</td></tr>`
+        `<tr class="player" data-playerindex="${index}" data-id="${item.id}"><th scope="row">${item.id}</th><td>${item.name}</td><td>${item.charname}</td><td>${item.steamid}</td></tr>`,
       );
     }
   });
@@ -3194,7 +3200,7 @@ AdminPanel.Open = function (data) {
   $("#mri_Qadmin_version").html(AdminPanel.Version);
   $("#adminname").html(data.name);
   $("#playersonline").html(
-    AdminPanel.PlayerList.length + " / " + AdminPanel.MaxPlayers
+    AdminPanel.PlayerList.length + " / " + AdminPanel.MaxPlayers,
   );
   $("#playersonlinebar").css({
     width: (AdminPanel.PlayerList.length / AdminPanel.MaxPlayers) * 100 + "%",
@@ -3216,19 +3222,19 @@ AdminPanel.Open = function (data) {
   AdminPanel.PlayerList.forEach(function (item, index) {
     if (item.role == "god") {
       $("#mainplayerlist2").append(
-        `<tr class="player" style="color:red" data-playerindex="${index}" data-id="${item.id}"><th scope="row">${item.id}</th><td>${item.name}</td><td>${item.charname}</td><td>${item.steamid}</td></tr>`
+        `<tr class="player" style="color:red" data-playerindex="${index}" data-id="${item.id}"><th scope="row">${item.id}</th><td>${item.name}</td><td>${item.charname}</td><td>${item.steamid}</td></tr>`,
       );
     } else if (item.role == "admin") {
       $("#mainplayerlist2").append(
-        `<tr class="player" style="color:orange" data-playerindex="${index}" data-id="${item.id}"><th scope="row">${item.id}</th><td>${item.name}</td><td>${item.charname}</td><td>${item.steamid}</td></tr>`
+        `<tr class="player" style="color:orange" data-playerindex="${index}" data-id="${item.id}"><th scope="row">${item.id}</th><td>${item.name}</td><td>${item.charname}</td><td>${item.steamid}</td></tr>`,
       );
     } else if (item.role == "mod") {
       $("#mainplayerlist2").append(
-        `<tr class="player" style="color:blue" data-playerindex="${index}" data-id="${item.id}"><th scope="row">${item.id}</th><td>${item.name}</td><td>${item.charname}</td><td>${item.steamid}</td></tr>`
+        `<tr class="player" style="color:blue" data-playerindex="${index}" data-id="${item.id}"><th scope="row">${item.id}</th><td>${item.name}</td><td>${item.charname}</td><td>${item.steamid}</td></tr>`,
       );
     } else {
       $("#mainplayerlist2").append(
-        `<tr class="player" data-playerindex="${index}" data-id="${item.id}"><th scope="row">${item.id}</th><td>${item.name}</td><td>${item.charname}</td><td>${item.steamid}</td></tr>`
+        `<tr class="player" data-playerindex="${index}" data-id="${item.id}"><th scope="row">${item.id}</th><td>${item.name}</td><td>${item.charname}</td><td>${item.steamid}</td></tr>`,
       );
     }
   });
@@ -3242,17 +3248,17 @@ AdminPanel.Open = function (data) {
   $("#mainbox").show();
   $("#content-wrapper").show();
   $(
-    "#jobboss, #injail, #relieveStress, #setGangButton, #gangpagebtn, #savePlayer, #saveCar, #setWeatherButton, #setTimeButton"
+    "#jobboss, #injail, #relieveStress, #setGangButton, #gangpagebtn, #savePlayer, #saveCar, #setWeatherButton, #setTimeButton",
   ).show();
   if (data.Framework == "ESX" || data.Framework == "esx") {
     $(
-      "#jobboss, #injail, #relieveStress, #setGangButton, #gangpagebtn, #savePlayer, #saveCar, #setWeatherButton, #setTimeButton"
+      "#jobboss, #injail, #relieveStress, #setGangButton, #gangpagebtn, #savePlayer, #saveCar, #setWeatherButton, #setTimeButton",
     ).hide();
   }
   AdminPanel.IsOpen = true;
   $("#dashboardpagebtn").click();
   $(".copyright").html(
-    '<span>Painel Admin <span id="mri_Qadmin_version"></span><br />Tradução & Adaptação &copy; 2024 mri_Qbox Brasil <img src="assets/img/brazil.png" class="mb-1" /><br />💻 dev discord: .mur4i</span>'
+    '<span>Painel Admin <span id="mri_Qadmin_version"></span><br />Tradução & Adaptação &copy; 2024 mri_Qbox Brasil <img src="assets/img/brazil.png" class="mb-1" /><br />💻 dev discord: .mur4i</span>',
   );
   $("#mri_Qadmin_version").html(AdminPanel.Version);
   AdminPanel.SetTheme(data.Theme);

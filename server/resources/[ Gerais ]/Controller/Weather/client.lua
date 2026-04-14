@@ -15,10 +15,17 @@ end)
 
 CreateThread(function()
 	while true do
-		SetWeatherTypeNow(weatherSync)
-		SetWeatherTypePersist(weatherSync)
-		SetWeatherTypeNowPersist(weatherSync)
-		NetworkOverrideClockTime(clockHours,clockMinutes,00)
+		if weatherSync == "BLACKOUT" then
+			SetBlackout(true)
+            ClearOverrideWeather()
+            ClearWeatherTypePersist()
+            NetworkOverrideClockTime(0, 0, 0)
+		else
+			SetWeatherTypeNow(weatherSync)
+			SetWeatherTypePersist(weatherSync)
+			SetWeatherTypeNowPersist(weatherSync)
+			NetworkOverrideClockTime(clockHours,clockMinutes,00)
+		end
 		Wait(1000)
 	end
 end)

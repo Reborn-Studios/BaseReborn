@@ -285,6 +285,7 @@ Translations = {
             WeatherTypeTranslation = "Tipo de clima:",
             EXTRASUNNYTranslation = "Extra Ensolarado",
             CLEARTranslation = "Limpo",
+            BLACKOUTTranslate = "Blackout",
             NEUTRALTranslation = "Neutro",
             SMOGTranslation = "Nevoeiro",
             FOGGYTranslation = "Nublado",
