@@ -293,3 +293,40 @@ INSERT INTO `barbershops` (`id`, `name`, `coords`, `blip`) VALUES
 	(5, 'Barbearia 5', '{"x":1212.8834228515626,"y":-472.9643249511719,"z":65.70804595947266}', '1'),
 	(6, 'Barbearia 6', '{"x":-32.95664596557617,"y":-152.7146453857422,"z":56.57651901245117}', '1'),
 	(7, 'Barbearia 7', '{"x":-277.6341552734375,"y":6227.82177734375,"z":31.19552421569824}', '1');
+
+CREATE TABLE IF NOT EXISTS `transactions` (
+  `id` int(20) NOT NULL AUTO_INCREMENT,
+  `Passport` int(10) NOT NULL DEFAULT 0,
+  `Type` varchar(50) NOT NULL,
+  `Price` int(20) NOT NULL,
+  `Timestamp` int(20) NOT NULL DEFAULT 0,
+  `Reference` varchar(80) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`),
+  KEY `Passport` (`Passport`),
+  KEY `id` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE IF NOT EXISTS `invoices` (
+  `id` int(20) NOT NULL AUTO_INCREMENT,
+  `Passport` int(10) NOT NULL DEFAULT 0,
+  `Received` int(10) NOT NULL DEFAULT 0,
+  `Type` varchar(50) NOT NULL,
+  `Reason` longtext NOT NULL,
+  `Timestamp` varchar(50) NOT NULL,
+  `Price` int(20) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`),
+  KEY `Passport` (`Passport`),
+  KEY `id` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE IF NOT EXISTS `taxes` (
+  `id` int(20) NOT NULL AUTO_INCREMENT,
+  `Passport` int(10) NOT NULL DEFAULT 0,
+  `Name` varchar(50) NOT NULL,
+  `Timestamp` varchar(50) NOT NULL,
+  `Price` int(20) NOT NULL,
+  `Description` longtext DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `Passport` (`Passport`),
+  KEY `id` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
