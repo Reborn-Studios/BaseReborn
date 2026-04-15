@@ -21,6 +21,7 @@ CreateThread(function()
             ClearWeatherTypePersist()
             NetworkOverrideClockTime(0, 0, 0)
 		else
+			SetBlackout(false)
 			SetWeatherTypeNow(weatherSync)
 			SetWeatherTypePersist(weatherSync)
 			SetWeatherTypeNowPersist(weatherSync)
