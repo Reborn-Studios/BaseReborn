@@ -87,7 +87,3 @@ AddEventHandler("will_login:checkRegister",function (source)
         TriggerClientEvent("will_login:LoginMenu",source)
     end
 end)
-
-RegisterCommand("testlogin",function(source)
-    TriggerClientEvent("will_login:LoginMenu",source)
-end)
