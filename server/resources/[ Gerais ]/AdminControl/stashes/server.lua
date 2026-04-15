@@ -151,7 +151,9 @@ AddEventHandler("onResourceStart",function(rs)
             if stashesWebhooks[toInvSplit[1]] then
                 webhook = stashesWebhooks[toInvSplit[1]]
                 title = ("ID (%s) COLOCOU ITEM NO BAU __%s__"):format(user_id,getStashName(toInvSplit[1]))
-                exports.ld_orgs_v2:addLogChest(user_id, "deposit", fromSlot.label, payload.count)
+                if GetResourceState("ld_orgs_v2") == "started" then
+                    exports.ld_orgs_v2:addLogChest(user_id, "deposit", fromSlot.label, payload.count)
+                end
             elseif stashesWebhooks[fromInvSplit[1]] then
                 webhook = stashesWebhooks[fromInvSplit[1]]
                 title = ("ID (%s) RETIROU ITEM DO BAU __%s__"):format(user_id,getStashName(fromInvSplit[1]))
