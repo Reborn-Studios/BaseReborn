@@ -235,6 +235,7 @@ RegisterCommand("EmergencyFunctions",function()
 				end
 
 				exports["dynamic"]:AddMenu("Jogador","Pessoa mais próxima de você.","player")
+				exports["dynamic"]:AddButton("Apreender","Apreender itens ilegais.","inventory:arrestItems","","player",true)
 				exports["dynamic"]:AddButton("Carregar","Carregar a pessoa mais próxima.","inventory:Carry","","player",true)
 				exports["dynamic"]:AddButton("Colocar no Veículo","Colocar no veículo mais próximo.","player:cvFunctions","cv","player",true)
 				exports["dynamic"]:AddButton("Remover do Veículo","Remover do veículo mais próximo.","player:cvFunctions","rv","player",true)

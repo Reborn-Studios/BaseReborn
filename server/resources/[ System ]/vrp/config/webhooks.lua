@@ -61,6 +61,7 @@ local Webhooks = {
 	webhookmdtmanage = "",
 	webhookprison = "",
 	webhookmulta = "",
+	webhookarrestitems = "",
 	-- ROTAS
 	webhookroutes = "",
 	-- PAINEL FAC

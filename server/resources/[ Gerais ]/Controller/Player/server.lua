@@ -1057,3 +1057,171 @@ AddEventHandler("PerdaPersonagem",function()
 	vRP.execute("vRP/remove_characters",{ id = user_id })
 	vRP.kick(user_id,"Seu personagem foi perdido")
 end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- COMANDO APREENDER
+-----------------------------------------------------------------------------------------------------------------------------------------
+local ilegalItems = {
+	"lockpick",
+	"dollars2",
+	"methliquid",
+	"cocaempo",
+	"cannabisseed",
+	"folhademaconha",
+	"joint",
+	"maconhamacerada",
+	"gdtkit",
+	"armacaodearma",
+	"pecadearma",
+	"gatilho",
+	"gunpowder",
+	"alvejante",
+	"acidobateria",
+	"meth",
+	"cocaine",
+	"pastadecoca",
+	"weed",
+	"lean",
+	"lsd",
+	"ecstasy",
+	"c4",
+	"thermite_h",
+	"hack_usb",
+	"drill",
+	"yacht_drill",
+	"bag",
+	"cutter",
+	"radio_jammer",
+	"WEAPON_BATTLERIFLE",
+	"WEAPON_TECPISTOL",
+	"WEAPON_ADVANCEDRIFLE",
+	"WEAPON_APPISTOL",
+	"WEAPON_ASSAULTRIFLE",
+	"WEAPON_ASSAULTRIFLE_MK2",
+	"WEAPON_ASSAULTSHOTGUN",
+	"WEAPON_ASSAULTSMG",
+	"WEAPON_BAT",
+	"WEAPON_BATTLEAXE",
+	"WEAPON_BOTTLE",
+	"WEAPON_BULLPUPRIFLE",
+	"WEAPON_BULLPUPRIFLE_MK2",
+	"WEAPON_BULLPUPSHOTGUN",
+	"WEAPON_BZGAS",
+	"WEAPON_CARBINERIFLE",
+	"WEAPON_CARBINERIFLE_MK2",
+	"WEAPON_CERAMICPISTOL",
+	"WEAPON_PISTOLXM3",
+	"WEAPON_COMBATMG",
+	"WEAPON_COMBATMG_MK2",
+	"WEAPON_COMBATPDW",
+	"WEAPON_COMBATPISTOL",
+	"WEAPON_COMBATSHOTGUN",
+	"WEAPON_COMPACTLAUNCHER",
+	"WEAPON_COMPACTRIFLE",
+	"WEAPON_CROWBAR",
+	"WEAPON_DAGGER",
+	"WEAPON_DBSHOTGUN",
+	"WEAPON_DOUBLEACTION",
+	"WEAPON_EMPLAUNCHER",
+	"WEAPON_FLAREGUN",
+	"WEAPON_GRENADE",
+	"WEAPON_GRENADELAUNCHER",
+	"WEAPON_GUSENBERG",
+	"WEAPON_HAMMER",
+	"WEAPON_HATCHET",
+	"WEAPON_HEAVYRIFLE",
+	"WEAPON_HOMINGLAUNCHER",
+	"WEAPON_HEAVYPISTOL",
+	"WEAPON_HEAVYSHOTGUN",
+	"WEAPON_HEAVYSNIPER",
+	"WEAPON_HEAVYSNIPER_MK2",
+	"WEAPON_KNIFE",
+	"WEAPON_KNUCKLE",
+	"WEAPON_MACHETE",
+	"WEAPON_MACHINEPISTOL",
+	"WEAPON_MARKSMANPISTOL",
+	"WEAPON_MARKSMANRIFLE",
+	"WEAPON_MARKSMANRIFLE_MK2",
+	"WEAPON_MG",
+	"WEAPON_MINIGUN",
+	"WEAPON_MICROSMG",
+	"WEAPON_MILITARYRIFLE",
+	"WEAPON_MINISMG",
+	"WEAPON_MOLOTOV",
+	"WEAPON_MUSKET",
+	"WEAPON_NAVYREVOLVER",
+	"WEAPON_PIPEBOMB",
+	"WEAPON_PISTOL",
+	"WEAPON_PISTOL50",
+	"WEAPON_PISTOL_MK2",
+	"WEAPON_PROXMINE",
+	"WEAPON_PUMPSHOTGUN",
+	"WEAPON_PUMPSHOTGUN_MK2",
+	"WEAPON_RAILGUN",
+	"WEAPON_RAILGUNXM3",
+	"WEAPON_RAYCARBINE",
+	"WEAPON_RAYPISTOL",
+	"WEAPON_REVOLVER",
+	"WEAPON_REVOLVER_MK2",
+	"WEAPON_RPG",
+	"WEAPON_SAWNOFFSHOTGUN",
+	"WEAPON_SMG",
+	"WEAPON_SMG_MK2",
+	"WEAPON_SMOKEGRENADE",
+	"WEAPON_SNIPERRIFLE",
+	"WEAPON_SNSPISTOL",
+	"WEAPON_SNSPISTOL_MK2",
+	"WEAPON_SPECIALCARBINE",
+	"WEAPON_SPECIALCARBINE_MK2",
+	"WEAPON_STICKYBOMB",
+	"WEAPON_STONE_HATCHET",
+	"WEAPON_AUTOSHOTGUN",
+	"WEAPON_SWITCHBLADE",
+	"WEAPON_VINTAGEPISTOL",
+	"WEAPON_RAYMINIGUN",
+	"WEAPON_WRENCH",
+	"WEAPON_PRECISIONRIFLE",
+	"WEAPON_TACTICALRIFLE",
+	"WEAPON_TEARGAS",
+	"WEAPON_BRICK",
+	"WEAPON_COLTXM177",
+	"WEAPON_FNFAL",
+	"WEAPON_FNSCAR",
+	"WEAPON_KARAMBIT",
+	"WEAPON_KATANA",
+	"WEAPON_NAILGUN",
+	"WEAPON_PARAFAL",
+	"WEAPON_FLASHBANG"
+}
+
+RegisterNetEvent("inventory:arrestItems")
+AddEventHandler("inventory:arrestItems",function()
+	local source = source
+	local user_id = vRP.getUserId(source)
+	if user_id then
+		if vRP.hasPermission(user_id,"policia.permissao") then
+			local nplayer = vRPclient.nearestPlayer(source,2)
+			if nplayer and Player(nplayer).state.Handcuff then
+				local removed = {}
+				local nuser_id = vRP.getUserId(nplayer)
+				for k,v in pairs(ilegalItems) do
+					local quantity = vRP.getInventoryItemAmount(nuser_id,v)
+					if quantity > 0 and vRP.tryGetInventoryItem(nuser_id,v,quantity,true) then
+						if GetResourceState("ox_inventory") == "started" then
+							exports['ox_inventory']:AddItem("policelocker",v,quantity)
+						end
+						table.insert(removed,{
+							item = v,
+							quantity = quantity
+						})
+					end
+				end
+				if #removed > 0 then
+					TriggerClientEvent("Notify", source, "aviso", "Cidadão apreendido com "..#removed.." itens ilegais", 5000)
+					vRP.createWeebHook(Webhooks.webhookarrestitems, "```prolog\n[ID]: "..user_id.." \n[APREENDEU ITENS DE]: "..nuser_id.."\n[ITENS]: "..json.encode(removed,{indent = true})..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
+				end
+			else
+				TriggerClientEvent("Notify", source, "negado", "Cidadão precisa estar perto e algemado", 5000)
+			end
+		end
+	end
+end)
