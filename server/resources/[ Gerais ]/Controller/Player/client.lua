@@ -1279,3 +1279,20 @@ function PlvRP.checkFountain()
 
 	return false
 end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- CALL SERVICE
+-----------------------------------------------------------------------------------------------------------------------------------------
+function PlvRP.callService()
+	local input = lib.inputDialog('Chamar serviço', {
+		{ type = 'select', label = 'Tipo de serviço', description = 'Selecione o serviço desejado', icon = "service", options = {
+			 { label = "Policia", value = "policia.permissao" },
+			 { label = "Samu", value = "paramedico.permissao" },
+			 { label = "Mecanico", value = "mecanico.permissao" },
+			 { label = "Prefeitura", value = "suporte.permissao" },
+		} },
+		{ type = 'input', label = 'Descrição', description = 'Descreva seu chamado', required = true },
+	})
+	if input and input[1] and input[2] then
+		return input
+	end
+end

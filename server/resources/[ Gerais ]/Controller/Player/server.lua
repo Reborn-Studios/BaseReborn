@@ -139,35 +139,20 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 local answeredCalls = {}
 
-RegisterCommand('call',function(source)
+local function callService(source)
 	local user_id = vRP.getUserId(source)
 	if user_id then
 		if answeredCalls[user_id] and answeredCalls[user_id] >= os.time() then
 			TriggerClientEvent("Notify",source,"negado","Aguarde "..(answeredCalls[user_id] - os.time()).." segundos para fazer outro chamado.",5000)
 			return
 		end
-		local service = vRP.prompt(source,"Quem deseja chamar? (Policia, Samu, Mecanico, Prefeitura):","")
-		if service == "" then
-			return
-		end
-		local description = vRP.prompt(source,"Descrição do seu chamado:","")
+		local data = ClientPlayer.callService(source)
+		local service = data[1]
+		local description = data[2]
 		if description == "" or #description < 3 then
 			return
 		end
-
-		local players = {}
-		if service == 'Policia' then
-			players = vRP.getUsersByPermission("policia.permissao")
-		elseif service == 'Samu' then
-			players = vRP.getUsersByPermission("paramedico.permissao")
-		elseif service == 'Mecanico' then
-			players = vRP.getUsersByPermission("mecanico.permissao")
-		elseif service == 'Prefeitura' then
-			players = vRP.getUsersByPermission("suporte.permissao")
-		else
-			TriggerClientEvent("Notify",source,"negado","Não existe o serviço ".. service .. ".",5000)
-			return
-		end
+		local players = vRP.getUsersByPermission(service)
 		if #players > 0 then
 			TriggerClientEvent("Notify",source,"sucesso","Chamado efetuado com sucesso, aguarde no local.",5000)
 			local x,y,z = vRPclient.getPositions(source)
@@ -197,7 +182,12 @@ RegisterCommand('call',function(source)
 			TriggerClientEvent("Notify",source,"negado","Não tem ".. service .. " em serviço.",5000)
 		end
 	end
-end)
+end
+
+RegisterCommand('call',function(source) callService(source) end)
+RegisterCommand('calladm',function(source) callService(source) end)
+RegisterCommand('chamar',function(source) callService(source) end)
+RegisterCommand('chamaradm',function(source) callService(source) end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- ANUNCIOS SERVIÇOS
 -----------------------------------------------------------------------------------------------------------------------------------------
