@@ -17,8 +17,12 @@ CreateThread(function()
 	while true do
 		if weatherSync == "BLACKOUT" then
 			SetBlackout(true)
+			SetArtificialLightsStateAffectsVehicles(false)
             ClearOverrideWeather()
             ClearWeatherTypePersist()
+			SetWeatherTypeNow("CLEAR")
+			SetWeatherTypePersist("CLEAR")
+			SetWeatherTypeNowPersist("CLEAR")
             NetworkOverrideClockTime(0, 0, 0)
 		else
 			SetBlackout(false)
