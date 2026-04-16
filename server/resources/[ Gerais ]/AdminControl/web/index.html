@@ -22,7 +22,33 @@
       <img src="./assets/shield.svg" alt="" id="safe-shield" />
       Safezone
     </div>
+    <div id="groups-panel" class="groups-container">
+      <div class="groups-header">
+        <h3 class="groups-title">Controle de Grupos</h3>
+        <button id="groups-close" class="groups-close-btn">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="groups-search">
+        <input
+          type="text"
+          id="groups-search-input"
+          placeholder="Pesquisar grupo..."
+          class="groups-search-field"
+        />
+      </div>
+      <div class="groups-list" id="groups-list"></div>
+      <div class="groups-footer">
+        <button id="groups-save" class="groups-btn groups-btn-save">
+          Salvar
+        </button>
+        <button id="groups-cancel" class="groups-btn groups-btn-cancel">
+          Cancelar
+        </button>
+      </div>
+    </div>
     <script src="elevator.js"></script>
+    <script src="groups.js"></script>
     <script src="script.js"></script>
   </body>
 </html>

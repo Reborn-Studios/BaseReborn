@@ -1,39 +1,51 @@
+local currentOriginalUserGroups = {}
+
 RegisterNetEvent("AdminControl:showUserGroups")
 AddEventHandler("AdminControl:showUserGroups",function(user_id, userGroups)
     local groups = ServerControl.getGroups()
     if groups then
-        local options = {}
-        for _,Group in ipairs(groups) do
-            table.insert(options,{
-                type = "checkbox", label = Group.label, value = Group.value, checked = userGroups[Group.groupName] and true
-            })
+        currentOriginalUserGroups = userGroups
+        SetNuiFocus(true, true)
+        SendNUIMessage({
+            action = "openGroups",
+            userId = user_id,
+            groups = groups,
+            userGroups = userGroups
+        })
+    end
+end)
+
+RegisterNUICallback("saveGroups", function(data, cb)
+    local user_id = data.userId
+    local selectedGroups = data.selectedGroups
+    local groups = ServerControl.getGroups()
+    if groups then
+        local addGroups = {}
+        local remGroups = {}
+        local changed = false
+        for _, Group in ipairs(groups) do
+            local groupName = Group.groupName
+            local wasInGroup = currentOriginalUserGroups[groupName] and true
+            local isInGroup = selectedGroups[groupName] and true
+            if isInGroup and not wasInGroup then
+                addGroups[groupName] = true
+                changed = true
+            elseif not isInGroup and wasInGroup then
+                remGroups[groupName] = true
+                changed = true
+            end
         end
-        local input = lib.inputDialog("Controle de grupos ("..user_id..")", options)
-        if input then
-            local addGroups = {}
-            local remGroups = {}
-            local changed = false
-            for k,bool in ipairs(input) do
-                local groupName = groups[k].groupName
-                if groupName then
-                    if bool then
-                        if not userGroups[groupName] then
-                            addGroups[groupName] = true
-                            changed = true
-                        end
-                    else
-                        if userGroups[groupName] then
-                            remGroups[groupName] = true
-                            changed = true
-                        end
-                    end
-                end
-            end
-            if changed then
-                TriggerServerEvent("AdminControl:setUserGroups",user_id,addGroups,remGroups)
-            end
+        if changed then
+            TriggerServerEvent("AdminControl:setUserGroups", user_id, addGroups, remGroups)
         end
     end
+    SetNuiFocus(false, false)
+    cb("ok")
+end)
+
+RegisterNUICallback("closeGroups", function(data, cb)
+    SetNuiFocus(false, false)
+    cb("ok")
 end)
 
 local AllGroups = GlobalState["AllGroups"] or {}
