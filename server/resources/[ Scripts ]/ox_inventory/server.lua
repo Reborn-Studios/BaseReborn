@@ -174,8 +174,28 @@ local function openInventory(source, invType, data, ignoreSecurityChecks)
 					local lockStatus = entity > 0 and GetVehicleDoorLockStatus(entity)
 
 					-- 0: no lock; 1: unlocked; 8: boot unlocked
-					if lockStatus > 1 and lockStatus ~= 8 then
+					if not data.forceOpen and lockStatus > 1 and lockStatus ~= 8 then
 						return false, false, 'vehicle_locked'
+					end
+				end
+
+				if data.forceOpen then
+					if math.random(1, 100) <= 50 then
+						local coords = GetEntityCoords(entity)
+						local polices = vRP.getUsersByPermission("policia.permissao")
+						for k,v in pairs(polices) do
+							local player = vRP.getUserSource(v)
+							TriggerClientEvent("NotifyPush",player,{
+								time = os.date("%H:%M:%S - %d/%m/%Y"),
+								text = "Me ajuda esta tendo um roubo aqui neste bairro!",
+								code = 31,
+								title = "Roubo a veículo",
+								x = coords.x,
+								y = coords.y,
+								z = coords.z,
+								rgba = {170,180,25}
+							})
+						end
 					end
 				end
 

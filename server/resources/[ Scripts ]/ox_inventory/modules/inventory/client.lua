@@ -105,6 +105,57 @@ function Inventory.OpenTrunk(entity)
     end
 end
 
+function Inventory.ForceOpenTrunk(entity)
+    local door = Inventory.CanAccessTrunk(entity)
+    if not door then door = 5 end
+
+    local lockStatus = GetVehicleDoorLockStatus(entity)
+    if lockStatus <= 1 or lockStatus == 8 then
+        return Inventory.OpenTrunk(entity)
+    end
+
+    local hasCrowbar = Inventory.GetItemCount('weapon_crowbar') > 0
+    local currentWeapon = GetSelectedPedWeapon(cache.ped)
+    if not hasCrowbar and currentWeapon ~= `WEAPON_CROWBAR` then
+        lib.notify({ type = 'error', description = 'Você precisa de um pé de cabra!' })
+        return
+    end
+
+    TaskTurnPedToFaceCoord(cache.ped, GetEntityCoords(entity).x, GetEntityCoords(entity).y, GetEntityCoords(entity).z, 0)
+    Wait(500)
+
+    if lib.progressCircle({
+        duration = 5000,
+        label = 'Arrombando porta-malas...',
+        useWhileDead = false,
+        canCancel = true,
+        disable = {
+            car = true,
+            move = true,
+            combat = true
+        },
+        anim = {
+            dict = 'amb@prop_human_parking_meter@female@idle_a',
+            clip = 'idle_a_female'
+        },
+    }) then
+        local plate = GetVehicleNumberPlateText(entity)
+        local invId = 'trunk'..plate
+
+        SetVehicleDoorsLocked(entity, 1)
+
+        if not client.openInventory('trunk', { id = invId, netid = NetworkGetNetworkIdFromEntity(entity), entityid = entity, door = door, forceOpen = true }) then return end
+
+        if type(door) == 'table' then
+            for i = 1, #door do
+                SetVehicleDoorOpen(entity, door[i], false, false)
+            end
+        else
+            SetVehicleDoorOpen(entity, door --[[@as number]], false, false)
+        end
+    end
+end
+
 if shared.target then
 	exports.ox_target:addModel(Inventory.Dumpsters, {
         icon = 'fas fa-dumpster',
@@ -120,6 +171,21 @@ if shared.target then
         canInteract = Inventory.CanAccessTrunk,
         onSelect = function(data)
             return Inventory.OpenTrunk(data.entity)
+        end
+    })
+
+    exports.ox_target:addGlobalVehicle({
+        icon = 'fa-solid fa-explosion',
+        label = 'Arrombar porta-malas',
+        distance = 1.5,
+        canInteract = function(entity)
+            local lockStatus = GetVehicleDoorLockStatus(entity)
+            if lockStatus <= 1 or lockStatus == 8 then return false end
+            return true
+        end,
+        items = "WEAPON_CROWBAR",
+        onSelect = function(data)
+            return Inventory.ForceOpenTrunk(data.entity)
         end
     })
 end
