@@ -1225,3 +1225,28 @@ AddEventHandler("inventory:arrestItems",function()
 		end
 	end
 end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- COMANDO APREENDER VEICULO
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("player:arrestVehicle")
+AddEventHandler("player:arrestVehicle",function()
+	local source = source
+	local user_id = vRP.getUserId(source)
+	if user_id then
+		if vRP.hasPermission(user_id,"policia.permissao") then
+			local vehicle, vehNet, vehPlate, vehName = vRPclient.vehList(source,2.7)
+			if vehicle then
+				local owner = vRP.getVehiclePlate(vehPlate)
+				if owner then
+					local nplayer = vRP.getUserSource(owner)
+					if nplayer then
+						TriggerClientEvent("Notify", nplayer, "aviso", "Seu veiculo "..vehName.." foi apreendido", 5000)
+					end
+					vRP.execute("will/set_vehicle_state",{ user_id = owner, vehicle = vehName, arrest = 1 })
+				end
+				TriggerClientEvent("Notify", source, "sucesso", "Veiculo apreendido com sucesso", 5000)
+				DeleteEntity(NetworkGetEntityFromNetworkId(vehNet))
+			end
+		end
+	end
+end)
