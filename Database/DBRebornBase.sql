@@ -212,14 +212,6 @@ CREATE TABLE IF NOT EXISTS `will_skinshops` (
   INDEX `id` (`id`) USING BTREE
 ) ENGINE=InnoDB;
 
-CREATE TABLE IF NOT EXISTS `sv_banking_data` (
-    `uuid` VARCHAR(255) NOT NULL,
-    `credit_score` INT(11) DEFAULT 0,
-    `savings_balance` INT(100) DEFAULT 0,
-    `transactions` JSON NOT NULL DEFAULT '[]',
-    PRIMARY KEY (`uuid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
 CREATE TABLE IF NOT EXISTS `will_clothes` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `category` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb3_general_ci',
@@ -294,7 +286,7 @@ INSERT INTO `barbershops` (`id`, `name`, `coords`, `blip`) VALUES
 	(6, 'Barbearia 6', '{"x":-32.95664596557617,"y":-152.7146453857422,"z":56.57651901245117}', '1'),
 	(7, 'Barbearia 7', '{"x":-277.6341552734375,"y":6227.82177734375,"z":31.19552421569824}', '1');
 
-CREATE TABLE IF NOT EXISTS `transactions` (
+CREATE TABLE IF NOT EXISTS `bank_transactions` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
   `Passport` int(10) NOT NULL DEFAULT 0,
   `Type` varchar(50) NOT NULL,

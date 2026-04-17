@@ -14,8 +14,8 @@ Tunnel.bindInterface("bank",Creative)
 -----------------------------------------------------------------------------------------------------------------------------------------
 local Active = {}
 --[[
-DROP TABLE IF EXISTS `transactions`;
-CREATE TABLE IF NOT EXISTS `transactions` (
+DROP TABLE IF EXISTS `bank_transactions`;
+CREATE TABLE IF NOT EXISTS `bank_transactions` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
   `Passport` int(10) NOT NULL DEFAULT 0,
   `Type` varchar(50) NOT NULL,
@@ -64,7 +64,7 @@ function Transactions(Passport,Limit,Before)
 	end
 
 	local Params = { Passport }
-	local Query = "SELECT id,Type,Price,Timestamp,Reference FROM transactions WHERE Passport = ?"
+	local Query = "SELECT id,Type,Price,Timestamp,Reference FROM bank_transactions WHERE Passport = ?"
 
 	if Before then
 		Query = Query.." AND Timestamp < ?"
@@ -675,7 +675,7 @@ end)
 -- ADDTRANSACTIONS
 -----------------------------------------------------------------------------------------------------------------------------------------
 exports("AddTransactions",function(Passport,Type,Price,Reference)
-	exports.oxmysql:insert_async("INSERT INTO transactions (Passport,Type,Price,Timestamp,Reference) VALUES (@Passport,@Type,@Price,@Timestamp,@Reference)",{ Passport = Passport, Type = Type, Price = Price, Timestamp = os.time(), Reference = Reference })
+	exports.oxmysql:insert_async("INSERT INTO bank_transactions (Passport,Type,Price,Timestamp,Reference) VALUES (@Passport,@Type,@Price,@Timestamp,@Reference)",{ Passport = Passport, Type = Type, Price = Price, Timestamp = os.time(), Reference = Reference })
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- DISCONNECT
