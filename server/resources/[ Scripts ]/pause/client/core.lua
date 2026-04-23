@@ -10,6 +10,7 @@ vSERVER = Tunnel.getInterface("pause")
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
 local Pause = false
+local InfosCache = {}
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- COMMAND
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -109,13 +110,27 @@ end)
 -- HOME
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNUICallback("Home",function(Data,Callback)
-	Callback(vSERVER.Home())
+	if not InfosCache["Home"] or InfosCache["Home"].time < GetGameTimer() then
+		local Home = vSERVER.Home()
+		InfosCache["Home"] = {
+			data = Home,
+			time = GetGameTimer() + 60000
+		}
+	end
+	Callback(InfosCache["Home"].data)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- STORELIST
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNUICallback("StoreList",function(Data,Callback)
-	Callback(vSERVER.StoreList())
+	if not InfosCache["StoreList"] or InfosCache["StoreList"].time < GetGameTimer() then
+		local StoreList = vSERVER.StoreList()
+		InfosCache["StoreList"] = {
+			data = StoreList,
+			time = GetGameTimer() + 60000
+		}
+	end
+	Callback(InfosCache["StoreList"].data)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- STORESBUY
@@ -131,7 +146,14 @@ end)
 -- BATTLEPASS
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNUICallback("Battlepass",function(Data,Callback)
-	Callback(vSERVER.Rolepass())
+	if not InfosCache["Battlepass"] or InfosCache["Battlepass"].time < GetGameTimer() then
+		local Battlepass = vSERVER.Battlepass()
+		InfosCache["Battlepass"] = {
+			data = Battlepass,
+			time = GetGameTimer() + 60000
+		}
+	end
+	Callback(InfosCache["Battlepass"].data)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- BATTLEPASSBUY
@@ -165,7 +187,14 @@ end)
 -- MARKETPLACE
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNUICallback("Marketplace",function(Data,Callback)
-	Callback(vSERVER.Marketplace())
+	if not InfosCache["Marketplace"] or InfosCache["Marketplace"].time < GetGameTimer() then
+		local Marketplace = vSERVER.Marketplace()
+		InfosCache["Marketplace"] = {
+			data = Marketplace,
+			time = GetGameTimer() + 60000
+		}
+	end
+	Callback(InfosCache["Marketplace"].data)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- MARKETPLACEINVENTORY
