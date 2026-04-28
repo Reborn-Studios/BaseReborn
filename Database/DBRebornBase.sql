@@ -322,3 +322,19 @@ CREATE TABLE IF NOT EXISTS `taxes` (
   KEY `Passport` (`Passport`),
   KEY `id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE IF NOT EXISTS `mdt_fines` (
+  `id` bigint(19) NOT NULL AUTO_INCREMENT,
+  `Passport` bigint(19) NOT NULL DEFAULT 0,
+  `Officer` bigint(19) NOT NULL DEFAULT 0,
+  `Timestamp` bigint(19) NOT NULL DEFAULT 0,
+  `Infractions` longtext DEFAULT NULL,
+  `Fine` bigint(19) NOT NULL DEFAULT 0,
+  `Description` longtext DEFAULT NULL,
+  `Paid` tinyint(1) NOT NULL DEFAULT 0,
+  `Arrest` bigint(19) DEFAULT NULL,
+  `Date` varchar(10) NOT NULL DEFAULT '',
+  `Hour` varchar(10) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`),
+  KEY `MDT_Arrest` (`Arrest`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;

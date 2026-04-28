@@ -372,6 +372,7 @@ local function playerConnect(source, user_id, model)
 		TriggerClientEvent("hudActived",source,true)
 		TriggerClientEvent("hud:Active",source,true)
 
+		Player(source).state:set("Name",identity.name.." "..identity.name2,true)
 		Player(source).state:set("Passport",user_id,true)
 		Player(source).state:set("Active",true,true)
 	else

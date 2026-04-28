@@ -22,6 +22,16 @@ local Location = {
 -- THREADLOCATION
 -----------------------------------------------------------------------------------------------------------------------------------------
 CreateThread(function()
+	for _, model in ipairs({'prop_fleeca_atm', 'prop_atm_01', 'prop_atm_02', 'prop_atm_03'}) do
+		exports.ox_target:addModel(model, {
+			{
+				icon = "fas fa-bank",
+				event = "Bank",
+				label = "Abrir ATM",
+				tunnel = "client"
+			}
+		})
+	end
 	for Number,v in pairs(Location) do
 		exports.target:AddCircleZone("Bank:"..Number,v,0.5,{
 			name = "Bank:"..Number,
@@ -31,6 +41,7 @@ CreateThread(function()
 			Distance = 1.75,
 			options = {
 				{
+					icon = "fas fa-bank",
 					event = "Bank",
 					label = "Abrir",
 					tunnel = "client"
