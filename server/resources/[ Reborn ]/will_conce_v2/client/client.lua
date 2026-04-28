@@ -296,6 +296,7 @@ end
 
 RegisterNUICallback('close',function()
     if not loadedVeh then
+        inConce = false
         SetNuiFocus(false,false)
         TriggerServerEvent('will_conce_v2:remove_dimesion')
         return
