@@ -187,6 +187,7 @@ return {
 		weight = 500,
 		stack = true,
 		close = true,
+		allowArmed = true,
 		description = "Sem descrição",
 		client = {
 			image = "energetic.png",
@@ -475,6 +476,7 @@ return {
 		weight = 500,
 		stack = true,
 		close = true,
+		allowArmed = true,
 		description = "Sem descrição",
 		client = {
 			image = "joint.png",
@@ -668,6 +670,7 @@ return {
 		weight = 300,
 		stack = true,
 		close = true,
+		allowArmed = true,
 		description = "Sem descrição",
 		client = {
 			image = "meth.png",
@@ -1059,6 +1062,7 @@ return {
 		weight = 300,
 		stack = true,
 		close = true,
+		allowArmed = true,
 		description = "Sem descrição",
 		client = {
 			image = "cocaine.png",
@@ -1462,6 +1466,7 @@ return {
 		weight = 750,
 		stack = true,
 		close = true,
+		allowArmed = true,
 		description = "Sem descrição",
 		client = {
 			image = "handcuff.png",
@@ -1506,6 +1511,7 @@ return {
 		weight = 500,
 		stack = true,
 		close = true,
+		allowArmed = true,
 		description = "Sem descrição",
 		client = {
 			image = "water.png",
@@ -1528,6 +1534,7 @@ return {
 		weight = 1500,
 		stack = true,
 		close = true,
+		allowArmed = true,
 		description = "Sem descrição",
 		client = {
 			image = "rope.png",
