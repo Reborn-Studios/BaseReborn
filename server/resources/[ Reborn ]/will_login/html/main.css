@@ -162,6 +162,12 @@ body {
   box-shadow: 0 0 15px rgba(0, 148, 255, 0.2);
 }
 
+#findwhere option,
+.selectWhere {
+  color: white;
+  background: rgba(109, 109, 109, 0.8);
+}
+
 .codeinputBox span {
   position: absolute;
   left: 1.5vw;
