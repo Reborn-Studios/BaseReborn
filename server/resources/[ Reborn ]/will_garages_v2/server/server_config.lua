@@ -235,7 +235,10 @@ function will.spawnVehicle(vname,x,y,z,h,data,interior,bucket)
     local source = source
     local debugVehicle = 0
     local mHash = GetHashKey(vname)
-    local height = z + 100.0
+    local height = z
+    if bucket > 0 then
+        height = z + 100.0
+    end
 	local nveh = CreateVehicle(mHash, x, y, height, h ,true, true)
     while not DoesEntityExist(nveh) and debugVehicle <= 80 do
         debugVehicle = debugVehicle + 1
