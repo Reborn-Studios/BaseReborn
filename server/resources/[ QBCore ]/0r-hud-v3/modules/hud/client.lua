@@ -165,7 +165,15 @@ local function updateClientInfo()
     local weapon = GetSelectedPedWeapon(cache.ped)
     local inWeapon = GetAmmoInPedWeapon(cache.ped, weapon)
     local _, inClip = GetAmmoInClip(cache.ped, weapon)
-    local ammo = { inClip = inClip, inWeapon = inWeapon }
+    if GetResourceState("ox_inventory") == "started" then
+        local Weapon = exports.ox_inventory:getCurrentWeapon()
+        if Weapon and Weapon.ammo then
+            inClip = exports.ox_inventory:GetItemCount(Weapon.ammo)
+        else
+            inClip = 0
+        end
+    end
+    local ammo = { inClip = inClip, inWeapon = inWeapon + inClip }
     client_info.weapon.ammo = ammo
     client_info.player_source.source = LocalPlayer.state["Passport"]
     client_info.logoPos = Config.DefaultHudSettings.logoPos
