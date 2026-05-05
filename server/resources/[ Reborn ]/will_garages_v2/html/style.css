@@ -633,7 +633,8 @@ input[type="number"]::-webkit-inner-spin-button {
   color: var(--text-muted);
 }
 
-.garage-header-right {
+.garage-header-right,
+.garage-header-button {
   display: flex;
   align-items: center;
   gap: 0.75rem;
@@ -645,14 +646,16 @@ input[type="number"]::-webkit-inner-spin-button {
   align-items: flex-end;
 }
 
-.closeimg {
+.closeimg,
+.delveh {
   cursor: pointer;
   transition:
     background 0.2s,
     color 0.2s;
 }
 
-.closeimg:hover {
+.closeimg:hover,
+.delveh:hover {
   background: var(--accent);
   color: #08131c;
   border-color: var(--accent);

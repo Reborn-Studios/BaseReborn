@@ -376,6 +376,16 @@ $(document).on("click", ".closeimg", function () {
   });
 });
 
+$(document).on("click", ".closeimg", function () {
+  $(".container").css("display", "none");
+  $.post("https://will_garages_v2/delNearVeh", JSON.stringify({}));
+  lastplate = null;
+
+  document.querySelectorAll(".vehiclemodel").forEach(function (a) {
+    a.remove();
+  });
+});
+
 $(document).on("click", ".sellpricecar", function () {
   // $(".sellprice").css("display", "none");
   $(".priceyes").css("display", "block");
