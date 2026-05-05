@@ -27,6 +27,38 @@ if shared.networkdumpsters then
     end, 3000)
 end
 
+local function EnsureEntityControl(entity, timeoutMs)
+    timeoutMs = timeoutMs or 1000
+
+    if not DoesEntityExist(entity) then return false end
+
+    if not NetworkGetEntityIsNetworked(entity) then
+        NetworkRegisterEntityAsNetworked(entity)
+        Wait(0)
+    end
+
+    if not NetworkGetEntityIsNetworked(entity) then
+        return true
+    end
+
+    local startTime = GetGameTimer()
+    while not NetworkHasControlOfEntity(entity) and (GetGameTimer() - startTime) < timeoutMs do
+        NetworkRequestControlOfEntity(entity)
+        Wait(0)
+    end
+
+    return NetworkHasControlOfEntity(entity)
+end
+
+local stages = {
+    { prop = "prop_dumpster_01a_1", ped = "ped_dumpster_01a_1", playerOffset = vec3(0.0, -0.92, 0.0) }, -- Stage 1: abre + pega lixo
+    { prop = "prop_dumpster_01a_2", ped = "ped_dumpster_01a_2", playerOffset = vec3(0.0, -0.92, 0.0) }, -- Stage 2: abre + pega lixo
+    { prop = "prop_dumpster_01a_3", ped = "ped_dumpster_01a_3", playerOffset = vec3(0.0, -0.89, 0.0) }, -- Stage 3: abre + pega lixo
+    { prop = "prop_dumpster_01a_4", ped = "ped_dumpster_01a_4", playerOffset = vec3(0.0, -0.75, 0.0) }, -- Stage 4: abre + pega lixo
+    { prop = "prop_dumpster_01a_5", ped = "ped_dumpster_01a_5", playerOffset = vec3(0.0, -0.75, 0.0) }, -- Stage 5: abre + pega lixo
+    { prop = "prop_dumpster_01a_6", ped = "ped_dumpster_01a_6", playerOffset = vec3(0.0, -0.86, 0.0) }, -- Stage 6: abre + vê vazio + fecha
+}
+
 function Inventory.OpenDumpster(entity)
     if shared.networkdumpsters then
         local coords = GetEntityCoords(entity)
@@ -43,7 +75,59 @@ function Inventory.OpenDumpster(entity)
     end
 
     if netId then
-        client.openInventory('dumpster', 'dumpster' .. netId)
+        if entity then
+            local dumpster = entity
+            local animDict = "17mov_garbage"
+            local stageData = stages[6]
+            lib.requestAnimDict(animDict)
+            local ped = PlayerPedId()
+            EnsureEntityControl(dumpster, 1500)
+            SetEntityAsMissionEntity(dumpster, false, false)
+            FreezeEntityPosition(dumpster, true)
+            local off = stageData.playerOffset or vec3(0.0, -0.92, 0.0)
+            local pedPos = GetOffsetFromEntityInWorldCoords(dumpster, off.x, off.y, off.z)
+            SetEntityCoordsNoOffset(ped, pedPos.x, pedPos.y, pedPos.z, false, false, false)
+            SetEntityHeading(ped, GetEntityHeading(dumpster))
+            AttachEntityToEntity(
+                ped,
+                dumpster,
+                0,
+                off.x, off.y, off.z + 1.0,
+                0.0, 0.0, 0.0,
+                false, true, true, false, 2, true
+            )
+            TaskPlayAnim(ped, animDict, stageData.ped, 2.0, 2.0, -1, 32, 0.0, false, false, false)
+            PlayEntityAnim(dumpster, stageData.prop, animDict, 2.0, false, false, false, 0, 0)
+            local duration = GetAnimDuration(animDict, stageData.prop)
+
+            local clampedPauseAt = 0.5
+            if clampedPauseAt < 0.05 then clampedPauseAt = 0.05 end
+            if clampedPauseAt > 0.95 then clampedPauseAt = 0.95 end
+
+            Wait(math.floor(duration * clampedPauseAt * 1000))
+
+            SetEntityAnimSpeed(dumpster, animDict, stageData.prop, 0.0)
+            SetEntityAnimCurrentTime(dumpster, animDict, stageData.prop, clampedPauseAt)
+            if stageData.ped then
+                SetEntityAnimSpeed(ped, animDict, stageData.ped, 0.0)
+                SetEntityAnimCurrentTime(ped, animDict, stageData.ped, clampedPauseAt)
+            end
+            client.openInventory('dumpster', 'dumpster' .. netId)
+            while LocalPlayer.state.invOpen do
+                Wait(100)
+            end
+            SetEntityAnimSpeed(dumpster, animDict, stageData.prop, 1.0)
+            if stageData.ped then
+                SetEntityAnimSpeed(ped, animDict, stageData.ped, 1.0)
+            end
+            Wait(1000)
+            if IsEntityAttachedToEntity(ped, dumpster) then
+                DetachEntity(ped, false, false)
+            end
+            FreezeEntityPosition(dumpster, false)
+        else
+            client.openInventory('dumpster', 'dumpster' .. netId)
+        end
     end
 end
 

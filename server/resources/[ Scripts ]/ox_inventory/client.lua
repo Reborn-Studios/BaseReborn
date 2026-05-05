@@ -262,7 +262,7 @@ function client.openInventory(inv, data)
     end
 
 
-    if not cache.vehicle then
+    if not cache.vehicle and inv ~= 'dumpster' then
         if inv == 'player' then
             Utils.PlayAnim(0, 'mp_common', 'givetake1_a', 8.0, 1.0, 2000, 50, 0.0, 0, 0, 0)
         elseif inv ~= 'trunk' then

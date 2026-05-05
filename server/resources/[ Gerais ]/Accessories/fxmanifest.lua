@@ -23,6 +23,8 @@ shared_scripts {
 
 files {
 	"stream/p_defilied_ragdoll_01_s.ydr",
+	"stream/*.ycd",
+    "stream/*.yft",
 	"web-side/*",
 	"web-side/**/*"
 }
