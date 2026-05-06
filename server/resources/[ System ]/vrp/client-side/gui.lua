@@ -226,7 +226,7 @@ AddEventHandler("syncclean", clearEntity)
 RegisterCommand("keybindCancel",function(source,args)
 	if not IsPauseMenuActive() then
 		local ped = PlayerPedId()
-		if GetEntityHealth(ped) > 101 and not celular and not cancelando then
+		if GetEntityHealth(ped) > 101 and not celular and not cancelando and not LocalPlayer["state"]["Commands"] then
 			tvRP.removeObjects()
 		end
 	end
@@ -396,7 +396,7 @@ RegisterCommand("keybindCrouch",function()
 	DisableControlAction(0,36,true)
 	local Ped = PlayerPedId()
 	if GetGameTimer() >= Button and not IsPauseMenuActive() and not LocalPlayer["state"]["Buttons"] and not LocalPlayer["state"]["Commands"] and not LocalPlayer["state"]["Handcuff"] and not IsPedInAnyVehicle(Ped) and GetEntityHealth(Ped) > 100 and not LocalPlayer["state"]["Cancel"] and not IsPedReloading(Ped) then
-		Button = GetGameTimer() + 1000
+		Button = GetGameTimer() + 200
 		Crouch = not Crouch
 		if Crouch then
 			ResetPedStrafeClipset(Ped)

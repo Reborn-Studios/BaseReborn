@@ -113,6 +113,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName, rAmount, data)
 	if itemName == "joint" then
 		if vRP.getInventoryItemAmount(user_id,"lighter") <= 0 then
 			TriggerClientEvent("Notify",source,"aviso","Você não tem um isqueiro.",5000)
+			Player(source)["state"]["Commands"] = false
 			return
 		end
 		
@@ -355,6 +356,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName, rAmount, data)
 		local parAmount = vRP.getUsersByPermission("paramedico.permissao")
 		if #parAmount > 0 then
 			TriggerClientEvent("Notify",source,"aviso","Existem <b>"..#parAmount.."</b> paramedicos em serviço.",5000)
+			Player(source)["state"]["Commands"] = false
 			return
 		end
 
@@ -587,6 +589,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName, rAmount, data)
 		if GetResourceState("will_homes") == "started" then
 			local checkHome = exports['will_homes']:tryEnterHome(source, true)
 			if checkHome then
+				Player(source)["state"]["Commands"] = false
 				local polices = vRP.getUsersByPermission("policia.permissao")
 				if #polices < 2 then
 					TriggerClientEvent("Notify",source,"negado","Não há contingente suficiente.",7000)
@@ -1283,18 +1286,21 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName, rAmount, data)
 	if itemName == "premiumplate" then
 		local vehModel = vRP.prompt(source,"Nome de spawn do veiculo:","")
 		if vehModel == "" then
+			Player(source)["state"]["Commands"] = false
 			return
 		end
 		local vehicle = vRP.query("vRP/get_vehicles",{ user_id = parseInt(user_id), vehicle = tostring(vehModel) })
 		if vehicle[1] then
 			local vehPlate = string.lower(vRP.prompt(source,"NOVA PLACA:",""))
 			if vehPlate == "" then
+				Player(source)["state"]["Commands"] = false
 				return
 			end
 
 			local plateUserId = vRP.getVehiclePlate(vehPlate)
 			if plateUserId then
 				TriggerClientEvent("Notify",source,"negado","A placa escolhida já está sendo usada por outro veículo.",5000)
+				Player(source)["state"]["Commands"] = false
 				return
 			end
 
@@ -1316,11 +1322,13 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName, rAmount, data)
 		if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
 			local newName = vRP.prompt(source,"Primeiro Nome (NOVO):","")
 			if newName == "" then
+				Player(source)["state"]["Commands"] = false
 				return
 			end
 
 			local newLastName = vRP.prompt(source,"Sobre Nome (NOVO):","")
 			if newLastName == "" then
+				Player(source)["state"]["Commands"] = false
 				return
 			end
 			vRP.upgradeNames(user_id,newName,newLastName)

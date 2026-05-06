@@ -185,7 +185,7 @@ function SvClient.startCure()
 			if GetEntityHealth(ped) > 101 then
 				SetEntityHealth(ped,GetEntityHealth(ped) + 1)
 			end
-		until GetEntityHealth(ped) >= maxHealth or GetEntityHealth(ped) <= 101
+		until GetEntityHealth(ped) >= maxHealth or GetEntityHealth(ped) <= 101 or not IsEntityPlayingAnim(ped,"dead","dead_a",3)
 			TriggerEvent("Notify","ambulance","Tratamento concluído.",3000)
 			Death = false
 			cure = false
