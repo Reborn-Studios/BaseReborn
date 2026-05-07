@@ -138,6 +138,8 @@ local backDoorIds = { 2, 3 }
 function Inventory.CanAccessTrunk(entity)
     if cache.vehicle or not NetworkGetEntityIsNetworked(entity) then return end
 
+    if IsEntityDead(entity) then return end
+
 	local vehicleHash = GetEntityModel(entity)
     local vehicleClass = GetVehicleClass(entity)
     local checkVehicle = Vehicles.Storage[vehicleHash]
@@ -479,7 +481,7 @@ Inventory.Evidence = setmetatable(lib.load('data.evidence'), {
                 evidence.point:remove()
             elseif evidence.zoneId then
                 exports.ox_target:removeZone(evidence.zoneId)
-                evidence.zone = nil
+                evidence.zoneId = nil
             end
 
             if client.hasGroup(shared.police) then

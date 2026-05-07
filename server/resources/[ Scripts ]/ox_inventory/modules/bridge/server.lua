@@ -3,10 +3,18 @@
 
 function server.hasGroup(inv, group)
 	if type(group) == 'table' then
-		for name, rank in pairs(group) do
+		for name, requiredRank in pairs(group) do
 			local groupRank = inv.player.groups[name]
-			if groupRank and groupRank >= (rank or 0) then
-				return name, groupRank
+			if groupRank then
+				if type(requiredRank) == 'table' then
+					if lib.table.contains(requiredRank, groupRank) then
+						return name, groupRank
+					end
+				else
+					if groupRank >= (requiredRank or 0) then
+						return name, groupRank
+					end
+				end
 			elseif Player(inv.player.source).state[name] then
 				return name, "0"
 			end

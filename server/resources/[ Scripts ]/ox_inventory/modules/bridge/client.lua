@@ -10,11 +10,19 @@ function client.hasGroup(group)
 	if not PlayerData.loaded then return end
 
 	if type(group) == 'table' then
-		for name, rank in pairs(group) do
+		for name, requiredRank in pairs(group) do
 			
 			local groupRank = PlayerData.groups[name]
-			if groupRank and groupRank >= (rank or 0) then
-				return name, groupRank
+			if groupRank then
+				if type(requiredRank) == 'table' then
+					if lib.table.contains(requiredRank, groupRank) then
+						return name, groupRank
+					end
+				else
+					if groupRank >= (requiredRank or 0) then
+						return name, groupRank
+					end
+				end
 			elseif LocalPlayer.state[name] then
 				return name, "0"
 			end
