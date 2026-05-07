@@ -395,8 +395,6 @@ function Inventory.SetSlot(inv, item, count, metadata, slot)
 
     count = math.floor(count + 0.5)
 
-	if count <= 0 then return false, 'negative_count' end
-
     if type(item) ~= 'table' then
         item = Items(item)
 
@@ -1338,8 +1336,9 @@ exports('GetItemSlots', Inventory.GetItemSlots)
 ---@param metadata? table | string
 ---@param slot? number
 ---@param ignoreTotal? boolean
+---@param strict? boolean
 ---@return boolean? success, string? response
-function Inventory.RemoveItem(inv, item, count, metadata, slot, ignoreTotal)
+function Inventory.RemoveItem(inv, item, count, metadata, slot, ignoreTotal, strict)
 	if type(item) ~= 'table' then item = Items(item) end
 	if not item then return false, 'invalid_item' end
 	if type(count) ~= 'number' then return false, 'invalid_count' end
@@ -1366,7 +1365,8 @@ function Inventory.RemoveItem(inv, item, count, metadata, slot, ignoreTotal)
 	end
 
 	metadata = assertMetadata(metadata)
-	local itemSlots, totalCount = Inventory.GetItemSlots(inv, item, metadata)
+	if strict == nil then strict = true end
+	local itemSlots, totalCount = Inventory.GetItemSlots(inv, item, metadata, strict)
 
 	if not itemSlots then return false end
 
