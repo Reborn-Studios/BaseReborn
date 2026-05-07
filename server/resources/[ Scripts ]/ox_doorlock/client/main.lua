@@ -1,12 +1,24 @@
 if not LoadResourceFile(cache.resource, 'web/build/index.html') then
-	error('Unable to load UI. Build ox_doorlock or download the latest release.\n	^3https://github.com/overextended/ox_doorlock/releases/latest/download/ox_doorlock.zip^0')
+	error('Unable to load UI. Build ox_doorlock or download the latest release.\n	^3https://github.com/communityox/ox_doorlock/releases/latest/download/ox_doorlock.zip^0')
 end
 
-if not lib.checkDependency('ox_lib', '3.14.0', true) then return end
+if not lib.checkDependency('ox_lib', '3.30.0', true) then return end
+
+local math = require 'glm'
+local doors = {}
+_ENV.doors = doors
 
 local function createDoor(door)
+	local oldDoor = doors[door.id]
+
+	if oldDoor then
+		lib.grid.removeEntry(oldDoor)
+	end
+
+	doors[door.id] = door
 	local double = door.doors
 	door.zone = GetLabelText(GetNameOfZone(door.coords.x, door.coords.y, door.coords.z))
+	door.radius = door.maxDistance
 
 	if double then
 		for i = 1, 2 do
@@ -27,87 +39,89 @@ local function createDoor(door)
 			DoorSystemSetAutomaticRate(door.hash, door.doorRate or 10.0, false, false)
 		end
 	end
+
+	lib.grid.addEntry(door)
 end
 
-local nearbyDoors = {}
+local nearbyDoors = lib.array:new()
+local nearbyDoorsCount = 0
 local Entity = Entity
+local ratio = GetAspectRatio(true)
 
 lib.callback('ox_doorlock:getDoors', false, function(data)
-	doors = data
-
-	for _, door in pairs(data) do
-		createDoor(door)
-	end
+	for _, door in pairs(data) do createDoor(door) end
 
 	while true do
-		table.wipe(nearbyDoors)
-		local coords = GetEntityCoords(cache.ped)
+        table.wipe(nearbyDoors)
+        local coords = GetEntityCoords(cache.ped)
 
-		for _, door in pairs(doors) do
-			local double = door.doors
-			door.distance = #(coords - door.coords)
+        for _, door in pairs(doors) do
+            local double = door.doors
+            door.distance = #(coords - door.coords)
 
-			if double then
-				if door.distance < 80 then
-					for i = 1, 2 do
-						if not double[i].entity and IsModelValid(double[i].model) then
-							local entity = GetClosestObjectOfType(double[i].coords.x, double[i].coords.y, double[i].coords.z, 1.0, double[i].model, false, false, false)
+            if double then
+                if door.distance < 80 then
+                    for i = 1, 2 do
+                        if not double[i].entity and IsModelValid(double[i].model) then
+                            local entity = GetClosestObjectOfType(double[i].coords.x, double[i].coords.y,
+                                double[i].coords.z, 1.0, double[i].model, false, false, false)
 
-							if entity ~= 0 then
-								double[i].entity = entity
-								Entity(entity).state.doorId = door.id
-							end
-						end
-					end
+                            if entity ~= 0 then
+                                double[i].entity = entity
+                                Entity(entity).state.doorId = door.id
+                            end
+                        end
+                    end
 
-					if door.distance < 20 then
-						nearbyDoors[#nearbyDoors + 1] = door
-					end
-				else
-					for i = 1, 2 do
-						double[i].entity = nil
-					end
-				end
-			elseif door.distance < 80 then
-				if not door.entity and IsModelValid(door.model) then
-					local entity = GetClosestObjectOfType(door.coords.x, door.coords.y, door.coords.z, 1.0, door.model, false, false, false)
+                    if door.distance < 20 then
+                        nearbyDoors[#nearbyDoors + 1] = door
+                    end
+                else
+                    for i = 1, 2 do
+                        double[i].entity = nil
+                    end
+                end
+            elseif door.distance < 80 then
+                if not door.entity and IsModelValid(door.model) then
+                    local entity = GetClosestObjectOfType(door.coords.x, door.coords.y, door.coords.z, 1.0, door.model,
+                        false, false, false)
 
-					if entity ~= 0 then
-						local min, max = GetModelDimensions(door.model)
-						local points = {
-							GetOffsetFromEntityInWorldCoords(entity, min.x, min.y, min.z).xy,
-							GetOffsetFromEntityInWorldCoords(entity, min.x, min.y, max.z).xy,
-							GetOffsetFromEntityInWorldCoords(entity, min.x, max.y, max.z).xy,
-							GetOffsetFromEntityInWorldCoords(entity, min.x, max.y, min.z).xy,
-							GetOffsetFromEntityInWorldCoords(entity, max.x, min.y, min.z).xy,
-							GetOffsetFromEntityInWorldCoords(entity, max.x, min.y, max.z).xy,
-							GetOffsetFromEntityInWorldCoords(entity, max.x, max.y, max.z).xy,
-							GetOffsetFromEntityInWorldCoords(entity, max.x, max.y, min.z).xy
-						}
+                    if entity ~= 0 then
+                        local min, max = GetModelDimensions(door.model)
+                        local points = {
+                            GetOffsetFromEntityInWorldCoords(entity, min.x, min.y, min.z).xy,
+                            GetOffsetFromEntityInWorldCoords(entity, min.x, min.y, max.z).xy,
+                            GetOffsetFromEntityInWorldCoords(entity, min.x, max.y, max.z).xy,
+                            GetOffsetFromEntityInWorldCoords(entity, min.x, max.y, min.z).xy,
+                            GetOffsetFromEntityInWorldCoords(entity, max.x, min.y, min.z).xy,
+                            GetOffsetFromEntityInWorldCoords(entity, max.x, min.y, max.z).xy,
+                            GetOffsetFromEntityInWorldCoords(entity, max.x, max.y, max.z).xy,
+                            GetOffsetFromEntityInWorldCoords(entity, max.x, max.y, min.z).xy
+                        }
 
-						local centroid = vec2(0, 0)
+                        local centroid = vec2(0, 0)
 
-						for i = 1, 8 do
-							centroid += points[i]
-						end
+                        for i = 1, 8 do
+                            centroid += points[i]
+                        end
 
-						centroid = centroid / 8
-						door.coords = vec3(centroid.x, centroid.y, door.coords.z)
-						door.entity = entity
-						Entity(entity).state.doorId = door.id
-					end
-				end
+                        centroid = centroid / 8
+                        door.coords = vec3(centroid.x, centroid.y, door.coords.z)
+                        door.entity = entity
+                        Entity(entity).state.doorId = door.id
+                    end
+                end
 
-				if door.distance < 20 then
-					nearbyDoors[#nearbyDoors + 1] = door
-				end
-			elseif door.entity then
-				door.entity = nil
-			end
-		end
+                if door.distance < 20 then
+                    nearbyDoors[#nearbyDoors + 1] = door
+                end
+            elseif door.entity then
+                door.entity = nil
+            end
+        end
 
-		Wait(500)
-	end
+        Wait(500)
+    end
 end)
 
 RegisterNetEvent('ox_doorlock:setState', function(id, state, source, data)
@@ -194,11 +208,16 @@ RegisterNetEvent('ox_doorlock:editDoorlock', function(id, data)
 	local double = door.doors
 	local doorState = data and data.state or 0
 
+	lib.grid.removeEntry(door)
+
 	if data then
 		data.zone = door.zone or GetLabelText(GetNameOfZone(door.coords.x, door.coords.y, door.coords.z))
+		data.radius = data.maxDistance
 
 		-- hacky method to resolve a bug with "closest door" by forcing a distance recalculation
 		if door.distance < 20 then door.distance = 80 end
+
+		lib.grid.addEntry(data)
 	elseif ClosestDoor?.id == id then
 		ClosestDoor = nil
 	end
