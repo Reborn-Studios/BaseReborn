@@ -261,15 +261,6 @@ function client.openInventory(inv, data)
         if invOpen then return client.closeInventory() end
     end
 
-
-    if not cache.vehicle and inv ~= 'dumpster' then
-        if inv == 'player' then
-            Utils.PlayAnim(0, 'mp_common', 'givetake1_a', 8.0, 1.0, 2000, 50, 0.0, 0, 0, 0)
-        elseif inv ~= 'trunk' then
-            Utils.PlayAnim(0, 'pickup_object', 'putdown_low', 5.0, 1.5, 1000, 48, 0.0, 0, 0, 0)
-        end
-    end
-
     plyState.invOpen = true
 
     SetInterval(client.interval, 100)
