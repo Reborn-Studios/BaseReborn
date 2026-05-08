@@ -1259,6 +1259,22 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName, rAmount, data)
 		end
 	end
 
+	if itemName == "backpackstaff" then
+		if vRP.hasPermission(user_id,"admin.permissao") then
+			if vRP.tryGetInventoryItem(user_id,itemName,1,true) then
+				local BACKPACK_WEIGHT = 10000
+				local BACKPACK_SLOTS = 100
+				vRP.setSlots(user_id,BACKPACK_SLOTS)
+				vRP.setBackpack(user_id,BACKPACK_WEIGHT)
+				if GetResourceState("ox_inventory") == "started" then
+					exports.ox_inventory:SetMaxWeight(source, BACKPACK_WEIGHT * 1000)
+					exports.ox_inventory:SetSlotCount(source, BACKPACK_SLOTS)
+				end
+				TriggerClientEvent("Notify",source,"aviso","Peso aumentado para "..BACKPACK_WEIGHT.." kilos.",5000)
+			end
+		end
+	end
+
 	if itemName == "tires" then
 		if not vRPclient.inVehicle(source) then
 			local tyreStatus,Tyre,Network,Plate,TyreHealth = vRPclient.tyreStatus(source)

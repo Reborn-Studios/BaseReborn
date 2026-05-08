@@ -544,6 +544,17 @@ return {
 		}
 	},
 
+	["backpackstaff"] = {
+		label = "Mochila Staff",
+		weight = 250,
+		stack = true,
+		close = true,
+		description = "Mochila para reforçar o peso em 1000kg",
+		client = {
+			image = "backpackx.png",
+		}
+	},
+
 	["backpackp"] = {
 		label = "Mochila P",
 		weight = 250,
