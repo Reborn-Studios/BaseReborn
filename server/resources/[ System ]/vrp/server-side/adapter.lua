@@ -371,7 +371,7 @@ function vRP.Prepare(name, query)
 end
 
 function vRP.Datatable(Passport)
-    return vRP.getUserDataTable(Passport)
+    return vRP.getUserDataTable(Passport) or {}
 end
 
 function vRP.Kick(source,Reason)
@@ -379,6 +379,14 @@ function vRP.Kick(source,Reason)
 end
 
 function vRP.HasPermission(Passport, Permission)
+    local GradeGroups = GetQBGroups()
+    for k,v in pairs(GradeGroups) do
+        if v.job == Permission then
+            if vRP.hasPermission(Passport, k) then
+                return v.level, k
+            end
+        end
+    end
     return vRP.hasPermission(Passport, Permission)
 end
 
@@ -782,26 +790,30 @@ function vRP.DiscordAvatar(Passport)
 end
 
 function vRP.Hierarchy(Permission)
-    local Group = vRP.getGroup(Permission)
-    if Group and Group._config and Group._config.grade then
-        return tonumber(Group._config.grade)
+    local Hierarchy = {}
+    local HierarchyGroups = GetQBGroups()
+    for Group,v in pairs(HierarchyGroups) do
+        if v.job == Permission and v.level >= 0 then
+            Hierarchy[v.level] = Group
+        end
     end
-    return false
+    return Hierarchy
 end
 
 function vRP.DataGroups(Permission)
-    local consult = vRP.query("vRP/get_specific_perm", { permiss = Permission })
     local UserGroups = {}
-    if consult[1] then
+    local DataHierarchy = vRP.Hierarchy(Permission)
+    for Level,Group in pairs(DataHierarchy) do
+        local consult = vRP.query("vRP/get_specific_perm", { permiss = Group })
         for k,v in pairs(consult) do
-            UserGroups[v.user_id] = 1
+            UserGroups[v["user_id"]] = Level
         end
     end
     return UserGroups
 end
 
 function vRP.Permissions(Permission, Column)
-    local Consult = exports["oxmysql"]:query_async("SELECT * FROM permissions WHERE permiss = @Permission", { Permission = Permission })[1] or {}
+    local Consult = exports["oxmysql"]:query_async("SELECT * FROM mdt_permissions WHERE Permission = @Permission", { Permission = Permission })[1] or {}
     local Default = {
         Members = 10,
         Experience = 0,
@@ -811,19 +823,55 @@ function vRP.Permissions(Permission, Column)
         Tags = 3,
         Announces = 3
     }
-
     if Column == "Premium" then
         return tonumber(Consult[Column]) or Default[Column]
     end
-
     return Consult[Column] and tonumber(Consult[Column]) or Default[Column] or 0
 end
 
+function vRP.PermissionsUpdate(Permission, Column, Mode, Amount)
+    local Consult = exports["oxmysql"]:single_async("SELECT * FROM mdt_permissions WHERE Permission = @Permission LIMIT 1", { Permission = Permission })
+    if not Consult then
+        exports["oxmysql"]:query_async("INSERT INTO mdt_permissions (Permission, Tags, Announces) VALUES (@Permission, 3, 3)", { Permission = Permission })
+    end
+
+    if Column == "Premium" then
+        local Premium
+        if Mode == "+" then
+            Premium = tonumber(Amount)
+        else
+            local current = tonumber(Consult.Premium) or 0
+            Premium = math.max(current - tonumber(Amount), 0)
+        end
+
+        exports["oxmysql"]:query_async("UPDATE mdt_permissions SET Premium = @Value WHERE Permission = @Permission", { Permission = Permission, Value = Premium })
+        return
+    end
+
+    if not Contains({ "Members", "Experience", "Points", "Bank", "Tags", "Announces" }, Column) then
+        return
+    end
+
+	local Operation = Mode == "+" and "+" or "-"
+	local Query = string.format("UPDATE mdt_permissions SET %s = GREATEST(%s %s @Amount, 0) WHERE Permission = @Permission", Column, Column, Operation)
+
+    exports["oxmysql"]:query_async(Query, { Permission = Permission, Amount = parseInt(Amount) })
+end
+
 function vRP.AmountService(Perm,Grade)
-	return #vRP.NumPermission(Perm)
+    local ServiceHierarchy = vRP.Hierarchy(Perm)
+    local Permission = ServiceHierarchy[Grade]
+    local _, Amount = vRP.NumPermission(Permission)
+	return Amount
 end
 
 function vRP.NameHierarchy(Permission,Level)
+    local HierarchyGroups = GetQBGroups()
+    for Group,v in pairs(HierarchyGroups) do
+        if v.job == Permission and v.level == Level then
+            return Group
+        end
+    end
 	return Permission
 end
 

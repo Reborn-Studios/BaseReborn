@@ -5,6 +5,7 @@ local DefaultPolice = {
 			title = "Coronel",
 			gtype = "job",
 			grade = "10",
+            level = 1,
 			isboss = true,
 			salary = 9000
 		},
@@ -22,6 +23,7 @@ local DefaultPolice = {
 			title = "Capitao",
 			gtype = "job",
 			grade = "9",
+            level = 2,
 			salary = 8500
 		},
 		"policiamilitar.permissao",
@@ -37,6 +39,7 @@ local DefaultPolice = {
 			title = "Major",
 			gtype = "job",
 			grade = "8",
+            level = 3,
 			salary = 8000
 		},
 		"policiamilitar.permissao",
@@ -52,6 +55,7 @@ local DefaultPolice = {
 			title = "Tenente",
 			gtype = "job",
 			grade = "7",
+            level = 4,
 			salary = 7500
 		},
 		"policiamilitar.permissao",
@@ -67,6 +71,7 @@ local DefaultPolice = {
 			title = "Sub Tenente",
 			gtype = "job",
 			grade = "6",
+            level = 5,
 			salary = 7000
 		},
 		"policiamilitar.permissao",
@@ -82,6 +87,7 @@ local DefaultPolice = {
 			title = "Sargento",
 			gtype = "job",
 			grade = "5",
+            level = 6,
 			salary = 6500
 		},
 		"policiamilitar.permissao",
@@ -97,6 +103,7 @@ local DefaultPolice = {
 			title = "2° Sargento",
 			gtype = "job",
 			grade = "4",
+            level = 7,
 			salary = 6000
 		},
 		"policiamilitar.permissao",
@@ -112,6 +119,7 @@ local DefaultPolice = {
 			title = "3° Sargento",
 			gtype = "job",
 			grade = "3",
+            level = 8,
 			salary = 5500
 		},
 		"policiamilitar.permissao",
@@ -127,6 +135,7 @@ local DefaultPolice = {
 			title = "Cabo",
 			gtype = "job",
 			grade = "2",
+            level = 9,
 			salary = 5000
 		},
 		"policiamilitar.permissao",
@@ -142,6 +151,7 @@ local DefaultPolice = {
 			title = "Soldado",
 			gtype = "job",
 			grade = "1",
+            level = 10,
 			salary = 4500
 		},
 		"policiamilitar.permissao",
@@ -157,6 +167,7 @@ local DefaultPolice = {
 			title = "Recruta",
 			gtype = "job",
 			grade = "0",
+            level = 11,
 			salary = 4000
 		},
 		"policiamilitar.permissao",
@@ -177,6 +188,7 @@ local SPPolice = {
             title = "Coronel - PMESP",
             gtype = "job",
             grade = "10",
+            level = 1,
             isboss = true,
             salary = 9000
         },
@@ -195,6 +207,7 @@ local SPPolice = {
             title = "Capitao - PMESP",
             gtype = "job",
             grade = "9",
+            level = 2,
             salary = 8500
         },
         "policiamilitar.permissao",
@@ -211,6 +224,7 @@ local SPPolice = {
             title = "Major - PMESP",
             gtype = "job",
             grade = "8",
+            level = 3,
             salary = 8000
         },
         "policiamilitar.permissao",
@@ -227,6 +241,7 @@ local SPPolice = {
             title = "Tenente - PMESP",
             gtype = "job",
             grade = "7",
+            level = 4,
             salary = 7500
         },
         "policiamilitar.permissao",
@@ -243,6 +258,7 @@ local SPPolice = {
             title = "Sub - Tenente PMESP",
             gtype = "job",
             grade = "6",
+            level = 5,
             salary = 7000
         },
         "policiamilitar.permissao",
@@ -259,6 +275,7 @@ local SPPolice = {
             title = "Sargento - PMESP",
             gtype = "job",
             grade = "5",
+            level = 6,
             salary = 6500
         },
         "policiamilitar.permissao",
@@ -275,6 +292,7 @@ local SPPolice = {
             title = "2° - Sargento PMESP",
             gtype = "job",
             grade = "4",
+            level = 7,
             salary = 6000
         },
         "policiamilitar.permissao",
@@ -291,6 +309,7 @@ local SPPolice = {
             title = "3° - Sargento PMESP",
             gtype = "job",
             grade = "3",
+            level = 8,
             salary = 5500
         },
         "policiamilitar.permissao",
@@ -307,6 +326,7 @@ local SPPolice = {
             title = "Cabo - PMESP",
             gtype = "job",
             grade = "2",
+            level = 9,
             salary = 5000
         },
         "policiamilitar.permissao",
@@ -323,6 +343,7 @@ local SPPolice = {
             title = "Soldado - PMESP",
             gtype = "job",
             grade = "1",
+            level = 10,
             salary = 4500
         },
         "policiamilitar.permissao",
@@ -339,6 +360,7 @@ local SPPolice = {
             title = "Recruta - PMESP",
             gtype = "job",
             grade = "0",
+            level = 11,
             salary = 4000
         },
         "policiamilitar.permissao",
@@ -357,6 +379,7 @@ local SPPolice = {
             title = "Delegado",
             gtype = "job",
             grade = "3",
+            level = 1,
             salary = 15000
         },
         "comando.permissao",
@@ -373,6 +396,7 @@ local SPPolice = {
             title = "Escrivao",
             gtype = "job",
             grade = "2",
+            level = 2,
             salary = 12000
         },
         "policiacivil.permissao",
@@ -388,6 +412,7 @@ local SPPolice = {
             title = "Investigador",
             gtype = "job",
             grade = "1",
+            level = 3,
             salary = 10000
         },
         "policiacivil.permissao",
@@ -403,6 +428,7 @@ local SPPolice = {
             title = "Agente",
             gtype = "job",
             grade = "0",
+            level = 4,
             salary = 8000
         },
         "policiacivil.permissao",
@@ -420,6 +446,7 @@ local SPPolice = {
             title = "Coronel - ROTA",
             gtype = "job",
             grade = "6",
+            level = 1,
             isboss = true,
             salary = 9000
         },
@@ -437,6 +464,7 @@ local SPPolice = {
             title = "Capitao - ROTA",
             gtype = "job",
             grade = "5",
+            level = 2,
             salary = 8500
         },
         "rota.permissao",
@@ -452,6 +480,7 @@ local SPPolice = {
             title = "Tenente - ROTA",
             gtype = "job",
             grade = "4",
+            level = 3,
             salary = 7500
         },
         "rota.permissao",
@@ -467,6 +496,7 @@ local SPPolice = {
             title = "Sargento - ROTA",
             gtype = "job",
             grade = "3",
+            level = 4,
             salary = 6500
         },
         "rota.permissao",
@@ -482,6 +512,7 @@ local SPPolice = {
             title = "Cabo - ROTA",
             gtype = "job",
             grade = "2",
+            level = 5,
             salary = 5000
         },
         "rota.permissao",
@@ -497,6 +528,7 @@ local SPPolice = {
             title = "Soldado - ROTA",
             gtype = "job",
             grade = "1",
+            level = 6,
             salary = 4500
         },
         "rota.permissao",
@@ -512,6 +544,7 @@ local SPPolice = {
             title = "Recruta - ROTA",
             gtype = "job",
             grade = "0",
+            level = 7,
             salary = 4000
         },
         "rota.permissao",
@@ -529,6 +562,7 @@ local SPPolice = {
             title = "Coronel - BAEP",
             gtype = "job",
             grade = "6",
+            level = 1,
             isboss = true,
             salary = 9000
         },
@@ -546,6 +580,7 @@ local SPPolice = {
             title = "Capitao - BAEP",
             gtype = "job",
             grade = "5",
+            level = 2,
             salary = 8500
         },
         "baep.permissao",
@@ -561,6 +596,7 @@ local SPPolice = {
             title = "Tenente - BAEP",
             gtype = "job",
             grade = "4",
+            level = 3,
             salary = 7500
         },
         "baep.permissao",
@@ -576,6 +612,7 @@ local SPPolice = {
             title = "Sargento - BAEP",
             gtype = "job",
             grade = "3",
+            level = 4,
             salary = 6500
         },
         "baep.permissao",
@@ -591,6 +628,7 @@ local SPPolice = {
             title = "Cabo - BAEP",
             gtype = "job",
             grade = "2",
+            level = 5,
             salary = 5000
         },
         "baep.permissao",
@@ -606,6 +644,7 @@ local SPPolice = {
             title = "Soldado - BAEP",
             gtype = "job",
             grade = "1",
+            level = 6,
             salary = 4500
         },
         "baep.permissao",
@@ -621,6 +660,7 @@ local SPPolice = {
             title = "Recruta - BAEP",
             gtype = "job",
             grade = "0",
+            level = 7,
             salary = 4000
         },
         "baep.permissao",
@@ -638,6 +678,7 @@ local SPPolice = {
             title = "Coronel - FT",
             gtype = "job",
             grade = "6",
+            level = 1,
             isboss = true,
             salary = 9000
         },
@@ -655,6 +696,7 @@ local SPPolice = {
             title = "Capitao - FT",
             gtype = "job",
             grade = "5",
+            level = 2,
             salary = 8500
         },
         "ft.permissao",
@@ -670,6 +712,7 @@ local SPPolice = {
             title = "Tenente - FT",
             gtype = "job",
             grade = "4",
+            level = 3,
             salary = 7500
         },
         "ft.permissao",
@@ -685,6 +728,7 @@ local SPPolice = {
             title = "Sargento - FT",
             gtype = "job",
             grade = "3",
+            level = 4,
             salary = 6500
         },
         "ft.permissao",
@@ -700,6 +744,7 @@ local SPPolice = {
             title = "Cabo - FT",
             gtype = "job",
             grade = "2",
+            level = 5,
             salary = 5000
         },
         "ft.permissao",
@@ -715,6 +760,7 @@ local SPPolice = {
             title = "Soldado - FT",
             gtype = "job",
             grade = "1",
+            level = 6,
             salary = 4500
         },
         "ft.permissao",
@@ -730,6 +776,7 @@ local SPPolice = {
             title = "Recruta - FT",
             gtype = "job",
             grade = "0",
+            level = 7,
             salary = 4000
         },
         "ft.permissao",
@@ -747,6 +794,7 @@ local SPPolice = {
             title = "Coronel - TOR",
             gtype = "job",
             grade = "3",
+            level = 1,
             isboss = true,
             salary = 9000
         },
@@ -764,6 +812,7 @@ local SPPolice = {
             title = "Sargento - TOR",
             gtype = "job",
             grade = "2",
+            level = 2,
             salary = 6500
         },
         "tor.permissao",
@@ -779,6 +828,7 @@ local SPPolice = {
             title = "Cabo - TOR",
             gtype = "job",
             grade = "1",
+            level = 3,
             salary = 5000
         },
         "tor.permissao",
@@ -794,6 +844,7 @@ local SPPolice = {
             title = "Recruta - TOR",
             gtype = "job",
             grade = "0",
+            level = 4,
             salary = 4000
         },
         "tor.permissao",
@@ -811,6 +862,7 @@ local SPPolice = {
             title = "Coronel - GCM",
             gtype = "job",
             grade = "3",
+            level = 1,
             isboss = true,
             salary = 9000
         },
@@ -828,6 +880,7 @@ local SPPolice = {
             title = "Sargento - GCM",
             gtype = "job",
             grade = "2",
+            level = 2,
             salary = 6500
         },
         "gcm.permissao",
@@ -843,6 +896,7 @@ local SPPolice = {
             title = "Cabo - GCM",
             gtype = "job",
             grade = "1",
+            level = 3,
             salary = 5000
         },
         "gcm.permissao",
@@ -858,6 +912,7 @@ local SPPolice = {
             title = "Recruta - GCM",
             gtype = "job",
             grade = "0",
+            level = 4,
             salary = 4000
         },
         "gcm.permissao",
@@ -877,6 +932,7 @@ local RJPolice = {
             title = "Coronel - PMERJ",
             gtype = "job",
             grade = "10",
+            level = 1,
             isboss = true,
             salary = 9000
         },
@@ -895,6 +951,7 @@ local RJPolice = {
             title = "Capitao - PMERJ",
             gtype = "job",
             grade = "9",
+            level = 2,
             salary = 8500
         },
         "policiamilitar.permissao",
@@ -911,6 +968,7 @@ local RJPolice = {
             title = "Major - PMERJ",
             gtype = "job",
             grade = "8",
+            level = 3,
             salary = 8000
         },
         "policiamilitar.permissao",
@@ -927,6 +985,7 @@ local RJPolice = {
             title = "Tenente - PMERJ",
             gtype = "job",
             grade = "7",
+            level = 4,
             salary = 7500
         },
         "policiamilitar.permissao",
@@ -943,6 +1002,7 @@ local RJPolice = {
             title = "Sub - Tenente PMERJ",
             gtype = "job",
             grade = "6",
+            level = 5,
             salary = 7000
         },
         "policiamilitar.permissao",
@@ -959,6 +1019,7 @@ local RJPolice = {
             title = "Sargento - PMERJ",
             gtype = "job",
             grade = "5",
+            level = 6,
             salary = 6500
         },
         "policiamilitar.permissao",
@@ -975,6 +1036,7 @@ local RJPolice = {
             title = "2° - Sargento PMERJ",
             gtype = "job",
             grade = "4",
+            level = 7,
             salary = 6000
         },
         "policiamilitar.permissao",
@@ -991,6 +1053,7 @@ local RJPolice = {
             title = "3° - Sargento PMERJ",
             gtype = "job",
             grade = "3",
+            level = 8,
             salary = 5500
         },
         "policiamilitar.permissao",
@@ -1007,6 +1070,7 @@ local RJPolice = {
             title = "Cabo - PMERJ",
             gtype = "job",
             grade = "2",
+            level = 9,
             salary = 5000
         },
         "policiamilitar.permissao",
@@ -1023,6 +1087,7 @@ local RJPolice = {
             title = "Soldado - PMERJ",
             gtype = "job",
             grade = "1",
+            level = 10,
             salary = 4500
         },
         "policiamilitar.permissao",
@@ -1039,6 +1104,7 @@ local RJPolice = {
             title = "Recruta - PMERJ",
             gtype = "job",
             grade = "0",
+            level = 11,
             salary = 4000
         },
         "policiamilitar.permissao",
@@ -1057,6 +1123,7 @@ local RJPolice = {
             title = "Delegado",
             gtype = "job",
             grade = "3",
+            level = 1,
             salary = 15000
         },
         "comando.permissao",
@@ -1073,6 +1140,7 @@ local RJPolice = {
             title = "Escrivao",
             gtype = "job",
             grade = "2",
+            level = 2,
             salary = 12000
         },
         "policiacivil.permissao",
@@ -1088,6 +1156,7 @@ local RJPolice = {
             title = "Investigador",
             gtype = "job",
             grade = "1",
+            level = 3,
             salary = 10000
         },
         "policiacivil.permissao",
@@ -1103,6 +1172,7 @@ local RJPolice = {
             title = "Agente",
             gtype = "job",
             grade = "0",
+            level = 4,
             salary = 8000
         },
         "policiacivil.permissao",
@@ -1120,6 +1190,7 @@ local RJPolice = {
             title = "Coronel - BOPE",
             gtype = "job",
             grade = "6",
+            level = 1,
             isboss = true,
             salary = 9000
         },
@@ -1137,6 +1208,7 @@ local RJPolice = {
             title = "Capitao - BOPE",
             gtype = "job",
             grade = "5",
+            level = 2,
             salary = 8500
         },
         "bope.permissao",
@@ -1152,6 +1224,7 @@ local RJPolice = {
             title = "Tenente - BOPE",
             gtype = "job",
             grade = "4",
+            level = 3,
             salary = 7500
         },
         "bope.permissao",
@@ -1167,6 +1240,7 @@ local RJPolice = {
             title = "Sargento - BOPE",
             gtype = "job",
             grade = "3",
+            level = 4,
             salary = 6500
         },
         "bope.permissao",
@@ -1182,6 +1256,7 @@ local RJPolice = {
             title = "Cabo - BOPE",
             gtype = "job",
             grade = "2",
+            level = 5,
             salary = 5000
         },
         "bope.permissao",
@@ -1197,6 +1272,7 @@ local RJPolice = {
             title = "Soldado - BOPE",
             gtype = "job",
             grade = "1",
+            level = 6,
             salary = 4500
         },
         "bope.permissao",
@@ -1212,6 +1288,7 @@ local RJPolice = {
             title = "Recruta - BOPE",
             gtype = "job",
             grade = "0",
+            level = 7,
             salary = 4000
         },
         "bope.permissao",
@@ -1229,6 +1306,7 @@ local RJPolice = {
             title = "Coronel - CORE",
             gtype = "job",
             grade = "6",
+            level = 1,
             isboss = true,
             salary = 9000
         },
@@ -1246,6 +1324,7 @@ local RJPolice = {
             title = "Capitao - CORE",
             gtype = "job",
             grade = "5",
+            level = 2,
             salary = 8500
         },
         "core.permissao",
@@ -1261,6 +1340,7 @@ local RJPolice = {
             title = "Tenente - CORE",
             gtype = "job",
             grade = "4",
+            level = 3,
             salary = 7500
         },
         "core.permissao",
@@ -1276,6 +1356,7 @@ local RJPolice = {
             title = "Sargento - CORE",
             gtype = "job",
             grade = "3",
+            level = 4,
             salary = 6500
         },
         "core.permissao",
@@ -1291,6 +1372,7 @@ local RJPolice = {
             title = "Cabo - CORE",
             gtype = "job",
             grade = "2",
+            level = 5,
             salary = 5000
         },
         "core.permissao",
@@ -1306,6 +1388,7 @@ local RJPolice = {
             title = "Soldado - CORE",
             gtype = "job",
             grade = "1",
+            level = 6,
             salary = 4500
         },
         "core.permissao",
@@ -1321,6 +1404,7 @@ local RJPolice = {
             title = "Recruta - CORE",
             gtype = "job",
             grade = "0",
+            level = 7,
             salary = 4000
         },
         "core.permissao",

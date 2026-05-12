@@ -201,6 +201,11 @@ function vRP.hasPermission(user,perm)
 		if xPlayer and (xPlayer.job.name == perm or xPlayer.group == perm) then
 			return true
 		end
+	else
+		local consult = vRP.query("vRP/get_group",{ permiss = perm, user_id = user_id })
+		if consult[1] then
+			return true
+		end
 	end
 	return false
 end

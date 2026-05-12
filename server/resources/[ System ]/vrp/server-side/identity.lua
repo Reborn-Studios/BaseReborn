@@ -39,6 +39,10 @@ function vRP.initPrison(user_id,amount)
 	if UserIdentity then
 		UserIdentity["prison"] = parseInt(amount)
 	end
+	local source = vRP.Source(user_id)
+	if source then
+		Player(source).state.Prison = true
+	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- UPDATEPRISON
@@ -52,8 +56,12 @@ function vRP.updatePrison(user_id,amount)
 	if UserIdentity then
 		UserIdentity["prison"] = UserIdentity["prison"] - amount
 
-		if UserIdentity["prison"] < 0 then
+		if UserIdentity["prison"] <= 0 then
 			UserIdentity["prison"] = 0
+		end
+		local source = vRP.Source(user_id)
+		if source then
+			Player(source).state.Prison = UserIdentity["prison"] > 0
 		end
 	end
 end

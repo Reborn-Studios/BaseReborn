@@ -771,7 +771,8 @@ local function requestQbGroups(groups)
 									}
 									ALIAS_GROUPS[Group] = {
 										job = job,
-										grade = GroupGrade
+										grade = GroupGrade,
+										level = perms._config.level or 0,
 									}
 								end
 							end
@@ -840,6 +841,10 @@ end)
 function GetQBGroups()
 	return ALIAS_GROUPS
 end
+
+exports("HierarchyGroups",function ()
+	return ALIAS_GROUPS
+end)
 
 QBShared.Gangs = {}
 
