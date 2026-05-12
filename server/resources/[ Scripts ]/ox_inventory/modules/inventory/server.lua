@@ -1689,7 +1689,7 @@ lib.callback.register('ox_inventory:swapItems', function(source, data)
 
 	local playerInventory = Inventory(source)
 
-	if not playerInventory or not playerInventory.openedBy[source] then return end
+	if not playerInventory then return end
 	playerInventory.weight = Inventory.CalculateWeight(playerInventory.items)
 
 	local toInventory = (data.toType == 'player' and playerInventory) or Inventory(playerInventory.open)
