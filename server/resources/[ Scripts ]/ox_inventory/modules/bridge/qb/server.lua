@@ -96,7 +96,7 @@ end)
 
 function server.UseItem(source, itemName, data)
 	local cb = QBCore.Functions.CanUseItem(itemName)
-	return cb and cb(source, data)
+	return cb and type(cb) == "function" and cb(source, data)
 end
 
 AddEventHandler('QBCore:Server:OnMoneyChange', function(src, account, amount, changeType)

@@ -292,7 +292,7 @@ function client.openInventory(inv, data)
         }
     })
 
-    if not currentInventory.coords and inv ~= 'container' then
+    if inv and not currentInventory.coords and inv ~= 'container' then
         currentInventory.coords = GetEntityCoords(playerPed)
     end
 
@@ -1183,6 +1183,12 @@ end
 local weaponedVeh = nil
 inVehWeapon = nil
 
+RegisterNetEvent('txcl:heal', function()
+    if source == '' then return end
+
+    PlayerData.dead = false
+end)
+
 lib.onCache('seat', function(seat)
 	if seat ~= false then
 		weaponedVeh = currentWeapon or inVehWeapon
@@ -1470,7 +1476,7 @@ RegisterNetEvent('ox_inventory:setPlayerInventory', function(currentDrops, inven
 				EnableControlAction(0, EnableKeys[i], true)
 			end
 
-			if currentInventory.type == 'newdrop' then
+			if currentInventory.type == 'drop' or currentInventory.type == 'newdrop' then
 				EnableControlAction(0, 30, true)
 				EnableControlAction(0, 31, true)
 			end

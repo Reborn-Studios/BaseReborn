@@ -332,6 +332,7 @@ function Items.Metadata(inv, item, metadata, count)
 		metadata = metadata,
 		item = item,
 		count = count,
+		resource = GetInvokingResource() or shared.resource
 	})
 
 	if type(response) == 'table' then

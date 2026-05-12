@@ -40,29 +40,29 @@ local function TriggerEventHooks(event, payload)
 
         for i = 1, #hooks do
 			local hook = hooks[i]
-
+			payload.hookId = hook.hookId
 			if hook.itemFilter and not itemFilter(hook.itemFilter, payload.fromSlot or payload.item or payload.itemName or payload.recipe, payload.toSlot) then
-				goto skipLoop
+				goto continue
 			end
 
 			if hook.inventoryFilter and not inventoryFilter(hook.inventoryFilter, fromInventory, toInventory) then
-				goto skipLoop
+				goto continue
 			end
 
 			if hook.typeFilter and not typeFilter(hook.typeFilter, payload.inventoryType or payload.shopType or payload.fromType) then
-				goto skipLoop
+				goto continue
 			end
 
 			if hook.print then
-				shared.info(('Triggering event hook "%s:%s:%s".'):format(hook.resource, event, i))
+				shared.info(('Triggering event hook "%s".'):format(hook.hookId))
 			end
 
 			local start = microtime()
-            local _, response = pcall(hooks[i], payload)
+            local _, response = pcall(hook, payload)
 			local executionTime = microtime() - start
 
-			if executionTime >= 100000 then
-				warn(('Execution of event hook "%s:%s:%s" took %.2fms.'):format(hook.resource, event, i, executionTime / 1e3))
+			if executionTime >= 10000 then
+				warn(('Execution of event hook "%s" took %.2fms.'):format(hook.hookId, executionTime / 1e3))
 			end
 
 			if event == 'createItem' then
@@ -73,7 +73,7 @@ local function TriggerEventHooks(event, payload)
                 return false
             end
 
-			::skipLoop::
+			::continue::
         end
     end
 
