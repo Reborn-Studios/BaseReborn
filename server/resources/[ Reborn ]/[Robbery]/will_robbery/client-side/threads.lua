@@ -153,10 +153,13 @@ CreateThread(function ()
                 if localConfig.EnableHacking then
                     table.insert(options, {
                         event = 'atmrobbery_hack',
-                        label = "Hacker ATM",
+                        label = "Hackear ATM",
                         icon = 'fas fa-laptop-code',
                         model = model,
                         distance = 1,
+                        canInteract = function ()
+                            return not LocalPlayer.state.Police
+                        end,
                         items = localConfig.HackingItem,
                     })
                 end
@@ -167,6 +170,9 @@ CreateThread(function ()
                         icon = 'fas fa-tools',
                         model = model,
                         distance = 1,
+                        canInteract = function ()
+                            return not LocalPlayer.state.Police
+                        end,
                         items = localConfig.DrillItem,
                     })
                 end
