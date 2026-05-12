@@ -386,7 +386,11 @@ function Fines(Passport)
 
 	for Number = 1,#Consult do
 		local Row = Consult[Number]
-
+		local Articles = exports['oxmysql']:query_async(("SELECT Article, `Fine`, `Arrest` FROM `mdt_penalcode_articles` WHERE `id` IN (%s)"):format(string.rep("?,", #Row.Infractions):sub(1, -2)), Row.Infractions)
+		local Infractions = {}
+		for _,v in ipairs(Articles) do
+			Infractions[#Infractions+1] = v.Article
+		end
 		Result[#Result + 1] = {
 			Id = Row.id,
 			Officer = {
@@ -396,7 +400,7 @@ function Fines(Passport)
 			Value = Row.Fine,
 			Date = Row.Timestamp,
 			Description = Row.Description,
-			Infractions = Row.Infractions
+			Infractions = table.concat(Infractions, ', ')
 		}
 	end
 
@@ -425,7 +429,11 @@ function Creative.GetFine(Number)
 	if not Consult or Consult.Passport ~= Passport then
 		return false
 	end
-
+	local Articles = exports['oxmysql']:query_async(("SELECT Article, `Fine`, `Arrest` FROM `mdt_penalcode_articles` WHERE `id` IN (%s)"):format(string.rep("?,", #Consult.Infractions):sub(1, -2)), Consult.Infractions)
+	local Infractions = {}
+	for _,v in ipairs(Articles) do
+		Infractions[#Infractions+1] = v.Article
+	end
 	return {
 		Id = Consult.id,
 		Officer = {
@@ -435,7 +443,7 @@ function Creative.GetFine(Number)
 		Value = Consult.Fine,
 		Date = Consult.Timestamp,
 		Description = Consult.Description,
-		Infractions = Consult.Infractions
+		Infractions = table.concat(Infractions, ', ')
 	}
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
