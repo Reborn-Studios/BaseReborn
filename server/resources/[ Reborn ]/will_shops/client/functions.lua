@@ -235,7 +235,7 @@ CreateThread(function()
 	while true do
 		local timeDistance = 1999
 		local ped = PlayerPedId()
-		if IsPedInAnyVehicle(ped) then
+		if IsPedInAnyVehicle(ped) and GetResourceState("ox_fuel") ~= "started" then
 			local vehicle = GetVehiclePedIsUsing(ped)
 			local speed = GetEntitySpeed(vehicle) * 2.236936
 			if GetVehicleFuelLevel(vehicle) >= 1 then
