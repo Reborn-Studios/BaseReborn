@@ -1245,8 +1245,6 @@ RegisterCommand('quickanim', function(source, args, raw)
                         local anim = getQuickAnimOnSlot(1) 
                         if anim then
                             OnEmotePlay(anim.name, anim.category)
-                        else
-                            Config.Notify(Lang:t("notifications.quick_slot_empty", {slot = 1}), 7500, "error")
                         end
                         keyLoop = false
                         break
@@ -1255,8 +1253,6 @@ RegisterCommand('quickanim', function(source, args, raw)
                         local anim = getQuickAnimOnSlot(2) 
                         if anim then
                             OnEmotePlay(anim.name, anim.category)
-                        else
-                            Config.Notify(Lang:t("notifications.quick_slot_empty", {slot = 2}), 7500, "error")
                         end
                         keyLoop = false
                         break
@@ -1265,8 +1261,6 @@ RegisterCommand('quickanim', function(source, args, raw)
                         local anim = getQuickAnimOnSlot(3) 
                         if anim then
                             OnEmotePlay(anim.name, anim.category)
-                        else
-                            Config.Notify(Lang:t("notifications.quick_slot_empty", {slot = 3}), 7500, "error")
                         end
                         keyLoop = false
                         break
@@ -1275,8 +1269,6 @@ RegisterCommand('quickanim', function(source, args, raw)
                         local anim = getQuickAnimOnSlot(4) 
                         if anim then
                             OnEmotePlay(anim.name, anim.category)
-                        else
-                            Config.Notify(Lang:t("notifications.quick_slot_empty", {slot = 4}), 7500, "error")
                         end
                         keyLoop = false
                         break
@@ -1285,8 +1277,6 @@ RegisterCommand('quickanim', function(source, args, raw)
                         local anim = getQuickAnimOnSlot(5) 
                         if anim then
                             OnEmotePlay(anim.name, anim.category)
-                        else
-                            Config.Notify(Lang:t("notifications.quick_slot_empty", {slot = 5}), 7500, "error")
                         end
                         keyLoop = false
                         break
@@ -1295,8 +1285,6 @@ RegisterCommand('quickanim', function(source, args, raw)
                         local anim = getQuickAnimOnSlot(6) 
                         if anim then
                             OnEmotePlay(anim.name, anim.category)
-                        else
-                            Config.Notify(Lang:t("notifications.quick_slot_empty", {slot = 6}), 7500, "error")
                         end
                         keyLoop = false
                         break
@@ -1305,8 +1293,6 @@ RegisterCommand('quickanim', function(source, args, raw)
                         local anim = getQuickAnimOnSlot(7)
                         if anim then
                             OnEmotePlay(anim.name, anim.category)
-                        else
-                            Config.Notify(Lang:t("notifications.quick_slot_empty", {slot = 7}), 7500, "error")
                         end
                         keyLoop = false
                         break
