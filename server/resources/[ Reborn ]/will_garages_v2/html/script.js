@@ -366,6 +366,15 @@ $(document).on("click", ".deletecar", function () {
   }
 });
 
+$(document).on("click", ".delveh", function () {
+  $.post("https://will_garages_v2/delNearVeh");
+  $(".container").css("display", "none");
+  $.post("https://will_garages_v2/closepage", JSON.stringify({}));
+  document.querySelectorAll(".vehiclemodel").forEach(function (a) {
+    a.remove();
+  });
+});
+
 $(document).on("click", ".closeimg", function () {
   $(".container").css("display", "none");
   $.post("https://will_garages_v2/closepage", JSON.stringify({}));
