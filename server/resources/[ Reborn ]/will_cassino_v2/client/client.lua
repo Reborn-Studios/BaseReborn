@@ -92,7 +92,13 @@ CreateThread(function()
 		if closeToCassino then
 			if not showedCasino then
 				showedCasino = true
-				SendNUIMessage({ action = "showCassino" })
+				SendNUIMessage({ action = "showCassino", prices = {
+					Poker = Config.Pokers[1].MinimumBet.." - "..Config.Pokers[1].MaximumBet.." fichas",
+					Blackjack = Config.blackjack['MinimumBet'].." - "..Config.blackjack['MaximumBet'].." fichas",
+					Roleta = Config.roleta,
+					Slots = "100-2500 fichas",
+					InsideTrack = Config.InsideTrack['minBet'].." - "..Config.InsideTrack['maxBet'].." fichas"
+				} })
 				SendNUIMessage({ action = "updateChips", myChips = vSERVER.getBalance() })
 			else
 				SendNUIMessage({ action = "updateChips", myChips = vSERVER.getBalance() })

@@ -184,6 +184,7 @@ function Utils:HandleControls()
                         if (self.CurrentHorse == self.CurrentWinner) then
                             self.PlayerBalance = (self.PlayerBalance + self.CurrentGain)
                             vSERVER.giveMoneyBet(self.CurrentGain)
+                            SendNUIMessage({ action = "playAudio", transactionFile = "chips" })
                             self:UpdateBetValues(self.CurrentHorse, self.CurrentBet, self.PlayerBalance, self.CurrentGain)
                         else
                             vSERVER.lostGame(self.CurrentBet)

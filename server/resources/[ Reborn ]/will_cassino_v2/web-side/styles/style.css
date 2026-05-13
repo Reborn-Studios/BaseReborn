@@ -1,95 +1,368 @@
 @font-face {
-    font-family: "majestic";
-    src: url("../ProximaNova.woff") format('woff');
+  font-family: "majestic";
+  src: url("../ProximaNova.woff") format("woff");
 }
 
-* {
-    overflow: hidden;
+html,
+body {
+  width: 100%;
+  height: 100%;
 }
 
-.mainMenu {
-    position: absolute;
-    font-family: majestic, 'Courier New', Courier, monospace;
-    font-size: 14;
-    right: 1%;
-    top: 12%;
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    justify-content: start;
-    background-color: rgba(74, 74, 76, 0.6);
-    border-radius: 25px;
-    width: 15vw;
-    padding: 10px;
-    transform: translateX(100%);
-    transition: transform 0.6s;
-    overflow: visible;
+body {
+  margin: 0;
+  overflow: hidden;
 }
 
-.show-panel {
-    transform: translateX(0);
+.hud {
+  position: fixed;
+  top: 18%;
+  right: 0;
+  width: clamp(240px, 18vw, 330px);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px;
+  font-family: majestic, "Courier New", Courier, monospace;
+  color: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
+  border: 2px solid rgba(214, 170, 59, 0.95);
+  background-color: #0b3a24;
+  background-image:
+    radial-gradient(
+      circle at 15% 0%,
+      rgba(255, 255, 255, 0.12),
+      rgba(255, 255, 255, 0) 58%
+    ),
+    radial-gradient(
+      circle at 85% 0%,
+      rgba(255, 215, 0, 0.12),
+      rgba(255, 215, 0, 0) 62%
+    ),
+    repeating-linear-gradient(
+      135deg,
+      rgba(0, 0, 0, 0.18) 0 8px,
+      rgba(0, 0, 0, 0) 8px 16px
+    );
+  box-shadow:
+    0 18px 55px rgba(0, 0, 0, 0.55),
+    0 0 22px rgba(214, 170, 59, 0.22);
+  user-select: none;
 }
 
-#cassinologo {
-    border-radius: 25px;
-    width: 15vw;
+.hud--hidden {
+  display: none;
 }
 
-.gamePanel, #moneyPainel {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.is-hidden {
+  display: none !important;
 }
 
-.gamePanel img, #moneyPainel img {
-    width: 80%;
+.hudHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-#mychips, .gamechips {
-    color: rgb(216, 216, 216);
-    text-shadow: 2px 2px rgb(36, 36, 36);
-    position: absolute;
-    margin-left: 50px;
-    margin-bottom: 25px;
+.hudLogo {
+  width: 76px;
+  height: 76px;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 16px rgba(0, 0, 0, 0.55));
 }
 
-#mychips {
-    margin-bottom: 15px;
+.hudTitle {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.05;
 }
 
-.gameobs {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-shadow: 1px black;
-    color: rgb(216, 216, 216);
-    width: 100%;
+.hudName {
+  font-size: 16px;
+  letter-spacing: 0.6px;
+  font-weight: 900;
 }
 
-.obsicons {
-    display: flex;
-    width: 100%;
-    align-items: center;
-    justify-content: space-between;
+.hudSubtitle {
+  font-size: 12px;
+  letter-spacing: 0.55px;
+  opacity: 0.85;
 }
 
-.obsicons div {
-    margin-bottom: 5px;
+.hudToggle {
+  position: absolute;
+  left: -44px;
+  top: 10px;
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  border: 2px solid rgba(255, 230, 153, 0.95);
+  border-bottom-width: 4px;
+  background: linear-gradient(180deg, #f0c75e 0%, #b8860b 100%);
+  color: #2a0f1b;
+  font-size: 18px;
+  font-weight: 900;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.55);
+  cursor: pointer;
 }
 
-.hidebutton {
-    position: absolute;
-    align-self: flex-start;
-    margin-left: -20px;
-    color: white;
-    font-size: 20;
-    font-weight: 900;
-    background-color: rgba(74, 74, 76, 0.9);
-    border-radius: 15px 0 0 15px;
-    padding: 5px;
+.hudToggle:active {
+  transform: translateY(2px);
+  border-bottom-width: 2px;
 }
 
-.timer {
-    display: none;
+.hudStats {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+}
+
+.stat {
+  padding: 9px 10px;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.38);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.25);
+  min-width: 0;
+}
+
+.statLabel {
+  font-size: 11px;
+  letter-spacing: 0.55px;
+  opacity: 0.82;
+  text-transform: uppercase;
+}
+
+.statValue {
+  margin-top: 6px;
+  font-size: 16px;
+  font-weight: 900;
+  letter-spacing: 0.4px;
+  color: #ffd36a;
+  text-shadow:
+    0 2px 10px rgba(0, 0, 0, 0.7),
+    0 0 10px rgba(255, 211, 106, 0.22);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.hudSectionTitle {
+  font-size: 11px;
+  letter-spacing: 0.7px;
+  text-transform: uppercase;
+  opacity: 0.9;
+}
+
+.hudGames {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.gameRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 9px 10px;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.34);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.22);
+}
+
+.gameLeft {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.gameIcon {
+  color: #ff4b6e;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+}
+
+.gameName {
+  font-size: 13px;
+  letter-spacing: 0.4px;
+  font-weight: 800;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.gamePrice {
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.35px;
+  color: #a9ffe7;
+  text-shadow: 0 0 12px rgba(0, 255, 204, 0.25);
+  white-space: nowrap;
+}
+
+.gameRow--active {
+  border-color: rgba(255, 211, 106, 0.95);
+  box-shadow:
+    0 14px 28px rgba(0, 0, 0, 0.32),
+    0 0 22px rgba(255, 211, 106, 0.18);
+}
+
+.hudControls {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.keyCard {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 10px;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.34);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.22);
+  min-width: 0;
+}
+
+.keyBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  height: 28px;
+  padding: 0 8px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.1),
+    rgba(0, 0, 0, 0.22)
+  );
+  color: rgba(255, 255, 255, 0.95);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.6px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+  white-space: nowrap;
+}
+
+.keyAction {
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.35px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.hudExtras {
+  display: flex;
+  gap: 8px;
+}
+
+.extraCard {
+  flex: 1;
+  padding: 9px 10px;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.34);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.22);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.35px;
+  color: rgba(255, 255, 255, 0.92);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.65);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.hudFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.hudHint {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 12px;
+  letter-spacing: 0.35px;
+  opacity: 0.9;
+}
+
+.hudHintIcon {
+  opacity: 0.9;
+}
+
+.hudTimer {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 12px;
+  letter-spacing: 0.45px;
+  color: #a9ffe7;
+  text-shadow: 0 0 10px rgba(0, 255, 204, 0.25);
+}
+
+.hudTimer.is-visible {
+  display: inline-flex;
+}
+
+.hud--collapsed {
+  width: clamp(210px, 13.5vw, 260px);
+  padding: 10px;
+  gap: 8px;
+}
+
+.hud--collapsed .hudStats {
+  grid-template-columns: 1fr;
+}
+
+.hud--collapsed .hudStats .stat:not(:first-child) {
+  display: none;
+}
+
+.hud--collapsed .hudSectionTitle,
+.hud--collapsed .hudGames,
+.hud--collapsed .hudControls,
+.hud--collapsed .hudExtras,
+.hud--collapsed .hudFooter {
+  display: none;
+}
+
+.hud--collapsed .hudLogo {
+  width: 46px;
+  height: 46px;
+}
+
+.hud--collapsed .hudName {
+  font-size: 14px;
+}
+
+@media (max-height: 720px) {
+  .hud {
+    top: 8%;
+  }
+
+  .statValue {
+    font-size: 14px;
+  }
 }

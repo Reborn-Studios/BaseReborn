@@ -1,1 +1,200 @@
-var _0x51317f=_0xde36;function _0x8e0a(){var _0x1c599e=['<h2>MÃO:\x20','.clock','#mychips','addEventListener','</h2>','#visionkey','dealerHand','<img\x20src=\x22./img/space.png\x22\x20alt=\x22space\x22><div>PUXAR</div>','./sounds/','00:0','html','none','364132EdQzIm','Blackjack','704378JbBMJC','Slots','message','playAudio','currentBet','<img\x20src=\x22./img/backspace.png\x22\x20alt=\x22backspace\x22><div>PARAR</div>','6NCjkLS','#spacekey','3213161cYPNof','flex','<h2>DEALER:\x20','<img\x20src=\x22./img/e-key.png\x22\x20alt=\x22ekey\x22><div>JOGAR</div>','3yzbDwm','showGame','action','397865KFOhQj','.timer','block','hide','Painel','.gameobs','keyCode','Roleta','.hidebutton','00:00','00:','volume','game','currentHand','timeLeft','removeClass','transactionFile','showCassino','audio/ogg','canPlayType','updateChips','#enterkey','Poker','css','1433255TAFrat','527592RegqMc','show-panel','toggleCassinoNui','display','showTimer','hideCassino','2432448QKbjtA','.mainMenu','.gamePanel','#leftkey','\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22obsicons\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20id=\x22visionkey\x22><img\x20src=\x22./img/e-key.png\x22\x20alt=\x22ekey\x22><div>VISÃO</div></div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20id=\x22spacekey\x22><img\x20src=\x22./img/space.png\x22\x20alt=\x22space\x22><div>APOSTAR</div></div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22obsicons\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20id=\x22enterkey\x22><img\x20src=\x22./img/enter.png\x22\x20alt=\x22enter\x22><div>COLOCAR\x20APOSTA</div></div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20id=\x22leftkey\x22><img\x20src=\x22./img/backspace.png\x22\x20alt=\x22backspace\x22><div>SAIR</div></div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20','show'];_0x8e0a=function(){return _0x1c599e;};return _0x8e0a();}(function(_0x5749db,_0x4ac8e3){var _0x4be8b7=_0xde36,_0x708c4a=_0x5749db();while(!![]){try{var _0x3d0f68=-parseInt(_0x4be8b7(0xd7))/0x1+parseInt(_0x4be8b7(0xc8))/0x2+parseInt(_0x4be8b7(0xd4))/0x3*(-parseInt(_0x4be8b7(0xc6))/0x4)+-parseInt(_0x4be8b7(0xef))/0x5+parseInt(_0x4be8b7(0xce))/0x6*(parseInt(_0x4be8b7(0xd0))/0x7)+-parseInt(_0x4be8b7(0xf0))/0x8+parseInt(_0x4be8b7(0xf6))/0x9;if(_0x3d0f68===_0x4ac8e3)break;else _0x708c4a['push'](_0x708c4a['shift']());}catch(_0x30bb37){_0x708c4a['push'](_0x708c4a['shift']());}}}(_0x8e0a,0x3a972));var audioPlayer=null;function _0xde36(_0x5a52ce,_0x2ecdc1){var _0x8e0aca=_0x8e0a();return _0xde36=function(_0xde362d,_0x96e5b7){_0xde362d=_0xde362d-0xbc;var _0xcc536f=_0x8e0aca[_0xde362d];return _0xcc536f;},_0xde36(_0x5a52ce,_0x2ecdc1);}window[_0x51317f(0xbd)](_0x51317f(0xca),({data:_0x469d18})=>{var _0x4ddeee=_0x51317f;_0x469d18[_0x4ddeee(0xd6)]===_0x4ddeee(0xe8)&&($(_0x4ddeee(0xf7))['css'](_0x4ddeee(0xf3),_0x4ddeee(0xd1)),toggleMainPainel(),setTimeout(toggleMainPainel,0x7d0),$('.gamePanel')[_0x4ddeee(0xda)](),$('.gameobs')[_0x4ddeee(0xda)](),$(_0x4ddeee(0xd8))[_0x4ddeee(0xda)]());_0x469d18[_0x4ddeee(0xd6)]===_0x4ddeee(0xeb)&&$(_0x4ddeee(0xbc))[_0x4ddeee(0xc4)](_0x469d18['myChips']);_0x469d18[_0x4ddeee(0xd6)]===_0x4ddeee(0xf2)&&toggleMainPainel();if(_0x469d18[_0x4ddeee(0xd6)]===_0x4ddeee(0xcb)){var _0x1a6d0b=new Audio(_0x4ddeee(0xc2)+_0x469d18[_0x4ddeee(0xe7)]+'.ogg');if(_0x1a6d0b[_0x4ddeee(0xea)](_0x4ddeee(0xe9)))_0x1a6d0b[_0x4ddeee(0xe2)]=0.5,_0x1a6d0b['play']();else{}}if(_0x469d18['action']===_0x4ddeee(0xd5)){$(_0x4ddeee(0xf8))['hide'](),$(_0x4ddeee(0xdc))[_0x4ddeee(0xfb)]();$(_0x4ddeee(0xdf))[_0x4ddeee(0xee)](_0x4ddeee(0xf3))===_0x4ddeee(0xd9)&&($(_0x4ddeee(0xf7))['addClass'](_0x4ddeee(0xf1)),$('.hidebutton')[_0x4ddeee(0xee)](_0x4ddeee(0xf3),_0x4ddeee(0xc5)));$(_0x4ddeee(0xdc))[_0x4ddeee(0xc4)](_0x4ddeee(0xfa));const _0x435395=_0x469d18[_0x4ddeee(0xe3)];if(_0x435395){$('#'+_0x435395+_0x4ddeee(0xdb))[_0x4ddeee(0xfb)]();_0x469d18[_0x4ddeee(0xcc)]!=undefined&&$('.gamechips')['html'](_0x469d18[_0x4ddeee(0xcc)]);if(_0x435395===_0x4ddeee(0xde)){}else{if(_0x435395===_0x4ddeee(0xc9))$(_0x4ddeee(0xec))['hide']();else{if(_0x435395===_0x4ddeee(0xed))$(_0x4ddeee(0xbf))['hide'](),_0x469d18['secondStep']&&($(_0x4ddeee(0xcf))['hide'](),$(_0x4ddeee(0xec))[_0x4ddeee(0xda)](),$('#visionkey')[_0x4ddeee(0xfb)](),$(_0x4ddeee(0xbf))[_0x4ddeee(0xc4)](_0x4ddeee(0xd3)),$(_0x4ddeee(0xf9))[_0x4ddeee(0xc4)](_0x4ddeee(0xcd)));else _0x435395===_0x4ddeee(0xc7)&&($('#visionkey')[_0x4ddeee(0xda)](),_0x469d18['secondStep']&&($('#enterkey')[_0x4ddeee(0xda)](),$(_0x4ddeee(0xcf))['html'](_0x4ddeee(0xc1)),$(_0x4ddeee(0xf9))['html'](_0x4ddeee(0xcd)),_0x469d18[_0x4ddeee(0xe4)]&&($(_0x4ddeee(0xbf))[_0x4ddeee(0xfb)](),$(_0x4ddeee(0xec))['show'](),$(_0x4ddeee(0xbf))['html'](_0x4ddeee(0xfc)+_0x469d18[_0x4ddeee(0xe4)]+_0x4ddeee(0xbe)),$(_0x4ddeee(0xec))[_0x4ddeee(0xc4)](_0x4ddeee(0xd2)+_0x469d18[_0x4ddeee(0xc0)]+_0x4ddeee(0xbe)))));}}}}_0x469d18[_0x4ddeee(0xd6)]===_0x4ddeee(0xf5)&&$('.mainMenu')[_0x4ddeee(0xee)]('display',_0x4ddeee(0xc5)),_0x469d18[_0x4ddeee(0xd6)]===_0x4ddeee(0xf4)&&(_0x469d18[_0x4ddeee(0xe5)]&&_0x469d18['timeLeft']>0x0?($(_0x4ddeee(0xd8))['show'](),_0x469d18[_0x4ddeee(0xe5)]>=0xa?$(_0x4ddeee(0xfd))['html'](_0x4ddeee(0xe1)+_0x469d18['timeLeft']):$(_0x4ddeee(0xfd))[_0x4ddeee(0xc4)](_0x4ddeee(0xc3)+_0x469d18[_0x4ddeee(0xe5)])):$('.clock')[_0x4ddeee(0xc4)](_0x4ddeee(0xe0)));}),$(document)['keyup'](function(_0x3fb773){var _0x4d77a6=_0x51317f;_0x3fb773[_0x4d77a6(0xdd)]===0x47&&toggleMainPainel();});function toggleMainPainel(){var _0x1e2c0c=_0x51317f;$(_0x1e2c0c(0xdf))[_0x1e2c0c(0xee)](_0x1e2c0c(0xf3))==='none'?($(_0x1e2c0c(0xf7))[_0x1e2c0c(0xe6)]('show-panel'),$(_0x1e2c0c(0xdf))['css'](_0x1e2c0c(0xf3),_0x1e2c0c(0xd9))):($(_0x1e2c0c(0xf7))['addClass'](_0x1e2c0c(0xf1)),$(_0x1e2c0c(0xdf))['css']('display','none'));}
+var audioPlayer = null;
+
+const HUD_SELECTOR = "#casinoHud";
+
+const DEFAULT_PRICES = {
+  Blackjack: 100,
+  Roleta: 100,
+  Slots: "100-2500",
+  Poker: 200,
+  InsideTrack: 100,
+};
+
+const PRICE_ELEMENT_BY_GAME = {
+  Blackjack: "#priceBlackjack",
+  Roleta: "#priceRoleta",
+  Slots: "#priceSlots",
+  Poker: "#pricePoker",
+  InsideTrack: "#priceInsideTrack",
+};
+
+function formatAmount(value) {
+  if (value === null || value === undefined) return "—";
+  if (typeof value === "string" && value.trim() === "") return "—";
+  const numericValue = Number(value);
+  if (Number.isFinite(numericValue))
+    return numericValue.toLocaleString("pt-BR");
+  return String(value);
+}
+
+function formatPrice(value) {
+  const numericValue = Number(value);
+  if (Number.isFinite(numericValue)) {
+    return `${numericValue.toLocaleString("pt-BR")} fichas`;
+  }
+  return formatAmount(value);
+}
+
+function applyPrices(prices) {
+  Object.keys(PRICE_ELEMENT_BY_GAME).forEach((gameName) => {
+    const selector = PRICE_ELEMENT_BY_GAME[gameName];
+    const value = prices?.[gameName];
+    $(selector).text(formatPrice(value));
+  });
+}
+
+function setActiveGame(gameName) {
+  $("#activeGame").text(gameName ? String(gameName) : "—");
+  $(".gameRow").removeClass("gameRow--active");
+  if (gameName) {
+    $(`.gameRow[data-game="${gameName}"]`).addClass("gameRow--active");
+  }
+}
+
+function setCurrentBet(bet) {
+  $("#currentBet").text(formatAmount(bet));
+}
+
+function showHud({ expand = true } = {}) {
+  const $hud = $(HUD_SELECTOR);
+  $hud.removeClass("hud--hidden");
+  if (expand) $hud.removeClass("hud--collapsed");
+}
+
+function hideHud() {
+  $(HUD_SELECTOR).addClass("hud--hidden");
+}
+
+function toggleHudCollapsed() {
+  const $hud = $(HUD_SELECTOR);
+  if ($hud.hasClass("hud--hidden")) return;
+  $hud.toggleClass("hud--collapsed");
+}
+
+function setTimer(timeLeft) {
+  const $timer = $("#hudTimer");
+  const $text = $(".clockText");
+
+  if (timeLeft === null || timeLeft === undefined || Number(timeLeft) < 0) {
+    $timer.removeClass("is-visible");
+    $text.text("00:00");
+    return;
+  }
+
+  const seconds = Math.max(0, Math.floor(Number(timeLeft)));
+  $timer.addClass("is-visible");
+  $text.text(`00:${String(seconds).padStart(2, "0")}`);
+}
+
+function setKeyCard(id, keyText, actionText) {
+  const $card = $(`#${id}`);
+  $card.removeClass("is-hidden");
+  $card.find(".keyBadge").text(String(keyText));
+  $card.find(".keyAction").text(String(actionText));
+}
+
+function hideKeyCard(id) {
+  $(`#${id}`).addClass("is-hidden");
+}
+
+function hideExtras() {
+  $("#handInfo").addClass("is-hidden").text("MÃO: —");
+  $("#dealerInfo").addClass("is-hidden").text("DEALER: —");
+}
+
+function setExtras({ currentHand, dealerHand } = {}) {
+  if (currentHand !== undefined && currentHand !== null && currentHand !== "") {
+    $("#handInfo").removeClass("is-hidden").text(`MÃO: ${currentHand}`);
+  } else {
+    $("#handInfo").addClass("is-hidden").text("MÃO: —");
+  }
+
+  if (dealerHand !== undefined && dealerHand !== null && dealerHand !== "") {
+    $("#dealerInfo").removeClass("is-hidden").text(`DEALER: ${dealerHand}`);
+  } else {
+    $("#dealerInfo").addClass("is-hidden").text("DEALER: —");
+  }
+}
+
+function resetControls() {
+  setKeyCard("visionkey", "E", "VISÃO");
+  setKeyCard("spacekey", "SPACE", "APOSTAR");
+  setKeyCard("enterkey", "ENTER", "COLOCAR");
+  setKeyCard("leftkey", "BACK", "SAIR");
+  hideExtras();
+}
+
+$(function () {
+  applyPrices(DEFAULT_PRICES);
+  resetControls();
+  $("#hudToggle").on("click", toggleHudCollapsed);
+});
+
+window.addEventListener("message", ({ data }) => {
+  if (data.action === "showCassino") {
+    showHud({ expand: true });
+    if (data?.prices) applyPrices(data.prices);
+    setActiveGame(null);
+    setCurrentBet(null);
+    resetControls();
+  }
+  if (data.action === "updateChips") {
+    $("#mychips").text(formatAmount(data.myChips));
+  }
+  if (data.action === "toggleCassinoNui") {
+    toggleHudCollapsed();
+  }
+  if (data.action === "playAudio") {
+    if (audioPlayer) {
+      audioPlayer.pause();
+    }
+    audioPlayer = new Audio("./js/sounds/" + data.transactionFile + ".mp3");
+    audioPlayer.volume = 0.5;
+    audioPlayer.play();
+  }
+  if (data.action === "showGame") {
+    const actualGame = data.game;
+    showHud({ expand: true });
+    setActiveGame(actualGame);
+    if (data.currentBet !== undefined) setCurrentBet(data.currentBet);
+
+    resetControls();
+    if (actualGame === "Slots") {
+      hideKeyCard("enterkey");
+    } else if (actualGame === "Poker") {
+      hideKeyCard("visionkey");
+      if (data.secondStep) {
+        hideKeyCard("spacekey");
+        hideKeyCard("enterkey");
+        setKeyCard("visionkey", "E", "JOGAR");
+        setKeyCard("leftkey", "BACK", "PARAR");
+      }
+    } else if (actualGame === "Blackjack") {
+      hideKeyCard("visionkey");
+      if (data.secondStep) {
+        hideKeyCard("enterkey");
+        setKeyCard("spacekey", "SPACE", "PUXAR");
+        setKeyCard("leftkey", "BACK", "PARAR");
+        if (data.currentHand !== undefined) {
+          setExtras({
+            currentHand: data.currentHand,
+            dealerHand: data.dealerHand,
+          });
+        }
+      }
+    }
+  }
+  if (data.action === "hideCassino") {
+    hideHud();
+  }
+  if (data.action === "showTimer") {
+    setTimer(data.timeLeft);
+  }
+});
+
+//KEY CLICKED
+$(document).keyup(function (e) {
+  if (e.keyCode === 71) {
+    toggleHudCollapsed();
+  }
+});

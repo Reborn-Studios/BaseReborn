@@ -297,7 +297,7 @@ createSlots = function(index, data)
 				NetworkAddPedToSynchronisedScene(PlayerPedId(),SITTING_SCENE,'anim_casino_b@amb@casino@games@shared@player@',rndidle,2.0,2.0,50,16,2.0,0)
 				NetworkStartSynchronisedScene(SITTING_SCENE)
 			end				
-			Citizen.Wait(10)
+			Citizen.Wait(5)
 			
 		end
 		self.running = false
@@ -402,6 +402,7 @@ RegisterNetEvent('casino:slots:startSpin')
 AddEventHandler('casino:slots:startSpin',function(index, tickRate)
 	if Slots[index] ~= nil then
 		SendNUIMessage({ action = "playAudio", transactionFile = "slot" })
+		Wait(1200)
 		Slots[index].spin(tickRate)
 	end
 end)

@@ -562,7 +562,7 @@ createRulettAsztal = function(index, data)
                                     if IsDisabledControlJustPressed(0, 24) then
                                         if currentBetAmount > 0 then
                                             if mesasRoletas[selectedRulett] ~= nil then
-                                                PlaySoundFrontend(-1, 'DLC_VW_BET_DOWN', 'dlc_vw_table_games_frontend_sounds', true)
+                                                PlaySoundFrontend(-1, 'DLC_VW_BET_UP', 'dlc_vw_table_games_frontend_sounds', true)
                                                 TriggerServerEvent('casino:taskBetRulett', selectedRulett, aimingAtBet, currentBetAmount)
                                             end
                                         end
@@ -951,7 +951,7 @@ AddEventHandler('client:rulett:playWinAnim', function(chairId)
         local currentScene = NetworkCreateSynchronisedScene(CURRENT_CHAIR_DATA.position, rot, 2, 1, 0, 1065353216, 0, 1065353216)
         NetworkAddPedToSynchronisedScene(PlayerPedId(), currentScene, L, 'reaction_great', 4.0, -2.0, 13, 16, 1148846080, 0)
         NetworkStartSynchronisedScene(currentScene)
-
+        SendNUIMessage({ action = "playAudio", transactionFile = "chips" })
         idleTimer = 8
     end
 end)

@@ -44,6 +44,7 @@ RegisterNetEvent("luckywheel:doRoll")
 AddEventHandler("luckywheel:doRoll", function(_priceIndex)
     _isRolling = true
     SetEntityHeading(_wheel, 328.34)
+    SendNUIMessage({ action = "playAudio", transactionFile = "roleta" })
     Citizen.CreateThread(function()
         local speedIntCnt = 1
         local rollspeed = 1.0

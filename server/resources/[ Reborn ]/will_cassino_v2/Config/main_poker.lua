@@ -373,11 +373,11 @@ end
 
 Main.formatHandValue = function(handValue)
     if handValue > 500 then
-        return 'Straight flush'
+        return 'Straight Flush'
     elseif handValue > 400 then
         return 'Trinca'
     elseif handValue > 300 then
-        return 'Sequencia'
+        return 'Sequência'
     elseif handValue > 200 then
         return 'Flush'
     elseif handValue > 100 then
@@ -402,32 +402,32 @@ Main.formatHandValue = function(handValue)
         elseif handValue == 120 then
             return 'Par de 10'
         elseif handValue == 122 then
-            return 'Par de Jack'
+            return 'Par de Valetes (J)'
         elseif handValue == 124 then
-            return 'Par de Queen'
+            return 'Par de Damas (Q)'
         elseif handValue == 126 then
-            return 'Par de King'
+            return 'Par de Reis (K)'
         end
     elseif handValue == 5 then
-        return 'High Card 5'
+        return '5 - Maior carta'
     elseif handValue == 6 then
-        return 'High Card 6'
+        return '6 - Maior carta'
     elseif handValue == 7 then
-        return 'High Card 7'
+        return '7 - Maior carta'
     elseif handValue == 8 then
-        return 'High Card 8'
+        return '8 - Maior carta'
     elseif handValue == 9 then
-        return 'High Card 9'
+        return '9 - Maior carta'
     elseif handValue == 10 then
-        return 'High Card 10'
+        return '10 - Maior carta'
     elseif handValue == 11 then
-        return 'High Card Jack'
+        return 'Valete (J) - Maior carta'
     elseif handValue == 12 then
-        return 'High Card Queen'
+        return 'Dama (Q) - Maior carta'
     elseif handValue == 13 then
-        return 'High Card King'
+        return 'Rei (K) - Maior carta'
     else
-        return 'High Card Ace'
+        return 'Ás (A) - Maior carta'
     end
 
     return ''

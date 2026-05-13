@@ -398,7 +398,7 @@ AquiverPoker = function(index, data)
             NetworkAddPedToSynchronisedScene(PlayerPedId(), reactionScene, Main.PlayerAnimDictShared, reaction, 2.0, -2.0, 13, 16, 2.0, 0)
             NetworkStartSynchronisedScene(reactionScene)
         end
-
+        SendNUIMessage({ action = "playAudio", transactionFile = "chips" })
         local pedReaction = CreateSynchronizedScene(self.data.Position, 0.0, 0.0, self.data.Heading, 2)
         if self.isPedFemale() then
             local pedr = ({'female_dealer_reaction_bad_var01', 'female_dealer_reaction_bad_var02', 'female_dealer_reaction_bad_var03'})[math.random(1, 3)]
@@ -1523,7 +1523,7 @@ AquiverPoker = function(index, data)
         while not HasAnimDictLoaded(Main.PlayerAnimDictPoker) do
             Citizen.Wait(1)
         end
-
+        SendNUIMessage({ action = "playAudio", transactionFile = "chips" })
         local offsetAlign = nil
         if activeChairData.chairId == 4 then
             offsetAlign = vector3(0.59535, 0.200875, 0.95)
