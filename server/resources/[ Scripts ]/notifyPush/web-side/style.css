@@ -1,18 +1,20 @@
-::-webkit-scrollbar {
-  display: none;
+:root {
+  --np-font: "Roboto", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  --np-surface: rgba(16, 17, 22, 0.75);
+  --np-border: rgba(255, 255, 255, 0.08);
+  --np-muted: rgba(255, 255, 255, 0.72);
+  --np-soft: rgba(255, 255, 255, 0.06);
+  --np-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  --np-radius: 12px;
 }
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-}
+
 ::-webkit-scrollbar {
-  background: transparent;
   width: 0;
-}
-::selection {
+  height: 0;
   background: transparent;
-  color: #fff;
 }
+
+::selection,
 ::-moz-selection {
   background: transparent;
   color: #fff;
@@ -21,188 +23,172 @@ input::-webkit-inner-spin-button {
 body {
   margin: 0;
   padding: 0;
-  font-family: "Roboto", Arial, Helvetica, sans-serif;
+  font-family: var(--np-font);
+  background: transparent;
 }
 
 * {
-  color: white;
-  font-size: 13px;
-  font-family: Arial, Helvetica, sans-serif;
-  overflow: hidden;
-  user-select: none;
   box-sizing: border-box;
+  user-select: none;
 }
 
 .body {
-  right: 0;
-  top: 120px;
-  height: 77%;
-  width: 335px;
-  overflow: hidden;
   position: absolute;
+  top: 120px;
+  right: 18px;
+  width: 360px;
+  height: 77%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .notification {
-  float: left;
-  width: 330px;
-  padding: 15px;
-  margin-bottom: 10px;
-  border-top-left-radius: 3px;
-  border-bottom-left-radius: 3px;
-  background: rgba(75, 100, 160, 0.8);
-  border-left: 5px solid rgba(45, 60, 90, 0.8);
-}
-
-.content {
-  float: left;
-  width: 260px;
-}
-
-.buttons {
-  float: left;
-  width: 30px;
-}
-
-.content-line {
-  float: left;
-  margin-top: 6px;
-  min-width: 250px;
-  max-width: 250px;
-  padding: 4px 0 0 5px;
-}
-
-.chamados {
-  float: left;
-  width: 30px;
-  height: 30px;
-  margin: 5px 0;
-  text-align: center;
-}
-
-.chamados svg {
-  font-size: 22px;
-}
-
-.code {
-  float: left;
-  color: #ffffff;
-  font-size: 11px;
-  padding: 5px 10px;
-  margin-right: 10px;
-  border-radius: 4px;
-  background: rgba(154, 36, 58, 0.9);
-}
-
-.titulo {
-  float: left;
-  color: #ffffff;
-  max-width: 250px;
+  position: relative;
+  width: 100%;
+  padding: 12px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+  border-radius: var(--np-radius);
+  border: 1px solid var(--np-border);
+  background: var(--np-surface);
+  box-shadow: var(--np-shadow);
   overflow: hidden;
-  padding: 4px 0 5px;
+  /* backdrop-filter: blur(10px); */
+  /* -webkit-backdrop-filter: blur(1  0px); */
+}
+
+.notification::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-left: 3px solid var(--np-accent, rgba(242, 201, 76, 1));
+  pointer-events: none;
+}
+
+.notification-main {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.notification-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.notification-badge {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  color: #0b0c10;
+  background: var(--np-accent, #f2c94c);
+}
+
+.notification-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
   white-space: nowrap;
+  overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.texto {
-  float: left;
-  color: #333;
-  margin-top: 14px;
-  min-width: 270px;
-  max-width: 270px;
-  background: #fff;
-  line-height: 16px;
-  padding: 8px 10px;
-}
-
-.notify {
-  min-height: 70px;
-  padding: 12px 10px;
-  width: 100%;
+.notification-lines {
   display: flex;
   flex-direction: column;
-
-  justify-content: center;
-
-  background-color: rgba(0, 0, 0, 0.5);
-  /* backdrop-filter: opacity(2%); */
-  border-radius: 10px 0px 0px 10px;
-  overflow: hidden;
-
-  margin-bottom: 20px;
+  gap: 4px;
 }
 
-.notifyLine {
-  position: absolute;
-  bottom: 0px;
-  background-color: #f2c94c;
-  width: 300px;
-  height: 3px;
-  right: 0px;
-}
-
-.notifyText {
-  color: white;
-  font-size: 16px;
+.notification-line {
   display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--np-muted);
+  line-height: 1.25;
+  min-width: 0;
+}
+
+.notification-line i {
+  width: 14px;
+  text-align: center;
+  color: var(--np-accent, #f2c94c);
+}
+
+.notification-line span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.notification-text {
+  font-size: 12px;
+  line-height: 1.35;
+  color: #fff;
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: var(--np-soft);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.notification-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  justify-content: center;
   align-items: center;
-  font-family: Montserrat !important;
 }
 
-.notifyText p {
-  width: 100%;
-  margin-left: 10px;
-  font-size: 14px;
+.action {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.04);
+  display: grid;
+  place-items: center;
+  color: rgba(255, 255, 255, 0.9);
+  cursor: pointer;
+  outline: none;
 }
 
-.notifyText img {
-  height: 30px;
-  margin: 0px 5px;
+.action:hover {
+  background: rgba(255, 255, 255, 0.08);
 }
 
-.appear {
-  animation-name: appear;
-  animation-duration: 600ms;
-  animation-fill-mode: forwards;
+.action:active {
+  transform: translateY(1px);
 }
 
-@keyframes appear {
+.notification-progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: var(--np-accent, #f2c94c);
+  opacity: 0.9;
+  transform-origin: left;
+  transform: scaleX(0);
+}
+
+.notification.is-live .notification-progress {
+  animation: np-progress 5000ms linear forwards;
+}
+
+@keyframes np-progress {
   from {
-    transform: translateX(100%);
+    transform: scaleX(1);
   }
-
   to {
-    transform: translateX(0%);
+    transform: scaleX(0);
   }
-}
-
-@keyframes disappear {
-  from {
-    transform: translateX(0%);
-  }
-
-  to {
-    transform: translateX(100%);
-  }
-}
-
-.disappear {
-  animation-name: disappear;
-  animation-duration: 600ms;
-  animation-fill-mode: backwards;
-}
-
-@keyframes width {
-  from {
-    width: 300px;
-  }
-
-  to {
-    width: 0px;
-  }
-}
-
-.width {
-  animation-name: width;
-  animation-duration: 4900ms;
-  animation-fill-mode: backwards;
 }
