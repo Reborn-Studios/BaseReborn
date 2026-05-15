@@ -614,6 +614,26 @@ Config.Shops = {
             skinshopThread(clothLocs,"Skinshop_03")
         end,
     },
+    ["CatCoffee"] = {
+        ['value'] = 150000,
+        ['stock'] = 100,
+        ['managment_coords'] = vector3(-598.22,-1055.05,22.35),
+        ['buy_products_coords'] = vector3(-583.31,-1060.47,22.35),
+        ['job_coords'] = vector3(-586.26,-1063.54,22.35),
+        ['veh_spawn'] = vector4(-610.2,-1059.86,21.79,90.57),
+        ['products'] = {
+            ['cola'] = 200,
+            ['coffee'] = 200,
+            ['soda'] = 150,
+            ['water'] = 150,
+            ['hamburger'] = 150,
+            ['sandwich'] = 150,
+            ['hotdog'] = 180,
+            ['fries'] = 120,
+            ['chocolate'] = 250,
+            ['tacos'] = 150,
+        },
+    },
 }
 
 -- // Locais de entrega de carga
