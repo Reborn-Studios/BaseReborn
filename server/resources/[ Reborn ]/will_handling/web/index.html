@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Handling</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="app" aria-hidden="true">
+      <div class="panel" role="dialog" aria-modal="true">
+        <div class="panelTop">
+          <div class="titleBlock">
+            <p class="title">Vehicle Handling</p>
+            <div class="subtitle">
+              <span id="vehName" class="chip">—</span>
+              <span id="vehPlate" class="chip">—</span>
+              <span id="vehClass" class="chip">—</span>
+              <span class="chip">ESC <span class="kbd">Fechar</span></span>
+            </div>
+          </div>
+          <div class="actions">
+            <button class="btn" id="btnReset">Restaurar Original</button>
+            <button class="btn btnPrimary" id="btnSaveModel">
+              Salvar por modelo
+            </button>
+            <button class="btn btnPrimary" id="btnSave">
+              Salvar pela placa
+            </button>
+            <button class="btn btnDanger" id="btnClose">Fechar</button>
+          </div>
+        </div>
+
+        <div class="content">
+          <div class="left">
+            <div class="metrics">
+              <div class="card">
+                <div class="cardTop">
+                  <div class="cardLabel">Velocidade Máx.</div>
+                  <div class="cardValue" id="mTopSpeed">—</div>
+                </div>
+                <div class="cardSub">
+                  <span id="mTopSpeedSub">Orig: —</span>
+                  <span class="delta" id="dTopSpeed">—</span>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="cardTop">
+                  <div class="cardLabel">0 → 100 km/h</div>
+                  <div class="cardValue" id="mZeroHundred">—</div>
+                </div>
+                <div class="cardSub">
+                  <span id="mZeroHundredSub">Orig: —</span>
+                  <span class="delta" id="dZeroHundred">—</span>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="cardTop">
+                  <div class="cardLabel">Frenagem</div>
+                  <div class="cardValue" id="mBraking">—</div>
+                </div>
+                <div class="cardSub">
+                  <span id="mBrakingSub">Orig: —</span>
+                  <span class="delta" id="dBraking">—</span>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="cardTop">
+                  <div class="cardLabel">Aderência</div>
+                  <div class="cardValue" id="mGrip">—</div>
+                </div>
+                <div class="cardSub">
+                  <span id="mGripSub">Orig: —</span>
+                  <span class="delta" id="dGrip">—</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="chartWrap">
+              <div class="chartBlock">
+                <div class="chartTitle">Gráfico (Atual vs Original)</div>
+                <div class="legend">
+                  <span
+                    ><span
+                      class="legendDot"
+                      style="background: rgba(220, 38, 38, 0.95)"
+                    ></span>
+                    Atual</span
+                  >
+                  <span
+                    ><span
+                      class="legendDot"
+                      style="
+                        background: rgba(255, 255, 255, 0.25);
+                        border-color: rgba(255, 255, 255, 0.25);
+                      "
+                    ></span>
+                    Original</span
+                  >
+                </div>
+              </div>
+              <canvas id="radar" width="560" height="240"></canvas>
+            </div>
+
+            <div class="tests">
+              <div class="testsRow">
+                <button class="btn" id="btnTest0100">Testar 0–100</button>
+                <button class="btn" id="btnTestBrake">Testar Frenagem</button>
+                <div class="testsHint">
+                  Faça em uma reta. O 0–100 começa ao sair do 0 e termina ao
+                  atingir 100 km/h.
+                </div>
+              </div>
+              <div class="testsOut">
+                <div class="testBox">
+                  <div class="testBoxTitle">Velocidade Atual</div>
+                  <div class="testBoxValue" id="tSpeedNow">—</div>
+                  <div class="testBoxSub" id="tDriveMeta">
+                    RPM: — · Marcha: —
+                  </div>
+                </div>
+                <div class="testBox">
+                  <div class="testBoxTitle">Último Teste</div>
+                  <div class="testBoxValue" id="tLast">—</div>
+                  <div class="testBoxSub" id="tLastSub">
+                    Use os botões acima para medir ingame.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="right" id="rightElement">
+            <div class="rightTop">
+              <div class="toggle">
+                <span>Preview</span>
+                <input id="togglePreview" type="checkbox" checked />
+              </div>
+              <div class="chip" id="hintSave">
+                Ajuste e clique <span class="kbd">Salvar</span>
+              </div>
+            </div>
+
+            <div class="controls" id="controls"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
