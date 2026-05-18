@@ -127,7 +127,6 @@ $(document).on("click", "#getCoordinates", () => {
       if (data && data.coords) {
         $(".adminMenu").fadeIn(500);
         data.coords.map((cds) => cds.toFixed(2));
-        console.log(data.coords.map((cds) => cds.toFixed(2)).join(", "));
         $("#panelCoordinatesInput").attr(
           "value",
           data.coords.map((cds) => cds.toFixed(2)).join(", "),
@@ -309,7 +308,6 @@ $(document).on("click", ".spawnselectcar", function () {
 
   let selectedCar = $(this).parent().find(".spawnselectcar");
   selectedCar.css("display", "none");
-  console.log(damageee, fuelll, body);
 
   $(".veh-status-engine").css("width", Number(damageee) / 10 + "%");
   $(".veh-status-fuel").css("width", fuelll + "%");

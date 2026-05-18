@@ -100,6 +100,7 @@ function CreateGarage()
             }, default = "painel" },
             { type = 'number', label = 'Pagamento', description = 'Pagamento para acessar garagem', default = 0, icon = "money" },
             { type = 'multi-select', label = 'Permissoes', description = "Selecione as permissoes", options = groups, searchable = true },
+            { type = 'checkbox', label = 'Garagem de serviço?' },
             { type = 'checkbox', label = 'Mostrar no blip mapa', icon = "map" },
         })
         if input then
@@ -120,7 +121,8 @@ function CreateGarage()
                 Groups = nil
             end
             garage.perms = Groups
-            garage.map = input[5]
+            garage.work = input[5]
+            garage.map = input[6]
             lib.showTextUI('Posicione o blip',{
                 position = "right-center",
                 icon = 'warehouse',
@@ -153,6 +155,22 @@ function CreateGarage()
                 })
                 if not inputInterior then return end
                 garage.interior = inputInterior[1]
+            end
+            if garage.work then
+                local allVehicles = {}
+                local VehGlobalModels = GlobalState['VehicleGlobal']
+                for k,model in pairs(GetAllVehicleModels()) do
+                    table.insert(allVehicles, {
+                        label = VehGlobalModels and VehGlobalModels[model] and VehGlobalModels[model].name or model,
+                        value = model
+                    })
+                end
+                local input2 = lib.inputDialog('Veiculos pré-definidos', {
+                    { type = 'multi-select', label = 'Veículos de emprego', description = "Selecione os veículos pré-definidos", options = allVehicles, searchable = true },
+                })
+                if input2 then
+                    garage.vehicles = input2[1]
+                end
             end
             lib.hideTextUI()
             ServerControl.registerGarage(garage)

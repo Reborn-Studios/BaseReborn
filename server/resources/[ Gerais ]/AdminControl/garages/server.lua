@@ -22,6 +22,7 @@ function Server.registerGarage(data)
 		payment = data.payment,
 		perm = data.perms,
 		entrada = data.entrada,
+        vehicles = data.vehicles,
         map = data.map,
 	}
     if data.type == "interior" then

@@ -2,22 +2,22 @@
 
 /* ===================== CSS VARIABLES ===================== */
 :root {
-  --bg-deep: #070e14;
-  --bg-panel: #0a1520;
-  --bg-card: #0c1c28;
-  --bg-card-hover: #102233;
-  --bg-card-selected: #0f2030;
+  --bg-deep: #06080c;
+  --bg-panel: #0b1117;
+  --bg-card: #0d141b;
+  --bg-card-hover: #101a23;
+  --bg-card-selected: #0b171e;
   --accent: #00d4bc;
-  --accent-glow: rgba(0, 212, 188, 0.25);
-  --accent-dim: rgba(0, 212, 188, 0.08);
+  --accent-glow: rgba(0, 212, 188, 0.16);
+  --accent-dim: rgba(0, 212, 188, 0.06);
   --accent-border: rgba(0, 212, 188, 0.35);
   --text-primary: #ffffff;
-  --text-secondary: #8aaabb;
-  --text-muted: #3d5a6e;
-  --card-border: rgba(255, 255, 255, 0.06);
+  --text-secondary: #a3b7c4;
+  --text-muted: #5a7386;
+  --card-border: rgba(255, 255, 255, 0.08);
   --header-height: 76px;
   --left-panel-width: 19vw;
-  --scrollbar-color: rgba(0, 212, 188, 0.4);
+  --scrollbar-color: rgba(255, 255, 255, 0.14);
   --font: "Glory", sans-serif;
 }
 
@@ -109,6 +109,11 @@ html {
 .hex-icon svg {
   width: 100%;
   height: 100%;
+  filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.35));
+}
+.hex-icon polygon {
+  fill: rgba(0, 212, 188, 0.14);
+  stroke: rgba(0, 212, 188, 0.9);
 }
 .hex-icon.large {
   width: 52px;
@@ -120,15 +125,15 @@ html {
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid var(--accent);
+  border: 1px solid var(--accent-border);
   color: var(--accent);
   font-family: var(--font);
   font-weight: 800;
   font-size: 0.75rem;
-  padding: 10px 15px;
-  border-radius: 10px;
+  padding: 9px 14px;
+  border-radius: 12px;
   letter-spacing: 0.08em;
-  background: rgba(0, 212, 188, 0.05);
+  background: rgba(255, 255, 255, 0.04);
   cursor: pointer;
   white-space: nowrap;
 }
@@ -173,7 +178,7 @@ html {
 /* ===================== NOTIFY ===================== */
 .notify {
   position: fixed;
-  background: #1a2a35;
+  background: rgba(10, 16, 22, 0.92);
   color: white;
   padding: 0.6rem 1.1rem;
   border-radius: 6px;
@@ -191,13 +196,12 @@ html {
 .joinMenu {
   position: fixed;
   display: none;
-  /* top: 8%; */
-  /* left: 1.5%; */
-  width: 24vw;
+  width: 22vw;
+  max-width: 420px;
   height: 100%;
-  background: linear-gradient(to right, rgba(14, 48, 47, 0.7) 0%, transparent);
+  background: rgba(8, 12, 16, 0.62);
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
   padding: 1.4vw 1.4vw 1.6vw;
-  /* backdrop-filter: blur(4px); */
   z-index: 100;
 }
 
@@ -260,8 +264,8 @@ html {
 
 .divider {
   width: 100%;
-  height: 2px;
-  background-color: rgba(50, 50, 50, 0.5);
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.08);
   margin: 1vw 0;
 }
 
@@ -285,9 +289,9 @@ html {
 #submitMenu {
   width: 100%;
   padding: 0.75rem;
-  background: var(--text-primary);
-  color: #08131c;
-  border: none;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text-primary);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 8px;
   font-family: var(--font);
   font-weight: 800;
@@ -301,15 +305,15 @@ html {
 }
 
 #submitMenu:hover {
-  background: var(--accent);
-  box-shadow: 0 0 16px var(--accent-glow);
+  background: rgba(0, 212, 188, 0.14);
+  border-color: rgba(0, 212, 188, 0.35);
 }
 
 #inputGarage {
   width: 100%;
   padding: 0.65rem 0.9rem;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 8px;
   color: var(--text-primary);
   font-family: var(--font);
@@ -321,7 +325,7 @@ html {
 }
 
 #inputGarage::placeholder {
-  color: var(--text-primary);
+  color: var(--text-muted);
 }
 #inputGarage:focus {
   border-color: var(--accent-border);
@@ -341,7 +345,7 @@ input[type="number"]::-webkit-inner-spin-button {
 /* ===================== VEHICLE OPTION MENU ===================== */
 .vehicleOptionContainer {
   display: none;
-  background: rgba(2, 2, 2, 0.7);
+  background: rgba(0, 0, 0, 0.62);
   top: 0;
   left: 0;
   position: fixed;
@@ -357,6 +361,10 @@ input[type="number"]::-webkit-inner-spin-button {
   height: 70vh;
   transform: translate(-50%, -50%);
   z-index: 200;
+  background: rgba(8, 12, 16, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  overflow: hidden;
 }
 
 /* Header */
@@ -371,6 +379,9 @@ input[type="number"]::-webkit-inner-spin-button {
   justify-content: space-between;
   /* padding: 0 2.5rem; */
   z-index: 1;
+  padding: 0 1.4rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(0, 0, 0, 0.12);
 }
 
 .veh-select-header-left {
@@ -413,26 +424,27 @@ input[type="number"]::-webkit-inner-spin-button {
   list-style: none;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
+  gap: 12px;
   position: absolute;
   top: 84px;
   left: 0;
   right: 0;
   bottom: 58px;
   overflow-y: auto;
+  padding: 12px 14px;
 }
 
 .veh-option {
   position: relative;
-  background: rgba(0, 0, 0, 0.07);
+  background: rgba(255, 255, 255, 0.04);
   cursor: pointer;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   min-height: 17vh;
-  border: 2px solid rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   transition: background 0.2s;
-  border-radius: 5px;
+  border-radius: 14px;
 }
 
 .veh-option h3 {
@@ -468,14 +480,14 @@ input[type="number"]::-webkit-inner-spin-button {
   text-align: center;
   font-family: var(--font);
   font-weight: 800;
-  font-size: 1rem;
+  font-size: 0.9rem;
   letter-spacing: 0.15em;
   width: 80%;
   color: var(--text-primary);
-  background: rgba(100, 100, 100, 0.05);
+  background: rgba(0, 0, 0, 0.18);
   padding: 0.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  border-radius: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
   transition:
     background 0.2s,
     color 0.2s;
@@ -483,13 +495,12 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 .veh-option:hover p {
-  background: rgba(0, 212, 188, 0.2);
-  color: var(--accent);
+  background: rgba(0, 212, 188, 0.16);
 }
 
 .veh-option.active {
   box-shadow: inset 0 0 0 2px var(--accent);
-  background: rgba(0, 212, 188, 0.08);
+  background: rgba(0, 212, 188, 0.06);
 }
 
 .veh-option.active p {
@@ -504,9 +515,10 @@ input[type="number"]::-webkit-inner-spin-button {
   width: 60%;
   height: 5vh;
   padding: 0;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.06);
   color: var(--text-primary);
-  border: none;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
   font-family: var(--font);
   font-weight: 800;
   font-size: 1rem;
@@ -519,7 +531,8 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 #veh-option-button:hover {
-  background: var(--accent);
+  background: rgba(0, 212, 188, 0.14);
+  border-color: rgba(0, 212, 188, 0.35);
 }
 
 /* ===================== MAIN CONTAINER ===================== */
@@ -529,7 +542,7 @@ input[type="number"]::-webkit-inner-spin-button {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.62);
   z-index: 50;
 }
 
@@ -540,6 +553,10 @@ input[type="number"]::-webkit-inner-spin-button {
   transform: translate(-50%, -50%);
   width: 80vw;
   height: 90vh;
+  background: rgba(8, 12, 16, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  overflow: hidden;
 }
 
 /* --- Garage Header --- */
@@ -553,8 +570,8 @@ input[type="number"]::-webkit-inner-spin-button {
   align-items: center;
   justify-content: space-between;
   padding: 0 2rem;
-  /* background: rgba(8, 16, 24, 0.9); */
-  /* border-bottom: 1px solid rgba(255, 255, 255, 0.06); */
+  background: rgba(0, 0, 0, 0.12);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
   z-index: 10;
   gap: 1rem;
 }
@@ -598,9 +615,9 @@ input[type="number"]::-webkit-inner-spin-button {
   position: relative;
   width: 100%;
   height: 42px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
   display: flex;
   align-items: center;
   gap: 0.6rem;
@@ -661,141 +678,6 @@ input[type="number"]::-webkit-inner-spin-button {
   border-color: var(--accent);
 }
 
-/* --- Left Info Panel --- */
-/* .left-infos {
-  position: absolute;
-  top: var(--header-height);
-  left: 0;
-  width: var(--left-panel-width);
-  height: calc(100vh - var(--header-height));
-  background: rgba(8, 18, 28, 0.92);
-  border-right: 1px solid rgba(255, 255, 255, 0.06);
-  z-index: 5;
-  padding: 1.2rem 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.8rem;
-  overflow-y: auto;
-}
-
-.cargaragetext img {
-  width: 100%;
-  max-width: 12rem;
-  opacity: 0.85;
-}
-
-.sellprice,
-.transfer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.5rem 0.7rem;
-  background: var(--accent-dim);
-  border: 1px solid var(--accent-border);
-  border-radius: 8px;
-  color: var(--text-primary);
-  font-family: var(--font);
-  gap: 0.5rem;
-}
-
-.sellprice h2,
-.transfer h2 {
-  background: rgba(100, 220, 80, 0.85);
-  color: #0a1a0a;
-  padding: 0.35rem 0.8rem;
-  border-radius: 6px;
-  font-size: 0.75rem;
-  font-weight: 800;
-  cursor: pointer;
-  letter-spacing: 0.06em;
-  transition:
-    transform 0.15s,
-    box-shadow 0.15s;
-  white-space: nowrap;
-}
-
-.sellprice h2:hover,
-.transfer h2:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 12px rgba(100, 220, 80, 0.4);
-}
-
-.vehicleprice {
-  font-family: var(--font);
-  font-size: 0.88rem;
-  font-weight: 700;
-  color: var(--text-primary);
-}
-
-.transfer input {
-  flex: 1;
-  background: none;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 6px;
-  color: var(--text-primary);
-  padding: 0.35rem 0.6rem;
-  font-family: var(--font);
-  font-size: 0.82rem;
-  outline: none;
-  min-width: 0;
-}
-
-.transfer input::placeholder {
-  color: var(--text-muted);
-}
-.transfer input:focus {
-  border-color: var(--accent-border);
-} */
-
-/* Veh Infos Grid */
-/* .veh-infos {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.6rem;
-}
-
-.veh-infos > div {
-  background: var(--bg-card);
-  border: 1px solid var(--card-border);
-  border-radius: 10px;
-  padding: 0.5rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 8rem;
-  background-repeat: no-repeat;
-  background-size: 55% auto;
-  background-position: center 20%;
-  text-align: center;
-}
-
-.veh-infos > div > h1 {
-  font-family: var(--font);
-  font-size: 0.55rem;
-  font-weight: 700;
-  color: var(--text-muted);
-  letter-spacing: 0.15em;
-  margin-bottom: 0.4rem;
-  text-transform: uppercase;
-}
-
-.veh-infos > div > h2 {
-  font-family: var(--font);
-  font-size: 1.4rem;
-  font-weight: 800;
-  color: var(--accent);
-}
-
-.platepng h2 {
-  font-size: 0.95rem !important;
-  letter-spacing: 0.08em;
-}
-
-.fuelbar {
-  background-position: center 8% !important;
-} */
-
 /* Del Near Vehicle */
 .delNearVeh {
   border-radius: 10px;
@@ -833,11 +715,6 @@ input[type="number"]::-webkit-inner-spin-button {
 
 /* --- Vehicle Grid --- */
 .selectedvehicle {
-  /* position: absolute; */
-  /* top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0; */
   display: flex;
   flex-wrap: wrap;
   align-content: flex-start;
@@ -845,18 +722,17 @@ input[type="number"]::-webkit-inner-spin-button {
   overflow-y: auto;
   gap: 0.5vw;
   height: 90vh;
-  padding-bottom: 10vh;
+  padding: 2vh 1rem 12vh 1rem;
 }
 
 /* Vehicle Model Card */
 .vehiclemodel {
   position: relative;
   width: calc(33.333% - 0.7rem);
-  /* min-width: 220px; */
-  height: 28vh;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid var(--card-border);
-  border-radius: 10px;
+  height: 22vh;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
   overflow: hidden;
   flex-shrink: 0;
   transition:
@@ -868,7 +744,8 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 .vehiclemodel:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(0, 212, 188, 0.18);
 }
 
 /* Hover overlays - repurposed as card state indicators */
@@ -890,7 +767,11 @@ input[type="number"]::-webkit-inner-spin-button {
   display: block;
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, transparent 40%, rgba(0, 0, 0, 0.6) 100%);
+  background: linear-gradient(
+    180deg,
+    transparent 35%,
+    rgba(0, 0, 0, 0.55) 100%
+  );
   z-index: 0;
   pointer-events: none;
 }
@@ -964,7 +845,7 @@ input[type="number"]::-webkit-inner-spin-button {
   width: 80%;
   position: relative;
   height: 8px;
-  background-color: rgba(27, 27, 27, 0.3);
+  background-color: rgba(255, 255, 255, 0.1);
   border-radius: 30px;
 }
 
@@ -985,8 +866,8 @@ input[type="number"]::-webkit-inner-spin-button {
   position: absolute;
   z-index: 1;
   padding: 0.6rem;
-  border-radius: 7px;
-  border: 1px solid var(--text-muted);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
   color: var(--text-primary);
   text-align: center;
   font-family: var(--font);
@@ -997,7 +878,7 @@ input[type="number"]::-webkit-inner-spin-button {
   left: 50%;
   transform: translateX(-50%);
   letter-spacing: 0.06em;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(0, 0, 0, 0.22);
   cursor: pointer;
   transition:
     background 0.2s,
@@ -1006,15 +887,15 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 .spawncar {
-  background: var(--accent-glow);
+  background: rgba(0, 212, 188, 0.12);
+  border-color: rgba(0, 212, 188, 0.22);
 }
 
 .spawnselectcar:hover,
 .spawncar:hover,
 .deletecar:hover {
-  background: var(--accent-glow);
-  color: #08131c;
-  box-shadow: 0 0 16px var(--accent-glow);
+  background: rgba(0, 212, 188, 0.16);
+  border-color: rgba(0, 212, 188, 0.35);
 }
 
 .spawncar,
@@ -1161,7 +1042,7 @@ input:focus {
   border-radius: 50%;
   width: 10vw;
   height: 10vw;
-  background: var(--accent-glow);
+  background: rgba(0, 212, 188, 0.14);
   filter: blur(64px);
   z-index: 0;
 }
@@ -1173,7 +1054,7 @@ input:focus {
   border-radius: 50%;
   width: 10vw;
   height: 10vw;
-  background: var(--accent-glow);
+  background: rgba(0, 212, 188, 0.14);
   filter: blur(64px);
   z-index: 0;
 }
