@@ -144,23 +144,10 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PLAYER
 -----------------------------------------------------------------------------------------------------------------------------------------
--- local PoliceGroups = {
---   ["PMESP"] = "policiamilitar.permissao",
---   ["PMERJ"] = "pmerj.permissao",
---   ["ROTA"] = "rota.permissao",
---   ["BOPE"] = "bope.permissao",
---   ["BAEP"] = "baep.permissao",
---   ["CORE"] = "core.permissao",
---   ["FT"] = "ft.permissao",
---   ["TOR"] = "tor.permissao",
---   ["GCM"] = "gcm.permissao",
--- }
-
-local PoliceGroups = exports['vrp']:HierarchyGroups()
-
 function Creative.Player()
     local source = source
     local Passport = vRP.Passport(source)
+    local PoliceGroups = exports['vrp']:HierarchyGroups()
 
     if not Permission[Passport] then
         for Group,v in pairs(PoliceGroups) do
@@ -171,7 +158,7 @@ function Creative.Player()
         end
     end
     if not Permission[Passport] then
-      Permission[Passport] = "LSPD"
+        Permission[Passport] = "police"
     end
     local Hierarchy, Name = vRP.HasPermission(Passport, Permission[Passport])
     local Player = { Name = vRP.FullName(Passport), Level = Hierarchy, Avatar = "", Passport = Passport }
@@ -1652,8 +1639,7 @@ function Creative.Officers(Management, Ranking)
             Data.Hours = vRP.Playing(Member, Permission)
         elseif Management then
             local OtherSource = vRP.Source(Member)
-            local Calculated = CompleteTimers(os.time() - (vRP.Identity(Member)["Login"] or 0))
-            Data.Status = OtherSource and "Ativo a "..Calculated or "Inativo a "..Calculated
+            Data.Status = OtherSource and "Ativo" or "Inativo"
         end
 
         Result[#Result+1] = Data
@@ -1671,11 +1657,12 @@ function Creative.CreateOfficer(Data)
     local Identity = vRP.Identity(Target)
     local TargetSource = vRP.Source(Target)
     local Permission = Permission[Passport]
-
-    if Passport and Identity and Target then
+    local Hierar = vRP.Hierarchy(Permission)
+    local Group = Hierar[#Hierar]
+    if Passport and Identity and Target and Group then
         TriggerClientEvent('mdt:Notify',source,'Sucesso','Um convite foi enviado ao destinatário.','verde',5000)
-        if TargetSource and vRP.Request(TargetSource,'Você foi convidado(a) para participar do grupo <b class=\'text-white\'>'..Permission..'</b>, gostaria de estar entrando do mesmo?') then
-            vRP.SetPermission(Target, Permission)
+        if TargetSource and vRP.Request(TargetSource,'Você foi convidado(a) para participar do grupo <b class=\'text-white\'>'..Group..'</b>, gostaria de estar entrando do mesmo?') then
+            vRP.SetPermission(Target, Group)
             TriggerClientEvent('mdt:Notify',source,'Sucesso','Passaporte adicionado.','verde',5000)
             return true
         else
@@ -1701,7 +1688,15 @@ function Creative.HierarchyOfficer(Data)
 
 	local Identity = vRP.Identity(Target) or {}
 	if Mode:find('Promote') or Mode:find('Demote') then
-		vRP.SetPermission(Target, Permission, _, Mode)
+        local Hierar = vRP.Hierarchy(Permission)
+        local TargetLevel = vRP.HasPermission(Target, Permission)
+        local Group = Hierar[TargetLevel]
+        vRP.RemovePermission(Target, Group)
+        if Mode:find('Promote') then
+            vRP.SetPermission(Target, Hierar[TargetLevel - 1])
+        else
+            vRP.SetPermission(Target, Hierar[TargetLevel + 1])
+        end
 		TriggerClientEvent('mdt:Notify',source,'Sucesso','Hierarquia atualizada.','verde',5000)
 		return { Passport = Target, Name = (Identity['name'] or 'Indivíduo')..' '..(Identity['name2'] or 'Indigente'), Hierarchy = vRP.HasPermission(Target, Permission), Service = vRP.Source(Target) and 1 or 0 }
 	end
