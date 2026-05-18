@@ -43,41 +43,43 @@ end)
 RegisterNetEvent("luckywheel:doRoll")
 AddEventHandler("luckywheel:doRoll", function(_priceIndex)
     _isRolling = true
-    SetEntityHeading(_wheel, 328.34)
-    SendNUIMessage({ action = "playAudio", transactionFile = "roleta" })
-    Citizen.CreateThread(function()
-        local speedIntCnt = 1
-        local rollspeed = 1.0
-        local _winAngle =  math.random(1,100)
-        local _rollAngle = _winAngle + (360 * 8)
-        local _midLength = (_rollAngle / 2)
-        local intCnt = 0
-        while speedIntCnt > 0 do
-            local retval = GetEntityRotation(_wheel, 1)
-            if _rollAngle > _midLength then
-                speedIntCnt = speedIntCnt + 1
-            else
-                speedIntCnt = speedIntCnt - 1
-                if speedIntCnt < 0 then
-                    speedIntCnt = 0
-                    
+    if _wheel and DoesEntityExist(_wheel) then
+        SetEntityHeading(_wheel, 328.34)
+        SendNUIMessage({ action = "playAudio", transactionFile = "roleta" })
+        Citizen.CreateThread(function()
+            local speedIntCnt = 1
+            local rollspeed = 1.0
+            local _winAngle =  math.random(1,100)
+            local _rollAngle = _winAngle + (360 * 8)
+            local _midLength = (_rollAngle / 2)
+            local intCnt = 0
+            while speedIntCnt > 0 do
+                local retval = GetEntityRotation(_wheel, 1)
+                if _rollAngle > _midLength then
+                    speedIntCnt = speedIntCnt + 1
+                else
+                    speedIntCnt = speedIntCnt - 1
+                    if speedIntCnt < 0 then
+                        speedIntCnt = 0
+                        
+                    end
                 end
-            end
-            intCnt = intCnt + 1
-            rollspeed = speedIntCnt / 10
-            local _y = retval.y - rollspeed
-            _rollAngle = _rollAngle - rollspeed
-            if _rollAngle < 5.0 then
-                if _y > _winAngle then
-                    _y = _winAngle
+                intCnt = intCnt + 1
+                rollspeed = speedIntCnt / 10
+                local _y = retval.y - rollspeed
+                _rollAngle = _rollAngle - rollspeed
+                if _rollAngle < 5.0 then
+                    if _y > _winAngle then
+                        _y = _winAngle
+                    end
                 end
+                SetEntityRotation(_wheel, 0.0, _y, 328.34, 2, true)
+                Citizen.Wait(0)
             end
-            SetEntityRotation(_wheel, 0.0, _y, 328.34, 2, true)
-            Citizen.Wait(0)
-        end
-        local rotation = (tonumber(_priceIndex) * 10) / 10
-        SetEntityRotation(_wheel, 0.0, rotation, 328.34, 2, true)
-    end)
+            local rotation = (tonumber(_priceIndex) * 10) / 10
+            SetEntityRotation(_wheel, 0.0, rotation, 328.34, 2, true)
+        end)
+    end
 end)
 
 --[[ RegisterCommand("setwheel",function(source,args)
