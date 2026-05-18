@@ -14,37 +14,21 @@
 
 [`[ Reborn ] > will_conce_v2 > config.lua > config.veiculos`](./[%20Reborn%20]/will_conce_v2/config.lua)
 
-## Locais
-
-| Facs/Orgs     | Farms         | Inicio                    | Baus                      | Farm Loc                  |
-| ------------- | ------------- | ------------------------- | ------------------------- | ------------------------- |
-| **Vermelhos** | Maconha       | `1329.17,-157.73,111.33`  | `1200.60,-93.10,74.08`    | `99.78,6344.38,31.38`     |
-| **Azuis**     | Cocaina       | `2230.08,149.66,224.11`   | `2250.59,52.02,251.41`    | `-1105.13,4952.35,218.65` |
-| **Verdes**    | Metanfetamina | `1869.64,472.17,171.52`   | `1982.65,497.33,167.94`   | `1493.17,6390.24,21.26`   |
-| **Bahamas**   | Itens ilegais | `-1884.33,2036.26,140.75` | `-1884.34,2069.88,145.58` | `-1855.11,2056.79,135.46` |
-| **Mafia**     | Armas         | `575.42,-3122.05,18.77`   | `-2679.79,1336.11,144.25` | `-2678.92,1330.06,140.89` |
-| **Milicia**   | Munição       | `1400.4,1125.07,114.34`   | `889.58,1143.94,326.97`   | `897.84,1152.0,333.66`    |
-| **Motoclub**  | Desmanche     | `982.66,-104.24,74.85`    | `977.22,-104.03,74.85`    | `474.78,-1308.48,29.2`    |
-| **Vanilla**   | Lavagem       | `133.22,-1306.38,29.14`   | `90.03,-1290.90,29.27`    | `97.48,-1293.61,29.33`    |
-| **Policia**   | -----------   | `94.53,-383.45,43.62`     | `-1077.92,-815.81,11.04`  | ----------------------    |
-| **Hospital**  | -----------   | `1152.53,-1524.83,36.52`  | `-465.81,-293.78,34.92`   | ----------------------    |
-
 ### Favelas
 
-Favela 1 - Cemiterio - -1757.05,-83.48,99.72
-Favela 2 - -771.07,1018.94,278.06
-Favela 3 - 1442.08,-1421.55,95.56
-Favela 4 - 2001.88,-1178.5,150.72
-Favela 5 - -1926.13,756.52,181.29
-Favela 6 - 2602.37,1807.34,53.89
-Favela 7 - 2541.97,2529.91,56.5
-Favela 12 - -2937.08,1406.89,83.2
-Favela 15 - -328.0,1575.83,369.68
-Favela 16 - 494.51,931.39,257.03
-Favela 17 - 1685.17,6488.25,47.26
-Favela 18 - Rio da barragem - 2046.32,464.35,218.59
-Favela 19 - Helipa - 1385.13,-768.03,106.61
-Favela 20 - barragem - 1269.05,-87.82,122.6
+Favela 2 - -771.07,1018.94,278.06 - (Ref: Ao sul do observatório - Oeste do mapa)
+Favela 3 - 1442.08,-1421.55,95.56 - (Ref: Fav da igreja - Sudeste do mapa)
+Favela 4 - 2001.88,-1178.5,150.72 - (Ref: Fav na montanha - Sudeste do mapa)
+Favela 5 - -1926.13,756.52,181.29 - (Ref: Ao norte do observatório - Oeste do mapa)
+Favela 6 - 2602.37,1807.34,53.89 - (Ref: Perto das usina eolica - Leste do mapa)
+Favela 7 - 2541.97,2529.91,56.5 - (Ref: Perto da mineiradora - Leste do mapa)
+Favela 12 - -2937.08,1406.89,83.2 - (Ref: Perto das mansões da praia - Oeste do mapa)
+Favela 15 - -328.0,1575.83,369.68 - (Ref: Ao norte do observatório - Centro do mapa)
+Favela 16 - 494.51,931.39,257.03 - (Ref: Placa de vinewood - Centro do mapa)
+Favela 17 - 1685.17,6488.25,47.26 - (Ref: Totalmente ao norte do mapa, proximo ao mar)
+Favela 18 - 2046.32,464.35,218.59 - (Ref: Rio da barragem)
+Favela 19 - 1385.13,-768.03,106.61 - (Ref: Fav do helipa)
+Favela 20 - 1269.05,-87.82,122.6 - (Ref: Barragem)
 
 ### Mansões
 
@@ -57,6 +41,7 @@ Casa Hospital -821.33, 269.65, 87.93
 Detroit -773.64, 334.43, 243.21
 Malibu -3272.46, 503.24, 8.48
 Miami: -2582.18, 1920.52, 168.88
+Outra: -686.16,965.66,238.74
 
 ### Ilegais
 
@@ -74,6 +59,7 @@ Juridico -542.68, -208.37, 39.34
 Catcafe -580.85, -1074.33, 24.22
 Hospital 1152.53, -1524.83, 36.52
 DP 94.53, -383.45, 43.62
+Balada Lux -310.13,226.93,87.91
 
 ## Mudanças
 
