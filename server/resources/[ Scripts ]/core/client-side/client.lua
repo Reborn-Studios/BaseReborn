@@ -280,6 +280,23 @@ CreateThread(function()
 		SetVehicleDensityMultiplierThisFrame(npcControl['VehicleDensity'])
 		SetRandomVehicleDensityMultiplierThisFrame(npcControl['VehicleDensity'])
 		SetParkedVehicleDensityMultiplierThisFrame(npcControl['ParkedVehicle'])
+		SetAmbientVehicleRangeMultiplierThisFrame(npcControl['VehicleDensity'])
+		if npcControl['VehicleDensity'] == 0.0 or npcControl['PedDensity'] == 0.0 then
+			for _,Entity in pairs(GetGamePool("CPed")) do
+				if (NetworkGetEntityOwner(Entity) == -1 or NetworkGetEntityOwner(Entity) == PlayerId()) and not NetworkGetEntityIsNetworked(Entity) then
+					if npcControl['VehicleDensity'] == 0.0 and IsPedInAnyVehicle(Entity,false) then
+						local Vehicle = GetVehiclePedIsUsing(Entity)
+						if NetworkGetEntityIsNetworked(Vehicle) then
+							TriggerServerEvent("tryDeleteEntity",NetworkGetNetworkIdFromEntity(Vehicle))
+						else
+							DeleteEntity(Vehicle)
+						end
+					elseif npcControl['PedDensity'] == 0.0 then
+						DeleteEntity(Entity)
+					end
+				end
+			end
+		end
 
 		-- REMOVE HUD COMPONENTS
 		HideHudComponentThisFrame(1)
