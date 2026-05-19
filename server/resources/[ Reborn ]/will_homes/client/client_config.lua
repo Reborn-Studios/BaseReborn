@@ -447,32 +447,38 @@ end)
 
 
 local MAXPERPAGE = 40
-local PAINEL_INIT = vector3(338.05,-776.79,29.27)
+local PAINEL_INITS = {
+    vector3(338.05,-776.79,29.27)
+}
 
 CreateThread(function ()
-    local blip = AddBlipForCoord(PAINEL_INIT)
-    SetBlipSprite(blip,414)
-    SetBlipAsShortRange(blip,true)
-    SetBlipColour(blip,47)
-    SetBlipScale(blip,0.5)
-    BeginTextCommandSetBlipName("STRING")
-    AddTextComponentString("Imobiliária")
-    EndTextCommandSetBlipName(blip)
+    for k,coord in pairs(PAINEL_INITS) do
+        local blip = AddBlipForCoord(coord)
+        SetBlipSprite(blip,414)
+        SetBlipAsShortRange(blip,true)
+        SetBlipColour(blip,47)
+        SetBlipScale(blip,0.5)
+        BeginTextCommandSetBlipName("STRING")
+        AddTextComponentString("Imobiliária")
+        EndTextCommandSetBlipName(blip)
+    end
     while true do
         local timeDistance = 500
         local ped = PlayerPedId()
         local coords = GetEntityCoords(ped)
-        local painelHousesCds = PAINEL_INIT
-        local distance = #(coords - painelHousesCds)
-        if distance <= 2.0 then
-            timeDistance = 1
-            DrawBase3D(painelHousesCds.x,painelHousesCds.y,painelHousesCds.z,"homes")
-            if IsControlJustPressed(1,38) then
-                SendNUIMessage({ action = "openHousePainel", quantity = math.ceil(#Houses/MAXPERPAGE) })
-                SetNuiFocus(true,true)
+        for k,coord in pairs(PAINEL_INITS) do
+            local painelHousesCds = coord
+            local distance = #(coords - painelHousesCds)
+            if distance <= 2.0 then
+                timeDistance = 1
+                DrawBase3D(painelHousesCds.x,painelHousesCds.y,painelHousesCds.z,"homes")
+                if IsControlJustPressed(1,38) then
+                    SendNUIMessage({ action = "openHousePainel", quantity = math.ceil(#Houses/MAXPERPAGE) })
+                    SetNuiFocus(true,true)
+                end
             end
         end
-		Wait(timeDistance)
+        Wait(timeDistance)
     end
 end)
 
