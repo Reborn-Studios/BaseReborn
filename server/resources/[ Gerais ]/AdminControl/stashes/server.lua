@@ -133,11 +133,10 @@ end
 
 local loaded = false
 AddEventHandler("onResourceStart",function(rs)
-    if rs == "ox_inventory" or rs == GetCurrentResourceName() then
+    if rs == "ox_inventory" then
         Wait(500)
         if loaded then return end
         loaded = true
-        if GetResourceState("ox_inventory") == "missing" then return end
         exports.ox_inventory:registerHook('swapItems', function(payload)
             local title = nil
             local webhook = nil
