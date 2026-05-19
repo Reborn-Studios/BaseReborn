@@ -44,6 +44,10 @@ RegisterNetEvent("luckywheel:doRoll")
 AddEventHandler("luckywheel:doRoll", function(_priceIndex)
     _isRolling = true
     if _wheel and DoesEntityExist(_wheel) then
+        if #(GetEntityCoords(_wheel) - GetEntityCoords(PlayerPedId())) > 20.0 then
+            _isRolling = false
+            return
+        end
         SetEntityHeading(_wheel, 328.34)
         SendNUIMessage({ action = "playAudio", transactionFile = "roleta" })
         Citizen.CreateThread(function()
@@ -78,6 +82,7 @@ AddEventHandler("luckywheel:doRoll", function(_priceIndex)
             end
             local rotation = (tonumber(_priceIndex) * 10) / 10
             SetEntityRotation(_wheel, 0.0, rotation, 328.34, 2, true)
+            _isRolling = false
         end)
     end
 end)
