@@ -651,6 +651,7 @@ exports("CheckTaxes",function(Passport)
 	local Consult = exports.oxmysql:single_async("SELECT 1 FROM taxes WHERE Passport = ? AND (Timestamp + 86400) < UNIX_TIMESTAMP() LIMIT 1",{ Passport })
 	if Consult then
 		TriggerClientEvent("Notify",source,"Impostos","Você possui débitos bancários.","amarelo",5000)
+		TriggerClientEvent("bank:Notify",source,"Impostos","Você possui débitos bancários.","vermelho")
 		return true
 	end
 
@@ -673,6 +674,7 @@ exports("CheckFines",function(Passport)
 		local Consult = exports.oxmysql:single_async("SELECT 1 FROM mdt_fines WHERE Passport = ? AND Paid = 0 AND (Timestamp + 86400) < UNIX_TIMESTAMP() LIMIT 1",{ Passport })
 		if Consult then
 			TriggerClientEvent("Notify",source,"Multas","Você possui débitos bancários.","amarelo",5000)
+			TriggerClientEvent("bank:Notify",source,"Multas","Você possui débitos bancários.","vermelho")
 			return true
 		end
 	end
@@ -683,7 +685,7 @@ end)
 -- ADDTRANSACTIONS
 -----------------------------------------------------------------------------------------------------------------------------------------
 exports("AddTransactions",function(Passport,Type,Price,Reference)
-	exports.oxmysql:insert_async("INSERT INTO bank_transactions (Passport,Type,Price,Timestamp,Reference) VALUES (@Passport,@Type,@Price,@Timestamp,@Reference)",{ Passport = Passport, Type = Type, Price = Price, Timestamp = os.time(), Reference = Reference })
+	exports.oxmysql:insert_async("INSERT INTO bank_transactions (Passport,Type,Price,Timestamp,Reference) VALUES (@Passport,@Type,@Price,@Timestamp,@Reference)",{ Passport = Passport, Type = Type, Price = Price, Timestamp = os.time(), Reference = Reference or "" })
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- DISCONNECT
