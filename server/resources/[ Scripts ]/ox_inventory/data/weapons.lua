@@ -118,7 +118,7 @@ return {
 			label = 'Carbine Rifle',
 			weight = 3100,
 			durability = 0.03,
-			ammoname = 'ammo-rifle'
+			ammoname = 'ammo-pol-rifle'
 		},
 
 		['WEAPON_CARBINERIFLE_MK2'] = {
@@ -167,7 +167,7 @@ return {
 			label = 'Combat Pistol',
 			weight = 785,
 			durability = 0.2,
-			ammoname = 'ammo-9'
+			ammoname = 'ammo-pol-pistol'
 		},
 
 		['WEAPON_COMBATSHOTGUN'] = {
@@ -479,7 +479,7 @@ return {
 			label = 'Pistol',
 			weight = 1130,
 			durability = 0.1,
-			ammoname = 'ammo-9',
+			ammoname = 'ammo-pol-pistol',
 		},
 
 		['WEAPON_PISTOL50'] = {
@@ -788,7 +788,7 @@ return {
 			label = 'Parafal Rifle',
 			weight = 3550,
 			durability = 0.03,
-			ammoname = 'ammo-rifle2',
+			ammoname = 'ammo-pol-rifle',
 			client = {
 				image = "parafal.png"
 			}
@@ -1981,6 +1981,22 @@ return {
 		['ammo-railgun'] = {
 			label = 'Railgun charge',
 			weight = 150,
+		},
+
+		['ammo-pol-pistol'] = {
+			label = 'Pol 9mm',
+			weight = 4,
+			client = {
+				image = "pistolammo.png",
+			}
+		},
+
+		['ammo-pol-rifle'] = {
+			label = 'Pol 5.56x45',
+			weight = 4,
+			client = {
+				image = "rifleammo.png",
+			}
 		},
 
 		['ammo-rifle'] = {

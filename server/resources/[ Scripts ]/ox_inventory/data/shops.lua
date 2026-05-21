@@ -150,8 +150,8 @@ return {
 		name = 'Arsenal',
 		groups = shared.police,
 		inventory = {
-			{ name = 'ammo-9', price = 5, },
-			{ name = 'ammo-rifle', price = 5, },
+			{ name = 'ammo-pol-pistol', price = 5, },
+			{ name = 'ammo-pol-rifle', price = 5, },
 			{ name = 'WEAPON_FLASHLIGHT', price = 200 },
 			{ name = 'WEAPON_NIGHTSTICK', price = 100 },
 			{ name = 'WEAPON_PISTOL', price = 500, metadata = { registered = true, serial = 'POL' } },

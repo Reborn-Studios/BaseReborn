@@ -429,6 +429,17 @@ lib.callback.register('ox_inventory:usingItem', function(data, noAnim)
 	end
 end)
 
+local POL_ITENS = {
+	['ammo-pol-pistol'] = true,
+	['ammo-pol-rifle'] = true,
+	['WEAPON_PARAFAL'] = true,
+	['WEAPON_FLASHLIGHT'] = true,
+	['WEAPON_NIGHTSTICK'] = true,
+	['WEAPON_PISTOL'] = true,
+	['WEAPON_CARBINERIFLE'] = true,
+	['WEAPON_STUNGUN'] = true,
+}
+
 local function canUseItem(isAmmo)
 	local ped = cache.ped
 	if GetEntityHealth(ped) <= 101 then return false end
@@ -457,6 +468,10 @@ local function useItem(data, cb, noAnim)
 
         return
     end
+
+	if POL_ITENS[data.name] and not LocalPlayer.state.Police then
+        return lib.notify({ id = 'cannot_perform', type = 'error', description = locale('cannot_perform') })
+	end
 
 	if currentWeapon?.timer and currentWeapon.timer > 100 then return end
 
