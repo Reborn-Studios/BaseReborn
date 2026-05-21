@@ -283,7 +283,7 @@ CreateThread(function()
 		SetAmbientVehicleRangeMultiplierThisFrame(npcControl['VehicleDensity'])
 		if npcControl['VehicleDensity'] == 0.0 or npcControl['PedDensity'] == 0.0 then
 			for _,Entity in pairs(GetGamePool("CPed")) do
-				if (NetworkGetEntityOwner(Entity) == -1 or NetworkGetEntityOwner(Entity) == PlayerId()) and not NetworkGetEntityIsNetworked(Entity) then
+				if NetworkGetEntityOwner(Entity) == PlayerId() and not IsPedAPlayer(Entity) then
 					if npcControl['VehicleDensity'] == 0.0 and IsPedInAnyVehicle(Entity,false) then
 						local Vehicle = GetVehiclePedIsUsing(Entity)
 						if NetworkGetEntityIsNetworked(Vehicle) then
