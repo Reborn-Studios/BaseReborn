@@ -457,6 +457,36 @@ Config.Shops = {
         ['products'] = shopsProducts['Posto'],
         ['shopDifference'] = "fuelSystem"
     },
+    ["Posto_11"] = {
+        ['value'] = 150000,
+        ['stock'] = 1000,
+        ['managment_coords'] = vector3(294.68,-1251.92,29.43),
+        ['buy_products_coords'] = vector3(289.48,-1266.58,29.45),
+        ['job_coords'] = vector3(288.69,-1263.23,29.45),
+        ['veh_spawn'] = vector4(292.79,-1245.41,29.29,85.58),
+        ['products'] = shopsProducts['Posto'],
+        ['shopDifference'] = "fuelSystem"
+    },
+    ["Posto_12"] = {
+        ['value'] = 150000,
+        ['stock'] = 1000,
+        ['managment_coords'] = vector3(-1829.14,801.1,138.42),
+        ['buy_products_coords'] = vector3(-1817.76,791.61,138.11),
+        ['job_coords'] = vector3(-1818.39,796.73,138.14),
+        ['veh_spawn'] = vector4(-1823.75,810.9,139.13,53.54),
+        ['products'] = shopsProducts['Posto'],
+        ['shopDifference'] = "fuelSystem"
+    },
+    ["Posto_13"] = {
+        ['value'] = 150000,
+        ['stock'] = 1000,
+        ['managment_coords'] = vector3(-2066.39,-312.85,13.3),
+        ['buy_products_coords'] = vector3(-2073.01,-327.3,13.32),
+        ['job_coords'] = vector3(-2073.56,-323.84,13.32),
+        ['veh_spawn'] = vector4(-2067.54,-305.13,13.15,75.65),
+        ['products'] = shopsProducts['Posto'],
+        ['shopDifference'] = "fuelSystem"
+    },
     ["Ammunation_01"] = {
         ['value'] = 100000,
         ['stock'] = 100,
