@@ -24,6 +24,15 @@ RegisterNUICallback("sendCode",function(data)
 	CodeServer.sendCode(data["code"])
 	SendNUIMessage({ tencode = false })
 end)
+
+local function getVehicleName(vehicleHash)
+	local AllVehicleModels = GetAllVehicleModels()
+	for i = 1, #AllVehicleModels do
+		if GetHashKey(AllVehicleModels[i]) == vehicleHash then
+			return AllVehicleModels[i]
+		end
+	end
+end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADRADAR
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -44,7 +53,7 @@ CreateThread(function()
 
 					if IsEntityAVehicle(vehFront) then
 						local vehModel = GetEntityModel(vehFront)
-						local vehName = vRP.vehicleModel(vehModel)
+						local vehName = getVehicleName(vehModel)
 						local vehPlate = GetVehicleNumberPlateText(vehFront)
 						local vehSpeed = GetEntitySpeed(vehFront) * 2.236936
 						SendNUIMessage({ radar = "top", plate = vehPlate, model = vehName, speed = vehSpeed })
@@ -56,7 +65,7 @@ CreateThread(function()
 
 					if IsEntityAVehicle(vehBack) then
 						local vehModel = GetEntityModel(vehBack)
-						local vehName = vRP.vehicleModel(vehModel)
+						local vehName = getVehicleName(vehModel)
 						local vehPlate = GetVehicleNumberPlateText(vehBack)
 						local vehSpeed = GetEntitySpeed(vehBack) * 2.236936
 						SendNUIMessage({ radar = "bot", plate = vehPlate, model = vehName, speed = vehSpeed })
