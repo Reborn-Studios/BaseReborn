@@ -2198,7 +2198,9 @@ local animacoes = {
 	["clown"] = { dict = "rcm_barry2", anim = "clown_idle_0" , andar = false , loop = true },
 	["clown2"] = { dict = "rcm_barry2", anim = "clown_idle_1" , andar = false , loop = true },
 	["clown3"] = { dict = "rcm_barry2", anim = "clown_idle_3" , andar = false , loop = true },
-	["namaste"] = { dict = "timetable@amanda@ig_4", anim = "ig_4_base" , andar = false , loop = true }
+	["namaste"] = { dict = "timetable@amanda@ig_4", anim = "ig_4_base" , andar = false , loop = true },
+	["revistar"] = { dict = "cpdrevistandopolicial@animations", anim = "gndrevistandopolicial_clip" , andar = false , loop = true },
+	["revistar2"] = { dict = "cpdanimacaomaonacabeca@animations", anim = "gndanimacaomaonacabeca_clip" , andar = false , loop = true },
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- EMOTES

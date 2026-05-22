@@ -129,7 +129,7 @@ AddEventHandler("vrp_player:salary",function()
 			local groupSalary = vRP.getSalaryByGroup(k)
 			if groupSalary then
 				vRP.addBank(parseInt(user_id), groupSalary)
-				TriggerClientEvent("Notify",source,"payment","Salário","Você recebeu seu salario de R$"..groupSalary.." pelo serviço de "..vRP.getGroupTitle(k)..".", 5000)
+				TriggerClientEvent("Notify",source,"Salário","Você recebeu seu salario de R$"..groupSalary.." pelo serviço de "..vRP.getGroupTitle(k)..".","payment", 5000)
 			end
 		end
 	end
@@ -1250,3 +1250,48 @@ AddEventHandler("player:arrestVehicle",function()
 		end
 	end
 end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- REVISTAR
+-----------------------------------------------------------------------------------------------------------------------------------------
+local RevistRequests = {}
+
+RegisterNetEvent("ox_inventory:requestRevist",function(nplayer, playingAnim)
+    local source = source
+	nplayer = tonumber(nplayer)
+    if nplayer == nil then return end
+	local EntityHealth = GetEntityHealth(GetPlayerPed(nplayer))
+    if playingAnim or Player(nplayer).state.Handcuff or EntityHealth <= 101 then
+        if Player(nplayer).state.Police then
+            TriggerClientEvent("Notify",source,"negado","Você não pode revistar um policia",5000)
+            return
+        end
+		RevistRequests[source] = nplayer
+		if EntityHealth > 101 then
+			ClientPlayer.toggleCarryRevist(nplayer,source)
+			vRPclient.playAnim(source, false, {"cpdrevistandopolicial@animations","gndrevistandopolicial_clip"}, true)
+			vRPclient.playAnim(nplayer, false, {"cpdanimacaomaonacabeca@animations","gndanimacaomaonacabeca_clip"}, true)
+		end
+        exports.ox_inventory:forceOpenInventory(source, 'player', nplayer)
+    else
+        TriggerClientEvent("Notify",source,"negado","A pessoa precisa estar algemada ou rendido",5000)
+    end
+end)
+
+local function closeRevist()
+	local source = source
+	if RevistRequests[source] then
+        local nplayer = RevistRequests[source]
+        if nplayer then
+			local EntityHealth = GetEntityHealth(GetPlayerPed(nplayer))
+			if EntityHealth > 101 then
+				vRPclient.stopAnim(nplayer)
+				vRPclient.stopAnim(source)
+				ClientPlayer.toggleCarryRevist(nplayer,source)
+			end
+        end
+		RevistRequests[source] = nil
+    end
+end
+
+RegisterNetEvent("ox_inventory:closeInventory",closeRevist)
+AddEventHandler('playerDropped', closeRevist)
