@@ -2,6 +2,7 @@
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
 local Blip = nil
+local Blip2 = nil
 local Objects = {}
 local Active = false
 local FxAsset = "scr_indep_fireworks"
@@ -104,8 +105,11 @@ end)
 -- ADDSTATEBAGCHANGEHANDLER
 -----------------------------------------------------------------------------------------------------------------------------------------
 AddStateBagChangeHandler("Helicrash",nil,function(Name,Key,Value)
-	if DoesBlipExist(Blip) then
+	if Blip and DoesBlipExist(Blip) then
 		RemoveBlip(Blip)
+	end
+	if Blip2 and DoesBlipExist(Blip2) then
+		RemoveBlip(Blip2)
 	end
 
 	Active = Value
@@ -174,6 +178,10 @@ function HeliBlip(Number)
 		BeginTextCommandSetBlipName("STRING")
 		AddTextComponentString("Helicóptero")
 		EndTextCommandSetBlipName(Blip)
+
+		Blip2 = AddBlipForRadius(Components[Number]["1"][1],Components[Number]["1"][2],Components[Number]["1"][3],50 + 0.0)
+		SetBlipAlpha(Blip2,200)
+		SetBlipColour(Blip2,1)
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
