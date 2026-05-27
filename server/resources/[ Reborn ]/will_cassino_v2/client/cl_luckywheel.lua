@@ -1,43 +1,18 @@
 local _wheel = nil
-local _lambo = nil
-local _isShowCar = false
 local _wheelPos = vector3(950.14,43.0,71.64)
-local _baseWheelPos = vector3(949.98,45.61,71.04)
-
-local casinoprops = {}
-
-local Keys = {
-    ["ESC"] = 322, ["BACKSPACE"] = 177, ["E"] = 38, ["ENTER"] = 18, ["LEFT"] = 174, ["RIGHT"] = 175, ["TOP"] = 27, ["DOWN"] = 173
-}
-
 local _isRolling = false
 
-Citizen.CreateThread(function()
+CreateThread(function()
     local model = GetHashKey('vw_prop_vw_luckywheel_02a')
-    Citizen.CreateThread(function()
+    CreateThread(function()
         RequestModel(model)
-
         while not HasModelLoaded(model) do
-            Citizen.Wait(0)
+            Wait(0)
         end
         _wheel = CreateObject(model, 949.64,45.01,70.96, false, false, true)
         SetEntityHeading(_wheel, 328.34)
         SetModelAsNoLongerNeeded(model)
-        table.insert(casinoprops, _wheel)
     end)
-end)
-
-Citizen.CreateThread(function()
-    while true do
-        local castle = 500
-        if _lambo ~= nil then
-            castle = 5
-            local _heading = GetEntityHeading(_lambo)
-            local _z = _heading - 0.3
-            SetEntityHeading(_lambo, _z)
-        end
-        Citizen.Wait(castle)
-    end
 end)
 
 RegisterNetEvent("luckywheel:doRoll")
@@ -50,7 +25,7 @@ AddEventHandler("luckywheel:doRoll", function(_priceIndex)
         end
         SetEntityHeading(_wheel, 328.34)
         SendNUIMessage({ action = "playAudio", transactionFile = "roleta" })
-        Citizen.CreateThread(function()
+        CreateThread(function()
             local speedIntCnt = 1
             local rollspeed = 1.0
             local _winAngle =  math.random(1,100)
@@ -65,7 +40,6 @@ AddEventHandler("luckywheel:doRoll", function(_priceIndex)
                     speedIntCnt = speedIntCnt - 1
                     if speedIntCnt < 0 then
                         speedIntCnt = 0
-                        
                     end
                 end
                 intCnt = intCnt + 1
@@ -78,29 +52,23 @@ AddEventHandler("luckywheel:doRoll", function(_priceIndex)
                     end
                 end
                 SetEntityRotation(_wheel, 0.0, _y, 328.34, 2, true)
-                Citizen.Wait(0)
+                Wait(0)
             end
             local rotation = (tonumber(_priceIndex) * 10) / 10
             SetEntityRotation(_wheel, 0.0, rotation, 328.34, 2, true)
             _isRolling = false
         end)
+    else
+        _isRolling = false
     end
 end)
-
---[[ RegisterCommand("setwheel",function(source,args)
-    if args[1] then
-    SetEntityHeading(_wheel, 328.34)
-    local rotation = (tonumber(args[1]) * 10) / 10
-        SetEntityRotation(_wheel, 0.0, rotation, 328.34, 2, true)
-    end
-end) ]]
 
 RegisterNetEvent("luckywheel:rollFinished")
 AddEventHandler("luckywheel:rollFinished", function()
     _isRolling = false
 end)
 
-function doRoll()
+local function doRoll()
     if not _isRolling then
         _isRolling = true
         local playerPed = PlayerPedId()
@@ -118,61 +86,45 @@ function doRoll()
             if coords.x >= (_movePos.x - 0.01) and coords.x <= (_movePos.x + 0.01) and coords.y >= (_movePos.y - 0.01) and coords.y <= (_movePos.y + 0.01) then
                 _isMoved = true
             end
-            Citizen.Wait(0)
+            Wait(0)
         end
         TaskPlayAnim(playerPed, lib, anim, 8.0, -8.0, -1, 0, 0, false, false, false)
         while IsEntityPlayingAnim(playerPed, lib, anim, 3) do
-            Citizen.Wait(0)
+            Wait(0)
             DisableAllControlActions(0)
         end
         TaskPlayAnim(playerPed, lib, 'enter_to_armraisedidle', 8.0, -8.0, -1, 0, 0, false, false, false)
         while IsEntityPlayingAnim(playerPed, lib, 'enter_to_armraisedidle', 3) do
-            Citizen.Wait(0)
+            Wait(0)
             DisableAllControlActions(0)
         end
         TriggerServerEvent("luckywheel:getLucky")
         TaskPlayAnim(playerPed, lib, 'armraisedidle_to_spinningidle_high', 8.0, -8.0, -1, 0, 0, false, false, false)
+        SetTimeout(6500,function ()
+            _isRolling = false
+        end)
     end
 end
 
--- Menu Controls
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
         local castle = 500
         local coords = GetEntityCoords(PlayerPedId())
-        if (GetDistanceBetweenCoords(coords, _wheelPos.x, _wheelPos.y, _wheelPos.z, true) < 1.5) and not _isRolling then
+        if (GetDistanceBetweenCoords(coords.x,coords.y,coords.z, _wheelPos.x, _wheelPos.y, _wheelPos.z, true) < 1.5) and not _isRolling then
             castle = 4
-            DrawText3D(_wheelPos[1], _wheelPos[2], _wheelPos[3],"~g~E~w~ PARA RODAR A ROLETA")
-            if IsControlJustReleased(0, Keys['E']) then
+            DrawBase3D(_wheelPos[1], _wheelPos[2], _wheelPos[3],"~g~E~w~ PARA RODAR A ROLETA")
+            if IsControlJustReleased(0, 38) then
                 doRoll()
             end
         end
-        Citizen.Wait(castle)
+        Wait(castle)
     end
 end)
 
 AddEventHandler('onResourceStop', function(resource)
 	if resource == GetCurrentResourceName() then
-		for _,wheel in pairs(casinoprops) do
+        if _wheel then
             DeleteEntity(_wheel)
-            DeleteEntity(_basewheel)
-            DeleteEntity(_lambo)
         end
 	end
 end)
-
------------------------------------------------------------------------------------------------------------------------------------------
--- DRAWTEXT3D
------------------------------------------------------------------------------------------------------------------------------------------
-function DrawText3D(x,y,z,text)
-	local onScreen,_x,_y = World3dToScreen2d(x,y,z)
-	SetTextFont(4)
-	SetTextScale(0.3,0.3)
-	SetTextColour(255,255,255,100)
-	SetTextEntry("STRING")
-	SetTextCentre(1)
-	AddTextComponentString(text)
-	DrawText(_x,_y)
-	local factor = (string.len(text)) / 450
-	DrawRect(_x,_y+0.0125,0.01+factor,0.03,0,0,0,100)
-end
