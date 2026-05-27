@@ -45,6 +45,7 @@ end
 
 function keybind_mt:disable(toggle)
     self.disabled = toggle
+    self.isPressed = false
 end
 
 ---@param data KeybindProps
