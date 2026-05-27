@@ -23,6 +23,10 @@ local totalPrice = 0
 local cam = nil
 local TattoosShops = GlobalState['TattoosShops'] or {}
 
+local nuiTheme = {
+    accent = GlobalState['Basics']['CityColorHex']
+}
+
 AddStateBagChangeHandler('TattoosShops',"",function(_,_,value)
     tattooShops = {}
 	TattoosShops = value
@@ -64,14 +68,16 @@ function openTattooShop(id)
         SendNUIMessage({
             openNui = true,
             shop = atualShop,
-            tattoo = oldTattoo
+            tattoo = oldTattoo,
+            theme = nuiTheme
         })
     elseif GetEntityModel(ped) == GetHashKey("mp_f_freemode_01") then 
         atualShop = tattooShops[id]['partsF']    
         SendNUIMessage({
             openNui = true,
             shop = atualShop,
-            tattoo = oldTattoo
+            tattoo = oldTattoo,
+            theme = nuiTheme
         })    
     end
 end
@@ -236,7 +242,6 @@ CreateThread(function()
                                 oldCustom = vRP.getCustomization()
                                 setNewCustom()
                                 openTattooShop(k)
-                                TaskGoToCoordAnyMeans(ped, v2[1],v2[2],v2[3], 1.0, 0, 0, 786603, 0xbf800000)
                             end
                         end
                     end

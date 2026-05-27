@@ -1,527 +1,633 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700&display=swap");
+
+:root {
+  --tattoo-bg: rgba(14, 16, 20, 0.86);
+  --tattoo-surface: rgba(18, 21, 26, 0.88);
+  --tattoo-surface-2: rgba(24, 28, 35, 0.88);
+  --tattoo-border: rgba(255, 255, 255, 0.09);
+  --tattoo-border-strong: rgba(255, 255, 255, 0.14);
+  --tattoo-text: rgba(255, 255, 255, 0.92);
+  --tattoo-muted: rgba(255, 255, 255, 0.6);
+  --tattoo-muted-2: rgba(255, 255, 255, 0.45);
+  --tattoo-accent: #5b8cff;
+  --tattoo-accent-2: #2f66ff;
+  --tattoo-accent-rgb: 91 140 255;
+  --tattoo-shadow: 0 18px 60px rgba(0, 0, 0, 0.55);
+}
 
 body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100vh;
-    overflow: hidden;
-    background-size: 100% 100%;
-    /*background-color: #132651;*/
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background: transparent;
 }
 
 * {
-    outline: none;
-    list-style: none;
-    user-select: none;
-    text-decoration: none;
-    box-sizing: border-box;
-    font-family: 'Montserrat', sans-serif;
-
+  outline: none;
+  list-style: none;
+  user-select: none;
+  text-decoration: none;
+  box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
 }
 
 b {
-    color: #fff;
+  color: #fff;
 }
 
 #mainTattooShop {
-    position: absolute;
-    top: 50%;
-    left: 70px;
-    color: #fff;
-    display: flex;
-    flex-direction: column;
-    transform: translate(0,-50%);
+  position: absolute;
+  top: 50%;
+  left: 70px;
+  color: var(--tattoo-text);
+  display: flex;
+  flex-direction: column;
+  transform: translate(0, -50%);
+  background: var(--tattoo-bg);
+  border: 1px solid var(--tattoo-border);
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: var(--tattoo-shadow);
 }
 
 #mainTattooShop .flexTattooShop {
-    display: flex;
+  display: flex;
+  gap: 12px;
 }
 
 .flex-centerTattooShop {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #mainTattooShop header {
-    font-size: 20px;
-    font-weight: 400;
-    letter-spacing: 1px;
-    margin-bottom: 20px;
-    text-transform: uppercase;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  margin-bottom: 14px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.85);
 }
 
 #mainTattooShop aside {
-    width: 60px;
-    height: 420px;
-    overflow: auto;
-    direction: rtl;
-    padding-right: 10px;
-    border-right: 2px dashed rgba(255, 255, 255, 0.25);
+  width: 58px;
+  height: 440px;
+  overflow: auto;
+  direction: rtl;
+  padding-right: 12px;
+  border-right: 1px solid var(--tattoo-border);
 }
-aside::-webkit-scrollbar { width: 0;}
+aside::-webkit-scrollbar {
+  width: 0;
+}
 
 #mainTattooShop aside .categoryTattooShop {
-    width: 100%;
-    height: 50px;
-    color: #fff;
-    font-size: 15px;
-    margin-bottom: 5px;
-    transition: all .5s;
-    border-radius: .2rem;
-    background: rgba(0, 0, 0, 0.562);
+  width: 100%;
+  height: 46px;
+  color: var(--tattoo-text);
+  font-size: 15px;
+  margin-bottom: 8px;
+  transition:
+    transform 0.15s ease,
+    background-color 0.15s ease,
+    border-color 0.15s ease;
+  border-radius: 12px;
+  background: var(--tattoo-surface);
+  border: 1px solid var(--tattoo-border);
 }
 
 #mainTattooShop aside .categoryTattooShop:hover {
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
-    background: linear-gradient(to right, #4277EA,#3F61B2);
+  transform: translateY(-2px);
+  background: var(--tattoo-surface-2);
+  border-color: var(--tattoo-border-strong);
 }
 
 #mainTattooShop aside .categoryTattooShop:last-child {
-    margin-bottom: 0;
+  margin-bottom: 0;
 }
 
 #mainTattooShop aside .categoryTattooShop img {
-    max-width: 60%;
+  max-width: 60%;
 }
 
 #mainTattooShop section {
-    position: relative;
-    width: 400px;
-    display: flex;
-    margin-left: 10px;
-    flex-direction: column;
+  position: relative;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
 }
 
 #mainTattooShop section .title {
-    position: relative;
-    width: 100%;
-    height: 45px;
-    display: flex;
+  position: relative;
+  width: 100%;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 #mainTattooShop section .title .cart {
-    width: 45px;
-    height: 45px;
-    color: #fff;
-    font-size: 20px;
-    border-radius: .3rem;
-    background: linear-gradient(to right, #3F5FAA,#3F5FAA);
+  width: 44px;
+  height: 44px;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 18px;
+  border-radius: 12px;
+  background: var(--tattoo-accent);
+  border: 1px solid var(--tattoo-accent);
 }
 
 #mainTattooShop section .title .cart-info {
-    height: 100%;
-    display: flex;
-    font-size: 10px;
-    line-height: 12px;
-    margin-left: 10px;
-    flex-direction: column;
-    justify-content: center;
-    text-transform: uppercase;
+  height: 100%;
+  display: flex;
+  font-size: 10px;
+  line-height: 12px;
+  flex-direction: column;
+  justify-content: center;
+  text-transform: uppercase;
 }
 
 #mainTattooShop section .title small {
-    opacity: .6;
+  opacity: 1;
+  color: var(--tattoo-muted);
 }
 
 #mainTattooShop section .title .search {
-    right: 13px;
-    bottom: 11px;
-    font-size: 11px;
-    position: absolute;
-    text-transform: uppercase;
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  text-transform: uppercase;
+  color: var(--tattoo-muted);
 }
 
 #mainTattooShop section .title .search input {
-    border: 0;
-    width: 60px;
-    color: #fff;
-    outline: none;
-    background: 0;
+  border: 1px solid var(--tattoo-border);
+  width: 110px;
+  height: 32px;
+  color: var(--tattoo-text);
+  outline: none;
+  background: var(--tattoo-surface);
+  border-radius: 10px;
+  padding: 0 10px;
+  text-align: center;
+  transition:
+    border-color 0.15s ease,
+    background-color 0.15s ease;
+}
+
+#mainTattooShop section .title .search input:focus {
+  border-color: var(--tattoo-accent);
+  background: var(--tattoo-surface-2);
 }
 
 #mainTattooShop section .title .search input::placeholder {
-    color: #fff;
-    font-size: 10px;
-    text-transform: uppercase;
+  color: var(--tattoo-muted-2);
+  font-size: 10px;
 }
 
 #mainTattooShop section .shop-content {
-    width: 97%;
-    height: 370px;
-    overflow: auto;
-    margin-top: 10px;
+  width: 100%;
+  height: 350px;
+  overflow: auto;
+  margin-top: 12px;
+  background: rgba(0, 0, 0, 0.12);
+  border: 1px solid var(--tattoo-border);
+  border-radius: 14px;
+}
+
+#mainTattooShop section .shop-content .listagemTattooShop {
+  padding: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-content: flex-start;
 }
 
 #mainTattooShop section .shop-content .item {
-    position: relative;
-    width: 90px;
-    height: 120px;
-    transition: all .3s;
-    border-radius: .1rem;
-    display: inline-flex;
-    background-color: rgba(0, 0, 0, 0.562);
+  position: relative;
+  width: 96px;
+  height: 132px;
+  transition:
+    transform 0.15s ease,
+    background-color 0.15s ease,
+    border-color 0.15s ease;
+  border-radius: 14px;
+  display: inline-flex;
+  background-color: var(--tattoo-surface);
+  border: 1px solid var(--tattoo-border);
 }
 
 .activeTattooShop {
-    background: linear-gradient(to right, #3F5FAA,#3F5FAA) !important;
+  background: var(--tattoo-accent) !important;
+  border-color: var(--tattoo-accent) !important;
 }
 
-.activeMTattooShop{
-    background: linear-gradient(to right, #3F5FAA,#3F5FAA) !important;
+.activeMTattooShop {
+  background: var(--tattoo-accent) !important;
+  border-color: var(--tattoo-accent) !important;
 }
 
 #mainTattooShop section .shop-content .item:hover {
-    background: linear-gradient(to right, #3F5FAA,#3F5FAA);
+  transform: translateY(-2px);
+  background: var(--tattoo-surface-2);
+  border-color: var(--tattoo-border-strong);
 }
 
 #mainTattooShop section .shop-content .item img {
-    position: absolute;
-    top: 40%;
-    left: 49%;
-    max-width: 80%;
-    transform: translate(-50%,-50%);
+  position: absolute;
+  top: 46%;
+  left: 49%;
+  max-width: 80%;
+  transform: translate(-50%, -50%);
 }
 
 #mainTattooShop section .shop-content .item small {
-    position: absolute;
-    left: 50%;
-    bottom: 25px;
-    font-size: 10px;
-    transform: translate(-50%,0);
-    color: rgba(255, 255, 255, 0.521);
+  position: absolute;
+  left: 50%;
+  bottom: 30px;
+  font-size: 10px;
+  transform: translate(-50%, 0);
+  color: var(--tattoo-muted);
 }
 
 #mainTattooShop section .shop-content .item span {
-    position: absolute;
-    left: 50%;
-    bottom: 3px;
-    font-size: 8px;
-    padding: 4px 5px;
-    font-weight: bold;
-    letter-spacing: 1px;
-    white-space: nowrap;
-    border-radius: .2rem;
-    transform: translate(-50%,0);
+  position: absolute;
+  left: 50%;
+  bottom: 8px;
+  font-size: 8px;
+  padding: 4px 8px;
+  font-weight: bold;
+  letter-spacing: 0.12em;
+  white-space: nowrap;
+  border-radius: 999px;
+  transform: translate(-50%, 0);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--tattoo-border);
 }
 
 #mainTattooShop section .shop-color {
-    position: absolute;
-    display: flex;
-    top: 50px;
-    width: 150px;
-    right: -190px;
-    align-items: center;
-    flex-direction: column;
-    justify-content: center;
+  position: absolute;
+  display: flex;
+  top: 50px;
+  width: 150px;
+  right: -190px;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
 }
 
 #mainTattooShop section .shop-color .colunaTattooShop {
-    display: flex;
-    height: 100%;
-    font-size: 13px;
-    margin-bottom: 10px;
-    align-items: center;
-    flex-direction: column;
-    justify-content: center;
-    text-transform: uppercase;
-    border: 1.5px dashed #0075DE;
-    background-color: #6d6c6c6e;
+  display: flex;
+  height: 100%;
+  font-size: 13px;
+  margin-bottom: 10px;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  text-transform: uppercase;
+  border: 1px solid var(--tattoo-border);
+  background: var(--tattoo-surface);
+  border-radius: 14px;
+  padding: 10px;
 }
 
 #mainTattooShop section .color-iconTattooShop {
-    position: absolute;
-    top: 50%;
-    right: -40px;
-    width: 30px;
-    height: 30px;
-    border-radius: 100%;
-    transition: all .2s;
-    background: #4060AA;
-    transform: translate(0,-50%);
+  position: absolute;
+  top: 50%;
+  right: -40px;
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  transition:
+    transform 0.15s ease,
+    background-color 0.15s ease,
+    border-color 0.15s ease;
+  background: var(--tattoo-accent);
+  border: 1px solid var(--tattoo-accent);
+  transform: translate(0, -50%);
 }
 
 #mainTattooShop section .color-iconTattooShop:hover {
-    box-shadow: 0 0 0.1rem transparent, inset 0 0 0.1rem transparent, 0 0 .7rem #4060AA, inset 0 0 .7rem #4060AA
+  transform: translate(0, -50%) scale(1.03);
+  background: var(--tattoo-accent);
 }
 
 #mainTattooShop section .color-iconTattooShop:active {
-    transform: scale(1.1);
+  transform: translate(0, -50%) scale(0.98);
 }
 
-#mainTattooShop section .shop-color .colunaTattooShop .coluna-contentTattooShop {
-    width: 140px;
-    display: flex;
-    overflow: auto;
-    flex-wrap: wrap;
-    max-height: 100%;
+#mainTattooShop
+  section
+  .shop-color
+  .colunaTattooShop
+  .coluna-contentTattooShop {
+  width: 140px;
+  display: flex;
+  overflow: auto;
+  flex-wrap: wrap;
+  max-height: 100%;
 }
 
 .coluna-contentTattooShop::-webkit-scrollbar {
-    width: 0;
+  width: 0;
 }
 
 #mainTattooShop section .shop-color .colunaTattooShop .color {
-    width: 12px;
-    height: 12px;
-    margin-top: 5px;
-    margin-right: 5px;
-    border-radius: .2rem;
-    background-color: rgb(0, 107, 107);
+  width: 14px;
+  height: 14px;
+  margin-top: 5px;
+  margin-right: 5px;
+  border-radius: 6px;
+  background-color: rgb(0, 107, 107);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 #mainTattooShop section .shop-color .colunaTattooShop .color-selected {
-    border: 2px solid #fff;
+  border: 2px solid rgba(255, 255, 255, 0.85);
 }
 
 #mainTattooShop section .shop-color .coluna-opacityTattooShop {
-    display: flex;
-    line-height: 40px;
-    letter-spacing: 1px;
-    align-items: center;
-    flex-direction: column;
-    text-transform: uppercase;
+  display: flex;
+  line-height: 40px;
+  letter-spacing: 0.12em;
+  align-items: center;
+  flex-direction: column;
+  text-transform: uppercase;
+  color: var(--tattoo-muted);
 }
 
 #mainTattooShop section .shop-color .coluna-opacityTattooShop input {
-    width: 150px;
+  width: 150px;
 }
 
 #mainTattooShop section .shop-footer {
-    position: absolute;
-    right: 28px;
-    padding: 5px;
-    bottom: -80px;
-    display: flex;
-    align-items: center;
+  position: relative;
+  padding-top: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
 }
 
 #mainTattooShop section .shop-footer .action-buy {
-    display: flex;
-    transition: all .2s;
-    align-items: center;
+  display: flex;
+  transition: transform 0.15s ease;
+  align-items: center;
 }
 
 #mainTattooShop section .shop-footer .info-footer {
-    position: relative;
-    z-index: -1;
-    right: -19px;
-    height: 40px;
-    font-size: 12px;
-    margin-left: 20px;
-    padding: 0px 15px;
-    transition: all .2s;
-    padding-right: 30px;
-    background: #4060AA;
-    text-transform: uppercase;
-    border-top-left-radius: 30px;
-    border-bottom-left-radius: 30px;
+  position: relative;
+  z-index: 1;
+  height: 40px;
+  font-size: 12px;
+  padding: 0 14px;
+  left: 13px;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease;
+  background: var(--tattoo-accent);
+  text-transform: uppercase;
+  border: 1px solid var(--tattoo-accent);
+  border-top-left-radius: 999px;
+  border-bottom-left-radius: 999px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
 
 #mainTattooShop section .shop-footer button {
-    position: relative;
-    border: 0;
-    width: 39px;
-    height: 39px;
-    outline: none;
-    color: #ffff;
-    font-size: 20px;
-    border-radius: 0px;
-    border-radius: 100%;
-    letter-spacing: 1px;
-    transition: all .2s;
-    background: #4060AA;
-    text-transform: uppercase;
-    box-shadow: 0 0 0.1rem transparent, inset 0 0 0.1rem transparent, 0 0 .7rem #4060AA, inset 0 0 .7rem #4060AA
+  position: relative;
+  border: 0;
+  width: 40px;
+  height: 40px;
+  outline: none;
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 18px;
+  border-radius: 100%;
+  letter-spacing: 1px;
+  transition:
+    transform 0.15s ease,
+    background-color 0.15s ease;
+  background: var(--tattoo-accent);
+  border: 1px solid var(--tattoo-accent);
+  text-transform: uppercase;
 }
 
-#mainTattooShop section .shop-footer .action-buy:hover {transform: scale(1.1);}
-#mainTattooShop section .shop-footer .action-buy:active {transform: scale(.9);}
+#mainTattooShop section .shop-footer .action-buy:hover {
+  transform: translateY(-1px);
+}
+#mainTattooShop section .shop-footer .action-buy:active {
+  transform: translateY(0);
+}
 
 #mainTattooShop section .shop-footer .input-footer {
-    position: relative;
-    left: -50px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-size: 8px;
-    color: #fff;
-    white-space: nowrap;
+  position: relative;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 9px;
+  color: var(--tattoo-muted);
+  white-space: nowrap;
 }
 
 camTattooShop {
-    position: absolute;
-    top:20px;
-    right: 200px;
+  position: absolute;
+  top: 22px;
+  left: 42px;
 }
 
 camTattooShop .item {
-    position: relative;
-    opacity: 0;
-    width: 50px;
-    height: 50px;
-    display: flex;
-    color: #ffff;
-    font-size: 20px;
-    transition: all .2s;
-    align-items: center;
-    border-radius: 100%;
-    margin-bottom: 10px;
-    justify-content: center;
-    background: rgba(0, 0, 0, 0.562);
+  position: relative;
+  opacity: 1;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 18px;
+  transition:
+    transform 0.15s ease,
+    background-color 0.15s ease,
+    border-color 0.15s ease;
+  align-items: center;
+  border-radius: 100%;
+  margin-bottom: 10px;
+  justify-content: center;
+  background: var(--tattoo-surface);
+  border: 1px solid var(--tattoo-border);
 }
 
 camTattooShop .item:first-child {
-    opacity: 1;
+  opacity: 1;
 }
 
 camTattooShop .item:hover {
-    background: #4277EA;
-    box-shadow: 0 0 0.1rem transparent, inset 0 0 0.1rem transparent, 0 0 .7rem #4277EA, inset 0 0 .7rem #4277EA
+  transform: translateY(-1px);
+  background: var(--tattoo-surface-2);
+  border-color: var(--tattoo-border-strong);
 }
 
 camTattooShop .item img {
-    max-width: 40%;
+  max-width: 40%;
 }
 
 camTattooShop .item::after {
-    position: absolute;
-    content: '';
-    left: 50%;
-    width: 2px;
-    z-index: -1;
-    height: 10px;
-    top: -10px;
-    transform: translate(-50%,0);
-    background: rgba(0, 0, 0, 0.562);
+  position: absolute;
+  content: "";
+  left: 50%;
+  width: 2px;
+  z-index: -1;
+  height: 10px;
+  top: -10px;
+  transform: translate(-50%, 0);
+  background: rgba(255, 255, 255, 0.09);
 }
 
 camTattooShop .icon {
-    background: #4277EA;
+  background: var(--tattoo-accent);
+  border-color: var(--tattoo-accent);
 }
 
 camTattooShop .icon::after {
-    position: absolute;
-    content: '';
-    top: -20px;
-    left: 50%;
-    width: 2px;
-    z-index: -1;
-    height: 20px;
-    transform: translate(-50%,0);
-    background: #4277EA;
+  position: absolute;
+  content: "";
+  top: -20px;
+  left: 50%;
+  width: 2px;
+  z-index: -1;
+  height: 20px;
+  transform: translate(-50%, 0);
+  background: var(--tattoo-accent);
 }
 
 .styleAug {
-    --aug-r1: 20px;
-    --aug-l2: 25px;
+  --aug-r1: 20px;
+  --aug-l2: 25px;
 }
 
 ::-webkit-scrollbar {
-    width: 4px;
-    border-radius: 30px;
-    background-color: rgba(0, 0, 0, 0.400);
+  width: 4px;
+  border-radius: 30px;
+  background-color: rgba(255, 255, 255, 0.06);
 }
 
 ::-webkit-scrollbar-track {
-    border-radius: 30px;
-    background-color: rgba(0, 0, 0, 0.400);
+  border-radius: 30px;
+  background-color: rgba(255, 255, 255, 0.06);
 }
 
 ::-webkit-scrollbar-thumb {
-    border-radius: 30px;
-    background: #0075DE; 
-    box-shadow: 0 0 0.1rem transparent, inset 0 0 0.1rem transparent, 0 0 .7rem #0075DE, inset 0 0 .7rem #0075DE
-
+  border-radius: 30px;
+  background: var(--tattoo-accent);
 }
 
 .rangeTattooShop {
-    margin: auto;
-    outline: none;
-    padding: 0;
-    width: 130%;
-    height: 6px;
-    margin-top: 10px;
-    border-radius: 10px;
-    background-color: rgba(0, 0, 0, 0.562);
-    background-image: -webkit-gradient(linear, 0% 0%, 0% 0%, color-stop(0%, #4060AA), color-stop(0%, #4060AA));
-    background-image: -webkit-linear-gradient(#4060AA, #4060AA);
-    background-image: -moz-linear-gradient(#4060AA, #4060AA);
-    background-image: -o-linear-gradient(#4060AA, #4060AA);
-    background-image: linear-gradient(#4060AA, #4060AA);
-    background-size: 0% 100%;
-    background-repeat: no-repeat;
-    cursor: pointer;
-    -webkit-appearance: none;
+  margin: auto;
+  outline: none;
+  padding: 0;
+  width: 210px;
+  height: 6px;
+  margin-top: 10px;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.08);
+  background-image: -webkit-gradient(
+    linear,
+    0% 0%,
+    0% 0%,
+    color-stop(0%, var(--tattoo-accent)),
+    color-stop(0%, var(--tattoo-accent))
+  );
+  background-image: -webkit-linear-gradient(
+    var(--tattoo-accent),
+    var(--tattoo-accent)
+  );
+  background-image: -moz-linear-gradient(
+    var(--tattoo-accent),
+    var(--tattoo-accent)
+  );
+  background-image: -o-linear-gradient(
+    var(--tattoo-accent),
+    var(--tattoo-accent)
+  );
+  background-image: linear-gradient(var(--tattoo-accent), var(--tattoo-accent));
+  background-size: 0% 100%;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  -webkit-appearance: none;
 }
 
 .rangeTattooShop::-webkit-slider-runnable-track {
-    box-shadow: none;
-    border: none;
-    background: transparent;
-    -webkit-appearance: none;
+  box-shadow: none;
+  border: none;
+  background: transparent;
+  -webkit-appearance: none;
 }
 
 .rangeTattooShop::-moz-range-track {
-    box-shadow: none;
-    border: none;
-    background: transparent;
+  box-shadow: none;
+  border: none;
+  background: transparent;
 }
 
 .rangeTattooShop::-moz-focus-outer {
-    border: 0;
+  border: 0;
 }
 
 .rangeTattooShop::-webkit-slider-thumb {
-    width: 14px;
-    height: 14px;
-    border: 0;
-    background: #fff;
-    border-radius: 100%;
-    -webkit-appearance: none;
-    box-shadow: 0 0 1px 0px rgba(0,0,0,0.1);
+  width: 14px;
+  height: 14px;
+  border: 0;
+  background: #fff;
+  border-radius: 100%;
+  -webkit-appearance: none;
+  box-shadow: 0 0 1px 0px rgba(0, 0, 0, 0.1);
 }
 
 .rangeTattooShop::-moz-range-thumb {
-    width: 14px;
-    height: 14px;
-    border: 0;
-    background: #fff;
-    border-radius: 100%;
-    box-shadow: 0 0 1px 0px rgba(0,0,0,0.1);
+  width: 14px;
+  height: 14px;
+  border: 0;
+  background: #fff;
+  border-radius: 100%;
+  box-shadow: 0 0 1px 0px rgba(0, 0, 0, 0.1);
 }
 
 #precoTotalTattooShop {
-    letter-spacing: 1px;
-    text-shadow: 3px 1px 1px rgb(0, 0, 0) !important;
+  letter-spacing: 1px;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4) !important;
 }
 
-.animarColorTattooShop {animation: scale-in-ver-center 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;}
-.animarColorCloseTattooShop {animation: scale-out-vertical 0.5s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;}
+.animarColorTattooShop {
+  animation: scale-in-ver-center 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+.animarColorCloseTattooShop {
+  animation: scale-out-vertical 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
+}
 
 @keyframes scale-in-ver-center {
-    0% {
-      -webkit-transform: scaleY(0);
-              transform: scaleY(0);
-      opacity: 1;
-    }
-    100% {
-      -webkit-transform: scaleY(1);
-              transform: scaleY(1);
-      opacity: 1;
-    }
+  0% {
+    -webkit-transform: scaleY(0);
+    transform: scaleY(0);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: scaleY(1);
+    transform: scaleY(1);
+    opacity: 1;
+  }
 }
-  
+
 @keyframes scale-out-vertical {
   0% {
     -webkit-transform: scaleY(1);
-            transform: scaleY(1);
+    transform: scaleY(1);
     opacity: 1;
   }
   100% {
     -webkit-transform: scaleY(0);
-            transform: scaleY(0);
+    transform: scaleY(0);
     opacity: 1;
   }
 }

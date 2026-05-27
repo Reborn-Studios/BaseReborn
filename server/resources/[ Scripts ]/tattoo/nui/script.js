@@ -108,11 +108,11 @@ function _0xc5eb() {
 }
 $(document)["ready"](function () {
   const _0x316ba8 = _0x135a9c;
-  (document[_0x316ba8(0x168)] = function (_0x10e586) {
+  ((document[_0x316ba8(0x168)] = function (_0x10e586) {
     const _0x3af7d1 = _0x316ba8;
     _0x10e586[_0x3af7d1(0x17f)] == 0x1b &&
       ($(".flexTattooShop\x20aside\x20.categoryTattooShop")["removeClass"](
-        _0x3af7d1(0x176)
+        _0x3af7d1(0x176),
       ),
       $(_0x3af7d1(0x162))[_0x3af7d1(0x170)](),
       $[_0x3af7d1(0x13b)](_0x3af7d1(0x144), JSON[_0x3af7d1(0x153)]({})));
@@ -120,13 +120,14 @@ $(document)["ready"](function () {
     window["addEventListener"](_0x316ba8(0x145), function (_0x2dbe39) {
       const _0xabadf4 = _0x316ba8;
       let _0x17e0a8 = _0x2dbe39[_0xabadf4(0x16e)];
+      _0x17e0a8["theme"] && setTattooShopTheme(_0x17e0a8["theme"]);
       if (_0x17e0a8["openNui"]) {
-        $(_0xabadf4(0x15b))[_0xabadf4(0x17b)]("activeMTattooShop"),
+        ($(_0xabadf4(0x15b))[_0xabadf4(0x17b)]("activeMTattooShop"),
           (tattooShop = _0x17e0a8[_0xabadf4(0x181)]),
           (applyTattoo = _0x17e0a8[_0xabadf4(0x159)]),
           $("#actionmenuTattooShop")[_0xabadf4(0x152)](),
           $(".listagemTattooShop")[_0xabadf4(0x140)](""),
-          $(_0xabadf4(0x180))[_0xabadf4(0x16a)]("");
+          $(_0xabadf4(0x180))[_0xabadf4(0x16a)](""));
         if (tattooShop[atualPart]) {
           if (tattooShop[atualPart][_0xabadf4(0x149)])
             for (
@@ -147,7 +148,7 @@ $(document)["ready"](function () {
                   ],
                 _0x548113 =
                   tattooShop[atualPart]["tattoo"][_0x41edda][_0xabadf4(0x171)];
-              $(_0xabadf4(0x174))["append"](
+              ($(_0xabadf4(0x174))["append"](
                 "\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22item\x20itemPTattooShop\x22\x20data-partname=\x22" +
                   _0x245bed +
                   "\x22\x20data-id=\x22" +
@@ -169,35 +170,35 @@ $(document)["ready"](function () {
                   _0x41edda +
                   _0xabadf4(0x154) +
                   _0x548113 +
-                  _0xabadf4(0x161)
+                  _0xabadf4(0x161),
               ),
-                applyTattoo[_0x245bed] && selectTattooShopSelect(_0x41edda);
+                applyTattoo[_0x245bed] && selectTattooShopSelect(_0x41edda));
             }
         }
       }
       _0x17e0a8[_0xabadf4(0x13d)] &&
         $("#precoTotalTattooShop")[_0xabadf4(0x140)](
-          _0x17e0a8[_0xabadf4(0x171)]
+          _0x17e0a8[_0xabadf4(0x171)],
         );
-    });
+    }));
 });
 function selectTattooPart(_0x338d42) {
   const _0x6cf479 = _0x135a9c;
   let _0x4d5e32 = _0x338d42[_0x6cf479(0x155)][_0x6cf479(0x148)],
     _0xb24bbb = _0x338d42["dataset"][_0x6cf479(0x14d)];
-  _0xb24bbb == "E" && _0x4d5e32 != _0x6cf479(0x158)
+  (_0xb24bbb == "E" && _0x4d5e32 != _0x6cf479(0x158)
     ? ($(".flexTattooShop\x20aside\x20.categoryTattooShop")[_0x6cf479(0x16c)](
-        "activeMTattooShop"
+        "activeMTattooShop",
       ),
       $(_0x338d42)[_0x6cf479(0x17b)](_0x6cf479(0x176)),
       $(_0x6cf479(0x180))[_0x6cf479(0x16a)](""),
       (dataPartE = _0x4d5e32))
     : ((applyTattoo = []), $[_0x6cf479(0x13b)](_0x6cf479(0x17e))),
-    updateLoja(_0x4d5e32);
+    updateLoja(_0x4d5e32));
 }
 function updateLoja(_0x140197) {
   const _0x198842 = _0x135a9c;
-  $(_0x198842(0x174))["html"](""), $(_0x198842(0x180))[_0x198842(0x16a)]("");
+  ($(_0x198842(0x174))["html"](""), $(_0x198842(0x180))[_0x198842(0x16a)](""));
   if (tattooShop[_0x140197]) {
     if (tattooShop[_0x140197][_0x198842(0x149)])
       for (
@@ -217,7 +218,7 @@ function updateLoja(_0x140197) {
             ],
           _0x263a2d =
             tattooShop[_0x140197][_0x198842(0x159)][_0x2ee123]["price"];
-        $(_0x198842(0x174))[_0x198842(0x13c)](
+        ($(_0x198842(0x174))[_0x198842(0x13c)](
           _0x198842(0x15e) +
             _0x129799 +
             _0x198842(0x177) +
@@ -239,15 +240,15 @@ function updateLoja(_0x140197) {
             _0x2ee123 +
             _0x198842(0x17d) +
             _0x263a2d +
-            _0x198842(0x147)
+            _0x198842(0x147),
         ),
-          applyTattoo[_0x129799] && selectTattooShopSelect(_0x2ee123);
+          applyTattoo[_0x129799] && selectTattooShopSelect(_0x2ee123));
       }
   }
 }
 function selectTattooShopItem(_0x59bff1) {
   const _0x9c97c7 = _0x135a9c;
-  (partId = _0x59bff1["dataset"]["id"]),
+  ((partId = _0x59bff1["dataset"]["id"]),
     (partName = _0x59bff1[_0x9c97c7(0x155)][_0x9c97c7(0x175)]),
     (partType = _0x59bff1["dataset"][_0x9c97c7(0x169)]),
     (partSexo = _0x59bff1[_0x9c97c7(0x155)][_0x9c97c7(0x15a)]),
@@ -259,8 +260,8 @@ function selectTattooShopItem(_0x59bff1) {
       : $(_0x59bff1)[_0x9c97c7(0x17b)](_0x9c97c7(0x13f)),
     $[_0x9c97c7(0x13b)](
       _0x9c97c7(0x160),
-      JSON[_0x9c97c7(0x153)]({ type: partName, id: partId, type: partType })
-    );
+      JSON[_0x9c97c7(0x153)]({ type: partName, id: partId, type: partType }),
+    ));
 }
 function selectTattooShopSelect(_0x17b865) {
   const _0xb59396 = _0x135a9c;
@@ -284,7 +285,7 @@ function onRangeChange(_0x7d2285) {
   const _0x1760a1 = _0x135a9c;
   $[_0x1760a1(0x13b)](
     _0x1760a1(0x14e),
-    JSON["stringify"]({ valor: _0x7d2285 })
+    JSON["stringify"]({ valor: _0x7d2285 }),
   );
 }
 function _0x584a(_0x1413c4, _0x7325dd) {
@@ -302,19 +303,54 @@ function shopChangeCam(_0x1f8dbb) {
   const _0x3503ba = _0x135a9c;
   $["post"](
     _0x3503ba(0x15d),
-    JSON["stringify"]({ tipo: _0x3503ba(0x150), valor: _0x1f8dbb })
+    JSON["stringify"]({ tipo: _0x3503ba(0x150), valor: _0x1f8dbb }),
   );
 }
 function paymentTattooShop() {
   const _0x13766e = _0x135a9c;
-  $[_0x13766e(0x13b)](
+  ($[_0x13766e(0x13b)](
     _0x13766e(0x166),
-    JSON["stringify"]({ price: $(_0x13766e(0x14b))[_0x13766e(0x173)]() })
+    JSON["stringify"]({ price: $(_0x13766e(0x14b))[_0x13766e(0x173)]() }),
   ),
-    closeTattooShopUI();
+    closeTattooShopUI());
 }
 function closeTattooShopUI() {
   const _0xe51165 = _0x135a9c;
-  $("#actionmenuTattooShop")["fadeOut"](0x1),
-    $(_0xe51165(0x13e))[_0xe51165(0x16c)](_0xe51165(0x176));
+  ($("#actionmenuTattooShop")["fadeOut"](0x1),
+    $(_0xe51165(0x13e))[_0xe51165(0x16c)](_0xe51165(0x176)));
+}
+
+function setTattooShopTheme(_0xc09c96) {
+  if (!_0xc09c96 || typeof _0xc09c96 !== "object") return;
+  const _0x3b7290 = document["documentElement"];
+  if (_0xc09c96["accent"]) {
+    _0x3b7290["style"]["setProperty"]("--tattoo-accent", _0xc09c96["accent"]);
+    const _0x433e42 = hexToRgbTriplet(_0xc09c96["accent"]);
+    _0x3b7290["style"]["setProperty"]("--tattoo-accent-rgb", _0x433e42);
+  }
+  _0xc09c96["accent2"] &&
+    _0x3b7290["style"]["setProperty"](
+      "--tattoo-accent-2",
+      _0xc09c96["accent2"],
+    );
+}
+
+function hexToRgbTriplet(_0x302244) {
+  if (typeof _0x302244 !== "string") return null;
+  let _0x56d0a4 = _0x302244["trim"]();
+  if (_0x56d0a4[0x0] === "#") _0x56d0a4 = _0x56d0a4["slice"](0x1);
+  if (!/^[0-9a-fA-F]{3}$|^[0-9a-fA-F]{6}$/.test(_0x56d0a4)) return null;
+  if (_0x56d0a4["length"] === 0x3)
+    _0x56d0a4 =
+      _0x56d0a4[0x0] +
+      _0x56d0a4[0x0] +
+      _0x56d0a4[0x1] +
+      _0x56d0a4[0x1] +
+      _0x56d0a4[0x2] +
+      _0x56d0a4[0x2];
+  const _0x2c0a1c = parseInt(_0x56d0a4, 0x10);
+  const _0x2b516c = (_0x2c0a1c >> 0x10) & 0xff;
+  const _0x2dc0ab = (_0x2c0a1c >> 0x8) & 0xff;
+  const _0x3e4f55 = _0x2c0a1c & 0xff;
+  return _0x2b516c + " " + _0x2dc0ab + " " + _0x3e4f55;
 }
