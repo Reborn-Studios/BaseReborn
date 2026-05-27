@@ -1618,28 +1618,6 @@ return {
 		}
 	},
 
-	["gallon"] = {
-		label = "Galão",
-		weight = 1250,
-		stack = false,
-		close = true,
-		description = "Sem descrição",
-		client = {
-			image = "gallon.png",
-		}
-	},
-
-	["fuel"] = {
-		label = "Combustível",
-		weight = 1,
-		stack = false,
-		close = true,
-		description = "Sem descrição",
-		client = {
-			image = "fuel.png",
-		}
-	},
-
 	["roupas"] = {
 		label = "Roupas",
 		weight = 1,
@@ -1777,195 +1755,8 @@ return {
 		}
 	},
 
-	["GADGET_PARACHUTE"] = {
-		label = "Paraquedas",
-		weight = 2250,
-		stack = true,
-		close = true,
-		description = "Sem descrição",
-		client = {
-			image = "GADGET_PARACHUTE.png",
-		}
-	},
-
-	["AMMO_PETROLCAN"] = {
-		label = "Combustível",
-		weight = 1,
-		stack = true,
-		close = true,
-		description = "Sem descrição",
-		client = {
-			image = "AMMO_PETROLCAN.png",
-		}
-	},
-
-	["shotgunammo"] = {
-		label = "M. Escopeta",
-		weight = 50,
-		stack = true,
-		close = true,
-		description = "Munição para escopetas",
-		client = {
-			image = "shotgunammo.png",
-		}
-	},
-
-	["WEAPON_STONEHATCHET"] = {
-		label = "Machado de Pedra",
-		weight = 750,
-		stack = true,
-		close = true,
-		description = "Sem descrição",
-		client = {
-			image = "WEAPON_STONEHATCHET.png",
-		}
-	},
-
-	["attachsgrip"] = {
-		label = "Grip",
-		weight = 200,
-		stack = true,
-		close = true,
-		description = "Sem descrição",
-		client = {
-			image = "attachsgrip.png",
-		}
-	},
-
-	["rifleammo"] = {
-		label = "M. Rifle",
-		weight = 40,
-		stack = true,
-		close = true,
-		description = "Munição para rifles",
-		client = {
-			image = "rifleammo.png",
-		}
-	},
-
-	["pistolammo"] = {
-		label = "M. Pistola",
-		weight = 20,
-		stack = true,
-		close = true,
-		description = "Munição para pistolas",
-		client = {
-			image = "pistolammo.png",
-		}
-	},
-
-	["attachsflashlight"] = {
-		label = "Lanterna",
-		weight = 200,
-		stack = true,
-		close = true,
-		description = "Sem descrição",
-		client = {
-			image = "attachsflashlight.png",
-		}
-	},
-
-	["attachssilencer"] = {
-		label = "Silenciador",
-		weight = 200,
-		stack = true,
-		close = true,
-		description = "Sem descrição",
-		client = {
-			image = "attachssilencer.png",
-		}
-	},
-
-	["finish"] = {
-		label = "Skin",
-		weight = 1000,
-		stack = true,
-		close = true,
-		description = "Sem descrição",
-		client = {
-			image = "finish.png",
-		}
-	},
-
-	["clip"] = {
-		label = "Pente",
-		weight = 1000,
-		stack = true,
-		close = true,
-		description = "Pente para armas pequenas e grandes",
-		client = {
-			image = "clip.png",
-		}
-	},
-
-	["grip"] = {
-		label = "Empunhadura",
-		weight = 1000,
-		stack = true,
-		close = true,
-		description = "Empunhadura para armas pequenas e grandes",
-		client = {
-			image = "grip.png",
-		}
-	},
-
-	["suppressor"] = {
-		label = "Silenciador",
-		weight = 1000,
-		stack = true,
-		close = true,
-		description = "Silenciador para armas pequenas e grandes",
-		client = {
-			image = "suppressor.png",
-		}
-	},
-
-	["smgammo"] = {
-		label = "M. Sub Metralhadora",
-		weight = 30,
-		stack = true,
-		close = true,
-		description = "Munição para submetralhadoras",
-		client = {
-			image = "smgammo.png",
-		}
-	},
-
-	["scope"] = {
-		label = "Mira",
-		weight = 1000,
-		stack = true,
-		close = true,
-		description = "Mira para armas pequenas e grandes",
-		client = {
-			image = "scope.png",
-		}
-	},
-
-	["flashlight"] = {
-		label = "Lanterna",
-		weight = 1000,
-		stack = true,
-		close = true,
-		description = "Lanterna para armas pequenas e grandes",
-		client = {
-			image = "flashlight.png",
-		}
-	},
-
-	["attachscrosshair"] = {
-		label = "Mira",
-		weight = 200,
-		stack = true,
-		close = true,
-		description = "Sem descrição",
-		client = {
-			image = "attachscrosshair.png",
-		}
-	},
-
 	["paintingg"] = {
-		label = "paintingg",
+		label = "Pintura G",
 		weight = 500,
 		stack = true,
 		close = true,
@@ -1976,7 +1767,7 @@ return {
 	},
 
 	["paintingh"] = {
-		label = "paintingh",
+		label = "Pintura H",
 		weight = 500,
 		stack = true,
 		close = true,
@@ -1987,7 +1778,7 @@ return {
 	},
 
 	["paintingf"] = {
-		label = "paintingf",
+		label = "Pintura F",
 		weight = 500,
 		stack = true,
 		close = true,
@@ -1998,7 +1789,7 @@ return {
 	},
 
 	["drill"] = {
-		label = "Drill",
+		label = "Furadeira",
 		weight = 500,
 		stack = true,
 		close = true,
@@ -2009,7 +1800,7 @@ return {
 	},
 
 	["bag"] = {
-		label = "Bag",
+		label = "Mochila de roubo",
 		weight = 500,
 		stack = true,
 		close = true,
@@ -2020,7 +1811,7 @@ return {
 	},
 
 	["paintingj"] = {
-		label = "paintingj",
+		label = "Pintura J",
 		weight = 500,
 		stack = true,
 		close = true,
@@ -2042,7 +1833,7 @@ return {
 	},
 
 	["paintingi"] = {
-		label = "paintingi",
+		label = "Pintura I",
 		weight = 500,
 		stack = true,
 		close = true,
@@ -2053,13 +1844,13 @@ return {
 	},
 
 	["yacht_drill"] = {
-		label = "Drill",
+		label = "Furadeira do Yacht",
 		weight = 500,
 		stack = true,
 		close = true,
 		description = "",
 		client = {
-			image = "yacht_drill.png",
+			image = "drill.png",
 		}
 	},
 
@@ -2085,8 +1876,19 @@ return {
 		}
 	},
 
+	["remotecontrol"] = {
+		label = "Controle Remoto",
+		weight = 500,
+		stack = true,
+		close = true,
+		description = "",
+		client = {
+			image = "remotecontrol.png",
+		}
+	},
+
 	["paintinge"] = {
-		label = "paintinge",
+		label = "Pintura E",
 		weight = 500,
 		stack = true,
 		close = true,
@@ -2097,7 +1899,7 @@ return {
 	},
 
 	["cutter"] = {
-		label = "cutter",
+		label = "Cortador",
 		weight = 500,
 		stack = true,
 		close = true,

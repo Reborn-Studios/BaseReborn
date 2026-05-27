@@ -292,7 +292,7 @@ function client.openInventory(inv, data)
         }
     })
 
-    if inv and not currentInventory.coords and inv ~= 'container' then
+    if inv and not currentInventory.coords and inv ~= 'container' and inv ~= 'glovebox' then
         currentInventory.coords = GetEntityCoords(playerPed)
     end
 
@@ -1893,10 +1893,6 @@ RegisterNUICallback('swapItems', function(data, cb)
         if weaponSlot and currentWeapon then
             currentWeapon.slot = weaponSlot
         end
-
-		if response then
-			updateInventory(response.items, response.weight)
-		end
 	elseif response then
 		if type(response) == 'table' then
 			SendNUIMessage({ action = 'refreshSlots', data = { items = response } })
