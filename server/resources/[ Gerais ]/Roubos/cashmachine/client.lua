@@ -22,7 +22,7 @@ CreateThread(function ()
 	exports['ox_target']:addModel(machines,{
 		{
 			canInteract = function()
-				return not LocalPlayer.state.Police
+				return not LocalPlayer.state.Police and not LocalPlayer.state['Safezone']
 			end,
 			distance = 2,
 			event = 'vrp_cashmachine:machineRobbery',
@@ -123,6 +123,10 @@ AddEventHandler("cashRegister:robberyMachine",function()
 		if distance <= 2.0 then
 			return
 		end
+	end
+	if LocalPlayer.state['Safezone'] then
+		TriggerEvent("Notify","negado","Não é permitido roubar em SafeZone.",7000)
+		return
 	end
 	if vSERVER.cashRegister(coordsPed.x,coordsPed.y,coordsPed.z) then
 		SetPedComponentVariation(ped,5,45,0,2)

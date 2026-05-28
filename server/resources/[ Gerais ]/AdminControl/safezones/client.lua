@@ -162,6 +162,7 @@ CreateThread(function()
             end
         end
         isInSafezone = inSafe
+        LocalPlayer.state:set("Safezone",inSafe,true)
         LocalPlayer.state.canUseWeapons = not inSafe
         Wait(1000)
     end

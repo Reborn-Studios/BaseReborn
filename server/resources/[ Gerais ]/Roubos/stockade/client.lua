@@ -12,7 +12,7 @@ CreateThread(function()
 		{
 			canInteract = function(entity)
 				local plate = GetVehicleNumberPlateText(entity)
-				return blockStockades[plate] == nil and not LocalPlayer.state.Police
+				return blockStockades[plate] == nil and not LocalPlayer.state.Police and not LocalPlayer.state.Safezone
 			end,
 			distance = 1.5,
 			bones = {"door_pside_r","door_dside_r"},

@@ -158,7 +158,7 @@ CreateThread(function ()
                         model = model,
                         distance = 1,
                         canInteract = function ()
-                            return not LocalPlayer.state.Police
+                            return not LocalPlayer.state.Police and not LocalPlayer.state.Safezone
                         end,
                         items = localConfig.HackingItem,
                     })
@@ -171,7 +171,7 @@ CreateThread(function ()
                         model = model,
                         distance = 1,
                         canInteract = function ()
-                            return not LocalPlayer.state.Police
+                            return not LocalPlayer.state.Police and not LocalPlayer.state.Safezone
                         end,
                         items = localConfig.DrillItem,
                     })

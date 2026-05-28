@@ -22,7 +22,7 @@ CreateThread(function()
 			options = {
 				{
 					canInteract = function()
-						return not LocalPlayer.state.Police
+						return not LocalPlayer.state.Police and not LocalPlayer.state.Safezone
 					end,
 					icon = "fa-solid fa-sack-dollar",
 					event = "robbery:startRobbery",

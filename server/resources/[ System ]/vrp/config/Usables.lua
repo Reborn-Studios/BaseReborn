@@ -590,6 +590,10 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName, rAmount, data)
 	end
 
 	if itemName == "lockpick" then
+		if Player(source).state['Safezone'] then
+			TriggerClientEvent("Notify",source,"negado","Não é permitido roubar em SafeZone.",7000)
+			return
+		end
 		if GetResourceState("will_homes") == "started" then
 			local checkHome = exports['will_homes']:tryEnterHome(source, true)
 			if checkHome then
