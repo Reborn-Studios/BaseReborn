@@ -90,6 +90,10 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName, rAmount, data)
 		end
 	end
 
+	if itemName == 'remotecontrol' then
+		TriggerClientEvent("will_television:openRemote",source)
+	end
+
 	if itemName == "weed" then
 		if vRP.getInventoryItemAmount(user_id,"weed") >= 1 and vRP.getInventoryItemAmount(user_id,"silk") >= 1 then
 			active[user_id] = 3

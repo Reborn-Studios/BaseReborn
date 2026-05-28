@@ -4,7 +4,7 @@
 
 ### Salários:
 
-[`[ System ] > vrp > Reborn > Groups.lua > (salary)`](./[%20System%20]/vrp/Reborn/Groups.lua)
+[`[ System ] > vrp > config > Groups.lua > (salary)`](./[%20System%20]/vrp/config/Groups.lua)
 
 ### Empregos:
 
@@ -85,7 +85,7 @@ Balada Lux -310.13,226.93,87.91
 
 ### Painel de facção
 
-[`[ Reborn ] > ld_factions > config > config.lua`](./[%20Reborn%20]/ld_factions/config/config.lua)
+[`[ Reborn ] > ld_orgs_v2 > groups.lua`](./[%20Reborn%20]/ld_orgs_v2/groups.lua)
 
 ### Rotas e crafts
 
@@ -93,7 +93,7 @@ Balada Lux -310.13,226.93,87.91
 
 ### Webhooks
 
-[`[ System ] > vrp > Reborn > webhooks.lua`](./[%20System%20]/vrp/Reborn/webhooks.lua)
+[`[ System ] > vrp > config > webhooks.lua`](./[%20System%20]/vrp/config/webhooks.lua)
 
 ### Documentação:
 

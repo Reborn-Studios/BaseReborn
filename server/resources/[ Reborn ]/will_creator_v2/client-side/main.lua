@@ -15,6 +15,10 @@ end
 
 RegisterNuiCallback("NuiReady",function (data,cb)
     nuiReady = true
+    SendNUIMessage({
+        action = "Theme:Set",
+        data = Config.Theme
+    })
 end)
 
 function PlayCharacter(id)
@@ -42,7 +46,6 @@ function PlayCharacter(id)
     while not IsScreenFadedOut() do
         Wait(10)
     end
-    local ped = PlayerPedId()
     local hasSpawned, char = Server.PlayChar(id)
     if char and char.skin then
         TriggerServerEvent("will_creator_v2:inCreator",false)
@@ -54,7 +57,9 @@ function PlayCharacter(id)
         end
         SendDebug(("First spawn: %s ID: %s"):format(hasSpawned or "nil",id or "nil"))
         LastCoords = Server.LastCoords()
-        if not hasSpawned then
+        Wait(500)
+        local ped = PlayerPedId()
+        if not hasSpawned and GetEntityHealth(ped) > 101 then
             OpenSpawnSelector()
         else
             Teleport(ped, LastCoords)
@@ -120,7 +125,7 @@ function CharacterSelect()
             SetWeatherTypePersist("EXTRASUNNY")
             SetWeatherTypeNowPersist("EXTRASUNNY")
             SetWeatherTypeNowPersist("EXTRASUNNY")
-            NetworkOverrideClockTime(8, 0, 0)
+            NetworkOverrideClockTime(20, 0, 0)
             Wait(4)
         end
     end)

@@ -26,7 +26,7 @@ CreateThread(function()
 					end,
 					icon = "fa-solid fa-sack-dollar",
 					event = "robbery:startRobbery",
-					label = "Roubar",
+					label = "Roubar "..v.name,
 					tunnel = "client",
 					service = k
 				}

@@ -26,8 +26,8 @@ CreateThread(function ()
 			end,
 			distance = 2,
 			event = 'vrp_cashmachine:machineRobbery',
-			icon = 'fa-solid fa-cash-register',
-			label = "Roubar",
+			icon = 'fa-solid fa-explosion',
+			label = "Explodir ATM",
 			tunnel = "client"
 		}
 	})
