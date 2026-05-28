@@ -75,7 +75,7 @@ AddEventHandler("perimeter:New",function()
         TriggerClientEvent("perimeter:Add",-1,Selected,Perimeters[Selected])
         TriggerClientEvent("dynamic:AddButton",Source,Name,"Remover o perímetro.","perimeter:Remove",Selected,"perimeter",true)
 
-        TriggerClientEvent("Notify",-1,"police","Informativo Policial","Informamos que o perímetro <b>"..Name.."</b> encontra-se fechado para circulação, pedimos a compreensão de todos e orientamos que busquem rotas alternativas, agradecemos pela colaboração.",15000)
+        TriggerClientEvent("Notify",-1,"Informativo Policial","Informamos que o perímetro <b>"..Name.."</b> encontra-se fechado para circulação, pedimos a compreensão de todos e orientamos que busquem rotas alternativas, agradecemos pela colaboração.","police",15000)
     end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -87,7 +87,7 @@ AddEventHandler("perimeter:Remove",function(Selected)
     local Passport = vRP.Passport(Source)
     if not Perimeters[Selected] or not Passport or not vRP.HasPermission(Passport,"policia.permissao") then return end
 
-    TriggerClientEvent("Notify",-1,"police","Informativo Policial","Informamos que o perímetro <b>"..Perimeters[Selected].Name.."</b> encontra-se liberado para circulação, agradecemos pela colaboração e pedimos que todos sigam as orientações de segurança.",15000)
+    TriggerClientEvent("Notify",-1,"Informativo Policial","Informamos que o perímetro <b>"..Perimeters[Selected].Name.."</b> encontra-se liberado para circulação, agradecemos pela colaboração e pedimos que todos sigam as orientações de segurança.","police",15000)
 
     Perimeters[Selected] = nil
     vRP.SetSrvData("Perimeters",json.encode(Perimeters))
