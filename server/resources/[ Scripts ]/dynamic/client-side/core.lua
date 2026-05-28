@@ -230,9 +230,7 @@ RegisterCommand("EmergencyFunctions",function()
 				else
 					exports["dynamic"]:AddButton("Computador","Computador de bordo policial.","police:Open","",false,false)
 				end
-				if GetResourceState("perimeter") == "started" then
-					TriggerEvent("perimeter:Dynamic")
-				end
+				TriggerEvent("perimeter:Dynamic")
 				local vehicle = vRP.getNearVehicle(3.0)
 				if vehicle then
 					exports["dynamic"]:AddButton("Apreender veículo","Apreender veículo mais próximo.","player:arrestVehicle","",false,true)

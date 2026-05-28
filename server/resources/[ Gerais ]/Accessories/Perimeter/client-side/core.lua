@@ -1,11 +1,11 @@
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VRP
 -----------------------------------------------------------------------------------------------------------------------------------------
-local Tunnel = module("vrp","lib/Tunnel")
+local Tunnel = module("vrp","lib/Tunnel") or {}
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-vSERVER = Tunnel.getInterface("perimeter")
+SvPerimeter = Tunnel.getInterface("perimeter")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -19,7 +19,7 @@ AddEventHandler("perimeter:Dynamic",function()
 	exports["dynamic"]:AddMenu("Perimetros","Visualizar/Gerenciar perimetros.","perimeter")
 	exports["dynamic"]:AddButton("Adicionar","Demarcar novo local no mapa.","perimeter:New","","perimeter",true)
 
-	local Perimeters = vSERVER.Perimeters()
+	local Perimeters = SvPerimeter.Perimeters()
 	for Selected,v in pairs(Perimeters) do
 		exports["dynamic"]:AddButton(v.Name,"Remover local demarcado no mapa.","perimeter:Remove",Selected,"perimeter",true)
 	end
