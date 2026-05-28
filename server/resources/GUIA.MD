@@ -19,7 +19,6 @@
 Favela 2 - -771.07,1018.94,278.06 - (Ref: Ao sul do observatório - Oeste do mapa)
 Favela 3 - 1442.08,-1421.55,95.56 - (Ref: Fav da igreja - Sudeste do mapa)
 Favela 4 - 2001.88,-1178.5,150.72 - (Ref: Fav na montanha - Sudeste do mapa)
-Favela 5 - -1926.13,756.52,181.29 - (Ref: Ao norte do observatório - Oeste do mapa)
 Favela 6 - 2602.37,1807.34,53.89 - (Ref: Perto das usina eolica - Leste do mapa)
 Favela 7 - 2541.97,2529.91,56.5 - (Ref: Perto da mineiradora - Leste do mapa)
 Favela 12 - -2937.08,1406.89,83.2 - (Ref: Perto das mansões da praia - Oeste do mapa)
@@ -35,7 +34,6 @@ Favela 20 - 1269.05,-87.82,122.6 - (Ref: Barragem)
 Acapulco: 764.78, 3407.21, 64.71
 Atlanta: -116.89, 984.38, 238.32
 Bahamas -2706.31, -67.52, 18.61
-Baltimore -1994.09, -636.68, 8.45
 Branca -884.07, 38.78, 50.85
 Casa Hospital -821.33, 269.65, 87.93
 Detroit -773.64, 334.43, 243.21
