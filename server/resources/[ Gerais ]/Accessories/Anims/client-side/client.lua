@@ -2201,6 +2201,7 @@ local animacoes = {
 	["namaste"] = { dict = "timetable@amanda@ig_4", anim = "ig_4_base" , andar = false , loop = true },
 	["revistar"] = { dict = "cpdrevistandopolicial@animations", anim = "gndrevistandopolicial_clip" , andar = false , loop = true },
 	["revistar2"] = { dict = "cpdanimacaomaonacabeca@animations", anim = "gndanimacaomaonacabeca_clip" , andar = false , loop = true },
+	["jamal"] = { dict = "neuxs@anim_passodojamal", anim = "nx_passojamal_clip" , andar = false , loop = true },
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- EMOTES
