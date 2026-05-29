@@ -399,7 +399,7 @@ function ServerPlayer.shotsFired()
 				for k,v in pairs(comAmount) do
 					local player = vRP.getUserSource(v)
 					async(function()
-						TriggerClientEvent("NotifyPush",player,{ time = os.date("%H:%M:%S - %d/%m/%Y"), text = "Ei esta tendo troca de tiro aqui perto de minha casa!", code = 10, title = "Confronto em andamento", x = x, y = y, z = z, criminal = "Disparos de arma de fogo", rgba = {105,52,136} })
+						TriggerClientEvent("NotifyPush",player,{ time = os.date("%H:%M:%S - %d/%m/%Y"), sprite = 161, text = "Ei esta tendo troca de tiro aqui perto de minha casa!", code = 10, title = "Confronto em andamento", x = x, y = y, z = z, criminal = "Disparos de arma de fogo", rgba = {105,52,136} })
 					end)
 				end
 			end
