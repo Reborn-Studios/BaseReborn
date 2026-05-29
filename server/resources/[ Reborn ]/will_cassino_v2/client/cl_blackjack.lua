@@ -191,7 +191,7 @@ Citizen.CreateThread(function()
     while true do
         local chairPos = blackjack_func_348(closestChair)
         local castle = 500
-        if closestChair ~= -1 and closestChairDist < 2 then
+        if closestChair ~= -1 and closestChairDist < 2 and closeToCassino then
             castle = 4
             if not sittingAtBlackjackTable then
                 drawfreameeMarker(chairPos + vector3(0.0, 0.0, 1.0))

@@ -1598,7 +1598,7 @@ Citizen.CreateThread(function()
     while true do
         local letSleep = true
         if not InformationPlaying and activePokerTable == nil and activeChairData == nil then
-            if closeToPokers then
+            if closeToPokers and closeToCassino then
                 local playerpos = GetEntityCoords(PlayerPedId())
                 for k, v in pairs(SharedPokers) do
                     local dist = #(playerpos - v.data.Position)

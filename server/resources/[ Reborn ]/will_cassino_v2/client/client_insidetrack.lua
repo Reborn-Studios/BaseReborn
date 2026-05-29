@@ -277,7 +277,7 @@ Citizen.CreateThread(function()
         local object = GetClosestObjectOfType(playerpos,1.2,-1005355458,0,0,0)
 		local coordsobj = GetEntityCoords(object)
 		local objHeading = GetEntityHeading(object)
-        if DoesEntityExist(object) and not playing then
+        if DoesEntityExist(object) and not playing and closeToCassino then
 			idle = 4
             drawfreameeMarker(coordsobj + vector3(0.0, 0.0, 1.0))
 			if IsControlJustPressed(0,38) then

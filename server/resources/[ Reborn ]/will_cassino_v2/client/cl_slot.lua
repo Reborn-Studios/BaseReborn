@@ -421,7 +421,7 @@ Citizen.CreateThread(function()
 	while true do
 		local idle = 700
 		local playerpos = GetEntityCoords(PlayerPedId())
-		if closetoSlots and selectedSlot == nil then
+		if closetoSlots and selectedSlot == nil and closeToCassino then
 			for k, v in pairs(Slots) do
 				if DoesEntityExist(v.tableObject) then
 					local objcoords = GetEntityCoords(v.tableObject)
