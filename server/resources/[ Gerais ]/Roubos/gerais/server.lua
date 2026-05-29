@@ -48,7 +48,16 @@ function Robbery.paymentMethod(robberyId)
 		vRP.wantedTimer(user_id,600)
 		for k,v in pairs(vars[robberyId].itens) do
 			vRP.giveInventoryItem(user_id,v.item,parseInt(math.random(v.min,v.max)),true)
-			vRPclient._stopAnim(source,false)
 		end
+		vRPclient._stopAnim(source,false)
+		if GetResourceState("domination") == "started" then
+            local status, place = exports['domination']:GetUserDom(source)
+            if status then
+                for k,v in pairs(vars[robberyId].itens) do
+					vRP.giveInventoryItem(user_id,v.item,math.random(v.min,v.max),true)
+				end
+                TriggerClientEvent("Notify", source, "sucesso", "Você recebeu itens bônus por dominação do territorio", 5000)
+            end
+        end
 	end
 end
