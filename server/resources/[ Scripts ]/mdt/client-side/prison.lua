@@ -2,6 +2,7 @@
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
 local Cooldown = GetGameTimer()
+local TimerCooldown = GetGameTimer()
 local Center = vec3(1679.94,2513.07,45.56)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- POLYPRISON
@@ -98,8 +99,19 @@ CreateThread(function()
 					end)
 				end
 			end
+			if TimerCooldown <= GetGameTimer() then
+				TimerCooldown = GetGameTimer() + 60000
+				TriggerServerEvent("prison:Timer")
+			end
 		end
 
 		Wait(1000)
+	end
+end)
+
+AddStateBagChangeHandler("Prison",nil,function (bagName,key,value)
+	local ply = GetPlayerFromStateBagName(bagName)
+    if ply == PlayerId() then
+		TimerCooldown = GetGameTimer() + 60000
 	end
 end)

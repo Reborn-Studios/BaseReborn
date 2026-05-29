@@ -37,6 +37,26 @@ AddEventHandler("prison:Service",function(Data)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- PRISON:TIMER
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterServerEvent("prison:Timer")
+AddEventHandler("prison:Timer",function()
+	local source = source
+	local Passport = vRP.Passport(source)
+	local Identity = vRP.Identity(Passport)
+	if Passport and Identity and Identity.Prison > 0 then
+		vRP.UpdatePrison(Passport,1)
+		local Identity = vRP.Identity(Passport)
+		if Identity and Identity.Prison <= 0 then
+			vRP.Teleport(source,1896.15,2604.44,45.75)
+			Player(source).state.Prison = false
+			TriggerClientEvent("Notify",source,"Boolingbroke","Serviços finalizados.","policia",5000)
+		else
+			TriggerClientEvent("Notify",source,"Boolingbroke","Reduzimos 1 serviço, restando um total de "..Identity.Prison..".","policia",5000)
+		end
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- REDUCTION
 -----------------------------------------------------------------------------------------------------------------------------------------
 function Reduction(source,Passport,Number)
