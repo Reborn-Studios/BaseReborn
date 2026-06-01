@@ -6,6 +6,7 @@ local Proxy = module("vrp","lib/Proxy")
 vRP = Proxy.getInterface("vRP")
 vRPclient = Tunnel.getInterface("vRP")
 vCLIENT = Tunnel.getInterface("will_bateponto")
+QBCore = exports["qb-core"]:GetCoreObject()
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -26,6 +27,12 @@ function cnVRP.checkBateponto(Index)
                 vRP.addUserGroup(user_id,paisanaGroup)
                 TriggerEvent("vrp_blipsystem:serviceExit",source)
                 vCLIENT.exit(source)
+                if QBCore then
+                    local Player = QBCore.Functions.GetPlayer(source)
+                    if Player then
+                        Player.Functions.SetJobDuty(false)
+                    end
+                end
                 if Config.data[Index].webhook then
                     if parseInt(serviceTime[user_id]) > 0 then
                         Config.func.sendDiscord(Config.data[Index].webhook,"ID:"..user_id,"Saiu de serviço \n[Tempo de serviço]: "..minimalTimers(os.time() - parseInt(serviceTime[user_id])))
@@ -45,6 +52,12 @@ function cnVRP.checkBateponto(Index)
                     TriggerEvent("vrp_blipsystem:serviceEnter",source,"Mecanico",51)
                 end
                 vCLIENT.enter(source)
+                if QBCore then
+                    local Player = QBCore.Functions.GetPlayer(source)
+                    if Player then
+                        Player.Functions.SetJobDuty(true)
+                    end
+                end
                 if Config.data[Index].webhook then
                     Config.func.sendDiscord(Config.data[Index].webhook,"ID:"..user_id,"Entrou em serviço")
                 end

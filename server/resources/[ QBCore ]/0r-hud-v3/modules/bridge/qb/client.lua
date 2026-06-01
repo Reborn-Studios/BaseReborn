@@ -64,7 +64,15 @@ function client.GetPlayerJob()
     label = xPlayer.job.label
     grade = xPlayer.job.grade.name
     if grade == "No Grades" then
-        grade = "Desempregado"
+        if label == "Civil" then
+            grade = "Desempregado"
+        else
+            if xPlayer.job.onduty then
+                grade = "Em serviço"
+            else
+                grade = "Fora de serviço"
+            end
+        end
     end
     return { label = label, grade = grade }
 end
