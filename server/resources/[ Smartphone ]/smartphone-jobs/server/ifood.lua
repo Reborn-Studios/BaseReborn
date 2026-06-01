@@ -65,13 +65,6 @@ local stars = {}
 
 CreateThread(function()
   vRP.execute('ifood/create')
-  while true do
-    local rows = vRP.query('ifood/get_stars') or {}
-    for i, row in pairs(rows) do
-      stars[tostring(row.store_id)] = tonumber(row.stars)
-    end
-    Wait(2000)
-  end
 end)
 
 CreateThread(function()
@@ -101,6 +94,10 @@ CreateThread(function()
 end)
 
 expose('ifood_get_stars', function(source)
+  local rows = vRP.query('ifood/get_stars') or {}
+  for i, row in pairs(rows) do
+    stars[tostring(row.store_id)] = tonumber(row.stars)
+  end
   return stars
 end)
 
