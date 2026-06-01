@@ -582,7 +582,7 @@ local function useSlot(slot, noAnim, amount)
 			end, noAnim)
 		elseif currentWeapon then
 			if data.ammo then
-				if EnableWeaponWheel or currentWeapon.metadata.durability <= 0 then return end
+				if EnableWeaponWheel or (currentWeapon.metadata and currentWeapon.metadata.durability) <= 0 then return end
 
 				local clipSize = GetMaxAmmoInClip(playerPed, currentWeapon.hash, true)
 				local currentAmmo = GetAmmoInPedWeapon(playerPed, currentWeapon.hash)
@@ -595,7 +595,7 @@ local function useSlot(slot, noAnim, amount)
 				useItem(data, function(resp)
 					if not resp or resp.name ~= currentWeapon?.ammo then return end
 
-					if currentWeapon.metadata.specialAmmo ~= resp.metadata.type and type(currentWeapon.metadata.specialAmmo) == 'string' then
+					if currentWeapon.metadata and currentWeapon.metadata.specialAmmo ~= resp.metadata.type and type(currentWeapon.metadata.specialAmmo) == 'string' then
 						local clipComponentKey = ('%s_CLIP'):format(Items[currentWeapon.name].model:gsub('WEAPON_', 'COMPONENT_'))
 						local specialClip = ('%s_%s'):format(clipComponentKey, (resp.metadata.type or currentWeapon.metadata.specialAmmo):upper())
 
@@ -1514,7 +1514,7 @@ RegisterNetEvent('ox_inventory:setPlayerInventory', function(currentDrops, inven
 				DisableControlAction(0, 80, true)
 				DisableControlAction(0, 140, true)
 
-				if currentWeapon.metadata.durability <= 0 then
+				if currentWeapon.metadata and currentWeapon.metadata.durability <= 0 then
 					DisablePlayerFiring(playerId, true)
 				elseif client.aimedfiring and not currentWeapon.melee and currentWeapon.group ~= `GROUP_PETROLCAN` and not IsPlayerFreeAiming(playerId) then
 					DisablePlayerFiring(playerId, true)
