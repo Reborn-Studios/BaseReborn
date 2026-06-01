@@ -1893,6 +1893,9 @@ RegisterNUICallback('swapItems', function(data, cb)
         if weaponSlot and currentWeapon then
             currentWeapon.slot = weaponSlot
         end
+		if response then
+			updateInventory(response.items, response.weight)
+		end
 	elseif response then
 		if type(response) == 'table' then
 			SendNUIMessage({ action = 'refreshSlots', data = { items = response } })
