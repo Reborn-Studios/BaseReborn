@@ -10,6 +10,7 @@ version "1.0.0"
 ox_lib "locale"
 
 shared_scripts {
+    "@vrp/lib/utils.lua",
     "@ox_lib/init.lua",
     '@reborn_uipack/init.lua',
     "shared/*.lua"

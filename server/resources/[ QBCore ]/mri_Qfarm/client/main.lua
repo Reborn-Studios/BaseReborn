@@ -40,7 +40,7 @@ local blipSettings = {
     route = true,
     text = locale("misc.farm_point")
 }
-DefaultAnimCmd = 'bumbin'
+DefaultAnimCmd = 'pegar'
 DefaultAnim = {
     dict = "amb@prop_human_bum_bin@idle_a",
     anim = "idle_a",
@@ -59,7 +59,7 @@ local function DrawTxt(x, y, width, height, scale, text, r, g, b, a, _)
     SetTextProportional(false)
     SetTextScale(scale, scale)
     SetTextColour(r, g, b, a)
-    --SetTextDropshadow(0, 0, 0, 0, 255)
+    SetTextDropshadow(0, 0, 0, 0, 255)
     SetTextEdge(2, 0, 0, 0, 255)
     SetTextDropShadow()
     SetTextOutline()
@@ -119,7 +119,7 @@ local function farmThread()
                 stopFarm()
             end
             if Config.ShowOSD then
-                DrawTxt(0.93, 1.44, 1.0, 1.0, 0.6, locale('actions.stop_f7'), 255, 255, 255, 255)
+                DrawTxt(0.93, 1.44, 1.0, 1.0, 0.4, locale('actions.stop_f7'), 255, 255, 255, 255)
             end
             Wait(0)
         end
@@ -197,7 +197,7 @@ local function checkAndOpenPoint(point, item)
             if (item["animation"]) then
                 animation = item.animation
             else
-                if Config.UseUseEmoteMenu then
+                if Config.UseEmoteMenu then
                     animation = DefaultAnimCmd
                 else
                     animation = DefaultAnim
@@ -206,7 +206,7 @@ local function checkAndOpenPoint(point, item)
             end
             pickAnim(animation)
             if type(item.config.items) == "table" then
-                actionProcess(item.name, locale("progress.pick_farm", item.label), duration,
+                actionProcess(item.name, locale("progress.pick_farm", item.label or "itens"), duration,
                 function() -- Done
                     for itemName,v in pairs(item.config.items) do
                         TriggerServerEvent("mri_Qfarm:server:getRewardItem", itemName, playerFarm and playerFarm.farmId)
@@ -357,7 +357,6 @@ local function showFarmMenu(farm, groupName)
 end
 
 local function checkAndOpen(farm)
-    -- print(json.encode(farm))
     if type(farm.group.name) == "table" then
         for k,group in ipairs(farm.group.name) do
             if (PlayerJob and group == PlayerJob.name) or LocalPlayer.state[group] then
@@ -467,7 +466,7 @@ local function loadFarms()
                         local start = v.config.start
                         if #(GetEntityCoords(PlayerPedId()) - vector3(start.location.x,start.location.y,start.location.z)) <= 5.0 then
                             timeDistance = 4
-                            DrawBase3D(start.location.x,start.location.y,start.location.z,"APERTE ~y~[E] ~w~ PARA INICIAR ROTA "..v.name)
+                            DrawBase3D(start.location.x,start.location.y,start.location.z,"routes")
                             if IsControlJustPressed(0,38) then
                                 checkAndOpen(v)
                             end
@@ -479,20 +478,6 @@ local function loadFarms()
         end
     end
 end
-
-function DrawBase3D(x,y,z,text)
-	local _,_x,_y = World3dToScreen2d(x,y,z)
-	SetTextFont(4)
-	SetTextScale(0.35,0.35)
-	SetTextColour(255,255,255,215)
-	SetTextEntry("STRING")
-	SetTextCentre(true)
-	AddTextComponentString(text)
-	DrawText(_x,_y)
-	local factor = (string.len(text))/350
-	DrawRect(_x,_y+0.0125,0.01+factor,0.03,34,44,52,175)
-end
-
 
 AddEventHandler("onResourceStart", function(resourceName)
     if resourceName == GetCurrentResourceName() then

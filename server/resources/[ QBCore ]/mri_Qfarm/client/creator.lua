@@ -424,6 +424,16 @@ local function addPoints(args)
     args.callback(args)
 end
 
+local function addRandomPoints(args)
+    local keepLoop = true
+    if Farms[args.key] then
+        for k,v in pairs(Config.RandomLocates) do
+            Farms[args.key].config.points[#Farms[args.key].config.points + 1] = vector3(v[1],v[2],v[3])
+        end
+    end
+    args.callback(args)
+end
+
 function listPoints(args)
     local farm = Farms[args.key]
     local ctx = {
@@ -436,6 +446,15 @@ function listPoints(args)
             icon = 'square-plus',
             iconAnimation = Config.IconAnimation,
             onSelect = addPoints,
+            args = {
+                key = args.key,
+                callback = listPoints
+            }
+        },{
+            title = "Locais aleatorios",
+            description = "Adicione locais aleatorios para coleta",
+            icon = 'shuffle',
+            onSelect = addRandomPoints,
             args = {
                 key = args.key,
                 callback = listPoints
