@@ -336,7 +336,7 @@ function Items.Metadata(inv, item, metadata, count)
 	})
 
 	if type(response) == 'table' then
-		metadata = response
+		metadata = response.result
 	end
 
 	if metadata.imageurl and Utils.IsValidImageUrl then
