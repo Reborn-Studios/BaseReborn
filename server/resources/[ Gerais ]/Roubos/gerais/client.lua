@@ -43,6 +43,15 @@ AddEventHandler("robbery:startRobbery",function(data)
 		local coords = GetEntityCoords(ped)
 		if Roubos.checkPolice(service,coords) then
 			local v = vars[service]
+			if GetResourceState("will_robbery") == "started" then
+				local status = exports["will_robbery"]:PlayMinigame("memorygame")
+				if not status then
+					ClearPedTasks(ped)
+					TriggerEvent("Notify","negado","Falha ao roubar",5000)
+					return
+				end
+			end
+			vRP._playAnim(false,{"oddjobs@shop_robbery@rob_till","loop"},true)
 			robberyId = service
 			startRobbery = true
 			robberyTimer = v.time

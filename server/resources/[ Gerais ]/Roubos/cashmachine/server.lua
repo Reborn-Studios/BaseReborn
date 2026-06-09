@@ -37,7 +37,7 @@ function CashMachine.startMachine(x,y,z)
 	if user_id then
 		local copAmount = vRP.getUsersByPermission("policia.permissao")
 		if #copAmount <= Config.cashMachine['atm']['cops'] then
-			TriggerClientEvent("Notify",source,"aviso","Sistema indisponível no momento, tente mais tarde.",5000)
+			TriggerClientEvent("Notify",source,"aviso","Contingente indisponivel, necessario "..Config.cashMachine['atm']['cops'].." policiais em serviço",4000)
 			return false
 		end
 		local checkTimer = checkClosestMachine(x,y,z)

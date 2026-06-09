@@ -42,3 +42,5 @@ function PlayMinigame(minigame)
     end
     return sucess
 end
+
+exports("PlayMinigame", PlayMinigame)

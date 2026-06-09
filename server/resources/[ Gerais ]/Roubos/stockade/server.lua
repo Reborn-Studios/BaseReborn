@@ -17,7 +17,7 @@ function Stockade.checkPolice(vehPlate)
 	if blockStockades[vehPlate] ~= nil then return false end
 	local police = vRP.getUsersByPermission("policia.permissao")
 	if #police <= Config.stockade['cops'] then
-		TriggerClientEvent("Notify",source,"aviso","Sistema indisponível no momento, tente mais tarde.",5000)
+		TriggerClientEvent("Notify",source,"aviso","Contingente indisponivel, necessario "..Config.stockade['cops'].." policiais em serviço",4000)
 		return false
 	end
 	return true

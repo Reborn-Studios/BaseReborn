@@ -22,14 +22,13 @@ function Robbery.checkPolice(robberyId,coords)
 
 		local amountCops = vRP.getUsersByPermission("policia.permissao")
 		if parseInt(#amountCops) < parseInt(vars[robberyId].cops) then
-			TriggerClientEvent("Notify",source,"aviso","Sistema indisponível,tente mais tarde.",4000)
+			TriggerClientEvent("Notify",source,"aviso","Contingente indisponivel, necessario "..vars[robberyId].cops.." policiais em serviço",4000)
 			return false
 		end
 
 		if vRP.tryGetInventoryItem(user_id,vars[robberyId].required,1,true) then
 			CashMachine.callPolice(coords.x, coords.y, coords.z,vars[robberyId].name)
 			robberyProgress[vars[robberyId].type] = os.time() + vars[robberyId].cooldown
-			vRPclient._playAnim(source,false,{"oddjobs@shop_robbery@rob_till","loop"},true)
 			vRP.createWeebHook(Webhooks.rouboshook,"```prolog\n[ID]: "..user_id.."\n[ROUBOU]: "..vars[robberyId].name.." "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
 			return true
 		else
