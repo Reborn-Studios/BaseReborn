@@ -273,6 +273,11 @@ local weaponsDamage = {
 CreateThread(function()
 	Wait(1000)
 	local npcControl = Reborn.npcControl()
+	local CityColor = GlobalState['Basics']['CityColor']
+	if CityColor then
+		local r,g,b = CityColor:match("rgb%((%d+),%s*(%d+),%s*(%d+)%)")
+		ReplaceHudColourWithRgba(142, tonumber(r), tonumber(g), tonumber(b), 255)
+	end
 	while true do
 		-- NPC CONTROL
 		SetPedDensityMultiplierThisFrame(npcControl['PedDensity'])
@@ -880,6 +885,7 @@ local vehsArea = {
 	vector3(42.06,-867.74,30.5),
 	vector3(129.39,-1074.69,29.2),
 	vector3(236.64,-779.95,30.67),
+	vector3(-1581.47,-1001.23,13.29),
 }
 
 local pedsArea = {
