@@ -43,6 +43,7 @@ Citizen.CreateThread(function()
                     TriggerServerEvent('will_conce_v2:join_dimesion')
                     SetNuiFocus(true,true)
                     ConceVehicles = config.conce[indexConce].vehicles or config.veiculos
+                    TriggerEvent("hudActived",false)
                     SendNUIMessage({
                         action = "show",
                         ip = config.ip,
@@ -295,6 +296,7 @@ function deleteLastCar()
 end
 
 RegisterNUICallback('close',function()
+    TriggerEvent("hudActived",true)
     if not loadedVeh then
         inConce = false
         SetNuiFocus(false,false)
