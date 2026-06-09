@@ -51,20 +51,20 @@ CreateThread(function()
 	while true do
 		local Ped = PlayerPedId()
 		local Coords = GetEntityCoords(Ped)
-		for Number = 1,#List do
-			local Distance = #(Coords - vec3(List[Number]["Coords"][1],List[Number]["Coords"][2],List[Number]["Coords"][3]))
-			if Distance <= List[Number]["Distance"] then
+		for Number,v in pairs(List) do
+			local Distance = #(Coords - vec3(v["Coords"][1],v["Coords"][2],v["Coords"][3]))
+			if Distance <= v["Distance"] then
 				if not localPeds[Number] then
-					if LoadModel(List[Number]["Model"]) then
-						localPeds[Number] = CreatePed(4,List[Number]["Model"],List[Number]["Coords"][1],List[Number]["Coords"][2],List[Number]["Coords"][3] - 1,List[Number]["Coords"][4],false,false)
+					if LoadModel(v["Model"]) then
+						localPeds[Number] = CreatePed(4,v["Model"],v["Coords"][1],v["Coords"][2],v["Coords"][3] - 1,v["Coords"][4],false,false)
 						SetPedArmour(localPeds[Number],100)
 						SetEntityInvincible(localPeds[Number],true)
 						FreezeEntityPosition(localPeds[Number],true)
 						SetBlockingOfNonTemporaryEvents(localPeds[Number],true)
-						SetModelAsNoLongerNeeded(List[Number]["Model"])
-						if List[Number]["anim"] ~= nil then
-							if LoadAnim(List[Number]["anim"][1]) then
-								TaskPlayAnim(localPeds[Number],List[Number]["anim"][1],List[Number]["anim"][2],4.0,4.0,-1,1,0,false,false,false)
+						SetModelAsNoLongerNeeded(v["Model"])
+						if v["anim"] ~= nil then
+							if LoadAnim(v["anim"][1]) then
+								TaskPlayAnim(localPeds[Number],v["anim"][1],v["anim"][2],4.0,4.0,-1,1,0,false,false,false)
 							end
 						end
 					end
