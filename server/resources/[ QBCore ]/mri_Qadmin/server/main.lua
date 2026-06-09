@@ -609,10 +609,10 @@ AdminPanel.GetAllPlayers = function(cb)
             end
             local playerRole = "user"
             if QBCore then
-                if QBCore.Functions.HasPermission(tonumber(v), "god") then
+                if QBCore.Functions.HasPermission(tonumber(v), "Owner") then
                     ServerInformation.StaffCount = ServerInformation.StaffCount + 1
                     playerRole = "god"
-                elseif QBCore.Functions.HasPermission(tonumber(v), "admin") then
+                elseif QBCore.Functions.HasPermission(tonumber(v), "Admin") then
                     ServerInformation.StaffCount = ServerInformation.StaffCount + 1
                     playerRole = "admin"
                 end
