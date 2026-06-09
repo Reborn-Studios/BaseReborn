@@ -1311,3 +1311,15 @@ function PlvRP.callService()
 		return input
 	end
 end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- COBRAR
+-----------------------------------------------------------------------------------------------------------------------------------------
+function PlvRP.chargePlayer()
+	local input = lib.inputDialog('Cobrar jogador', {
+		{ type = 'number', label = 'Valor', description = 'Quanto deseja cobrar?', required = true },
+		{ type = 'input', label = 'Motivo', description = 'Descreva seu motivo da cobrança', required = true },
+	})
+	if input and input[1] and input[2] then
+		return input
+	end
+end

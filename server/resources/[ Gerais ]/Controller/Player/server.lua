@@ -997,6 +997,60 @@ function ServerPlayer.tryTow(vehid01,vehid02,mod)
 	TriggerClientEvent("vrp_towdriver:syncTow",-1,vehid01,vehid02,tostring(mod))
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- COMANDO /COBRAR
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterCommand("cobrar", function(source)
+    local user_id = vRP.getUserId(source)
+    if not user_id then return end
+
+	local nearestPlayer = vRPclient.getNearestPlayer(source, 2)
+    if not nearestPlayer then
+        TriggerClientEvent("Notify", source, "aviso", "Não há ninguém próximo para cobrar.")
+        return
+    end
+
+	local data = ClientPlayer.chargePlayer(source)
+	local amount = parseInt(data[1])
+    if amount <= 0 then
+        TriggerClientEvent("Notify", source, "negado", "Valor inválido! Digite um número positivo.")
+        return
+    end
+
+    local nuser_id = vRP.getUserId(nearestPlayer)
+    if not nuser_id then
+        TriggerClientEvent("Notify", source, "aviso", "Falha ao obter dados do jogador próximo.")
+        return
+    end
+
+    local identity = vRP.getUserIdentity(user_id)
+    local identityTarget = vRP.getUserIdentity(nuser_id)
+
+    if not identity or not identityTarget then
+        TriggerClientEvent("Notify", source, "negado", "Falha ao obter identidades.")
+        return
+    end
+
+    if vRP.request(nearestPlayer, string.format("Deseja pagar <b>$%s</b> dólares para <b>%s %s</b>?", vRP.format(amount), identity.name, identity.firstname), 30) then
+        local bank = vRP.getBankMoney(nuser_id)
+        if bank >= amount then
+            if amount < 0 then
+                TriggerClientEvent("Notify", source, "negado", "Tentando burlar, hein? Vá falar com o <b>Jackson</b>!")
+                return
+            end
+            vRP.setBankMoney(nuser_id, bank - amount)
+            vRP.giveBankMoney(user_id, amount)
+            vRPclient._playAnim(source, true, {"mp_common", "givetake1_a"}, false)
+            vRPclient._playAnim(nearestPlayer, true, {"mp_common", "givetake1_a"}, false)
+            TriggerClientEvent("Notify", source, "sucesso", string.format("Recebeu <b>$%s</b> de <b>%s %s</b>.", vRP.format(amount), identityTarget.name, identityTarget.firstname))
+            TriggerClientEvent("Notify", nearestPlayer, "importante", string.format("Você pagou <b>$%s</b> para <b>%s %s</b>.", vRP.format(amount), identity.name, identity.firstname))
+        else
+            TriggerClientEvent("Notify", source, "negado", "Dinheiro insuficiente.")
+        end
+    else
+        TriggerClientEvent("Notify", source, "aviso", string.format("%s %s recusou o pagamento.", identityTarget.name, identityTarget.firstname))
+    end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- GARMAS
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterCommand("garmas",function(source,args,rawCommand)
