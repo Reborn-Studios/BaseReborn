@@ -649,7 +649,7 @@ CONVERT_GROUPS = {
 }
 
 if GlobalState['Basics']['Theme'] == "default" then
-	CONVERT_GROUPS['policia.permissao'] = {
+	CONVERT_GROUPS['policiamilitar.permissao'] = {
 		["job"] = "police",
 		["label"] = "Police",
 	}
