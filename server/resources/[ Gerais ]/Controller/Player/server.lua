@@ -954,7 +954,8 @@ RegisterCommand("status", function(source,args,rawCommand)
 		local samuAmount = vRP.getUsersByPermission("paramedico.permissao")
 		local copAmount = vRP.getUsersByPermission("policia.permissao")
 		local mecAmount = vRP.getUsersByPermission("mecanico.permissao")
-		TriggerClientEvent("Notify",source,"importante","<b>Policiais:</b> "..#copAmount.."<br><b>Paramedicos:</b> "..#samuAmount.."<br><b>Mecânico:</b> "..#mecAmount.." ",15000)
+		local admAmount = vRP.getUsersByPermission("suporte.permissao")
+		TriggerClientEvent("Notify",source,"importante","<b>Policiais:</b> "..#copAmount.."<br><b>Paramedicos:</b> "..#samuAmount.."<br><b>Mecânico:</b> "..#mecAmount.."<br><b>Prefeitura:</b> "..#admAmount,15000)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
