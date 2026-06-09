@@ -69,5 +69,12 @@ Simeon = {
         Simeon.Shutter.Set(Simeon.Shutter.opened)
 
         RefreshInterior(Simeon.interiorId)
-    end
+    end,
+    Unload = function()
+        Simeon.Ipl.Interior.Remove()
+        Simeon.Style.Clear(true)
+        Simeon.Shutter.Clear(true)
+
+        RefreshInterior(Simeon.interiorId)
+    end,
 }

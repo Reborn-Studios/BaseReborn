@@ -7,9 +7,7 @@ CriminalEnterpriseSmeonFix = {
 
     Ipl = {
         Interior = {
-            ipl = {
-                'reh_simeonfix',
-            }
+            ipl = 'reh_simeonfix',
         },
 
         Load = function()
@@ -52,6 +50,12 @@ CriminalEnterpriseSmeonFix = {
         CriminalEnterpriseSmeonFix.Ipl.Load()
         CriminalEnterpriseSmeonFix.Entities.Load()
 
+        RefreshInterior(CriminalEnterpriseSmeonFix.interiorId)
+    end,
+    RemoveDefault = function()
+        CriminalEnterpriseSmeonFix.Ipl.Remove()
+        CriminalEnterpriseSmeonFix.Entities.Clear()
+        RemoveIpl(CriminalEnterpriseSmeonFix.Ipl.Interior.ipl)
         RefreshInterior(CriminalEnterpriseSmeonFix.interiorId)
     end
 }

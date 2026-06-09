@@ -7,7 +7,7 @@ CreateThread(function()
     Michael.LoadDefault()
 
     -- Simeon: -47.16170 -1115.3327 26.5
-    Simeon.LoadDefault()
+    Simeon.Unload()
 
     -- Franklin's aunt: -9.96562, -1438.54, 31.1015
     FranklinAunt.LoadDefault()
@@ -141,7 +141,7 @@ CreateThread(function()
     -- =------------------- [DLC: Diamond Casino Resort] -----------------=
     -- ====================================================================
     if GetGameBuildNumber() >= 2060 then
-        DiamondCasino.LoadDefault() -- 1100.000, 220.000, -50.000
+        DiamondCasino.RemoveDefault() -- 1100.000, 220.000, -50.000
         DiamondPenthouse.LoadDefault() -- 976.636, 70.295, 115.164
         DiamondArcade.LoadDefault() -- 2732.000, -380.000, -50.000
         DiamondArcadeBasement.LoadDefault() -- 2710.0, -360.780, -56.0
@@ -182,7 +182,7 @@ CreateThread(function()
     -- =------------------- [DLC: The Criminal Enterprise] ---------------------=
     -- ====================================================================
     if GetGameBuildNumber() >= 2699 then
-        CriminalEnterpriseSmeonFix.LoadDefault() -- -50.2248, -1098.8325, 26.049742
+        CriminalEnterpriseSmeonFix.RemoveDefault() -- -50.2248, -1098.8325, 26.049742
         CriminalEnterpriseVehicleWarehouse.LoadDefault() -- 800.13696, -3001.4297, -65.14074
         CriminalEnterpriseWarehouse.LoadDefault() -- 849.1047, -3000.209, -45.974354
     end

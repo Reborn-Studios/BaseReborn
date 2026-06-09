@@ -66,5 +66,12 @@ DiamondCasino = {
         DiamondCasino.Ipl.Main.Load()
         DiamondCasino.Ipl.Carpark.Load()
         DiamondCasino.Ipl.Garage.Load()
+    end,
+
+    RemoveDefault = function()
+        DiamondCasino.Ipl.Building.Remove()
+        DiamondCasino.Ipl.Main.Remove()
+        DiamondCasino.Ipl.Carpark.Remove()
+        DiamondCasino.Ipl.Garage.Remove()
     end
 }
