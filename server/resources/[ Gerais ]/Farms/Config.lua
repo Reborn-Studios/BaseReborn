@@ -43,7 +43,7 @@ Farms.cocaina = {
                 ['z'] = 218.65,
                 ['rotation'] = vec3(180.0, 180.0, 60.5),
                 ['sceneCds'] = vec3(-1104.63, 4952.15, 218.00),
-                ['text'] = "colocar a cocaína na vasilha",
+                ['text'] = "colocar a cocaina na vasilha",
             },
             -- Cocaina ESPALHAR
             {
@@ -53,7 +53,7 @@ Farms.cocaina = {
                 ['z'] = 218.68,
                 ['rotation'] = vec3(180.0, 180.0, 240.0),
                 ['sceneCds'] = vec3(-1107.1, 4949.43, 218.03),
-                ['text'] = "espalhar a cocaína",
+                ['text'] = "espalhar a cocaina",
             },
             -- Cocaina EMBALAR
             {
@@ -63,7 +63,47 @@ Farms.cocaina = {
                 ['z'] = 218.65,
                 ['rotation'] = vec3(180.0, 180.0, 60.5),
                 ['sceneCds'] = vec3(-1106.58, 4947.08, 217.65),
-                ['text'] = "embalar cocaína",
+                ['text'] = "embalar cocaina",
+            },
+        },
+        itens = {
+            [1] = { ['re'] = nil, ['reqtd'] = nil, ['item'] = "cocaempo", ['itemqtd'] = 10 },
+            [2] = { ['re'] = "cocaempo", ['reqtd'] = 10, ['item'] = "pastadecoca", ['itemqtd'] = 10 },
+            [3] = { ['re'] = "pastadecoca", ['reqtd'] = 10, ['item'] = "cocaine", ['itemqtd'] = 20 },
+        }
+    },
+    [2] = {
+        perm = "azuis.permissao",
+        locais = {
+            -- Cocaina PASTA
+            {
+                ['id'] = 1,
+                ['x'] = 1088.72,
+                ['y'] = -3195.79,
+                ['z'] = -38.99,
+                ['rotation'] = vec3(180.0, 180.0, 180.0),
+                ['sceneCds'] = vec3(1088.81,-3195.23,-39.65),
+                ['text'] = "colocar a cocaina na vasilha",
+            },
+            -- Cocaina ESPALHAR
+            {
+                ['id'] = 2,
+                ['x'] = 1090.56,
+                ['y'] = -3196.55,
+                ['z'] = -38.99,
+                ['rotation'] = vec3(180.0, 180.0, 0.0),
+                ['sceneCds'] = vec3(1092.47,-3196.24,-39.64),
+                ['text'] = "espalhar a cocaina",
+            },
+            -- Cocaina EMBALAR
+            {
+                ['id'] = 3,
+                ['x'] = 1101.35,
+                ['y'] = -3198.72,
+                ['z'] = -38.99,
+                ['rotation'] = vec3(180.0, 180.0, 194.74),
+                ['sceneCds'] = vec3(1093.38,-3198.58,-39.99),
+                ['text'] = "embalar cocaina",
             },
         },
         itens = {
@@ -83,7 +123,7 @@ Farms.maconha = {
         perm = "vermelhos.permissao",
         locais = {
             { ['id'] = 1, ['x'] = 99.78, ['y'] = 6344.38, ['z'] = 31.38, ['text'] = "colher a Sativa" },
-            { ['id'] = 2, ['x'] = 101.95, ['y'] = 6353.35, ['z'] = 31.38, ['text'] = "colher a Índica" },
+            { ['id'] = 2, ['x'] = 101.95, ['y'] = 6353.35, ['z'] = 31.38, ['text'] = "colher a Indica" },
             {
                 ['id'] = 3,
                 ['x'] =  116.47,
@@ -99,7 +139,28 @@ Farms.maconha = {
             [2] = { ['re'] = "folhademaconha", ['reqtd'] = 10, ['item'] = "maconhamacerada", ['itemqtd'] = 10 },
             [3] = { ['re'] = "maconhamacerada", ['reqtd'] = 10, ['item'] = "weed", ['itemqtd'] = 20 },
         }
-    }
+    },
+    [2] = {
+        perm = "vermelhos.permissao",
+        locais = {
+            { ['id'] = 1, ['x'] = 1057.04, ['y'] = -3190.44, ['z'] = -39.12, ['text'] = "colher a Sativa" },
+            { ['id'] = 2, ['x'] = 1051.63, ['y'] = -3204.76, ['z'] = -39.11, ['text'] = "colher a Indica" },
+            {
+                ['id'] = 3,
+                ['x'] = 1039.21,
+                ['y'] = -3205.91,
+                ['z'] = -37.69,
+                ['rotation'] = vec3(180.0, 180.0, 90.0),
+                ['sceneCds'] = vec3(1038.31,-3206.01,-39.10),
+                ['text'] = "preparar a bucha",
+            },
+        },
+        itens = {
+            [1] = { ['re'] = nil, ['reqtd'] = nil, ['item'] = "folhademaconha", ['itemqtd'] = 10 },
+            [2] = { ['re'] = "folhademaconha", ['reqtd'] = 10, ['item'] = "maconhamacerada", ['itemqtd'] = 10 },
+            [3] = { ['re'] = "maconhamacerada", ['reqtd'] = 10, ['item'] = "weed", ['itemqtd'] = 20 },
+        }
+    },
 }
 
 --------##########################----------
@@ -143,7 +204,44 @@ Farms.meta = {
             [2] = { ['re'] = "acidobateria", ['reqtd'] = 10, ['item'] = "methliquid", ['itemqtd'] = 10 },
             [3] = { ['re'] = "methliquid", ['reqtd'] = 10, ['item'] = "meth", ['itemqtd'] = 20 },
         }
-    }
+    },
+    [2] = {
+        perm = "verdes.permissao",
+        locais = {
+            {
+                ['id'] = 1,
+                ['x'] = 978.21,
+                ['y'] = -146.79,
+                ['z'] = -48.52,
+                ['rotation'] = vec3(180.0, 180.0, 180.0),
+                ['sceneCds'] = vec3(983.21,-144.79,-48.92),
+                ['text'] = "colocar os ingredientes",
+            },
+            {
+                ['id'] = 2,
+                ['x'] = 988.92,
+                ['y'] = -141.29,
+                ['z'] = -48.99,
+                ['rotation'] = vec3(180.0, 180.0, 180.0),
+                ['sceneCds'] = vec3(985.57,-143.03,-49.99),
+                ['text'] = "quebrar metanfetamina",
+            },
+            {
+                ['id'] = 3,
+                ['x'] = 986.19,
+                ['y'] = -141.26,
+                ['z'] = -48.99,
+                ['rotation'] = vec3(180.0, 180.0, 180.0),
+                ['sceneCds'] = vec3(981.48,-142.96,-49.99),
+                ['text'] = "embalar metanfetamina",
+            },
+        },
+        itens = {
+            [1] = { ['re'] = nil, ['reqtd'] = nil, ['item'] = "acidobateria", ['itemqtd'] = 10 },
+            [2] = { ['re'] = "acidobateria", ['reqtd'] = 10, ['item'] = "methliquid", ['itemqtd'] = 10 },
+            [3] = { ['re'] = "methliquid", ['reqtd'] = 10, ['item'] = "meth", ['itemqtd'] = 20 },
+        }
+    },
 }
 
 --------##########################----------
@@ -172,7 +270,6 @@ Farms.lavagem = {
     },
 }
 
-
 --------##########################----------
 ------      ENTREGA DE DROGAS      ---------
 --------##########################----------
@@ -195,24 +292,25 @@ Farms.itemList = {
 -- TUTORIAL DE COMO FAZER MAIS FARMS DE DROGAS
 -----------------------------------------------
 
--- 1°: Pegar blip inicial com /cds2 (x,y,z,h)
+-- 1°: Pegar blip inicial com /cds2 (x1,y1,z1,h1)
 -- 2°: Colar no sceneCds tambem
--- 3°: Deixar ['rotation'] = vec3(0.0, 0.0, h)
+-- 3°: Deixar ['rotation'] = vec3(0.0, 0.0, h1)
 -- 4°: Fazer a cena
--- 5°: Copiar as coordenadas de onde foi parar
--- 6°: Fazer a substração dos valores
+-- 5°: Copiar as coordenadas de onde foi parar com a cena (x2,y2,z2,h2)
+-- 6°: Fazer a substração dos valores (x3,y3,z3) = (x1-x2,y1-y2,z1-z2)
+-- 7°: ['sceneCds'] = vec3(x1 + x3, y1 + y3, z1 + z3)
 
 -- Exemplo:
-    -- Coordenada do blip: 2302.00, 4785.00, 37.00, 75.0
-    -- Coordenada do sceneCds: 2302.00, 4785.00, 37.00
-    -- ['rotation'] = vec3(0.0, 0.0, 75.0)
+    -- Coordenada do blip: 2302.00, 4785.00, 37.00, 75.0 (x1,y1,z1,h1)
+    -- Coordenada do sceneCds: (x1,y1,z1)
+    -- ['rotation'] = vec3(0.0, 0.0, h1)
 
-    -- Fazer a cena e pegar as coordenadas com /cds2 de novo
+    -- Fazer a cena e pegar as coordenadas com /cds2 de novo (x2,y2,z2,h2)
     -- (2297.93,4778.16,38.0,178.0)
-    -- (Se o heading for muito diferente, que nesse exemplo foi 178.0 e o certo era 75.0, então faça +180.0: 255.0)
-    -- Subtrair: (2302.00 - 2297.93, 4785.00 - 4778.16, 37.00 - 38.0):
-    -- Resultado: 4.07, 6.84, -1.0
-    -- sceneCds: ( 2302.00 + 4.07, 4785.00 + 6.84, 37.00 + (-1.0) )
+    -- (Se o heading for muito diferente, que nesse exemplo foi 178.0 (h2) e o certo era 75.0 (h1), então faça h1+180.0: 255.0)
+    -- Subtrair: (x1,y1,z1) - (x2,y2,z2) = (2302.00 - 2297.93, 4785.00 - 4778.16, 37.00 - 38.0):
+    -- Resultado: 4.07, 6.84, -1.0 (x3,y3,z3)
+    -- sceneCds: (x1,y1,z1) + (x3,y3,z3) = ( 2302.00 + 4.07, 4785.00 + 6.84, 37.00 + (-1.0) )
 
     -- Final: 
     -- ['sceneCds'] = vec3(2306.07, 4791.84, 36.0),
