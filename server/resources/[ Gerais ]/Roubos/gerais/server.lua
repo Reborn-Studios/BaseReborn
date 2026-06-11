@@ -15,8 +15,12 @@ function Robbery.checkPolice(robberyId,coords)
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		if robberyProgress[vars[robberyId].type] ~= nil and robberyProgress[vars[robberyId].type] > os.time() then
-			TriggerClientEvent("Notify",source,"importante","Aguarde <b>"..(robberyProgress[vars[robberyId].type] - os.time()).."</b> segundos.",4000)
+		local cooldownMode = vars[robberyId]["type"]
+		if Config.modeCooldown == "unique" then
+			cooldownMode = robberyId
+		end
+		if robberyProgress[cooldownMode] ~= nil and robberyProgress[cooldownMode] > os.time() then
+			TriggerClientEvent("Notify",source,"importante","Aguarde <b>"..(robberyProgress[cooldownMode] - os.time()).."</b> segundos.",4000)
 			return false
 		end
 
@@ -28,7 +32,7 @@ function Robbery.checkPolice(robberyId,coords)
 
 		if vRP.tryGetInventoryItem(user_id,vars[robberyId].required,1,true) then
 			CashMachine.callPolice(coords.x, coords.y, coords.z,vars[robberyId].name)
-			robberyProgress[vars[robberyId].type] = os.time() + vars[robberyId].cooldown
+			robberyProgress[cooldownMode] = os.time() + vars[robberyId].cooldown
 			vRP.createWeebHook(Webhooks.rouboshook,"```prolog\n[ID]: "..user_id.."\n[ROUBOU]: "..vars[robberyId].name.." "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
 			return true
 		else

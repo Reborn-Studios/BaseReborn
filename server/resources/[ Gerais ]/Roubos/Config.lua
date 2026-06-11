@@ -36,6 +36,9 @@ Config.jewelry = {
 -- ##       Roubo gerais
 --###############----###########
 
+-- Como o cooldown de roubo é aplicado. "type" é por tipo de estabelecimento e "unique" é aplicado cooldown pelo local
+Config.modeCooldown = "type"		-- "type" | "unique"
+
 Config.gerais = {
 	[1] = {
 		["x"] = 28.24,
