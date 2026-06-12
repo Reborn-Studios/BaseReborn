@@ -1,0 +1,10 @@
+#app {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 30%;
+}
+
+#app img {
+  width: 20vw;
+}

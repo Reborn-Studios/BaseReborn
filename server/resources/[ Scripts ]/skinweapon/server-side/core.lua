@@ -230,6 +230,7 @@ function CheckToEquip(Source, Weapon)
     if Passport then
         local SkinsData = vRP.UserData(Passport, "Skins") or {}
         if SkinsData[Weapon] then
+            print(Weapon,SkinsData[Weapon])
             GiveWeaponComponentToPed(GetPlayerPed(Source),Weapon,SkinsData[Weapon])
         end
     end
