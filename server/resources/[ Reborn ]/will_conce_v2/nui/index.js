@@ -37,6 +37,15 @@ window.addEventListener("message", function (event) {
       closePainel();
     }
   };
+
+  $.post("https://vrp/Theme", JSON.stringify({}), function (data) {
+    const root = document.documentElement;
+    root.style.setProperty("--accent", data.main);
+    root.style.setProperty("--accent-glow", data.main + "40");
+    root.style.setProperty("--accent-dim", data.main + "14");
+    root.style.setProperty("--accent-border", data.main + "59");
+    root.style.setProperty("--accent-bg", data.main + "26");
+  });
 });
 
 function closePainel() {
@@ -101,9 +110,9 @@ function showCategory(category) {
           >
             <polygon
               points="20,2 37,11 37,29 20,38 3,29 3,11"
-              stroke="#00d4bc"
+              stroke="var(--accent-border)"
               stroke-width="1.5"
-              fill="rgba(0,212,188,0.8)"
+              fill="var(--accent)"
               style="position: relative; box-shadow: 20px 20px 20px black"
             >
               <img
@@ -237,9 +246,9 @@ function showVehicle(vehicle) {
                     >
                       <polygon
                         points="20,2 37,11 37,29 20,38 3,29 3,11"
-                        stroke="#00d4bc"
+                        stroke="var(--accent-border)"
                         stroke-width="1.5"
-                        fill="rgba(0,212,188,0.8)"
+                        fill="var(--accent)"
                         style="position: relative; box-shadow: 20px 20px 20px black"
                       >
                         <img

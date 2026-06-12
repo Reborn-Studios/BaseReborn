@@ -7,16 +7,17 @@
   --bg-card-hover: #102233;
   --bg-card-selected: #0f2030;
   --accent: #00d4bc;
-  --accent-glow: rgba(0, 212, 188, 0.25);
-  --accent-dim: rgba(0, 212, 188, 0.08);
-  --accent-border: rgba(0, 212, 188, 0.35);
+  --accent-glow: #00d4bc40;
+  --accent-dim: #00d4bc14;
+  --accent-border: #00d4bc59;
+  --accent-bg: #00d4bc26;
+  --scrollbar-color: #00d4bc66;
   --text-primary: #ffffff;
   --text-secondary: #8aaabb;
   --text-muted: #3d5a6e;
   --card-border: rgba(255, 255, 255, 0.06);
   --header-height: 76px;
   --left-panel-width: 19vw;
-  --scrollbar-color: rgba(0, 212, 188, 0.4);
   --font: "Glory", sans-serif;
 }
 
@@ -464,7 +465,7 @@ audio:not([controls]) {
   padding: 10px 15px;
   border-radius: 10px;
   letter-spacing: 0.08em;
-  background: rgba(0, 212, 188, 0.05);
+  background: var(--accent-bg);
   cursor: pointer;
   white-space: nowrap;
 }
@@ -490,5 +491,5 @@ audio:not([controls]) {
 .veh-infos-container {
   float: right;
   width: 50vw;
-  background: linear-gradient(to left, rgba(39, 158, 154, 0.4) 0%, transparent);
+  background: linear-gradient(to left, var(--accent-bg) 0%, transparent);
 }
