@@ -235,11 +235,11 @@ function will.spawnVehicle(vname,x,y,z,h,data,interior,bucket)
     local source = source
     local debugVehicle = 0
     local mHash = GetHashKey(vname)
-    local height = z + 0.5
-    if bucket > 0 then
-        height = z + 100.0
-    end
+    local height = z + 100.0
 	local nveh = CreateVehicle(mHash, x, y, height, h ,true, true)
+    if bucket > 0 and Config.serverSpawn then
+        SetRoutingBucketEntityLockdownMode(bucket,'strict')
+    end
     while not DoesEntityExist(nveh) and debugVehicle <= 80 do
         debugVehicle = debugVehicle + 1
         Wait(100)
@@ -253,20 +253,19 @@ function will.spawnVehicle(vname,x,y,z,h,data,interior,bucket)
             spawnedWrongVehs[nveh] = true
             return
         end
+        SetEntityCoords(nveh, x, y, z, false, false, false, true)
         local vehPlate = data.plate or generatePlateNumber()
         SetVehicleNumberPlateText(nveh,vehPlate)
         while GetEntityRoutingBucket(nveh) ~= parseInt(bucket) do
             SetEntityRoutingBucket(nveh,parseInt(bucket))
-            Wait(100)
+            Wait(0)
         end
         debugVehicle = 0
         while GetVehicleNumberPlateText(nveh) ~= vehPlate and debugVehicle <= 50 do
             SetVehicleNumberPlateText(nveh,vehPlate)
             debugVehicle = debugVehicle + 1
-            Wait(100)
+            Wait(0)
         end
-        Wait(100)
-        SetEntityCoords(nveh, x, y, z, false, false, false, true)
         SetEntityHeading(nveh, h)
         if data.body then
             SetVehicleBodyHealth(nveh,data.body+0.0)

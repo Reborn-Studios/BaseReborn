@@ -709,6 +709,46 @@ function getModelName(vehicle)
 	return vehName
 end
 
+CreateThread(function ()
+	Wait(500)
+	function will.clearInterior()
+		for k,v in pairs(GetGamePool("CVehicle")) do
+			if not IsPedAPlayer(GetPedInVehicleSeat(v, -1)) then
+				while DoesEntityExist(v) do
+					will.deleteVehicle(v,true)
+					Citizen.Wait(10)
+				end
+			end
+		end
+	end
+	function will.deleteVehicle(vehicle,bydv)
+		if vehicle then
+			if IsEntityAVehicle(vehicle) and NetworkGetEntityIsNetworked(vehicle) then
+				local vehplate = GetVehicleNumberPlateText(vehicle)
+				local vehDoors, vehWindows, vehTyres = getVehDamage(vehicle)
+				if vehplate then
+					vSERVER.tryDelete(VehToNet(vehicle),GetVehicleEngineHealth(vehicle),GetVehicleBodyHealth(vehicle),GetVehicleFuelLevel(vehicle),vehplate,vehDoors,vehWindows,vehTyres,bydv)
+				end
+			elseif DoesEntityExist(vehicle) then
+				NetworkRequestControlOfEntity(vehicle)
+				local timeout = 2000
+				while timeout > 0 and not NetworkHasControlOfEntity(vehicle) do
+					Wait(100)
+					timeout = timeout - 100
+				end
+				SetEntityAsMissionEntity(vehicle, true, true)
+				timeout = 2000
+				while timeout > 0 and not IsEntityAMissionEntity(vehicle) do
+					Wait(100)
+					timeout = timeout - 100
+				end
+				Citizen.InvokeNative(0xEA386986E786A54F,Citizen.PointerValueIntInitialized(vehicle))
+				DeleteEntity(vehicle)
+			end
+		end
+	end
+end)
+
 --###############--
 --##  EXPORTS  ##--
 --###############--

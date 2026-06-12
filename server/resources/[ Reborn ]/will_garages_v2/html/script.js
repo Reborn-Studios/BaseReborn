@@ -9,6 +9,15 @@ $(document).ready(function () {
     });
   });
 
+  $.post("https://vrp/Theme", JSON.stringify({}), function (data) {
+    const root = document.documentElement;
+    root.style.setProperty("--accent", data.main);
+    root.style.setProperty("--accent-glow", data.main + "29");
+    root.style.setProperty("--accent-dim", data.main + "0f");
+    root.style.setProperty("--accent-border", data.main + "59");
+    root.style.setProperty("--accent-bg", data.main + "26");
+  });
+
   document.onkeydown = function (data) {
     if (data.which == 27) {
       $(".joinMenu").fadeOut(500);
@@ -89,6 +98,7 @@ window.addEventListener("message", function (event) {
             <div class="spawnselectcar"> Selecionar </div>
             <div class="spawncar">Retirar Veículo</div>
             <div class="deletecar">Guardar Veículo</div>
+            <div class="rastrear">Rastrear</div>
           </div> 
       `,
     );
@@ -263,6 +273,7 @@ function closepage() {
   $(".bodyhealth").css("display", "none");
   $(".spawncar").css("display", "none");
   $(".deletecar").css("display", "none");
+  $(".rastrear").css("display", "none");
 }
 
 function openPage() {
@@ -273,6 +284,7 @@ function openPage() {
   $(".spawnselectcar").css("display", "block");
   $(".spawncar").css("display", "none");
   $(".deletecar").css("display", "none");
+  $(".rastrear").css("display", "none");
 }
 
 let lastplate;
@@ -322,6 +334,8 @@ $(document).on("click", ".spawnselectcar", function () {
     }
     let deletecar = $(this).parent().find(".deletecar");
     deletecar.css("display", "block");
+    let rastrear = $(this).parent().find(".rastrear");
+    rastrear.css("display", "block");
   } else {
     laststored = 1;
     $(".stored").text("Estacionado");
@@ -353,6 +367,21 @@ $(document).on("click", ".deletecar", function () {
   } else {
     $.post(
       "https://will_garages_v2/deletevehicle",
+      JSON.stringify({ plate: lastplate }),
+    );
+    $(".container").css("display", "none");
+    $.post("https://will_garages_v2/closepage", JSON.stringify({}));
+    lastplate = null;
+    document.querySelectorAll(".vehiclemodel").forEach(function (a) {
+      a.remove();
+    });
+  }
+});
+
+$(document).on("click", ".rastrear", function () {
+  if (laststored != "1") {
+    $.post(
+      "https://will_garages_v2/rastrearvehicle",
       JSON.stringify({ plate: lastplate }),
     );
     $(".container").css("display", "none");
