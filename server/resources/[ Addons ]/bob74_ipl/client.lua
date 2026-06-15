@@ -7,7 +7,7 @@ CreateThread(function()
     Michael.LoadDefault()
 
     -- Simeon: -47.16170 -1115.3327 26.5
-    Simeon.Unload()
+    Simeon.LoadDefault()
 
     -- Franklin's aunt: -9.96562, -1438.54, 31.1015
     FranklinAunt.LoadDefault()
@@ -182,7 +182,7 @@ CreateThread(function()
     -- =------------------- [DLC: The Criminal Enterprise] ---------------------=
     -- ====================================================================
     if GetGameBuildNumber() >= 2699 then
-        CriminalEnterpriseSmeonFix.RemoveDefault() -- -50.2248, -1098.8325, 26.049742
+        -- CriminalEnterpriseSmeonFix.LoadDefault() -- -50.2248, -1098.8325, 26.049742
         CriminalEnterpriseVehicleWarehouse.LoadDefault() -- 800.13696, -3001.4297, -65.14074
         CriminalEnterpriseWarehouse.LoadDefault() -- 849.1047, -3000.209, -45.974354
     end
@@ -202,7 +202,7 @@ CreateThread(function()
     if GetGameBuildNumber() >= 2944 then
         MercenariesClub.LoadDefault() -- 1202.407, -3251.251, -50.000
         MercenariesLab.LoadDefault() -- -1916.119, 3749.719, -100.000
-        MercenariesFixes.LoadDefault()
+        MercenariesFixes.UnloadDefault()
     end
 
     -- ====================================================================
