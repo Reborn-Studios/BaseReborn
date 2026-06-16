@@ -654,7 +654,7 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName, rAmount, data)
 				vRPclient.stopActived(source)
 				vRPclient._playAnim(source,false,{"missfbi_s4mop","clean_mop_back_player"},true)
 				local taskResult = vTASKBAR.taskLockpick(source)
-				if taskResult then
+				if taskResult and vRP.tryGetInventoryItem(user_id,itemName,1) then
 					vRP.upgradeStress(user_id,4)
 					local iddoroubado = vRP.getVehiclePlate(vehPlate)
 					if iddoroubado then
