@@ -683,9 +683,9 @@ CreateThread(function()
 				local Coords = GetEntityCoords(Ped)
 
 				for Index,v in pairs(Locations) do
-					if #(Coords - v["Coords"]["xyz"]) <= 2.5 then
+					if #(Coords - v["Coords"]["xyz"]) <= 5.0 then
 						TimeDistance = 1
-						DrawMarker(23, v["Coords"].x, v["Coords"].y, v["Coords"].z -0.97,0,0,0,0.0,0,0,5.0,5.0,2.0,100,185,230,150,false,false,0,true)
+						DrawMarker(23, v["Coords"].x, v["Coords"].y, v["Coords"].z -0.5,0,0,0,0.0,0,0,5.0,5.0,2.0,100,185,230,150,false,false,0,true)
 						if IsControlJustPressed(1,38) and vSERVER.Permission(Index) then
 							SetEntityCoords(Vehicle,v["Coords"]["xyz"])
 							SetEntityHeading(Vehicle,v["Coords"]["w"])
