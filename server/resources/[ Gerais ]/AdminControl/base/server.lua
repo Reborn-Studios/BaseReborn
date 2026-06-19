@@ -49,6 +49,7 @@ AddEventHandler("AdminControl:saveBaseConfig",function (data)
     BaseData.Whitelist = data[6] or BasicsConfig['Whitelist']
     BaseData.Theme = data[7] or BasicsConfig['Theme']
     BaseData.Debug = data[8]
+    BaseData.CityLogo = "https://api.rebornsystem.com.br/imagens/RebornLogo.png"
     saveData(BaseData)
     BasicsConfig = BaseData
     GlobalState:set("Basics",BasicsConfig,true)

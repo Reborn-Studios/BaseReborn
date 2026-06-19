@@ -266,13 +266,13 @@ RegisterCommand("EmergencyFunctions",function()
 				exports["dynamic"]:AddButton("Remover Máscara","Remover da pessoa mais próxima.","skinshop:Remove","Mask","player",true)
 				exports["dynamic"]:AddButton("Remover Óculos","Remover da pessoa mais próxima.","skinshop:Remove","Glasses","player",true)
 				if Presets["Paramedic"] then
+					exports["dynamic"]:AddMenu("Fardamentos","Todos os fardamentos médicos.","preMedic")
 					for Name,data in pairs(Presets["Paramedic"]) do
 						if LocalPlayer["state"][Name] then
 							exports["dynamic"]:AddButton(Name,"Fardamento de "..Name..".","player:Preset",Name,"preMedic",true)
 						end
 					end
 				end
-				exports["dynamic"]:AddMenu("Fardamentos","Todos os fardamentos médicos.","preMedic")
 				exports["dynamic"]:Open()
 			end
 		elseif LocalPlayer["state"]["Mechanic"] then

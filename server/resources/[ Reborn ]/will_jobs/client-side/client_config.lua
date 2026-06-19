@@ -31,6 +31,8 @@ CreateThread(function()
 				return "https://img.gta5-mods.com/q75/images/7-eleven-stores-prodigyhd/87ca65-GTA5%202016-05-21%2002-06-41-556.png"
 			elseif shopName:find("Ammunation") then
 				return "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTeHGoyY0GCxKg0IbanOj941-lwg7L2MJMrQ&s"
+			elseif shopName:find("CatCoffee") then
+				return "https://dunb17ur4ymx4.cloudfront.net/wysiwyg/1031918/227b60e523be2f0ddac946c8b0108b45541a05f4.PNG"
 			end
 		end
 

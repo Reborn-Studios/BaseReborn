@@ -390,7 +390,7 @@ local nozzleBasedOnClass = {
 local function getClosestShop(coords)
 	for shop,v in pairs(allShops) do
 		if v.shopDifference and type(v.shopDifference) == "string" and v.shopDifference == "fuelSystem" then
-			if #(v.buy_products_coords - coords) <= 20 then
+			if #(v.buy_products_coords - coords) <= 60 then
 				return shop
 			end
 		end
