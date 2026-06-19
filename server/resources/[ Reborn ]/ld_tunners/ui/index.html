@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ld_tunners</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="air_suspension.css">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@jaames/iro@5"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.1.1/howler.min.js"></script>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css' crossorigin='anonymous' />
+    <script src="jquery.minicolors.js"></script>
+    <link rel="stylesheet" href="jquery.minicolors.css">
+</head>
+<body>
+    <div class="background-blur-main"></div>
+    <div class="mechanic-controls-wrap hidden" id="mechanicControlsWrap">
+        <div class="mechanic-controls-hint" id="mechanicControlsHint">
+            <div class="control-hint" id="hintCtrl">
+                <kbd>CTRL</kbd>
+                <span>Liberar mouse</span>
+            </div>
+            <div class="control-hint" id="hintFreeCam">
+                <kbd>H</kbd>
+                <span>Câmera livre</span>
+            </div>
+            <div class="control-hint" id="hintHideUi">
+                <kbd>G</kbd>
+                <span>Ocultar interface</span>
+            </div>
+        </div>
+        <div class="mechanic-controls-tips hidden" id="mechanicControlsTips">
+            <button type="button" id="dismissControlsTips" class="controls-tips-dismiss" aria-label="Fechar dica">
+                <i class="fa-solid fa-xmark"></i>
+                <span class="controls-tips-dismiss-tooltip">Ao fechar, esta dica não aparecerá novamente</span>
+            </button>
+            <p>Use as setas <strong>← →</strong> para navegar entre as categorias. <strong>Enter</strong> para selecionar. <strong>Backspace</strong> para voltar.</p>
+        </div>
+        <div class="mechanic-controls-tips hidden" id="mechanicFreeCamTips">
+            <p>Use o <strong>scroll</strong> do mouse para <strong>aproximar</strong> ou <strong>afastar</strong> a câmera.</p>
+        </div>
+    </div>
+    <div class="eye">
+        <span id="eye-label">zart</span>
+        <i class="fa-solid fa-sort-down"></i>
+        <img src="img/settings.gif">
+    </div>
+
+    <div class="main-menu">
+        <div class="left-mechanic-part">
+            <div class="left-mechanic-top-bar">
+            </div>
+            <div class="mechanic-left-text">
+                <span>Yorem ipsum dolor sit amet,</span>  consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.
+            </div>
+            <div class="bottom-border">
+                <div></div> 
+            </div>
+        </div>
+        <div class="mid-mechanic-part">
+            <div class="mid-mechanic-top">
+                <button type="button" class="mid-mechanic-nav-left mechanic-back-button" id="mechanicBackButton" aria-label="Voltar">
+                    <img src="img/left-arrow.svg" alt="">
+                    <div class="category-name">
+                        Menu principal
+                    </div>
+                </button>
+                <div class="mid-mechanic-top-center">
+                    <div class="mid-mechanic-top-line-row">
+                        <div id="top-line"></div>
+                        <img class="mid-mechanic-line-mark" src="img/poly.png" alt="">
+                    </div>
+                    <div class="paint-swatches-row">
+                        <div class="left-line" style="display: none;">
+                            <div></div>
+                        </div>
+                        <div class="default-colors" data-id="closeable" style="display: none;">
+                            <div class="color-wheel" data-wheel="secondary"></div>
+                        </div>
+                        <div class="right-line" style="display: none;">
+                            <div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="color-menu">
+                <div class="color-menu-header">
+                    <span class="color-menu-title">Pintura do veículo</span>
+                    <span class="color-menu-subtitle">A cor escolhida entra no carrinho automaticamente</span>
+                </div>
+                <div class="color-menu-row">
+                    <span class="color-menu-label">Tipo de pintura</span>
+                    <div class="wheel">
+                        <i class="fa-solid fa-chevron-left color-arrow" id="arrow" data-side="left" data-type="main"></i>
+                        <div class="wheel-text">
+                            <span id="main">Primária</span>
+                        </div>
+                        <i class="fa-solid fa-chevron-right color-arrow" id="arrow" data-side="right" data-type="main"></i>
+                    </div>
+                </div>
+                <div id="picker" data-id="closeable"></div>
+                <div class="color-hex-row" data-id="closeable">
+                    <input type="text" class="color-hex-input" id="colorHexInput" placeholder="#FFFFFF" maxlength="7" spellcheck="false" autocomplete="off">
+                    <button type="button" class="color-hex-apply" id="colorHexApply">APLICAR HEX</button>
+                </div>
+                <div class="color-menu-row" data-id="closeable" id="blabla">
+                    <span class="color-menu-label">Acabamento</span>
+                    <div class="wheel">
+                        <i class="fa-solid fa-chevron-left color-arrow" id="arrow" data-side="left" data-type="secondary"></i>
+                        <div class="wheel-text">
+                            <span id="secondary">Clássica</span>
+                        </div>
+                        <i class="fa-solid fa-chevron-right color-arrow" id="arrow" data-side="right" data-type="secondary"></i>
+                    </div>
+                </div>
+                <div class="wheel" data-id="openable" style="display: none;">
+                    <div class="divider"></div>
+                    <div class="color-menu-row">
+                        <span class="color-menu-label">Camaleão</span>
+                        <div class="wheel">
+                            <i class="fa-solid fa-chevron-left color-arrow" id="arrow" data-side="left" data-type="chameleon"></i>
+                            <div class="wheel-text">
+                                <span id="chameleon">Metallic</span>
+                            </div>
+                            <i class="fa-solid fa-chevron-right color-arrow" id="arrow" data-side="right" data-type="chameleon"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="menu-items">
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <h1>PART <span>#1</span></h1>
+                        <p>LB Sleek</p>
+                    </div>
+                    <div class="menu-item-image-content">
+                        <img src="img/enginetwo.png" alt="">
+                    </div>
+                    <div class="alt-content">
+                        <div class="alt-content-row">
+                            <div class="stock-situation">
+                            </div>
+                            <div class="menu-item-price">
+                                <span>$</span>500
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <h1>PART <span>#1</span></h1>
+                        <p>LB Sleek</p>
+                    </div>
+                    <div class="menu-item-image-content">
+                        <img src="img/enginetwo.png" alt="">
+                    </div>
+                    <div class="alt-content">
+                        <div class="alt-content-row">
+                            <div class="stock-situation">
+                            </div>
+                            <div class="menu-item-price">
+                                <span>$</span>500
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <h1>PART <span>#1</span></h1>
+                        <p>LB Sleek</p>
+                    </div>
+                    <div class="menu-item-image-content">
+                        <img src="img/enginetwo.png" alt="">
+                    </div>
+                    <div class="alt-content">
+                        <div class="alt-content-row">
+                            <div class="stock-situation">
+                            </div>
+                            <div class="menu-item-price">
+                                <span>$</span>500
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-item" data-active="true">
+                    <div class="menu-item-info">
+                        <h1>PART <span>#1</span></h1>
+                        <p>LB Sleek</p>
+                    </div>
+                    <div class="menu-item-image-content">
+                        <img src="img/enginetwo.png" alt="">
+                    </div>
+                    <div class="alt-content">
+                        <div class="alt-content-row">
+                            <div class="stock-situation">
+                                <span>Em</span> ESTOQUE
+                            </div>
+                            <div class="menu-item-price">
+                                <span>$</span>500
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <h1>PART <span>#1</span></h1>
+                        <p>LB Sleek</p>
+                    </div>
+                    <div class="menu-item-image-content">
+                        <img src="img/enginetwo.png" alt="">
+                    </div>
+                    <div class="alt-content">
+                        <div class="alt-content-row">
+                            <div class="stock-situation">
+                            </div>
+                            <div class="menu-item-price">
+                                <span>$</span>500
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="right-mechanic-basket-content">
+            <div class="basket-items-scroll hidden">
+                <div class="basket-main-content"></div>
+            </div>
+            <div class="basket-empty-state" id="basketEmptyState">
+                <div class="empty-basket-text">
+                    <i class="fa-solid fa-cart-shopping empty-basket-icon"></i>
+                    <h1>O carrinho está</h1>
+                    <p>vazio.</p>
+                </div>
+            </div>
+            <div class="basket-bottom-border">
+                <div></div>
+                <div></div>
+            </div>
+            <div class="payment-information">
+                <div class="payment-text">
+                    <h1>Pagamento</h1>
+                    <p>Preço total</p>
+                </div>
+                <div class="total-price-info">
+                    <span>$</span><div class="price-is">0</div>
+                </div>
+            </div>
+            <div class="payment-type-selection">
+                <div class="payment-button" id="card"><span class="payment-button-label">PAGAR COM</span><span class="payment-button-accent">CARTÃO</span></div>
+                <div class="payment-button" id="cash"><span class="payment-button-label">PAGAR COM</span><span class="payment-button-accent">CARTEIRA</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="fitment-menu" style="display: none;">
+        <div class="fitment-menu-header">
+            <span class="fitment-menu-title">Montagem da Roda</span>
+            <span class="fitment-menu-subtitle">Ajuste largura, offset e cambagem das rodas</span>
+        </div>
+        <div class="fitment-menu-body">
+            <div class="fitment-menu-row" data-fitment="wheels-width">
+                <span class="fitment-menu-label">Largura do pneu</span>
+                <div class="wheel fitment-wheel">
+                    <i class="fa-solid fa-chevron-left color-arrow" id="arrow" data-side="left" data-type="fitment"></i>
+                    <div class="wheel-text">
+                        <span class="fitment-value">1.00</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-right color-arrow" id="arrow" data-side="right" data-type="fitment"></i>
+                </div>
+            </div>
+            <div class="fitment-menu-row" data-fitment="front-left">
+                <span class="fitment-menu-label">Offset dianteiro esquerdo</span>
+                <div class="wheel fitment-wheel">
+                    <i class="fa-solid fa-chevron-left color-arrow" id="arrow" data-side="left" data-type="fitment"></i>
+                    <div class="wheel-text">
+                        <span class="fitment-value">0.00</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-right color-arrow" id="arrow" data-side="right" data-type="fitment"></i>
+                </div>
+            </div>
+            <div class="fitment-menu-row" data-fitment="front-right">
+                <span class="fitment-menu-label">Offset dianteiro direito</span>
+                <div class="wheel fitment-wheel">
+                    <i class="fa-solid fa-chevron-left color-arrow" id="arrow" data-side="left" data-type="fitment"></i>
+                    <div class="wheel-text">
+                        <span class="fitment-value">0.00</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-right color-arrow" id="arrow" data-side="right" data-type="fitment"></i>
+                </div>
+            </div>
+            <div class="fitment-menu-row" data-fitment="rear-left">
+                <span class="fitment-menu-label">Offset traseiro esquerdo</span>
+                <div class="wheel fitment-wheel">
+                    <i class="fa-solid fa-chevron-left color-arrow" id="arrow" data-side="left" data-type="fitment"></i>
+                    <div class="wheel-text">
+                        <span class="fitment-value">0.00</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-right color-arrow" id="arrow" data-side="right" data-type="fitment"></i>
+                </div>
+            </div>
+            <div class="fitment-menu-row" data-fitment="rear-right">
+                <span class="fitment-menu-label">Offset traseiro direito</span>
+                <div class="wheel fitment-wheel">
+                    <i class="fa-solid fa-chevron-left color-arrow" id="arrow" data-side="left" data-type="fitment"></i>
+                    <div class="wheel-text">
+                        <span class="fitment-value">0.00</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-right color-arrow" id="arrow" data-side="right" data-type="fitment"></i>
+                </div>
+            </div>
+            <div class="fitment-menu-row" data-fitment="front-left-camber">
+                <span class="fitment-menu-label">Cambagem dianteira esquerda</span>
+                <div class="wheel fitment-wheel">
+                    <i class="fa-solid fa-chevron-left color-arrow" id="arrow" data-side="left" data-type="fitment"></i>
+                    <div class="wheel-text">
+                        <span class="fitment-value">0.00</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-right color-arrow" id="arrow" data-side="right" data-type="fitment"></i>
+                </div>
+            </div>
+            <div class="fitment-menu-row" data-fitment="front-right-camber">
+                <span class="fitment-menu-label">Cambagem dianteira direita</span>
+                <div class="wheel fitment-wheel">
+                    <i class="fa-solid fa-chevron-left color-arrow" id="arrow" data-side="left" data-type="fitment"></i>
+                    <div class="wheel-text">
+                        <span class="fitment-value">0.00</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-right color-arrow" id="arrow" data-side="right" data-type="fitment"></i>
+                </div>
+            </div>
+            <div class="fitment-menu-row" data-fitment="rear-left-camber">
+                <span class="fitment-menu-label">Cambagem traseira esquerda</span>
+                <div class="wheel fitment-wheel">
+                    <i class="fa-solid fa-chevron-left color-arrow" id="arrow" data-side="left" data-type="fitment"></i>
+                    <div class="wheel-text">
+                        <span class="fitment-value">0.00</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-right color-arrow" id="arrow" data-side="right" data-type="fitment"></i>
+                </div>
+            </div>
+            <div class="fitment-menu-row" data-fitment="rear-right-camber">
+                <span class="fitment-menu-label">Cambagem traseira direita</span>
+                <div class="wheel fitment-wheel">
+                    <i class="fa-solid fa-chevron-left color-arrow" id="arrow" data-side="left" data-type="fitment"></i>
+                    <div class="wheel-text">
+                        <span class="fitment-value">0.00</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-right color-arrow" id="arrow" data-side="right" data-type="fitment"></i>
+                </div>
+            </div>
+        </div>
+        <button type="button" class="fitment-apply-btn" id="buyFitment">Aplicar configurações</button>
+    </div>
+
+    <div id="closeConfirmModal" class="close-confirm-overlay hidden">
+        <div class="close-confirm-dialog">
+            <div class="close-confirm-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+                    <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/>
+                    <path d="M3 6h18"/>
+                    <path d="M16 10a4 4 0 0 1-8 0"/>
+                </svg>
+            </div>
+            <h1 class="close-confirm-title">Fechar a mecânica?</h1>
+            <p class="close-confirm-text">
+                Você ainda possui
+                <span id="closeConfirmCount" class="close-confirm-count">0</span>
+                item(ns) no carrinho. Se fechar agora, todas as alterações não pagas serão descartadas.
+            </p>
+            <div class="close-confirm-summary">
+                <span>Total no carrinho</span>
+                <strong id="closeConfirmTotal">$0</strong>
+            </div>
+            <div class="close-confirm-actions">
+                <button id="closeConfirmCancel" class="close-confirm-btn cancel" type="button">Continuar tunando</button>
+                <button id="closeConfirmOk" class="close-confirm-btn confirm" type="button">Fechar mesmo assim</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="airSuspensionControl" class="air-suspension-control hidden">
+        <div class="air-remote">
+            <div class="air-remote-screen">
+                <div class="air-wheel-readouts">
+                    <div class="air-wheel-readout" id="airPsiFl">-1 PSI</div>
+                    <div class="air-wheel-readout" id="airPsiFr">-1 PSI</div>
+                    <div class="air-wheel-readout" id="airPsiRl">-1 PSI</div>
+                    <div class="air-wheel-readout" id="airPsiRr">-1 PSI</div>
+                    <div class="air-tank-readout">
+                        <div class="air-tank-value" id="airTankPsi">150</div>
+                        <div class="air-tank-label">RESERVATÓRIO</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="air-rocker-row">
+                <div class="air-rocker">
+                    <button type="button" class="air-rocker-btn" data-action="up" aria-label="Subir frente">
+                        <i class="fa-solid fa-chevron-up"></i>
+                    </button>
+                    <button type="button" class="air-rocker-btn" data-action="down" aria-label="Baixar frente">
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                </div>
+                <div class="air-rocker">
+                    <button type="button" class="air-rocker-btn" data-action="up" aria-label="Subir traseira">
+                        <i class="fa-solid fa-chevron-up"></i>
+                    </button>
+                    <button type="button" class="air-rocker-btn" data-action="down" aria-label="Baixar traseira">
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="air-limit-row">
+                <button type="button" class="air-limit-btn" data-action="max">ALT. MÁXIMA</button>
+                <button type="button" class="air-limit-btn" data-action="low">ALT. MÍNIMA</button>
+            </div>
+
+            <div class="air-preset-section">
+                <div class="air-preset-divider">
+                    <span class="air-preset-divider-line"></span>
+                    <span class="air-preset-divider-label">PRESETS</span>
+                    <span class="air-preset-divider-line"></span>
+                </div>
+                <div class="air-preset-row">
+                    <div class="air-preset-slot" data-slot="1">
+                        <button type="button" class="air-preset-number" data-slot="1">1</button>
+                        <div class="air-preset-footer">
+                            <button type="button" class="air-preset-save" data-slot="1" aria-label="Salvar preset 1">
+                                <i class="fa-solid fa-floppy-disk"></i>
+                            </button>
+                            <div class="air-preset-action hidden">
+                                <button type="button" class="air-preset-action-btn" data-slot="1" aria-label="Ações do preset 1">
+                                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                                </button>
+                                <div class="air-preset-dropdown hidden">
+                                    <button type="button" class="air-preset-dropdown-item" data-action="apply" data-slot="1">Aplicar</button>
+                                    <button type="button" class="air-preset-dropdown-item" data-action="overwrite" data-slot="1">Substituir</button>
+                                    <button type="button" class="air-preset-dropdown-item air-preset-dropdown-item-danger" data-action="delete" data-slot="1">Deletar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="air-preset-slot" data-slot="2">
+                        <button type="button" class="air-preset-number" data-slot="2">2</button>
+                        <div class="air-preset-footer">
+                            <button type="button" class="air-preset-save" data-slot="2" aria-label="Salvar preset 2">
+                                <i class="fa-solid fa-floppy-disk"></i>
+                            </button>
+                            <div class="air-preset-action hidden">
+                                <button type="button" class="air-preset-action-btn" data-slot="2" aria-label="Ações do preset 2">
+                                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                                </button>
+                                <div class="air-preset-dropdown hidden">
+                                    <button type="button" class="air-preset-dropdown-item" data-action="apply" data-slot="2">Aplicar</button>
+                                    <button type="button" class="air-preset-dropdown-item" data-action="overwrite" data-slot="2">Substituir</button>
+                                    <button type="button" class="air-preset-dropdown-item air-preset-dropdown-item-danger" data-action="delete" data-slot="2">Deletar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="air-preset-slot" data-slot="3">
+                        <button type="button" class="air-preset-number" data-slot="3">3</button>
+                        <div class="air-preset-footer">
+                            <button type="button" class="air-preset-save" data-slot="3" aria-label="Salvar preset 3">
+                                <i class="fa-solid fa-floppy-disk"></i>
+                            </button>
+                            <div class="air-preset-action hidden">
+                                <button type="button" class="air-preset-action-btn" data-slot="3" aria-label="Ações do preset 3">
+                                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                                </button>
+                                <div class="air-preset-dropdown hidden">
+                                    <button type="button" class="air-preset-dropdown-item" data-action="apply" data-slot="3">Aplicar</button>
+                                    <button type="button" class="air-preset-dropdown-item" data-action="overwrite" data-slot="3">Substituir</button>
+                                    <button type="button" class="air-preset-dropdown-item air-preset-dropdown-item-danger" data-action="delete" data-slot="3">Deletar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="air_suspension.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
