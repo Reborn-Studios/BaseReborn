@@ -284,7 +284,8 @@ INSERT INTO `barbershops` (`id`, `name`, `coords`, `blip`) VALUES
 	(4, 'Barbearia 4', '{"x":1931.1112060546876,"y":3730.650146484375,"z":32.34444236755371}', '1'),
 	(5, 'Barbearia 5', '{"x":1212.8834228515626,"y":-472.9643249511719,"z":65.70804595947266}', '1'),
 	(6, 'Barbearia 6', '{"x":-32.95664596557617,"y":-152.7146453857422,"z":56.57651901245117}', '1'),
-	(7, 'Barbearia 7', '{"x":-277.6341552734375,"y":6227.82177734375,"z":31.19552421569824}', '1');
+	(7, 'Barbearia 7', '{"x":-277.6341552734375,"y":6227.82177734375,"z":31.19552421569824}', '1'),
+  (8, 'Pier', '{"x":-1705.4554443359376,"z":13.51045608520507,"y":-1120.9957275390626}', '0');
 
 CREATE TABLE IF NOT EXISTS `bank_transactions` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
@@ -583,3 +584,61 @@ CREATE TABLE IF NOT EXISTS `mdt_permissions` (
 ALTER TABLE `mdt_permissions` ADD `Premium` BIGINT(19) NOT NULL DEFAULT '0' AFTER `Bank`;
 ALTER TABLE `mdt_permissions` ADD `Tags` INT(10) NOT NULL DEFAULT '3' AFTER `Members`;
 ALTER TABLE `mdt_permissions` ADD `Announces` INT(10) NOT NULL DEFAULT '3' AFTER `Members`;
+
+CREATE TABLE IF NOT EXISTS `will_crafting` (
+  `craft_id` int(11) NOT NULL AUTO_INCREMENT,
+  `craft_name` varchar(50) DEFAULT NULL,
+  `crafting` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`crafting`)),
+  `blipdata` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`blipdata`)),
+  `jobs` longtext DEFAULT NULL,
+  PRIMARY KEY (`craft_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=899841 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO `will_crafting` (`craft_id`, `craft_name`, `crafting`, `blipdata`, `jobs`) VALUES
+	(143506, 'Mecânica', '{"heading":90.0,"model":"gr_prop_gr_bench_02a","jobenable":true,"propcoords":{"x":831.577880859375,"y":-933.1690673828125,"z":19.29009437561035},"blipenable":false}', 'null', '["Mecanico","MecanicoLider","mechanic","MecanicoGerente"]'),
+	(147368, 'Bahamas', '{"heading":-192.0,"model":"gr_prop_gr_bench_02a","jobenable":true,"propcoords":{"x":2788.161376953125,"y":1952.59228515625,"z":98.58918762207031},"blipenable":false}', 'null', '["BahamasLider","Bahamas"]'),
+	(575393, 'Mafia', '{"heading":-45.0,"model":"gr_prop_gr_bench_02a","jobenable":true,"propcoords":{"x":1599.2816162109376,"y":-1332.9921875,"z":90.55703735351563},"blipenable":false}', 'null', '["Mafia","MafiaLider"]'),
+	(899840, 'Milicia', '{"heading":186.0,"offset":1,"blipenable":false,"jobenable":true,"propcoords":{"x":361.1529235839844,"y":1066.5849609375,"z":237.3751220703125},"model":"gr_prop_gr_bench_02a"}', 'null', '["Milicia","MiliciaLider"]');
+
+CREATE TABLE IF NOT EXISTS `will_crafting-items` (
+  `craft_id` int(11) DEFAULT NULL,
+  `item` varchar(50) DEFAULT NULL,
+  `item_label` varchar(50) DEFAULT NULL,
+  `recipe` longtext DEFAULT NULL,
+  `time` int(11) DEFAULT NULL,
+  `amount` int(11) DEFAULT NULL,
+  `model` longtext DEFAULT NULL,
+  `anim` longtext DEFAULT NULL,
+  `level` int(11) DEFAULT NULL,
+  `category` varchar(50) DEFAULT 'Geral'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO `will_crafting-items` (`craft_id`, `item`, `item_label`, `recipe`, `time`, `amount`, `model`, `anim`, `level`, `category`) VALUES
+	(899840, 'ammo-9', 'Munição 9mm', '[{"item":"capsule","label":"Capsula","amount":3},{"item":"gunpowder","label":"Polvora","amount":3}]', 15, 1, 'prop_ld_ammo_pack_01', NULL, NULL, 'Pistola'),
+	(899840, 'ammo-45', 'Munição .45 ACP', '[{"item":"capsule","label":"Capsula","amount":5},{"item":"gunpowder","label":"Polvora","amount":5}]', 15, 1, 'prop_box_ammo01a', NULL, NULL, 'Sub'),
+	(899840, 'ammo-rifle2', 'Munição 7.62x39', '[{"item":"capsule","label":"Capsula","amount":7},{"item":"gunpowder","label":"Polvora","amount":7}]', 20, 1, 'prop_box_ammo07b', NULL, NULL, 'Rifle'),
+	(899840, 'ammo-rifle', 'Munição 5.56x45', '[{"item":"capsule","label":"Capsula","amount":7},{"item":"gunpowder","label":"Polvora","amount":7}]', 20, 1, 'prop_ld_ammo_pack_03', NULL, NULL, 'Rifle'),
+	(899840, 'ammo-shotgun', 'Munição 12', '[{"item":"capsule","label":"Capsula","amount":5},{"item":"gunpowder","label":"Polvora","amount":5}]', 20, 1, 'prop_ld_ammo_pack_02', NULL, NULL, 'Shotgun'),
+	(575393, 'WEAPON_PISTOL_MK2', 'Five Seven', '[{"item":"pecadearma","label":"Peça de arma","amount":15},{"item":"armacaodearma","label":"Armação de arma","amount":15}]', 10, 1, 'w_pi_pistol', NULL, NULL, 'Pistolas'),
+	(575393, 'WEAPON_PISTOL50', 'Desert Eagle', '[{"item":"pecadearma","label":"Peça de arma","amount":15},{"item":"armacaodearma","label":"Armação de arma","amount":15}]', 20, 1, 'w_pi_pistol50', NULL, NULL, 'Pistolas'),
+	(575393, 'WEAPON_SMG_MK2', 'MP5', '[{"item":"pecadearma","label":"Peça de arma","amount":20},{"item":"armacaodearma","label":"Armação de arma","amount":20}]', 20, 1, 'w_sb_smg', NULL, NULL, 'Subs'),
+	(575393, 'WEAPON_MICROSMG', 'Micro SMG', '[{"item":"pecadearma","label":"Peça de arma","amount":20},{"item":"armacaodearma","label":"Armação de arma","amount":20}]', 20, 1, 'w_sb_microsmg', NULL, NULL, 'Subs'),
+	(575393, 'WEAPON_ASSAULTRIFLE', 'Rifle de Assalto', '[{"item":"pecadearma","label":"Peça de arma","amount":25},{"item":"armacaodearma","label":"Armação de arma","amount":25}]', 25, 1, 'w_ar_assaultrifle', NULL, NULL, 'Rifles'),
+	(575393, 'WEAPON_CARBINERIFLE_MK2', 'M4A1', '[{"item":"pecadearma","label":"Peça de arma","amount":25},{"item":"armacaodearma","label":"Armação de arma","amount":25}]', 25, 1, 'w_ar_carbinerifle', NULL, NULL, 'Rifles'),
+	(575393, 'WEAPON_BULLPUPRIFLE_MK2', 'Rifle Bullpup', '[{"item":"pecadearma","label":"Peça de arma","amount":25},{"item":"armacaodearma","label":"Armação de arma","amount":25}]', 25, 1, 'w_ar_bullpuprifle', NULL, NULL, 'Rifles'),
+	(147368, 'lockpick', 'Lockpick', '[{"item":"aluminum","label":"Aluminio","amount":8},{"item":"copper","label":"Cobre","amount":6}]', 7, 1, 'm25_1_prop_m51_lockpick_01a', NULL, NULL, 'Roubos'),
+	(147368, 'blackcard', 'Cartão preto', '[{"item":"plastic","label":"Plastico","amount":5},{"item":"eletronics","label":"Eletronicos","amount":5}]', 9, 1, 'prop_cs_r_business_card', NULL, NULL, 'Roubos'),
+	(147368, 'bluecard', 'Cartão Azul', '[{"item":"plastic","label":"Plastico","amount":4},{"item":"eletronics","label":"Eletronicos","amount":4}]', 8, 1, 'hei_prop_heist_card_hack_02', NULL, NULL, 'Roubos'),
+	(147368, 'c4', 'C4', '[{"item":"aluminum","label":"Aluminio","amount":8},{"item":"copper","label":"Cobre","amount":6},{"item":"gunpowder","label":"Polvora","amount":7},{"item":"eletronics","label":"Eletronicos","amount":2},{"item":"glass","label":"Vidro","amount":2}]', 12, 1, 'prop_c4_final', NULL, NULL, 'Roubos'),
+	(147368, 'vest', 'Colete balistico', '[{"item":"aluminum","label":"Aluminio","amount":5},{"item":"copper","label":"Cobre","amount":5},{"item":"tecido","label":"Tecido","amount":20}]', 8, 1, NULL, NULL, NULL, 'Utensilio'),
+	(147368, 'handcuff', 'Algemas', '[{"item":"aluminum","label":"Aluminio","amount":12}]', 5, 1, 'prop_cs_cuffs_01', NULL, NULL, 'Utensilio'),
+	(147368, 'rope', 'Cordas', '[{"item":"tecido","label":"Tecido","amount":20}]', 6, 1, 'p_trev_rope_01_s', NULL, NULL, 'Utensilio'),
+	(147368, 'hood', 'Capuz', '[{"item":"tecido","label":"Tecido","amount":15}]', 7, 1, 'p_steve_scuba_hood_s', NULL, NULL, 'Utensilio'),
+	(147368, 'bag', 'Mochila de roubo', '[{"item":"tecido","label":"Tecido","amount":25}]', 8, 1, 'p_ld_heist_bag_s', NULL, NULL, 'Utensilio'),
+	(147368, 'drill', 'Furadeira', '[{"item":"aluminum","label":"Aluminio","amount":25},{"item":"copper","label":"Cobre","amount":10},{"item":"eletronics","label":"Eletronicos","amount":5}]', 12, 1, 'prop_tool_drill', NULL, NULL, 'Utensilio'),
+	(147368, 'thermite_h', 'Termita', '[{"item":"aluminum","label":"Aluminio","amount":20},{"item":"gunpowder","label":"Polvora","amount":20},{"item":"eletronics","label":"Eletronicos","amount":3}]', 10, 1, 'hei_prop_heist_thermite_flash', NULL, NULL, 'Roubos'),
+	(147368, 'yacht_drill', 'Furadeira para yacht', '[{"item":"aluminum","label":"Aluminio","amount":25},{"item":"copper","label":"Cobre","amount":10},{"item":"eletronics","label":"Eletronicos","amount":5}]', 12, 1, 'hei_prop_heist_drill', NULL, NULL, 'Utensilio'),
+	(147368, 'hack_usb', 'USB Hack', '[{"item":"aluminum","label":"Aluminio","amount":8},{"item":"copper","label":"Cobre","amount":3},{"item":"eletronics","label":"Eletronicos","amount":10}]', 8, 1, 'hei_prop_hst_usb_drive', NULL, NULL, 'Roubos'),
+	(147368, 'cutter', 'Alicate', '[{"item":"aluminum","label":"Aluminio","amount":10},{"item":"plastic","label":"Plastico","amount":5}]', 8, 1, 'prop_tool_pliers', NULL, NULL, 'Utensilio'),
+	(143506, 'toolbox', 'Caixa de Ferramentas', '[{"item":"aluminum","label":"Aluminio","amount":10},{"item":"copper","label":"Cobre","amount":10}]', 10, 1, 'prop_tool_box_04', NULL, NULL, 'Geral'),
+	(575393, 'WEAPON_BULLPUPRIFLE_MK2', 'Bullpup Rifle', '[{"label":"Armação","item":"armacaodearma","amount":20},{"label":"Peça de arma","item":"pecadearma","amount":10},{"label":"Aluminio","item":"aluminum","amount":25}]', 15, 1, NULL, NULL, NULL, 'Rifles');

@@ -152,6 +152,14 @@ function Client.openMainMenu()
                 end
             },
             {
+                title = 'Criar crafts',
+                description = 'Criação de craft',
+                icon="fa-solid fa-screwdriver-wrench",
+                onSelect = function ()
+                    ExecuteCommand("editcraft")
+                end
+            },
+            {
                 title = 'Criar Lojas',
                 description = 'Criação de lojas',
                 icon="fa-solid fa-shop",
