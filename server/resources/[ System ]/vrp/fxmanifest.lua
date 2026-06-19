@@ -1,14 +1,15 @@
 fx_version "bodacious"
 game "gta5"
 lua54 'yes'
-version '7.4.2'
+version '7.8.3'
 ui_page "web-side/index.html"
 
 dependencies {
     '/server:6116',
     '/onesync',
     'oxmysql',
-	'ox_lib'
+	'ox_lib',
+	'reborn_uipack'
 }
 
 shared_scripts {
