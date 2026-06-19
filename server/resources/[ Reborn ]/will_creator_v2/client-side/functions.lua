@@ -267,6 +267,7 @@ CreateThread(function()
                 timeDistance = 3
                 DrawBase3D(store.coords.x,store.coords.y,store.coords.z,"barbershop")
                 if IsControlJustPressed(0, 38) then
+                    TriggerEvent("hudActived",false)
                     OpenBarbershop()
                 end
             end

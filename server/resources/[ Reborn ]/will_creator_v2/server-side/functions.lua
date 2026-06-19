@@ -4,6 +4,7 @@
 
 local bvidaCooldown = {}
 vRPC = Tunnel.getInterface("vRP")
+local Webhooks = module("config/webhooks") or {}
 
 -- ID do personagem
 ---@param source number
@@ -186,6 +187,7 @@ function CreateCharacter(src, data, clothes)
     local consult = QueryConsult("will_creator_v2/lastCharacters",{ identifier = identifier })
     local id = parseInt(consult[1]["id"])
     QueryExecute("will_creator_v2/insert_playerskin",{ user_id = id, skin = json.encode(data), active = 1 })
+	vRP.createWeebHook(Webhooks.createAccount,"```ID: "..id.."\nNOME:"..data.firstname.." "..data.lastname.." \nIP: "..GetPlayerEndpoint(src))
     vRP.setUData(id, "Clothings", json.encode(clothes))
     PlayCharacter(src,id,data.gender)
     return id

@@ -237,6 +237,7 @@ function EnableMulticharCam()
 end
 
 function DisableCam(cam)
+    TriggerEvent("hudActived",true)
     RenderScriptCams(false, true, 250, true, false)
     DestroyCam(cam, false)
     FreezeEntityPosition(PlayerPedId(), false)

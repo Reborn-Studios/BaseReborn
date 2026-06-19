@@ -14,6 +14,11 @@ Config.Base = "creative"
 
 Config.Debug = GlobalState['Basics']['Debug']
 
+Config.Theme = {
+    primary = GlobalState['Basics']['CityColorHex'],
+    secondary = GlobalState['Basics']['CityColorHex']
+}
+
 -- ####################
 --      MULTI CHAR
 -- ####################
@@ -22,7 +27,7 @@ Config.Debug = GlobalState['Basics']['Debug']
 Config.EnableMultichar = RebornConfig.multi_personagem()["Enabled"]
 
 -- Coordenadas na escolha do personagem
-Config.MulticharDefaultCoords = vector4(-609.92,-134.14,39.01,155.01)
+Config.MulticharDefaultCoords = vector4(-190.42,-584.84,136.01,11.46)
 
 -- Coordenadas por permissão
 Config.Multichar = {
@@ -31,6 +36,11 @@ Config.Multichar = {
         ['coords'] = vector4(142.08,-352.9,43.26,303.2),
         ['anim'] = { ["dict"] = "mp_player_int_uppersalute", ["name"] = "mp_player_int_salute" }
     },
+    [2] = {
+        ['perms'] = { "paramedico.permissao" },
+        ['coords'] = vector4(1195.1,-1501.61,34.7,298.16),
+        ['anim'] = { ["dict"] = "anim@amb@nightclub@peds@", ["name"] = "rcmme_amanda1_stand_loop_cop" }
+    }
 }
 
 -- #############################
@@ -100,29 +110,29 @@ Config.BarberCategories = {
         -- 'eyebrowsHeight',
         -- 'eyebrowsWidth',
     },
-    ['Nariz'] = {
+    -- ['Nariz'] = {
         -- 'noseWidth',
         -- 'noseHeight',
         -- 'noseLength',
         -- 'noseBridge',
-        'noseTip',
-        'noseShift',
-    },
-    ['Bochecha'] = {
+        -- 'noseTip',
+        -- 'noseShift',
+    -- },
+    -- ['Bochecha'] = {
         -- 'cheekHeight',
         -- 'cheekWidth',
-        'cheekboneWidth',
-    },
-    ['Rosto'] = {
-        'lips',
+        -- 'cheekboneWidth',
+    -- },
+    -- ['Rosto'] = {
+        -- 'lips',
         -- 'chinLength',
         -- 'chinPosition',
         -- 'chinWidth',
         -- 'chinShape',
         -- 'jawWidth',
         -- 'jawHeight',
-        'neckLength',
-    },
+        -- 'neckLength',
+    -- },
     ['Cabelo'] = {
         'hair',
         'hairColor',
@@ -135,23 +145,23 @@ Config.BarberCategories = {
     ['Maquiagem'] = {
         'blush',
         'blushColor',
-        'lipstick',
+        -- 'lipstick',
         'lipstickColor',
         'makeup',
     },
-    ['Aspectos'] = {
-        'aspect',
-        'skin',
-        'freckles',
-        'wrinkles',
-        'wrinklesOpacity',
-    },
-    ['Corpo'] = {
-        'bodyHair',
-        'bodyHairColor',
-        'blemishes1',
-        'blemishes2',
-    }
+    -- ['Aspectos'] = {
+    --     'aspect',
+    --     'skin',
+    --     'freckles',
+    --     'wrinkles',
+    --     'wrinklesOpacity',
+    -- },
+    -- ['Corpo'] = {
+    --     'bodyHair',
+    --     'bodyHairColor',
+    --     'blemishes1',
+    --     'blemishes2',
+    -- }
 }
 
 -- #############################
@@ -159,7 +169,7 @@ Config.BarberCategories = {
 -- #############################
 
 -- Coords para criar personagem
-Config.CreateCoords = vector4(-1399.04,-480.35,72.05,277.5)
+Config.CreateCoords = vector4(1111.49,-3143.9,-37.06,273.81)
 
 -- Coords para spawnar apos criação
 Config.SpawnCoords = vector4(-1037.02,-2734.81,13.76,327.28)
