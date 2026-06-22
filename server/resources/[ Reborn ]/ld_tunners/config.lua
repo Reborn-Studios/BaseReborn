@@ -195,20 +195,20 @@ Config.Locations = {
         showBlip = true,
         blipSprite = 446,
         blipColor = 4,
-        blipCoords = vector3(43.97,-876.19,30.38),
+        blipCoords = vector3(835.17,-983.75,26.54),
     },
     
     ["Bennys Workshop Ilegal"] = {
         illegalMechanic = true,
         permission = nil,
         coords = {
-            vector3(-573.46,-925.97,23.31)
+            vector3(-222.97,-1329.2,30.9)
         },
         showBlip = true,
         excludeMods = {},
         blipSprite = 446,
         blipColor = 4,
-        blipCoords = vector3(-573.46,-925.97,23.31),
+        blipCoords = vector3(-222.97,-1329.2,30.9),
     }
 }
 
