@@ -10,7 +10,7 @@ Config.ESXSkin                              = "AK"                  -- AK for ak
 
 Config.DefaultDarkMode                      = 1                     -- Whether dark mode should be enabled by default. 1 is on by default, 0 is off
 
-Config.ServerName                           = "mri_Qbox Brasil"
+Config.ServerName                           = GlobalState['Basics']['ServerName']
 Config.ServerDiscord                        = GlobalState['Basics']['Discord'] -- For kick/ban messages
 Config.ScreenshotWebhook                    = ""
 Config.LogsWebhook                          = ""
