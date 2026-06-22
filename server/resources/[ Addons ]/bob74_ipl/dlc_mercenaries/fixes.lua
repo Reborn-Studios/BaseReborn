@@ -12,5 +12,9 @@ MercenariesFixes = {
 
     LoadDefault = function()
         MercenariesFixes.Enable(true)
+    end,
+
+    UnloadDefault = function()
+        RemoveIpl(MercenariesFixes.ipl)
     end
 }

@@ -708,11 +708,24 @@ exports('GiveKey',function(source, plate)
     giveVehicleKey(user_id, plate)
 end)
 
+-- ## exports['will_garages_v2']:RemoveKey(plate)
+
+exports('RemoveKey',function(plate)
+    if adminVehs[plate] then
+        adminVehs[plate] = nil
+    end
+end)
+
 RegisterNetEvent("will_garages_v2:GiveKey")
 AddEventHandler("will_garages_v2:GiveKey",function(plate)
     local source = source
     local user_id = getUserId(source)
     giveVehicleKey(user_id, plate)
+end)
+
+RegisterNetEvent("will_garages_v2:RemoveKey")
+AddEventHandler("will_garages_v2:RemoveKey",function(plate)
+    exports['will_garages_v2']:RemoveKey(plate)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PREPARES
