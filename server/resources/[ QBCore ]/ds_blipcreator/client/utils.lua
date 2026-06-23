@@ -1,6 +1,6 @@
 RegisterNUICallback('createBlip', function(data, cb)
 	cb(1)
-	SetNuiFocus(false, false)
+	-- SetNuiFocus(false, false)
 	if data.groups and not next(data.groups) then
 		data.groups = nil
 	end
