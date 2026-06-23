@@ -333,22 +333,6 @@ Weapons = {
 		["description"] = "G36C",
 		["component"] = "COMPONENT_SPECIALCARBINE_VARMOD_XMAS23"
 	},
-	{
-		["id"] = 23,
-		["price"] = 5725,
-		["name"] = "Test",
-		["damage"] = 25,
-		["shot_rate"] = 175,
-		["mobility"] = 55,
-		["capacity"] = 30,
-		["rotate"] = true,
-		["hide"] = false,
-		["rotation"] = vec3(0.0,0.0,90.0),
-		["offset"] = vec3(0.0,-0.05,0.0),
-		["weapon"] = "WEAPON_ASSAULTSMG",
-		["description"] = "Steyr AUG",
-		["component"] = "COMPONENT_ASSAULTSMG_FREE01_ANIM"
-	},
 	-- {
 	-- 	["id"] = 23,
 	-- 	["price"] = 1725,
