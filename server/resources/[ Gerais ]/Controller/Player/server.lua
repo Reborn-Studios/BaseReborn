@@ -748,6 +748,9 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- TRUNKIN
 -----------------------------------------------------------------------------------------------------------------------------------------
+local trunkIn = {}
+local LIMIT_TRUNKIN = 3
+
 RegisterCommand("trunkin",function(source,args,rawCommand)
 	local user_id = vRP.getUserId(source)
 	if user_id then
@@ -761,9 +764,33 @@ RegisterNetEvent("player:EnterTrunk")
 AddEventHandler("player:EnterTrunk",function()
 	local source = source
 	local user_id = vRP.getUserId(source)
-	if user_id then
-		if vRPclient.getHealth(source) > 101 and not Player(source).state.Handcuff and not ClientPlayer.playerDriving(source) then
-			TriggerClientEvent("vrp_player:EnterTrunk",source)
+	local _,vehNet = vRPclient.getNearVehicle(source,11)
+	if user_id and vehNet then
+		local vehicle = NetworkGetEntityFromNetworkId(vehNet)
+		if vehicle then
+			local plate = GetVehicleNumberPlateText(vehicle)
+			if trunkIn[plate] == nil then
+				trunkIn[plate] = 0
+			end
+			if trunkIn[plate] >= LIMIT_TRUNKIN then
+				TriggerClientEvent("Notify",source,"negado","O veículo atingiu o limite de pessoas no porta-malas.",4000)
+				return
+			end
+			trunkIn[plate] = trunkIn[plate] + 1
+			if vRPclient.getHealth(source) > 101 and not Player(source).state.Handcuff and not ClientPlayer.playerDriving(source) then
+				TriggerClientEvent("vrp_player:EnterTrunk",source)
+			end
+		end
+	end
+end)
+
+RegisterNetEvent("player:outTrunk")
+AddEventHandler("player:outTrunk",function(vehNet)
+	local vehicle = NetworkGetEntityFromNetworkId(vehNet)
+	if vehicle then
+		local plate = GetVehicleNumberPlateText(vehicle)
+		if trunkIn[plate] then
+			trunkIn[plate] = trunkIn[plate] - 1
 		end
 	end
 end)

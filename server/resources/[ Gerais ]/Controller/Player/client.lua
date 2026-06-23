@@ -685,7 +685,7 @@ AddEventHandler("vrp_player:EnterTrunk",function()
 			end
 		end
 	else
-		local vehicle = vRP.getNearVehicle(11)
+		local vehicle,netid = vRP.getNearVehicle(11)
 		local trunk = GetEntityBoneIndexByName(vehicle,"boot")
 		if trunk ~= -1 then
 			local coords = GetEntityCoords(ped)
@@ -702,6 +702,7 @@ AddEventHandler("vrp_player:EnterTrunk",function()
 					SetEntityCoords(ped,VehTrunk.x,VehTrunk.y,VehTrunk.z,false,false,false,false)
 					Wait(500)
 					SetVehicleDoorShut(vehicle,5,false)
+					TriggerServerEvent("player:outTrunk",netid)
 				end
 			end
 		end
