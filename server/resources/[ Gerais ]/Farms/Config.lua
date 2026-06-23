@@ -250,6 +250,10 @@ Farms.meta = {
 
 Farms.lavagem = {
     [1] = {
+        requirements = {
+            -- ['alvejante'] = 3,
+            -- ['papelmoeda'] = 3
+        },
         perm = "vanilla.permissao",
         locais = {
             [1] = vector3(1138.23,-3196.95,-39.66),
