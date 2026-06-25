@@ -27,7 +27,7 @@ $(document).ready(function () {
           event["data"]["model"] +
           "</v><br><c>VELOCIDADE:</c> " +
           parseInt(event["data"]["speed"]) +
-          " KMH"
+          " KMH",
       );
     }
 
@@ -39,7 +39,7 @@ $(document).ready(function () {
           event["data"]["model"] +
           "</v><br><c>VELOCIDADE:</c> " +
           parseInt(event["data"]["speed"]) +
-          " KMH"
+          " KMH",
       );
     }
 
@@ -80,6 +80,19 @@ $(document).ready(function () {
       } else {
         $(".timer3").html("0");
         $(".timer4").html(seconds.toString());
+      }
+    }
+
+    if (event["data"]["name"] === "party") {
+      if (event["data"]["payload"] === true) {
+        document.getElementById("party").innerHTML = `
+          <div class="div_festinha">
+            <p>${event["data"]["value"]}</p>
+          </div>
+        `;
+        $("#party").fadeIn(500);
+      } else if (event["data"]["payload"] === false) {
+        $("#party").fadeOut(500);
       }
     }
   });

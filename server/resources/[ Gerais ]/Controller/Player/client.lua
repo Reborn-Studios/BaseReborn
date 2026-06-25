@@ -1324,3 +1324,35 @@ function PlvRP.chargePlayer()
 		return input
 	end
 end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- SET DIV
+-----------------------------------------------------------------------------------------------------------------------------------------
+local divKeys = {}
+local festinha = nil
+
+function PlvRP.setDiv(key,input,data)
+	if key and input then
+		divKeys[key] = input
+		SendNUIMessage({ name = "party", payload = true, key = key, value = input })
+		if key == "festinha" then
+			festinha = data
+		end
+	end
+end
+
+RegisterCommand("joinparty",function ()
+	if festinha then
+		SetNewWaypoint(festinha.x,festinha.y)
+		TriggerEvent("Notify","aviso","Festa marcada no GPS!",5000)
+	end
+end)
+RegisterKeyMapping("joinparty","Marcar festa no GPS","keyboard","F4")
+
+function PlvRP.removeDiv(key)
+	if divKeys[key] then
+		if key == "festinha" then
+			festinha = nil
+		end
+		SendNUIMessage({ name = "party", payload = false, key = key })
+	end
+end

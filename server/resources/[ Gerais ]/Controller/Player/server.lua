@@ -751,18 +751,7 @@ end)
 local trunkIn = {}
 local LIMIT_TRUNKIN = 3
 
-RegisterCommand("trunkin",function(source,args,rawCommand)
-	local user_id = vRP.getUserId(source)
-	if user_id then
-		if vRPclient.getHealth(source) > 101 and not Player(source).state.Handcuff and not ClientPlayer.playerDriving(source) then
-			TriggerClientEvent("vrp_player:EnterTrunk",source)
-		end
-	end
-end)
-
-RegisterNetEvent("player:EnterTrunk")
-AddEventHandler("player:EnterTrunk",function()
-	local source = source
+local function tryEnterTrunk(source)
 	local user_id = vRP.getUserId(source)
 	local _,vehNet = vRPclient.getNearVehicle(source,11)
 	if user_id and vehNet then
@@ -782,6 +771,14 @@ AddEventHandler("player:EnterTrunk",function()
 			end
 		end
 	end
+end
+
+RegisterCommand("trunkin",tryEnterTrunk)
+
+RegisterNetEvent("player:EnterTrunk")
+AddEventHandler("player:EnterTrunk",function()
+	local source = source
+	tryEnterTrunk(source)
 end)
 
 RegisterNetEvent("player:outTrunk")
@@ -996,9 +993,9 @@ RegisterCommand('festinha',function(source,args,rawCommand)
         if mensagem == "" then
             return
         end
-        vRPclient.setDiv(-1,"festinha"," @keyframes blinking {    0%{ background-color: #ff3d50; border: 2px solid #871924; opacity: 0.8; } 25%{ background-color: #d22d99; border: 2px solid #901f69; opacity: 0.8; } 50%{ background-color: #55d66b; border: 2px solid #126620; opacity: 0.8; } 75%{ background-color: #22e5e0; border: 2px solid #15928f; opacity: 0.8; } 100%{ background-color: #222291; border: 2px solid #6565f2; opacity: 0.8; }  } .div_festinha { font-size: 11px; font-family: arial; color: rgba(255, 255, 255,1); padding: 20px; bottom: 10%; right: 5%; max-width: 500px; position: absolute; -webkit-border-radius: 5px; animation: blinking 1s infinite; } bold { font-size: 16px; }","<bold>"..mensagem.."</bold><br><br>Festeiro(a): "..identity.name.." "..identity.name2.."</b>.")
+        ClientPlayer.setDiv(-1,"festinha","<bold>"..mensagem.."</bold><br><br>Festeiro(a): "..identity.name.." "..identity.name2.."</b><br>Aperte F4 para marcar.",GetEntityCoords(GetPlayerPed(source)))
         SetTimeout(7000,function()
-            vRPclient.removeDiv(-1,"festinha")
+            ClientPlayer.removeDiv(-1,"festinha")
         end)
     end
 end)
