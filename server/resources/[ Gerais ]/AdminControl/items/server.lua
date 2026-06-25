@@ -28,7 +28,7 @@ RegisterCommand(Config.Commands["items"]['command'],function (source)
 end)
 
 local function createNewItem(data,edit)
-    local NewItems = GetControlFile("items")
+    local NewItems = table.clone(GetControlFile("items"))
     NewItems[data.item] = {
         name = data.name,
         index = data.index,
