@@ -144,7 +144,7 @@ function seatbelt.EnteredVehicle()
                 end
                 Wait(5000)
                 if not isSeatbeltOn and cache.vehicle and IsVehicleClassAllowed(cache.vehicle) then
-                    Utils.Notify(locale('seatbelt_warning'), 'warning')
+                    TriggerEvent("vrp_sound:source","seatbelt-alarm",0.5,".mp3")
                 end
                 Wait(25000)
             end

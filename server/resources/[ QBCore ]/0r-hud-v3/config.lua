@@ -99,7 +99,7 @@ Config.ToggleSeatBelt       = {
     -- This value is set according to kmH being `true`. If you are using kmH `false`, you can write it as `MPH`.
     ejectSpeed = 160,
     -- If true, you will receive a warning if you are not wearing your seat belt.
-    warning = false,
+    warning = true,
 }
 
 -- Shortcut key to turn the vehicle engine on and off
