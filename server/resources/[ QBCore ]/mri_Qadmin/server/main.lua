@@ -512,8 +512,7 @@ end)
 
 RegisterNetEvent("mri_Qadmin:server:OpenInventory", function(target)
     local src = source
-    TriggerClientEvent('mri-Qadmin:client:inventory', target, tonumber(target))
-    -- TriggerClientEvent("inventory:client:RobPlayer:Admin", target, tonumber(target))
+    Compat.OpenInventory(src,tonumber(target))
 end)
 
 RegisterNetEvent("mri_Qadmin:server:RequestServerMetrics", function()

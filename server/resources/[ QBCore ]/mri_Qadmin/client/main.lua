@@ -422,9 +422,9 @@ RegisterNetEvent("mri_Qadmin:client:RequestSpectate", function(playerServerId, t
 end)
 
 RegisterNetEvent("mri_Qadmin:client:RequestInventory", function(TargetId)
-    exports.ox_inventory:openInventory("player", TargetId)
+    Compat.OpenInventory(TargetId)
 end)
-  
+
 RegisterNetEvent("mri_Qadmin:client:setLivery", function(livery)
     local Veh = GetVehiclePedIsIn(PlayerPedId())
     if Veh then

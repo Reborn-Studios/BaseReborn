@@ -332,6 +332,13 @@ if (IsDuplicityVersion()) then
                 end
             end,
         },
+        OpenInventory = function(source,targetId)
+            if GetResourceState("ox_inventory") == "started" then
+                if targetId then
+                    exports.ox_inventory:forceOpenInventory(source, 'player', tonumber(targetId))
+                end
+            end
+        end,
     }
 end
 
@@ -340,11 +347,7 @@ if (not IsDuplicityVersion()) then
     Compat = {
         OpenInventory = function(targetId) 
             TriggerServerEvent("ld-inventory:revistar", targetId, "otherplayer")
-            if GetResourceState("ox_inventory") == "started" then
-                if targetId then
-                    exports.ox_inventory:forceOpenInventory(source, 'player', tonumber(targetId))
-                end
-            end
+            TriggerServerEvent("mri_Qadmin:server:OpenInventory", targetId)
         end,
         UncuffSelf = function()
             TriggerEvent('police:client:GetCuffed')
