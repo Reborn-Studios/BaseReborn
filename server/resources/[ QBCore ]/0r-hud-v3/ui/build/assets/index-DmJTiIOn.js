@@ -10522,8 +10522,6 @@ const me = i3(dj),
         imagePath: C = "https://api.rebornsystem.com.br/imagens/RebornLogo.png",
       } = l,
       b = {};
-    console.log("width:", y);
-
     (_.x ? (b.left = _.x) : (b.right = 8), (b.top = _.y || 56));
     const N = (T, P, D) => {
         n(T, P, D);

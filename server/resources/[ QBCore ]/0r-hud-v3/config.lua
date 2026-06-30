@@ -11,7 +11,7 @@ Config.DefaultHudSettings   = {
     bar_style = 'hexagon-w',
     -- center | hud
     logoPos = "center",
-    logoWidth = GlobalState['Basics']['CityLogoWidth'].."vw" or "6vw",
+    logoWidth = GlobalState['Basics']['CityLogoWidth'] and GlobalState['Basics']['CityLogoWidth'].."vw" or "6vw",
     activeHunger = true,
     activeThirst = true,
     activeStress = true,
