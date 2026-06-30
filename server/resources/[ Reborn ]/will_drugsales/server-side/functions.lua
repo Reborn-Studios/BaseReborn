@@ -63,7 +63,7 @@ if Config.Framework == "vrp" then
     function Framework:RemoveItem(source, item, amount)
         local user_id = Framework:GetUserIdentifier(source)
         if vRP.tryGetInventoryItem then
-            if vRP.tryGetInventoryItem(user_id, item, amount) then
+            if vRP.tryGetInventoryItem(user_id, item, tonumber(amount), true) then
                 return true
             end
         elseif vRP.TakeItem then
