@@ -265,37 +265,3 @@ end
 RegisterNetEvent("onPlayerDropped", function(serverId)
     CleanupPlayerProps(serverId)
 end)
-
-AddStateBagChangeHandler("lib:progressProps", nil, function(bagName, key, value, reserved, replicated)
-    if replicated then return end
-    
-    local player = GetPlayerFromStateBagName(bagName)
-    if player == 0 then return end
-    
-    local playerPed = GetPlayerPed(player)
-    local serverId = GetPlayerServerId(player)
-    
-    if not value or playerProps[serverId] then
-        CleanupPlayerProps(serverId)
-        if not value then return end
-    end
-    
-    local props = {}
-    
-    if value.model then
-        local prop = CreateProgressProp(playerPed, value)
-        if prop then
-            props[#props + 1] = prop
-        end
-    else
-        local propCount = math.min(maxProgressProps, #value)
-        for i = 1, propCount do
-            local prop = CreateProgressProp(playerPed, value[i])
-            if prop then
-                props[#props + 1] = prop
-            end
-        end
-    end
-    
-    playerProps[serverId] = props
-end)
