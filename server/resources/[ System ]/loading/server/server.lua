@@ -2,7 +2,7 @@ CreateThread(function ()
     Wait(1000)
     local changedText = false
     local data = json.decode(LoadResourceFile(GetCurrentResourceName(), 'html/config.json'))
-    if data["watermark"] and data["watermark"]["label"]?.text ~= GlobalState['Basics']['ServerName'] then
+    if data["watermark"] and data["watermark"]["label"]?.text ~= GlobalState['Basics']['ServerName'] or data["watermark"]["logo"] ~= GlobalState['Basics']['CityLogo'] then
         data["watermark"] = {
             label = {
                 text = GlobalState['Basics']['ServerName'],

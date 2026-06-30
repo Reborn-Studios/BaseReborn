@@ -347,6 +347,7 @@ function Hud.SetDefaultSettings()
     Hud.data.client_info.active = def.client_info.active
     Hud.data.client_info.server_info.active = def.client_info.server_info.active
     Hud.data.client_info.server_info.image = def.client_info.server_info.image
+    Hud.data.client_info.server_info.imagePath = def.client_info.server_info.imagePath
     Hud.data.client_info.server_info.name = def.client_info.server_info.name
     Hud.data.client_info.bank.active = def.client_info.bank.active
     Hud.data.client_info.cash.active = def.client_info.cash.active
@@ -358,6 +359,7 @@ function Hud.SetDefaultSettings()
     Hud.data.client_info.weapon.active = def.client_info.weapon.active
     Hud.data.client_info.extra_currency.active = def.client_info.extra_currency.active
     Hud.data.client_info.logoPos = def.logoPos
+    Hud.data.client_info.logoWidth = def.logoWidth
     Hud.data.bars.armor.color = def.bar_colors.armor
     Hud.data.bars.health.color = def.bar_colors.health
     Hud.data.bars.hunger.color = def.bar_colors.hunger

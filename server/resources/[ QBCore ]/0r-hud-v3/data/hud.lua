@@ -121,6 +121,7 @@ return {
 ---@field name string | nil
 ---@field playerCount number
 ---@field maxPlayers number
+---@field imagePath? string | nil
 
 ---@class iCash
 ---@field active boolean
@@ -166,6 +167,7 @@ return {
 ---@field weapon iWeapon
 ---@field extra_currency iExtraCurrency
 ---@field logoPos 'center' | 'hud'
+---@field logoWidth string
 
 ---@class iNavigation
 ---@field isDestinationActive boolean

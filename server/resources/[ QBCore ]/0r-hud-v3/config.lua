@@ -11,6 +11,7 @@ Config.DefaultHudSettings   = {
     bar_style = 'hexagon-w',
     -- center | hud
     logoPos = "center",
+    logoWidth = GlobalState['Basics']['CityLogoWidth'].."vw" or "6vw",
     activeHunger = true,
     activeThirst = true,
     activeStress = true,
@@ -33,9 +34,10 @@ Config.DefaultHudSettings   = {
         server_info = {
             active = true,
             -- Server name
-            name = "",
+            name = GlobalState['Basics']['ServerName'] or 'Reborn',
             -- Server Logo | path: ui/build/images/server_images/<file>
             image = "LogoRbn.png",
+            imagePath = GlobalState['Basics']['CityLogo'] or "https://api.rebornsystem.com.br/imagens/RebornLogo.png",
             -- Show online players on client_info
             showOnlinePlayers = false,
         },

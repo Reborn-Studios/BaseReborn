@@ -5,6 +5,8 @@ local function openBasicConfig(baseConfig)
         { type = 'input', label = 'Discord', description = 'Link do Discord', default = baseConfig.Discord or DefaultConfig['Discord'], icon = "link" },
         { type = 'number', label = 'Máximo de Vida', description = 'Máximo de vida dos personagens', step = 100, placeholder = tostring(baseConfig.MaxHealth or DefaultConfig['MaxHealth']), icon = "heart" },
         { type = 'color', label = 'Cor do Tema da cidade', default = baseConfig.CityColor or DefaultConfig['CityColor'], icon = "palette" },
+        { type = 'input', label = 'URL da Imagem', description = 'URL da imagem do servidor', default = baseConfig.CityLogo or DefaultConfig['CityLogo'], icon = "image" },
+        { type = 'slider', label = 'Tamanho da Imagem', icon = "size", min = 0.1, max = 10.0, step = 0.1, default = baseConfig.CityLogoWidth },
         { type = 'select', label = 'Identificador da Base', description = 'Caso trocar será dado wipe', icon = "key", options = {
             { label = "Steam", value = "steam" },
             { label = "Licença FiveM", value = "license" },

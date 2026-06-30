@@ -45,11 +45,12 @@ AddEventHandler("AdminControl:saveBaseConfig",function (data)
     BaseData.MaxHealth = data[3] or BasicsConfig['MaxHealth']
     BaseData.CityColor = data[4] or BasicsConfig['CityColor']
     BaseData.CityColorHex = convertRGBtoHex(BaseData.CityColor)
-    BaseData.Identifier = data[5] or BasicsConfig['Identifier']
-    BaseData.Whitelist = data[6] or BasicsConfig['Whitelist']
-    BaseData.Theme = data[7] or BasicsConfig['Theme']
-    BaseData.Debug = data[8]
-    BaseData.CityLogo = "https://api.rebornsystem.com.br/imagens/RebornLogo.png"
+    BaseData.Identifier = data[7] or BasicsConfig['Identifier']
+    BaseData.Whitelist = data[8] or BasicsConfig['Whitelist']
+    BaseData.Theme = data[9] or BasicsConfig['Theme']
+    BaseData.Debug = data[10]
+    BaseData.CityLogo = data[5] or "https://api.rebornsystem.com.br/imagens/RebornLogo.png"
+    BaseData.CityLogoWidth = data[6] or 5
     saveData(BaseData)
     BasicsConfig = BaseData
     GlobalState:set("Basics",BasicsConfig,true)
