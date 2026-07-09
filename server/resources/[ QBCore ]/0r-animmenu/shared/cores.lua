@@ -17,6 +17,6 @@ Cores = {
     {
         Name = "QBXCore",
         ResourceName = "qbx_core",
-        GetFramework = function() return exports["qbx_core"]:GetCoreObject() end
+        GetFramework = function() return exports["qb-core"]:GetCoreObject() end
     }
 }

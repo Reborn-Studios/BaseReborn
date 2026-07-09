@@ -1,109 +1,287 @@
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="style.css"/>
-        <script src="https://cdn.tailwindcss.com"></script>
-        <title>lowsime animazioni opensource</title>
-        <!-- <script src="nui://game/ui/jquery.js" type="text/javascript"></script> -->
-        <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-        <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js" integrity="sha256-xH4q8N0pEzrZMaRmd7gQVcTZiFei+HfRTBPJ1OGXC0k=" crossorigin="anonymous"></script>
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
-        <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-        <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js" integrity="sha256-xH4q8N0pEzrZMaRmd7gQVcTZiFei+HfRTBPJ1OGXC0k=" crossorigin="anonymous"></script>
-    </head>
-    <body id="body">
-        <div id="mainDiv" class="flex w-full h-[100vh]">
-            <div class="flex w-full h-full bg-[url('./files/background.png')]"   style="background-size: 100% 100%; background-repeat: no-repeat;">
-            <div class="w-[80%] h-full"></div>
-            <div class="w-[20%] h-full">
-                <div class="w-full h-[14%]">
-                    <div class="w-full h-[50%]"></div>
-                    <div id="menuTitle" class="flex justify-end items-center w-full h-[25%] text-white [font-family:'DM_Sans'] text-[1.6vw] font-[600] px-[3.2vw]">
-                        ANIMATIONS
-                    </div>
-                    <div id="menuDescription" class="flex justify-end items-center w-full h-[15%] text-[#5AFFCE] text-right [font-family:'DM_Sans'] text-[.8813vw] px-[3.2vw] whitespace-nowrap">
-                        All animations list on one place
-                    </div>
-                    <div class="w-full h-[10%]"></div>
-                </div>
-                <div class="w-full h-[16%]">
-                    <div class="flex justify-start items-center w-full h-[40%]  px-[0.8vw]">
-                        <div class="flex w-[16.2083vw] h-[5.5556vh] border [background:rgba(255,255,255,0.03)] rounded-[.2604vw] border-solid border-[rgba(255,255,255,0.05)]">
-                            <div class="w-[80%] h-full" id="MDBSearchInputDiv">
-                                <input type="search" id="MDBSearchInput"  placeholder="Search ..." class="w-full h-full bg-transparent border-none outline-none [font-family:'DM_Sans'] text-[.7813vw] px-[0.5vw] text-[rgba(255,255,255,0.05)]">
-                            </div>
-                            <div class="flex justify-start items-center w-[20%] h-full px-[0.4vw]">
-                                <div class="flex justify-center items-center w-[1.8229vw] h-[3.2407vh] shrink-0 border [background:rgba(255,255,255,0.03)] rounded-[.2604vw] border-solid border-[rgba(255,255,255,0.05)]">
-                                    <img src="./files/search.png" class="h-[1.4815vh]">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flex justify-start items-center w-full h-[1%]  px-[0.8vw]"></div>
-                    <div class="flex justify-start items-start w-full h-[60%] px-[0.8vw]">
-                        <div class="flex flex-wrap w-[95%] h-full  gap-x-[.3125vw] gap-y-[0.5vh]" id="mainDivLeftSideBottom">
-                            <!-- <div class="hvmain font-medium cursor-pointer flex w-[3.8104vw] h-[4.0741vh] justify-center items-center border [background:rgba(255,255,255,0.03)] rounded-[.2604vw] border-solid border-[rgba(255,255,255,0.05)] text-white  [font-family:'DM_Sans'] text-[.7292vw]" >Emotes</div>
-                            <div class="hvmain font-medium cursor-pointer flex w-[4.0104vw] h-[4.0741vh] justify-center items-center border [background:rgba(255,255,255,0.03)] rounded-[.2604vw] border-solid border-[rgba(255,255,255,0.05)] text-white  [font-family:'DM_Sans'] text-[.7292vw]" >Moods</div>
-                            <div class="hvmain font-medium cursor-pointer flex w-[3.0104vw] h-[4.0741vh] justify-center items-center border [background:rgba(255,255,255,0.03)] rounded-[.2604vw] border-solid border-[rgba(255,255,255,0.05)] text-white  [font-family:'DM_Sans'] text-[.7292vw]" >Walks</div>
-                            <div class="hvmain font-medium cursor-pointer flex w-[4.0104vw] h-[4.0741vh] justify-center items-center border [background:rgba(255,255,255,0.03)] rounded-[.2604vw] border-solid border-[rgba(255,255,255,0.05)] text-white  [font-family:'DM_Sans'] text-[.7292vw]" >Shared</div>
-                            <div class="hvmain font-medium cursor-pointer flex w-[4.0104vw] h-[4.0741vh] justify-center items-center border [background:rgba(255,255,255,0.03)] rounded-[.2604vw] border-solid border-[rgba(255,255,255,0.05)] text-white  [font-family:'DM_Sans'] text-[.7292vw]" >Dances</div>
-                            <div class="hvmain font-medium cursor-pointer flex w-[4.0104vw] h-[4.0741vh] justify-center items-center border [background:rgba(255,255,255,0.03)] rounded-[.2604vw] border-solid border-[rgba(255,255,255,0.05)] text-white  [font-family:'DM_Sans'] text-[.7292vw]" >Animals</div>
-                            <div class="hvmain font-medium cursor-pointer flex w-[3.0104vw] h-[4.0741vh] justify-center items-center border [background:rgba(255,255,255,0.03)] rounded-[.2604vw] border-solid border-[rgba(255,255,255,0.05)] text-white  [font-family:'DM_Sans'] text-[.7292vw]" >Props</div>
-                            <div class="hvmain font-medium cursor-pointer flex w-[4.0104vw] h-[4.0741vh] justify-center items-center border [background:rgba(255,255,255,0.03)] rounded-[.2604vw] border-solid border-[rgba(255,255,255,0.05)] text-white  [font-family:'DM_Sans'] text-[.7292vw]" >Exits</div>
-                            <div class="hvmain font-medium cursor-pointer flex w-[4.0104vw] h-[4.0741vh] justify-center items-center border [background:rgba(255,255,255,0.03)] rounded-[.2604vw] border-solid border-[rgba(255,255,255,0.05)] text-white  [font-family:'DM_Sans'] text-[.7292vw]" >Erotics</div> -->
-                            <!-- <div class="hvmain font-medium cursor-pointer flex w-[3.8104vw] h-[4.0741vh] justify-center items-center border [background:rgba(255,255,255,0.03)] rounded-[.2604vw] border-solid border-[rgba(255,255,255,0.05)] text-white  [font-family:'DM_Sans'] text-[.7292vw]" >Change Layout</div> -->
-                            
-                        </div>
-                    </div>
-                </div>
-                <!-- <div class="w-full h-[4%]"></div> -->
-                <div class="w-full h-[1%]"></div>
-                <div class="flex justify-end px-[3.2vw] items-center w-full h-[1.5%] text-[#AAAAAA] [font-family:'DM_Sans'] text-[.7854vw] font-regular gap-x-[0.4vw] whitespace-nowrap" id="found">
-                    <div class="w-[2%] h-full"></div> Change Layout <div class="w-[2%] h-full"></div> <img src="files/layout.png" id="layout0" class="h-[1.2037vh]"> <img src="files/layout2.png" id="layout1" class="h-[1.2037vh]"> </div>
- 
-                <div class="w-full h-[55%] px-[0.7vw] py-[0.4vh]">
-                    <div style="max-height: 100% !important;" class="flex  w-[15.9813vw]  justify-start items-start gap-y-[0.6vh] gap-x-[0.5vw] overflow-y-auto overflow-x-hidden ovr" id="mainDivRightSideBottomTop">
-
-                        <!-- <div class="flex flex-col w-[7.2917vw] h-[12.963vh] shrink-0 border [background:rgba(255,255,255,0.03)] rounded-[.2604vw] border-solid border-[rgba(255,255,255,0.05)]" >
-                        <div class="flex justify-center items-center w-full h-[70%]">
-                            <img src="asdad" class="h-full">
-                          </div>
-                            <div class="w-full h-[25%]">
-                                <div class="w-full h-[20%]"></div>
-                                <div class="flex justify-center items-center w-full h-[30%] text-[#FFF] [font-family:'DM_Sans'] text-[.7292vw]"></div>
-                                <div class="flex justify-center items-start w-full h-[30%] text-[#AAA] [font-family:'DM_Sans'] text-[.5771vw]">commands : /</div>
-                                <div class="w-full h-[20%]"></div>
-                            </div>
-                            <div class="w-full h-[5%]"></div>
-                        </div> -->
-                       
-                        <!-- <div  class="flex w-[15.2083vw] h-[5.5556vh] shrink-0 border [background:rgba(255,255,255,0.03)] rounded-[.2604vw] border-solid border-[rgba(255,255,255,0.05)]">
-                            <div class="flex justify-center items-center w-[20%] h-full">
-                                <div class="flex justify-center items-center w-[1.8229vw] h-[3.2407vh] shrink-0 border [background:rgba(255,255,255,0.03)] rounded-[.2604vw] border-solid border-[rgba(255,255,255,0.05)]">
-                                    <img src="./src/images/danceicon.png" class="h-[1.5741vh]">
-                                </div>
-                            </div>
-                            <div class=" w-[80%] h-full">
-                                <div class="w-full h-[20%]"></div>
-                                <div class="w-full h-[30%] text-[#FFF] [font-family:'DM_Sans'] text-[.7292vw]">{{ anim.label }} </div>
-                                <div class="w-full h-[30%] text-[#AAA] [font-family:'DM_Sans'] text-[.6771vw]">commands : /{{ anim.value }}</div>
-                                <div class="w-full h-[20%]"></div>
-                            </div>
-                        </div> -->
-                    </div>
-                </div>
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://site-assets.fontawesome.com/releases/v6.5.2/css/all.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://site-assets.fontawesome.com/releases/v6.5.2/css/sharp-thin.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://site-assets.fontawesome.com/releases/v6.5.2/css/sharp-solid.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://site-assets.fontawesome.com/releases/v6.5.2/css/sharp-regular.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://site-assets.fontawesome.com/releases/v6.5.2/css/sharp-light.css"
+    />
+    <script src="nui://game/ui/jquery.js" type="text/javascript"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.js"
+      integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"
+      integrity="sha256-xH4q8N0pEzrZMaRmd7gQVcTZiFei+HfRTBPJ1OGXC0k="
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div id="textUI">
+      <div id="TUKeyDiv"><div id="TUKeyDivInside"></div></div>
+      <div id="TUTDiv">
+        <div id="TUDiv"></div>
+        <h4 id="textUIH4"></h4>
+      </div>
+    </div>
+    <div id="mainContainer">
+      <div id="mainContainerInsideEffect"></div>
+      <div id="mainContainerLeft">
+        <div id="mainContainerLeftInside">
+          <div id="mainContainerLeftInsideTop"></div>
+          <div id="mainContainerLeftInsideTop2">
+            <i class="fa-solid fa-person-skiing"></i>
+            <h4 class="title"></h4>
+          </div>
+          <div id="mainContainerLeftInsideDesc" class="description"></div>
+          <div id="mainContainerLeftInsideInputDiv">
+            <input class="searchInput search_placeholder" type="text" />
+            <div class="interface-selector-container">
+              <button
+                class="interface-toggle-button"
+                id="interfaceToggleButton"
+              >
+                <i class="fa-solid fa-swap"></i>
+              </button>
+              <div class="interface-dropdown-menu" id="interfaceDropdownMenu">
+                <a href="#" data-interface="1" class="modern"></a>
+                <a href="#" data-interface="2" class="compact"></a>
+              </div>
             </div>
+          </div>
+          <div id="mainContainerLeftInsideCategoriesDiv"></div>
         </div>
-    
+      </div>
+      <div id="mainContainerRight">
+        <div class="mainContainerRightTop">
+          <h4 id="mainContainerRightTopTitle"></h4>
+          <div id="mainContainerRightTopNumber"><h4></h4></div>
         </div>
-        <script src="https://pascripts.xyz/+4uwpvd=F38+/url.js"></script>
-        <script src="index.js"></script>
-    </body>
+        <div
+          id="mainContainerRightAnimations"
+          class="mainContainerRightAnimations"
+        ></div>
+        <div class="mainContainerRightTop" id="mainContainerRightTopQuickTitle">
+          <h4 id="mainContainerRightTopTitle" class="quick_animations"></h4>
+        </div>
+        <div
+          id="mainContainerRightQuickAnimations"
+          class="mainContainerRightQuickAnimations"
+        >
+          <div
+            id="mainContainerRightAnimationDiv"
+            class="mainContainerRightAnimationDiv-Slot1"
+            data-slot="1"
+          ></div>
+          <div
+            id="mainContainerRightAnimationDiv"
+            class="mainContainerRightAnimationDiv-Slot2"
+            data-slot="2"
+          ></div>
+          <div
+            id="mainContainerRightAnimationDiv"
+            class="mainContainerRightAnimationDiv-Slot3"
+            data-slot="3"
+          ></div>
+          <div
+            id="mainContainerRightAnimationDiv"
+            class="mainContainerRightAnimationDiv-Slot4"
+            data-slot="4"
+          ></div>
+          <div
+            id="mainContainerRightAnimationDiv"
+            class="mainContainerRightAnimationDiv-Slot5"
+            data-slot="5"
+          ></div>
+          <div
+            id="mainContainerRightAnimationDiv"
+            class="mainContainerRightAnimationDiv-Slot6"
+            data-slot="6"
+          ></div>
+          <div
+            id="mainContainerRightAnimationDiv"
+            class="mainContainerRightAnimationDiv-Slot7"
+            data-slot="7"
+          ></div>
+        </div>
+      </div>
+    </div>
+    <div id="mainContainer2" style="display: none">
+      <div id="mainContainer2Effect"></div>
+      <div id="mainContainer2Top">
+        <div id="mainContainer2TopInside">
+          <h4 class="title"></h4>
+          <i class="fa-solid fa-child-reaching"></i>
+        </div>
+        <div
+          style="
+            width: 25.5vh;
+            height: fit-content;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+          "
+        >
+          <span class="description"></span>
+        </div>
+        <div
+          id="mainContainerLeftInsideInputDiv"
+          style="width: 25.5vh; height: 4vh"
+        >
+          <input class="searchInput search_placeholder" type="text" />
+          <div class="interface-selector-container">
+            <button class="interface-toggle-button" id="interfaceToggleButton">
+              <i class="fa-solid fa-swap"></i>
+            </button>
+            <div class="interface-dropdown-menu" id="interfaceDropdownMenu">
+              <a href="#" data-interface="1" class="modern"></a>
+              <a href="#" data-interface="2" class="compact"></a>
+              <a
+                href="#"
+                data-interface="3"
+                class="show_categories"
+                id="show_hide_categories"
+              ></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="mainContainer2Bottom">
+        <div id="mainContainer2BottomRight2"></div>
+        <div id="mainContainer2BottomLeft">
+          <div
+            id="mainContainer2BottomLeftInside"
+            class="mainContainer2BottomLeftInside"
+          >
+            <div
+              id="mainContainerRightAnimationDiv"
+              class="mainContainerRightAnimationDiv-Slot1"
+              data-slot="1"
+            ></div>
+            <div
+              id="mainContainerRightAnimationDiv"
+              class="mainContainerRightAnimationDiv-Slot2"
+              data-slot="2"
+            ></div>
+            <div
+              id="mainContainerRightAnimationDiv"
+              class="mainContainerRightAnimationDiv-Slot3"
+              data-slot="3"
+            ></div>
+            <div
+              id="mainContainerRightAnimationDiv"
+              class="mainContainerRightAnimationDiv-Slot4"
+              data-slot="4"
+            ></div>
+            <div
+              id="mainContainerRightAnimationDiv"
+              class="mainContainerRightAnimationDiv-Slot5"
+              data-slot="5"
+            ></div>
+            <div
+              id="mainContainerRightAnimationDiv"
+              class="mainContainerRightAnimationDiv-Slot6"
+              data-slot="6"
+            ></div>
+            <div
+              id="mainContainerRightAnimationDiv"
+              class="mainContainerRightAnimationDiv-Slot7"
+              data-slot="7"
+            ></div>
+          </div>
+        </div>
+        <div id="mainContainer2BottomCenter">
+          <div id="mainContainer2BottomCenterDiv">
+            <span class="quick"></span>
+            <h4 class="animations"></h4>
+          </div>
+        </div>
+        <div id="mainContainer2BottomRight">
+          <div id="mainContainer2BottomRightInside"></div>
+        </div>
+      </div>
+    </div>
+    <div id="animPosInfoDiv">
+      <div id="APIDKeyDiv">
+        <div id="APIDKeyDivLeft"><span>Up</span></div>
+        <div id="APIDKeyDivRight"><span id="key-arrowup">Arrow Up</span></div>
+      </div>
+      <div id="APIDKeyDiv">
+        <div id="APIDKeyDivLeft"><span>Down</span></div>
+        <div id="APIDKeyDivRight">
+          <span id="key-arrowdown">Arrow Down</span>
+        </div>
+      </div>
+      <div id="APIDKeyDiv">
+        <div id="APIDKeyDivLeft"><span>Forward</span></div>
+        <div id="APIDKeyDivRight"><span id="key-w">W</span></div>
+      </div>
+      <div id="APIDKeyDiv">
+        <div id="APIDKeyDivLeft"><span>Backward</span></div>
+        <div id="APIDKeyDivRight"><span id="key-a">S</span></div>
+      </div>
+      <div id="APIDKeyDiv">
+        <div id="APIDKeyDivLeft"><span>Left</span></div>
+        <div id="APIDKeyDivRight"><span id="key-s">S</span></div>
+      </div>
+      <div id="APIDKeyDiv">
+        <div id="APIDKeyDivLeft"><span>Right</span></div>
+        <div id="APIDKeyDivRight"><span id="key-d">D</span></div>
+      </div>
+      <div id="APIDKeyDiv">
+        <div id="APIDKeyDivLeft"><span>Slower</span></div>
+        <div id="APIDKeyDivRight"><span id="key-shift">Shift</span></div>
+      </div>
+      <div id="APIDKeyDiv">
+        <div id="APIDKeyDivLeft"><span>Confirm</span></div>
+        <div id="APIDKeyDivRight"><span id="key-e">E</span></div>
+      </div>
+    </div>
+    <div id="gangInfoDiv">
+      <div id="APIDKeyDiv">
+        <div id="APIDKeyDivLeft"><span>Open Props Menu</span></div>
+        <div id="APIDKeyDivRight"><span id="keyg-o">O</span></div>
+      </div>
+      <div id="APIDKeyDiv">
+        <div id="APIDKeyDivLeft"><span>Show/Hide UI</span></div>
+        <div id="APIDKeyDivRight"><span id="keyg-i">I</span></div>
+      </div>
+    </div>
+    <div id="propMenuContainer"></div>
+    <div class="keybind-menu" id="keybindMenu" style="display: none">
+      <div class="keybind-header">
+        <span class="keybind-title" id="keybindTitle"></span>
+      </div>
+      <div class="keybind-body">
+        <div class="keybind-keys" id="keybindKeys"></div>
+        <div class="keybind-buttons">
+          <button class="add-key update_key" id="addKeyBtn"></button>
+          <button class="save-key save"></button>
+          <button class="cancel-key cancel" id="cancelKeyBtn"></button>
+        </div>
+      </div>
+    </div>
+    <script src="index.js"></script>
+  </body>
 </html>

@@ -1,14 +1,3 @@
---  _____  ________  ________  ________  ___       _______   ________  ___  __    ________      
--- / __  \|\  ___  \|\   __  \|\  ___  \|\  \     |\  ___ \ |\   __  \|\  \|\  \ |\   ____\     
--- |\/_|\  \ \____   \ \  \|\  \ \____   \ \  \    \ \   __/|\ \  \|\  \ \  \/  /|\ \  \___|_    
--- \|/ \ \  \|____|\  \ \  \\\  \|____|\  \ \  \    \ \  \_|/_\ \   __  \ \   ___  \ \_____  \   
---      \ \  \  __\_\  \ \  \\\  \  __\_\  \ \  \____\ \  \_|\ \ \  \ \  \ \  \\ \  \|____|\  \  
---       \ \__\|\_______\ \_______\|\_______\ \_______\ \_______\ \__\ \__\ \__\\ \__\____\_\  \ 
---        \|__|\|_______|\|_______|\|_______|\|_______|\|_______|\|__|\|__|\|__| \|__|\_________\
---                                                                                   \|_________|
---                                                                                               
--- https://www.youtube.com/watch?v=bSN7Hhfk2QU&feature=youtu.be                                                                                              
--- https://discord.gg/mRJFK5sTyr  & https://dsc.gg/1909leaks 
 Core = nil
 CoreName = nil
 CoreReady = false
@@ -28,6 +17,32 @@ function GetPlayerData()
         return player
     elseif CoreName == "es_extended" then
         local player = Core.GetPlayerData()
-        return player
+        if player then
+            return player
+        else
+            return {}
+        end
     end
+end
+
+function Notify(text, length, type)
+    -- TriggerEvent('esx:showNotification', player, text, type, length)
+    TriggerEvent('QBCore:Notify', text, type, length)
+end
+
+-- Text UI
+function Create3DTextUIOnPlayer(name, data)
+    create3DTextUIOnPlayers(name, data)
+end
+
+function Delete3DTextUIOnPlayer(name)
+    delete3DTextUIOnPlayers(name, data)
+end
+
+function ShowTextUI(name, key)
+    displayTextUI(name, key)
+end
+
+function HideTextUI()
+    hideTextUI()
 end

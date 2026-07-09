@@ -1,3 +1,4 @@
+--- @class Locale
 Locale = {}
 Locale.__index = Locale
 
