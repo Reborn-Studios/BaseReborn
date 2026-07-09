@@ -1,4 +1,4 @@
-fx_version 'cerulean'
+fx_version 'bodacious'
 lua54 'yes'
 game 'gta5'
 name '0r-hud-v3'

@@ -1,41 +1,42 @@
 {
-  "Needs": {
-    "Sede": 1,
-    "Tempo": 90,
-    "Fome": 1
-  },
-  "MaxHealth": 400,
-  "Discord": "https://discord.gg/8unYr9MUdx",
-  "Wipe": {
-    "StartBank": 10000,
-    "Password": "reborn",
-    "StartId": 1
-  },
-  "Identifier": "steam",
-  "Whitelist": false,
-  "Maintenance": {
-    "licenses": {},
-    "text": "Manutenção em andamento...",
-    "enabled": false
-  },
-  "ServerName": "Reborn Studios",
-  "CityColorHex": "#5C1A80",
-  "NpcControl": {
-    "ParkedVehicle": 0.3,
-    "VehicleDensity": 0.3,
-    "PedDensity": 0.4
-  },
   "AutoReload": {
     "Timer1": 1773871200000,
+    "Timer2": 1773835200000,
     "Timers": {
-      "19:00": true,
-      "09:00": true
+      "09:00": true,
+      "19:00": true
     },
-    "RecurringTime": 43200000,
     "Enabled": false,
-    "Timer2": 1773835200000
+    "RecurringTime": 43200000
   },
+  "CityColorHex": "#F82A2A",
+  "Wipe": {
+    "StartBank": 20000,
+    "Password": "Reborn",
+    "StartId": 1
+  },
+  "ServerName": "Reborn Studios",
+  "Needs": {
+    "Fome": 1,
+    "Sede": 1,
+    "Tempo": 90
+  },
+  "Identifier": "steam",
   "Theme": "default",
+  "MaxHealth": 400,
+  "NpcControl": {
+    "PedDensity": 0.5,
+    "VehicleDensity": 0.4,
+    "ParkedVehicle": 0.2
+  },
+  "Discord": "https://discord.gg/8unYr9MUdx",
+  "Maintenance": {
+    "text": "Manutenção em andamento...",
+    "licenses": {},
+    "enabled": false
+  },
   "Debug": false,
-  "CityColor": "rgb(92, 26, 128)"
+  "CityColor": "rgb(248, 42, 42)",
+  "CityLogo": "https://api.rebornsystem.com.br/imagens/RebornLogo.png",
+  "Whitelist": false
 }
