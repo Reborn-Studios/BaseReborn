@@ -1,975 +1,425 @@
-<html lang="pt-br" class="">
+<!doctype html>
+<html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-    <title>Logistics</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="noindex" />
+    <title>Will Shops</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
-      integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
     <link rel="stylesheet" href="style.css" />
-
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="https://pixinvent.com/stack-responsive-bootstrap-4-admin-template/app-assets/css/bootstrap-extended.min.css"
-    />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="https://pixinvent.com/stack-responsive-bootstrap-4-admin-template/app-assets/fonts/simple-line-icons/style.min.css"
-    />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="https://pixinvent.com/stack-responsive-bootstrap-4-admin-template/app-assets/css/colors.min.css"
-    />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="https://pixinvent.com/stack-responsive-bootstrap-4-admin-template/app-assets/css/bootstrap.min.css"
-    />
-    <link
-      href="https://fonts.googleapis.com/css?family=Montserrat&display=swap"
-      rel="stylesheet"
-    />
-
-    <link
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-      rel="stylesheet"
-    />
-
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
   </head>
-
   <body>
     <div class="main" style="display: none">
-      <nav class="sidebar-navigation">
+      <aside class="sidebar-navigation">
+        <div class="brand-mark">
+          <span>SHOP</span>
+        </div>
+
         <ul>
-          <li id="sidebar-1" onclick="openPage(0)">
-            <i class="fas fa-user-circle"></i>
-            <span class="tooltip">Perfil</span>
+          <li id="sidebar-1" class="active" onclick="openPage(0)" data-page="0">
+            <i class="fas fa-chart-line"></i>
+            <span class="tooltip">Visão geral</span>
           </li>
-          <li onclick="openPage(3)">
-            <i class="fas fa-gear"></i>
+          <li onclick="openPage(3)" data-page="3">
+            <i class="fas fa-sliders"></i>
             <span class="tooltip">Controle</span>
           </li>
-          <li onclick="openPage(1)">
-            <i class="fas fa-truck-loading"></i>
+          <li onclick="openPage(1)" data-page="1">
+            <i class="fas fa-bolt"></i>
             <span class="tooltip">Trabalhos rápidos</span>
           </li>
-          <li onclick="openPage(2)">
-            <i class="fas fa-dolly-flatbed"></i>
-            <span class="tooltip">Trabalhos de frete</span>
+          <li onclick="openPage(2)" data-page="2">
+            <i class="fas fa-truck-ramp-box"></i>
+            <span class="tooltip">Mercado de fretes</span>
           </li>
-          <li onclick="openPage(4)">
-            <i class="fas fa-university"></i>
+          <li onclick="openPage(4)" data-page="4">
+            <i class="fas fa-building-columns"></i>
             <span class="tooltip">Banco</span>
           </li>
           <li onclick="closeUI()">
-            <i class="fas fa-times"></i>
+            <i class="fas fa-xmark"></i>
             <span class="tooltip">Fechar</span>
           </li>
         </ul>
-      </nav>
+      </aside>
+
       <div class="container-pages">
-        <div class="pages main-page">
-          <div class="container-fluid">
-            <section id="minimal-statistics-main">
-              <div class="row">
-                <div class="col-12 mt-3 mb-1">
-                  <h4 class="text-uppercase">Estatísticas</h4>
-                  <p>Estatísticas da sua empresa</p>
-                </div>
-              </div>
-              <div class="row">
-                <div class="card">
-                  <div class="card-content">
-                    <div class="card-body">
-                      <div class="media d-flex">
-                        <div class="media-body text-left">
-                          <h3 id="profile-money" class="success">R$0.00</h3>
-                          <span>Dinheiro na mão</span>
-                        </div>
-                        <div class="align-self-center">
-                          <i
-                            class="fas fa-money-check-alt success font-large-2 float-right"
-                          ></i>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="card">
-                  <div class="card-content">
-                    <div class="card-body">
-                      <div class="media d-flex">
-                        <div class="media-body text-left">
-                          <h3 id="profile-money-earned" class="success">
-                            R$0.00
-                          </h3>
-                          <span>Total de dinheiro ganho</span>
-                        </div>
-                        <div class="align-self-center">
-                          <i
-                            class="fas fa-money-check success font-large-2 float-right"
-                          ></i>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="card">
-                  <div class="card-content">
-                    <div class="card-body">
-                      <div class="media d-flex">
-                        <div class="media-body text-left">
-                          <h3 id="profile-deliveries" class="primary">0</h3>
-                          <span>Entregas Terminadas</span>
-                        </div>
-                        <div class="align-self-center">
-                          <i
-                            class="fas fa-truck-loading primary font-large-2 float-right"
-                          ></i>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="card">
-                  <div class="card-content">
-                    <div class="card-body">
-                      <div class="media d-flex">
-                        <div class="media-body text-left">
-                          <h3 id="profile-exp-1" class="amber accent-4">80%</h3>
-                          <span>Estoque</span>
-                        </div>
-                        <div class="align-self-center">
-                          <i
-                            class="fas fa-chart-line amber accent-4 font-large-2 float-right"
-                          ></i>
-                        </div>
-                      </div>
-                      <div
-                        id="profile-exp-2"
-                        class="progress mt-1 mb-0"
-                        style="height: 7px"
-                      >
-                        <div
-                          class="progress-bar bg-amber accent-4"
-                          role="progressbar"
-                          style="width: 80%"
-                          aria-valuenow="80"
-                          aria-valuemin="0"
-                          aria-valuemax="100"
-                        ></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-12 mt-3 mb-1">
-                <h4 class="text-uppercase">Top produtos</h4>
-                <p>Lista dos top 5 produtos vendidos</p>
-              </div>
-              <div class="mt-3">
-                <ul id="top-products-list" class="list list-inline">
-                  <li class="d-flex justify-content-between">
-                    <div class="d-flex flex-row align-items-center">
-                      <i class="fas fa-medal amber accent-4"></i>
-                      <div class="ml-2">
-                        <h6 class="mb-0">[Nome]</h6>
-                        <div
-                          class="d-flex flex-row mt-1 text-black-50 date-time"
-                        >
-                          <div>
-                            <i class="fas fa-money"></i
-                            ><span class="ml-2">Vendas: 23</span>
-                          </div>
-                          <div class="ml-3">
-                            <i class="fas fa-chart-line"></i
-                            ><span class="ml-2">Total ganho: R$6.000</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                  <li class="d-flex justify-content-between">
-                    <div class="d-flex flex-row align-items-center">
-                      <i class="fas fa-medal blue-grey lighten-3"></i>
-                      <div class="ml-2">
-                        <h6 class="mb-0">[Nome]</h6>
-                        <div
-                          class="d-flex flex-row mt-1 text-black-50 date-time"
-                        >
-                          <div>
-                            <i class="fas fa-money"></i
-                            ><span class="ml-2">Vendas: 22</span>
-                          </div>
-                          <div class="ml-3">
-                            <i class="fas fa-chart-line"></i
-                            ><span class="ml-2">Total ganho: R$6.000</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                  <li class="d-flex justify-content-between">
-                    <div class="d-flex flex-row align-items-center">
-                      <i class="fas fa-medal bronze"></i>
-                      <div class="ml-2">
-                        <h6 class="mb-0">[Nome]</h6>
-                        <div
-                          class="d-flex flex-row mt-1 text-black-50 date-time"
-                        >
-                          <div>
-                            <i class="fas fa-money"></i
-                            ><span class="ml-2">Vendas: 22</span>
-                          </div>
-                          <div class="ml-3">
-                            <i class="fas fa-chart-line"></i
-                            ><span class="ml-2">Total ganho: R$6.000</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                  <li class="d-flex justify-content-between">
-                    <div class="d-flex flex-row align-items-center">
-                      <i class="fa fa-check-circle checkicon"></i>
-                      <div class="ml-2">
-                        <h6 class="mb-0">[Nome]</h6>
-                        <div
-                          class="d-flex flex-row mt-1 text-black-50 date-time"
-                        >
-                          <div>
-                            <i class="fas fa-route"></i
-                            ><span class="ml-2">Vendas: 22</span>
-                          </div>
-                          <div class="ml-3">
-                            <i class="fas fa-chart-line"></i
-                            ><span class="ml-2">Total ganho: R$6.000</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                  <li class="d-flex justify-content-between">
-                    <div class="d-flex flex-row align-items-center">
-                      <i class="fa fa-check-circle checkicon"></i>
-                      <div class="ml-2">
-                        <h6 class="mb-0">[Nome]</h6>
-                        <div
-                          class="d-flex flex-row mt-1 text-black-50 date-time"
-                        >
-                          <div>
-                            <i class="fas fa-route"></i
-                            ><span class="ml-2">Vendas: 22</span>
-                          </div>
-                          <div class="ml-3">
-                            <i class="fas fa-chart-line"></i
-                            ><span class="ml-2">Total ganho: R$6.000</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                  <li class="d-flex justify-content-between">
-                    <div class="d-flex flex-row align-items-center">
-                      <i class="fa fa-check-circle checkicon"></i>
-                      <div class="ml-2">
-                        <h6 class="mb-0">[Nome]</h6>
-                        <div
-                          class="d-flex flex-row mt-1 text-black-50 date-time"
-                        >
-                          <div>
-                            <i class="fas fa-route"></i
-                            ><span class="ml-2">Vendas: 22</span>
-                          </div>
-                          <div class="ml-3">
-                            <i class="fas fa-chart-line"></i
-                            ><span class="ml-2">Total ganho: R$6.000</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </section>
-          </div>
-        </div>
-
-        <div class="pages control-page">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="col-12 mt-3 mb-1">
-                <h4 class="text-uppercase">Controle da loja</h4>
-                <p>Gerencie o preço dos produtos</p>
-              </div>
-              <div class="mt-3">
-                <ul id="product-page-list" class="list list-inline">
-                  <li class="ml-3">
-                    <div class="d-flex flex-row align-items-center">
-                      <i class="fa fa-box"></i>
-                      <div class="ml-2">
-                        <h6 class="mb-0">Mercadoria</h6>
-                        <div
-                          class="d-flex flex-row mt-1 text-black-50 date-time"
-                        >
-                          <div class="ml-1">
-                            <i class="fas fa-coins"></i
-                            ><span class="ml-2">Valor: R$6.000</span>
-                          </div>
-                          <div class="ml-3">
-                            <i class="fas fa-box"></i
-                            ><span class="ml-1">Estoque: 0</span>
-                          </div>
-                          <div class="ml-3">
-                            <i class="fas fa-money"></i
-                            ><span class="ml-1">Vendas: 0</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="d-flex flex-row align-items-center">
-                      <input
-                        id="input-product-value"
-                        class="product-value"
-                        type="number"
-                        style="margin-right: 10px"
-                        placeholder="Valor"
-                      />
-                      <button class="btn btn-blue btn-darken-2 white">
-                        Confirmar
-                      </button>
-                    </div>
-                  </li>
-                  <li class="ml-3">
-                    <div class="d-flex flex-row align-items-center">
-                      <i class="fa fa-box"></i>
-                      <div class="ml-2">
-                        <h6 class="mb-0">Mercadoria 2</h6>
-                        <div
-                          class="d-flex flex-row mt-1 text-black-50 date-time"
-                        >
-                          <div class="ml-1">
-                            <i class="fas fa-coins"></i
-                            ><span class="ml-2">Valor: R$6.000</span>
-                          </div>
-                          <div class="ml-3">
-                            <i class="fas fa-box"></i
-                            ><span class="ml-1">Estoque: 0</span>
-                          </div>
-                          <div class="ml-3">
-                            <i class="fas fa-money"></i
-                            ><span class="ml-1">Vendas: 0</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="d-flex flex-row align-items-center">
-                      <input
-                        id="input-product-value"
-                        class="product-value"
-                        type="number"
-                        style="margin-right: 10px"
-                        placeholder="Valor"
-                      />
-                      <button class="btn btn-blue btn-darken-2 white">
-                        Confirmar
-                      </button>
-                    </div>
-                  </li>
-                  <li class="ml-3">
-                    <div class="d-flex flex-row align-items-center">
-                      <i class="fa fa-box"></i>
-                      <div class="ml-2">
-                        <h6 class="mb-0">Mercadoria 3</h6>
-                        <div
-                          class="d-flex flex-row mt-1 text-black-50 date-time"
-                        >
-                          <div class="ml-1">
-                            <i class="fas fa-coins"></i
-                            ><span class="ml-2">Valor: R$6.000</span>
-                          </div>
-                          <div class="ml-3">
-                            <i class="fas fa-box"></i
-                            ><span class="ml-1">Estoque: 0</span>
-                          </div>
-                          <div class="ml-3">
-                            <i class="fas fa-money"></i
-                            ><span class="ml-1">Vendas: 0</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="d-flex flex-row align-items-center">
-                      <input
-                        id="input-product-value"
-                        class="product-value"
-                        type="number"
-                        style="margin-right: 10px"
-                        placeholder="Valor"
-                      />
-                      <button class="btn btn-blue btn-darken-2 white">
-                        Confirmar
-                      </button>
-                    </div>
-                  </li>
-                  <li class="ml-3">
-                    <div class="d-flex flex-row align-items-center">
-                      <i class="fa fa-box"></i>
-                      <div class="ml-2">
-                        <h6 class="mb-0">Mercadoria 4</h6>
-                        <div
-                          class="d-flex flex-row mt-1 text-black-50 date-time"
-                        >
-                          <div class="ml-1">
-                            <i class="fas fa-coins"></i
-                            ><span class="ml-2">Valor: R$6.000</span>
-                          </div>
-                          <div class="ml-3">
-                            <i class="fas fa-box"></i
-                            ><span class="ml-1">Estoque: 0</span>
-                          </div>
-                          <div class="ml-3">
-                            <i class="fas fa-money"></i
-                            ><span class="ml-1">Vendas: 0</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="d-flex flex-row align-items-center">
-                      <input
-                        id="input-product-value"
-                        class="product-value"
-                        type="number"
-                        style="margin-right: 10px"
-                        placeholder="Valor"
-                      />
-                      <button class="btn btn-blue btn-darken-2 white">
-                        Confirmar
-                      </button>
-                    </div>
-                  </li>
-                </ul>
-              </div>
+        <div class="page-shell pages main-page">
+          <header class="page-header">
+            <div>
+              <span class="eyebrow">Painel da loja</span>
+              <h1 class="shop-name">Will Shops</h1>
+              <p>Resumo do desempenho atual da sua operação.</p>
             </div>
-          </div>
-        </div>
+            <div class="header-pill">
+              <i class="fas fa-clock"></i>
+              <span id="new-contracts-2">Novos contratos a cada 0 min</span>
+            </div>
+          </header>
 
-        <div class="pages job-page">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="col-12 mt-3 mb-1">
-                <h4 class="text-uppercase">Trabalhos Rápidos</h4>
-                <p>Ganhe mais dinheiro buscando sua propria mercadoria</p>
+          <section class="stats-grid">
+            <article class="stat-card">
+              <div class="stat-icon success">
+                <i class="fas fa-wallet"></i>
               </div>
-              <div class="mt-3">
-                <ul id="job-page-list" class="list list-inline">
-                  <li class="d-flex justify-content-between">
-                    <div class="d-flex flex-row align-items-center">
-                      <i class="fa fa-check-circle checkicon"></i>
-                      <div class="ml-2">
-                        <h6 class="mb-0">Mercadoria</h6>
-                        <div
-                          class="d-flex flex-row mt-1 text-black-50 date-time"
-                        >
-                          <div>
-                            <i class="fas fa-route"></i
-                            ><span class="ml-2">Distancia: 22km</span>
-                          </div>
-                          <div class="ml-3">
-                            <i class="fas fa-box"></i
-                            ><span class="ml-2">Quantidade: 25</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="d-flex flex-row align-items-center">
-                      <button class="btn btn-blue btn-darken-2 white">
-                        Começar emprego
-                      </button>
-                    </div>
-                  </li>
-                </ul>
+              <div class="stat-copy">
+                <span>Dinheiro em caixa</span>
+                <strong id="profile-money">R$ 0</strong>
               </div>
-              <p>
-                <i class="fa fa-clock-o"></i
-                ><span id="new-contracts-2" class="ml-2"
-                  >Novos contratos em 11h 25m</span
+            </article>
+
+            <article class="stat-card">
+              <div class="stat-icon">
+                <i class="fas fa-coins"></i>
+              </div>
+              <div class="stat-copy">
+                <span>Total faturado</span>
+                <strong id="profile-money-earned">R$ 0</strong>
+              </div>
+            </article>
+
+            <article class="stat-card">
+              <div class="stat-icon info">
+                <i class="fas fa-boxes-stacked"></i>
+              </div>
+              <div class="stat-copy">
+                <span>Entregas finalizadas</span>
+                <strong id="profile-deliveries">0</strong>
+              </div>
+            </article>
+
+            <article class="stat-card stock-card">
+              <div class="stat-topline">
+                <div class="stat-icon warning">
+                  <i class="fas fa-cubes"></i>
+                </div>
+                <div class="stat-copy">
+                  <span>Capacidade de estoque</span>
+                  <strong id="profile-exp-1">0%</strong>
+                </div>
+              </div>
+              <div id="profile-exp-2" class="progress-track">
+                <div class="progress-bar" style="width: 0%"></div>
+              </div>
+            </article>
+          </section>
+
+          <section class="content-grid">
+            <article class="panel">
+              <div class="panel-head">
+                <div>
+                  <span class="eyebrow">Ranking</span>
+                  <h2>Top produtos</h2>
+                </div>
+              </div>
+              <ul id="top-products-list" class="data-list"></ul>
+            </article>
+
+            <article class="panel bank-spotlight">
+              <div class="panel-head">
+                <div>
+                  <span class="eyebrow">Banco</span>
+                  <h2 id="bank-title">Controle dos seus ganhos</h2>
+                </div>
+              </div>
+
+              <div class="bank-hero">
+                <div>
+                  <span class="bank-label">Saldo disponível</span>
+                  <strong data-bank-money>R$ 0</strong>
+                </div>
+                <button
+                  class="ghost-button"
+                  type="button"
+                  onclick="withdrawMoney()"
                 >
-              </p>
-            </div>
-          </div>
+                  Sacar tudo
+                </button>
+              </div>
+
+              <div class="mini-actions">
+                <button
+                  class="tile-button"
+                  type="button"
+                  onclick="increaseStock()"
+                >
+                  <span>Aumentar estoque</span>
+                  <strong data-stock-infos>MÁXIMO ATINGIDO</strong>
+                </button>
+                <button
+                  class="tile-button danger"
+                  type="button"
+                  onclick="sellShop()"
+                >
+                  <span>Vender loja</span>
+                  <strong data-sellshop-infos>R$ 0</strong>
+                </button>
+              </div>
+            </article>
+          </section>
         </div>
 
-        <div class="pages freight-page">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="col-12 mt-3 mb-1">
-                <h4 class="text-uppercase">Mercado de fretes</h4>
-                <p>Divulgue trabalhos para aumentar seus ganhos</p>
-                <div id="freight-page-list" class="mt-3">
-                  <label for="freight-money"
-                    >Pagamento do trabalho
-                    <br />
+        <div class="page-shell pages control-page">
+          <header class="page-header">
+            <div>
+              <span class="eyebrow">Gestão</span>
+              <h1>Controle da loja</h1>
+              <p>Ajuste preços e acompanhe o desempenho dos produtos.</p>
+            </div>
+          </header>
+
+          <section class="panel">
+            <ul id="product-page-list" class="data-list cards-list"></ul>
+          </section>
+        </div>
+
+        <div class="page-shell pages job-page">
+          <header class="page-header">
+            <div>
+              <span class="eyebrow">Operações</span>
+              <h1>Trabalhos rápidos</h1>
+              <p>Pegue coletas rápidas para reforçar o estoque da loja.</p>
+            </div>
+            <div class="header-pill">
+              <i class="fas fa-route"></i>
+              <span>Missões com retorno imediato</span>
+            </div>
+          </header>
+
+          <section class="panel">
+            <ul id="job-page-list" class="data-list cards-list"></ul>
+          </section>
+        </div>
+
+        <div class="page-shell pages freight-page">
+          <header class="page-header">
+            <div>
+              <span class="eyebrow">Fretes</span>
+              <h1>Mercado de fretes</h1>
+              <p>Publique serviços e acompanhe os contratos em andamento.</p>
+            </div>
+          </header>
+
+          <section class="content-grid freight-layout">
+            <article class="panel">
+              <div class="panel-head">
+                <div>
+                  <span class="eyebrow">Novo contrato</span>
+                  <h2>Divulgar trabalho</h2>
+                </div>
+              </div>
+
+              <div id="freight-page-list" class="form-grid">
+                <label class="field">
+                  <span>Pagamento</span>
+                  <input
+                    id="freight-money"
+                    class="freight-money"
+                    type="number"
+                    placeholder="Digite o valor"
+                  />
+                </label>
+
+                <label class="field">
+                  <span>Produto</span>
+                  <select name="freight-product" id="freight-product"></select>
+                </label>
+
+                <label class="field field-full">
+                  <span>Descrição</span>
+                  <input
+                    id="freight-description"
+                    class="freight-description"
+                    type="text"
+                    placeholder="Descreva o trabalho"
+                  />
+                </label>
+
+                <button
+                  class="primary-button field-full"
+                  type="button"
+                  onclick="sendJob()"
+                >
+                  Publicar contrato
+                </button>
+              </div>
+            </article>
+
+            <article class="panel">
+              <div class="panel-head">
+                <div>
+                  <span class="eyebrow">Andamento</span>
+                  <h2>Contratos ativos</h2>
+                </div>
+              </div>
+              <ul id="contracts-progress-list" class="data-list"></ul>
+            </article>
+          </section>
+        </div>
+
+        <div class="page-shell pages bank-page">
+          <header class="page-header">
+            <div>
+              <span class="eyebrow">Financeiro</span>
+              <h1>Banco da loja</h1>
+              <p>Movimente o caixa e acompanhe as últimas vendas.</p>
+            </div>
+          </header>
+
+          <section class="bank-layout">
+            <article class="panel bank-panel">
+              <button
+                class="action-card"
+                type="button"
+                onclick="withdrawMoney()"
+              >
+                <span class="action-icon success"
+                  ><i class="fas fa-money-bill-wave"></i
+                ></span>
+                <div>
+                  <small>Saldo em conta</small>
+                  <strong id="bank-money">R$ 0</strong>
+                </div>
+              </button>
+
+              <div class="action-card form-card">
+                <span class="action-icon"
+                  ><i class="fas fa-piggy-bank"></i
+                ></span>
+                <div class="form-copy">
+                  <small>Depositar valor</small>
+                  <div class="inline-form">
                     <input
-                      id="freight-money"
-                      class="freight-money"
+                      id="input-deposit-money"
+                      class="deposit-money"
                       type="number"
                       placeholder="Valor"
-                      required
                     />
-                  </label>
-                  <label for="freight-product"
-                    >Escolha o produto
-                    <br />
-                    <select name="freight-product" id="freight-product">
-                      <option value="value1">Mercadoria 1</option>
-                      <option value="value2">Mercadoria 2</option>
-                    </select>
-                  </label>
-                  <label for="freight-description"
-                    >Descrição do trabalho
-                    <br />
-                    <input
-                      id="freight-description"
-                      class="freight-description"
-                      type="text"
-                      placeholder="Descrição"
-                      required
-                    />
-                  </label>
-                  <button onclick="sendJob()" class="btn btn-blue white">
-                    Confirmar
-                  </button>
-                </div>
-              </div>
-              <div class="mt-3">
-                <p>
-                  <i class="fa fa-clock-o"></i
-                  ><span id="new-contracts-1" class="ml-2"
-                    >Empregos em andamento</span
-                  >
-                </p>
-                <ul id="contracts-progress-list" class="list list-inline">
-                  <li
-                    style="background-color: #f7fa44c5"
-                    class="d-flex justify-content-between"
-                  >
-                    <div class="d-flex flex-row align-items-center">
-                      <i class="fa fa-check-circle checkicon"></i>
-                      <div class="ml-2">
-                        <h6 class="mb-0">Reunião</h6>
-                        <div
-                          class="d-flex flex-row mt-1 text-black-50 date-time"
-                        >
-                          <div>
-                            <i class="fas fa-route"></i
-                            ><span class="ml-2">Distancia: 22km</span>
-                          </div>
-                          <div class="ml-3">
-                            <i class="fas fa-coins"></i
-                            ><span class="ml-2">Recompensa: 6.000</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="d-flex flex-row align-items-center">
-                      <button
-                        onclick="startJob()"
-                        class="btn btn-blue btn-darken-2 white"
-                      >
-                        Começar emprego
-                      </button>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="pages bank-page">
-          <div class="container-fluid">
-            <section id="minimal-statistics-bank">
-              <div class="row">
-                <div class="col-12 mt-3 mb-1">
-                  <h4 class="text-uppercase">Banco</h4>
-                  <p id="bank-title">Controle de seus ganhos</p>
-                </div>
-              </div>
-            </section>
-            <section id="minimal-statistics-bank-2">
-              <div class="row">
-                <div class="card width-600">
-                  <div onclick="withdrawMoney()" class="card-content">
-                    <div class="card-body">
-                      <div class="media d-flex">
-                        <div class="media-body text-left">
-                          <h3 id="bank-money" class="success darken-1">
-                            R$400.000
-                          </h3>
-                          <span>Sacar dinheiro</span>
-                        </div>
-                        <div class="align-self-center">
-                          <i
-                            class="fas fa-money success darken-1 font-large-2 float-right"
-                          ></i>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="card width-600">
-                  <div class="card-content">
-                    <div class="card-body">
-                      <div class="media d-flex">
-                        <div class="media-body text-left">
-                          <input
-                            id="input-deposit-money"
-                            class="deposit-money"
-                            type="number"
-                            placeholder="Valor"
-                          />
-                          <button
-                            onclick="depositMoney()"
-                            class="btn btn-blue btn-darken-2 white deposit-money-btn"
-                          >
-                            Depositar dinheiro
-                          </button>
-                        </div>
-                        <div class="align-self-center">
-                          <i
-                            class="fas fa-coins success darken-1 font-large-2 float-right"
-                          ></i>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="card width-600">
-                  <div onclick="increaseStock()" class="card-content">
-                    <div class="card-body">
-                      <div class="media d-flex">
-                        <div class="media-body text-left">
-                          <h3 id="stock-infos" class="success darken-1">
-                            200 KG | R$50.000
-                          </h3>
-                          <span>Aumentar estoque</span>
-                        </div>
-                        <div class="align-self-center">
-                          <i
-                            class="fas fa-box success darken-1 font-large-2 float-right"
-                          ></i>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="card width-600">
-                  <div onclick="sellShop()" class="card-content">
-                    <div class="card-body">
-                      <div class="media d-flex">
-                        <div class="media-body text-left">
-                          <h3 id="sellshop-infos" class="success darken-1">
-                            R$200.000
-                          </h3>
-                          <span>Vender loja</span>
-                        </div>
-                        <div class="align-self-center">
-                          <i
-                            class="fas fa-clipboard-check success darken-1 font-large-2 float-right"
-                          ></i>
-                        </div>
-                      </div>
-                    </div>
+                    <button
+                      type="button"
+                      class="primary-button"
+                      onclick="depositMoney()"
+                    >
+                      Depositar
+                    </button>
                   </div>
                 </div>
               </div>
-            </section>
-          </div>
-          <div class="col-12 mb-1">
-            <p>Ultimas vendas:</p>
-          </div>
-          <ul id="last-sell-list" class="list list-inline">
-            <li class="d-flex justify-content-between">
-              <div class="d-flex flex-row align-items-center">
-                <i class="fa fa-check-circle"></i>
-                <div class="ml-2">
-                  <h6 class="mb-0">Produto</h6>
-                  <div class="d-flex flex-row mt-1 text-black-50 date-time">
-                    <div class="ml-1">
-                      <i class="fas fa-user"></i
-                      ><span class="ml-2">Cliente: Jose Maria</span>
-                    </div>
-                    <div class="ml-3">
-                      <i class="fas fa-box"></i
-                      ><span class="ml-2">Quantidade: 1</span>
-                    </div>
-                    <div class="ml-3">
-                      <i class="fas fa-coins"></i
-                      ><span class="ml-2">Ganho: R$6.000</span>
-                    </div>
-                  </div>
+
+              <button
+                class="action-card"
+                type="button"
+                onclick="increaseStock()"
+              >
+                <span class="action-icon warning"
+                  ><i class="fas fa-box-open"></i
+                ></span>
+                <div>
+                  <small>Próxima expansão</small>
+                  <strong id="stock-infos">MÁXIMO ATINGIDO</strong>
+                </div>
+              </button>
+
+              <button
+                class="action-card danger"
+                type="button"
+                onclick="sellShop()"
+              >
+                <span class="action-icon danger"
+                  ><i class="fas fa-store-slash"></i
+                ></span>
+                <div>
+                  <small>Valor da loja</small>
+                  <strong id="sellshop-infos">R$ 0</strong>
+                </div>
+              </button>
+            </article>
+
+            <article class="panel">
+              <div class="panel-head">
+                <div>
+                  <span class="eyebrow">Histórico</span>
+                  <h2>Últimas vendas</h2>
                 </div>
               </div>
-            </li>
-            <li class="d-flex justify-content-between">
-              <div class="d-flex flex-row align-items-center">
-                <i class="fa fa-check-circle"></i>
-                <div class="ml-2">
-                  <h6 class="mb-0">Produto 2</h6>
-                  <div class="d-flex flex-row mt-1 text-black-50 date-time">
-                    <div class="ml-1">
-                      <i class="fas fa-user"></i
-                      ><span class="ml-2">Cliente: Roberto Antonio</span>
-                    </div>
-                    <div class="ml-3">
-                      <i class="fas fa-box"></i
-                      ><span class="ml-2">Quantidade: 1</span>
-                    </div>
-                    <div class="ml-3">
-                      <i class="fas fa-coins"></i
-                      ><span class="ml-2">Ganho: R$6.000</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li class="d-flex justify-content-between">
-              <div class="d-flex flex-row align-items-center">
-                <i class="fa fa-check-circle"></i>
-                <div class="ml-2">
-                  <h6 class="mb-0">Produto 2</h6>
-                  <div class="d-flex flex-row mt-1 text-black-50 date-time">
-                    <div class="ml-1">
-                      <i class="fas fa-user"></i
-                      ><span class="ml-2">Cliente: Roberto Antonio</span>
-                    </div>
-                    <div class="ml-3">
-                      <i class="fas fa-box"></i
-                      ><span class="ml-2">Quantidade: 1</span>
-                    </div>
-                    <div class="ml-3">
-                      <i class="fas fa-coins"></i
-                      ><span class="ml-2">Ganho: R$6.000</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li class="d-flex justify-content-between">
-              <div class="d-flex flex-row align-items-center">
-                <i class="fa fa-check-circle"></i>
-                <div class="ml-2">
-                  <h6 class="mb-0">Produto 2</h6>
-                  <div class="d-flex flex-row mt-1 text-black-50 date-time">
-                    <div class="ml-1">
-                      <i class="fas fa-user"></i
-                      ><span class="ml-2">Cliente: Roberto Antonio</span>
-                    </div>
-                    <div class="ml-3">
-                      <i class="fas fa-box"></i
-                      ><span class="ml-2">Quantidade: 1</span>
-                    </div>
-                    <div class="ml-3">
-                      <i class="fas fa-coins"></i
-                      ><span class="ml-2">Ganho: R$6.000</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li class="d-flex justify-content-between">
-              <div class="d-flex flex-row align-items-center">
-                <i class="fa fa-check-circle"></i>
-                <div class="ml-2">
-                  <h6 class="mb-0">Produto 2</h6>
-                  <div class="d-flex flex-row mt-1 text-black-50 date-time">
-                    <div class="ml-1">
-                      <i class="fas fa-user"></i
-                      ><span class="ml-2">Cliente: Roberto Antonio</span>
-                    </div>
-                    <div class="ml-3">
-                      <i class="fas fa-box"></i
-                      ><span class="ml-2">Quantidade: 1</span>
-                    </div>
-                    <div class="ml-3">
-                      <i class="fas fa-coins"></i
-                      ><span class="ml-2">Ganho: R$6.000</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li class="d-flex justify-content-between">
-              <div class="d-flex flex-row align-items-center">
-                <i class="fa fa-check-circle"></i>
-                <div class="ml-2">
-                  <h6 class="mb-0">Produto 2</h6>
-                  <div class="d-flex flex-row mt-1 text-black-50 date-time">
-                    <div class="ml-1">
-                      <i class="fas fa-user"></i
-                      ><span class="ml-2">Cliente: Roberto Antonio</span>
-                    </div>
-                    <div class="ml-3">
-                      <i class="fas fa-box"></i
-                      ><span class="ml-2">Quantidade: 1</span>
-                    </div>
-                    <div class="ml-3">
-                      <i class="fas fa-coins"></i
-                      ><span class="ml-2">Ganho: R$6.000</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </li>
-          </ul>
+              <ul id="last-sell-list" class="data-list"></ul>
+            </article>
+          </section>
         </div>
       </div>
     </div>
 
-    <div
-      id="myModal"
-      class="modal fade"
-      aria-hidden="true"
-      style="display: none"
-    >
-      <div class="modal-dialog modal-confirm">
-        <div class="modal-content">
-          <div class="modal-header flex-column">
-            <div class="icon-box">
-              <i class="fas fa-exclamation"></i>
-            </div>
-            <h4 class="modal-title w-100">Tem certeza?</h4>
-            <button
-              type="button"
-              class="close"
-              data-dismiss="modal"
-              aria-hidden="true"
-            >
-              ×
-            </button>
-          </div>
-          <div class="modal-body">
-            <p>
-              Do you really want to delete these records? This process cannot be
-              undone.
-            </p>
-          </div>
-          <div class="modal-footer justify-content-center">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-dismiss="modal"
-            >
-              Cancel
-            </button>
-            <button type="button" class="btn btn-danger">Delete</button>
-          </div>
+    <div class="shopMenu modal-surface" style="display: none">
+      <div class="modal-header-row">
+        <div>
+          <span class="eyebrow">Loja</span>
+          <h2 class="shop-name">Loja de Departamento</h2>
+          <p>Selecione os itens e informe a quantidade desejada.</p>
         </div>
+        <button class="icon-button" type="button" onclick="closeUI()">
+          <i class="fas fa-xmark"></i>
+        </button>
       </div>
+
+      <div class="shopList-items shop-grid"></div>
     </div>
-    <div class="shopMenu" style="display: none">
-      <h2>Loja de Departamento</h2>
-      <div class="shopList-items">
-        <div class="shop-item card">
-          <h5 class="card-header">Coca-cola</h5>
-          <div class="img-buy">
-            <img
-              class="img-top"
-              src="https://www.imagensempng.com.br/wp-content/uploads/2022/01/2442.png"
-              alt="cola"
-            />
-          </div>
-          <h6 class="card-subtitle">R$ 200</h6>
-          <span class="text-muted">Estoque: 5</span>
-          <input
-            type="number"
-            class="input-group-text"
-            placeholder="Quantidade"
-          />
-          <button type="button" class="btn-buy">Comprar</button>
+
+    <div class="jobsMenu modal-surface" style="display: none">
+      <div class="modal-header-row">
+        <div>
+          <span class="eyebrow">Serviços</span>
+          <h2>Serviços da loja</h2>
+          <p>Escolha um frete disponível para iniciar.</p>
         </div>
-        <div class="shop-item card">
-          <h5 class="card-header">Coca-cola</h5>
-          <div class="img-buy">
-            <img
-              class="img-top"
-              src="https://www.imagensempng.com.br/wp-content/uploads/2022/01/2442.png"
-              alt="cola"
-            />
-          </div>
-          <h6 class="card-subtitle">R$ 200</h6>
-          <span class="text-muted">Estoque: 5</span>
-          <input
-            type="number"
-            class="input-group-text"
-            placeholder="Quantidade"
-          />
-          <button type="button" class="btn-buy">Comprar</button>
+        <button class="icon-button" type="button" onclick="closeUI()">
+          <i class="fas fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="shop-jobs jobs-grid"></div>
+    </div>
+
+    <div id="fuelMenu" style="display: none">
+      <div class="fuel-topline">
+        <div>
+          <div class="title">Posto de Gasolina</div>
+          <div class="legends">Abastecimento de combustível</div>
+        </div>
+        <i class="fas fa-gas-pump"></i>
+      </div>
+
+      <div class="fuel-stats">
+        <div class="fuelButton">
+          <span>Tanque</span>
+          <strong class="fuelStats" id="tank">100%</strong>
+        </div>
+        <div class="fuelButton">
+          <span>Valor</span>
+          <strong class="fuelStats" id="price">R$0</strong>
+        </div>
+        <div class="fuelButton">
+          <span>Litros</span>
+          <strong class="fuelStats" id="lts">0</strong>
         </div>
       </div>
     </div>
 
-    <div class="jobsMenu" style="display: none">
-      <h2>Serviços da loja</h2>
-      <div class="shop-jobs">
-        <div class="shop-job-item card" style="width: 24rem">
-          <div class="card-header">
-            <h5 class="card-title">Transporte de coca-cola</h5>
-          </div>
-          <div class="card-body">
-            <h6 class="card-subtitle mb-2 text-muted">Pagamento: R$ 1500</h6>
-            <p class="card-text">Quantidade de coleta: 17</p>
-            <p class="card-text">Distância: 1765m</p>
-            <button type="button" class="btn btn-secondary">Iniciar</button>
-          </div>
-        </div>
-        <div class="shop-job-item card" style="width: 24rem">
-          <div class="card-header">
-            <h5 class="card-title">Transporte de energetico</h5>
-          </div>
-          <div class="card-body">
-            <h6 class="card-subtitle mb-2 text-muted">Pagamento: R$ 2500</h6>
-            <p class="card-text">Quantidade de coleta: 20</p>
-            <p class="card-text">Distância: 1765m</p>
-            <button type="button" class="btn btn-secondary">Iniciar</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div id="fuelMenu">
-      <div class="title">Posto de Gasolina</div>
-      <div class="legends">Abastecimento de combustível</div>
-
-      <div class="fuelButton">
-        Tanque:
-        <div class="fuelStats" id="tank">100 %</div>
-      </div>
-      <div class="fuelButton">
-        Valor:
-        <div class="fuelStats" id="price">R$1.000</div>
-      </div>
-      <div class="fuelButton" style="width: 75px">
-        Litros:
-        <div class="fuelStats" id="lts">10</div>
-      </div>
-    </div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <script src="script.js" type="text/javascript"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
+    <script src="script.js"></script>
   </body>
 </html>
