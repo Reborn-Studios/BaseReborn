@@ -1,26 +1,479 @@
-:focus {
-  outline: 0;
+:root {
+  --bg-overlay: rgba(5, 8, 13, 0.38);
+  --bg-panel: rgba(13, 18, 28, 0.94);
+  --bg-panel-soft: rgba(255, 255, 255, 0.04);
+  --bg-card: rgba(255, 255, 255, 0.03);
+  --bg-card-active: rgba(255, 255, 255, 0.07);
+  --border-soft: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.14);
+  --text-main: #f5f7fb;
+  --text-muted: #94a0b8;
+  --text-soft: #6f7c93;
+  --accent: #7c9cff;
+  --success: #45d483;
+  --danger: #ff6f7d;
+  --warning: #f1c76b;
+  --shadow-lg: 0 30px 80px rgba(0, 0, 0, 0.42);
+  --shadow-sm: 0 16px 30px rgba(0, 0, 0, 0.24);
+  --radius-lg: 26px;
+  --radius-md: 18px;
+  --radius-sm: 14px;
 }
 
-::-webkit-scrollbar {
-  display: ruby;
-  background-color: rgba(177, 177, 177, 0.568);
-  width: 8px;
-  border-radius: 5px;
-  box-shadow: black;
+* {
+  box-sizing: border-box;
 }
 
-::-webkit-scrollbar-thumb {
-  background-color: #1c1c1e;
-  border-radius: 5px;
-  height: 6px;
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background-color: #0e0e0f;
+body {
+  font-family: "Inter", sans-serif;
+  color: var(--text-main);
+  background: transparent;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(124, 156, 255, 0.12),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at bottom right,
+      rgba(69, 212, 131, 0.1),
+      transparent 24%
+    );
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  border: 0;
+  cursor: pointer;
+}
+
+input {
+  width: 100%;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--text-main);
+  outline: none;
+}
+
+input::placeholder {
+  color: var(--text-soft);
 }
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
+  margin: 0;
+}
+
+.screen-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  padding: 24px;
+}
+
+.screen-bottom {
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.screen-right {
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.screen-center {
+  align-items: center;
+  justify-content: center;
+}
+
+.panel {
+  width: 100%;
+  background: linear-gradient(180deg, var(--bg-panel), rgba(9, 13, 21, 0.95));
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-lg);
+}
+
+.npc-panel {
+  max-width: 520px;
+  padding: 24px;
+}
+
+.inventory-panel {
+  max-width: 480px;
+  height: min(88vh, 860px);
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+}
+
+.marketplace-panel {
+  max-width: 1160px;
+  max-height: min(88vh, 900px);
+  display: flex;
+  flex-direction: column;
+  padding: 28px;
+}
+
+.panel-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.panel-header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.panel-header p {
+  margin: 8px 0 0;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.eyebrow {
+  display: inline-block;
+  margin-bottom: 10px;
+  color: var(--accent);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.icon-button {
+  width: 42px;
+  height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-soft);
+  color: var(--text-main);
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.icon-button:hover,
+.primary-button:hover,
+.secondary-button:hover,
+.drug-card:hover,
+.product-card:hover {
+  transform: translateY(-1px);
+  border-color: var(--border-strong);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.message-box {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  padding: 16px 18px;
+  margin-bottom: 18px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-soft);
+  background: var(--bg-panel-soft);
+}
+
+.message-box i {
+  color: var(--accent);
+  margin-top: 2px;
+}
+
+.message-box p {
+  margin: 0;
+  color: var(--text-main);
+  line-height: 1.5;
+}
+
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.field-group label {
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  font-weight: 500;
+}
+
+.input-shell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 54px;
+  padding: 0 16px;
+  border-radius: 16px;
+  border: 1px solid var(--border-soft);
+  background: rgba(255, 255, 255, 0.04);
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.input-shell span {
+  color: var(--text-soft);
+}
+
+.input-shell:focus-within {
+  border-color: rgba(124, 156, 255, 0.55);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.input-shell.compact {
+  min-height: 48px;
+}
+
+.action-row {
+  display: flex;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.primary-button,
+.secondary-button {
+  min-height: 50px;
+  padding: 0 18px;
+  border-radius: 16px;
+  border: 1px solid var(--border-soft);
+  color: var(--text-main);
+  font-weight: 600;
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.primary-button {
+  background: linear-gradient(135deg, var(--accent), #5d7cff);
+}
+
+.primary-button.success {
+  background: linear-gradient(135deg, var(--success), #27b564);
+}
+
+.secondary-button {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.secondary-button.danger {
+  border-color: rgba(255, 111, 125, 0.18);
+  color: #ffd1d6;
+}
+
+.scroll-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.drug-list {
+  flex: 1;
+  min-height: 0;
+}
+
+.drug-card,
+.product-card {
+  border: 1px solid var(--border-soft);
+  border-radius: 18px;
+  background: var(--bg-card);
+  box-shadow: var(--shadow-sm);
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.drug-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px;
+}
+
+.drug-card.active {
+  background: var(--bg-card-active);
+  border-color: rgba(124, 156, 255, 0.24);
+}
+
+.drug-thumb,
+.product-thumb {
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 14px;
+  object-fit: contain;
+}
+
+.drug-thumb {
+  width: 78px;
+  height: 78px;
+  padding: 10px;
+}
+
+.product-thumb {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  max-height: 124px;
+  padding: 16px;
+}
+
+.drug-copy,
+.product-copy {
+  min-width: 0;
+  text-align: left;
+}
+
+.drug-copy h2,
+.product-copy h2 {
+  margin: 0 0 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.stat-line {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+.stat-line strong {
+  color: var(--text-main);
+}
+
+.footer-controls {
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px solid var(--border-soft);
+}
+
+.feedback-message {
+  display: inline-block;
+  margin-top: 14px;
+  color: #ffb4bc;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.product-card {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+}
+
+.product-copy {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.product-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 12px 0;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.product-price {
+  color: var(--text-main);
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.product-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: auto;
+}
+
+.quantity-inline {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.quantity-inline .input-shell {
+  flex: 1;
+}
+
+.quantity-inline span {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+@media (max-width: 900px) {
+  .screen-overlay {
+    padding: 20px;
+  }
+
+  .inventory-panel,
+  .marketplace-panel,
+  .npc-panel {
+    max-width: none;
+    width: 100%;
+  }
+
+  .product-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .action-row {
+    flex-direction: column;
+  }
 }
