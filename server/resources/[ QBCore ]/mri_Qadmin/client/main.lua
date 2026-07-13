@@ -286,6 +286,16 @@ RegisterNetEvent("mri_Qadmin:client:ReceiveVehiclesInfo", function(VehiclesInfo)
     for k,veh in pairs(allVehicles) do
         if VehiclesInfo[veh] then
             vehicles[veh] = VehiclesInfo[veh]
+        else
+            vehicles[veh] = {
+                ['name'] = veh,
+                ['brand'] = veh,
+                ['model'] = veh,
+                ['price'] = 0,
+                ['category'] = "cars",
+                ['hash'] = GetHashKey(veh),
+                ['shop'] = 'pdm',
+            }
         end
     end
     SendNUIMessage({
