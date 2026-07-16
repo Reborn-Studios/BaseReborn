@@ -1,16 +1,39 @@
 [
     {
         "name": "Pesca",
-        "items": {
-            "fishingrod": 500,
-            "bait": 25
-        },
         "group": [],
         "locations": [
             {
-                "z": 13.0173921585083,
                 "x": -1559.0675048828126,
+                "z": 13.0173921585083,
                 "y": -970.375
+            }
+        ],
+        "items": {
+            "fishingrod": 500,
+            "bait": 25
+        }
+    },
+    {
+        "items": {
+            "sprunk": 150,
+            "backpackx": 2500,
+            "backpackm": 1500,
+            "hotdog": 200,
+            "backpackg": 1700,
+            "radio": 400,
+            "backpackp": 1250,
+            "hamburger": 180,
+            "water": 120,
+            "cola": 200
+        },
+        "group": [],
+        "name": "Conveniencia",
+        "locations": [
+            {
+                "x": -1639.0159912109376,
+                "y": -1108.321044921875,
+                "z": 13.33561611175537
             }
         ]
     }

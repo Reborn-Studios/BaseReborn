@@ -172,7 +172,7 @@ Config.BarberCategories = {
 Config.CreateCoords = vector4(1111.49,-3143.9,-37.06,273.81)
 
 -- Coords para spawnar apos criação
-Config.SpawnCoords = vector4(-1037.02,-2734.81,13.76,327.28)
+Config.SpawnCoords = vector4(-1701.82,-1144.08,13.17,318.35)
 
 Config.DisabledCategories = {
     [`mp_m_freemode_01`] = {
