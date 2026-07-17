@@ -122,11 +122,13 @@ end)
 
 function ConvertClothes(data)
     local newClothes = table.clone(data)
-    for k,v in pairs(data) do
-        if aliasClothes[k] then
-            newClothes[aliasClothes[k]] = v
-        else
-            newClothes[k] = v
+    if data["tops"] or data["legs"] then
+        for k,v in pairs(data) do
+            if aliasClothes[k] then
+                newClothes[aliasClothes[k]] = v
+            else
+                newClothes[k] = v
+            end
         end
     end
     return newClothes

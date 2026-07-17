@@ -23,7 +23,15 @@ function FreezeAnim(dict, anim, flag, keep)
     end
     LoadAnim(dict)
     TaskPlayAnim(PlayerPedId(), dict, anim, 3.0, 3.0, -1, flag or 1, 0, false, false, false)
-    RemoveAnimDict(dict)
+    CreateThread(function()
+        while InMultichar do
+            if not IsEntityPlayingAnim(PlayerPedId(), dict, anim, 3) then
+                TaskPlayAnim(PlayerPedId(), dict, anim, 3.0, 3.0, -1, flag or 1, 0, false, false, false)
+            end
+            Wait(300)
+        end
+        RemoveAnimDict(dict)
+    end)
 end
 
 local Cameras = {
