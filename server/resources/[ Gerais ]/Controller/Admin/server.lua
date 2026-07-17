@@ -5,10 +5,11 @@ Tunnel = module("vrp","lib/Tunnel") or {}
 Proxy = module("vrp","lib/Proxy") or {}
 Webhooks = module("config/webhooks") or {}
 vRP = Proxy.getInterface("vRP")
+Reborn = Proxy.getInterface("Reborn")
 vRPclient = Tunnel.getInterface("vRP")
 
 local GlobalItems = module('vrp',"config/Itemlist") or {}
-RegisterServerEvent("Reborn:reloadInfos",function() GlobalItems = module('vrp',"config/Itemlist") end)
+RegisterServerEvent("Reborn:reloadInfos",function() GlobalItems = Reborn.itemList() end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -427,8 +428,8 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterCommand("group",function(source,args,rawCommand)
 	if source == 0 and args[1] and args[2] then
-		vRP.addUserGroup(parseInt(args[1]),tostring(args[2]))
-		print("O cidadão foi setado como " ..args[2])
+		vRP.addUserGroup(parseInt(args[1]),tostring(args[2]),tonumber(args[3]))
+		print("O cidadão foi setado como " ..vRP.getGroupTitle(args[2],tonumber(args[3])))
 		return
 	end
 	local user_id = vRP.getUserId(source)
@@ -447,7 +448,7 @@ RegisterCommand("group",function(source,args,rawCommand)
 						return
 					end
 					if not vRP.hasPermission(parseInt(args[1]),tostring(args[2])) then
-						vRP.addUserGroup(parseInt(args[1]),tostring(args[2]))
+						vRP.addUserGroup(parseInt(args[1]),tostring(args[2]),tonumber(args[3]))
 						TriggerClientEvent("Notify",source,"sucesso","O cidadão foi setado como " ..(args[2]).." ",5000)
 						vRP.createWeebHook(Webhooks.webhookset,"```prolog\n[ID]: "..user_id.." \n[SETOU]: "..args[1].." \n [GROUP]: "..args[2].." "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
 					end
@@ -467,10 +468,10 @@ RegisterCommand("rg2",function(source,args,rawCommand)
 		if HasPermission(source,"rg2") then
 			local sets = ""
 			local userGroups = vRP.getUserGroups(parseInt(args[1]))
-			for group,v in pairs(userGroups) do
+			for group,level in pairs(userGroups) do
 				local groupData = vRP.getGroup(group)
-				local groupType = groupData and groupData._config and groupData._config.gtype or "None"
-				sets = sets..'- '..group.." ("..(groupType)..")".."<br>"
+				local groupType = groupData and groupData["Type"] or "None"
+				sets = sets..'- '..group.." "..level.." ("..(groupType)..")".."<br>"
 			end
 			TriggerClientEvent("Notify",source,"SETS ID ("..args[1]..")",sets,7000)
 		end

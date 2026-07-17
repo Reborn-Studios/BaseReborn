@@ -54,6 +54,18 @@ local function createNewItem(data,edit)
     else
         SaveControlFile("items",data.item,NewItems[data.item])
     end
+    StopResource("ox_inventory")
+    Wait(500)
+    StartResource("ox_inventory")
+    while GetResourceState("ox_inventory") ~= "started" do
+        Wait(100)
+    end
+    Wait(3000)
+    StopResource("ox_inventory")
+    Wait(500)
+    StartResource("ox_inventory")
+    StartResource("mri_Qfarm")
+    StartResource("ox_fuel")
 end
 
 RegisterNetEvent("AdminControl:createNewItem")
@@ -61,6 +73,7 @@ AddEventHandler("AdminControl:createNewItem",function (data)
     local source = source
     local user_id = vRP.getUserId(source)
     if vRP.hasPermission(user_id,Config.Commands["items"]['perm']) then
+        TriggerClientEvent("Notify",source,"aviso","Registrando item...",5000)
         createNewItem(data)
         TriggerClientEvent("Notify",source,"sucesso","Item adicionado com sucesso!",5000)
     end
@@ -71,6 +84,7 @@ AddEventHandler("AdminControl:editNewItem",function (data)
     local source = source
     local user_id = vRP.getUserId(source)
     if vRP.hasPermission(user_id,Config.Commands["items"]['perm']) then
+        TriggerClientEvent("Notify",source,"aviso","Editando item...",5000)
         createNewItem(data,true)
         TriggerClientEvent("Notify",source,"sucesso","Item editado com sucesso!",5000)
     end
