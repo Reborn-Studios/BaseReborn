@@ -38,24 +38,6 @@ body {
   background: transparent;
 }
 
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(
-      circle at top left,
-      rgba(124, 156, 255, 0.12),
-      transparent 28%
-    ),
-    radial-gradient(
-      circle at bottom right,
-      rgba(69, 212, 131, 0.1),
-      transparent 24%
-    );
-}
-
 button,
 input {
   font: inherit;
