@@ -122,6 +122,9 @@ RegisterNetEvent("mri_Qadmin:client:ToggleNoClip", function()
 end)
 
 RegisterNetEvent("mri_Qadmin:client:OpenMenu", function(playerList, ServerInformation, MaxPlayers, Version, hasPerms, Role)
+    if LocalPlayer.state.invOpen then
+        return
+    end
     SendNUIMessage({
         action = "open",
         name = GetPlayerName(PlayerId()),
