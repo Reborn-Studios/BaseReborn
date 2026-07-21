@@ -1,9 +1,6 @@
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VRP
 -----------------------------------------------------------------------------------------------------------------------------------------
-local Tunnel = module("vrp","lib/Tunnel")
-local Proxy = module("vrp","lib/Proxy")
-vRP = Proxy.getInterface("vRP")
 vRPclient = Tunnel.getInterface("vRP")
 vCLIENT = Tunnel.getInterface("will_bateponto")
 QBCore = exports["qb-core"]:GetCoreObject()
@@ -15,73 +12,67 @@ Tunnel.bindInterface("will_bateponto",cnVRP)
 
 local serviceTime = {}
 
+local function checkGroupPermission(user_id, Index)
+    local Groups = vRP.Groups()
+    if Groups[Index] and Groups[Index]["Permissions"] then
+        for k,perm in pairs(Groups[Index]["Permissions"]) do
+            if vRP.hasPermission(user_id,perm) then
+                return true
+            end
+        end
+    end
+end
+
 function cnVRP.checkBateponto(Index)
 	local source = source
 	local user_id = vRP.getUserId(source)
-	if user_id and Config.data[Index] then
-        vCLIENT.verify(source)
+    local batePontos = Config.getData()
+    if user_id and Index[1] and batePontos[Index[1]] then
+        vCLIENT.sendText(source,"Verificando...")
         Wait(2000)
-        for k,v in pairs(Config.data[Index].groups) do
-            local paisanaGroup = "Paisana"..v.group
-            if vRP.hasGroup(user_id,v.group) then
-                vRP.addUserGroup(user_id,paisanaGroup)
-                TriggerEvent("vrp_blipsystem:serviceExit",source)
-                vCLIENT.exit(source)
+        if checkGroupPermission(user_id, Index) then
+            if vRP.HasService(user_id,Index[1]) then
+                vRP.ServiceLeave(source,user_id,Index[1],true)
+                vCLIENT.sendText(source,"Saiu de serviço")
                 if QBCore then
                     local Player = QBCore.Functions.GetPlayer(source)
                     if Player then
                         Player.Functions.SetJobDuty(false)
                     end
                 end
-                if Config.data[Index].webhook then
+                local webhook = Index[2] and batePontos[Index[1]][Index[2]] and batePontos[Index[1]][Index[2]].webhook
+                if webhook and webhook ~= "" then
                     if parseInt(serviceTime[user_id]) > 0 then
-                        Config.func.sendDiscord(Config.data[Index].webhook,"ID:"..user_id,"Saiu de serviço \n[Tempo de serviço]: "..minimalTimers(os.time() - parseInt(serviceTime[user_id])))
+                        Config.func.sendDiscord(webhook,"ID:"..user_id,"Saiu de serviço \n[Tempo de serviço]: "..minimalTimers(os.time() - parseInt(serviceTime[user_id])))
                     else
-                        Config.func.sendDiscord(Config.data[Index].webhook,"ID:"..user_id,"Saiu de serviço")
+                        Config.func.sendDiscord(webhook,"ID:"..user_id,"Saiu de serviço")
                     end
                 end
-                break
-            elseif vRP.hasGroup(user_id,paisanaGroup) then
-                vRP.addUserGroup(user_id,v.group)
+            else
                 serviceTime[user_id] = os.time()
-                if Index == "Police" then
-                    TriggerEvent("vrp_blipsystem:serviceEnter",source,"Policial",77)
-                elseif Index == "Medic" then
-                    TriggerEvent("vrp_blipsystem:serviceEnter",source,"Paramedico",83)
-                elseif Index == "Mechanic" then
-                    TriggerEvent("vrp_blipsystem:serviceEnter",source,"Mecanico",51)
-                end
-                vCLIENT.enter(source)
+                vRP.ServiceEnter(source,user_id,Index[1],true)
+                vCLIENT.sendText(source,"Entrou em serviço")
                 if QBCore then
                     local Player = QBCore.Functions.GetPlayer(source)
                     if Player then
                         Player.Functions.SetJobDuty(true)
                     end
                 end
-                if Config.data[Index].webhook then
-                    Config.func.sendDiscord(Config.data[Index].webhook,"ID:"..user_id,"Entrou em serviço")
+                local webhook = Index[2] and batePontos[Index[1]][Index[2]] and batePontos[Index[1]][Index[2]].webhook
+                if webhook and webhook ~= "" then
+                    Config.func.sendDiscord(webhook,"ID:"..user_id,"Entrou em serviço")
                 end
-                break
             end
+        else
+            vCLIENT.sendText(source,"Não permitido")
         end
 	end
 end
 
 -- Itens proibidos para policia enviar/dropar
-local arsenalItens = {
-    'ammo-9',
-    'ammo-rifle',
-    'WEAPON_FLASHLIGHT',
-    'WEAPON_NIGHTSTICK',
-    'WEAPON_PISTOL',
-    'WEAPON_CARBINERIFLE',
-    'WEAPON_PARAFAL',
-    'WEAPON_STUNGUN',
-}
-
 local function checkItens(user_id, item)
     if vRP.hasPermission(user_id,"policia.permissao") then
-        for k,v in pairs(arsenalItens) do
+        for k,v in pairs(Config.arsenalItens) do
             if v == item then
                 return true
             end
@@ -123,18 +114,4 @@ CreateThread(function()
         end
         return true
     end)
-end)
-
--- Entrar de Paisana quando relogar
-AddEventHandler("vRP:playerSpawn",function(user_id,source)
-    Wait(5000)
-    for Index,data in pairs(Config.data) do
-        for k,v in pairs(data.groups) do
-            if vRP.hasGroup(user_id,v.group) then
-                vRP.addUserGroup(user_id,v.paisanaGroup)
-                TriggerEvent("vrp_blipsystem:serviceExit",source)
-                break
-            end
-        end
-    end
 end)

@@ -21,8 +21,3 @@ files {
 	"nui/jquery.js",
 	"nui/css.css"
 }
-
-
-
-
-              

@@ -77,7 +77,11 @@ Config.Commands = {
 	['crafts'] = {
 		['command'] = "editcraft",
 		['perm'] = "owner.permissao"
-	}
+	},
+	['bateponto'] = {
+		['command'] = "bateponto",
+		['perm'] = "owner.permissao"
+	},
 }
 
 Config.DefaultStash = {

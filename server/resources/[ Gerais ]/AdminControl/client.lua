@@ -198,7 +198,19 @@ function Client.openMainMenu()
                         TriggerEvent("Notify","negado","Você não tem o homes da Reborn",5000)
                     end
                 end
-            }
+            },
+            {
+                title = 'Bate-ponto',
+                description = 'Gerenciar bate-pontos pelo mapa',
+                icon="fa-solid fa-map-location-dot",
+                onSelect = function ()
+                    if GetResourceState("will_bateponto") == "started" then
+                        ExecuteCommand(Config.Commands["bateponto"]['command'])
+                    else
+                        TriggerEvent("Notify","negado","Você não tem o bate-ponto da Reborn",5000)
+                    end
+                end
+            },
         }
     })
     lib.showContext('admin_menu_control')

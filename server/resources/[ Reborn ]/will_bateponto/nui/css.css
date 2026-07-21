@@ -1,58 +1,43 @@
-#bateponto{
-	top: 50%;
-	left: 50%;
-	width: 282px;
-	height: 276px;
-	display: none;
-	position: absolute;
-	background: url("images/bateponto.png");
-	transform: translate(-50%,-50%);
-	border-radius: 20px;
+#bateponto {
+  top: 50%;
+  left: 50%;
+  width: 282px;
+  height: 276px;
+  display: none;
+  position: absolute;
+  background: url("images/bateponto.png");
+  transform: translate(-50%, -50%);
+  border-radius: 20px;
 }
 
-.botao{
-	color: transparent;
-	background: transparent;
-	width: 35px;
-	height: 55px;
-	position: absolute;
-	border-radius: 30px;
-	top: 70%;
-	right: 10%;
-	border: transparent;
+.botao {
+  color: transparent;
+  background: transparent;
+  width: 35px;
+  height: 55px;
+  position: absolute;
+  border-radius: 30px;
+  top: 70%;
+  right: 10%;
+  border: transparent;
 }
 
-.botao:focus, .botao:hover{
-	background: rgba(255, 255, 255, 0.288);
-	border: transparent;
-	outline: none;
+.botao:focus,
+.botao:hover {
+  background: rgba(255, 255, 255, 0.288);
+  border: transparent;
+  outline: none;
 }
 
-.botao:active{
-	background: rgba(255, 255, 255, 0.452);
-	user-select: none;
+.botao:active {
+  background: rgba(255, 255, 255, 0.452);
+  user-select: none;
 }
 
-#verify{
-	font-size: 30;
-	font-family: VT323, sans-serif;
-	position: absolute;
-	left: 8%;
-	top: 2%;
-}
-
-#entrou{
-	font-size: 25;
-	font-family: VT323, sans-serif;
-	position: absolute;
-	left: 8%;
-	top: 4%;
-}
-
-#saiu{
-	font-size: 25;
-	font-family: VT323, sans-serif;
-	position: absolute;
-	left: 8%;
-	top: 4%;
+#text {
+  font-size: 30;
+  font-family: VT323, sans-serif;
+  position: absolute;
+  left: 8%;
+  top: 2%;
 }

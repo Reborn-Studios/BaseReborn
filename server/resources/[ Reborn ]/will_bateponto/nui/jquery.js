@@ -2,35 +2,15 @@ $(function () {
   window.onload = (e) => {
     window.addEventListener("message", (event) => {
       var item = event.data;
-      switch (item.type) {
-        case "firstMenu":
-          $("#bateponto").show();
-          $("#verify").hide();
-          $("#entrou").hide();
-          $("#saiu").hide();
-          break;
-        case "hideMenu":
-          $("#bateponto").hide();
-          $("#verify").hide();
-          $("#entrou").hide();
-          $("#saiu").hide();
-          break;
-        case "Verify":
-          $("#bateponto").show();
-          $("#verify").show();
-          $("#entrou").hide();
-          $("#saiu").hide();
-          break;
-        case "Entrou":
-          $("#verify").hide();
-          $("#entrou").show();
-          $("#saiu").hide();
-          break;
-        case "Saiu":
-          $("#verify").hide();
-          $("#entrou").hide();
-          $("#saiu").show();
-          break;
+      if (item.type === "firstMenu") {
+        $("#bateponto").show();
+      }
+      if (item.sendText) {
+        $("#text").html(item.sendText);
+      }
+      if (item.type === "hideMenu") {
+        $("#bateponto").hide();
+        $("#text").html("");
       }
     });
     document.onkeyup = function (data) {
@@ -38,7 +18,7 @@ $(function () {
         $.post(
           "http://will_bateponto/batepontoClose",
           JSON.stringify({}),
-          function (datab) {}
+          function (datab) {},
         );
       }
     };
@@ -49,6 +29,6 @@ $(document).on("click", ".botao", function () {
   $.post(
     "http://will_bateponto/botao",
     JSON.stringify({}),
-    function (datab) {}
+    function (datab) {},
   );
 });
