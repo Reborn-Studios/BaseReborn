@@ -82,7 +82,7 @@ function vRP.insertPermission(user_id,group,hierarchy)
 	local user = parseInt(user_id)
 	local nplayer = vRP.getUserSource(user)
 	local Group = Groups[group]
-	if Group then
+	if Group and hierarchy then
 		if not Permissions[user] then Permissions[user] = {} end
 		local perm = Group["Hierarchy"][hierarchy].Group
 		Permissions[user][group] = hierarchy

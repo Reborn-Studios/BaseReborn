@@ -302,16 +302,17 @@ RegisterCommand("staff",function(source,args,rawCommand)
 				local waitGroup = "wait"..adm
 				if vRP.hasPermission(user_id,adm) then
 					vRP.removePermission(user_id,adm)
-					vRP.insertPermission(user_id,waitGroup)
 					TriggerClientEvent("Notify",source,"importante","Você saiu de serviço de "..adm,5000)
 					vRP.execute("vRP/upd_group",{ user_id = user_id, permiss = adm, newpermiss = waitGroup })
 					vRP.createWeebHook(Webhooks.servicedeus,"```prolog\n[ID]: "..user_id.." \n[PERDEU OS PODERES] "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
-				elseif vRP.hasPermission(user_id, waitGroup) then
-					vRP.removePermission(user_id, waitGroup)
-					vRP.insertPermission(user_id, adm)
-					TriggerClientEvent("Notify",source,"importante","Você entrou em serviço de "..adm,5000)
-					vRP.execute("vRP/upd_group",{ user_id = user_id, permiss = waitGroup, newpermiss = adm })
-					vRP.createWeebHook(Webhooks.servicedeus,"```prolog\n[ID]: "..user_id.." \n[GANHOU PODERES] "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
+				else
+					local consult = vRP.query("vRP/get_group",{ user_id = user_id, permiss = waitGroup })
+					if consult[1] then
+						vRP.insertPermission(user_id, adm, tonumber(consult[1].hierarchy))
+						TriggerClientEvent("Notify",source,"importante","Você entrou em serviço de "..adm,5000)
+						vRP.execute("vRP/upd_group",{ user_id = user_id, permiss = waitGroup, newpermiss = adm })
+						vRP.createWeebHook(Webhooks.servicedeus,"```prolog\n[ID]: "..user_id.." \n[GANHOU PODERES] "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
+					end
 				end
 			end
 		end
