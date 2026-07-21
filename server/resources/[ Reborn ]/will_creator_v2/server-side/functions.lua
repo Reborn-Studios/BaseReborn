@@ -94,8 +94,8 @@ local function getUserJob(user_id)
     local job = "Desempregado"
     local permiss = "Desempregado"
     for k,v in pairs(userJobs) do
-        if groups[v.permiss] and groups[v.permiss]._config and groups[v.permiss]._config.gtype and groups[v.permiss]._config.gtype == "job" then
-            job = groups[v.permiss]._config.title or v.permiss
+        if groups[v.permiss] and groups[v.permiss]["Type"] and groups[v.permiss]["Type"] == "job" then
+            job = groups[v.permiss].Title or v.permiss
             permiss = v.permiss
         end
     end

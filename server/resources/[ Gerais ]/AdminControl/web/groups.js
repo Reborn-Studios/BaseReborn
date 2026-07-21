@@ -1,6 +1,6 @@
 let currentUserId = null;
 let allGroups = [];
-let selectedGroups = {};
+let selectedGroups = {}; // { ["Admin"]: 1 }
 
 $(document).ready(function () {
   const groupsPanel = $("#groups-panel");
@@ -27,7 +27,9 @@ $(document).ready(function () {
     groupsList.empty();
 
     groups.forEach((group) => {
-      const isInGroup = selectedGroups[group.groupName];
+      const isInGroup =
+        selectedGroups[group.groupName] &&
+        group.groupName + "-" + selectedGroups[group.groupName] === group.value;
       const item = $(`
         <div class="group-item ${isInGroup ? "active" : ""}" data-group="${group.groupName}">
           <div class="group-info">
@@ -43,15 +45,19 @@ $(document).ready(function () {
       `);
 
       item.click(function () {
-        toggleGroup(group.groupName);
+        toggleGroup(group.groupName, group.level);
       });
 
       groupsList.append(item);
     });
   }
 
-  function toggleGroup(groupName) {
-    selectedGroups[groupName] = !selectedGroups[groupName];
+  function toggleGroup(groupName, level) {
+    if (selectedGroups[groupName]) {
+      delete selectedGroups[groupName];
+    } else {
+      selectedGroups[groupName] = level;
+    }
     renderGroups(allGroups);
   }
 

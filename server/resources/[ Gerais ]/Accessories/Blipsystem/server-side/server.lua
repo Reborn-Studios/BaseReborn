@@ -3,6 +3,12 @@
 -----------------------------------------------------------------------------------------------------------------------------------------
 local userList = {}
 local userBlips = {}
+local groupColors = {
+	['Policia'] = 77,
+	['Hospital'] = 83,
+	['LSCustoms'] = 51,
+	['Bennys'] = 51,
+}
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADSYSTEM
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -34,7 +40,7 @@ end)
 RegisterServerEvent("vrp_blipsystem:serviceEnter")
 AddEventHandler("vrp_blipsystem:serviceEnter",function(source,service,color)
 	if userList[source] == nil then
-		userList[source] = { tostring(service),parseInt(color) }
+		userList[source] = { tostring(service), color and parseInt(color) or groupColors[service] or 10 }
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------

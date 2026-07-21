@@ -85,14 +85,14 @@ RegisterCommand("gerenciar", openMenu)
 
 function GetAllGroups()
     local formattedGroups = {}
-    for group,perms in pairs(groups) do
-        if not group:find("Paisana") and group ~= "Owner" then
-            local GroupInfo = vRP.getJobFromGroup(group)
+    for Group,v in pairs(groups) do
+        for level,v2 in ipairs(v["Hierarchy"]) do
             table.insert(formattedGroups,{
                 id = #formattedGroups,
-                label = vRP.getGroupTitle(group),
-                value = json.encode(GroupInfo),
-                groupName = group
+                label = Group.." - "..v2["Title"],
+                value = Group.."-"..level,
+                groupName = Group,
+                level = level
             })
         end
     end

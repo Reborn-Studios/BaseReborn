@@ -1,23 +1,30 @@
-local permissions = {}
-local groups = module('vrp',"config/Groups") or {}
-RegisterServerEvent("Reborn:reloadInfos",function() groups = module('vrp',"config/Groups") end)
+local Permissions = {}
+local Groups = module('vrp',"config/Groups") or {}
+RegisterServerEvent("Reborn:reloadInfos",function() Groups = module('vrp',"config/Groups") end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- GROUPS FUNCTIONS
 -----------------------------------------------------------------------------------------------------------------------------------------
-function vRP.getGroupTitle(group)
-	local g = groups[group]
-	if g and g._config and g._config.title then
-		return g._config.title
+function vRP.Groups()
+	return Groups
+end
+
+function vRP.getGroupTitle(group,hierarchy)
+	local Group = Groups[group]
+	if Group and hierarchy and Group["Hierarchy"] and Group["Hierarchy"][hierarchy] then
+		return Group["Hierarchy"][hierarchy]["Title"] or Group["Hierarchy"][hierarchy]["Group"]
 	end
 	return group
 end
 
 function vRP.getUserGroups(user_id)
+	if Permissions[user_id] then
+		return Permissions[user_id]
+	end
+	local userGroups = {}
     local data = vRP.query("vRP/get_perm", { user_id = user_id })
-    local userGroups = {}
     if data then
         for k,v in pairs(data) do
-            userGroups[v.permiss] = true
+            userGroups[v.permiss] = v.hierarchy
         end
     end
     return userGroups
@@ -25,46 +32,24 @@ end
 
 function vRP.getUserGroupByType(user_id,gtype)
 	if not user_id then return end
-	if not permissions[user_id] then permissions[user_id] = {} end
-    for k,v in pairs(permissions[user_id]) do
-        local kgroup = groups[v.permiss]
-        if kgroup then
-            if kgroup._config and kgroup._config.gtype and kgroup._config.gtype == gtype then
-                return v.permiss
-            end
-        end
-    end
+	local userGroups = vRP.getUserGroups(user_id)
+	for group,level in pairs(userGroups) do
+		if Groups[group] and Groups[group].Type == gtype then
+			return group,level
+		end
+	end
     return nil
 end
 
-function ConvertGroupPerm(perms)
-    for k,perm in pairs(perms) do
-        if CONVERT_GROUPS[perm] then
-            return CONVERT_GROUPS[perm]["job"]
-        end
-    end
-end
-
-function vRP.getJobFromGroup(group)
-	if group and groups[group] then
-		if groups[group]._config and groups[group]._config.grade then
-			local Job = ConvertGroupPerm(groups[group])
-			if Job then
-				return {
-					[Job] = groups[group]._config.grade
-				}
-			end
-		end
-	end
-	return { [group] = "0" }
-end
-
 function vRP.getGroupFromJob(job,grade)
-	local QBGroups = GetQBGroups()
-	local grade = tonumber(grade) or 0
-	for Group,v in pairs(QBGroups) do
-		if v.job == job and tonumber(v.grade) == grade then
-			return Group
+	for group,v in pairs(Groups) do
+		if v.QBESXGroup == job then
+			if not grade then return group end
+			for level,data in pairs(v.Hierarchy) do
+				if level == tonumber(grade) then
+					return group
+				end
+			end
 		end
 	end
 end
@@ -72,119 +57,141 @@ end
 exportHandler("qb-core","GetGroupFromJob",vRP.getGroupFromJob)
 
 function vRP.getGroup(group)
-	if group and groups[group] then
-		return groups[group]
+	if group and Groups[group] then
+		return Groups[group]
 	end
 end
 
-function vRP.getSalaryByGroup(group)
-	local g = groups[group]
-	if g and g._config and g._config.salary then
-		return g._config.salary
+function vRP.getSalaryByGroup(group,hierarchy)
+	local Group = Groups[group]
+	if Group and Group["Hierarchy"] and Group["Hierarchy"][hierarchy] then
+		return Group["Hierarchy"][hierarchy].Salary
 	end
 	return nil
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- NUMPERMISSION
 -----------------------------------------------------------------------------------------------------------------------------------------
-local JobsPermissions = {
-	['policia.permissao'] = "Police",
-	['paramedico.permissao'] = "Paramedic",
-	['mecanico.permissao'] = "Mechanic",
-	['admin.permissao'] = "Admin",
+local ClientPerms = {
+	['police'] = "Police",
+	['ambulance'] = "Paramedic",
+	['mechanic'] = "Mechanic",
 }
 
-function vRP.insertPermission(user_id,perm)
+function vRP.insertPermission(user_id,group,hierarchy)
 	local user = parseInt(user_id)
 	local nplayer = vRP.getUserSource(user)
-	if not permissions[user] then permissions[user] = {} end
-	table.insert(permissions[user], { permiss = perm } )
-	if not nplayer then return end
-	Player(nplayer)["state"][perm] = true
-	local group = groups[perm]
-	if group then
-		for l,w in ipairs(group) do
-			if type(w) == "string" and JobsPermissions[w] then
-				if vRP.hasPermission(user, w) then
-					Player(nplayer)["state"][JobsPermissions[w]] = true
-				end
-				if JobsPermissions[w] == "Admin" then
-					lib.addPrincipal(nplayer, "group.admin")
-					lib.addPrincipal(vRP.getSteam(nplayer), "group.admin")
+	local Group = Groups[group]
+	if Group then
+		if not Permissions[user] then Permissions[user] = {} end
+		local perm = Group["Hierarchy"][hierarchy].Group
+		Permissions[user][group] = hierarchy
+
+		if not nplayer then return end
+		Player(nplayer)["state"][perm] = hierarchy
+
+		if Group["QBESXGroup"] then
+			if ClientPerms[Group["QBESXGroup"]] then
+				Player(nplayer)["state"][ClientPerms[Group["QBESXGroup"]]] = hierarchy
+			end
+			Player(nplayer)["state"][Group["QBESXGroup"]] = hierarchy
+			if Group["QBESXGroup"] == "admin" then
+				lib.addPrincipal(nplayer, "group.admin")
+				lib.addPrincipal(vRP.getSteam(nplayer), "group.admin")
+			end
+		end
+
+		if Group.Type == "vip" then
+			Player(nplayer)["state"]["Premium"] = hierarchy
+		end
+		if Group["Markers"] then
+			TriggerEvent("vrp_blipsystem:serviceEnter",nplayer,group)
+		end
+
+		if Group["Hierarchy"][hierarchy]["BackpackWeight"] then
+			if GetResourceState("ox_inventory") == "started" then
+				local inventory = exports.ox_inventory:GetInventory(nplayer)
+				local backpack = inventory.maxWeight / 1000
+				if backpack then
+					backpack = backpack + Group["Hierarchy"][hierarchy]["BackpackWeight"]
+					exports.ox_inventory:SetMaxWeight(nplayer, backpack * 1000)
 				end
 			end
 		end
-		if group and group._config then
-			if group._config.gtype and group._config.gtype == "vip" then
-				Player(nplayer)["state"]["Premium"] = true
-			end
-		end
-	end
-	if groups[perm] and groups[perm]._config then
-		if groups[perm]._config.gtype and groups[perm]._config.gtype == "vip" then
-			Player(nplayer)["state"]["Premium"] = true
-		end
-	end
-	if vRP.hasPermission(user, "policia.permissao") then
-		TriggerEvent("vrp_blipsystem:serviceEnter",nplayer,"Policial",77)
-	elseif vRP.hasPermission(user, "paramedico.permissao") then
-		TriggerEvent("vrp_blipsystem:serviceEnter",nplayer,"Paramedico",83)
-	elseif vRP.hasPermission(user, "mecanico.permissao") then
-		TriggerEvent("vrp_blipsystem:serviceEnter",nplayer,"Mecanico",51)
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- NUMPERMISSION
 -----------------------------------------------------------------------------------------------------------------------------------------
-function vRP.removePermission(user_id,perm)
+function vRP.removePermission(user_id,group)
 	local user = parseInt(user_id)
 	local nplayer = vRP.getUserSource(user)
 	if nplayer then
-		TriggerEvent("vrp_blipsystem:serviceExit",nplayer)
-		Player(nplayer)["state"][perm] = false
-		local group = groups[perm]
-		if group then
-			for l,w in ipairs(group) do
-				if type(w) == "string" and JobsPermissions[w] then
-					if vRP.hasPermission(user, w) then
-						Player(nplayer)["state"][JobsPermissions[w]] = false
-					end
-					if JobsPermissions[w] == "Admin" then
-						lib.removePrincipal(nplayer, "group.admin")
-						lib.removePrincipal(vRP.getSteam(nplayer), "group.admin")
-					end
+		local Group = Groups[group]
+		if Group then
+			local hierarchy = Permissions[user][group]
+			local perm = Group["Hierarchy"][hierarchy].Group
+			Player(nplayer)["state"][perm] = nil
+			if Group["QBESXGroup"] then
+				Player(nplayer)["state"][Group["QBESXGroup"]] = nil
+				if Group["QBESXGroup"] == "admin" then
+					lib.removePrincipal(nplayer, "group.admin")
+					lib.removePrincipal(vRP.getSteam(nplayer), "group.admin")
 				end
 			end
-			if group and group._config then
-				if group._config.gtype and group._config.gtype == "vip" then
-					Player(nplayer)["state"]["Premium"] = false
+			if Group.Type == "vip" then
+				Player(nplayer)["state"]["Premium"] = nil
+			end
+			if Group["Markers"] then
+				TriggerEvent("vrp_blipsystem:serviceExit",nplayer)
+			end
+			if Group["Hierarchy"][hierarchy]["BackpackWeight"] then
+				if GetResourceState("ox_inventory") == "started" then
+					local inventory = exports.ox_inventory:GetInventory(nplayer)
+					local backpack = inventory.maxWeight / 1000
+					if backpack then
+						backpack = backpack - Group["Hierarchy"][hierarchy]["BackpackWeight"]
+						exports.ox_inventory:SetMaxWeight(nplayer, backpack * 1000)
+					end
 				end
 			end
 		end
 	end
-	if permissions[user] then
-		for k,v in pairs(permissions[user]) do
-			if perm == v.permiss then
-				table.remove(permissions[user], k)
-			end
-		end
+	if Permissions[user] and Permissions[user][group] then
+		Permissions[user][group] = nil
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- HASPERMISSION
 -----------------------------------------------------------------------------------------------------------------------------------------
-function vRP.hasPermission(user,perm)
+function vRP.hasPermission(user,perm,level)
 	local user_id = parseInt(user)
-	if permissions[user_id] then
-		for k,v in pairs(permissions[user_id]) do
-			if v.permiss == perm then
-				return true
-			else
-				local group = groups[v.permiss]
-				if group then
-					for l,w in ipairs(group) do
-						if w == perm then
-							return true
+	local PermissionParts = splitString(perm, "-")
+    if PermissionParts[2] then
+        perm, level = PermissionParts[1], parseInt(PermissionParts[2])
+    end
+	if Permissions[user_id] then
+		if Groups[perm] then
+			if Permissions[user_id][perm] then
+				if not level or Permissions[user_id][perm] <= level then
+					return Permissions[user_id][perm], Groups[perm]["Hierarchy"][Permissions[user_id][perm]]["Title"]
+				end
+			end
+			return false
+		end
+		for Group,hierarchy in pairs(Permissions[user_id]) do
+			if Groups[Group] then
+				if Groups[Group]["Permissions"] then
+					if Contains(Groups[Group]["Permissions"], perm) then
+						return hierarchy, Groups[Group]["Hierarchy"][hierarchy]["Title"]
+					end
+				end
+				if Groups[Group]["Hierarchy"] then
+					for i = hierarchy, #Groups[Group]["Hierarchy"], 1 do
+						if Groups[Group]["Hierarchy"][i]["Permission"] then
+							if Contains(Groups[Group]["Hierarchy"][i]["Permission"], perm) then
+								return hierarchy, Groups[Group]["Hierarchy"][i]["Title"]
+							end
 						end
 					end
 				end
@@ -193,6 +200,11 @@ function vRP.hasPermission(user,perm)
 	end
 	local nplayer = vRP.getUserSource(user_id)
 	if nplayer then
+		if Player(nplayer)["state"][perm] then
+			if not level or Player(nplayer)["state"][perm] <= level then
+				return Player(nplayer)["state"][perm]
+			end
+		end
 		local Player = QBCore.Functions.GetPlayer(nplayer)
 		if Player and Player.PlayerData.job.name == perm then
 			return true
@@ -202,9 +214,10 @@ function vRP.hasPermission(user,perm)
 			return true
 		end
 	else
-		local consult = vRP.query("vRP/get_group",{ permiss = perm, user_id = user_id })
-		if consult[1] then
-			return true
+		if not level then
+			return vRP.query("vRP/get_group",{ permiss = perm, user_id = user_id })[1]
+		else
+			return vRP.query("vRP/get_group_hierarchy",{ hierarchy = level, permiss = perm, user_id = user_id })[1]
 		end
 	end
 	return false
@@ -222,41 +235,19 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- USERS BY PERMISSION
 -----------------------------------------------------------------------------------------------------------------------------------------
-local aliasPerm = {
-	['Police'] = "policia.permissao",
-	['Mechanic'] = "mecanico.permissao",
-	['Admin'] = "suporte.permissao",
-	['Paramedic'] = "paramedico.permissao"
-}
-
 function vRP.numPermission(perm, offline)
 	local users = {}
-	if perm and aliasPerm[perm] then
-        for k,v in pairs(vRP.rusers) do
-            if vRP.hasPermission(tonumber(k), aliasPerm[perm]) then
-                table.insert(users,tonumber(k))
-            end
-        end
-	else
+	if offline then
 		local consult = vRP.query("vRP/get_specific_perm",{ permiss = tostring(perm) })
 		for k,v in pairs(consult) do
-			if offline then
-				table.insert(users,v.user_id)
-			else
-				local userSource = vRP.getUserSource(v.user_id)
-				if userSource then
-					table.insert(users,v.user_id)
-				end
+			table.insert(users,v.user_id)
+		end
+	else
+		for k,v in pairs(vRP.rusers) do
+			if vRP.hasPermission(tonumber(k), perm) then
+				table.insert(users,tonumber(k))
 			end
 		end
-    end
+	end
 	return users
 end
------------------------------------------------------------------------------------------------------------------------------------------
--- PLAYERLEAVE
------------------------------------------------------------------------------------------------------------------------------------------
-AddEventHandler("vRP:playerLeave",function(user_id,source)
-	if permissions[user_id] then
-		permissions[user_id] = nil
-	end
-end)

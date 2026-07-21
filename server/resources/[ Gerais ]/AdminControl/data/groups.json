@@ -1,1 +1,227 @@
-{}
+{
+    "Vanilla": {
+        "Permissions": [
+            "vanilla.permissao"
+        ],
+        "Type": "job",
+        "Markers": false,
+        "Name": "Vanilla",
+        "Hierarchy": [
+            {
+                "Permission": [
+                    "vanillalider.permissao"
+                ],
+                "Leader": true,
+                "Group": "VanillaLider",
+                "Title": "Vanilla Lider"
+            },
+            {
+                "Permission": [],
+                "Group": "Vanilla",
+                "Title": "Vanilla Membro"
+            }
+        ],
+        "OrgPanel": true,
+        "Service": false
+    },
+    "Vermelhos": {
+        "Permissions": [
+            "vermelhos.permissao"
+        ],
+        "Type": "job",
+        "Markers": false,
+        "Name": "Vermelhos",
+        "Hierarchy": [
+            {
+                "Permission": [
+                    "vermelhoslider.permissao"
+                ],
+                "Leader": true,
+                "Group": "VermelhosLider",
+                "Title": "Líder"
+            },
+            {
+                "Permission": [],
+                "Group": "Vermelhos",
+                "Title": "Membro Vermelhos"
+            }
+        ],
+        "OrgPanel": true,
+        "Service": false
+    },
+    "Azuis": {
+        "Permissions": [
+            "azuis.permissao"
+        ],
+        "Type": "job",
+        "Markers": false,
+        "Name": "Azuis",
+        "Hierarchy": [
+            {
+                "Permission": [
+                    "azuis.permissao"
+                ],
+                "Leader": true,
+                "Group": "AzuisLider",
+                "Title": "Azuis Lider"
+            },
+            {
+                "Permission": [],
+                "Group": "Azuis",
+                "Title": "Azuis Membro"
+            }
+        ],
+        "OrgPanel": true,
+        "Service": false
+    },
+    "Bahamas": {
+        "Permissions": [
+            "bahamas.permissao"
+        ],
+        "Type": "job",
+        "Markers": false,
+        "Name": "Bahamas",
+        "Hierarchy": [
+            {
+                "Permission": [
+                    "bahamaslider.permissao"
+                ],
+                "Leader": true,
+                "Group": "BahamasLider",
+                "Title": "Bahamas Lider"
+            },
+            {
+                "Permission": [],
+                "Group": "Bahamas",
+                "Title": "Bahamas Membro"
+            }
+        ],
+        "OrgPanel": true,
+        "Service": false
+    },
+    "Verdes": {
+        "Permissions": [
+            "verdes.permissao"
+        ],
+        "Type": "job",
+        "Markers": false,
+        "Name": "Verdes",
+        "Hierarchy": [
+            {
+                "Permission": [
+                    "verdeslider.permissao"
+                ],
+                "Leader": true,
+                "Group": "VerdesLider",
+                "Title": "Verdes Lider"
+            },
+            {
+                "Permission": [],
+                "Group": "Verdes",
+                "Title": "Verdes Membro"
+            }
+        ],
+        "OrgPanel": true,
+        "Service": false
+    },
+    "Mafia": {
+        "Permissions": [
+            "mafia.permissao"
+        ],
+        "Type": "job",
+        "Markers": false,
+        "Name": "Mafia",
+        "Hierarchy": [
+            {
+                "Permission": [
+                    "mafialider.permissao"
+                ],
+                "Leader": true,
+                "Group": "MafiaLider",
+                "Title": "Mafia"
+            },
+            {
+                "Permission": [],
+                "Group": "Mafia",
+                "Title": "Mafia Membro"
+            }
+        ],
+        "OrgPanel": true,
+        "Service": false
+    },
+    "Cassino": {
+        "Permissions": [
+            "cassino.permissao"
+        ],
+        "Type": "job",
+        "Markers": false,
+        "Name": "Cassino",
+        "Hierarchy": [
+            {
+                "Permission": [
+                    "cassinolider.permissao"
+                ],
+                "Leader": true,
+                "Group": "CassinoLider",
+                "Title": "Cassino Lider"
+            },
+            {
+                "Permission": [],
+                "Group": "Cassino",
+                "Title": "Cassino Membro"
+            }
+        ],
+        "OrgPanel": true,
+        "Service": false
+    },
+    "Milicia": {
+        "Permissions": [
+            "milicia.permissao"
+        ],
+        "Type": "job",
+        "Markers": false,
+        "Name": "Milicia",
+        "Hierarchy": [
+            {
+                "Permission": [
+                    "milicialider.permissao"
+                ],
+                "Leader": true,
+                "Group": "MiliciaLider",
+                "Title": "Milicia Lider"
+            },
+            {
+                "Permission": [],
+                "Group": "Milicia",
+                "Title": "Milicia Membro"
+            }
+        ],
+        "OrgPanel": true,
+        "Service": false
+    },
+    "Motoclub": {
+        "Permissions": [
+            "motoclub.permissao"
+        ],
+        "Type": "job",
+        "Markers": false,
+        "Name": "Motoclub",
+        "Hierarchy": [
+            {
+                "Permission": [
+                    "motoclublider.permissao"
+                ],
+                "Leader": true,
+                "Group": "MotoclubLider",
+                "Title": "Motoclub Lider"
+            },
+            {
+                "Permission": [],
+                "Group": "Motoclub",
+                "Title": "Motoclub Membro"
+            }
+        ],
+        "OrgPanel": true,
+        "Service": false
+    }
+}

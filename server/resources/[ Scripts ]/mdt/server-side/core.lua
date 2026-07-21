@@ -147,12 +147,18 @@ end
 function Creative.Player()
     local source = source
     local Passport = vRP.Passport(source)
-    local PoliceGroups = exports['vrp']:HierarchyGroups()
+    local Groups = vRP.Groups()
+    local PoliceGroups = {}
+    for k,v in pairs(Groups) do
+        if v["QBESXGroup"] and v["QBESXGroup"] == "police" then
+            PoliceGroups[k] = true
+        end
+    end
 
     if not Permission[Passport] then
         for Group,v in pairs(PoliceGroups) do
             if vRP.HasPermission(Passport, Group) then
-                Permission[Passport] = v.job
+                Permission[Passport] = Group
                 break
             end
         end

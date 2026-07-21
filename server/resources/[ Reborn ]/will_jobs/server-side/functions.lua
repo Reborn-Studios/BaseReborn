@@ -130,12 +130,14 @@ function giveUserMoney(user_id, money, job)
     if vRP.hasPermission(user_id,"vip.permissao") then
         local userGroups = vRP.getUserGroups(user_id)
         for group, v in pairs(userGroups) do
-            if vipRewards[group] then
-                local vipReward = math.ceil(money * vipRewards[group])
-                if vipReward > 0 then
-                    vRP.addBank(user_id, vipReward)
-                    if nplayer then
-                        Config.notify("Você ganhou R$"..vipReward.." de bônus por ser VIP "..group,"payment",nplayer)
+            for level,v2 in pairs(v["Hierarchy"]) do
+                if vipRewards[v2["Group"]] then
+                    local vipReward = math.ceil(money * vipRewards[v2["Group"]])
+                    if vipReward > 0 then
+                        vRP.addBank(user_id, vipReward)
+                        if nplayer then
+                            Config.notify("Você ganhou R$"..vipReward.." de bônus por ser VIP "..v2["Group"],"payment",nplayer)
+                        end
                     end
                 end
             end

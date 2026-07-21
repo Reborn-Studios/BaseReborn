@@ -408,3 +408,32 @@ Config.Groups = {
         }
     },
 }
+
+if IsDuplicityVersion() then
+    for Group,data in pairs(vRP.Groups()) do
+        if data["OrgPanel"] then
+            if not Config.Groups[Group] then
+                Config.Groups[Group] = {
+                    Config = {
+                        Salary = {
+                            active = false
+                        },
+                        Goals = {
+                            defaultReward = 500,
+                            itens = {}
+                        }
+                    },
+                    List = {}
+                }
+            end
+            for k,v in ipairs(data["Hierarchy"]) do
+                Config.Groups[Group]["List"][v.Group] = {
+                    prefix = v["Title"],
+                    tier = k,
+                    salary = v["Salary"],
+                    roleId = ''
+                }
+            end
+        end
+    end
+end

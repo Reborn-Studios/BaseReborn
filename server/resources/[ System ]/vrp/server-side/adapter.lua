@@ -1,3 +1,5 @@
+local Groups = module('vrp',"config/Groups") or {}
+
 function exportHandler(resource, exportName, func)
     AddEventHandler(('__cfx_export_%s_%s'):format(resource,exportName), function(setCB)
         setCB(func)
@@ -100,8 +102,8 @@ vRP.userBank = function(id)
     return vRP.getBank(id)
 end
 
-vRP.setPermission = function(id,group)
-    return vRP.addUserGroup(id,group)
+vRP.setPermission = function(id,group,level)
+    return vRP.addUserGroup(id,group,level)
 end
 
 vRP.remPermission = function(id,group)
@@ -192,25 +194,16 @@ end
 -------##########-------##########-------##########-------##########
 
 vRP.getUsersByPermission = function(group)
-    if string.find(group, ".permissao") then
-        local users = {}
-        for k,v in pairs(vRP.rusers) do
-            if vRP.hasPermission(tonumber(k), group) then
-                table.insert(users,tonumber(k))
-            end
-        end
-        return users
-    end
-    return vRP.numPermission(group) 
+    return vRP.numPermission(group)
 end
 
 vRP.hasGroup = function(user_id,group)
     return vRP.hasPermission(user_id,group)
 end
 
-vRP.addUserGroup = function(user, group)
+vRP.addUserGroup = function(user, group, level)
     local source = vRP.getUserSource(parseInt(user))
-    Reborn.setGroup(source, group, false, user)
+    Reborn.setGroup(source, user, group, level, false)
 end
 
 vRP.removeUserGroup = function(user,group)
@@ -378,20 +371,12 @@ function vRP.Kick(source,Reason)
     DropPlayer(source,Reason)
 end
 
-function vRP.HasPermission(Passport, Permission)
-    local GradeGroups = GetQBGroups()
-    for k,v in pairs(GradeGroups) do
-        if v.job == Permission then
-            if vRP.hasPermission(Passport, k) then
-                return v.level, k
-            end
-        end
-    end
-    return vRP.hasPermission(Passport, Permission)
+function vRP.HasPermission(Passport, Permission, Level)
+    return vRP.hasPermission(Passport, Permission, Level)
 end
 
-function vRP.HasGroup(Passport, Permission)
-    return vRP.hasPermission(Passport, Permission)
+function vRP.HasGroup(Passport, Permission, Level)
+    return vRP.hasPermission(Passport, Permission, Level)
 end
 
 function vRP.Identities(source)
@@ -466,6 +451,10 @@ function vRP.GetUserHierarchy(user_id,gtype)
         return vRP.getUserGroupByType(user_id,"vip")
     end
     return vRP.getUserGroupByType(user_id,"job")
+end
+
+function vRP.GetUserType(user_id,gtype)
+    return vRP.GetUserHierarchy(user_id,gtype)
 end
 
 function vRP.InitPrison(Passport,Amount)
@@ -725,7 +714,7 @@ vRP.GetSrvData = function(key)
 end
 
 function vRP.SetSrvData(Key,Data)
-    return vRP.setSData(Key,Data)
+    return vRP.setSData(Key,json.encode(Data))
 end
 
 function vRP.RemSrvData(Key)
@@ -777,8 +766,8 @@ function vRP.NumPermission(Permission)
     return Services,Amount
 end
 
-vRP.SetPermission = function(id,group)
-    return vRP.addUserGroup(id,group)
+vRP.SetPermission = function(id,group,level)
+    return vRP.addUserGroup(id,group,level)
 end
 
 vRP.RemovePermission = function(id,group)
@@ -791,10 +780,10 @@ end
 
 function vRP.Hierarchy(Permission)
     local Hierarchy = {}
-    local HierarchyGroups = GetQBGroups()
-    for Group,v in pairs(HierarchyGroups) do
-        if v.job == Permission and v.level >= 0 then
-            Hierarchy[v.level] = Group
+    local GroupPerm = Groups[Permission]
+    if GroupPerm and GroupPerm["Hierarchy"] then
+        for level,v in ipairs(GroupPerm["Hierarchy"]) do
+            Hierarchy[level] = v["Title"]
         end
     end
     return Hierarchy
@@ -802,12 +791,9 @@ end
 
 function vRP.DataGroups(Permission)
     local UserGroups = {}
-    local DataHierarchy = vRP.Hierarchy(Permission)
-    for Level,Group in pairs(DataHierarchy) do
-        local consult = vRP.query("vRP/get_specific_perm", { permiss = Group })
-        for k,v in pairs(consult) do
-            UserGroups[v["user_id"]] = Level
-        end
+    local consult = vRP.query("vRP/get_specific_perm", { permiss = Permission })
+    for _,v in pairs(consult) do
+        UserGroups[v["user_id"]] = v.hierarchy
     end
     return UserGroups
 end
@@ -858,32 +844,50 @@ function vRP.PermissionsUpdate(Permission, Column, Mode, Amount)
     exports["oxmysql"]:query_async(Query, { Permission = Permission, Amount = parseInt(Amount) })
 end
 
-function vRP.AmountService(Perm,Grade)
-    local ServiceHierarchy = vRP.Hierarchy(Perm)
-    local Permission = ServiceHierarchy[Grade]
-    local _, Amount = vRP.NumPermission(Permission)
+function vRP.AmountService(Permission,Level)
+    local Amount = 0
+
+    local PermissionParts = splitString(Permission,"-")
+	if PermissionParts[2] then
+		Permission,Level = PermissionParts[1],parseInt(PermissionParts[2])
+	end
+    local GroupPermission = Groups[Permission]
+
+    if not GroupPermission then
+		return Amount
+	end
+
+    if GroupPermission["Service"] then
+        for Passport,Source in pairs(GroupPermission["Service"]) do
+            if not Level then
+			    Amount = Amount + 1
+            else
+                local UserLevel = vRP.HasPermission(Passport,Permission)
+                if UserLevel and UserLevel <= Level then
+                    Amount = Amount + 1
+                end
+            end
+        end
+    end
 	return Amount
 end
 
 function vRP.NameHierarchy(Permission,Level)
-    local HierarchyGroups = GetQBGroups()
-    for Group,v in pairs(HierarchyGroups) do
-        if v.job == Permission and v.level == Level then
-            return Group
-        end
+    if Groups[Permission] and Groups[Permission]["Hierarchy"] and Groups[Permission]["Hierarchy"][Level] then
+        return Groups[Permission]["Hierarchy"][Level]["Title"]
     end
 	return Permission
 end
 
 function vRP.HasTable(Passport,Table)
-	local Passport = tostring(Passport)
-
 	for _,Permission in ipairs(Table) do
-		if vRP.HasGroup(Passport,Permission) then
+        local Check = splitString(Permission)
+		local _,LevelParented = Check[1],Check[2] and parseInt(Check[2]) or nil
+		local CurrentLevel = vRP.HasGroup(Passport,Permission)
+        if CurrentLevel and (not LevelParented or CurrentLevel <= LevelParented) then
 			return Permission
 		end
 	end
-
 	return false
 end
 
@@ -914,10 +918,14 @@ function vRP.InsertPrison(Passport,Amount)
 end
 
 function vRP.HasService(Passport,Permission)
-    return vRP.HasGroup(Passport,Permission)
+    if Groups[Permission] and Groups[Permission]["Service"] then
+        return Groups[Permission]["Service"][Passport]
+    end
+    return false
 end
 
 local Playing = {}
+
 function vRP.Playing(Passport,Permission)
 	local Return = 0
 	local CurrentTimer = os.time()
@@ -938,4 +946,65 @@ end
 
 function vRP.SingleQuery(Name,Params)
 	return vRP.Query(Name,Params)[1]
+end
+
+function vRP.ServiceToggle(source,Passport,Permission,Silenced)
+	local Permission = SplitOne(Permission)
+	local Group = Groups[Permission]
+	if not Group then return end
+	if Group.Service and Group.Service[Passport] then
+		vRP.ServiceLeave(source,Passport,Permission,Silenced)
+	elseif vRP.HasPermission(Passport,Permission) then
+		vRP.ServiceEnter(source,Passport,Permission,Silenced)
+	end
+end
+
+function vRP.ServiceEnter(source,Passport,Permission,Silenced)
+	local Group = Groups[Permission]
+	if not Group then return end
+
+	local CurrentTimer = os.time()
+
+	if not Playing[Permission] then
+		Playing[Permission] = {}
+	end
+
+	Playing[Permission][Passport] = Playing[Permission][Passport] or CurrentTimer
+
+	if Group.Service then
+		Group.Service[Passport] = source
+		TriggerClientEvent("service:Client",source,Permission,true)
+	end
+
+	if not Silenced then
+		TriggerClientEvent("Notify",source,"Central de Empregos","Você acaba de dar inicio a sua jornada de trabalho, lembrando que a sua vida não se resume só a isso.","default",5000)
+	end
+end
+
+function vRP.ServiceLeave(source,Passport,Permission,Silenced)
+	local Group = Groups[Permission]
+	if not Group then return end
+
+	local CurrentTimer = os.time()
+
+	if not Playing[Permission] then
+		Playing[Permission] = {}
+	end
+
+	if Playing[Permission][Passport] then
+		local Consult = vRP.GetSrvData("Playing:"..Passport)
+		Consult[Permission] = (Consult[Permission] or 0) + (CurrentTimer - Playing[Permission][Passport])
+		vRP.SetSrvData("Playing:"..Passport,Consult)
+
+		Playing[Permission][Passport] = nil
+	end
+
+	if Group.Service and Group.Service[Passport] then
+		TriggerClientEvent("service:Client",source,Permission,false)
+		Group.Service[Passport] = nil
+	end
+
+	if not Silenced then
+		TriggerClientEvent("Notify",source,"Central de Empregos","Você acaba finalizar sua jornada de trabalho, esperamos que você tenha aprendido bastante hoje.","default",5000)
+	end
 end

@@ -140,14 +140,6 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PLAYER SPAWN
 -----------------------------------------------------------------------------------------------------------------------------------------
-local vipWeights = {
-	["Diamante"] = 100,
-	["Platina"] = 50,
-	["Ouro"] = 30,
-	["Prata"] = 20,
-	["Bronze"] = 10
-}
-
 AddEventHandler("vRP:playerSpawn",function(user_id,source)
     local source = source
 	local data = vRP.getUserDataTable(user_id)
@@ -178,23 +170,6 @@ AddEventHandler("vRP:playerSpawn",function(user_id,source)
 		end
 		TriggerClientEvent("statusHunger",source,data.hunger)
 		TriggerClientEvent("statusThirst",source,data.thirst)
-	end
-end)
-
-AddEventHandler("vRP:playerJoinGroup",function (user_id,group,gtype)
-	Wait(1000)
-	local nplayer = vRP.getUserSource(user_id)
-	if nplayer and vipWeights[group] and vRP.hasPermission(user_id, "vip.permissao") then
-		if gtype and gtype == "vip" then
-			if GetResourceState("ox_inventory") == "started" then
-				local inventory = exports.ox_inventory:GetInventory(nplayer)
-				local backpack = inventory.maxWeight / 1000
-				if backpack then
-					backpack = backpack + vipWeights[group]
-					exports.ox_inventory:SetMaxWeight(nplayer, backpack * 1000)
-				end
-			end
-		end
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------

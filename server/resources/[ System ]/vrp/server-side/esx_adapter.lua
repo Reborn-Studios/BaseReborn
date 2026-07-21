@@ -516,12 +516,23 @@ function ESX.RefreshJobs()
   local allJobs = Reborn.groups()
 
   for k, v in pairs(allJobs) do
-    Jobs[k] = v
-    Jobs[k].label = v._config and v._config.title or k
-    Jobs[k].name = k
-    Jobs[k].grades = { ['0'] = {grade = 0, label = v._config and v._config.title or k, salary = v._config and v._config.salary or 0, skin_male = {}, skin_female = {}} }
+    Jobs[k] = {}
+    Jobs[k].label = v["Name"] or k
+    Jobs[k].name = v["QBESXGroup"] or k
+    Jobs[k].grades = {}
+    if v["Hierarchy"] then
+      for k2, v2 in ipairs(v["Hierarchy"]) do
+        Jobs[k].grades[tostring(k2 - 1)] = {
+          grade = k2 - 1,
+          label = v2["Title"] or k,
+          salary = v2["Salary"] or 0,
+          skin_male = {},
+          skin_female = {}
+        }
+      end
+    end
   end
-  
+
   if Jobs then
     ESX.Jobs = Jobs
   end
@@ -736,19 +747,21 @@ function loadESXPlayer(identifier, playerId, isNew)
   local result = vRP.query("vRP/get_vrp_users", { id = user_id })
   local result2 = MySQL.prepare.await(loadPlayer, { identifier }) or {}
   local myJob = nil
+  local myGrade = "0"
   local allJobs = Reborn.groups()
   local user_groups = vRP.getUserGroups(user_id)
 
   for k,v in pairs(user_groups) do
     local kgroup = allJobs[k]
     if kgroup then
-        if kgroup._config and kgroup._config.gtype and kgroup._config.gtype == "job" then
-          myJob = k
+        if kgroup["Type"] and kgroup["Type"] == "job" then
+          myJob = kgroup["QBESXGroup"] or k
+          myGrade = tostring(v - 1)
           break
         end
     end
   end
-  local job, grade, jobObject, gradeObject = myJob, '0'
+  local job, grade, jobObject, gradeObject = myJob, myGrade
   
   -- Accounts
   local foundAccounts, foundItems = {}, {}

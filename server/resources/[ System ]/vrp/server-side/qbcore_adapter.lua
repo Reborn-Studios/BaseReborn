@@ -514,13 +514,13 @@ function QBCore.Player.Login(source, citizenid, newData)
             local UserData = {}
             local PlayerData = MySQL.Sync.fetchSingle('SELECT * FROM characters where id = ?', { citizenid })
             if PlayerData then
-                local group = vRP.getUserGroupByType(citizenid, "job")
+                local group,level = vRP.getUserGroupByType(citizenid, "job")
                 UserData.citizenid = citizenid
                 UserData.money = { bank = PlayerData.bank, cash = getCash(citizenid) }
                 UserData.job = {
                     name = group,
                     label = group,
-                    payment = vRP.getSalaryByGroup(group),
+                    payment = vRP.getSalaryByGroup(group,level),
                     type = "job",
                     onduty = false,
                     isboss = false,
@@ -555,13 +555,13 @@ function QBCore.Player.GetOfflinePlayer(citizenid)
         local UserData = {}
         local PlayerData = MySQL.Sync.prepare('SELECT * FROM characters where id = ?', {citizenid})
         if PlayerData then
-            local group = vRP.getUserGroupByType(citizenid, "job")
+            local group,level = vRP.getUserGroupByType(citizenid, "job")
             UserData.citizenid = citizenid
             UserData.money = { bank = PlayerData.bank, cash = getCash(citizenid) }
             UserData.job = {
                 name = group,
                 label = group,
-                payment = vRP.getSalaryByGroup(group),
+                payment = vRP.getSalaryByGroup(group,level),
                 type = "job",
                 onduty = false,
                 isboss = false,

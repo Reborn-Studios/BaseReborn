@@ -92,8 +92,8 @@ RegisterCommand("premium",function(source,args,rawCommand)
 			local groups = vRP.getUserGroups(user_id)
 			for k,v in pairs(groups) do
 				local ngroup = vRP.getGroup(k)
-				if ngroup and ngroup._config and ngroup._config.gtype and ngroup._config.gtype == "vip" then
-					table.insert(vips,"- "..ngroup._config.title or k)
+				if ngroup and ngroup["Type"] == "vip" then
+					table.insert(vips,"- "..ngroup["Title"] or k)
 				end
 			end
 			if #vips > 0 then
@@ -126,10 +126,10 @@ AddEventHandler("vrp_player:salary",function()
 	if user_id then
 		local userGroups = vRP.getUserGroups(user_id)
 		for k,v in pairs(userGroups) do
-			local groupSalary = vRP.getSalaryByGroup(k)
+			local groupSalary = vRP.getSalaryByGroup(k,v)
 			if groupSalary then
 				vRP.addBank(parseInt(user_id), groupSalary)
-				TriggerClientEvent("Notify",source,"Salário","Você recebeu seu salario de R$"..groupSalary.." pelo serviço de "..vRP.getGroupTitle(k)..".","payment", 5000)
+				TriggerClientEvent("Notify",source,"Salário","Você recebeu seu salario de R$"..groupSalary.." pelo serviço de "..vRP.getGroupTitle(k,v)..".","payment", 5000)
 			end
 		end
 	end
@@ -298,7 +298,7 @@ RegisterCommand("staff",function(source,args,rawCommand)
 	if user_id then
 		local groups = Reborn.groups()
 		for adm,v in pairs(groups) do
-			if v._config and v._config.gtype == "staff" and v[1] ~= "sem.permissao" then
+			if v["Type"] and v["Type"] == "staff" then
 				local waitGroup = "wait"..adm
 				if vRP.hasPermission(user_id,adm) then
 					vRP.removePermission(user_id,adm)

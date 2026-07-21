@@ -1,484 +1,307 @@
 local groups = {
-	--[[ 
-		#############
-			STAFF
-		#############
-	 ]]
-	["Owner"] = {
-		_config = {
-			title = "Dono",
-			gtype = "staff"
-		},
-		"owner.permissao",
-		"admin.permissao",
-		"cas.permissao",
-		"suporte.permissao",
-		"player.blips",
-		"player.spec",
-		"mqcu.permissao",
-		"player.noclip",
-		"player.secret",
-		"player.wall",
-		"moderador.permissao",
-		"adm.permissao",
-		"comando.permissao",
-		"lidermecanico.permissao",
-		"diretor.permissao",
-	},
 	["Admin"] = {
-		_config = {
-			title = "Administrator",
-			gtype = "staff"
+		["Name"] = "Administração",
+		["Type"] = "staff",
+		["QBESXGroup"] = "admin",
+		["Hierarchy"] = {
+			[1] = {
+				["Group"] = "Owner",
+				["Title"] = "Dono",
+				["Leader"] = true,
+				["Permission"] = {
+					"owner.permissao",
+					"comando.permissao",
+					"lidermecanico.permissao",
+					"diretor.permissao",
+				}
+			},
+			[2] = {
+				["Group"] = "Admin",
+				["Title"] = "Administrador",
+				["Permission"] = {
+					"admin.permissao",
+				}
+			},
+			[3] = {
+				["Group"] = "Mod",
+				["Title"] = "Moderador",
+				["Permission"] = {
+					"moderador.permissao",
+				}
+			},
+			[4] = {
+				["Group"] = "Sup",
+				["Title"] = "Suporte",
+			},
 		},
-		"admin.permissao",
-		"suporte.permissao",
-		"player.blips",
-		"player.spec",
-		"player.noclip",
-		"mqcu.permissao",
-		"player.secret",
-		"player.wall",
-		"moderador.permissao",
-		"adm.permissao"
+		["Permissions"] = {
+			"suporte.permissao",
+			"mqcu.permissao",
+			"sup.permissao",
+			"player.blips",
+			"player.spec",
+			"player.noclip",
+			"player.wall",
+		},
+		["Service"] = {}
 	},
-	["Mod"] = {
-		_config = {
-			title = "Moderador",
-			gtype = "staff"
+	["Policia"] = {
+		["Name"] = "Policia Geral",
+		["Type"] = "job",
+		["QBESXGroup"] = "police",
+		["Hierarchy"] = {
+			[1] = {
+				["Group"] = "Coronel",
+				["Title"] = "Coronel",
+				["Leader"] = true,
+				["Salary"] = 9000,
+				["Permission"] = {
+					"comando.permissao",
+				}
+			},
+			[2] = {
+				["Group"] = "Capitao",
+				["Title"] = "Capitão",
+				["Salary"] = 8500,
+			},
+			[3] = {
+				["Group"] = "Major",
+				["Title"] = "Major",
+				["Salary"] = 8000,
+			},
+			[4] = {
+				["Group"] = "Tenente",
+				["Title"] = "Tenente",
+				["Salary"] = 7500,
+			},
+			[5] = {
+				["Group"] = "Sub.Tenente",
+				["Title"] = "Sub. Tenente",
+				["Salary"] = 7000,
+			},
+			[6] = {
+				["Group"] = "Sargento",
+				["Title"] = "1° Sargento",
+				["Salary"] = 6500,
+			},
+			[7] = {
+				["Group"] = "2Sargento",
+				["Title"] = "2° Sargento",
+				["Salary"] = 6000,
+			},
+			[8] = {
+				["Group"] = "3Sargento",
+				["Title"] = "3° Sargento",
+				["Salary"] = 5500,
+			},
+			[9] = {
+				["Group"] = "Cabo",
+				["Title"] = "Cabo",
+				["Salary"] = 5000,
+			},
+			[10] = {
+				["Group"] = "Recruta",
+				["Title"] = "Recruta",
+				["Salary"] = 4500,
+			},
 		},
-		"moderador.permissao",
-		"player.blips",
-		"player.spec",
-		"player.noclip",
-		"mqcu.permissao",
-		"player.wall",
-		"suporte.permissao",
-		"mod.permissao"
+		["Permissions"] = {
+			"policiamilitar.permissao",
+			"policia.permissao",
+			"polpar.permissao",
+			"portadp.permissao",
+			"player.blips",
+			"garmas.permissao",
+			"policiatiros.permissao"
+		},
+		["Service"] = {},
+        ["Markers"] = true,              -- Sistema de blips no mapa
 	},
-	["Sup"] = {
-		_config = {
-			title = "Suporte",
-			gtype = "staff"
+	["Hospital"] = {
+		["Name"] = "Central Hospital",
+		["Type"] = "job",
+		["QBESXGroup"] = "ambulance",
+		["Hierarchy"] = {
+			[1] = {
+				["Group"] = "Diretor",
+				["Title"] = "Medico Diretor",
+				["Leader"] = true,
+				["Salary"] = 6000,
+				["Permission"] = {
+					"diretor.permissao",
+				}
+			},
+			[2] = {
+				["Group"] = "Medico",
+				["Title"] = "Médico",
+				["Salary"] = 5500,
+				["Permission"] = {
+					"medico.permissao",
+				}
+			},
+			[3] = {
+				["Group"] = "Enfermeiro",
+				["Title"] = "Enfermeiro",
+				["Salary"] = 5000,
+				["Permission"] = {
+					"enfermeiro.permissao",
+				}
+			},
+			[4] = {
+				["Group"] = "Paramedico",
+				["Title"] = "Paramedico",
+				["Salary"] = 3000
+			},
 		},
-		"suporte.permissao",
-		"mqcu.permissao",
-		"sup.permissao"
+		["Permissions"] = {
+			"paramedico.permissao",
+			"polpar.permissao",
+		},
+		["Service"] = {},
+        ["Markers"] = true,              -- Sistema de blips no mapa
+		["OrgPanel"] = true
 	},
-	--[[ 
-		#############
-		   POLICIA
-		#############
-	 ]]
-	
-	--[[ 
-		#############
-		   HOSPITAL
-		#############
-	 ]]
-	["Paramedico"] = {
-		_config = {
-			title = "Paramedico",
-			gtype = "job",
-			grade = "0",
-			salary = 3000
+	["LSCustoms"] = {
+		["Name"] = "LS Customs",
+		["Type"] = "job",
+		["QBESXGroup"] = "mechanic",
+		["Hierarchy"] = {
+			[1] = {
+				["Group"] = "Lider",
+				["Title"] = "Mecanico Lider",
+				["Leader"] = true,
+				["Salary"] = 7000,
+				["Permission"] = {
+					"lidermecanico.permissao",
+				}
+			},
+			[2] = {
+				["Group"] = "Gerente",
+				["Title"] = "Mecânico Gerente",
+				["Salary"] = 5000,
+				["Permission"] = {
+					"mecanicogerente.permissao",
+				}
+			},
+			[3] = {
+				["Group"] = "Mecanico",
+				["Title"] = "Mecanico Membro",
+				["Salary"] = 3000,
+			},
 		},
-		"paramedico.permissao",
-		"polpar.permissao",
-	},
-	["Enfermeiro"] = {
-		_config = {
-			title = "Enfermeiro",
-			gtype = "job",
-			grade = "1",
-			salary = 5000
+		["Permissions"] = {
+			"mecanico.permissao",
 		},
-		"paramedico.permissao",
-		"polpar.permissao",
-	},
-	["Medico"] = {
-		_config = {
-			title = "Medico",
-			gtype = "job",
-			grade = "2",
-			salary = 5500
-		},
-		"paramedico.permissao",
-		"polpar.permissao",
-	},
-	["Diretor"] = {
-		_config = {
-			title = "Diretor",
-			gtype = "job",
-			grade = "3",
-			isboss = true,
-			salary = 6000
-		},
-		"diretor.permissao",
-		"paramedico.permissao",
-		"polpar.permissao",
-	},
-	--[[ 
-		#############
-		   MECANICO
-		#############
-	 ]]
-	["Mecanico"] = {
-		_config = {
-			title = "Mecanico",
-			gtype = "job",
-			grade = "0",
-		},
-		"mecanico.permissao",
-	},
-	["MecanicoGerente"] = {
-		_config = {
-			title = "Mecanico Gerente",
-			gtype = "job",
-			grade = "1",
-			salary = 5000
-		},
-		"mecanico.permissao",
-	},
-	["MecanicoLider"] = {
-		_config = {
-			title = "Mecanico Lider",
-			gtype = "job",
-			grade = "2",
-			isboss = true,
-			salary = 7000
-		},
-		"mecanico.permissao",
-		"lidermecanico.permissao",
+		["Service"] = {},
 	},
 	["Bennys"] = {
-		_config = {
-			title = "Bennys",
-			gtype = "job",
-			grade = "0",
-			salary = 5000
+		["Name"] = "Bennys Motorworks",
+		["Type"] = "job",
+		["QBESXGroup"] = "mechanic",
+		["Hierarchy"] = {
+			[1] = {
+				["Group"] = "Lider",
+				["Title"] = "Lider Bennys",
+				["Leader"] = true,
+				["Salary"] = 7000,
+				["Permission"] = {
+					"liderbennys.permissao",
+				}
+			},
+			[2] = {
+				["Group"] = "Gerente",
+				["Title"] = "Gerente Bennys",
+				["Salary"] = 5000,
+				["Permission"] = {
+					"gerentebennys.permissao",
+				}
+			},
+			[3] = {
+				["Group"] = "Mecanico",
+				["Title"] = "Mecanico Bennys",
+				["Salary"] = 3000,
+			},
 		},
-		"bennys.permissao"
+		["Permissions"] = {
+			"bennys.permissao",
+		},
+		["Service"] = {},
 	},
-	["BennysGerente"] = {
-		_config = {
-			title = "Bennys Gerente",
-			gtype = "job",
-			grade = "1",
-			salary = 7000
+	["Vips"] = {
+		["Name"] = "Vips",
+		["Type"] = "vip",
+		["Hierarchy"] = {
+			[1] = {
+				["Group"] = "Diamante",
+				["Title"] = "VIP Diamante",
+				["Salary"] = 25000,
+				["BackpackWeight"] = 100,				-- Aumento de mochila
+				["Permission"] = {
+					"diamante.permissao",				-- Permissão de exclusividade Diamante
+					"pets.permissao",					-- Utilizado para script de Pets do Lucca
+					"tratamentolivre.permissao",		-- Utilizado para não pagar tratamento do hospital
+					"helivip.permissao",				-- Acesso a garagem de Helicopteros VIPs
+					"radar.permissao",					-- Utilizado para o script de radar do Lucca
+					"roupas.permissao",					-- Não precisar de item roupas para mudar de roupas por comando
+					"carrosexclusivos.permissao",		-- Acesso a garagem de carros exclusivos
+					"mochila.permissao",				-- Não perder a mochila ao morrer
+				}
+			},
+			[2] = {
+				["Group"] = "Platina",
+				["Title"] = "VIP Platina",
+				["Salary"] = 15000,
+				["BackpackWeight"] = 50,
+				["Permission"] = {
+					"platina.permissao",
+					"pets.permissao",
+					"tratamentolivre.permissao",
+					"helivip.permissao",
+					"radar.permissao",
+					"roupas.permissao",
+					"carrosexclusivos.permissao",
+					"mochila.permissao",
+				}
+			},
+			[3] = {
+				["Group"] = "Ouro",
+				["Title"] = "VIP Ouro",
+				["Salary"] = 10000,
+				["BackpackWeight"] = 30,
+				["Permission"] = {
+					"ouro.permissao",
+					"mochila.permissao",
+				}
+			},
+			[4] = {
+				["Group"] = "Prata",
+				["Title"] = "VIP Prata",
+				["Salary"] = 5000,
+				["BackpackWeight"] = 20,
+				["Permission"] = {
+					"prata.permissao",
+				}
+			},
+			[5] = {
+				["Group"] = "Bronze",
+				["Title"] = "VIP Bronze",
+				["Salary"] = 2500,
+				["BackpackWeight"] = 10,
+				["Permission"] = {
+					"bronze.permissao",
+				}
+			},
 		},
-		"liderbennys.permissao",
-		"bennys.permissao"
-	},
-	["BennysLider"] = {
-		_config = {
-			title = "Bennys L.",
-			gtype = "job",
-			grade = "2",
-			isboss = true,
-			salary = 7000
+		["Permissions"] = {
+			"vip.permissao",					-- Permissão padrão para VIPs
 		},
-		"liderbennys.permissao",
-		"bennys.permissao"
-	},
-	--[[ 
-		#############
-		   VIPS
-		#############
-	 ]]
-	["Bronze"] = {
-		_config = {
-			title = "Bronze",
-			gtype = "vip",
-			salary = 2500
-		},
-		"vip.permissao",
-		"bronze.permissao"
-	},
-	["Prata"] = {
-		_config = {
-			title = "Prata",
-			gtype = "vip",
-			salary = 5000
-		},
-		"vip.permissao",
-		"prata.permissao"
-	},
-	["Ouro"] = {
-		_config = {
-			title = "Ouro",
-			gtype = "vip",
-			salary = 10000
-		},
-		"vip.permissao",
-		"ouro.permissao",
-		"mochila.permissao"
-	},
-	["Platina"] = {
-		_config = {
-			title = "Platina",
-			gtype = "vip",
-			salary = 15000
-		},
-		"vip.permissao",
-		"platina.permissao",
-		"pets.permissao",
-		"tratamentolivre.permissao",
-		"helivip.permissao",
-		"roupas.permissao",
-		"mochila.permissao"
-	},
-	["Diamante"] = {
-		_config = {
-			title = "Diamante",
-			gtype = "vip",
-			salary = 25000
-		},
-		"vip.permissao",					-- Permissão padrão para VIPs
-		"diamante.permissao",				-- Permissão de exclusividade Diamante
-		"pets.permissao",					-- Utilizado para script de Pets do Lucca
-		"tratamentolivre.permissao",		-- Utilizado para não pagar tratamento do hospital
-		"helivip.permissao",				-- Acesso a garagem de Helicopteros VIPs
-		"radar.permissao",					-- Utilizado para o script de radar do Lucca
-		"roupas.permissao",					-- Não precisar de item roupas para mudar de roupas por comando
-		"carrosexclusivos.permissao",		-- Acesso a garagem de carros exclusivos
-		"mochila.permissao"					-- Não perder a mochila ao morrer
-	},
-	--[[ 
-		#############
-		  FACS/ORGS
-		#############
-	 ]]
-	["Cassino"] = {
-		_config = {
-			title = "Cassino",
-			gtype = "job"
-		},
-		"cassino.permissao",
-		"farmarma.permissao"
-	},
-	["CassinoLider"] = {
-		_config = {
-			title = "Cassino L.",
-			gtype = "job"
-		},
-		"lidercassino.permissao",
-		"cassino.permissao",
-		"farmarma.permissao"
-	},
-	["Motoclub"] = {
-		_config = {
-			title = "Motoclub",
-			gtype = "job"
-		},
-		"desmanche.permissao",
-		"motoclub.permissao",
-	},
-	["MotoclubLider"] = {
-		_config = {
-			title = "Motoclub L.",
-			gtype = "job"
-		},
-		"lidermotoclub.permissao",
-		"liderdesmanche.permissao",
-		"desmanche.permissao",
-		"motoclub.permissao",
-	},
-	["Milicia"] = {
-		_config = {
-			title = "Milicia",
-			gtype = "job"
-		},
-		"milicia.permissao",
-		"municao.permissao"
-	},
-	["MiliciaLider"] = {
-		_config = {
-			title = "Milicia L.",
-			gtype = "job"
-		},
-		"milicialider.permissao",
-		"milicia.permissao",
-		"municao.permissao",
-	},
-	["Bahamas"] = {
-		_config = {
-			title = "Bahamas",
-			gtype = "job"
-		},
-		"bahamas.permissao"
-	},
-	["BahamasLider"] = {
-		_config = {
-			title = "Bahamas L.",
-			gtype = "job"
-		},
-		"bahamaslider.permissao",
-		"bahamas.permissao"
-	},
-	["Mafia"] = {
-		_config = {
-			title = "Mafia",
-			gtype = "job"
-		},
-		"mafia.permissao"
-	},
-	["MafiaLider"] = {
-		_config = {
-			title = "Mafia L.",
-			gtype = "job"
-		},
-		"mafialider.permissao",
-		"mafia.permissao"
-	},
-	["Vanilla"] = {
-		_config = {
-			title = "Vanilla Club",
-			gtype = "job"
-		},
-		"lavagem.permissao",
-		"vanilla.permissao"
-	},
-	["VanillaLider"] = {
-		_config = {
-			title = "Vanilla Strip Club L.",
-			gtype = "job"
-		},
-		"lidervanilla.permissao",
-		"lavagem.permissao",
-		"vanilla.permissao"
-	},
-	["Verdes"] = {
-		_config = {
-			title = "Verdes",
-			gtype = "job"
-		},
-		"verdes.permissao"
-	},
-	["VerdesLider"] = {
-		_config = {
-			title = "Verdes L.",
-			gtype = "job"
-		},
-		"verdeslider.permissao",
-		"verdes.permissao"
-	},
-	["Vermelhos"] = {
-		_config = {
-			title = "Vermelhos",
-			gtype = "job"
-		},
-		"vermelhos.permissao"
-	},
-	["VermelhosLider"] = {
-		_config = {
-			title = "Vermelhos L.",
-			gtype = "job"
-		},
-		"vermelhoslider.permissao",
-		"vermelhos.permissao"
-	},
-	["Azuis"] = {
-		_config = {
-			title = "Azuis",
-			gtype = "job"
-		},
-		"azuis.permissao"
-	},
-	["AzuisLider"] = {
-		_config = {
-			title = "Azuis L.",
-			gtype = "job"
-		},
-		"azuislider.permissao",
-		"azuis.permissao"
-	},
-	--[[ 
-		#############
-			OUTROS
-		#############
-	 ]]
-	["Juiz"] = {
-		_config = {
-			title = "Juiz",
-			gtype = "job"
-		},
-		"advogado.permissao",
-		"juiza.permissao",
-		"portadp.permissao",
-	},
-	["News"] = {
-		_config = {
-			title = "Noticias",
-			gtype = "job"
-		},
-		"news.permissao",
-	},
-	["Piloto"] = {
-		_config = {
-			title = "Piloto",
-			gtype = "alt"
-		},
-		"piloto.permissao"
-	},
-	["Advogado"] = {
-		_config = {
-			title = "Advogado",
-			gtype = "job"
-		},
-		"advogado.permissao"
-	},
-	-- QBCore Gang
-	["LostMCRecruit"] = {
-		_config = {
-			title = 'The Lost MC',
-			gtype = "gang",
-			grade = "0"
-		},
-		"lostmc.permissao"
-    },
-	-- Domination Groups
-	["Industria"] = {
-		_config = {
-			salary = 500
-		},
-		"industria.permissao"
+		["Service"] = {},
 	},
 }
 
-do
-	local PoliceGroups = module('vrp',"config/PoliceGroups")() or {}
-	for k,v in pairs(PoliceGroups) do
-		groups[k] = v
-	end
-	local AllGroups = GlobalState["AllGroups"] or {}
-	for k,v in pairs(AllGroups) do
-		groups[k] = v
-	end
-	local paisanaGroups = {}
-	for k,v in pairs(groups) do
-		if v._config and v._config.gtype then
-			if v._config.gtype == "job" then
-				paisanaGroups["Paisana"..k] = {
-					_config = {
-						title = "Paisana - "..v._config.title,
-						gtype = "job"
-					},
-					"sem.permissao"
-				}
-			elseif v._config.gtype == "staff" then
-				paisanaGroups["wait"..k] = {
-					_config = {
-						title = "Paisana - "..v._config.title,
-						gtype = "staff"
-					},
-					"sem.permissao"
-				}
-			end
-		end
-	end
-	for k,v in pairs(paisanaGroups) do
-		groups[k] = v
-	end
+local ConfigGroups = json.decode(LoadResourceFile("AdminControl", 'data/groups.json')) or {}
+for Group,data in pairs(ConfigGroups) do
+	groups[Group] = data
 end
 
 return groups
