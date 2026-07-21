@@ -26,7 +26,8 @@ CREATE TABLE IF NOT EXISTS `accounts` (
 CREATE TABLE IF NOT EXISTS `permissions` (
   `id` INT(11) UNSIGNED NOT NULL DEFAULT '0',
   `user_id` int(11) NOT NULL DEFAULT 0,
-  `permiss` text NOT NULL
+  `permiss` text NOT NULL,
+  `hierarchy` INT(11) NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Exportação de dados foi desmarcado.
