@@ -195,3 +195,43 @@ Balada Lux -310.13,226.93,87.91
 > ammo-rifle2 <br>
 > ammo-shotgun <br>
 > ammo-heavysniper <br>
+
+### Motoclub
+
+Desmanche: 474.78,-1308.48,29.2
+Central: 983.09,-107.19,74.36
+
+### Azuis
+
+Cocaina: -1105.13,4952.35,218.65,
+Central: 1381.66,-740.82,67.24
+
+### Vermelhos
+
+Maconha: 116.47,6362.53,32.79
+Central: 1269.05,-87.82,122.6
+
+### Verdes
+
+Metanfetamina: 1493.17,6390.24,21.26,
+Central: 2046.32,464.35,218.59
+
+### Vanilla
+
+Lavagem: 97.48,-1293.61,29.33
+Central: 130.89,-1306.04,29.2
+
+### Mafia
+
+Armas: 1599.28,-1332.99,90.55
+Central: -2663.91,1321.63,147.45
+
+### Bahamas
+
+Items ilegais: 2788.16,1952.59,98.58
+Central: -1887.43,2045.67,140.87
+
+### Milicia
+
+Munição: 361.15,1066.58,237.37
+Central: 462.94,947.57,229.33
