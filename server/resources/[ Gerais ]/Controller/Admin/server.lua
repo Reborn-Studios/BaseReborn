@@ -447,11 +447,9 @@ RegisterCommand("group",function(source,args,rawCommand)
 						TriggerClientEvent("AdminControl:showUserGroups",source,parseInt(args[1]),vRP.getUserGroups(parseInt(args[1])))
 						return
 					end
-					if not vRP.hasPermission(parseInt(args[1]),tostring(args[2])) then
-						vRP.addUserGroup(parseInt(args[1]),tostring(args[2]),tonumber(args[3]))
-						TriggerClientEvent("Notify",source,"sucesso","O cidadão foi setado como " ..(args[2]).." ",5000)
-						vRP.createWeebHook(Webhooks.webhookset,"```prolog\n[ID]: "..user_id.." \n[SETOU]: "..args[1].." \n [GROUP]: "..args[2].." "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
-					end
+					vRP.addUserGroup(parseInt(args[1]),tostring(args[2]),tonumber(args[3]))
+					TriggerClientEvent("Notify",source,"sucesso","O cidadão foi setado como " ..vRP.getGroupTitle(args[2],tonumber(args[3])).." ",5000)
+					vRP.createWeebHook(Webhooks.webhookset,"```prolog\n[ID]: "..user_id.." \n[SETOU]: "..args[1].." \n [GROUP]: "..args[2].." "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
 				else
 					TriggerClientEvent("AdminControl:showUserGroups",source,parseInt(args[1]),vRP.getUserGroups(parseInt(args[1])))
 				end

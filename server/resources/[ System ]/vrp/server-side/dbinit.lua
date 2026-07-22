@@ -142,6 +142,31 @@ local function on_query(name, params, mode)
     return r:wait()
 end
 
+
+local dbSimilarTables = Reborn.dbSimilarTables() or {}
+
+function checkQuery(query)
+    local newQuery = query
+    for k,v in pairs(dbSimilarTables) do
+        if not string.find(v.New, v.Old) then
+            local tablePattern = "%f[%w]" .. v.Old .. "%f[%W]"
+            if string.find(newQuery, tablePattern) then
+                newQuery = string.gsub(newQuery, tablePattern, v.New)
+                if v.Columns then
+                    for w,l in pairs(v.Columns) do
+                        local columnPattern = "%f[%w]" .. w .. "%f[%W]"
+                        if string.find(newQuery, columnPattern) then
+                            newQuery = string.gsub(newQuery, columnPattern, l)
+                        end
+                    end
+                end
+                break
+            end
+        end
+    end
+    return newQuery
+end
+
 async(function()
     vRP.registerDBDriver("oxmysql", on_init, on_prepare, on_query)
 end)

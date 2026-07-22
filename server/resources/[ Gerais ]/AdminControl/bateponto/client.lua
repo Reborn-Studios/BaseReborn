@@ -115,7 +115,7 @@ local function manageBatePonto(groupName,index)
                     while not IsScreenFadedOut() do
                         Wait(10)
                     end
-                    SetEntityCoords(PlayerPedId(), batePonto.coords.x, batePonto.coords.y, batePonto.coords.z)
+                    SetEntityCoords(PlayerPedId(), batePonto[index].coords.x, batePonto[index].coords.y, batePonto[index].coords.z)
                     DoScreenFadeIn(500)
                 end
             },

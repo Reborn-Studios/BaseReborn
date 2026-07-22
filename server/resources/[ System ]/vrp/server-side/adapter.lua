@@ -863,7 +863,7 @@ function vRP.AmountService(Permission,Level)
 			    Amount = Amount + 1
             else
                 local UserLevel = vRP.HasPermission(Passport,Permission)
-                if UserLevel and UserLevel <= Level then
+                if UserLevel and UserLevel == Level then
                     Amount = Amount + 1
                 end
             end

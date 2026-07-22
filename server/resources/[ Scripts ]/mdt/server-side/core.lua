@@ -1639,7 +1639,7 @@ function Creative.Officers(Management, Ranking)
             Units[#Units+1] = { Name = Unit.Name, Image = Unit.Image }
         end
 
-        local Data = { Name = vRP.FullName(Member), Passport = Member, Patent = vRP.HasPermission(Member, Permission), Service = Service[tostring(Member)] and 1 or 0, Units = Units, Medals = Medals }
+        local Data = { Name = vRP.FullName(Member), Passport = Member, Patent = vRP.HasPermission(Member, Permission), Service = Service[Member] and 1 or 0, Units = Units, Medals = Medals }
 
         if Ranking then
             Data.Hours = vRP.Playing(Member, Permission)
@@ -1686,8 +1686,7 @@ function Creative.HierarchyOfficer(Data)
 	local Passport = vRP.Passport(source)
 	local Permission = Permission[Passport]
 	local Hierarchy = vRP.HasPermission(Passport, Permission)
-
-    if not Config.Permissions.Management.Edit == Hierarchy then
+    if Config.Permissions.Management.Edit < Hierarchy then
         TriggerClientEvent('mdt:Notify', source, 'Erro', 'Você não possui permissões necessárias.', 'vermelho')
         return false
     end
@@ -1699,9 +1698,9 @@ function Creative.HierarchyOfficer(Data)
         local Group = Hierar[TargetLevel]
         vRP.RemovePermission(Target, Group)
         if Mode:find('Promote') then
-            vRP.SetPermission(Target, Hierar[TargetLevel - 1])
+            vRP.SetPermission(Target, Permission,TargetLevel - 1)
         else
-            vRP.SetPermission(Target, Hierar[TargetLevel + 1])
+            vRP.SetPermission(Target, Permission,TargetLevel + 1)
         end
 		TriggerClientEvent('mdt:Notify',source,'Sucesso','Hierarquia atualizada.','verde',5000)
 		return { Passport = Target, Name = (Identity['name'] or 'Indivíduo')..' '..(Identity['name2'] or 'Indigente'), Hierarchy = vRP.HasPermission(Target, Permission), Service = vRP.Source(Target) and 1 or 0 }

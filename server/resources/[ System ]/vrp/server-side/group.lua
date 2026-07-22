@@ -76,13 +76,15 @@ local ClientPerms = {
 	['police'] = "Police",
 	['ambulance'] = "Paramedic",
 	['mechanic'] = "Mechanic",
+	['admin'] = "Admin",
 }
 
 function vRP.insertPermission(user_id,group,hierarchy)
 	local user = parseInt(user_id)
 	local nplayer = vRP.getUserSource(user)
 	local Group = Groups[group]
-	if Group and hierarchy then
+	if Group and Group["Hierarchy"] then
+		if not hierarchy then hierarchy = #Group["Hierarchy"] end
 		if not Permissions[user] then Permissions[user] = {} end
 		local perm = Group["Hierarchy"][hierarchy].Group
 		Permissions[user][group] = hierarchy
@@ -108,6 +110,7 @@ function vRP.insertPermission(user_id,group,hierarchy)
 			TriggerEvent("vrp_blipsystem:serviceEnter",nplayer,group)
 		end
 
+		vRP.ServiceEnter(nplayer,user,group,true)
 		if Group["Hierarchy"][hierarchy]["BackpackWeight"] then
 			if GetResourceState("ox_inventory") == "started" then
 				local inventory = exports.ox_inventory:GetInventory(nplayer)
@@ -145,6 +148,7 @@ function vRP.removePermission(user_id,group)
 			if Group["Markers"] then
 				TriggerEvent("vrp_blipsystem:serviceExit",nplayer)
 			end
+			vRP.ServiceLeave(nplayer,user,group,true)
 			if Group["Hierarchy"][hierarchy]["BackpackWeight"] then
 				if GetResourceState("ox_inventory") == "started" then
 					local inventory = exports.ox_inventory:GetInventory(nplayer)
@@ -214,10 +218,9 @@ function vRP.hasPermission(user,perm,level)
 			return true
 		end
 	else
-		if not level then
-			return vRP.query("vRP/get_group",{ permiss = perm, user_id = user_id })[1]
-		else
-			return vRP.query("vRP/get_group_hierarchy",{ hierarchy = level, permiss = perm, user_id = user_id })[1]
+		local consult = vRP.query(level and "vRP/get_group_hierarchy" or "vRP/get_group",{ hierarchy = level, permiss = perm, user_id = user_id })[1]
+		if consult then
+			return tonumber(consult.hierarchy)
 		end
 	end
 	return false

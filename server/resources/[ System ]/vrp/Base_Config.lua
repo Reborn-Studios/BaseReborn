@@ -53,8 +53,8 @@ Reborn.first_login = function()
         ['DefaultBackpack'] = 30,       -- Caso use ox_inventory altere em 'inventory:weight' no ox.cfg
         ['Groups'] = {
             --[id] = { 'grupos' }
-            [1] = { "Owner", "Admin" },
-            [2] = { "Owner", "Admin" },
+            [1] = { ["Admin"] = 1 },
+            [2] = { ["Admin"] = 1 },
         },
     }
 end

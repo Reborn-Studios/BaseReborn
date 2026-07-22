@@ -30,7 +30,7 @@ function cnVRP.checkBateponto(Index)
     if user_id and Index[1] and batePontos[Index[1]] then
         vCLIENT.sendText(source,"Verificando...")
         Wait(2000)
-        if checkGroupPermission(user_id, Index) then
+        if checkGroupPermission(user_id, Index[1]) then
             if vRP.HasService(user_id,Index[1]) then
                 vRP.ServiceLeave(source,user_id,Index[1],true)
                 vCLIENT.sendText(source,"Saiu de serviço")
