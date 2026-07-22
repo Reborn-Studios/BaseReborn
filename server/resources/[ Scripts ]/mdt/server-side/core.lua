@@ -1668,7 +1668,7 @@ function Creative.CreateOfficer(Data)
     if Passport and Identity and Target and Group then
         TriggerClientEvent('mdt:Notify',source,'Sucesso','Um convite foi enviado ao destinatário.','verde',5000)
         if TargetSource and vRP.Request(TargetSource,'Você foi convidado(a) para participar do grupo <b class=\'text-white\'>'..Group..'</b>, gostaria de estar entrando do mesmo?') then
-            vRP.SetPermission(Target, Group)
+            vRP.SetPermission(Target, Permission, #Hierar)
             TriggerClientEvent('mdt:Notify',source,'Sucesso','Passaporte adicionado.','verde',5000)
             return true
         else
