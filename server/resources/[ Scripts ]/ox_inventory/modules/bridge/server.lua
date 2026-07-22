@@ -11,7 +11,7 @@ function server.hasGroup(inv, group)
 						return name, groupRank
 					end
 				else
-					if groupRank >= (requiredRank or 0) then
+					if groupRank <= (requiredRank or 0) then
 						return name, groupRank
 					end
 				end
