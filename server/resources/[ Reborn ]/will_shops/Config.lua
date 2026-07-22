@@ -175,7 +175,7 @@ Config.Shops = {
         ['buy_products_coords'] = vector3(25.75,-1345.71,29.5),
         ['job_coords'] = vector3(23.03,-1350.41,29.33),
         ['veh_spawn'] = vector4(15.71,-1347.9,28.88,182.34),
-        ['products'] = shopsProducts['Conveniencia']
+        ['products'] = table.clone(shopsProducts['Conveniencia'])
     },
     ["Conveniencia_02"] = {
         ['value'] = 200000,
@@ -184,7 +184,7 @@ Config.Shops = {
         ['buy_products_coords'] = vector3(1163.59,-323.79,69.21),
         ['job_coords'] = vector3(1164.75,-326.23,69.25),
         ['veh_spawn'] = vector4(1154.97,-333.86,68.66,188.51),
-        ['products'] = shopsProducts['Conveniencia']
+        ['products'] = table.clone(shopsProducts['Conveniencia'])
     },
     ["Conveniencia_03"] = {
         ['value'] = 200000,
@@ -193,7 +193,7 @@ Config.Shops = {
         ['buy_products_coords'] = vector3(-707.4,-914.27,19.22),
         ['job_coords'] = vector3(-714.76,-917.77,19.22),
         ['veh_spawn'] = vector4(-706.13,-921.95,19.02,182.08),
-        ['products'] = shopsProducts['Conveniencia']
+        ['products'] = table.clone(shopsProducts['Conveniencia'])
     },
     ["Conveniencia_04"] = {
         ['value'] = 200000,
@@ -202,7 +202,7 @@ Config.Shops = {
         ['buy_products_coords'] = vector3(-47.99,-1757.43,29.43),
         ['job_coords'] = vector3(-55.74,-1755.63,29.44),
         ['veh_spawn'] = vector4(-64.64,-1749.07,29.36,42.24),
-        ['products'] = shopsProducts['Conveniencia']
+        ['products'] = table.clone(shopsProducts['Conveniencia'])
     },
     ["Conveniencia_05"] = {
         ['value'] = 200000,
@@ -211,7 +211,7 @@ Config.Shops = {
         ['buy_products_coords'] = vector3(374.03,327.03,103.57),
         ['job_coords'] = vector3(369.89,324.45,103.58),
         ['veh_spawn'] = vector4(366.57,329.75,103.56,167.67),
-        ['products'] = shopsProducts['Conveniencia']
+        ['products'] = table.clone(shopsProducts['Conveniencia'])
     },
     ["Conveniencia_06"] = {
         ['value'] = 200000,
@@ -220,7 +220,7 @@ Config.Shops = {
         ['buy_products_coords'] = vector3(1960.79,3741.37,32.35),
         ['job_coords'] = vector3(1962.87,3737.53,32.37),
         ['veh_spawn'] = vector4(1974.09,3746.04,32.23,207.79),
-        ['products'] = shopsProducts['Conveniencia']
+        ['products'] = table.clone(shopsProducts['Conveniencia'])
     },
     ["Conveniencia_07"] = {
         ['value'] = 200000,
@@ -229,7 +229,7 @@ Config.Shops = {
         ['buy_products_coords'] = vector3(-1820.41,792.62,138.12),
         ['job_coords'] = vector3(-1818.72,796.75,138.14),
         ['veh_spawn'] = vector4(-1812.46,787.98,137.73,223.62),
-        ['products'] = shopsProducts['Conveniencia']
+        ['products'] = table.clone(shopsProducts['Conveniencia'])
     },
     ["Conveniencia_08"] = {
         ['value'] = 200000,
@@ -238,7 +238,7 @@ Config.Shops = {
         ['buy_products_coords'] = vector3(-1222.76,-907.21,12.33),
         ['job_coords'] = vector3(-1219.42,-910.63,12.33),
         ['veh_spawn'] = vector4(-1223.14,-889.9,12.53,301.6),
-        ['products'] = shopsProducts['Conveniencia']
+        ['products'] = table.clone(shopsProducts['Conveniencia'])
     },
     ["Conveniencia_09"] = {
         ['value'] = 200000,
@@ -247,7 +247,7 @@ Config.Shops = {
         ['buy_products_coords'] = vector3(239.76,-898.79,29.63),
         ['job_coords'] = vector3(0,0,0),
         ['veh_spawn'] = vector4(0,0,0,0),
-        ['products'] = shopsProducts['Conveniencia']
+        ['products'] = table.clone(shopsProducts['Conveniencia'])
     },
     ["Conveniencia_10"] = {
         ['value'] = 200000,
@@ -256,7 +256,7 @@ Config.Shops = {
         ['buy_products_coords'] = vector3(2556.04,380.89,108.61),
         ['job_coords'] = vector3(2560.16,383.05,108.63),
         ['veh_spawn'] = vector4(2565.71,393.58,108.47,359.52),
-        ['products'] = shopsProducts['Conveniencia']
+        ['products'] = table.clone(shopsProducts['Conveniencia'])
     },
     ["Conveniencia_11"] = {
         ['value'] = 200000,
@@ -265,7 +265,7 @@ Config.Shops = {
         ['buy_products_coords'] = vector3(-3243.07,1001.3,12.84),
         ['job_coords'] = vector3(-3239.35,999.48,12.56),
         ['veh_spawn'] = vector4(-3237.79,994.66,12.41,274.53),
-        ['products'] = shopsProducts['Conveniencia']
+        ['products'] = table.clone(shopsProducts['Conveniencia'])
     },
     ["Conveniencia_12"] = {
         ['value'] = 200000,
@@ -274,7 +274,7 @@ Config.Shops = {
         ['buy_products_coords'] = vector3(1728.39,6416.21,35.03),
         ['job_coords'] = vector3(1728.05,6412.44,35.01),
         ['veh_spawn'] = vector4(1739.99,6400.69,35.28,67.38),
-        ['products'] = shopsProducts['Conveniencia']
+        ['products'] = table.clone(shopsProducts['Conveniencia'])
     },
     ["Conveniencia_13"] = {
         ['value'] = 200000,
@@ -283,7 +283,7 @@ Config.Shops = {
         ['buy_products_coords'] = vector3(549.2,2670.22,42.16),
         ['job_coords'] = vector3(0.0,0.0,0.0),
         ['veh_spawn'] = vector4(0.0,0.0,0.0,0.0),
-        ['products'] = shopsProducts['Conveniencia']
+        ['products'] = table.clone(shopsProducts['Conveniencia'])
     },
     ["Conveniencia_14"] = {
         ['value'] = 200000,
@@ -292,7 +292,7 @@ Config.Shops = {
         ['buy_products_coords'] = vector3(1697.35,4923.46,42.06),
         ['job_coords'] = vector3(0.0,0.0,0.0),
         ['veh_spawn'] = vector4(0.0,0.0,0.0,0.0),
-        ['products'] = shopsProducts['Conveniencia']
+        ['products'] = table.clone(shopsProducts['Conveniencia'])
     },
     ["Conveniencia_15"] = {
         ['value'] = 200000,
@@ -301,7 +301,7 @@ Config.Shops = {
         ['buy_products_coords'] = vector3(1392.03,3606.1,34.98),
         ['job_coords'] = vector3(0.0,0.0,0.0),
         ['veh_spawn'] = vector4(0.0,0.0,0.0,0.0),
-        ['products'] = shopsProducts['Conveniencia']
+        ['products'] = table.clone(shopsProducts['Conveniencia'])
     },
     ["Conveniencia_16"] = {
         ['value'] = 200000,
@@ -310,7 +310,7 @@ Config.Shops = {
         ['buy_products_coords'] = vector3(-2966.41,391.59,15.05),
         ['job_coords'] = vector3(0.0,0.0,0.0),
         ['veh_spawn'] = vector4(0.0,0.0,0.0,0.0),
-        ['products'] = shopsProducts['Conveniencia']
+        ['products'] = table.clone(shopsProducts['Conveniencia'])
     },
     ["Conveniencia_17"] = {
         ['value'] = 200000,
@@ -319,7 +319,7 @@ Config.Shops = {
         ['buy_products_coords'] = vector3(-3040.04,584.22,7.9),
         ['job_coords'] = vector3(0.0,0.0,0.0),
         ['veh_spawn'] = vector4(0.0,0.0,0.0,0.0),
-        ['products'] = shopsProducts['Conveniencia']
+        ['products'] = table.clone(shopsProducts['Conveniencia'])
     },
     ["Conveniencia_18"] = {
         ['value'] = 200000,
@@ -328,7 +328,7 @@ Config.Shops = {
         ['buy_products_coords'] = vector3(1134.33,-983.09,46.4),
         ['job_coords'] = vector3(0.0,0.0,0.0),
         ['veh_spawn'] = vector4(0.0,0.0,0.0,0.0),
-        ['products'] = shopsProducts['Conveniencia']
+        ['products'] = table.clone(shopsProducts['Conveniencia'])
     },
     ["Conveniencia_19"] = {
         ['value'] = 200000,
@@ -337,7 +337,7 @@ Config.Shops = {
         ['buy_products_coords'] = vector3(1165.26,2710.79,38.15),
         ['job_coords'] = vector3(0.0,0.0,0.0),
         ['veh_spawn'] = vector4(0.0,0.0,0.0,0.0),
-        ['products'] = shopsProducts['Conveniencia']
+        ['products'] = table.clone(shopsProducts['Conveniencia'])
     },
     ["Conveniencia_20"] = {
         ['value'] = 200000,
@@ -346,7 +346,7 @@ Config.Shops = {
         ['buy_products_coords'] = vector3(-1486.77,-377.56,40.15),
         ['job_coords'] = vector3(0.0,0.0,0.0),
         ['veh_spawn'] = vector4(0.0,0.0,0.0,0.0),
-        ['products'] = shopsProducts['Conveniencia']
+        ['products'] = table.clone(shopsProducts['Conveniencia'])
     },
     ["Conveniencia_21"] = {
         ['value'] = 200000,
@@ -355,7 +355,7 @@ Config.Shops = {
         ['buy_products_coords'] = vector3(2677.07,3279.95,55.23),
         ['job_coords'] = vector3(0.0,0.0,0.0),
         ['veh_spawn'] = vector4(0.0,0.0,0.0,0.0),
-        ['products'] = shopsProducts['Conveniencia']
+        ['products'] = table.clone(shopsProducts['Conveniencia'])
     },
     ["Posto_01"] = {
         ['value'] = 150000,
@@ -364,7 +364,7 @@ Config.Shops = {
         ['buy_products_coords'] = vector3(170.53,-1551.17,29.27),
         ['job_coords'] = vector3(164.88,-1556.25,29.27),
         ['veh_spawn'] = vector4(183.51,-1550.78,29.19,218.39),
-        ['products'] = shopsProducts['Posto'],
+        ['products'] = table.clone(shopsProducts['Posto']),
         ['shopDifference'] = "fuelSystem"
     },
     ["Posto_02"] = {
@@ -374,7 +374,7 @@ Config.Shops = {
         ['buy_products_coords'] = vector3(817.77,-1040.83,26.76),
         ['job_coords'] = vector3(820.79,-1040.23,26.76),
         ['veh_spawn'] = vector4(804.55,-1044.91,26.65,88.68),
-        ['products'] = shopsProducts['Posto'],
+        ['products'] = table.clone(shopsProducts['Posto']),
         ['shopDifference'] = "fuelSystem"
     },
     ["Posto_03"] = {
@@ -384,7 +384,7 @@ Config.Shops = {
         ['buy_products_coords'] = vector3(1210.81,-1389.03,35.38),
         ['job_coords'] = vector3(1207.0,-1389.62,35.38),
         ['veh_spawn'] = vector4(1217.12,-1392.57,35.22,273.78),
-        ['products'] = shopsProducts['Posto'],
+        ['products'] = table.clone(shopsProducts['Posto']),
         ['shopDifference'] = "fuelSystem"
     },
     ["Posto_04"] = {
@@ -394,7 +394,7 @@ Config.Shops = {
         ['buy_products_coords'] = vector3(1161.85,-326.7,69.22),
         ['job_coords'] = vector3(1167.13,-321.56,69.28),
         ['veh_spawn'] = vector4(1176.18,-314.84,69.19,278.84),
-        ['products'] = shopsProducts['Posto'],
+        ['products'] = table.clone(shopsProducts['Posto']),
         ['shopDifference'] = "fuelSystem"
     },
     ["Posto_05"] = {
@@ -404,7 +404,7 @@ Config.Shops = {
         ['buy_products_coords'] = vector3(643.74,263.46,103.3),
         ['job_coords'] = vector3(646.28,267.23,103.26),
         ['veh_spawn'] = vector4(625.49,250.95,103.04,103.46),
-        ['products'] = shopsProducts['Posto'],
+        ['products'] = table.clone(shopsProducts['Posto']),
         ['shopDifference'] = "fuelSystem"
     },
     ["Posto_06"] = {
@@ -414,7 +414,7 @@ Config.Shops = {
         ['buy_products_coords'] = vector3(2559.16,373.67,108.63),
         ['job_coords'] = vector3(2559.5,353.41,108.63),
         ['veh_spawn'] = vector4(2566.59,347.31,108.47,164.46),
-        ['products'] = shopsProducts['Posto'],
+        ['products'] = table.clone(shopsProducts['Posto']),
         ['shopDifference'] = "fuelSystem"
     },
     ["Posto_07"] = {
@@ -424,7 +424,7 @@ Config.Shops = {
         ['buy_products_coords'] = vector3(-342.48,-1483.11,30.72),
         ['job_coords'] = vector3(-342.51,-1486.07,30.76),
         ['veh_spawn'] = vector4(-334.05,-1461.04,30.52,307.04),
-        ['products'] = shopsProducts['Posto'],
+        ['products'] = table.clone(shopsProducts['Posto']),
         ['shopDifference'] = "fuelSystem"
     },
     ["Posto_08"] = {
@@ -434,7 +434,7 @@ Config.Shops = {
         ['buy_products_coords'] = vector3(-92.61,6409.84,31.65),
         ['job_coords'] = vector3(-90.35,6414.63,31.64),
         ['veh_spawn'] = vector4(-103.52,6404.77,31.5,22.57),
-        ['products'] = shopsProducts['Posto'],
+        ['products'] = table.clone(shopsProducts['Posto']),
         ['shopDifference'] = "fuelSystem"
     },
     ["Posto_09"] = {
@@ -444,7 +444,7 @@ Config.Shops = {
         ['buy_products_coords'] = vector3(-1427.8,-268.4,46.23),
         ['job_coords'] = vector3(-1436.04,-259.58,46.27),
         ['veh_spawn'] = vector4(-1426.77,-246.04,46.38,131.52),
-        ['products'] = shopsProducts['Posto'],
+        ['products'] = table.clone(shopsProducts['Posto']),
         ['shopDifference'] = "fuelSystem"
     },
     ["Posto_10"] = {
@@ -454,7 +454,7 @@ Config.Shops = {
         ['buy_products_coords'] = vector3(-706.61,-917.17,19.22),
         ['job_coords'] = vector3(-700.35,-917.41,19.22),
         ['veh_spawn'] = vector4(-707.03,-926.15,19.02,176.97),
-        ['products'] = shopsProducts['Posto'],
+        ['products'] = table.clone(shopsProducts['Posto']),
         ['shopDifference'] = "fuelSystem"
     },
     ["Posto_11"] = {
@@ -464,7 +464,7 @@ Config.Shops = {
         ['buy_products_coords'] = vector3(289.48,-1266.58,29.45),
         ['job_coords'] = vector3(288.69,-1263.23,29.45),
         ['veh_spawn'] = vector4(292.79,-1245.41,29.29,85.58),
-        ['products'] = shopsProducts['Posto'],
+        ['products'] = table.clone(shopsProducts['Posto']),
         ['shopDifference'] = "fuelSystem"
     },
     ["Posto_12"] = {
@@ -474,7 +474,7 @@ Config.Shops = {
         ['buy_products_coords'] = vector3(-1817.76,791.61,138.11),
         ['job_coords'] = vector3(-1818.39,796.73,138.14),
         ['veh_spawn'] = vector4(-1823.75,810.9,139.13,53.54),
-        ['products'] = shopsProducts['Posto'],
+        ['products'] = table.clone(shopsProducts['Posto']),
         ['shopDifference'] = "fuelSystem"
     },
     ["Posto_13"] = {
@@ -484,7 +484,7 @@ Config.Shops = {
         ['buy_products_coords'] = vector3(-2073.01,-327.3,13.32),
         ['job_coords'] = vector3(-2073.56,-323.84,13.32),
         ['veh_spawn'] = vector4(-2067.54,-305.13,13.15,75.65),
-        ['products'] = shopsProducts['Posto'],
+        ['products'] = table.clone(shopsProducts['Posto']),
         ['shopDifference'] = "fuelSystem"
     },
     ["Ammunation_01"] = {
@@ -494,7 +494,7 @@ Config.Shops = {
         ['buy_products_coords'] = vector3(21.87,-1106.68,29.8),
         ['job_coords'] = vector3(14.93,-1114.78,29.8),
         ['veh_spawn'] = vector4(-8.38,-1116.18,28.11,160.27),
-        ['products'] = shopsProducts['Ammunation']
+        ['products'] = table.clone(shopsProducts['Ammunation'])
     },
     ["Ammunation_02"] = {
         ['value'] = 100000,
@@ -503,7 +503,7 @@ Config.Shops = {
         ['buy_products_coords'] = vector3(811.15,-2157.67,29.62),
         ['job_coords'] = vector3(814.26,-2147.66,29.49),
         ['veh_spawn'] = vector4(820.69,-2139.35,29.11,356.62),
-        ['products'] = shopsProducts['Ammunation']
+        ['products'] = table.clone(shopsProducts['Ammunation'])
     },
     ["Ammunation_03"] = {
         ['value'] = 0,
@@ -512,7 +512,7 @@ Config.Shops = {
         ['buy_products_coords'] = vector3(1692.77,3759.41,34.71),
         ['job_coords'] = vector3(0,0,0),
         ['veh_spawn'] = vector4(0,0,0,0),
-        ['products'] = shopsProducts['Ammunation']
+        ['products'] = table.clone(shopsProducts['Ammunation'])
     },
     ["Ammunation_04"] = {
         ['value'] = 0,
@@ -521,7 +521,7 @@ Config.Shops = {
         ['buy_products_coords'] = vector3(252.7,-49.91,69.95),
         ['job_coords'] = vector3(0,0,0),
         ['veh_spawn'] = vector4(0,0,0,0),
-        ['products'] = shopsProducts['Ammunation']
+        ['products'] = table.clone(shopsProducts['Ammunation'])
     },
     ["Ammunation_05"] = {
         ['value'] = 0,
@@ -530,7 +530,7 @@ Config.Shops = {
         ['buy_products_coords'] = vector3(842.41,-1035.28,28.19),
         ['job_coords'] = vector3(0,0,0),
         ['veh_spawn'] = vector4(0,0,0,0),
-        ['products'] = shopsProducts['Ammunation']
+        ['products'] = table.clone(shopsProducts['Ammunation'])
     },
     ["Ammunation_06"] = {
         ['value'] = 0,
@@ -539,7 +539,7 @@ Config.Shops = {
         ['buy_products_coords'] = vector3(-331.62,6084.93,31.46),
         ['job_coords'] = vector3(0,0,0),
         ['veh_spawn'] = vector4(0,0,0,0),
-        ['products'] = shopsProducts['Ammunation']
+        ['products'] = table.clone(shopsProducts['Ammunation'])
     },
     ["Ammunation_07"] = {
         ['value'] = 0,
@@ -548,7 +548,7 @@ Config.Shops = {
         ['buy_products_coords'] = vector3(-662.29,-933.62,21.82),
         ['job_coords'] = vector3(0,0,0),
         ['veh_spawn'] = vector4(0,0,0,0),
-        ['products'] = shopsProducts['Ammunation']
+        ['products'] = table.clone(shopsProducts['Ammunation'])
     },
     ["Ammunation_08"] = {
         ['value'] = 0,
@@ -557,7 +557,7 @@ Config.Shops = {
         ['buy_products_coords'] = vector3(-1304.17,-394.62,36.7),
         ['job_coords'] = vector3(0,0,0),
         ['veh_spawn'] = vector4(0,0,0,0),
-        ['products'] = shopsProducts['Ammunation']
+        ['products'] = table.clone(shopsProducts['Ammunation'])
     },
     ["Ammunation_09"] = {
         ['value'] = 0,
@@ -566,7 +566,7 @@ Config.Shops = {
         ['buy_products_coords'] = vector3(-1118.95,2699.73,18.55),
         ['job_coords'] = vector3(0,0,0),
         ['veh_spawn'] = vector4(0,0,0,0),
-        ['products'] = shopsProducts['Ammunation']
+        ['products'] = table.clone(shopsProducts['Ammunation'])
     },
     ["Ammunation_10"] = {
         ['value'] = 0,
@@ -575,7 +575,7 @@ Config.Shops = {
         ['buy_products_coords'] = vector3(2567.98,292.65,108.73),
         ['job_coords'] = vector3(0,0,0),
         ['veh_spawn'] = vector4(0,0,0,0),
-        ['products'] = shopsProducts['Ammunation']
+        ['products'] = table.clone(shopsProducts['Ammunation'])
     },
     ["Ammunation_11"] = {
         ['value'] = 0,
@@ -584,7 +584,7 @@ Config.Shops = {
         ['buy_products_coords'] = vector3(-3173.51,1088.38,20.84),
         ['job_coords'] = vector3(0,0,0),
         ['veh_spawn'] = vector4(0,0,0,0),
-        ['products'] = shopsProducts['Ammunation']
+        ['products'] = table.clone(shopsProducts['Ammunation'])
     },
     --// NECESSARIO CASSINO V2 - REBORN
     ["Cassino"] = {
@@ -606,7 +606,7 @@ Config.Shops = {
         ['buy_products_coords'] = vector3(0.0,0.0,0.0),
         ['job_coords'] = vector3(84.8,-1397.97,29.3),
         ['veh_spawn'] = vector4(91.83,-1404.44,29.15,315.79),
-        ['products'] = shopsProducts['Skinshop'],
+        ['products'] = table.clone(shopsProducts['Skinshop']),
         ['shopDifference'] = function()
             local clothLocs = {
                 { 70.81,-1399.61,29.38 },
@@ -621,7 +621,7 @@ Config.Shops = {
         ['buy_products_coords'] = vector3(0.0,0.0,0.0),
         ['job_coords'] = vector3(-712.55,-165.26,36.99),
         ['veh_spawn'] = vector4(-714.74,-173.76,36.83,28.52),
-        ['products'] = shopsProducts['Skinshop'],
+        ['products'] = table.clone(shopsProducts['Skinshop']),
         ['shopDifference'] = function()
             local clothLocs = {
                 { -710.96,-155.39,37.42 },
@@ -636,7 +636,7 @@ Config.Shops = {
         ['buy_products_coords'] = vector3(0.0,0.0,0.0),
         ['job_coords'] = vector3(417.97,-812.59,29.3),
         ['veh_spawn'] = vector4(409.82,-799.31,29.22,349.2),
-        ['products'] = shopsProducts['Skinshop'],
+        ['products'] = table.clone(shopsProducts['Skinshop']),
         ['shopDifference'] = function()
             local clothLocs = {
                 { 428.46,-800.76,29.5 },

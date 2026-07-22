@@ -1,7 +1,6 @@
 :root {
   --bg-main: rgba(10, 14, 23, 0.92);
-  --bg-panel: rgba(17, 24, 39, 0.86);
-  --bg-panel-soft: rgba(255, 255, 255, 0.04);
+  --bg-panel: rgba(17, 24, 39, 0.92);
   --bg-sidebar: rgba(8, 12, 20, 0.94);
   --border-soft: rgba(255, 255, 255, 0.08);
   --border-strong: rgba(255, 255, 255, 0.14);
@@ -279,7 +278,7 @@ select:focus {
 .panel,
 .modal-surface,
 #fuelMenu {
-  background: linear-gradient(180deg, var(--bg-panel), rgba(12, 18, 30, 0.9));
+  background: linear-gradient(180deg, var(--bg-panel), rgb(12, 18, 30));
   border: 1px solid var(--border-soft);
   border-radius: var(--radius-md);
 }
@@ -502,7 +501,29 @@ select:focus {
   list-style: none;
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
+  height: min(560px, 60vh);
   gap: 12px;
+}
+
+.data-list-top {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  height: min(300px, 45vh);
+  gap: 12px;
+}
+
+.data-list::-webkit-scrollbar,
+.data-list-top::-webkit-scrollbar {
+  width: 8px;
+}
+
+.data-list::-webkit-scrollbar-thumb,
+.data-list-top::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .list-card {
@@ -676,6 +697,17 @@ select:focus {
   gap: 16px;
 }
 
+.shopMenu::-webkit-scrollbar,
+.shop-grid::-webkit-scrollbar {
+  width: 8px;
+}
+
+.shopMenu::-webkit-scrollbar-thumb,
+.shop-grid::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
 .shop-item-card,
 .job-item-card {
   display: flex;
@@ -685,6 +717,13 @@ select:focus {
   border-radius: 18px;
   border: 1px solid var(--border-soft);
   background: rgba(255, 255, 255, 0.03);
+}
+
+.shop-item-card h3 {
+  font-size: 16px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .shop-item-card img {
