@@ -87,24 +87,20 @@ function Utils.GetGroupGrades(group)
     end
     return grades
 end
-
 function Utils.GetBaseGroups(named)
-    QBCore = exports["qb-core"]:GetCoreObject()
-    local jobs = QBCore.Shared.Jobs
+    local jobs = lib.callback.await("mri_qfarm:getJobs",false)
     -- local gangs = exports.qbx_core:GetGangs()
     local groups = {}
     for k, v in pairs(jobs) do
-        if not string.find(k,"Paisana") then
-            local data = {
-                value = k,
-                label = v.label,
-                grades = Utils.GetGroupGrades(v)
-            }
-            if named then
-                groups[k] = data
-            else
-                groups[#groups + 1] = data
-            end
+        local data = {
+            value = k,
+            label = v.label,
+            grades = Utils.GetGroupGrades(v)
+        }
+        if named then
+            groups[k] = data
+        else
+            groups[#groups + 1] = data
         end
     end
     --[[ for k, v in pairs(gangs) do

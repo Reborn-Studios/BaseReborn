@@ -161,3 +161,7 @@ lib.addCommand('criarfarm',{
 }, function(source, args, raw)
     lib.callback('mri_Qfarm:manageFarmsMenu', source)
 end)
+
+lib.callback.register("mri_qfarm:getJobs",function (source)
+    return QBCore.Shared.Jobs
+end)
