@@ -211,6 +211,18 @@ function Client.openMainMenu()
                     end
                 end
             },
+            {
+                title = 'Spotify',
+                description = 'Gerenciar spotify',
+                icon = "fa-solid ",
+                onSelect = function ()
+                    if GetResourceState("ld_spotify") == "started" then
+                        ExecuteCommand("spotifyadmin")
+                    else
+                        TriggerEvent("Notify","negado","Você não tem o spotify da Reborn",5000)
+                    end
+                end
+            },
         }
     })
     lib.showContext('admin_menu_control')

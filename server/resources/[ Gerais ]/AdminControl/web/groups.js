@@ -33,8 +33,8 @@ $(document).ready(function () {
       const item = $(`
         <div class="group-item ${isInGroup ? "active" : ""}" data-group="${group.groupName}">
           <div class="group-info">
-            <div class="group-name">${group.groupName}</div>
-            <div class="group-label">${group.label || group.groupName}</div>
+            <div class="group-name">${group.label}</div>
+            <div class="group-label">${group.groupName + " - " + group.level}</div>
           </div>
           <div class="group-status">
             <span class="status-badge ${isInGroup ? "in" : "out"}">

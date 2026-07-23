@@ -54,34 +54,6 @@ AddStateBagChangeHandler("AllGroups","",function (_,_,value)
     AllGroups = value
 end)
 
-local function editGroup(groupName)
-    local Group = AllGroups[groupName]
-    if Group then
-        local perms = {}
-        for k,v in pairs(Group) do
-            if k ~= "_config" then
-                table.insert(perms,v)
-            end
-        end
-        local input = lib.inputDialog("Editar grupo ("..groupName..")",{
-            {type = "input", label = "Grupo", default = groupName, disabled = true},
-            {type = "input", label = "Titulo", default = Group._config and Group._config.title or groupName},
-            {type = "input", label = "Tipo", default = Group._config and Group._config.gtype, description = "Tipos como: job/vip/staff (opcional)"},
-            {type = "number", label = "Salário", default = Group._config and Group._config.salary, description = "(opcional)"},
-            {type = "textarea", label = "Permissões", default = perms and table.concat(perms,",") or "", autosize = true, description = "Permissões separadas por virgula"}
-        })
-        if input then
-            TriggerServerEvent("AdminControl:editGroup",{
-                groupName = groupName,
-                title = input[2],
-                gtype = input[3] or nil,
-                salary = input[4] and input[4] > 0 and input[4] or nil,
-                perms = input[5]
-            })
-        end
-    end
-end
-
 local function listPerms(GroupName,Hierarchy)
     local options = {}
     for Level,v in ipairs(Hierarchy) do

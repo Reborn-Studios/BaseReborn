@@ -36,7 +36,7 @@ function IsPlayerInGroup( filter)
 				local data = player[groups[i]]
 				local grade = filter[data.name]
 
-				if grade and grade <= data.grade.level then
+				if grade and grade >= data.grade.level then
 					return data.name, data.grade.level
 				end
 			end

@@ -3,7 +3,11 @@ local function openBasicConfig(baseConfig)
     local input = lib.inputDialog('Base Config', {
         { type = 'input', label = 'Nome do Servidor', description = 'Nome do Servidor', default = baseConfig.ServerName or DefaultConfig['ServerName'] },
         { type = 'input', label = 'Discord', description = 'Link do Discord', default = baseConfig.Discord or DefaultConfig['Discord'], icon = "link" },
-        { type = 'number', label = 'Máximo de Vida', description = 'Máximo de vida dos personagens', step = 100, placeholder = tostring(baseConfig.MaxHealth or DefaultConfig['MaxHealth']), icon = "heart" },
+        { type = 'select', label = 'Tema da Base', description = 'Definir o tema da Base', icon = "circle-half-stroke", options = {
+            { label = "Próprio", value = "default" },
+            { label = "São Paulo", value = "SP" },
+            { label = "Rio de Janeiro", value = "RJ" },
+        }, default = baseConfig.Theme or DefaultConfig['Theme'] },
         { type = 'color', label = 'Cor do Tema da cidade', default = baseConfig.CityColor or DefaultConfig['CityColor'], icon = "palette" },
         { type = 'input', label = 'URL da Imagem', description = 'URL da imagem do servidor', default = baseConfig.CityLogo or DefaultConfig['CityLogo'], icon = "image" },
         { type = 'slider', label = 'Tamanho da Imagem', icon = "size", min = 0.1, max = 10.0, step = 0.1, default = baseConfig.CityLogoWidth },
@@ -12,12 +16,8 @@ local function openBasicConfig(baseConfig)
             { label = "Licença FiveM", value = "license" },
             { label = "Discord", value = "discord" },
         }, default = baseConfig.Identifier or DefaultConfig['Identifier'] },
+        { type = 'number', label = 'Máximo de Vida', description = 'Máximo de vida dos personagens', step = 100, placeholder = tostring(baseConfig.MaxHealth or DefaultConfig['MaxHealth']), icon = "heart" },
         { type = 'checkbox', label = 'Whitelist', description = "Whitelist fechado?", checked = baseConfig.Whitelist or DefaultConfig['Whitelist'], icon = "door-closed" },
-        { type = 'select', label = 'Tema da Base', description = 'Definir o tema da Base', icon = "circle-half-stroke", options = {
-            { label = "Próprio", value = "default" },
-            { label = "São Paulo", value = "SP" },
-            { label = "Rio de Janeiro", value = "RJ" },
-        }, default = baseConfig.Theme or DefaultConfig['Theme'] },
         { type = 'checkbox', label = 'Debug', description = "Ativar debug da base", checked = baseConfig.Debug or DefaultConfig['Debug'], icon = "code" },
     })
     if input then

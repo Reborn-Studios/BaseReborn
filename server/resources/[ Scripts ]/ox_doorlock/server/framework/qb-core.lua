@@ -15,7 +15,7 @@ function IsPlayerInGroup(player, filter)
         if player.PlayerData.job.name == filter then
             return player.PlayerData.job.name, player.PlayerData.job.grade
         elseif Player(player.PlayerData.source).state[filter] then
-            return true, "0"
+            return true, Player(player.PlayerData.source).state[filter]
         end
     else
         local tabletype = table.type(filter)
@@ -27,7 +27,7 @@ function IsPlayerInGroup(player, filter)
             end
             for Job,ngrade in pairs(filter) do
                 if Player(player.PlayerData.source).state[Job] then
-                    return true, "0"
+                    return true, Player(player.PlayerData.source).state[Job]
                 end
             end
         elseif tabletype == 'array' then
@@ -35,7 +35,7 @@ function IsPlayerInGroup(player, filter)
                 if player.PlayerData.job.name == filter[i] then
                     return player.PlayerData.job.name, player.PlayerData.job.grade
                 elseif Player(player.PlayerData.source).state[filter[i]] then
-                    return true, "0"
+                    return true, Player(player.PlayerData.source).state[filter[i]]
                 end
             end
         end
