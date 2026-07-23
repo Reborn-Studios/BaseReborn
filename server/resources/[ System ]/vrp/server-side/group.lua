@@ -88,6 +88,7 @@ function vRP.insertPermission(user_id,group,hierarchy)
 		if not Permissions[user] then Permissions[user] = {} end
 		local perm = Group["Hierarchy"][hierarchy].Group
 		Permissions[user][group] = hierarchy
+		Permissions[user][perm] = hierarchy
 
 		if not nplayer then return end
 		Player(nplayer)["state"][perm] = hierarchy
@@ -134,8 +135,15 @@ function vRP.removePermission(user_id,group)
 		if Group then
 			local hierarchy = Permissions[user][group]
 			local perm = Group["Hierarchy"][hierarchy].Group
+			Player(nplayer)["state"][group] = nil
 			Player(nplayer)["state"][perm] = nil
+			if Permissions[user][perm] then
+				Permissions[user][perm] = nil
+			end
 			if Group["QBESXGroup"] then
+				if ClientPerms[Group["QBESXGroup"]] then
+					Player(nplayer)["state"][ClientPerms[Group["QBESXGroup"]]] = hierarchy
+				end
 				Player(nplayer)["state"][Group["QBESXGroup"]] = nil
 				if Group["QBESXGroup"] == "admin" then
 					lib.removePrincipal(nplayer, "group.admin")
