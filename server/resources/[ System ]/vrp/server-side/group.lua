@@ -142,7 +142,7 @@ function vRP.removePermission(user_id,group)
 			end
 			if Group["QBESXGroup"] then
 				if ClientPerms[Group["QBESXGroup"]] then
-					Player(nplayer)["state"][ClientPerms[Group["QBESXGroup"]]] = hierarchy
+					Player(nplayer)["state"][ClientPerms[Group["QBESXGroup"]]] = nil
 				end
 				Player(nplayer)["state"][Group["QBESXGroup"]] = nil
 				if Group["QBESXGroup"] == "admin" then
