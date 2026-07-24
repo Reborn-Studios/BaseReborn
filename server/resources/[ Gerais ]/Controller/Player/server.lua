@@ -994,11 +994,25 @@ RegisterCommand('festinha',function(source,args,rawCommand)
         if mensagem == "" then
             return
         end
-        ClientPlayer.setDiv(-1,"festinha","<bold>"..mensagem.."</bold><br><br>Festeiro(a): "..identity.name.." "..identity.name2.."</b><br>Aperte F4 para marcar.",GetEntityCoords(GetPlayerPed(source)))
-        SetTimeout(7000,function()
+        ClientPlayer.setDiv(-1,"festinha","<bold>"..mensagem.."</bold><br><br>Festeiro(a): "..identity.name.." "..identity.name2.."</b><br>Dê /evento para marcar.",{ coords = GetEntityCoords(GetPlayerPed(source)), bucket = GetPlayerRoutingBucket(source) })
+        SetTimeout(10000,function()
             ClientPlayer.removeDiv(-1,"festinha")
         end)
     end
+end)
+
+RegisterNetEvent("Controller:goToEvent")
+AddEventHandler("Controller:goToEvent",function(data)
+	local source = source
+	local user_id = vRP.getUserId(source)
+	if user_id then
+		if vRP.request(source,"Deseja teleportar ao evento?",15) then
+			if data.bucket ~= GetPlayerRoutingBucket(source) then
+				SetEntityRoutingBucket(source,data.bucket)
+			end
+			vRPclient.teleport(source,data.coords.x,data.coords.y,data.coords.z)
+		end
+	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- TOW

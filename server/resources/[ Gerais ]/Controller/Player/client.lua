@@ -1340,13 +1340,13 @@ function PlvRP.setDiv(key,input,data)
 	end
 end
 
-RegisterCommand("joinparty",function ()
+RegisterCommand("evento",function ()
 	if festinha then
-		SetNewWaypoint(festinha.x,festinha.y)
+		SetNewWaypoint(festinha.coords.x,festinha.coords.y)
 		TriggerEvent("Notify","aviso","Festa marcada no GPS!",5000)
+		TriggerServerEvent("Controller:goToEvent",festinha)
 	end
 end)
-RegisterKeyMapping("joinparty","Marcar festa no GPS","keyboard","F4")
 
 function PlvRP.removeDiv(key)
 	if divKeys[key] then
