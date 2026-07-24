@@ -214,7 +214,7 @@ function Client.openMainMenu()
             {
                 title = 'Spotify',
                 description = 'Gerenciar spotify',
-                icon = "fa-solid ",
+                icon = "fa-brands fa-soundcloud",
                 onSelect = function ()
                     if GetResourceState("ld_spotify") == "started" then
                         ExecuteCommand("spotifyadmin")
