@@ -22,11 +22,11 @@ function IsPlayerInGroup(player, filter)
 
         if tabletype == 'hash' then
             local grade = filter[player.PlayerData.job.name]
-            if grade and grade <= 0 then
+            if grade and grade >= player.PlayerData.job.grade.level then
                 return player.PlayerData.job.name, player.PlayerData.job.grade
             end
             for Job,ngrade in pairs(filter) do
-                if Player(player.PlayerData.source).state[Job] then
+                if Player(player.PlayerData.source).state[Job] and ngrade >= player.PlayerData.job.grade.level then
                     return true, Player(player.PlayerData.source).state[Job]
                 end
             end
