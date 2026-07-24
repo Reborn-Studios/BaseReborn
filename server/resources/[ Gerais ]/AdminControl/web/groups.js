@@ -25,30 +25,58 @@ $(document).ready(function () {
 
   function renderGroups(groups) {
     groupsList.empty();
+    groups.forEach((group) => {
+      const isInGroup =
+        selectedGroups[group.groupName] &&
+        group.groupName + "-" + selectedGroups[group.groupName] === group.value;
+      if (isInGroup) {
+        const item = $(`
+            <div class="group-item ${isInGroup ? "active" : ""}" data-group="${group.groupName}">
+              <div class="group-info">
+                <div class="group-name">${group.label}</div>
+                <div class="group-label">${group.groupName + " - " + group.level}</div>
+              </div>
+              <div class="group-status">
+                <span class="status-badge ${isInGroup ? "in" : "out"}">
+                  ${isInGroup ? "No grupo" : "Fora"}
+                </span>
+              </div>
+            </div>
+          `);
+
+        item.click(function () {
+          toggleGroup(group.groupName, group.level);
+        });
+
+        groupsList.append(item);
+      }
+    });
 
     groups.forEach((group) => {
       const isInGroup =
         selectedGroups[group.groupName] &&
         group.groupName + "-" + selectedGroups[group.groupName] === group.value;
-      const item = $(`
-        <div class="group-item ${isInGroup ? "active" : ""}" data-group="${group.groupName}">
-          <div class="group-info">
-            <div class="group-name">${group.label}</div>
-            <div class="group-label">${group.groupName + " - " + group.level}</div>
-          </div>
-          <div class="group-status">
-            <span class="status-badge ${isInGroup ? "in" : "out"}">
-              ${isInGroup ? "No grupo" : "Fora"}
-            </span>
-          </div>
-        </div>
-      `);
+      if (!isInGroup) {
+        const item = $(`
+            <div class="group-item ${isInGroup ? "active" : ""}" data-group="${group.groupName}">
+              <div class="group-info">
+                <div class="group-name">${group.label}</div>
+                <div class="group-label">${group.groupName + " - " + group.level}</div>
+              </div>
+              <div class="group-status">
+                <span class="status-badge ${isInGroup ? "in" : "out"}">
+                  ${isInGroup ? "No grupo" : "Fora"}
+                </span>
+              </div>
+            </div>
+          `);
 
-      item.click(function () {
-        toggleGroup(group.groupName, group.level);
-      });
+        item.click(function () {
+          toggleGroup(group.groupName, group.level);
+        });
 
-      groupsList.append(item);
+        groupsList.append(item);
+      }
     });
   }
 
