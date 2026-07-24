@@ -1,5 +1,7 @@
 local Groups = module('vrp',"config/Groups") or {}
 
+RegisterServerEvent("Reborn:reloadInfos",function() Groups = module('vrp',"config/Groups") end)
+
 function exportHandler(resource, exportName, func)
     AddEventHandler(('__cfx_export_%s_%s'):format(resource,exportName), function(setCB)
         setCB(func)

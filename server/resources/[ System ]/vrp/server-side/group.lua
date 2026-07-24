@@ -122,6 +122,10 @@ function vRP.insertPermission(user_id,group,hierarchy)
 				end
 			end
 		end
+
+		if Group["OrgPanel"] then
+			exports.ld_orgs_v2:syncPlayer(user)
+		end
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -166,6 +170,10 @@ function vRP.removePermission(user_id,group)
 						exports.ox_inventory:SetMaxWeight(nplayer, backpack * 1000)
 					end
 				end
+			end
+
+			if Group["OrgPanel"] then
+				exports.ld_orgs_v2:syncPlayer(user)
 			end
 		end
 	end

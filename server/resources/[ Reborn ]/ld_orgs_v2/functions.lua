@@ -147,7 +147,7 @@ if SERVER then
     -------------------------------------------------------------------------
     -- ITENS / UI
     -------------------------------------------------------------------------
-    function itemName(item)
+    function getItemName(item)
         if not item then return nil end
         return vRP.itemNameList(item) or item
     end

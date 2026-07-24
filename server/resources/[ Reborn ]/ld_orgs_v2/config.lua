@@ -119,3 +119,20 @@ Config.defaultPermissions = {
         exports.ld_orgs_v2:addGoal(user_id, "coca_leaf", 50)
         exports.ld_orgs_v2:addGoal(user_id, "meth", 10)
 ]]
+
+-- ===================================================================
+-- =================== EXPORT: SYNC DO CACHE =========================
+-- ===================================================================
+--[[
+    Como usar o export/evento para atualizar o cache de um jogador:
+
+    Use após setar/remover grupos manualmente (ex: /group id grupo hierarquia),
+    para o jogador aparecer no painel e conseguir utilizar a organização.
+
+    Parâmetros:
+        user_id : number -> ID permanente do jogador
+
+    Exemplo de uso (no comando /group ou similar):
+        exports.ld_orgs_v2:syncPlayer(user_id)
+        TriggerEvent('ld_orgs_v2:syncPlayer', user_id)
+]]
