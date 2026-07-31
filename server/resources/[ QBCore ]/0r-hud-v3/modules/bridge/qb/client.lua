@@ -73,6 +73,10 @@ function client.GetPlayerJob()
                 grade = "Fora de serviço"
             end
         end
+    else
+        if not xPlayer.job.onduty then
+            grade = "Fora de serviço"
+        end
     end
     return { label = label, grade = grade }
 end
