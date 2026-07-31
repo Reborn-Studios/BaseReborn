@@ -138,6 +138,7 @@ function vRP.removePermission(user_id,group)
 		local Group = Groups[group]
 		if Group then
 			local hierarchy = Permissions[user][group]
+			if not hierarchy then return end
 			local perm = Group["Hierarchy"][hierarchy].Group
 			Player(nplayer)["state"][group] = nil
 			Player(nplayer)["state"][perm] = nil
