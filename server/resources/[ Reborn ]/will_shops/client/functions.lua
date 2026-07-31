@@ -16,6 +16,18 @@ local vehClass = {
 AddStateBagChangeHandler("Will_Shops", nil,function(bagName,_,value)
     allShops = value
 end)
+
+AddStateBagChangeHandler("Will_Shops_Products", nil,function(bagName,_,value)
+    for k,data in pairs(value) do
+		if allShops[k] and allShops[k]['products'] then
+			for product,price in pairs(data) do
+				if allShops[k]['products'][product] ~= price then
+					allShops[k]['products'][product] = price
+				end
+			end
+		end
+	end
+end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- MAIN THREADS
 -----------------------------------------------------------------------------------------------------------------------------------------
