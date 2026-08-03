@@ -39,7 +39,7 @@ AddEventHandler("AdminControl:createGroup",function (data)
             ["Type"] = data["Type"],
             ["QBESXGroup"] = data["QBESXGroup"],
             ["Markers"] = data["Markers"],
-            ["Service"] = data["Service"],
+            ["Service"] = data["Service"] and {} or nil,
             ["OrgPanel"] = data["OrgPanel"],
             ["Hierarchy"] = {},
             ["Permissions"] = {},
@@ -131,7 +131,7 @@ AddEventHandler("AdminControl:editGroup",function (data)
         AllGroups[data.groupName]["Type"] = data.Type
         AllGroups[data.groupName]["QBESXGroup"] = data.QBESXGroup
         AllGroups[data.groupName]["Markers"] = data.Markers
-        AllGroups[data.groupName]["Service"] = data.Service
+        AllGroups[data.groupName]["Service"] = data.Service and {} or nil
         AllGroups[data.groupName]["OrgPanel"] = data.OrgPanel
 
         GlobalState:set("AllGroups",AllGroups,true)
