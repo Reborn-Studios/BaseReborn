@@ -171,7 +171,7 @@ end)
 -- STARTCURE
 -----------------------------------------------------------------------------------------------------------------------------------------
 local cure = false
-function SvClient.startCure()
+function SvClient.startCure(medic)
 	local ped = PlayerPedId()
 	if cure then
 		return
@@ -181,15 +181,16 @@ function SvClient.startCure()
 	if cure then
 		local maxHealth = GlobalState['Basics']['MaxHealth'] or 400
 		repeat
-			Wait(1000)
+			Wait(200)
 			if GetEntityHealth(ped) > 101 then
 				SetEntityHealth(ped,GetEntityHealth(ped) + 1)
 			end
-		until GetEntityHealth(ped) >= maxHealth or GetEntityHealth(ped) <= 101 or not IsEntityPlayingAnim(ped,"dead","dead_a",3)
+		until GetEntityHealth(ped) >= maxHealth or GetEntityHealth(ped) <= 101 or (medic or not IsEntityPlayingAnim(ped,"dead","dead_a",3))
 			TriggerEvent("Notify","Tratamento","Tratamento concluído.","ambulance",3000)
 			Death = false
 			cure = false
 			blockControls = false
+			ClearPedTasks(ped)
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------

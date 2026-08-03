@@ -61,8 +61,8 @@ Config.typeStyles = {
         ['icon'] = "police.svg",
     },
     ['ambulance'] = {
-        ['color'] = '#ff4b4b',
-        ['gradient'] = 'linear-gradient(90deg, #ff4b4b33 25%, #e9454573 50%)',
+        ['color'] = '#ffff',
+        ['gradient'] = 'linear-gradient(90deg, #ff4bd8a2 25%, #d645e973 50%)',
         ['icon'] = "ambulance.svg",
     },
     ['mechanic'] = {
