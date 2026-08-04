@@ -754,6 +754,70 @@ RegisterCommand('freeze', function(source, args,rawCommand)
     end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- PAINEL ADM
+-----------------------------------------------------------------------------------------------------------------------------------------
+local AdmPrison = {}
+
+RegisterCommand('prisaoadm', function(source, args,rawCommand)
+    if HasPermission(source,"prisaoadm") then
+		local data = AdmClient.requestPrison(source)
+		if data[1] and data[2] then
+			local nplayer = vRP.getUserSource(parseInt(data[1]))
+			if nplayer then
+				TriggerClientEvent("PrisonMode", nplayer, true)
+				if data[3] then
+					TriggerClientEvent("Notify", nplayer, "Prisão", "Você foi preso por "..data[2].." minutos. Motivo: "..data[3], 5000)
+				else
+					TriggerClientEvent("Notify", nplayer, "Prisão", "Você foi preso por "..data[2].." minutos", 5000)
+				end
+				AdmPrison[nplayer] = parseInt(data[2])
+			end
+			vRP.setUData(parseInt(data[1]),"prison:Adm",json.encode(data))
+		end
+    end
+end)
+
+CreateThread(function ()
+	while true do
+		for k,v in pairs(AdmPrison) do
+			if v > 0 then
+				AdmPrison[k] = v - 1
+			else
+				TriggerClientEvent("PrisonMode", k, false)
+				TriggerClientEvent("Notify", k, "Prisão", "Você está livre da prisão!", 5000)
+				local user_id = vRP.getUserId(k)
+				if user_id then
+					vRP.execute("vRP/rem_user_dkey",{ user_id = user_id, key = "prison:Adm" })
+				end
+				AdmPrison[k] = nil
+			end
+		end
+		Wait(60000)
+	end
+end)
+
+AddEventHandler("vRP:playerSpawn",function (user_id, source)
+	local prisonAdm = vRP.getUData(user_id,"prison:Adm")
+	if prisonAdm then
+		local data = json.decode(prisonAdm)
+		if data and parseInt(data[2]) > 0 then
+			AdmPrison[source] = parseInt(data[2])
+			TriggerClientEvent("PrisonMode", source, true)
+		end
+	end
+end)
+
+AddEventHandler("playerDropped",function (reason)
+	local source = source
+	local user_id = vRP.getUserId(source)
+    if AdmPrison[source] and AdmPrison[source] > 0 then
+		local prisonAdm = json.decode(vRP.getUData(user_id,"prison:Adm"))
+		prisonAdm[2] = AdmPrison[source]
+		vRP.setUData(user_id,"prison:Adm",json.encode(prisonAdm))
+        AdmPrison[source] = nil
+    end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- DM (MENSAGEM NO PRIVADO)
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterCommand('dm',function(source,args,rawCommand)

@@ -403,3 +403,60 @@ function AdminClient.showItemlist()
         return input
     end
 end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- PRISAO ADM
+-----------------------------------------------------------------------------------------------------------------------------------------
+local prisonmode = false
+
+local Center = vector4(-1578.92,792.56,189.2,25.65)
+
+local PolyPrison = PolyZone:Create({
+    vector2(-1460.70703125,820.1704711914063),
+    vector2(-1481.5872802734376, 810.2850341796875),
+    vector2(-1485.8272705078126, 797.9026489257813),
+    vector2(-1503.388427734375, 794.8936767578125),
+    vector2(-1538.414794921875, 773.30859375),
+    vector2(-1604.3138427734376, 743.2018432617188),
+    vector2(-1619.3756103515626, 771.7175903320313),
+    vector2(-1599.855712890625, 791.3133544921875),
+    vector2(-1612.1131591796876, 833.4302978515625),
+    vector2(-1569.3892822265626, 869.5316772460938),
+    vector2(-1551.2939453125, 889.9139404296875),
+    vector2(-1532.05810546875, 897.36767578125),
+    vector2(-1512.1221923828126, 914.8480834960938),
+    vector2(-1486.504150390625, 904.03076171875),
+    vector2(-1477.188232421875, 888.599609375)
+},{ name = "PrisonAdm" })
+
+function AdminClient.requestPrison()
+    local input = lib.inputDialog("Prisão Administrativa",{
+        { type = "number", label = "ID do jogador", required = true },
+        { type = "number", label = "Quantidade de tempo em minutos", required = true },
+        { type = "input", label = "Motivo" }
+    })
+    if input and input[1] then
+        return input
+    end
+end
+
+RegisterNetEvent("PrisonMode")
+AddEventHandler("PrisonMode",function(status)
+    local Ped = PlayerPedId()
+    if status then
+        if not prisonmode then
+            prisonmode = true
+            while prisonmode do
+                local Coords = GetEntityCoords(Ped)
+                if PolyPrison and not PolyPrison:isPointInside(Coords) then
+                    SetEntityCoords(Ped,Center)
+                end
+                if GetEntityHealth(Ped) <= 101 then
+                    exports["Controller"]:Revive(150)
+                end
+                Wait(3000)
+            end
+        end
+    else
+        prisonmode = false
+    end
+end)
