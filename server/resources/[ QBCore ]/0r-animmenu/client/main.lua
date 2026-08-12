@@ -1800,7 +1800,7 @@ function applyWalkAndExpression()
 end
 
 RegisterCommand('eclone', function(source, args, raw) EmoteCommandStart(source, args, raw, "clone") end, false) -- Don't delete, edit, use
-RegisterCommand('e', function(source, args, raw) EmoteCommandStart(source, args, raw) end, false)
+-- RegisterCommand('e', function(source, args, raw) EmoteCommandStart(source, args, raw) end, false)
 RegisterCommand('emote', function(source, args, raw) EmoteCommandStart(source, args, raw) end, false)
 
 function EmoteCommandStart(source, args, raw, type)
