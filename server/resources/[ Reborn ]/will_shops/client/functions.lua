@@ -69,14 +69,18 @@ CreateThread(function()
 			elseif shopDis <= 6.0 then
 				timeDistance = 4
 				if closestShop:find("Conveniencia") then
-					DrawBase3D(v['buy_products_coords'].x,v['buy_products_coords'].y,v['buy_products_coords'].z,"department")
+					DrawBase3D(v['buy_products_coords'].x,v['buy_products_coords'].y,v['buy_products_coords'].z,"shops")
 				elseif closestShop:find("Ammunation") then
 					DrawBase3D(v['buy_products_coords'].x,v['buy_products_coords'].y,v['buy_products_coords'].z,"ammunation")
+				elseif closestShop:find("Concessionaria") then
+					DrawBase3D(v['buy_products_coords'].x,v['buy_products_coords'].y,v['buy_products_coords'].z,"conce")
 				else
 					DrawText3D(v['buy_products_coords'].x,v['buy_products_coords'].y,v['buy_products_coords'].z,"~g~[E]~w~ Abrir loja")
 				end
 				if IsControlJustPressed(0,38) and shopDis <= 2 then
-					if GetResourceState("ox_inventory") ~= "started" then
+					if closestShop:find("Concessionaria") then
+						TriggerEvent("will_conce_v2:openShop",closestShop)
+					elseif GetResourceState("ox_inventory") ~= "started" then
 						openShop(closestShop)
 					else
 						exports.ox_inventory:openInventory('shop', { type = closestShop, id = 1 })
