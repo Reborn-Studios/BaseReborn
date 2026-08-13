@@ -207,8 +207,8 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 function HPServer.checkServices()
 	local source = source
-	local amountMedics = vRP.getUsersByPermission("paramedico.permissao")
-	if parseInt(#amountMedics) >= 1 then
+	local amountMedics = vRP.AmountService("Hospital")
+	if parseInt(amountMedics) >= 1 then
 		TriggerClientEvent("Notify",source,"Tratamento","Existem paramédicos em serviço.","ambulance",5000)
 		return false
 	end

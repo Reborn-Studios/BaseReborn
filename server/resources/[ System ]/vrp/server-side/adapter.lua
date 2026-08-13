@@ -785,7 +785,7 @@ function vRP.Hierarchy(Permission)
     local GroupPerm = Groups[Permission]
     if GroupPerm and GroupPerm["Hierarchy"] then
         for level,v in ipairs(GroupPerm["Hierarchy"]) do
-            Hierarchy[level] = v["Title"]
+            Hierarchy[level] = v["Group"]
         end
     end
     return Hierarchy
@@ -1005,6 +1005,10 @@ function vRP.ServiceLeave(source,Passport,Permission,Silenced)
 		TriggerClientEvent("service:Client",source,Permission,false)
 		Group.Service[Passport] = nil
 	end
+
+    if Group["Markers"] then
+        TriggerEvent("vrp_blipsystem:serviceExit",source)
+    end
 
 	if not Silenced then
 		TriggerClientEvent("Notify",source,"Central de Empregos","Você acaba finalizar sua jornada de trabalho, esperamos que você tenha aprendido bastante hoje.","default",5000)

@@ -187,8 +187,8 @@ end)
 RegisterCommand("socorro",function(source,args,rawCommand)
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		local paramedic = vRP.getUsersByPermission("paramedico.permissao")
-		if #paramedic == 0 then
+		local paramedic = vRP.AmountService("Hospital")
+		if paramedic == 0 then
 			local valor = Config.Survival['socorroValue']
 			local request = vRP.request(source, "Você deseja dar socorro por R$"..vRP.format(valor).."?", 60)
 			if request then
@@ -216,8 +216,8 @@ local description = "Me machuquei feio e estou precisando de ajuda!"
 function SvServer.callMedics()
 	local source = source
     local user_id = vRP.getUserId(source)
-    local players = vRP.getUsersByPermission("paramedico.permissao")
-    if #players > 0 then
+    if vRP.AmountService("Hospital") > 0 then
+		local players = vRP.getUsersByPermission("paramedico.permissao")
         TriggerClientEvent("Notify",source,"sucesso","Chamado efetuado com sucesso",5000)
         local x,y,z = vRPclient.getPositions(source)
         local identity = vRP.getUserIdentity(user_id)

@@ -91,6 +91,7 @@ function vRP.insertPermission(user_id,group,hierarchy)
 		Permissions[user][perm] = hierarchy
 
 		if not nplayer then return end
+		Player(nplayer)["state"][group] = hierarchy
 		Player(nplayer)["state"][perm] = hierarchy
 
 		if Group["QBESXGroup"] then
@@ -157,9 +158,6 @@ function vRP.removePermission(user_id,group)
 			end
 			if Group.Type == "vip" then
 				Player(nplayer)["state"]["Premium"] = nil
-			end
-			if Group["Markers"] then
-				TriggerEvent("vrp_blipsystem:serviceExit",nplayer)
 			end
 			vRP.ServiceLeave(nplayer,user,group,true)
 			if Group["Hierarchy"][hierarchy]["BackpackWeight"] then

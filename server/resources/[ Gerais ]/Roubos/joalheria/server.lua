@@ -30,8 +30,8 @@ function Jewelry.jewelryCheckItens()
 			return false
 		end
 
-		local copAmount = vRP.getUsersByPermission("policia.permissao")
-		if #copAmount <= Config.jewelry['cops'] then
+		local copAmount = vRP.AmountService("Policia")
+		if copAmount <= Config.jewelry['cops'] then
 			TriggerClientEvent("Notify",source,"aviso","Sistema indisponível no momento, tente mais tarde.",5000)
 			return false
 		end

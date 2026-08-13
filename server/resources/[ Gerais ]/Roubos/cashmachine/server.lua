@@ -35,8 +35,8 @@ function CashMachine.startMachine(x,y,z)
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		local copAmount = vRP.getUsersByPermission("policia.permissao")
-		if #copAmount <= Config.cashMachine['atm']['cops'] then
+		local copAmount = vRP.AmountService("Policia")
+		if copAmount <= Config.cashMachine['atm']['cops'] then
 			TriggerClientEvent("Notify",source,"aviso","Contingente indisponivel, necessario "..Config.cashMachine['atm']['cops'].." policiais em serviço",4000)
 			return false
 		end
@@ -91,8 +91,8 @@ end
 function CashMachine.cashRegister(x,y,z)
 	local source = source
 	local user_id = vRP.getUserId(source)
-	local copAmount = vRP.getUsersByPermission("policia.permissao")
-	if #copAmount >= Config.cashMachine['machine']['cops'] then
+	local copAmount = vRP.AmountService("Policia")
+	if copAmount >= Config.cashMachine['machine']['cops'] then
 		vRPclient.stopActived(source)
 		if active[user_id] then
 			TriggerClientEvent("Notify",source,"aviso","Aguarde "..vRP.getTimers(active[user_id] - os.time()),5000)

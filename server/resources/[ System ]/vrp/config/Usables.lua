@@ -357,9 +357,9 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName, rAmount, data)
 	end
 
 	if itemName == "adrenaline" then
-		local parAmount = vRP.getUsersByPermission("paramedico.permissao")
-		if #parAmount > 0 then
-			TriggerClientEvent("Notify",source,"aviso","Existem <b>"..#parAmount.."</b> paramedicos em serviço.",5000)
+		local parAmount = vRP.AmountService("Hospital")
+		if parAmount > 0 then
+			TriggerClientEvent("Notify",source,"aviso","Existem <b>"..parAmount.."</b> paramedicos em serviço.",5000)
 			Player(source)["state"]["Commands"] = false
 			return
 		end
@@ -598,8 +598,8 @@ AddEventHandler("ox_inventory:useItem",function(source, itemName, rAmount, data)
 			local checkHome = exports['will_homes']:tryEnterHome(source, true)
 			if checkHome then
 				Player(source)["state"]["Commands"] = false
-				local polices = vRP.getUsersByPermission("policia.permissao")
-				if #polices < 2 then
+				local polices = vRP.AmountService("Policia")
+				if polices < 2 then
 					TriggerClientEvent("Notify",source,"negado","Não há contingente suficiente.",7000)
 					return
 				end

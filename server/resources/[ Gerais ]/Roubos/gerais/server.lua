@@ -24,8 +24,8 @@ function Robbery.checkPolice(robberyId,coords)
 			return false
 		end
 
-		local amountCops = vRP.getUsersByPermission("policia.permissao")
-		if parseInt(#amountCops) < parseInt(vars[robberyId].cops) then
+		local amountCops = vRP.AmountService("Policia")
+		if parseInt(amountCops) < parseInt(vars[robberyId].cops) then
 			TriggerClientEvent("Notify",source,"aviso","Contingente indisponivel, necessario "..vars[robberyId].cops.." policiais em serviço",4000)
 			return false
 		end

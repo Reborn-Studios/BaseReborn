@@ -127,7 +127,7 @@ AddEventHandler("vrp_player:salary",function()
 		local userGroups = vRP.getUserGroups(user_id)
 		for k,v in pairs(userGroups) do
 			local groupSalary = vRP.getSalaryByGroup(k,v)
-			if groupSalary then
+			if groupSalary and vRP.HasService(user_id, k) then
 				vRP.addBank(parseInt(user_id), groupSalary)
 				TriggerClientEvent("Notify",source,"Salário","Você recebeu seu salario de R$"..groupSalary.." pelo serviço de "..vRP.getGroupTitle(k,v)..".","payment", 5000)
 			end
@@ -976,11 +976,11 @@ end)
 RegisterCommand("status", function(source,args,rawCommand)
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		local samuAmount = vRP.getUsersByPermission("paramedico.permissao")
-		local copAmount = vRP.getUsersByPermission("policia.permissao")
-		local mecAmount = vRP.getUsersByPermission("mecanico.permissao")
-		local admAmount = vRP.getUsersByPermission("suporte.permissao")
-		TriggerClientEvent("Notify",source,"importante","<b>Policiais:</b> "..#copAmount.."<br><b>Paramedicos:</b> "..#samuAmount.."<br><b>Mecânico:</b> "..#mecAmount.."<br><b>Prefeitura:</b> "..#admAmount,15000)
+		local samuAmount = vRP.AmountService("Hospital")
+		local copAmount = vRP.AmountService("Policia")
+		local mecAmount = vRP.AmountService("LSCustoms") + vRP.AmountService("Bennys")
+		local admAmount = vRP.AmountService("Admin")
+		TriggerClientEvent("Notify",source,"importante","<b>Policiais:</b> "..copAmount.."<br><b>Paramedicos:</b> "..samuAmount.."<br><b>Mecânico:</b> "..mecAmount.."<br><b>Prefeitura:</b> "..admAmount,15000)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
