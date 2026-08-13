@@ -16,7 +16,13 @@ function server.hasGroup(inv, group)
 					end
 				end
 			elseif Player(inv.player.source).state[name] then
-				return name, "0"
+				if requiredRank then
+					if Player(inv.player.source).state[name] <= requiredRank then
+						return name, Player(inv.player.source).state[name]
+					end
+				else
+					return name, "0"
+				end
 			end
 		end
 	else
