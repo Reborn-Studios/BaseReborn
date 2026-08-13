@@ -311,7 +311,7 @@ if not IsDuplicityVersion() then
 		["bate-ponto"] = true,
 		["clothes"] = true,
 		["conce"] = true,
-		["department"] = true,
+		["shops"] = true,
 		["garage"] = true,
 		["homes"] = true,
 		["tattoos"] = true,
@@ -325,7 +325,7 @@ if not IsDuplicityVersion() then
 	}
 	function DrawBase3D(x,y,z,text)
 		if rbnBlips[text] and HasStreamedTextureDictLoaded("rbn_blips") then
-			DrawMarker(9, x, y, z, 0.0, 0.0, 0.0, 90.0, 90.0, 0.0, 1.0, 1.0, 1.0, 255, 255, 255, 255, false, true, 2, false, "rbn_blips", text, false)
+			DrawMarker(9, x, y, z, 0.0, 0.0, 0.0, 90.0, 90.0, 0.0, 0.4, 0.4, 0.4, 255, 255, 255, 255, false, true, 2, false, "rbn_blips", text, false)
 		else
 			local _,_x,_y = World3dToScreen2d(x,y,z)
 			SetTextFont(2)
