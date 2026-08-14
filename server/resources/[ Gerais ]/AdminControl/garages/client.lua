@@ -112,10 +112,8 @@ function CreateGarage()
             local SelectedGroups = input[4]
             if type(SelectedGroups) == "table" then
                 for _,ndata in pairs(SelectedGroups) do
-                    local Perms = json.decode(ndata)
-                    for group,grade in pairs(Perms) do
-                        Groups[group] = tonumber(grade)
-                    end
+                    local group,grade = table.unpack(splitString(ndata, "-"))
+                    Groups[group] = tonumber(grade)
                 end
             else
                 Groups = nil
