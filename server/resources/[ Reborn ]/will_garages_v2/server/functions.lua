@@ -43,7 +43,7 @@ function hasPermission(user_id, perm, level)
 end
 
 function hasGroup(user_id, perm, level)
-    return hasPermission(user_id, perm)
+    return hasPermission(user_id, perm, level)
 end
 
 function paymentMethod(user_id, price)

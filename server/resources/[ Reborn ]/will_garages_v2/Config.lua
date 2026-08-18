@@ -352,8 +352,8 @@ elseif GlobalState['Basics']['Theme'] == "SP" then
     Config.workgarage["PMESP"] = {
         { model = "dusterrp1", livery = 1, name = "Duster PMESP", photo = "dusterrp1" },
         { model = "spineng", livery = 2, name = "Spin ENG PMESP", photo = "spineng" },
-        { model = "spineng", livery = 1, name = "Spin PMESP", photo = "spineng", perm = "CoronelPMESP" },
-        { model = "spinlegion", livery = 2, name = "Spin Legion Comando", photo = "spinlegion", perm = "CoronelPMESP" },
+        { model = "spineng", livery = 1, name = "Spin PMESP", photo = "spineng", perm = "Policia", perm2 = 1 },
+        { model = "spinlegion", livery = 2, name = "Spin Legion Comando", photo = "spinlegion", perm = "Policia", perm2 = 1 },
         { model = "spinlegion", livery = 1, name = "Spin Legion PMESP", photo = "spinlegion" },
         { model = "trail20pm", livery = 3, name = "Trail 20 PMESP", photo = "trail20pm" },
         "xre19rpm",
