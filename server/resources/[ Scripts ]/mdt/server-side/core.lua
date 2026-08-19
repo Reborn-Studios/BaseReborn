@@ -144,16 +144,23 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PLAYER
 -----------------------------------------------------------------------------------------------------------------------------------------
+local Groups = vRP.Groups()["Policia"]
+local PoliceGroups = {}
+
+CreateThread(function ()
+    for k,v in pairs(Groups["Permissions"]) do
+        if not v:find(".permissao") then
+            PoliceGroups[v] = true
+        end
+    end
+    if not next(PoliceGroups) then
+        PoliceGroups = { ["Policia"] = true }
+    end
+end)
+
 function Creative.Player()
     local source = source
     local Passport = vRP.Passport(source)
-    local Groups = vRP.Groups()
-    local PoliceGroups = {}
-    for k,v in pairs(Groups) do
-        if v["QBESXGroup"] and v["QBESXGroup"] == "police" then
-            PoliceGroups[k] = true
-        end
-    end
 
     if not Permission[Passport] then
         for Group,v in pairs(PoliceGroups) do
@@ -164,7 +171,7 @@ function Creative.Player()
         end
     end
     if not Permission[Passport] then
-        Permission[Passport] = "police"
+        Permission[Passport] = "Policia"
     end
     local Hierarchy, Name = vRP.HasPermission(Passport, Permission[Passport])
     local Player = { Name = vRP.FullName(Passport), Level = Hierarchy, Avatar = "", Passport = Passport }

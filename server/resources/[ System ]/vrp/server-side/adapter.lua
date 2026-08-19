@@ -854,18 +854,22 @@ function vRP.AmountService(Permission,Level)
 		Permission,Level = PermissionParts[1],parseInt(PermissionParts[2])
 	end
     local GroupPermission = Groups[Permission]
-
-    if not GroupPermission then
-		return Amount
-	end
-
-    if GroupPermission["Service"] then
+    if GroupPermission and GroupPermission["Service"] then
         for Passport,Source in pairs(GroupPermission["Service"]) do
             if not Level then
 			    Amount = Amount + 1
             else
                 local UserLevel = vRP.HasPermission(Passport,Permission)
                 if UserLevel and UserLevel == Level then
+                    Amount = Amount + 1
+                end
+            end
+        end
+    else
+        for Passport,Source in pairs(vRP.getUsers()) do
+            local UserLevel = vRP.HasPermission(Passport,Permission)
+            if UserLevel then
+                if not Level or UserLevel == Level then
                     Amount = Amount + 1
                 end
             end

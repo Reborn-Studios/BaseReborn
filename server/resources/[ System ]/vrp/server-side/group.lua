@@ -74,6 +74,15 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 local ClientPerms = {
 	['police'] = "Police",
+    ["civil"] = "Police",
+    ["rota"] = "Police",
+    ["baep"] = "Police",
+    ["ft"] = "Police",
+    ["tor"] = "Police",
+    ["gcm"] = "Police",
+    ["pmerj"] = "Police",
+    ["bope"] = "Police",
+    ["core"] = "Police",
 	['ambulance'] = "Paramedic",
 	['mechanic'] = "Mechanic",
 	['admin'] = "Admin",
@@ -196,7 +205,6 @@ function vRP.hasPermission(user,perm,level)
 					return Permissions[user_id][perm], Groups[perm]["Hierarchy"][Permissions[user_id][perm]]["Title"]
 				end
 			end
-			return false
 		end
 		for Group,hierarchy in pairs(Permissions[user_id]) do
 			if Groups[Group] then

@@ -303,6 +303,19 @@ local Polices = {
 		},
 	},
 	["SP"] = {
+		["Policia"] = {
+			["Name"] = "Polícia Geral",
+			["Hierarchy"] = {},
+			["Permissions"] = {
+				"PMESP",
+				"PoliciaCivil",
+				"ROTA",
+				"BAEP",
+				"FT",
+				"TOR",
+				"GCM",
+			},
+		},
 		["PMESP"] = {
 			["Name"] = "Polícia Militar do Estado de São Paulo",
 			["Type"] = "job",
@@ -369,6 +382,7 @@ local Polices = {
 				},
 			},
 			["Permissions"] = {
+				"Policia",
 				"policiamilitar.permissao",
 				"pmesp.permissao",
 				"policia.permissao",
@@ -418,6 +432,7 @@ local Polices = {
 				},
 			},
 			["Permissions"] = {
+				"Policia",
 				"policiacivil.permissao",
 				"policia.permissao",
 				"polpar.permissao",
@@ -475,6 +490,7 @@ local Polices = {
 				},
 			},
 			["Permissions"] = {
+				"Policia",
 				"rota.permissao",
 				"policia.permissao",
 				"polpar.permissao",
@@ -532,6 +548,7 @@ local Polices = {
 				},
 			},
 			["Permissions"] = {
+				"Policia",
 				"baep.permissao",
 				"policia.permissao",
 				"polpar.permissao",
@@ -589,6 +606,7 @@ local Polices = {
 				},
 			},
 			["Permissions"] = {
+				"Policia",
 				"ft.permissao",
 				"policia.permissao",
 				"polpar.permissao",
@@ -631,6 +649,7 @@ local Polices = {
 				},
 			},
 			["Permissions"] = {
+				"Policia",
 				"tor.permissao",
 				"policia.permissao",
 				"polpar.permissao",
@@ -673,6 +692,7 @@ local Polices = {
 				},
 			},
 			["Permissions"] = {
+				"Policia",
 				"gcm.permissao",
 				"policia.permissao",
 				"polpar.permissao",
@@ -686,6 +706,16 @@ local Polices = {
 		},
 	},
 	["RJ"] = {
+		["Policia"] = {
+			["Name"] = "Polícia Geral",
+			["Hierarchy"] = {},
+			["Permissions"] = {
+				"PMERJ",
+				"PoliciaCivil",
+				"BOPE",
+				"CORE",
+			},
+		},
 		["PMERJ"] = {
 			["Name"] = "PMERJ",
 			["Type"] = "job",
@@ -752,6 +782,7 @@ local Polices = {
 				},
 			},
 			["Permissions"] = {
+				"Policia",
 				"policiamilitar.permissao",
 				"pmerj.permissao",
 				"policia.permissao",
@@ -795,6 +826,7 @@ local Polices = {
 				},
 			},
 			["Permissions"] = {
+				"Policia",
 				"policiacivil.permissao",
 				"policia.permissao",
 				"polpar.permissao",
@@ -852,6 +884,7 @@ local Polices = {
 				},
 			},
 			["Permissions"] = {
+				"Policia",
 				"bope.permissao",
 				"policia.permissao",
 				"polpar.permissao",
@@ -909,6 +942,7 @@ local Polices = {
 				},
 			},
 			["Permissions"] = {
+				"Policia",
 				"core.permissao",
 				"policia.permissao",
 				"polpar.permissao",
