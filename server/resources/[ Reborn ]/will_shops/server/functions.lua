@@ -118,7 +118,13 @@ function tryPayment(user_id, price)
 end
 
 function paymentBuyShop(user_id, value, shop)
-    return tryPayment(user_id, value)
+    local status = tryPayment(user_id, value)
+    if status then
+        local globalProducts = GlobalState["Will_Shops_Products"]
+        globalProducts[shop] = Config.Shops[shop]['products']
+        GlobalState:set("Will_Shops_Products",globalProducts,true)
+    end
+    return status
 end
 
 function getUserMoney(user_id)
