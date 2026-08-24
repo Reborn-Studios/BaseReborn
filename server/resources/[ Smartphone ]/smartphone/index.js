@@ -4648,6 +4648,37 @@ function eo(e$) {
   return new Promise((e0) => setTimeout(e0, e$));
 }
 
+async function uploadToPixelDrain(file, extension) {
+  const formData = new FormData();
+
+  formData.append("file", file, `${Date.now()}.${extension}`);
+
+  const response = await fetch(
+    "https://pixeldrain.com/api/file/",
+    {
+      method: "POST",
+      headers: {
+        Authorization: "Basic " + btoa(":de9875e9-340c-4a72-8c89-1175abea96d1"),
+      },
+      body: formData,
+    },
+  );
+
+  if (!response.ok) {
+    const error = await response.text();
+    throw new Error("Erro ao enviar para PixelDrain: " + error);
+  }
+  const data = await response.json();
+
+  if (data.success && data.id) {
+    return `https://pixeldrain.com/api/file/${data.id}`;
+  }
+
+  throw new Error(
+    "Erro ao enviar para PixelDrain: " + (data.message || JSON.stringify(data)),
+  );
+}
+
 async function uploadToCatbox(file, extension) {
   const formData = new FormData();
   formData.append("reqtype", "fileupload");
@@ -4688,7 +4719,7 @@ async function uploadVideoToCatbox(file) {
 var to = {
   async upload(file, extension) {
     try {
-      const url = await uploadToCatbox(file, extension);
+      const url = await uploadToPixelDrain(file, extension);
       return url;
     } catch (err) {
       console.error("❌ Falha no upload:", err);
@@ -4698,7 +4729,7 @@ var to = {
   },
   async uploadVideo(file) {
     try {
-      const url = await uploadVideoToCatbox(file);
+      const url = await uploadToPixelDrain(file, "webm");
       return url;
     } catch (err) {
       console.error("Erro no upload de vídeo:", err);
