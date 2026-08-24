@@ -42,11 +42,11 @@ AddEventHandler("AdminControl:saveBaseConfig",function (data)
     local BaseData = {}
     BaseData.ServerName = data[1] or BasicsConfig['ServerName']
     BaseData.Discord = data[2] or BasicsConfig['Discord']
-    BaseData.MaxHealth = data[9] or BasicsConfig['MaxHealth']
+    BaseData.MaxHealth = data[8] or BasicsConfig['MaxHealth']
     BaseData.CityColor = data[4] or BasicsConfig['CityColor']
     BaseData.CityColorHex = convertRGBtoHex(BaseData.CityColor)
     BaseData.Identifier = data[7] or BasicsConfig['Identifier']
-    BaseData.Whitelist = data[8] or BasicsConfig['Whitelist']
+    BaseData.Whitelist = data[9] or BasicsConfig['Whitelist']
     BaseData.Theme = data[3] or BasicsConfig['Theme']
     BaseData.Debug = data[10]
     BaseData.CityLogo = data[5] or "https://api.rebornsystem.com.br/imagens/RebornLogo.png"
