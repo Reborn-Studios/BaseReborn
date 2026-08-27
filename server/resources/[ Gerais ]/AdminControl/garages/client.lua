@@ -209,9 +209,10 @@ local function manageGarage(args)
                         local SelectedGroups = input[4]
                         if type(SelectedGroups) == "table" then
                             for _,ndata in pairs(SelectedGroups) do
-                                local Perms = json.decode(ndata)
-                                for group,grade in pairs(Perms) do
-                                    Groups[group] = tonumber(grade)
+                                local groupSplited = splitString(ndata,"-")
+                                local group,grade = groupSplited[1], groupSplited[2]
+                                if group then
+                                    Groups[group] = tonumber(grade) or 1
                                 end
                             end
                         else
