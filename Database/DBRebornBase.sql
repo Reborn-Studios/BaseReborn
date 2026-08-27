@@ -253,11 +253,11 @@ CREATE TABLE IF NOT EXISTS `ox_doorlock` (
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 INSERT INTO `ox_doorlock` (`id`, `name`, `data`) VALUES
-	(1, 'FarmMaconha', '{"model":-147325430,"state":0,"heading":116,"doors":false,"groups":{"VermelhosLider":0,"Vermelhos":0},"coords":{"x":98.08999633789063,"y":6327.26025390625,"z":31.52678871154785},"maxDistance":2}'),
-	(2, 'FarmMeta', '{"groups":{"VerdesLider":0,"Verdes":0},"state":1,"maxDistance":2,"coords":{"x":1483.988037109375,"y":6391.357421875,"z":23.61026763916015},"model":-147325430,"heading":77,"doors":false}'),
-	(3, 'FarmCoke', '{"groups":{"AzuisLider":0,"Azuis":0},"state":1,"maxDistance":2,"coords":{"x":-1096.8291015625,"y":4950.23486328125,"z":218.7862548828125},"model":-147325430,"heading":250,"doors":false}'),
-	(4, 'Departamento Policial', '{"groups":{"Police":0},"state":1,"maxDistance":2,"coords":{"x":91.35662841796875,"y":-390.28375244140627,"z":42.50693130493164},"doors":[{"model":821473823,"coords":{"x":92.5790786743164,"y":-390.72711181640627,"z":42.50693130493164},"heading":160},{"model":821473823,"coords":{"x":90.13418579101563,"y":-389.84039306640627,"z":42.50693130493164},"heading":340}]}'),
-	(5, 'Mecanica', '{"groups":{"mechanic":0},"state":1,"auto":true,"maxDistance":8,"coords":{"x":823.698974609375,"y":-992.8875122070313,"z":28.06938171386718},"model":-1858735571,"heading":1,"doors":false}'),
+	(1, 'FarmMaconha', '{"model":-147325430,"state":0,"heading":116,"doors":false,"groups":{"Vermelhos":3},"coords":{"x":98.08999633789063,"y":6327.26025390625,"z":31.52678871154785},"maxDistance":2}'),
+	(2, 'FarmMeta', '{"groups":{"Verdes":3},"state":1,"maxDistance":2,"coords":{"x":1483.988037109375,"y":6391.357421875,"z":23.61026763916015},"model":-147325430,"heading":77,"doors":false}'),
+	(3, 'FarmCoke', '{"groups":{"Azuis":3},"state":1,"maxDistance":2,"coords":{"x":-1096.8291015625,"y":4950.23486328125,"z":218.7862548828125},"model":-147325430,"heading":250,"doors":false}'),
+	(4, 'Departamento Policial', '{"groups":{"Policia":10},"state":1,"maxDistance":2,"coords":{"x":91.35662841796875,"y":-390.28375244140627,"z":42.50693130493164},"doors":[{"model":821473823,"coords":{"x":92.5790786743164,"y":-390.72711181640627,"z":42.50693130493164},"heading":160},{"model":821473823,"coords":{"x":90.13418579101563,"y":-389.84039306640627,"z":42.50693130493164},"heading":340}]}'),
+	(5, 'Mecanica', '{"groups":{"mechanic":3},"state":1,"auto":true,"maxDistance":8,"coords":{"x":823.698974609375,"y":-992.8875122070313,"z":28.06938171386718},"model":-1858735571,"heading":1,"doors":false}'),
 	(6, 'Joalheria', '{"hideUi":true,"coords":{"x":-631.19091796875,"y":-237.38540649414063,"z":38.2065315246582},"maxDistance":2,"state":1,"doors":[{"heading":306,"coords":{"x":-631.9553833007813,"y":-236.33326721191407,"z":38.2065315246582},"model":1425919976},{"heading":306,"coords":{"x":-630.426513671875,"y":-238.4375457763672,"z":38.2065315246582},"model":9467943}]}');
 
 CREATE TABLE IF NOT EXISTS `charskins` (
