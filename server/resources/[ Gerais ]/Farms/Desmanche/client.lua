@@ -192,6 +192,8 @@ CreateThread(function()
                                             vRP._CarregarObjeto("anim@heists@box_carry@","idle","prop_car_door_01",50,28422,0.0,-0.10,-0.2,0.0,0.0,0.0) -- 50,28422,0.07,0.1,-0.21,100.0,0.5,0.1
                                         elseif k == 'Capo' then
                                             SetVehicleDoorBroken(veh, 4, true)
+                                            vRP._playAnim(true,{{"anim@heists@box_carry@","idle"}},true)
+                                            vRP._CarregarObjeto("anim@heists@box_carry@","idle","prop_car_bonnet_01",50,28422,0.0,-0.10,-0.2,0.0,0.0,0.0) -- 50,28422,0.07,0.1,-0.21,100.0,0.5,0.1
                                         elseif k == 'Roda_Frente' then
                                             SetVehicleTyreBurst(veh, 0, true, 1000)
                                             TriggerEvent("Notify","sucesso","Pneu removido com sucesso, guarde ele para desmanchar o restante..")
