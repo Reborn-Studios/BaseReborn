@@ -74,16 +74,15 @@ end
 -- NUMPERMISSION
 -----------------------------------------------------------------------------------------------------------------------------------------
 local ClientPerms = {
-	['police'] = "Police",
 	['ambulance'] = "Paramedic",
 	['mechanic'] = "Mechanic",
 	['admin'] = "Admin",
 }
 
 do
-	for k,pol in pairs(PoliceGroups) do
+	for k,pol in pairs(PoliceGroups["Permissions"]) do
 		if Groups[pol] and Groups[pol]["QBESXGroup"] then
-			ClientPerms[Groups[pol]["QBESXGroup"]] = "police"
+			ClientPerms[Groups[pol]["QBESXGroup"]] = "Police"
 		end
 	end
 end

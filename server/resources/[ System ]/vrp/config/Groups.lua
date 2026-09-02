@@ -306,6 +306,7 @@ local Polices = {
 		["Policia"] = {
 			["Name"] = "Polícia Geral",
 			["Hierarchy"] = {},
+			["Service"] = {},
 			["Permissions"] = {
 				"PMESP",
 				"PoliciaCivil",
@@ -716,6 +717,7 @@ local Polices = {
 		["Policia"] = {
 			["Name"] = "Polícia Geral",
 			["Hierarchy"] = {},
+			["Service"] = {},
 			["Permissions"] = {
 				"PMERJ",
 				"PoliciaCivil",
