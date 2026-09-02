@@ -1023,7 +1023,7 @@ function vRP.ServiceLeave(source,Passport,Permission,Silenced)
         if Group.Parent then
             local ParentGroup = Groups[Group.Parent]
             if ParentGroup.Service then
-		        ParentGroup.Service[Passport] = source
+		        ParentGroup.Service[Passport] = nil
             end
         end
 	end
