@@ -718,7 +718,7 @@ function Creative.Fine(Data)
   local Date = os.date("%d/%m/%Y", Timestamp)
   local Hour = os.date("%H:%M:%S", Timestamp)
 
-  local Articles = exports['oxmysql']:query_async( ("SELECT `Fine` FROM `mdt_penalcode_articles` WHERE `id` IN (%s)"):format(table.concat(Data.Infractions, ","):gsub("[^,]", "?")), Data.Infractions)
+  local Articles = exports['oxmysql']:query_async( ("SELECT `Fine` FROM `mdt_penalcode_articles` WHERE `id` IN (%s)"):format(string.rep("?,", #Data.Infractions):sub(1, -2)), Data.Infractions)
 
   local Fine = 0
   for _, Article in ipairs(Articles) do
