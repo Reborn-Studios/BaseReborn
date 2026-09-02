@@ -18,26 +18,25 @@ shared = {
     playerslots = GetConvarInt('inventory:slots', 50),
     playerweight = GetConvarInt('inventory:weight', 30000),
     target = true,
-    police = json.decode(GetConvar('inventory:police', '["police", "militar", "civil", "rota", "baep", "ft", "tor", "gcm", "pmerj", "core", "bope", "sheriff"]')),
+    police = {},
     networkdumpsters = GetConvarInt('inventory:networkdumpsters', 0) == 1
 }
 
-shared.dropslots = GetConvarInt('inventory:dropslots', shared.playerslots)
-shared.dropweight = GetConvarInt('inventory:dropweight', shared.playerweight)
+local Groups = module('vrp',"config/Groups") or {}
+local PoliceGroups = Groups["Policia"] or {}
 
-do
-    if type(shared.police) == 'string' then
-        shared.police = { shared.police }
+for i,Pol in pairs(PoliceGroups["Permissions"]) do
+    if Groups[Pol] then
+        if Groups[Pol]["QBESXGroup"] then
+            shared.police[Groups[Pol]["QBESXGroup"]] = #Groups[Pol]["Hierarchy"]
+        else
+            shared.police[Pol] = #Groups[Pol]["Hierarchy"]
+        end
     end
-
-    local police = table.create(0, shared.police and #shared.police or 0)
-
-    for i = 1, #shared.police do
-        police[shared.police[i]] = 0
-    end
-
-    shared.police = police
 end
+
+shared.dropslots = GetConvarInt('inventory:dropslots', shared.playerslots)
+shared.dropweight = GetConvarInt('inventory:dropweight', 150000)
 
 if IsDuplicityVersion() then
     server = {

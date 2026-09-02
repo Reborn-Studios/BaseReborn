@@ -257,6 +257,27 @@ end
 exports('Inventory', getInventory)
 exports('GetInventory', getInventory)
 
+---@param invType string
+---@param detailed? boolean return the full inventory instead of only the id
+---@return (string|number)[] | OxInventory[]
+function Inventory.GetInventories(invType, detailed)
+	if type(invType) ~= 'string' then
+		return error(('expected invType to be a string (received %s)'):format(type(invType)))
+	end
+
+	local returnData = {}
+
+	for _, inv in pairs(Inventories) do
+		if inv.type == invType then
+			returnData[#returnData + 1] = detailed and inv or inv.id
+		end
+	end
+
+	return returnData
+end
+
+exports('GetInventories', Inventory.GetInventories)
+
 ---@param inv inventory
 ---@param owner? string | number
 ---@return table?
@@ -660,7 +681,7 @@ function Inventory.Remove(inv)
         end
     end
 
-    if not inv.datastore and inv.changed then
+    if not inv.datastore and (inv.changed or inv.player) then
         Inventory.Save(inv)
     end
 
@@ -1691,7 +1712,7 @@ lib.callback.register('ox_inventory:swapItems', function(source, data)
         Utils.LogExploit(source, 'swapItems', 'Triggered event with invalid data', true)
         return
     end
-	if data.count < 1 then return end
+	data.count = math.max(1, math.floor(data.count or 1))
 
 	local playerInventory = Inventory(source)
 
@@ -2199,11 +2220,13 @@ function Inventory.GetSlotForItem(inv, itemName, metadata)
 
 	for i = 1, inventory.slots do
 		local slotData = items[i]
+		
+		if not slotData and not emptySlot then
+			emptySlot = i
+		end
 
 		if item.stack and slotData and slotData.name == item.name and table.matches(slotData.metadata, metadata) then
 			return i
-		elseif not item.stack and not slotData and not emptySlot then
-			emptySlot = i
 		end
 	end
 
@@ -2478,7 +2501,7 @@ local function giveItem(playerId, slot, target, count)
 
 	if not fromInventory or not toInventory then return end
 
-	if count <= 0 then count = 1 end
+	count = math.max(1, math.floor(count or 1))
 
 	if toInventory.player then
 		local data = fromInventory.items[slot]
@@ -2498,6 +2521,9 @@ local function giveItem(playerId, slot, target, count)
 		end
 
 		local toSlot = Inventory.GetSlotForItem(toInventory, data.name, data.metadata)
+
+		if not toSlot then return { 'cannot_give', count, data.label } end
+
 		local activeSlots <close> = GetLocks({
             ('inventory-%s:slot-%s'):format(fromInventory.id, slot),
             ('inventory-%s:slot-%s'):format(toInventory.id, toSlot)

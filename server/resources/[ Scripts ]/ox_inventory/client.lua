@@ -49,9 +49,9 @@ local function canOpenInventory()
         return shared.info('cannot open inventory', '(is not loaded)')
     end
 
-    if IsPauseMenuActive() then return end
+    if IsPauseMenuActive() or invOpen == nil then return end
 
-    if invBusy or invOpen == nil or (currentWeapon and currentWeapon.timer ~= 0) then
+    if invBusy or (currentWeapon?.timer or 0) > 0 then
         return shared.info('cannot open inventory', '(is busy)')
     end
 
@@ -125,6 +125,8 @@ local Inventory = require 'modules.inventory.client'
 ---@param data any?
 ---@return boolean?
 function client.openInventory(inv, data)
+	if invOpen == nil then return end
+
 	if invOpen then
 		if not inv and currentInventory.type == 'newdrop' then
 			return client.closeInventory()
@@ -1766,8 +1768,8 @@ RegisterNUICallback('giveItem', function(data, cb)
 			local option = nearbyPlayers[i]
 
             if isGiveTargetValid(option.ped, option.coords) then
-				local playerName = Utils.getPlayerName(option.id)
 				option.id = GetPlayerServerId(option.id)
+				local playerName = Utils.getPlayerName(option.id)
                 ---@diagnostic disable-next-line: inject-field
 				option.label = playerName
 				n += 1

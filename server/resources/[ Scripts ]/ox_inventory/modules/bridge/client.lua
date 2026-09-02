@@ -11,7 +11,6 @@ function client.hasGroup(group)
 
 	if type(group) == 'table' then
 		for name, requiredRank in pairs(group) do
-			
 			local groupRank = PlayerData.groups[name]
 			if groupRank then
 				if type(requiredRank) == 'table' then
@@ -19,12 +18,18 @@ function client.hasGroup(group)
 						return name, groupRank
 					end
 				else
-					if groupRank >= (requiredRank or 0) then
+					if requiredRank == 0 or groupRank <= requiredRank then
 						return name, groupRank
 					end
 				end
 			elseif LocalPlayer.state[name] then
-				return name, "0"
+				if requiredRank then
+					if LocalPlayer.state[name] <= requiredRank then
+						return name, LocalPlayer.state[name]
+					end
+				else
+					return name, LocalPlayer.state[name]
+				end
 			end
 		end
 	else
@@ -32,7 +37,7 @@ function client.hasGroup(group)
 		if groupRank then
 			return group, groupRank
 		elseif LocalPlayer.state[group] then
-			return group, "0"
+			return group, LocalPlayer.state[group]
 		end
 	end
 end

@@ -209,7 +209,7 @@ end
 
 lib.callback.register('ox_inventory:buyItem', function(source, data)
 	if data.toType == 'player' then
-		if data.count == nil then data.count = 1 end
+		data.count = math.max(1, math.floor(data.count or 1))
 
 		local playerInv = Inventory(source) --[[@as OxInventory]]
 
@@ -239,7 +239,7 @@ lib.callback.register('ox_inventory:buyItem', function(source, data)
 
 		if fromData then
 			if fromData.count then
-				if fromData.count == 0 then
+				if fromData.count < 1 then
 					return false, false, { type = 'error', description = locale('shop_nostock') }
 				elseif data.count > fromData.count then
 					data.count = fromData.count
