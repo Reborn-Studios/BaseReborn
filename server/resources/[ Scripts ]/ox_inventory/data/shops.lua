@@ -7,30 +7,32 @@ if GlobalState['Basics']['Theme'] == "default" then
 elseif GlobalState['Basics']['Theme'] == "SP" then
 	Arsenais = {
         -- BAEP
-        { loc = vec3(58.2,6540.31,32.5), length = 0.5, width = 3.0, heading = 270.0, minZ = 30.5, maxZ = 32.0, distance = 6 },
+        { loc = vec3(-930.11,-1161.01,5.56), length = 1.5, width = 3.0, heading = 270.0, minZ = 5.0, maxZ = 6.0, distance = 6 },
         -- FT
-        { loc = vec3(1818.65,3628.53,40.09), length = 0.5, width = 3.0, heading = 270.0, minZ = 30.5, maxZ = 32.0, distance = 6 },
+        { loc = vec3(-744.65,-77.03,38.11), length = 1.5, width = 3.0, heading = 270.0, minZ = 38.5, maxZ = 39.0, distance = 6 },
         -- GCM
-        { loc = vec3(697.97,252.48,97.93), length = 0.5, width = 3.0, heading = 270.0, minZ = 30.5, maxZ = 32.0, distance = 6 },
+        { loc = vec3(-480.16,289.68,83.35), length = 1.5, width = 3.0, heading = 270.0, minZ = 83.0, maxZ = 84.0, distance = 6 },
         -- PCESP
-        { loc = vec3(-945.76,-2045.61,9.41), length = 0.5, width = 3.0, heading = 270.0, minZ = 30.5, maxZ = 32.0, distance = 6 },
+        { loc = vec3(2312.8,3919.32,42.76), length = 1.5, width = 3.0, heading = 270.0, minZ = 42.5, maxZ = 43.0, distance = 6 },
         -- PMESP
-        { loc = vec3(2526.38,-342.39,101.9), length = 0.5, width = 3.0, heading = 270.0, minZ = 30.5, maxZ = 32.0, distance = 6 },
+        { loc = vec3(-1698.89,-751.91,11.5), length = 1.5, width = 3.0, heading = 270.0, minZ = 10.5, maxZ = 12.0, distance = 6 },
         -- ROTA
-        { loc = vec3(-2044.4,-447.33,12.5), length = 0.5, width = 3.0, heading = 270.0, minZ = 30.5, maxZ = 32.0, distance = 6 },
-        -- TOR
-        { loc = vec3(2604.94,5344.67,47.61), length = 0.5, width = 3.0, heading = 270.0, minZ = 30.5, maxZ = 32.0, distance = 6 },
+        { loc = vec3(-1212.86,-2266.01,14.32), length = 1.5, width = 3.0, heading = 270.0, minZ = 14.0, maxZ = 15.0, distance = 6 },
+        -- PRF
+        { loc = vec3(-3029.03,382.36,15.02), length = 1.5, width = 3.0, heading = 270.0, minZ = 15.0, maxZ = 16.0, distance = 6 },
     }
 elseif GlobalState['Basics']['Theme'] == "RJ" then
 	Arsenais = {
         -- PMERJ
-        { loc = vec3(-1662.44,168.48,62.11), length = 0.5, width = 3.0, heading = 270.0, minZ = 30.5, maxZ = 32.0, distance = 6 },
+        { loc = vec3(-1663.67,172.08,61.84), length = 1.5, width = 3.0, heading = 270.0, minZ = 61.5, maxZ = 62.0, distance = 6 },
         -- BOPE
-        { loc = vec3(-1249.36,334.79,69.74), length = 0.5, width = 3.0, heading = 270.0, minZ = 30.5, maxZ = 32.0, distance = 6 },
+        { loc = vec3(-254.71,1561.6,346.2), length = 1.5, width = 3.0, heading = 270.0, minZ = 346.0, maxZ = 347.0, distance = 6 },
         -- CORE
-        { loc = vec3(363.73,-1608.26,29.57), length = 0.5, width = 3.0, heading = 270.0, minZ = 30.5, maxZ = 32.0, distance = 6 },
+        { loc = vec3(366.56,-1609.73,29.41), length = 1.5, width = 3.0, heading = 270.0, minZ = 29.0, maxZ = 30.0, distance = 6 },
         -- PCERJ
-        { loc = vec3(-935.88,-2057.89,9.46), length = 0.5, width = 3.0, heading = 270.0, minZ = 30.5, maxZ = 32.0, distance = 6 }
+        { loc = vec3(-935.88,-2057.89,9.46), length = 1.5, width = 3.0, heading = 270.0, minZ = 9.0, maxZ = 10.0, distance = 6 },
+		-- CHOQUE 
+        { loc = vec3(-811.14,-2666.17,14.05), length = 1.5, width = 3.0, heading = 270.0, minZ = 14.0, maxZ = 15.0, distance = 6 },
     }
 end
 

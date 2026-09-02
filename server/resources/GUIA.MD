@@ -22,7 +22,7 @@ Favela 4 - 2001.88,-1178.5,150.72 - (Ref: Fav na montanha - Sudeste do mapa)
 Favela 6 - 2602.37,1807.34,53.89 - (Ref: Perto das usina eolica - Leste do mapa)
 Favela 7 - 2541.97,2529.91,56.5 - (Ref: Perto da mineiradora - Leste do mapa)
 Favela 12 - -2937.08,1406.89,83.2 - (Ref: Perto das mansões da praia - Oeste do mapa)
-Favela 15 - -328.0,1575.83,369.68 - (Ref: Ao norte do observatório - Centro do mapa)
+Favela 15 - -328.0,1575.83,369.68 - (Ref: Ao norte do observatório - Centro do mapa) *RETIRAR NO TEMA RJ*
 Favela 16 - 494.51,931.39,257.03 - (Ref: Placa de vinewood - Centro do mapa)
 Favela 17 - 1685.17,6488.25,47.26 - (Ref: Totalmente ao norte do mapa, proximo ao mar)
 Favela 18 - 2046.32,464.35,218.59 - (Ref: Rio da barragem)

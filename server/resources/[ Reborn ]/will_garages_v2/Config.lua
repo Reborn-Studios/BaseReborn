@@ -340,75 +340,127 @@ if GlobalState['Basics']['Theme'] == "default" then
     }
 elseif GlobalState['Basics']['Theme'] == "SP" then
     Config.workgarage["PCHeli"] = {
-        "as350pc"
+        "as350b3"
     }
     Config.workgarage["PMESPHeli"] = {
         "as350"
     }
     Config.workgarage["PCESP"] = {
-        { model = "dusterrp1", livery = 6, name = "Duster Perícia", photo = "dusterrp1" },
-        "traildope3",
+        "15sw4pc",
+        "blindadopcesp",
+        "dusterpcesp",
+        "pajeropcesp",
+        "s10pcesp",
+        "s10pcesp25",
+        "spinpcesp",
+        "spinpcesp2",
+        "sw4pcesp",
+        "trail17pc1",
+        "trail19civil",
+        "trailcivil",
+        "trailpcesp",
+        "trailpcesp2",
+        "trailpcesp3",
+        -- "vwtitanpcesp",
     }
     Config.workgarage["PMESP"] = {
-        { model = "dusterrp1", livery = 1, name = "Duster PMESP", photo = "dusterrp1" },
-        { model = "spineng", livery = 2, name = "Spin ENG PMESP", photo = "spineng" },
-        { model = "spineng", livery = 1, name = "Spin PMESP", photo = "spineng", perm = "Policia", perm2 = 1 },
-        { model = "spinlegion", livery = 2, name = "Spin Legion Comando", photo = "spinlegion", perm = "Policia", perm2 = 1 },
-        { model = "spinlegion", livery = 1, name = "Spin Legion PMESP", photo = "spinlegion" },
-        { model = "trail20pm", livery = 3, name = "Trail 20 PMESP", photo = "trail20pm" },
-        "xre19rpm",
-        { model = "xt2017pm", livery = 2, name = "XT 2017 TOR", photo = "xt2017pm" },
+        "corollapmesp",
+        "cretapmesp",
+        "cretapmesp2",
+        "dusterpmesp",
+        "dusterpmesp25",
+        "landerpmesp",
+        "spin24ad",
+        "spinpmesp",
+        "spinpmesp4",
+        "spinpmesp5",
+        "spinpmesp6",
+        "sprinterpmesp",
+        "trailpmesp",
+        "trailpmesp2",
+        "trailpmesp5",
+        "trailpmesp24",
+        "trailpmesp25",
+        "vstrompm",
+        "xrepmesp",
+        "xtpmesp",
     }
     Config.workgarage["PMFT"] = {
-        { model = "trail17pm", livery = 2, name = "Trail 17 FT", photo = "trail17pm" },
-        { model = "trail20pm", livery = 2, name = "Trail 20 FT", photo = "trail20pm" },
+        "sw4ft",
     }
     Config.workgarage["BAEP"] = {
-        { model = "trail17pm", livery = 1, name = "Trail 17 BAEP", photo = "trail17pm" },
-        { model = "trail20pm", livery = 5, name = "Trail 20 BAEP", photo = "trail20pm" },
-        { model = "xt2017pm", livery = 1, name = "XT 2017 BAEP", photo = "xt2017pm" },
+        "f850baep",
+        "trailbaep",
+        "trailbaep2",
+        "trailbaep3",
+        "trailbaep25",
     }
-    Config.workgarage["TOR"] = {
-        { model = "dusterrp1", livery = 3, name = "Duster TOR", photo = "dusterrp1" },
-        { model = "spinlegion", livery = 3, name = "Spin Legion TOR", photo = "spinlegion" },
-        { model = "trail20pm", livery = 6, name = "Trail 20 TOR", photo = "trail20pm" },
-        "corollarod",
-        "sw4tor",
-        { model = "xt2017pm", livery = 3, name = "XT 2017 TOR", photo = "xt2017pm" },
+    Config.workgarage["PRF"] = {
+        "f800pre",
+        "virtusbprv",
+        "sw4bprv",
+        "s10bprv",
+        "onixbprv",
+        "spinbprv",
+        "spinbprv2",
+        "hiluxbprv",
+        "dusterbprv",
+        "corollabprv",
+        "corollabprv2",
+        "commanderbprv",
+        "commanderbprv2",
+        -- "trail23tor",
+        -- "trailtor",
+        -- "trailtor2",
     }
     Config.workgarage["GCM"] = {
-        { model = "duster21gcm1", livery = 1, name = "Duster 21 GCM", photo = "duster21gcm1" },
-        { model = "duster21gcm1", livery = 3, name = "Duster 22 GCM", photo = "duster21gcm1" },
-        "xregcm",
+        "basegcm",
+        "delivery11gcm",
+        "js4gcm26",
+        "s10gcm3",
+        "s1025gcm",
+        "spingcm26",
+        "sw4romu26",
+        "tiggogcm26",
+        "trail25gcm",
     }
     Config.workgarage["ROTA"] = {
-        { model = "trail17pm", livery = 3, name = "Trail 17 Rota", photo = "trail17pm" },
-        { model = "trail20pm", livery = 4, name = "Trail 20 PMESP", photo = "trail20pm" },
-        "sw4pm",
+        "blazer98rota",
+        "sw4rota",
+        "trail22rota",
+        "trailrota",
+        "trailrota2",
+        "trailrota3",
     }
 elseif GlobalState['Basics']['Theme'] == "RJ" then
     Config.workgarage["PCERJ"] = {
         "corollapcerj",
         "dusterpcerj1",
-        "helicivil",
-        "versapcerj",
+        -- "helicivil",
         "s10pcerj",
-        "corollap2"
+        "trail25pcerj",
+        "versapcerj",
     }
     Config.workgarage["CORE"] = {
         "amarokcore",
         "frontiercore",
+        "trail25core",
+    }
+    Config.workgarage["CHOQUE"] = {
+        "titanobpchq",
+        "trail25recom",
     }
     Config.workgarage["BOPE"] = {
         "l200bopeg",
         "frontierbope",
-        "maverickbp",
     }
     Config.workgarage["PMERJ"] = {
-        "dusterpmerjb",
-        "versapmerj",
+        "cretapmerj",
+        "duster25pmerj",
+        -- "l20025pmerjb",
+        -- "sahara25pmerj",
+        "titanopmerj",
         "xt660pmerj",
-        "corollapmerj1"
     }
 end
 
