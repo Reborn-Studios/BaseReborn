@@ -9,6 +9,7 @@ end
 
 function Utils.GetPedCoords()
     lib.hideTextUI()
+    Wait(500)
     local text = {}
     table.insert(text, locale('actions.choose_location.1'))
     table.insert(text, locale('actions.choose_location.2'))

@@ -448,6 +448,9 @@ local function loadFarms()
         if type(v.group.name) == "string" and ((PlayerJob and PlayerJob.name == v.group.name) or (PlayerGang and PlayerGang.name == v.group.name)) then
             isAccessible = true
         elseif type(v.group.name) == "table" then
+            if not next(v.group.name) then
+                isAccessible = true
+            end
             for k,group in pairs(v.group.name) do
                 if (PlayerJob and PlayerJob.name == group) then
                     isAccessible = true
@@ -457,6 +460,8 @@ local function loadFarms()
                     break
                 end
             end
+        elseif v.group.name == nil then
+            isAccessible = true
         end
         if isAccessible then
             CreateThread(function()
