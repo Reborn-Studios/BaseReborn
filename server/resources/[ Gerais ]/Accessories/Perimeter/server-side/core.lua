@@ -18,6 +18,7 @@ local Perimeters = {}
 -- THREADINITPERIMETERS
 -----------------------------------------------------------------------------------------------------------------------------------------
 CreateThread(function()
+    Wait(1000)
     local Consult = vRP.GetSrvData("Perimeters")
     for k,v in pairs(Consult) do
         Perimeters[k] = {
@@ -69,7 +70,7 @@ AddEventHandler("perimeter:New",function()
             Coords = GetEntityCoords(GetPlayerPed(Source))
         }
 
-        vRP.SetSrvData("Perimeters",json.encode(Perimeters))
+        vRP.SetSrvData("Perimeters",Perimeters)
 
         TriggerClientEvent("perimeter:Add",-1,Selected,Perimeters[Selected])
         TriggerClientEvent("dynamic:AddButton",Source,Name,"Remover o perímetro.","perimeter:Remove",Selected,"perimeter",true)
@@ -89,7 +90,7 @@ AddEventHandler("perimeter:Remove",function(Selected)
     TriggerClientEvent("Notify",-1,"Informativo Policial","Informamos que o perímetro <b>"..Perimeters[Selected].Name.."</b> encontra-se liberado para circulação, agradecemos pela colaboração e pedimos que todos sigam as orientações de segurança.","police",15000)
 
     Perimeters[Selected] = nil
-    vRP.SetSrvData("Perimeters",json.encode(Perimeters))
+    vRP.SetSrvData("Perimeters",Perimeters)
 
     TriggerClientEvent("perimeter:Remove",-1,Selected)
     TriggerClientEvent("dynamic:Close",Source)
