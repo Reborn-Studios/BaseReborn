@@ -17,14 +17,14 @@
         "label": "Bau geral Hospital",
         "slots": 70,
         "groups": {
-            "ambulance": 0
+            "ambulance": 5
         },
         "owner": false,
         "id": "emslocker",
         "coords": {
-            "y": -320.2200012207031,
-            "x": -435.760009765625,
-            "z": 34.91999816894531
+            "x": -28.01173019409179,
+            "y": -989.1473999023438,
+            "z": 29.26997947692871
         },
         "weight": 70000,
         "webhook": ""
@@ -33,8 +33,7 @@
         "slots": 72,
         "webhook": "",
         "groups": {
-            "Vermelhos": 0,
-            "VermelhosLider": 0
+            "Vermelhos": 3
         },
         "label": "Bau Vermelhos",
         "id": "vermelhoslocker",
@@ -50,8 +49,7 @@
         "label": "Bau Azuis",
         "owner": false,
         "groups": {
-            "AzuisLider": 0,
-            "Azuis": 0
+            "Azuis": 3
         },
         "slots": 72,
         "id": "azuislocker",
@@ -67,8 +65,7 @@
         "label": "Bau Verdes",
         "owner": false,
         "groups": {
-            "Verdes": 0,
-            "VerdesLider": 0
+            "Verdes": 3
         },
         "slots": 72,
         "id": "verdeslocker",
@@ -84,8 +81,7 @@
         "label": "Bau Bahamas",
         "slots": 72,
         "groups": {
-            "BahamasLider": 0,
-            "Bahamas": 0
+            "Bahamas": 3
         },
         "owner": false,
         "id": "bahamaslocker",
@@ -101,8 +97,7 @@
         "label": "Bau Mafia",
         "slots": 72,
         "groups": {
-            "MafiaLider": 0,
-            "Mafia": 0
+            "Mafia": 3
         },
         "owner": false,
         "id": "mafialocker",
@@ -118,8 +113,7 @@
         "label": "Bau Milicia",
         "webhook": "",
         "groups": {
-            "Milicia": 0,
-            "MiliciaLider": 0
+            "Milicia": 3
         },
         "slots": 72,
         "id": "milicialocker",
@@ -135,8 +129,7 @@
         "label": "Bau Motoclub",
         "slots": 72,
         "groups": {
-            "MotoclubLider": 0,
-            "Motoclub": 0
+            "Motoclub": 3
         },
         "owner": false,
         "id": "motoclublocker",
@@ -152,8 +145,7 @@
         "label": "Bau Vanilla",
         "slots": 72,
         "groups": {
-            "Vanilla": 0,
-            "VanillaLider": 0
+            "Vanilla": 3
         },
         "owner": false,
         "id": "vanillalocker",
@@ -169,7 +161,7 @@
         "label": "Bau Hospital",
         "slots": 72,
         "groups": {
-            "ambulance": 0
+            "ambulance": 5
         },
         "owner": false,
         "id": "hospitallocker",
@@ -185,7 +177,7 @@
         "label": "Bau Comando Geral",
         "slots": 50,
         "groups": {
-            "police": 10
+            "police": 1
         },
         "owner": false,
         "id": "Registered-12",
