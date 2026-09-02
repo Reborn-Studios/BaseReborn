@@ -356,12 +356,10 @@ elseif GlobalState['Basics']['Theme'] == "SP" then
         "spinpcesp2",
         "sw4pcesp",
         "trail17pc1",
-        "trail19civil",
         "trailcivil",
         "trailpcesp",
         "trailpcesp2",
         "trailpcesp3",
-        -- "vwtitanpcesp",
     }
     Config.workgarage["PMESP"] = {
         "corollapmesp",
@@ -372,7 +370,6 @@ elseif GlobalState['Basics']['Theme'] == "SP" then
         "landerpmesp",
         "spin24ad",
         "spinpmesp",
-        "spinpmesp4",
         "spinpmesp5",
         "spinpmesp6",
         "sprinterpmesp",
@@ -427,7 +424,6 @@ elseif GlobalState['Basics']['Theme'] == "SP" then
     Config.workgarage["ROTA"] = {
         "blazer98rota",
         "sw4rota",
-        "trail22rota",
         "trailrota",
         "trailrota2",
         "trailrota3",
@@ -436,7 +432,6 @@ elseif GlobalState['Basics']['Theme'] == "RJ" then
     Config.workgarage["PCERJ"] = {
         "corollapcerj",
         "dusterpcerj1",
-        -- "helicivil",
         "s10pcerj",
         "trail25pcerj",
         "versapcerj",
