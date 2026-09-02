@@ -292,7 +292,7 @@ api.addGlobalVehicle(convert({
                 ["rota"] = 0,
                 ["baep"] = 0,
                 ["ft"] = 0,
-                ["tor"] = 0,
+                ["prf"] = 0,
                 ["gcm"] = 0,
                 ["core"] = 0,
                 ["bope"] = 0,

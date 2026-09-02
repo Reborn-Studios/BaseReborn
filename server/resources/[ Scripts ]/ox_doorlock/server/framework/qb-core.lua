@@ -26,7 +26,7 @@ function IsPlayerInGroup(player, filter)
                 return player.PlayerData.job.name, player.PlayerData.job.grade
             end
             for Job,ngrade in pairs(filter) do
-                if Player(player.PlayerData.source).state[Job] and ngrade >= player.PlayerData.job.grade.level then
+                if Player(player.PlayerData.source).state[Job] and (ngrade == 0 or ngrade >= player.PlayerData.job.grade.level) then
                     return true, Player(player.PlayerData.source).state[Job]
                 end
             end

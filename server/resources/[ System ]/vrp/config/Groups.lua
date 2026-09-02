@@ -319,6 +319,7 @@ local Polices = {
 		["PMESP"] = {
 			["Name"] = "Polícia Militar do Estado de São Paulo",
 			["Type"] = "job",
+			["Parent"] = "Policia",
 			["QBESXGroup"] = "police",
 			["Hierarchy"] = {
 				[1] = {
@@ -398,6 +399,7 @@ local Polices = {
 		["PoliciaCivil"] = {
 			["Name"] = "Polícia Civil",
 			["Type"] = "job",
+			["Parent"] = "Policia",
 			["QBESXGroup"] = "civil",
 			["Hierarchy"] = {
 				[1] = {
@@ -447,6 +449,7 @@ local Polices = {
 		["ROTA"] = {
 			["Name"] = "ROTA",
 			["Type"] = "job",
+			["Parent"] = "Policia",
 			["QBESXGroup"] = "rota",
 			["Hierarchy"] = {
 				[1] = {
@@ -505,6 +508,7 @@ local Polices = {
 		["BAEP"] = {
 			["Name"] = "BAEP",
 			["Type"] = "job",
+			["Parent"] = "Policia",
 			["QBESXGroup"] = "baep",
 			["Hierarchy"] = {
 				[1] = {
@@ -563,6 +567,7 @@ local Polices = {
 		["FT"] = {
 			["Name"] = "Força Tática",
 			["Type"] = "job",
+			["Parent"] = "Policia",
 			["QBESXGroup"] = "ft",
 			["Hierarchy"] = {
 				[1] = {
@@ -618,39 +623,40 @@ local Polices = {
 			["Service"] = {},
 			["Markers"] = true,
 		},
-		["TOR"] = {
-			["Name"] = "TOR",
+		["PRF"] = {
+			["Name"] = "PRF",
 			["Type"] = "job",
-			["QBESXGroup"] = "tor",
+			["Parent"] = "Policia",
+			["QBESXGroup"] = "prf",
 			["Hierarchy"] = {
 				[1] = {
-					["Group"] = "CoronelTOR",
-					["Title"] = "Coronel TOR",
+					["Group"] = "CoronelPRF",
+					["Title"] = "Coronel PRF",
 					["Leader"] = true,
 					["Salary"] = 9000,
 					["Permission"] = {
-						"comandotor.permissao",
+						"comandoprf.permissao",
 					}
 				},
 				[2] = {
-					["Group"] = "SargentoTOR",
-					["Title"] = "Sargento TOR",
+					["Group"] = "SargentoPRF",
+					["Title"] = "Sargento PRF",
 					["Salary"] = 6500,
 				},
 				[3] = {
-					["Group"] = "CaboTOR",
-					["Title"] = "Cabo TOR",
+					["Group"] = "CaboPRF",
+					["Title"] = "Cabo PRF",
 					["Salary"] = 5000,
 				},
 				[4] = {
-					["Group"] = "RecrutaTOR",
-					["Title"] = "Recruta TOR",
+					["Group"] = "RecrutaPRF",
+					["Title"] = "Recruta PRF",
 					["Salary"] = 4000,
 				},
 			},
 			["Permissions"] = {
 				"Policia",
-				"tor.permissao",
+				"prf.permissao",
 				"policia.permissao",
 				"polpar.permissao",
 				"portadp.permissao",
@@ -664,6 +670,7 @@ local Polices = {
 		["GCM"] = {
 			["Name"] = "GCM",
 			["Type"] = "job",
+			["Parent"] = "Policia",
 			["QBESXGroup"] = "gcm",
 			["Hierarchy"] = {
 				[1] = {
@@ -714,11 +721,13 @@ local Polices = {
 				"PoliciaCivil",
 				"BOPE",
 				"CORE",
+				"CHOQUE",
 			},
 		},
 		["PMERJ"] = {
 			["Name"] = "PMERJ",
 			["Type"] = "job",
+			["Parent"] = "Policia",
 			["QBESXGroup"] = "pmerj",
 			["Hierarchy"] = {
 				[1] = {
@@ -798,6 +807,7 @@ local Polices = {
 		["PoliciaCivil"] = {
 			["Name"] = "Polícia Civil",
 			["Type"] = "job",
+			["Parent"] = "Policia",
 			["QBESXGroup"] = "police",
 			["Hierarchy"] = {
 				[1] = {
@@ -841,6 +851,7 @@ local Polices = {
 		["BOPE"] = {
 			["Name"] = "BOPE",
 			["Type"] = "job",
+			["Parent"] = "Policia",
 			["QBESXGroup"] = "bope",
 			["Hierarchy"] = {
 				[1] = {
@@ -899,6 +910,7 @@ local Polices = {
 		["CORE"] = {
 			["Name"] = "CORE",
 			["Type"] = "job",
+			["Parent"] = "Policia",
 			["QBESXGroup"] = "core",
 			["Hierarchy"] = {
 				[1] = {
@@ -944,6 +956,65 @@ local Polices = {
 			["Permissions"] = {
 				"Policia",
 				"core.permissao",
+				"policia.permissao",
+				"polpar.permissao",
+				"portadp.permissao",
+				"player.blips",
+				"garmas.permissao",
+				"policiatiros.permissao"
+			},
+			["Service"] = {},
+			["Markers"] = true,
+		},
+		["CHOQUE"] = {
+			["Name"] = "CHOQUE",
+			["Type"] = "job",
+			["Parent"] = "Policia",
+			["QBESXGroup"] = "choque",
+			["Hierarchy"] = {
+				[1] = {
+					["Group"] = "CoronelCHOQUE",
+					["Title"] = "Coronel CHOQUE",
+					["Leader"] = true,
+					["Salary"] = 9000,
+					["Permission"] = {
+						"comandochoque.permissao",
+					}
+				},
+				[2] = {
+					["Group"] = "CapitaoCHOQUE",
+					["Title"] = "Capitão CHOQUE",
+					["Salary"] = 8500,
+				},
+				[3] = {
+					["Group"] = "TenenteCHOQUE",
+					["Title"] = "Tenente CHOQUE",
+					["Salary"] = 7500,
+				},
+				[4] = {
+					["Group"] = "SargentoCHOQUE",
+					["Title"] = "Sargento CHOQUE",
+					["Salary"] = 6500,
+				},
+				[5] = {
+					["Group"] = "CaboCHOQUE",
+					["Title"] = "Cabo CHOQUE",
+					["Salary"] = 5000,
+				},
+				[6] = {
+					["Group"] = "SoldadoCHOQUE",
+					["Title"] = "Soldado CHOQUE",
+					["Salary"] = 4500,
+				},
+				[7] = {
+					["Group"] = "RecrutaCHOQUE",
+					["Title"] = "Recruta CHOQUE",
+					["Salary"] = 4000,
+				},
+			},
+			["Permissions"] = {
+				"Policia",
+				"choque.permissao",
 				"policia.permissao",
 				"polpar.permissao",
 				"portadp.permissao",

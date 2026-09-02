@@ -59,7 +59,7 @@ function utils.hasPlayerGotGroup(filter)
                 local gang = playerData.gang.name == name
                 local citizenId = playerData.citizenid == name
 
-                if job and grade <= playerData.job.grade.level or gang and grade <= playerData.gang.grade.level or citizenId then
+                if job and (grade == 0 or grade >= playerData.job.grade.level) or gang and (grade == 0 or grade >= playerData.gang.grade.level) or citizenId then
                     return true
                 end
             end

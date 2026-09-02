@@ -363,7 +363,7 @@ local function checkAndOpen(farm)
                 showFarmMenu(farm, group)
             end
         end
-    elseif ((PlayerJob and farm.group.name == PlayerJob.name) or (PlayerGang and farm.group.name == PlayerGang.name) or LocalPlayer.state[farm.group.name]) then
+    elseif (farm.group.name == nil) or ((PlayerJob and farm.group.name == PlayerJob.name) or (PlayerGang and farm.group.name == PlayerGang.name) or LocalPlayer.state[farm.group.name]) then
         showFarmMenu(farm, farm.group.name)
     end
 end

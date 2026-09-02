@@ -979,7 +979,18 @@ function vRP.ServiceEnter(source,Passport,Permission,Silenced)
 
 	if Group.Service then
 		Group.Service[Passport] = source
-		TriggerClientEvent("service:Client",source,Permission,true)
+        Player(source).state:set("Service",Permission,true)
+
+        if Group.Parent then
+            local ParentGroup = Groups[Group.Parent]
+            if ParentGroup.Service then
+		        ParentGroup.Service[Passport] = source
+            end
+        end
+	end
+
+    if Group.Markers then
+		TriggerEvent("vrp_blipsystem:serviceEnter",source,Permission)
 	end
 
 	if not Silenced then
@@ -1006,8 +1017,15 @@ function vRP.ServiceLeave(source,Passport,Permission,Silenced)
 	end
 
 	if Group.Service and Group.Service[Passport] then
-		TriggerClientEvent("service:Client",source,Permission,false)
+        Player(source).state:set("Service",nil,true)
 		Group.Service[Passport] = nil
+
+        if Group.Parent then
+            local ParentGroup = Groups[Group.Parent]
+            if ParentGroup.Service then
+		        ParentGroup.Service[Passport] = source
+            end
+        end
 	end
 
     if Group["Markers"] then

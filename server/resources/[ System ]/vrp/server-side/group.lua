@@ -1,5 +1,6 @@
 local Permissions = {}
 local Groups = module('vrp',"config/Groups") or {}
+local PoliceGroups = Groups["Policia"] or {}
 RegisterServerEvent("Reborn:reloadInfos",function() Groups = module('vrp',"config/Groups") end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- GROUPS FUNCTIONS
@@ -74,19 +75,18 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 local ClientPerms = {
 	['police'] = "Police",
-    ["civil"] = "Police",
-    ["rota"] = "Police",
-    ["baep"] = "Police",
-    ["ft"] = "Police",
-    ["tor"] = "Police",
-    ["gcm"] = "Police",
-    ["pmerj"] = "Police",
-    ["bope"] = "Police",
-    ["core"] = "Police",
 	['ambulance'] = "Paramedic",
 	['mechanic'] = "Mechanic",
 	['admin'] = "Admin",
 }
+
+do
+	for k,pol in pairs(PoliceGroups) do
+		if Groups[pol] and Groups[pol]["QBESXGroup"] then
+			ClientPerms[Groups[pol]["QBESXGroup"]] = "police"
+		end
+	end
+end
 
 function vRP.insertPermission(user_id,group,hierarchy)
 	local user = parseInt(user_id)
@@ -116,9 +116,6 @@ function vRP.insertPermission(user_id,group,hierarchy)
 
 		if Group.Type == "vip" then
 			Player(nplayer)["state"]["Premium"] = hierarchy
-		end
-		if Group["Markers"] then
-			TriggerEvent("vrp_blipsystem:serviceEnter",nplayer,group)
 		end
 
 		vRP.ServiceEnter(nplayer,user,group,true)

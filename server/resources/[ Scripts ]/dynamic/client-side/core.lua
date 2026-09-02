@@ -206,26 +206,26 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- EMERGENCYFUNCTIONS
 -----------------------------------------------------------------------------------------------------------------------------------------
+local Groups = module('vrp',"config/Groups") or {}
+local PoliceGroups = Groups["Policia"] or {}
+
 RegisterCommand("EmergencyFunctions",function()
-	if (LocalPlayer["state"]["Police"] or LocalPlayer["state"]["Paramedic"] or LocalPlayer["state"]["Mechanic"]) and not IsPauseMenuActive() and not LocalPlayer["state"]["Commands"] and not LocalPlayer["state"]["Handcuff"] and not LocalPlayer["state"]["Prison"] and not Dynamic then
+	if LocalPlayer["state"]["Service"] and (LocalPlayer["state"]["Police"] or LocalPlayer["state"]["Paramedic"] or LocalPlayer["state"]["Mechanic"]) and not IsPauseMenuActive() and not LocalPlayer["state"]["Commands"] and not LocalPlayer["state"]["Handcuff"] and not LocalPlayer["state"]["Prison"] and not Dynamic then
 		local Ped = PlayerPedId()
 		if LocalPlayer["state"]["Police"] then
 			if GetEntityHealth(Ped) > 101 and not IsPedInAnyVehicle(Ped, false) then
 				exports["dynamic"]:AddButton("Anuncio Policia","Fazer um anúncio para todos os moradores.","dynamic:EmergencyAnnounce","",false,true)
 				if GetResourceState("mdt") == "started" then
-					local PoliceGroups = { "PMESP", "PMERJ", "ROTA", "BOPE", "BAEP", "CORE", "FT", "TOR", "GCM" }
 					local HasPolice = false
-					for k,v in pairs(PoliceGroups) do
-						for k2,v2 in pairs(LocalPlayer["state"]) do
-							if k2:find(v) then
-								HasPolice = true
-								exports["dynamic"]:AddButton("Computador","Computador de bordo policial.","mdt:Open",v,false,false)
-								break
-							end
+					for k,v in pairs(PoliceGroups["Permissions"]) do
+						if LocalPlayer["state"][v] then
+							HasPolice = true
+							exports["dynamic"]:AddButton("Computador","Computador de bordo policial.","mdt:Open",v,false,false)
+							break
 						end
 					end
 					if not HasPolice then
-						exports["dynamic"]:AddButton("Computador","Computador de bordo policial.","mdt:Open","",false,false)
+						exports["dynamic"]:AddButton("Computador","Computador de bordo policial.","mdt:Open","Policia",false,false)
 					end
 				else
 					exports["dynamic"]:AddButton("Computador","Computador de bordo policial.","police:Open","",false,false)
