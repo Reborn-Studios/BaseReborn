@@ -74,6 +74,7 @@ end
 -- NUMPERMISSION
 -----------------------------------------------------------------------------------------------------------------------------------------
 local ClientPerms = {
+	['police'] = "Police",
 	['ambulance'] = "Paramedic",
 	['mechanic'] = "Mechanic",
 	['admin'] = "Admin",
