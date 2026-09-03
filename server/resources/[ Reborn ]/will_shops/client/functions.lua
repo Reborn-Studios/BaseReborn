@@ -702,7 +702,8 @@ function StartFuelThread()
 						if nozzle then
 							nozzleLocation = GetEntityCoords(nozzle)
 							if #(nozzleLocation - objCds) > 6.0 then
-								dropNozzle()
+								returnNozzleToPump()
+								ClearPedTasks(ped)
 							elseif #(objCds - coords) > 6.0 then
 								returnNozzleToPump()
 							end
