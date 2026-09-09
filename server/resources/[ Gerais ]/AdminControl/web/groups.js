@@ -124,6 +124,13 @@ $(document).ready(function () {
     if (data.which === 27) {
       groupsPanel.hide();
       $.post("https://AdminControl/closeGroups", JSON.stringify({}));
+      Elevadores.sendData(
+        "UIRequest",
+        {
+          action: "close",
+        },
+        false,
+      );
     }
   };
 });

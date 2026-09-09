@@ -42,17 +42,6 @@ Elevadores = {
         }
       }
     });
-    document.onkeyup = function (event) {
-      if (event.which == 27) {
-        Elevadores.sendData(
-          "UIRequest",
-          {
-            action: "close",
-          },
-          false,
-        );
-      }
-    };
   },
   showElevadores: function (elevatorId, andares) {
     $("#elevator").html(
