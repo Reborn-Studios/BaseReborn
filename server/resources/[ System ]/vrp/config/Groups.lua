@@ -155,6 +155,230 @@ local groups = {
 		},
 		["Service"] = {},
 	},
+	["Phoenix"] = {
+		["Name"] = "Mansão Phoenix",
+		["Type"] = "Mansao",
+		["Hierarchy"] = {
+			[1] = {
+				["Group"] = "Phoenix",
+				["Title"] = "Mansão Phoenix",
+				["Permission"] = {
+					"phoenix.permissao",
+				}
+			}
+		},
+		["Permissions"] = {
+			"mansao.permissao",
+		}
+	},
+	["Miami"] = {
+		["Name"] = "Mansão Miami",
+		["Type"] = "Mansao",
+		["Hierarchy"] = {
+			[1] = {
+				["Group"] = "Miami",
+				["Title"] = "Mansão Miami",
+				["Permission"] = {
+					"miami.permissao",
+				}
+			}
+		},
+		["Permissions"] = {
+			"mansao.permissao",
+		}
+	},
+	["Branca"] = {
+		["Name"] = "Mansão Branca",
+		["Type"] = "Mansao",
+		["Hierarchy"] = {
+			[1] = {
+				["Group"] = "Branca",
+				["Title"] = "Mansão Branca",
+				["Permission"] = {
+					"branca.permissao",
+				}
+			}
+		},
+		["Permissions"] = {
+			"mansao.permissao",
+		}
+	},
+	["Orlando"] = {
+		["Name"] = "Mansão Orlando",
+		["Type"] = "Mansao",
+		["Hierarchy"] = {
+			[1] = {
+				["Group"] = "Orlando",
+				["Title"] = "Mansão Orlando",
+				["Permission"] = {
+					"orlando.permissao",
+				}
+			}
+		},
+		["Permissions"] = {
+			"mansao.permissao",
+		}
+	},
+	["Atlanta"] = {
+		["Name"] = "Mansão Atlanta",
+		["Type"] = "Mansao",
+		["Hierarchy"] = {
+			[1] = {
+				["Group"] = "Atlanta",
+				["Title"] = "Mansão Atlanta",
+				["Permission"] = {
+					"atlanta.permissao",
+				}
+			},
+		},
+		["Permissions"] = {
+			"mansao.permissao",
+		},
+	},
+	["CasaHospital"] = {
+		["Name"] = "Casa Hospital",
+		["Type"] = "Mansao",
+		["Hierarchy"] = {
+			[1] = {
+				["Group"] = "Hospital",
+				["Title"] = "Mansão Hospital",
+				["Permission"] = {
+					"hospital.permissao",
+				}
+			},
+		},
+		["Permissions"] = {
+			"mansao.permissao",
+		},
+	},
+	["Acapulco"] = {
+		["Name"] = "Mansão Acapulco",
+		["Type"] = "Mansao",
+		["Hierarchy"] = {
+			[1] = {
+				["Group"] = "Acapulco",
+				["Title"] = "Mansão Acapulco",
+				["Permission"] = {
+					"acapulco.permissao",
+				}
+			},
+		},
+		["Permissions"] = {
+			"mansao.permissao",
+		},
+	},
+	["Bahamas"] = {
+		["Name"] = "Mansão Bahamas",
+		["Type"] = "Mansao",
+		["Hierarchy"] = {
+			[1] = {
+				["Group"] = "Bahamas",
+				["Title"] = "Mansão Bahamas",
+				["Permission"] = {
+					"bahamas.permissao",
+				}
+			},
+		},
+		["Permissions"] = {
+			"mansao.permissao",
+		},
+	},
+	["Detroit"] = {
+		["Name"] = "Mansão Detroit",
+		["Type"] = "Mansao",
+		["Hierarchy"] = {
+			[1] = {
+				["Group"] = "Detroit",
+				["Title"] = "Mansão Detroit",
+				["Permission"] = {
+					"detroit.permissao",
+				}
+			},
+		},
+		["Permissions"] = {
+			"mansao.permissao",
+		},
+	},
+	["Scarface"] = {
+		["Name"] = "Mansão Scarface",
+		["Type"] = "Mansao",
+		["Hierarchy"] = {
+			[1] = {
+				["Group"] = "Scarface",
+				["Title"] = "Mansão Scarface",
+				["Permission"] = {
+					"scarface.permissao",
+				}
+			},
+		},
+		["Permissions"] = {
+			"mansao.permissao",
+		},
+	},
+	["California"] = {
+		["Name"] = "Mansão California",
+		["Type"] = "Mansao",
+		["Hierarchy"] = {
+			[1] = {
+				["Group"] = "California",
+				["Title"] = "Mansão California",
+				["Permission"] = {
+					"california.permissao",
+				}
+			},
+		},
+		["Permissions"] = {
+			"mansao.permissao",
+		},
+	},
+	["Malibu"] = {
+		["Name"] = "Mansão Malibu",
+		["Type"] = "Mansao",
+		["Hierarchy"] = {
+			[1] = {
+				["Group"] = "Malibu",
+				["Title"] = "Mansão Malibu",
+				["Permission"] = {
+					"malibu.permissao",
+				}
+			},
+		},
+		["Permissions"] = {
+			"mansao.permissao",
+		},
+	},
+	["Baltimore"] = {
+		["Name"] = "Mansão Baltimore",
+		["Type"] = "Mansao",
+		["Hierarchy"] = {
+			[1] = {
+				["Group"] = "Baltimore",
+				["Title"] = "Mansão Baltimore",
+				["Permission"] = {
+					"baltimore.permissao",
+				}
+			},
+		},
+		["Permissions"] = {
+			"mansao.permissao",
+		},
+	},
+	["Madeira"] = {
+		["Name"] = "Mansão Madeira",
+		["Type"] = "Mansao",
+		["Hierarchy"] = {
+			[1] = {
+				["Group"] = "Madeira",
+				["Title"] = "Mansão Madeira",
+				["Permission"] = {
+					"madeira.permissao",
+				}
+			},
+		},
+		["Permissions"] = {
+			"mansao.permissao",
+		},
+	},
 	["Vips"] = {
 		["Name"] = "Vips",
 		["Type"] = "vip",

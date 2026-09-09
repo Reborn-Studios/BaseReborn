@@ -1168,7 +1168,7 @@ Config.garages = {
         },
         ["interior"] = "Garagem_maior"
     },
-    [305] = { ['name'] = "LX03", ['payment'] = false, ['perm'] = false,
+    [305] = { ['name'] = "Branca", ['payment'] = false, ['perm'] = "branca.permissao",
         ["entrada"] = {
             ["blip"] = { -875.02, 46.86, 48.39,195.46 },
             ["veiculo"] = { -875.02, 46.86, 48.39,195.46 }
@@ -1245,7 +1245,7 @@ Config.garages = {
         },
         ["interior"] = "Garagem_maior"
     },
-    [316] = { ['name'] = "LX14", ['payment'] = false, ['perm'] = false,
+    [316] = { ['name'] = "CasaHospital", ['payment'] = false, ['perm'] = "casahospital.permissao",
         ["entrada"] = {
             ["blip"] = { -824.72, 273.44, 85.68,342.78 },
             ["veiculo"] = { -824.72, 273.44, 85.68,342.78 }
@@ -1434,7 +1434,7 @@ Config.garages = {
         },
         ["interior"] = "Garagem_maior"
     },
-    [343] = { ['name'] = "LX44", ['payment'] = false, ['perm'] = false,
+    [343] = { ['name'] = "Phoenix", ['payment'] = false, ['perm'] = "phoenix.permissao",
         ["entrada"] = {
             ["blip"] = { -1750.77, 365.56, 88.85,114.91 },
             ["veiculo"] = { -1750.77, 365.56, 88.85,114.91 }
@@ -1490,14 +1490,14 @@ Config.garages = {
         },
         ["interior"] = "Garagem_maior"
     },
-    [351] = { ['name'] = "LX53", ['payment'] = false, ['perm'] = false,
+    [351] = { ['name'] = "Atlanta", ['payment'] = false, ['perm'] = "atlanta.permissao",
         ["entrada"] = {
             ["blip"] = { -127.89, 1001.16, 234.88,198.68 },
             ["veiculo"] = { -127.89, 1001.16, 234.88,198.68 }
         },
         ["interior"] = "Garagem_maior"
     },
-    [352] = { ['name'] = "LX54", ['payment'] = false, ['perm'] = false,
+    [352] = { ['name'] = "Orlando", ['payment'] = false, ['perm'] = "orlando.permissao",
         ["entrada"] = {
             ["blip"] = { -105.63, 832.61, 234.86,10.25 },
             ["veiculo"] = { -105.63, 832.61, 234.86,10.25 }
@@ -1623,7 +1623,7 @@ Config.garages = {
         },
         ["interior"] = "Garagem_maior"
     },
-    [371] = { ['name'] = "MS04", ['payment'] = false, ['perm'] = false,
+    [371] = { ['name'] = "Miami", ['payment'] = false, ['perm'] = "miami.permissao",
         ["entrada"] = {
             ["blip"] = { -2588.73, 1929.85, 166.46,275.01 },
             ["veiculo"] = { -2588.73, 1929.85, 166.46,275.01 }
@@ -1672,6 +1672,64 @@ Config.garages = {
         },
         ["interior"] = "Garagem_maior"
     },
+    [378] = { ['name'] = "Acapulco", ['payment'] = false, ['perm'] = "acapulco.permissao",
+        ["entrada"] = {
+            ["blip"] = { 819.78, 3427.36, 57.86, 355.97 },
+            ["veiculo"] = { 814.15, 3431.52, 57.86, 180.99 }
+        },
+        ["spawns"] = {
+            { 810.66,3440.75,57.86,182.27 },
+            { 816.79,3440.94,57.86,182.49 }
+        },
+    },
+    [379] = { ['name'] = "Bahamas", ['payment'] = false, ['perm'] = "bahamas.permissao",
+        ["entrada"] = {
+            ["blip"] = { -2714.93,-57.18,16.78,157.53 },
+            ["veiculo"] = { -2711.98,-53.85,16.78,315.21 }
+        },
+        ["spawns"] = {
+            { -2711.98,-53.85,16.78,315.21 },
+        },
+    },
+    [380] = { ['name'] = "Scarface", ['payment'] = false, ['perm'] = "scarface.permissao",
+        ["entrada"] = {
+            ["blip"] = { -3279.42,525.49,12.27,102.97 },
+            ["veiculo"] = { -3280.71,524.99,12.27,102.64 }
+        },
+        ["interior"] = "Garagem_maior"
+    },
+    [381] = { ['name'] = "Madeira", ['payment'] = false, ['perm'] = "madeira.permissao",
+        ["entrada"] = {
+            ["blip"] = { -686.69,961.91,238.74,19.23 },
+            ["veiculo"] = { -686.69,961.91,238.74,19.23 }
+        },
+        ["interior"] = "Garagem_maior"
+    },
+    [382] = { ['name'] = "Malibu", ['payment'] = false, ['perm'] = "malibu.permissao",
+        ["entrada"] = {
+            ["blip"] = { -2604.45,1678.47,141.87,226.97 },
+            ["veiculo"] = { -2604.45,1678.47,141.87,226.97 }
+        },
+        ["interior"] = "Garagem_maior"
+    },
+    [383] = { ['name'] = "California", ['payment'] = false, ['perm'] = "california.permissao",
+        ["entrada"] = {
+            ["blip"] = { -304.16,-726.69,28.04,226.97 },
+            ["veiculo"] = { -304.16,-726.69,28.04,226.97 }
+        },
+        ["spawns"] = {
+            { -307.49,-731.89,27.61,69.32 },
+            { -308.89,-736.21,27.61,71.34 },
+        },
+    },
+    [384] = { ['name'] = "Baltimore", ['payment'] = false, ['perm'] = "baltimore.permissao",
+        ["entrada"] = {
+            ["blip"] = { -1977.02,-492.22,11.58,318.8 },
+            ["veiculo"] = { -1977.02,-492.22,11.58,318.8 }
+        },
+        ["interior"] = "Garagem_luxo"
+    },
+
     --##################--    
     --###   VRPEX   ### --
     --##################--    
@@ -2009,7 +2067,7 @@ Config.garages = {
 if GlobalState['Basics']['Theme'] == "default" then
 
 elseif GlobalState['Basics']['Theme'] == "SP" then
-    Config.garages[384] = { ["name"] = "GCM", ["payment"] = "", ["perm"] = "gcm.permissao",
+    Config.garages[385] = { ["name"] = "GCM", ["payment"] = "", ["perm"] = "gcm.permissao",
         ["entrada"] = {
             ["blip"] = { -460.32,302.5,83.26,301.19 }
         },

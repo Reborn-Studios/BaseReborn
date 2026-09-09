@@ -6,15 +6,24 @@ AddEventHandler('onServerResourceStart', function(resourceName)
         local Houses = GetControlFile("houses")
         local ConvertedHouses = {}
         for k,v in pairs(Houses) do
-            ConvertedHouses[k] = v
-            ConvertedHouses[k].coords.house_out = vector3(v.coords.house_out.x,v.coords.house_out.y,v.coords.house_out.z)
-            ConvertedHouses[k].coords.house_in = vector3(v.coords.house_in.x,v.coords.house_in.y,v.coords.house_in.z)
-            ConvertedHouses[k].coords.chest = vector3(v.coords.chest.x,v.coords.chest.y,v.coords.chest.z)
-            if v.coords.manage then
-                ConvertedHouses[k].coords.manage = vector3(v.coords.manage.x,v.coords.manage.y,v.coords.manage.z)
+            if v and v.coords then
+                ConvertedHouses[k] = v
+                if v.coords.house_out then
+                    ConvertedHouses[k].coords.house_out = vector3(v.coords.house_out.x,v.coords.house_out.y,v.coords.house_out.z)
+                end
+                if v.coords.house_in then
+                    ConvertedHouses[k].coords.house_in = vector3(v.coords.house_in.x,v.coords.house_in.y,v.coords.house_in.z)
+                end
+                if v.coords.chest then
+                    ConvertedHouses[k].coords.chest = vector3(v.coords.chest.x,v.coords.chest.y,v.coords.chest.z)
+                end
+                if v.coords.manage then
+                    ConvertedHouses[k].coords.manage = vector3(v.coords.manage.x,v.coords.manage.y,v.coords.manage.z)
+                end
+                ConvertedHouses[k].noInterior = v.noInterior == true or v.noInterior == "true" or false
             end
         end
-        GlobalState['Houses'] = Houses
+        GlobalState['Houses'] = ConvertedHouses
     end
 end)
 
@@ -41,6 +50,7 @@ function Server.createHouse(House)
         end
         local id = #Houses + 1
         Houses[id] = House
+        Houses[id].id = id
         GlobalState:set("Houses",Houses,true)
         SaveControlFile("houses",id,House)
         TriggerClientEvent("Notify",source,"sucesso","Casa registrada com sucesso!",5000)
