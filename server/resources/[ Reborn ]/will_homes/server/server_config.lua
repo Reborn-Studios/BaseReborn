@@ -100,13 +100,8 @@ function will.tryBuyWithGems(id)
 		local value = Config.Houses[tonumber(id)] and Config.Houses[id].gems or 10000
 		if vRP.request(source,"Deseja comprar a casa por "..value.." gemas?",30) then
 			if vRP.remGmsId(user_id,value) then
-				local newTax = os.time() + Config.taxTime*24*60*60
-				CacheHouses[id].owner = user_id
-				CacheHouses[id].tax = newTax
-				execute('will/buy_home', { house_id = id, owner = user_id, tax = newTax, name = CacheHouses[id].name, friends = json.encode({}), extends = json.encode({}) })
-				vCLIENT.updateHouse(-1, id, CacheHouses[id])
+				RegisterHouse(id,user_id)
 				SendDiscord("[UserID]: "..user_id.." comprou a casa **"..CacheHouses[id].name.."** por: "..value.." gemas")
-				TriggerClientEvent("Notify",source,"sucesso","Casa adquirida com sucesso",5000)
 			else
 				TriggerClientEvent("Notify",source,"negado","Você não possui gemas suficientes",5000)
 			end

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -21,58 +21,326 @@
   </head>
   <body>
     <div class="housesMain" style="display: none">
-      <div class="housesHeader">
-        <h2>Imóveis</h2>
-        <span class="housesCount">2 disponíveis</span>
-      </div>
-      <div class="pageHouses">
-        <div class="housecard">
-          <div class="housecard__img">
-            <img src="./interiors/apartment1.png" alt="apartment1" />
-            <span class="housecard__badge">Nº 033</span>
+      <header class="app-header">
+        <div class="app-header__logo">
+          <div class="logo-icon">
+            <i class="fas fa-building"></i>
           </div>
-          <div class="housecard__body">
-            <div class="housecard__top">
-              <span class="housecard__title">Hotel033</span>
-              <div class="starscard">
-                <i class="fas fa-star star"></i><i class="fas fa-star star"></i
-                ><i class="fas fa-star star"></i
-                ><i class="fas fa-star nostar"></i
-                ><i class="fas fa-star nostar"></i>
+          <div class="logo-text">
+            <h1>IMOBILIÁRIA</h1>
+            <p>ENCONTRE E VISE SEU PRÓXIMO IMÓVEL</p>
+          </div>
+        </div>
+        <div class="nav-pills">
+          <div class="pill pill--active">
+            <span class="pill__label">PAINEL</span>
+            <span class="pill__value">Catálogo de Imóveis</span>
+          </div>
+          <div class="pill">
+            <span class="pill__label">FILTROS</span>
+            <span class="pill__value">Região / Local / Bairro</span>
+          </div>
+          <div class="pill">
+            <span class="pill__label">BANCO</span>
+            <span class="pill__value pill__value--bank">R$ 16.760.230</span>
+          </div>
+          <div class="pill">
+            <span class="pill__label">DIAMANTES</span>
+            <span class="pill__value pill__value--diamond">💎 119</span>
+          </div>
+        </div>
+
+        <button class="close-btn" data-info="close-main">
+          <i class="fas fa-times"></i>
+        </button>
+      </header>
+      <div class="app-body">
+        <aside class="sidebar">
+          <div class="sidebar__section sidebar__section--title">
+            <div class="sidebar__icon sidebar__icon--purple">
+              <i class="fas fa-house"></i>
+            </div>
+            <div>
+              <span class="sidebar__title">Catálogo</span>
+              <span class="sidebar__subtitle"
+                ><span id="totalAvailable">987</span> DE
+                <span id="totalHouses">987</span> IMÓVEIS</span
+              >
+            </div>
+          </div>
+
+          <div class="sidebar__section">
+            <div class="sidebar__header">
+              <span class="sidebar__header-title">REGIÕES</span>
+              <button class="sidebar__clear">Limpar</button>
+            </div>
+            <div class="filter-list" data-filter="regiao">
+              <button class="filter-item filter-item--active" data-value="all">
+                <span>Todos</span><span class="filter-count">987</span>
+              </button>
+              <button class="filter-item" data-value="cidade">
+                <i class="fas fa-caret-down"></i><span>Cidade</span
+                ><span class="filter-count">635</span>
+              </button>
+              <button class="filter-item" data-value="paleto">
+                <i class="fas fa-caret-down"></i><span>Paleto</span
+                ><span class="filter-count">283</span>
+              </button>
+              <button class="filter-item" data-value="sandy">
+                <i class="fas fa-caret-down"></i><span>Sandy</span
+                ><span class="filter-count">88</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="sidebar__section">
+            <div class="sidebar__header">
+              <span class="sidebar__header-title">LOCALIZAÇÕES</span>
+            </div>
+            <div class="filter-list" data-filter="local">
+              <button
+                class="filter-item filter-item--purple filter-item--active"
+                data-value="all"
+              >
+                <span>Todas</span><span class="filter-count">987</span>
+              </button>
+              <button class="filter-item" data-value="centro">
+                <span>Centro</span><span class="filter-count">66</span>
+              </button>
+              <button class="filter-item" data-value="centropaleto">
+                <span>Centro de Paleto</span
+                ><span class="filter-count">61</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="sidebar__section">
+            <div class="sidebar__header">
+              <span class="sidebar__header-title">BAIRROS</span>
+            </div>
+            <div class="filter-list" data-filter="bairro">
+              <button
+                class="filter-item filter-item--purple filter-item--active"
+                data-value="all"
+              >
+                <span>Todos</span><span class="filter-count">987</span>
+              </button>
+              <button class="filter-item" data-value="altodomar">
+                <span>Alto do Mar</span><span class="filter-count">24</span>
+              </button>
+              <button class="filter-item" data-value="belavista">
+                <span>Bela Vista</span><span class="filter-count">63</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="sidebar__section">
+            <div class="sidebar__header">
+              <span class="sidebar__header-title">GARAGEM</span>
+            </div>
+            <div class="filter-list" data-filter="garagem">
+              <button
+                class="filter-item filter-item--purple filter-item--active"
+                data-value="all"
+              >
+                <i class="fas fa-car"></i><span>Todos</span
+                ><span class="filter-count">987</span>
+              </button>
+              <button class="filter-item" data-value="com">
+                <i class="fas fa-check" style="color: #10b981"></i
+                ><span>Com garagem</span>
+              </button>
+              <button class="filter-item" data-value="sem">
+                <i class="fas fa-xmark" style="color: #ef4444"></i
+                ><span>Sem garagem</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="sidebar__section">
+            <div class="sidebar__header">
+              <span class="sidebar__header-title">ESTRELAS</span>
+            </div>
+            <div class="filter-list" data-filter="estrelas">
+              <button
+                class="filter-item filter-item--purple filter-item--active"
+                data-value="all"
+              >
+                <span>Todas</span><span class="filter-count">987</span>
+              </button>
+              <div class="stars-row">
+                <button class="filter-chip" data-value="1">
+                  <span>★☆☆☆☆</span><span class="filter-count">812</span>
+                </button>
+                <button class="filter-chip" data-value="2">
+                  <span>★★☆☆☆</span><span class="filter-count">302</span>
+                </button>
+              </div>
+              <div class="stars-row">
+                <button class="filter-chip" data-value="3">
+                  <span>★★★☆☆</span><span class="filter-count">186</span>
+                </button>
+                <button class="filter-chip" data-value="4">
+                  <span>★★★★☆</span><span class="filter-count">16</span>
+                </button>
+              </div>
+              <div class="stars-row">
+                <button class="filter-chip" data-value="5">
+                  <span>★★★★★</span><span class="filter-count">0</span>
+                </button>
               </div>
             </div>
-            <div class="housecard__details">
-              <span><i class="fas fa-tag"></i> R$550.000</span>
-              <span><i class="fas fa-car"></i> Garagem</span>
-            </div>
-            <button class="loc">
-              <i class="fas fa-location-dot"></i> Localização
+          </div>
+        </aside>
+        <main class="main-content">
+          <div class="main-topbar">
+            <button class="btn-primary btn-primary--cyan" id="openMyProperties">
+              <i class="fas fa-house"></i> Meus Imóveis
             </button>
-          </div>
-        </div>
-        <div class="housecard">
-          <div class="housecard__img">
-            <img src="./interiors/apartment2.png" alt="apartment2" />
-            <span class="housecard__badge">Nº 034</span>
-          </div>
-          <div class="housecard__body">
-            <div class="housecard__top">
-              <span class="housecard__title">Hotel034</span>
-              <div class="starscard">
-                <i class="fas fa-star star"></i><i class="fas fa-star star"></i
-                ><i class="fas fa-star star"></i
-                ><i class="fas fa-star nostar"></i
-                ><i class="fas fa-star nostar"></i>
+            <div class="main-topbar__right">
+              <select class="select-input" id="catalogOrder">
+                <option value="menorpreco">Menor preço</option>
+                <option value="maiorpreco">Maior preço</option>
+                <option value="maisestrelas">Melhor avaliados</option>
+                <option value="menosestrelas">Menos estrelas</option>
+                <option value="numero">Ordem do imóvel (N°)</option>
+                <option value="a_z">A → Z</option>
+                <option value="z_a">Z → A</option>
+              </select>
+              <div class="search-input">
+                <i class="fas fa-magnifying-glass"></i>
+                <input
+                  id="catalogSearch"
+                  type="text"
+                  placeholder="Pesquisar imóvel, local ou bairro..."
+                />
               </div>
             </div>
-            <div class="housecard__details">
-              <span><i class="fas fa-tag"></i> R$550.000</span>
-              <span><i class="fas fa-car"></i> Garagem</span>
+          </div>
+          <div class="list-header">
+            <div>
+              <h2 class="list-header__title">
+                Imóveis disponíveis para visitação
+              </h2>
+              <p class="list-header__subtitle">
+                Use os filtros ao lado para encontrar a casa ideal. A compra
+                continua sendo realizada presencialmente no ponto do imóvel.
+              </p>
             </div>
           </div>
+          <div class="pageHouses"></div>
+          <div class="pagination"></div>
+        </main>
+      </div>
+    </div>
+    <div class="myProperties center" style="display: none">
+      <div class="myProperties__header">
+        <div class="myProperties__title-wrap">
+          <div class="myProperties__icon">
+            <i class="fas fa-house"></i>
+          </div>
+          <div>
+            <span class="myProperties__sub">MINHAS PROPRIEDADES</span>
+            <h2>Meus Imóveis</h2>
+            <p>Acompanhe seus imóveis e o vencimento das taxas.</p>
+          </div>
+        </div>
+        <button class="close-btn" data-info="close-my-properties">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="myProperties__body" id="myPropertiesList"></div>
+      <div class="warning-banner">
+        <i class="fas fa-triangle-exclamation"></i>
+        <span
+          >Sempre acompanhe o vencimento da taxa do seu imóvel aqui. O
+          vencimento da taxa ocorre a cada 15 dias. O valor da taxa é de 10% do
+          valor do imóvel. Se a taxa permanecer atrasada por mais de 5 dias,
+          você perde o imóvel.</span
+        >
+      </div>
+    </div>
+    <div class="propertyDetail center" style="display: none">
+      <button
+        class="close-btn close-btn--topright"
+        data-info="close-property-detail"
+      >
+        <i class="fas fa-times"></i>
+      </button>
+
+      <div class="propertyDetail__hero">
+        <div class="propertyDetail__badge">
+          N° <span id="detailBadge">3</span>
         </div>
       </div>
-      <div class="pagination"></div>
+
+      <div class="propertyDetail__body">
+        <div class="propertyDetail__head">
+          <div>
+            <span class="propertyDetail__sub">IMÓVEL</span>
+            <h2 id="detailTitle">Hotel276</h2>
+          </div>
+          <div class="propertyDetail__stars" id="detailStars"></div>
+        </div>
+
+        <div class="detail-card detail-card--loc">
+          <div class="detail-card__icon">
+            <i class="fas fa-location-dot"></i>
+          </div>
+          <div>
+            <h3 id="detailLocLabel">Cidade</h3>
+            <span id="detailLocValue">Zona Sul • Vila Esperança</span>
+          </div>
+        </div>
+
+        <div class="detail-grid">
+          <div class="detail-card">
+            <span class="detail-card__label">VALOR</span>
+            <h3
+              class="detail-card__value detail-card__value--money"
+              id="detailPrice"
+            >
+              R$ 100.000,00
+            </h3>
+          </div>
+          <div class="detail-card">
+            <span class="detail-card__label">DIAMANTES</span>
+            <h3
+              class="detail-card__value detail-card__value--diamond"
+              id="detailDiamonds"
+            >
+              💎 20 Diamantes
+            </h3>
+          </div>
+          <div class="detail-card">
+            <span class="detail-card__label">GARAGEM</span>
+            <h3 class="detail-card__value" id="detailGarage">Não possui</h3>
+          </div>
+          <div class="detail-card">
+            <span class="detail-card__label">INTERIOR</span>
+            <h3
+              class="detail-card__value detail-card__value--interior"
+              id="detailInterior"
+            >
+              Apartamento 1
+            </h3>
+          </div>
+        </div>
+
+        <div class="info-banner">
+          <i class="fas fa-circle-info"></i>
+          <span>A compra deste imóvel é feita no próprio ponto da casa.</span>
+        </div>
+
+        <div class="detail-actions">
+          <button class="detail-btn detail-btn--map" id="detailMarkMap">
+            <i class="fas fa-location-dot"></i> Marcar no mapa
+          </button>
+          <button class="detail-btn detail-btn--visit" id="detailVisit">
+            <i class="fas fa-eye"></i> Visitar
+          </button>
+        </div>
+      </div>
     </div>
     <div class="container" style="display: none">
       <div class="buy center" style="display: none">
@@ -104,6 +372,7 @@
           </div>
           <div class="info_block info_block--price">
             <h1 id="h_price">R$500.000</h1>
+            <h1 id="h_gems">500 Gemas</h1>
           </div>
           <div class="buttons">
             <a href="#" data-info="home" class="enterHome btn btn--blue"

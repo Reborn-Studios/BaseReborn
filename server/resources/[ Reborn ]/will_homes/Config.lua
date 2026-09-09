@@ -23,7 +23,7 @@ Config.houseTaxes = function(id)    -- Preço das taxas
     else
         house = Houses[id]
     end
-    local price = house.price * 1/10
+    local price = (house.price or 0) * 1/10
     if price > 100000 then
         price = 100000
     end
@@ -76,4 +76,5 @@ Config.Houses_Template = {
     theme = "apartment1",
     stars = 1,
     extends = {},
+    noInterior = false,
 }

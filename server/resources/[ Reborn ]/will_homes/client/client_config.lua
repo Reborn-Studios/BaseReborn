@@ -14,6 +14,7 @@ Theme = {
 local globalHouses = GlobalState['Houses']
 
 AddStateBagChangeHandler("Houses","",function (_,_,value)
+    if not value then return end
     for k,v in pairs(Houses) do
         local exists = false
         for l,w in pairs(value) do
@@ -28,8 +29,8 @@ AddStateBagChangeHandler("Houses","",function (_,_,value)
 
     globalHouses = value
 
-    for k,v in pairs(globalHouses) do
-        local id = #Config.Houses + k
+    for k,v in ipairs(globalHouses) do
+        local id = #Config.Houses + v.id
 		if not Houses[id] then
             Houses[id] = v
         end
@@ -91,7 +92,7 @@ CreateBlips = function(house, coord, col)
     SetBlipSprite(blip, 40)
     SetBlipDisplay(blip, 4)
     SetBlipScale(blip, 0.5)
-    SetBlipColour(blip, col or 64) 
+    SetBlipColour(blip, col or 64)
     SetBlipAsShortRange(blip, true)
     BeginTextCommandSetBlipName("STRING")
     AddTextComponentString("Casa")
@@ -123,10 +124,25 @@ Draw3DText = function(x, y, z, tipo, data)
     end
 end
 
+function setHomeOwned(id)
+    local data = Houses[id]
+    if data then
+        local blip = AddBlipForCoord(data.coords.house_in)
+        SetBlipSprite(blip, 40)
+        SetBlipDisplay(blip, 4)
+        SetBlipScale(blip, 0.5)
+        SetBlipColour(blip, 2)
+        SetBlipAsShortRange(blip, true)
+        BeginTextCommandSetBlipName("STRING")
+        AddTextComponentString("Casa "..data.name)
+        EndTextCommandSetBlipName(blip)
+    end
+end
+
 CreateThread(function()
     Wait(1000)
     for k,v in pairs(Theme) do
-        if IsIplActive(Theme[k].ipl) then 
+        if IsIplActive(Theme[k].ipl) then
             RemoveIpl(Theme[k].ipl)
             RefreshInterior(Theme[k].interiorId)
             PinInteriorInMemory(Theme[k].interiorId)
@@ -140,7 +156,7 @@ function startThread()
         if not Config.targetScript then
 
             CreateThread(function()
-                while true do 
+                while true do
                     local sleepThread = 1500
                     for k,v in pairs(Houses) do
                         local coords = GetEntityCoords(PlayerPedId())
@@ -151,15 +167,15 @@ function startThread()
                             while dist < 2.0 do
                                 dist = #(houseCoords - GetEntityCoords(PlayerPedId()))
                                 sleepThread = 4
-                                if v.owner == 0 then 
+                                if v.owner == 0 then
                                     Draw3DText(v.coords.house_in.x, v.coords.house_in.y, v.coords.house_in.z + 0.2, "venda",v)
-                                    if dist < 1.40 and IsControlJustPressed(0, 38) then 
+                                    if dist < 1.40 and IsControlJustPressed(0, 38) then
                                         joinHouse(k, "Ninguem")
                                         Wait(1000)
                                     end
                                 elseif v.owner == LocalOwner then
                                     Draw3DText(v.coords.house_in.x, v.coords.house_in.y, v.coords.house_in.z + 0.2, "entrar",v)
-                                    if dist < 1.40 and IsControlJustPressed(0, 38) then 
+                                    if dist < 1.40 and IsControlJustPressed(0, 38) then
                                         joinHouse(k, "Sua casa")
                                         Wait(1000)
                                     end
@@ -167,7 +183,7 @@ function startThread()
                                     for i,val in pairs(v.friends) do
                                         if parseInt(val.id) == LocalOwner then
                                             Draw3DText(v.coords.house_in.x, v.coords.house_in.y, v.coords.house_in.z + 0.2, "amigo",v)
-                                            if dist < 1.40 and IsControlJustPressed(0, 38) then 
+                                            if dist < 1.40 and IsControlJustPressed(0, 38) then
                                                 joinHouse(k, "Casa de amigo")
                                                 Wait(1000)
                                             end
@@ -178,49 +194,52 @@ function startThread()
                             end
                         end
 
-                        local dist2 = #(v.coords.house_out - coords)
-
-                        if dist2 < 3.0 then
-                            while dist2 < 2.0 do
-                                dist2 = #(v.coords.house_out - GetEntityCoords(PlayerPedId()))
-                                sleepThread = 4
-                                Draw3DText(v.coords.house_out.x, v.coords.house_out.y, v.coords.house_out.z + 0.2, "sair",v)
-                                if dist2 < 1.40 and IsControlJustPressed(0, 38) then
-                                    exitHouse(k)
-                                    Wait(1000)
-                                end
-                                Wait(sleepThread)
-                            end
-                        end
-
-                        local chest = #(v.coords.chest - coords)
-                        if chest < 3.0 and not robberyMode then 
-                            while chest < 3.0 do
-                                chest = #(v.coords.chest - GetEntityCoords(PlayerPedId()))
-                                sleepThread = 4
-                                Draw3DText(v.coords.chest.x, v.coords.chest.y, v.coords.chest.z + 0.2,"bau",v)
-                                if chest < 1.40 and IsControlJustPressed(0, 38) then 
-                                    openChest(CurId)
-                                    Wait(1000)
-                                end
-                                Wait(sleepThread)
-                            end
-                        end
-                        
-                        if v.coords.manage then
-                            if v.coords.manage then
-                                local mdist =  #(v.coords.manage - coords)
-                                if mdist < 3.0 then 
-                                    while mdist < 3.0 do
-                                        sleepThread = 4
-                                        mdist =  #(v.coords.manage - GetEntityCoords(PlayerPedId()))
-                                        Draw3DText(v.coords.manage.x, v.coords.manage.y, v.coords.manage.z + 0.2,"gerenciar",v)
-                                        if mdist < 2.50 and IsControlJustPressed(0, 38) then 
-                                            manage(CurId)
-                                            Wait(1000)
-                                        end
-                                        Wait(sleepThread)
+                        if not v.noInterior and v.coords and v.coords.house_out then
+                            local dist2 = #(v.coords.house_out - coords)
+                            if dist2 < 3.0 then
+                                while dist2 < 2.0 do
+                                    dist2 = #(v.coords.house_out - GetEntityCoords(PlayerPedId()))
+                                    sleepThread = 4
+                                    Draw3DText(v.coords.house_out.x, v.coords.house_out.y, v.coords.house_out.z + 0.2, "sair",v)
+                                    if dist2 < 1.40 and IsControlJustPressed(0, 38) then
+                                        exitHouse(k)
+                                        Wait(1000)
                                     end
+                                    Wait(sleepThread)
+                                end
+                            end
+                        end
+
+                        if v.coords and v.coords.chest then
+                            local chest = #(v.coords.chest - coords)
+                            if chest < 3.0 and not robberyMode then
+                                while chest < 3.0 do
+                                    chest = #(v.coords.chest - GetEntityCoords(PlayerPedId()))
+                                    sleepThread = 4
+                                    Draw3DText(v.coords.chest.x, v.coords.chest.y, v.coords.chest.z + 0.2,"bau",v)
+                                    if chest < 1.40 and IsControlJustPressed(0, 38) then
+                                        CurId = k
+                                        openChest(k)
+                                        Wait(1000)
+                                    end
+                                    Wait(sleepThread)
+                                end
+                            end
+                        end
+
+                        if not v.noInterior and v.coords and v.coords.manage then
+                            local mdist =  #(v.coords.manage - coords)
+                            if mdist < 3.0 then
+                                while mdist < 3.0 do
+                                    sleepThread = 4
+                                    mdist =  #(v.coords.manage - GetEntityCoords(PlayerPedId()))
+                                    Draw3DText(v.coords.manage.x, v.coords.manage.y, v.coords.manage.z + 0.2,"gerenciar",v)
+                                    if mdist < 2.50 and IsControlJustPressed(0, 38) then
+                                        CurId = k
+                                        manage(k)
+                                        Wait(1000)
+                                    end
+                                    Wait(sleepThread)
                                 end
                             end
                         end
@@ -232,14 +251,15 @@ function startThread()
         else
 
             for k,v in pairs(Houses) do
+                if not v.coords then goto continue end
                 local owner = "Ninguem"
                 local label = "Imobiliária"
                 if parseInt(v.owner) == LocalOwner then
                     owner = "Sua casa"
                     label = "Entrar"
                 else
-                    for i,v in pairs(v.friends) do
-                        if parseInt(v.id) == LocalOwner then
+                    for i,fr in pairs(v.friends or {}) do
+                        if parseInt(fr.id) == LocalOwner then
                             owner = "Casa de amigo"
                             label = "Entrar"
                         end
@@ -257,43 +277,47 @@ function startThread()
                                 event = "will_homes:joinHouse",
                                 label = label,
                                 tunnel = "client",
-                                
+
                             }
                         }
                     })
                 end
 
-                exports["target"]:AddCircleZone("exit"..v.name,v.coords.house_out,0.75,{
-                    name = v.name,
-                    heading = 3374176
-                },{
-                    distance = 2.5,
-                    options = {
-                        {
-                            event = "will_homes:exitHouse",
-                            label = "Sair",
-                            tunnel = "client"
-                        }
-                    },
-                })
+                if not v.noInterior and v.coords.house_out then
+                    exports["target"]:AddCircleZone("exit"..v.name,v.coords.house_out,0.75,{
+                        name = v.name,
+                        heading = 3374176
+                    },{
+                        distance = 2.5,
+                        options = {
+                            {
+                                event = "will_homes:exitHouse",
+                                label = "Sair",
+                                tunnel = "client"
+                            }
+                        },
+                    })
+                end
 
-                exports["target"]:AddCircleZone("chest"..v.name,v.coords.chest,0.75,{
-                    name = v.name,
-                    heading = 3374176
-                },{
-                    distance = 2.5,
-                    shop = k,
-                    options = {
-                        {
-                            event = "will_homes:openChest",
-                            label = "Abrir baú",
-                            tunnel = "client",
-                            
-                        }
-                    }
-                })
+                if v.coords.chest then
+                    exports["target"]:AddCircleZone("chest"..v.name,v.coords.chest,0.75,{
+                        name = v.name,
+                        heading = 3374176
+                    },{
+                        distance = 2.5,
+                        shop = k,
+                        options = {
+                            {
+                                event = "will_homes:openChest",
+                                label = "Abrir baú",
+                                tunnel = "client",
 
-                if v.coords.manage then
+                            }
+                        }
+                    })
+                end
+
+                if not v.noInterior and v.coords.manage then
                     exports["target"]:AddCircleZone("manage"..v.name,v.coords.manage,0.75,{
                         name = v.name,
                         heading = 3374176
@@ -309,6 +333,7 @@ function startThread()
                         }
                     })
                 end
+                ::continue::
             end
 
         end
@@ -318,18 +343,20 @@ end
 CreateThread(function()
 	while true do
 		local timeDistance = 999
-		if robberyMode then
+	if robberyMode and CurId and Houses[CurId] and not Houses[CurId].noInterior then
 			local ped = PlayerPedId()
 			if not IsPedInAnyVehicle(ped) then
 				local speed = GetEntitySpeed(ped)
 				local coords = GetEntityCoords(ped)
-                local theme = Houses[CurId].theme
+                local theme = Houses[CurId].theme or ""
                 if Theme[theme] then theme = "apartment3" end
 
 				if speed > 2 and GetGameTimer() >= homesTheft["police"] then
 					homesTheft["police"] = GetGameTimer() + 15000
-                    local coords = Houses[CurId].coords.house_in
-					vSERVER.callPolice(coords['x'],coords['y'],coords['z'])
+                    local hcoords = Houses[CurId].coords and Houses[CurId].coords.house_in
+                    if hcoords then
+						vSERVER.callPolice(hcoords['x'],hcoords['y'],hcoords['z'])
+                    end
 				end
 				if theftCoords[theme] then
 					for k,v in pairs(theftCoords[theme]) do
@@ -341,7 +368,7 @@ CreateThread(function()
 								DrawText3D(x,y,z,"~g~E~w~   VASCULHAR")
 								if IsControlJustPressed(1,38) then
                                     vRP.playAnim(false,{"amb@prop_human_parking_meter@female@idle_a","idle_a_female"},true)
-                                    local taskBar = exports["taskbar"]:taskHomes()
+                                    local taskBar = exports["taskbar"] and exports["taskbar"]:taskHomes()
                                     if taskBar then
                                         vSERVER.paymentTheft("MOBILE")
                                         homesTheft["theftCoords"][k] = true
@@ -363,13 +390,14 @@ end)
 CreateThread(function()
 	while true do
 		local timeDistance = 999
-        if inHouse and CurId and Houses[CurId] then
+        if inHouse and CurId and Houses[CurId] and not Houses[CurId].noInterior and Houses[CurId].coords and Houses[CurId].coords.house_out and Houses[CurId].coords.house_in then
             Wait(3000)
             TriggerServerEvent("will_homes:updatePos",Houses[CurId].coords.house_in)
-            while inHouse and CurId do
+            while inHouse and CurId and Houses[CurId] and not Houses[CurId].noInterior do
                 local ped = PlayerPedId()
                 local coords = GetEntityCoords(ped)
-                local dist = #(coords - vector3(Houses[CurId].coords.house_out.x,Houses[CurId].coords.house_out.y,Houses[CurId].coords.house_out.z))
+                local outCoords = Houses[CurId].coords.house_out
+                local dist = #(coords - vector3(outCoords.x,outCoords.y,outCoords.z))
                 if dist > 100 then
                     inHouse = false
                     if CurId then
@@ -473,7 +501,7 @@ CreateThread(function ()
                 timeDistance = 1
                 DrawBase3D(painelHousesCds.x,painelHousesCds.y,painelHousesCds.z,"homes")
                 if IsControlJustPressed(1,38) then
-                    SendNUIMessage({ action = "openHousePainel", quantity = math.ceil(#Houses/MAXPERPAGE) })
+                    SendNUIMessage({ action = "openHousePainel", quantity = math.ceil(#Houses/MAXPERPAGE), maxPerPage = MAXPERPAGE, total = #Houses, allHouses = Houses })
                     SetNuiFocus(true,true)
                 end
             end
@@ -482,6 +510,92 @@ CreateThread(function ()
     end
 end)
 
+function getLocationByCoords(coords)
+    local x = coords and coords.x or 0
+    local y = coords and coords.y or 0
+    local region = "Los Santos"
+    local location = "Cidade"
+    local neighborhood = "Centro"
+
+    if y >= 5500 then
+        region = "Paleto Bay"
+        location = "Paleto"
+        neighborhood = x < -400 and "Paleto Oeste" or "Paleto Leste"
+    elseif y >= 3800 then
+        if x >= 1500 then
+            region = "Grapeseed"
+            location = "Grapeseed"
+            neighborhood = "Zona Rural"
+        else
+            region = "Blaine County"
+            location = "Sandy Shores"
+            if x < 1200 then
+                neighborhood = "Harmony"
+            elseif x < 1900 then
+                neighborhood = "Sandy Centro"
+            else
+                neighborhood = "Alamo Mar"
+            end
+        end
+    elseif y >= 2300 and x <= -1000 then
+        region = "Fort Zancudo"
+        location = "Base Militar"
+        neighborhood = "Zona Restrita"
+    elseif y > 400 then
+        region = "Los Santos Norte"
+        location = "North LS"
+        if x < -800 then
+            neighborhood = "Vinewood Hills"
+        elseif x < -200 then
+            neighborhood = "Rockford Hills"
+        elseif x < 500 then
+            neighborhood = "Burton"
+        else
+            neighborhood = "Vinewood"
+        end
+    elseif y >= -1000 then
+        region = "Los Santos Central"
+        location = "Midtown"
+        if x < -1200 then
+            neighborhood = "Little Seoul"
+        elseif x < -600 then
+            neighborhood = "Vespucci"
+        elseif x < 0 then
+            neighborhood = "Downtown"
+        elseif x < 600 then
+            neighborhood = "Mission Row"
+        else
+            neighborhood = "Mirror Park"
+        end
+    elseif y >= -2000 then
+        region = "Los Santos Central"
+        location = "South LS"
+        if x < -600 then
+            neighborhood = "Puerto Los Santos"
+        elseif x < 0 then
+            neighborhood = "Cypress Flats"
+        elseif x < 600 then
+            neighborhood = "El Burro"
+        else
+            neighborhood = "La Mesa"
+        end
+    else
+        region = "Los Santos Sul"
+        location = "Deep South"
+        if x < 0 then
+            neighborhood = "Vespucci Beach"
+        elseif x < 500 then
+            neighborhood = "Davis"
+        elseif x < 900 then
+            neighborhood = "Rancho"
+        else
+            neighborhood = "Grove Street"
+        end
+    end
+
+    return { region = region, location = location, neighborhood = neighborhood }
+end
+
 RegisterNuiCallback("requestHouses",function (data,cb)
     local pagination = data.pagination
     local maxHouses = pagination * MAXPERPAGE
@@ -489,24 +603,49 @@ RegisterNuiCallback("requestHouses",function (data,cb)
     local houses = {}
     for k,v in pairs(Houses) do
         if k > minHouses and k <= maxHouses then
-            v.index = k
-            houses[#houses + 1] = v
+            local loc = getLocationByCoords(v.coords and v.coords.house_in)
+            local houseCopy = {}
+            for fld,val in pairs(v) do houseCopy[fld] = val end
+            houseCopy.index = k
+            houseCopy.region = loc.region
+            houseCopy.location = loc.location
+            houseCopy.neighborhood = loc.neighborhood
+            houseCopy.noInterior = v.noInterior == true or v.noInterior == "true" or false
+            houseCopy.garage = v.garage or false
+            houseCopy.gems = v.gems or math.max(1, math.floor((tonumber(v.price) or 0) / 5000))
+            houses[#houses + 1] = houseCopy
         end
     end
     cb({ houses = houses })
 end)
 
+RegisterNuiCallback("GetAllHouses",function (data,cb)
+    local houses = {}
+    local sorted = {}
+    for k,v in pairs(Houses) do table.insert(sorted, {k = k, v = v}) end
+    table.sort(sorted, function (a,b) return a.k < b.k end)
+    for i = 1, #sorted do
+        local k = sorted[i].k
+        local v = sorted[i].v
+        local loc = getLocationByCoords(v.coords and v.coords.house_in)
+        local houseCopy = {}
+        for fld,val in pairs(v) do houseCopy[fld] = val end
+        houseCopy.index = k
+        houseCopy.id = k
+        houseCopy.region = loc.region
+        houseCopy.location = loc.location
+        houseCopy.neighborhood = loc.neighborhood
+        houseCopy.noInterior = v.noInterior == true or v.noInterior == "true" or false
+        houseCopy.garage = v.garage or false
+        houseCopy.gems = v.gems or math.max(1, math.floor((tonumber(v.price) or 0) / 5000))
+        houses[#houses + 1] = houseCopy
+    end
+    cb({ houses = houses, total = #houses })
+end)
+
 RegisterNuiCallback("setLocation",function (data)
     if tonumber(data.index) and Houses[tonumber(data.index)] then
         local coords = Houses[tonumber(data.index)].coords.house_in
-        SetNewWaypoint(coords.x,coords.y)
-        TriggerEvent("Notify","sucesso","Localização marcada.",5000)
-    end
-end)
-
-exports("MarkProperty",function (id)
-    if Houses[id] then
-        local coords = Houses[id].coords.house_in
         SetNewWaypoint(coords.x,coords.y)
         TriggerEvent("Notify","sucesso","Localização marcada.",5000)
     end

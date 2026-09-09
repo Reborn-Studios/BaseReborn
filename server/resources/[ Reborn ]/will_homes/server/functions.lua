@@ -4,6 +4,7 @@
 Proxy = module("vrp","lib/Proxy")
 vRP = Proxy.getInterface("vRP")
 vRPclient = Tunnel.getInterface("vRP")
+Webhooks = module("config/webhooks") or {}
 
 -----------------------------------
 --########## Funções vRP ##########
@@ -45,7 +46,7 @@ function getPolicesByPermission()
     return vRP.getUsersByPermission("policia.permissao")
 end
 
-function paymentMethod(user_id, price)
+function paymentMethod(user_id, price, house)
     local payment = nil
     if Config.base == "creative" or Config.base == "summerz" then
         payment = vRP.paymentBank(parseInt(user_id),price)
@@ -110,6 +111,10 @@ function getUserBank(user_id)
     return vRP.getBankMoney(user_id)
 end
 
+function getUserGems(user_id)
+    return vRP.getGmsId(user_id)
+end
+
 function getNearestPlayers(source)
     local result = {}
     local users = vCLIENT.nearestPlayers(source, 4)
@@ -158,34 +163,26 @@ CreateThread(function()
 end)
 
 function SendDiscord(text, text2)
-    local Weebhok = ""
-	local ts = os.time()
-	local time = os.date('%Y-%m-%d %H:%M:%S', ts)
+    local Weebhook = Webhooks.webhhokhomes
 	local avatar = 'https://cdn.discordapp.com/attachments/796797155100327976/875550178264903730/unknown.png'
     local embeds = {
-        { 
+        {
             ["title"] = "Imobiliaria",
-            ["type"] = "Reborn Shop",
-
             ["thumbnail"] = {
             	["url"] = avatar
-            }, 
-
+            },
             ["fields"] = {
-                { 
+                {
                     ["name"] = text,
-                    ["value"] = text2
+                    ["value"] = text2 or ""
                 }
             },
-
-            ["footer"] = { 
+            ["footer"] = {
                 ["text"] = os.date("%H:%M:%S - %d/%m/%Y"),
                 ["icon_url"] = avatar
             },
-
             ["color"] =  12422
-
         }
     }
-    PerformHttpRequest(Config.Weebhok, function(Error, Content, Hand) end, 'POST', json.encode({username = "Reborn Shop", embeds = embeds, avatar_url = avatar}), { ['Content-Type'] = 'application/json' })
+    PerformHttpRequest(Weebhook, function(Error, Content, Hand) end, 'POST', json.encode({ username = GlobalState["Basics"]["ServerName"], embeds = embeds, avatar_url = avatar }), { ['Content-Type'] = 'application/json' })
 end
