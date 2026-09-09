@@ -1,1 +1,35 @@
-[]
+[
+    {
+        "CanUseVehicle": false,
+        "Name": "MansaoPhoenix",
+        "Floors": [
+            {
+                "Coords": {
+                    "x": -286.4817810058594,
+                    "y": -723.1135864257813,
+                    "z": 125.47325897216797
+                },
+                "Name": "Mansão",
+                "Icon": "fa-solid fa-circle-sort-up"
+            },
+            {
+                "Coords": {
+                    "x": -271.8051452636719,
+                    "y": -706.6508178710938,
+                    "z": 38.28539276123047
+                },
+                "Name": "Terreo",
+                "Icon": "fa-solid fa-circle-sort"
+            },
+            {
+                "Coords": {
+                    "x": -304.9989013671875,
+                    "y": -721.105224609375,
+                    "z": 28.02860260009765
+                },
+                "Name": "Garagem",
+                "Icon": "fa-solid fa-circle-sort-down"
+            }
+        ]
+    }
+]
