@@ -1,5 +1,17 @@
 {
   "progressColor": "#ff8c00",
+  "notifyPosition": {
+    "top": "20%",
+    "right": "1%"
+  },
+  "itemNotifyPosition": {
+    "bottom": "2%",
+    "left": "50%"
+  },
+  "requestPosition": {
+    "bottom": "8%",
+    "left": "50%"
+  },
   "typeStyles": {
     "success": {
       "color": "#4caf50",
@@ -25,6 +37,28 @@
       "color": "#00c853",
       "gradient": "linear-gradient(90deg, #00c85333 25%, #00962411 50%)",
       "icon": "/dollar.svg"
+    }
+  },
+  "requestStyles": {
+    "default": {
+      "color": "#9c27b0",
+      "gradient": "linear-gradient(90deg, #9c27b033 25%, #4a148c11 50%)"
+    },
+    "success": {
+      "color": "#4caf50",
+      "gradient": "linear-gradient(90deg, #4caf5033 25%, #0e0f0e11 50%)"
+    },
+    "warning": {
+      "color": "#ffb84d",
+      "gradient": "linear-gradient(90deg, #ffb84d33 25%, #ff880011 50%)"
+    },
+    "error": {
+      "color": "#ff4b4b",
+      "gradient": "linear-gradient(90deg, #e9454573 25%, #cc404011 50%)"
+    },
+    "info": {
+      "color": "#2196f3",
+      "gradient": "linear-gradient(90deg, #2196f333 25%, #1565c011 50%)"
     }
   },
   "itemStyles": {
