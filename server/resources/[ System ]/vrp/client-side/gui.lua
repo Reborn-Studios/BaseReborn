@@ -91,6 +91,10 @@ end
 -- REQUEST
 -----------------------------------------------------------------------------------------------------------------------------------------
 function tvRP.request(id,text,time)
+	if GetResourceState("will_notifications") == "started" then
+		local response = exports["will_notifications"]:Request(id, "default", "Confirmação", text, time)
+		return vRPserver._requestResult(id,response)
+	end
 	time = time or 30
 	SendNUIMessage({ act = "request", id = id, text = tostring(text), time = time })
 end
