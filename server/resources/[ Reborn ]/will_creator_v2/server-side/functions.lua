@@ -193,6 +193,12 @@ function CreateCharacter(src, data, clothes)
     return id
 end
 
+RegisterNetEvent("will_creator_v2:inCreator")
+AddEventHandler("will_creator_v2:inCreator",function (status, recreator)
+    local source = source
+    TriggerClientEvent("hudActived",source,not status)
+end)
+
 -- Função chamada ao iniciar um personagem
 --- @param source number
 --- @param user_id number

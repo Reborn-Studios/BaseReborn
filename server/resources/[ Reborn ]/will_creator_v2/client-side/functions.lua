@@ -278,6 +278,71 @@ CreateThread(function()
     end
 end)
 
+
+RegisterNUICallback("CharacterCreator::ImportCharacter",function(data,cb)
+    local CharacterData = json.decode(data.character)
+    if CharacterData["gender"] == "male" then
+        CharacterData["gender"] = "mp_m_freemode_01"
+        ChangeToSkin("mp_m_freemode_01")
+    elseif CharacterData["gender"] == "female" then
+        CharacterData["gender"] = "mp_f_freemode_01"
+        ChangeToSkin("mp_f_freemode_01")
+    end
+    CharacterData["parent1"] = CharacterData["parent1"] or CharacterData["shapeFirst"] or CharacterData[1]
+    CharacterData["parent2"] = CharacterData["parent2"] or CharacterData["shapeSecond"] or CharacterData[2]
+    CharacterData["shape1"] = CharacterData["shape1"] or CharacterData["shapeThird"] or CharacterData[5]
+    CharacterData["shape2"] = CharacterData["shape2"] or CharacterData["skinFirst"] or CharacterData[5]
+    CharacterData["similarity"] = CharacterData["similarity"] or CharacterData["shapeMix"]  or CharacterData[3]
+    CharacterData["skinSimilarity"] = CharacterData["skinSimilarity"] or CharacterData["skinMix"] or CharacterData[3]
+    CharacterData["eyeColor"] = CharacterData["eyeColor"] or CharacterData["eyes"] or CharacterData[4]
+    CharacterData["hair"] = CharacterData["hair"] or CharacterData[10]
+    CharacterData["hairColor"] = CharacterData["hairColor"] or CharacterData["hair-color"] or CharacterData[11]
+    CharacterData["hairColor2"] = CharacterData["hairColor2"] or CharacterData["hair-highlightcolor"] or CharacterData[12]
+    CharacterData["beard"] = CharacterData["beard"] or CharacterData["facialHair"] or CharacterData[22]
+    CharacterData["beardColor"] = CharacterData["beardColor"] or CharacterData["facialHair-color"] or CharacterData[24]
+    CharacterData["eyebrowsStyle"] = CharacterData["eyebrowsStyle"] or CharacterData["eyebrows"] or CharacterData[19]
+    CharacterData["eyebrowsOpacity"] = CharacterData["eyebrowsOpacity"] or CharacterData["eyebrows-opacity"] or CharacterData[20]
+    CharacterData["eyebrowsColor"] = CharacterData["eyebrowsColor"] or CharacterData["eyebrows-color"] or CharacterData[21]
+    CharacterData["eyebrowsColor2"] = CharacterData["eyebrowsColor2"] or CharacterData[22]
+    CharacterData["wrinkles"] = CharacterData["wrinkles"] or CharacterData["ageing"] or CharacterData[9]
+    CharacterData["wrinklesOpacity"] = CharacterData["wrinklesOpacity"] or CharacterData["ageing-opacity"]
+    CharacterData["makeup"] = CharacterData["makeup"] or CharacterData[13]
+    CharacterData["blush"] = CharacterData["blush"] or CharacterData[25]
+    CharacterData["blushColor"] = CharacterData["blushColor"] or CharacterData["blush-color"] or CharacterData[27]
+    CharacterData["aspect"] = CharacterData["aspect"] or CharacterData["complexion"] or CharacterData[6]
+    CharacterData["skin"] = CharacterData["skin"] or CharacterData["sunDamage"]
+    CharacterData["lipstick"] = CharacterData["lipstick"] or CharacterData[16]
+    CharacterData["lipstickColor"] = CharacterData["lipstickColor"] or CharacterData["lipstick-color"] or CharacterData[18]
+    CharacterData["freckles"] = CharacterData["freckles"] or CharacterData[8]
+    CharacterData["bodyHair"] = CharacterData["bodyHair"] or CharacterData["chestHair"] or CharacterData[47]
+    CharacterData["bodyHairColor"] = CharacterData["bodyHairColor"] or CharacterData["chestHair-color"] or CharacterData[49]
+    CharacterData["blemishes1"] = CharacterData["blemishes1"] or CharacterData["bodyBlemishes"] or CharacterData[48]
+    CharacterData["blemishes2"] = CharacterData["blemishes2"] or CharacterData["addBodyBlemishes"] or CharacterData[49]
+    CharacterData["noseWidth"] = CharacterData["noseWidth"] or CharacterData[28]
+    CharacterData["noseHeight"] = CharacterData["noseHeight"] or CharacterData["nosePeakHeight"] or CharacterData[29]
+    CharacterData["noseLength"] = CharacterData["noseLength"] or CharacterData["nosePeakLength"] or CharacterData[30]
+    CharacterData["noseBridge"] = CharacterData["noseBridge"] or CharacterData["noseBoneHigh"] or CharacterData[31]
+    CharacterData["noseTip"] = CharacterData["noseTip"] or CharacterData["noseBoneTwist"] or CharacterData[32]
+    CharacterData["noseShift"] = CharacterData["noseShift"] or CharacterData["nosePeakLowering"] or CharacterData[33]
+    CharacterData["eyebrowsHeight"] = CharacterData["eyebrowsHeight"] or CharacterData["eyeBrownHigh"] or CharacterData[44]
+    CharacterData["eyebrowsWidth"] = CharacterData["eyebrowsWidth"] or CharacterData["eyeBrownForward"] or CharacterData[45]
+    CharacterData["cheekHeight"] = CharacterData["cheekHeight"] or CharacterData["cheeksBoneHigh"] or CharacterData[36]
+    CharacterData["cheekWidth"] = CharacterData["cheekWidth"] or CharacterData["cheeksWidth"] or CharacterData[35]
+    CharacterData["cheekboneWidth"] = CharacterData["cheekboneWidth"] or CharacterData["cheeksBoneWidth"] or CharacterData[45]
+    CharacterData["eyeOpenness"] = CharacterData["eyeOpenness"] or CharacterData["eyesOpenning"] or CharacterData[15]
+    CharacterData["lips"] = CharacterData["lips"] or CharacterData["lipsThickness"] or CharacterData[42]
+    CharacterData["jawWidth"] = CharacterData["jawWidth"] or CharacterData["jawBoneWidth"] or CharacterData[46]
+    CharacterData["jawHeight"] = CharacterData["jawHeight"] or CharacterData["jawBoneBackLength"] or CharacterData[37]
+    CharacterData["chinLength"] = CharacterData["chinLength"] or CharacterData["chinBoneLength"] or CharacterData[38]
+    CharacterData["chinPosition"] = CharacterData["chinPosition"] or CharacterData["chinHole"] or CharacterData[40]
+    CharacterData["chinWidth"] = CharacterData["chinWidth"] or CharacterData["chinBoneWidth"] or CharacterData[39]
+    CharacterData["chinShape"] = CharacterData["chinShape"] or CharacterData["chinBoneLowering"] or CharacterData[41]
+    CharacterData["neckLength"] = CharacterData["neckLength"] or CharacterData["neckThickness"] or CharacterData[43]
+    SkinData = CharacterData
+    ApplyCustomization(PlayerPedId(),CharacterData)
+    cb("ok")
+end)
+
 RegisterNetEvent("will_creator_v2:openBarber")
 AddEventHandler("will_creator_v2:openBarber",function()
     OpenBarbershop()

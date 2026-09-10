@@ -7,6 +7,7 @@ CamOffset = 2
 SpawnCam = nil
 ActiveCam = nil
 CreatorCam = nil
+CurrentAnim = nil
 MulticharCam = nil
 AnimActived = false
 CustomCamLocation = nil
@@ -23,8 +24,10 @@ function FreezeAnim(dict, anim, flag, keep)
     end
     LoadAnim(dict)
     TaskPlayAnim(PlayerPedId(), dict, anim, 3.0, 3.0, -1, flag or 1, 0, false, false, false)
+    if CurrentAnim == anim then return end
+    CurrentAnim = anim
     CreateThread(function()
-        while InMultichar do
+        while InMultichar and CurrentAnim == anim do
             if not IsEntityPlayingAnim(PlayerPedId(), dict, anim, 3) then
                 TaskPlayAnim(PlayerPedId(), dict, anim, 3.0, 3.0, -1, flag or 1, 0, false, false, false)
             end
