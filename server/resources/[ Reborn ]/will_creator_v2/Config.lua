@@ -27,7 +27,7 @@ Config.Theme = {
 Config.EnableMultichar = RebornConfig.multi_personagem()["Enabled"]
 
 -- Coordenadas na escolha do personagem
-Config.MulticharDefaultCoords = vector4(-190.42,-584.84,136.01,11.46)
+Config.MulticharDefaultCoords = vector4(1183.44,-3252.38,-48.99,271.82)
 
 -- Coordenadas por permissão
 Config.Multichar = {
@@ -169,7 +169,7 @@ Config.BarberCategories = {
 -- #############################
 
 -- Coords para criar personagem
-Config.CreateCoords = vector4(1111.49,-3143.9,-37.06,273.81)
+Config.CreateCoords = vector4(854.33,-3000.4,-48.99,97.38)
 
 -- Coords para spawnar apos criação
 Config.SpawnCoords = vector4(-1701.82,-1144.08,13.17,318.35)
