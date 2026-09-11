@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Relacionamento</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="app" class="hidden">
+      <div class="panel">
+        <div class="panelHeader">
+          <div class="panelTitle">
+            <div id="title">Relacionamento</div>
+            <div id="subtitle" class="subtitle"></div>
+          </div>
+          <button id="closeBtn" class="iconBtn" aria-label="Fechar">×</button>
+        </div>
+        <div class="panelBody">
+          <div class="card">
+            <div class="row">
+              <div class="label">Você</div>
+              <div id="meName" class="value">—</div>
+            </div>
+            <div class="row">
+              <div class="label">Pessoa</div>
+              <div id="targetName" class="value">—</div>
+            </div>
+            <div class="row">
+              <div class="label">Status</div>
+              <div id="statusLine" class="pill">—</div>
+            </div>
+            <div id="myRelLine" class="hint hidden"></div>
+          </div>
+          <div id="actions" class="actions"></div>
+          <div id="incoming" class="incoming hidden">
+            <div class="incomingText" id="incomingText"></div>
+            <div class="actions">
+              <button id="acceptBtn" class="btn primary">Aceitar</button>
+              <button id="declineBtn" class="btn ghost">Recusar</button>
+            </div>
+          </div>
+        </div>
+        <div class="panelFooter">
+          <div class="footerHint">ESC para fechar</div>
+        </div>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
