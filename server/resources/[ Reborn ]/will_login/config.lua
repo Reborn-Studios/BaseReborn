@@ -15,9 +15,9 @@ Config.MenuCommand = "referencemenu"            -- Comando para abrir menu
 
 Config.Vehicles = {
     {
-        index = "488",
-        image = "https://api.rebornsystem.com.br/imagens/488.png",
-        title = "Ferrari 488",
+        index = "lancerevolution9",
+        image = "https://api.rebornsystem.com.br/imagens/lancerevolution9.png",
+        title = "Lancer Evolution ",
         days = 3
     },
     {
