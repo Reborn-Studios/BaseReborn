@@ -130,7 +130,7 @@ function vRP.insertPermission(user_id,group,hierarchy)
 			end
 		end
 
-		if Group["OrgPanel"] then
+		if Group["OrgPanel"] and GetResourceState("ld_orgs_v2") == "started" then
 			exports.ld_orgs_v2:syncPlayer(user)
 		end
 	end
@@ -177,7 +177,7 @@ function vRP.removePermission(user_id,group)
 				end
 			end
 
-			if Group["OrgPanel"] then
+			if Group["OrgPanel"] and GetResourceState("ld_orgs_v2") == "started" then
 				exports.ld_orgs_v2:syncPlayer(user)
 			end
 		end
@@ -186,6 +186,15 @@ function vRP.removePermission(user_id,group)
 		Permissions[user][group] = nil
 	end
 end
+
+AddEventHandler("Disconnect",function (user_id,source)
+	if Permissions[user_id] then
+		for group,level in pairs(Permissions[user_id]) do
+			vRP.ServiceLeave(source,user_id,group,true)
+		end
+		Permissions[user_id] = nil
+	end
+end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- HASPERMISSION
 -----------------------------------------------------------------------------------------------------------------------------------------
