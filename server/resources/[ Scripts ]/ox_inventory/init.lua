@@ -35,6 +35,12 @@ for i,Pol in pairs(PoliceGroups["Permissions"]) do
     end
 end
 
+do
+    if not next(shared.police) then
+        shared.police = {["police"] = #PoliceGroups["Hierarchy"]}
+    end
+end
+
 shared.dropslots = GetConvarInt('inventory:dropslots', shared.playerslots)
 shared.dropweight = GetConvarInt('inventory:dropweight', 150000)
 
