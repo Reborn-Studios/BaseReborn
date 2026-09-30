@@ -108,7 +108,10 @@ function getItemWeight(item)
     return 0.5
 end
 
-function tryPayment(user_id, price)
+function tryPayment(user_id, price, gems)
+    if gems then
+        return vRP.remGmsId(user_id, parseInt(gems))
+    end
     if Config.base == "cn" then
         return vRP.PaymentFull(user_id, parseInt(price))
     elseif Config.base == "summerz" then
@@ -118,7 +121,7 @@ function tryPayment(user_id, price)
 end
 
 function paymentBuyShop(user_id, value, shop)
-    local status = tryPayment(user_id, value)
+    local status = tryPayment(user_id, value, shop.gems)
     if status then
         local globalProducts = GlobalState["Will_Shops_Products"]
         globalProducts[shop] = Config.Shops[shop]['products']
