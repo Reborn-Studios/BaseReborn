@@ -1245,12 +1245,6 @@ select {
   font-weight: 500;
 }
 
-.detail-actions {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin-top: 4px;
-}
 .detail-btn {
   display: inline-flex;
   align-items: center;
@@ -1263,6 +1257,7 @@ select {
   letter-spacing: 0.3px;
   cursor: pointer;
   transition: all 0.2s var(--ease);
+  width: 100%;
 }
 .detail-btn--map {
   background: linear-gradient(135deg, var(--red) 0%, #dc2626 100%);
