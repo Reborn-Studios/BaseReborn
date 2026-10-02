@@ -2,7 +2,6 @@ local Tunnel = module("vrp","lib/Tunnel");
 local Proxy = module("vrp","lib/Proxy");
 vRP = Proxy.getInterface("vRP");
 vRPclient = Tunnel.getInterface("vRP")
-local Webhooks = module("config/webhooks") or {}
 
 Server = {};
 Tunnel.bindInterface(GetCurrentResourceName(), Server);
@@ -50,7 +49,11 @@ function Server.getSupply()
                     vRP.giveInventoryItem(Passport,v[1], v[2],true);
                 end
                 TriggerClientEvent('Notify', -1, 'amarelo', 'O jogador: <b>' ..identity["name"]..' '..identity["name2"].. '</b> coletou todos os suprimentos do Air Drop.',5000)
-                vRP.createWeebHook(Webhooks.webhookairdrop,"```prolog\n[ID]: "..Passport.." "..identity["name"].." "..identity["name2"].." \n[===========REVINDICOU O AIR SUPPLY==========]\n[ITENS]: "..json.encode(itens)..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
+                TriggerEvent("vRP:log",{
+                    category = "system",
+                    webhook = "webhookairdrop",
+                    message = "[Air Drop]\n[ID: "..Passport.." "..identity["name"].." "..identity["name2"].." \n[===========REVINDICOU O AIR SUPPLY==========]\n[ITENS]: "..json.encode(itens)
+                })
             end
         else
             TriggerClientEvent('Notify',source,"vermelho",'Esse airdrop já foi coletado.',5000);

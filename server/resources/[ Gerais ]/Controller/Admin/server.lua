@@ -45,6 +45,11 @@ RegisterCommand("kickall",function(source)
 			local user_id = vRP.getUserId(v)
 			vRP.kick(user_id, "Estamos tendo um Terremoto! Voltamos logo")
 		end
+		TriggerEvent("vRP:log",{
+			webhook = "webhookadmin",
+			category = "admin",
+			message = "Jogadores Kickadados!"
+		})
  	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -52,7 +57,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterCommand("say",function(source,args,rawCommand)
 	if HasPermission(source,"say") then
-		TriggerClientEvent("Notify",-1,"aviso","Anuncio Prefeitura",rawCommand:sub(4),15000)
+		TriggerClientEvent("Notify",-1,"Anuncio Prefeitura",rawCommand:sub(4),"aviso",15000)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -66,6 +71,11 @@ RegisterCommand('skin',function(source,args,rawCommand)
             vRPclient.Skin(nplayer,hash)
             vRP.updateSelectSkin(tonumber(args[1]),hash)
             TriggerClientEvent("Notify",source,"Modelo setado","Voce setou a skin <b>"..args[2].."</b> no passaporte <b>"..parseInt(args[1]).."</b>.",5000)
+            TriggerEvent("vRP:log",{
+				webhook = "webhookadmin",
+				category = "admin",
+				message = "[ID]: " ..parseInt(args[1]).."\n[Setou Skin]: "..args[2].."\n[No ID]: "..args[1]
+			})
         end
     end
 end)
@@ -129,7 +139,11 @@ RegisterCommand("item",function(source,args,rawCommand)
 			if GlobalItems[args[1]] then
 				local user_id = vRP.getUserId(source)
 				vRP.giveInventoryItem(user_id,args[1],tonumber(args[2]) or 1, nil, true)
-				vRP.createWeebHook(Webhooks.webhookgive,"```prolog\n[ID]: "..user_id.."\n[PEGOU]: "..args[1].." \n[QUANTIDADE]: "..parseInt(args[2]).." "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
+				TriggerEvent("vRP:log",{
+					webhook = "webhookgive",
+					category = "admin",
+					message = "[ID]: "..user_id.."\n[PEGOU]: "..args[1].." \n[QUANTIDADE]: "..parseInt(args[2])
+				})
 			else
 				local closestItem = findClosestItem(args[1])
 				local similarPercent = similarityPercent(args[1], closestItem)
@@ -137,7 +151,11 @@ RegisterCommand("item",function(source,args,rawCommand)
 					if vRP.request(source,"Você quer pegar o item "..closestItem.."?",30) then
 						local user_id = vRP.getUserId(source)
 						vRP.giveInventoryItem(user_id,closestItem,tonumber(args[2]) or 1, nil, true)
-						vRP.createWeebHook(Webhooks.webhookgive,"```prolog\n[ID]: "..user_id.."\n[PEGOU]: "..closestItem.." \n[QUANTIDADE]: "..parseInt(args[2]).." "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
+						TriggerEvent("vRP:log",{
+							webhook = "webhookgive",
+							category = "admin",
+							message = "[ID]: "..user_id.."\n[PEGOU]: "..closestItem.." \n[QUANTIDADE]: "..parseInt(args[2])
+						})
 					end
 				else
 					TriggerClientEvent("Notify",source,"negado","Item inexistente",5000)
@@ -148,7 +166,11 @@ RegisterCommand("item",function(source,args,rawCommand)
 			if itemData and GlobalItems[itemData[1]] then
 				local user_id = vRP.getUserId(source)
 				vRP.giveInventoryItem(user_id,itemData[1],tonumber(itemData[2]) or 1, nil, true)
-				vRP.createWeebHook(Webhooks.webhookgive,"```prolog\n[ID]: "..user_id.."\n[PEGOU]: "..itemData[1].." \n[QUANTIDADE]: "..parseInt(itemData[2]).." "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
+				TriggerEvent("vRP:log",{
+					webhook = "webhookgive",
+					category = "admin",
+					message = "[ID]: "..user_id.."\n[PEGOU]: "..itemData[1].." \n[QUANTIDADE]: "..parseInt(itemData[2])
+				})
 			end
 		end
 	end
@@ -163,6 +185,11 @@ RegisterCommand("itemall",function(source,args,rawCommand)
 			for k,v in pairs(users) do
 				vRP.giveInventoryItem(parseInt(k),tostring(args[1]),tonumber(args[2]) or 1,nil,true)
 			end
+			TriggerEvent("vRP:log",{
+				webhook = "webhookgive",
+				category = "admin",
+				message = "Todos os jogadores receberam o item "..args[1].." \n[QUANTIDADE]: "..parseInt(args[2])
+			})
 		else
 			TriggerClientEvent("Notify",source,"negado","Item inexistente",5000)
 		end
@@ -189,7 +216,11 @@ RegisterCommand("addcar",function(source,args,rawCommand)
 				TriggerClientEvent("Notify",nplayer,"importante","Voce recebeu <b>"..args[2].."</b> em sua garagem.",5000)
 			end
 			TriggerClientEvent("Notify",source,"importante","Adicionou o veiculo: <b>"..args[2].."</b> no ID:<b>"..args[1].."</b.",5000)
-			vRP.createWeebHook(Webhooks.webhookaddcar,"```prolog\n[ID]: "..user_id.."\n[ADICIONOU NO ID:]: "..args[1].." \n[CARRO]: "..args[2].." "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
+			TriggerEvent("vRP:log",{
+				webhook = "webhookaddcar",
+				category = "admin",
+				message = "[ID]: "..user_id.."\n[ADICIONOU NO ID]: "..args[1].." \n[VEÍCULO]: "..args[2]
+			})
 		else
 			TriggerClientEvent("Notify",source,"aviso","Utilize /addcar (id) (veiculo)",5000)
 		end
@@ -211,7 +242,11 @@ RegisterCommand("addtempcar",function(source,args,rawCommand)
 			vRP.execute('will/add_rend',{user_id = args[1], vehicle = args[2],time = time})
 			vRP.addUserVehicle(parseInt(args[1]), args[2])
 			TriggerClientEvent("Notify",source,"importante","Adicionou o veiculo: <b>"..args[2].."</b> no ID:<b>"..args[1].."</b. por "..args[3].." dias",5000)
-			vRP.createWeebHook(Webhooks.webhookaddcar,"```prolog\n[ID]: "..user_id.."\n[ADICIONOU NO ID:]: "..args[1].." \n[CARRO]: "..args[2].." \n[DIAS]: "..args[3]..""..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
+			TriggerEvent("vRP:log",{
+				webhook = "webhookaddcar",
+				category = "admin",
+				message = "[ID]: "..user_id.."\n[ADICIONOU NO ID]: "..args[1].." \n[VEÍCULO]: "..args[2].." \n[DIAS]: "..args[3]
+			})
 		else
 			TriggerClientEvent("Notify",source,"importante","Utilize /addtempcar (id) (veiculo) (dias)",5000)
 		end
@@ -233,7 +268,11 @@ RegisterCommand("remcar",function(source,args,rawCommand)
 						TriggerClientEvent("Notify",nplayer,"importante","Veiculo <b>"..args[2].."</b> retirado da sua garagem.",5000)
 					end
 					TriggerClientEvent("Notify",source,"importante","Removido o veiculo: <b>"..args[2].."</b> no ID:<b>"..args[1].."</b.",5000)
-					vRP.createWeebHook(Webhooks.webhookaddcar,"```prolog\n[ID]: "..user_id.."\n[REMOVEU DO ID]: "..args[1].." \n[VEICULO]: "..args[2].." "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
+					TriggerEvent("vRP:log",{
+						webhook = "webhookaddcar",
+						category = "admin",
+						message = "[ID]: "..user_id.."\n[REMOVEU DO ID]: "..args[1].." \n[VEÍCULO]: "..args[2]
+					})
 				else
 					TriggerClientEvent("Notify",source,"negado","Cidadão não possui este veiculo",5000)
 				end
@@ -283,7 +322,11 @@ RegisterCommand("kick",function(source,args,rawCommand)
 		if HasPermission(source,"kick") and parseInt(args[1]) > 0 then
 			if vRP.getUserSource(parseInt(args[1])) then
 				vRP.kick(parseInt(args[1]),"Você foi expulso da cidade.")
-				vRP.createWeebHook(Webhooks.webhookkick,"```prolog\n[ID]: "..user_id.."\n[KICKOU]: "..args[1].." "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
+				TriggerEvent("vRP:log",{
+					webhook = "webhookkick",
+					category = "admin",
+					message = "[ID]: "..user_id.."\n[KICKOU]: "..args[1]
+				})
 			else
 				TriggerClientEvent("Notify",source,"negado","Cidadão não esta na cidade",5000)
 			end
@@ -302,7 +345,11 @@ RegisterCommand("ban",function(source,args,rawCommand)
 				vRP.kick(parseInt(args[1]), "Você foi banido do nosso servidor")
 				vRP.execute("vRP/set_banned",{ identifier = tostring(identity.identifier), banned = 1 })
 				TriggerClientEvent("Notify",source,"importante","Você baniu "..args[1]..".",5000)
-				vRP.createWeebHook(Webhooks.webhookban,"```prolog\n[ID]: "..user_id.." \n[BANIU]: "..args[1].." "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
+				TriggerEvent("vRP:log",{
+					webhook = "webhookban",
+					category = "admin",
+					message = "[ID]: "..user_id.."\n[BANIU]: "..args[1]
+				})
 			end
 		end
 	end
@@ -321,7 +368,11 @@ RegisterCommand("wl",function(source,args,rawCommand)
 		if HasPermission(source,"wl") then
 			vRP.setWhitelist(args[1], 1)
 			TriggerClientEvent("Notify",source,"importante","Você Aprovou "..args[1]..".",5000)
-			vRP.createWeebHook(Webhooks.webhookadminwl,"```prolog\n[ID]: "..user_id.."\n[APROVOU WL]: "..args[1].." "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
+			TriggerEvent("vRP:log",{
+				webhook = "webhookadminwl",
+				category = "admin",
+				message = "[ID]: "..user_id.."\n[APROVOU WL]: "..args[1]
+			})
 		end
 	end
 end)
@@ -340,7 +391,11 @@ RegisterCommand("unwl",function(source,args,rawCommand)
 		if identity then
 			vRP.setWhitelist(args[1], 0)
 			TriggerClientEvent("Notify",source,"importante","Você retirou a "..args[1]..".",5000)
-			vRP.createWeebHook(Webhooks.webhookunwl,"```prolog\n[ID]: "..user_id.."\n[RETIROU WL]: "..args[1].." "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
+			TriggerEvent("vRP:log",{
+				webhook = "webhookunwl",
+				category = "admin",
+				message = "[ID]: "..user_id.."\n[RETIROU WL]: "..args[1]
+			})
 		end
 	end
 end)
@@ -354,7 +409,11 @@ RegisterCommand("coins",function(source,args,rawCommand)
 		if identity then
 			vRP.addGmsId(parseInt(args[1]),parseInt(args[2]))
 			TriggerClientEvent("Notify",source,"importante","Coins entregues para "..identity.name.." #"..args[1]..".",5000)
-			vRP.createWeebHook(Webhooks.webhookgems,"```prolog\n[ID]: "..user_id.."\n[PLAYER]: "..args[1].."\n[Coins]: "..args[2].." "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
+			TriggerEvent("vRP:log",{
+				webhook = "webhookadmingems",
+				category = "admin",
+				message = "[ID]: "..user_id.."\n[PLAYER]: "..args[1].."\n[Adicionou Coins]: "..args[2]
+			})
 		end
 	end
 end)
@@ -366,6 +425,12 @@ RegisterCommand("money",function(source,args,rawCommand)
 	if user_id then
 		if HasPermission(source,"money") and parseInt(args[1]) > 0 then
 			vRP.giveInventoryItem(user_id,"dollars",parseInt(args[1]),nil,true)
+			TriggerClientEvent("Notify",source,"importante","Você entregou $"..args[1].." para você.",5000)
+			TriggerEvent("vRP:log",{
+				webhook = "webhookadmin",
+				category = "admin",
+				message = "[ID]: "..user_id.."\n[PLAYER]: "..args[1].."\n[Adicionou Money]: "..args[2]
+			})
 		end
 	end
 end)
@@ -380,7 +445,11 @@ RegisterCommand("unban",function(source,args,rawCommand)
 			if identity and identity[1] then
 				vRP.execute("vRP/set_banned",{ identifier = tostring(identity[1].identifier), banned = 0 })
 				TriggerClientEvent("Notify",source,"importante","Você desbaniu "..args[1]..".",5000)
-				vRP.createWeebHook(Webhooks.webhookunban,"```prolog\n[ID]: "..user_id.." \n[DESBANIU]: "..args[1].." "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
+				TriggerEvent("vRP:log",{
+					webhook = "webhookunban",
+					category = "admin",
+					message = "[ID]: "..user_id.."\n[DESBANIU]: "..args[1]
+				})
 			end
 		end
 	end
@@ -449,7 +518,11 @@ RegisterCommand("group",function(source,args,rawCommand)
 					end
 					vRP.addUserGroup(parseInt(args[1]),tostring(args[2]),tonumber(args[3]))
 					TriggerClientEvent("Notify",source,"sucesso","O cidadão foi setado como " ..vRP.getGroupTitle(args[2],tonumber(args[3])).." ",5000)
-					vRP.createWeebHook(Webhooks.webhookset,"```prolog\n[ID]: "..user_id.." \n[SETOU]: "..args[1].." \n [GROUP]: "..args[2].." "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
+					TriggerEvent("vRP:log",{
+						webhook = "webhookset",
+						category = "admin",
+						message = "[ID]: "..user_id.."\n[SETOU]: "..args[1].."\n [GROUP]: "..args[2].."\n [LEVEL]: "..(args[3] or "")
+					})
 				else
 					TriggerClientEvent("AdminControl:showUserGroups",source,parseInt(args[1]),vRP.getUserGroups(parseInt(args[1])))
 				end
@@ -492,7 +565,11 @@ RegisterCommand("ungroup",function(source,args,rawCommand)
 				vRP.removeUserGroup(parseInt(args[1]),tostring(args[2]))
 				vRP.execute("vRP/del_group",{ user_id = parseInt(args[1]), permiss = tostring(args[2]) })
 				TriggerClientEvent("Notify",source,"sucesso","O cidadão foi retirado de " ..(args[2])..".",5000)
-				vRP.createWeebHook(Webhooks.webhookunset,"```prolog\n[ID]: "..user_id.." \n[TIROU SET DE]: "..args[1].." \n [GROUP]: "..args[2].." "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
+				TriggerEvent("vRP:log",{
+					webhook = "webhookunset",
+					category = "admin",
+					message = "[ID]: "..user_id.."\n[TIROU SET DE]: "..args[1].."\n [GROUP]: "..args[2]
+				})
 			end
 		end
 	end
@@ -530,11 +607,17 @@ RegisterCommand("limparinv",function(source,args,rawCommand)
 		if nplayer ~= nil then
 			vRP.clearInventory(nplayer)
 			TriggerClientEvent("Notify",source,"sucesso","Você limpou inventario de " ..nplayer..".",5000)
-			vRP.createWeebHook(Webhooks.webhooklimparinv,"```prolog\n[ID]: "..user_id.." \n[LIMPOU INV DE]: "..nplayer..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
+			TriggerEvent("vRP:log",{
+				webhook = "webhooklimparinv",
+				message = "[ID]: "..user_id.."\n[LIMPOU INV DE]: "..nplayer
+			})
 		else
 			vRP.clearInventory(user_id)
 			TriggerClientEvent("Notify",source,"sucesso","Você limpou seu inventario",5000)
-			vRP.createWeebHook(Webhooks.webhooklimparinv,"```prolog\n[ID]: "..user_id.." /n[LIMPOU PROPRIO INV]" ..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
+			TriggerEvent("vRP:log",{
+				webhook = "webhooklimparinv",
+				message = "[ID]: "..user_id.."\n[LIMPOU PROPRIO INV]"
+			})
 		end
 	end
 end)
@@ -681,8 +764,11 @@ RegisterCommand("anuncio",function(source,args,rawCommand)
 			if message == "" then
 				return
 			end
-			TriggerClientEvent("Notify",-1,"Prefeitura",message,15000)
-			vRP.createWeebHook(Webhooks.webhookadmin,"```prolog\n[ID]: "..user_id.." \n[ENVIOU MENSAGEM]: "..message.." "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
+			TriggerClientEvent("Notify",-1,"Prefeitura",message,"aviso",15000)
+			TriggerEvent("vRP:log",{
+				webhook = "webhookadmin",
+				message = "[ID]: "..user_id.."\n[ENVIOU MENSAGEM]: "..message
+			})
 		end
 	end
 end)
@@ -706,6 +792,11 @@ RegisterCommand("spec",function(source,args)
         local nplayer = vRP.getUserSource(spectar)
         if nplayer then
             TriggerClientEvent("SpecMode", source,nplayer)
+            TriggerEvent("vRP:log",{
+				category = "admin",
+				webhook = "webhookadmin",
+				message = "[ID]: "..user_id.."\n[INICIOU SPEC EM]: "..spectar
+			})
         else
             TriggerClientEvent("Notify", source, "Negado", "Esse player não está online...",4000)
         end
@@ -721,6 +812,11 @@ RegisterCommand('kill',function(source,args,rawCommand)
             if nplayer then
                 vRPclient.killGod(nplayer)
                 vRPclient.setHealth(nplayer,0)
+				TriggerEvent("vRP:log",{
+					category = "admin",
+					webhook = "webhookadmin",
+					message = "[ID]: "..user_id.."\n[MATOU]: "..args[1]
+				})
             end
         else
             vRPclient.killGod(source)
@@ -761,7 +857,7 @@ local AdmPrison = {}
 RegisterCommand('prisaoadm', function(source, args,rawCommand)
     if HasPermission(source,"prisaoadm") then
 		local data = AdmClient.requestPrison(source)
-		if data[1] and data[2] then
+		if data and data[1] and data[2] then
 			local nplayer = vRP.getUserSource(parseInt(data[1]))
 			if nplayer then
 				TriggerClientEvent("PrisonMode", nplayer, true)
@@ -771,6 +867,11 @@ RegisterCommand('prisaoadm', function(source, args,rawCommand)
 					TriggerClientEvent("Notify", nplayer, "Prisão", "Você foi preso por "..data[2].." minutos", 5000)
 				end
 				AdmPrison[nplayer] = parseInt(data[2])
+				TriggerEvent("vRP:log",{
+					category = "admin",
+					webhook = "webhookadmin",
+					message = "[ID]: "..user_id.."\n[APLICOU PRISAO EM]: "..data[1].."\n[TEMPO]: "..data[2]
+				})
 			end
 			vRP.setUData(parseInt(data[1]),"prison:Adm",json.encode(data))
 		end
@@ -950,6 +1051,11 @@ CreateThread(function ()
 				if DoesEntityExist(nveh) then
 					SetPedIntoVehicle(Ped,nveh,-1)
 				end
+				TriggerEvent("vRP:log",{
+					category = "admin",
+					webhook = "webhookadmin",
+					message = "[ID]: "..user_id.."\n[SPAWNOU]: "..args[1]
+				})
 			end
 		end
 	end)

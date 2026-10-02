@@ -163,26 +163,9 @@ CreateThread(function()
 end)
 
 function SendDiscord(text, text2)
-    local Weebhook = Webhooks.webhhokhomes
-	local avatar = 'https://cdn.discordapp.com/attachments/796797155100327976/875550178264903730/unknown.png'
-    local embeds = {
-        {
-            ["title"] = "Imobiliaria",
-            ["thumbnail"] = {
-            	["url"] = avatar
-            },
-            ["fields"] = {
-                {
-                    ["name"] = text,
-                    ["value"] = text2 or ""
-                }
-            },
-            ["footer"] = {
-                ["text"] = os.date("%H:%M:%S - %d/%m/%Y"),
-                ["icon_url"] = avatar
-            },
-            ["color"] =  12422
-        }
-    }
-    PerformHttpRequest(Weebhook, function(Error, Content, Hand) end, 'POST', json.encode({ username = GlobalState["Basics"]["ServerName"], embeds = embeds, avatar_url = avatar }), { ['Content-Type'] = 'application/json' })
+    TriggerEvent("vRP:log",{
+        category = "system",
+        webhook = "webhhokhomes",
+        message = text.."\n"..text2
+    })
 end

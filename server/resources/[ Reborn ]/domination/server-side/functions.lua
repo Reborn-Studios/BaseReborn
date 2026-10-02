@@ -103,6 +103,11 @@ AddEventHandler("vRP:playerSpawn",function(user_id,source)
 end)
 
 function sendWebhookMessage(webhook, place, winner, facs)
+    TriggerEvent("vRP:log",{
+        category = "ilegal",
+        webhook = "dominationhook",
+        message = "[DOMINAÇÃO]: " ..winner.." dominou o território "..place
+    })
     PerformHttpRequest(webhook, function(err, text, headers) end, 'POST', json.encode({
         embeds = {
             {

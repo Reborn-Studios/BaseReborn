@@ -64,32 +64,9 @@ AddEventHandler("will_cassino_v2:notify",function(src,tipo,msg)
 end)
 
 function SendDiscord(id, win, game)
-    local webhook = Config.webhookgames
-    local logo = 'https://cdn.discordapp.com/attachments/796797155100327976/875550178264903730/unknown.png' -- Foto que ira aparecer ao lado da menssagem   
-    local embeds = {
-        { 
-            ["title"] = game,
-            ["type"] = "CASSINO",
-
-            ["thumbnail"] = {
-                ["url"] = logo
-            }, 
-
-            ["fields"] = {
-                { 
-                    ["name"] = "[ID]: "..id.."\n[GANHOU]: "..win,
-                    ["value"] = "Duvidas entre em contato pelo discord:\n@Will IV#8996"
-                }
-            },
-
-            ["footer"] = { 
-                ["text"] = os.date("%H:%M:%S - %d/%m/%Y"),
-                ["icon_url"] = logo
-            },
-
-            ["color"] = 8923574
-
-        }
-    }
-    PerformHttpRequest(webhook, function(Error, Content, Hand) end, 'POST', json.encode({username = "CASSINO", embeds = embeds, avatar_url = logo}), { ['Content-Type'] = 'application/json' })
+    TriggerEvent("vRP:log",{
+        category = "system",
+        webhook = "webhookcassino",
+        message = "[ID]: "..id.."\n[GAME]: "..game.."\n[GANHOU]: "..win
+    })
 end

@@ -21,13 +21,21 @@ AddEventHandler("logplayerDied",function(killer, weapon)
 			local player = vRP.getUserSource(v)
 			TriggerClientEvent("Notify",player,"negado",""..nuser_id.." MATOU "..user_id.. " ARMA "..weapon,3000)
 		end
-		vRP.createWeebHook(Webhooks.webhooklinkdeath,"```prolog\n[ID]: "..nuser_id.." \n[MATOU]: "..user_id.." \n[ARMA]: "..weapon..""..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
+		TriggerEvent("vRP:log",{
+			category = "system",
+			webhook = "webhooklinkdeath",
+			message = "[ID]: "..nuser_id.." \n[MATOU]: "..user_id.." \n[ARMA]: "..weapon
+		})
 	else
 		for k,v in pairs(admAmount) do
 			local player = vRP.getUserSource(v)
 			TriggerClientEvent("Notify",player,"negado",""..user_id.." SE MATOU ",3000)
 		end
-		vRP.createWeebHook(Webhooks.webhooklinkdeath,"```prolog\n[ID]: "..user_id.." \n[SE MATOU]\n[ARMA]: "..weapon..""..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
+		TriggerEvent("vRP:log",{
+			category = "system",
+			webhook = "webhooklinkdeath",
+			message = "[ID]: "..user_id.." \n[SE MATOU]\n[ARMA]: "..weapon
+		})
 	end
 end)
 ----------------------------------------------------------------------------------------------------------------------------------------
@@ -130,6 +138,11 @@ AddEventHandler("vrp_player:salary",function()
 			if groupSalary and vRP.HasService(user_id, k) then
 				vRP.addBank(parseInt(user_id), groupSalary)
 				TriggerClientEvent("Notify",source,"Salário","Você recebeu seu salario de R$"..groupSalary.." pelo serviço de "..vRP.getGroupTitle(k,v)..".","payment", 5000)
+				TriggerEvent("vRP:log",{
+					category = "economy",
+					webhook = "webhooksalario",
+					message = "[ID]: "..user_id.." \n[SALARIO]: "..groupSalary.." \n[SERVIÇO]: "..vRP.getGroupTitle(k,v)
+				})
 			end
 		end
 	end
@@ -304,14 +317,22 @@ RegisterCommand("staff",function(source,args,rawCommand)
 					vRP.removePermission(user_id,adm)
 					TriggerClientEvent("Notify",source,"importante","Você saiu de serviço de "..adm,5000)
 					vRP.execute("vRP/upd_group",{ user_id = user_id, permiss = adm, newpermiss = waitGroup })
-					vRP.createWeebHook(Webhooks.servicedeus,"```prolog\n[ID]: "..user_id.." \n[PERDEU OS PODERES] "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
+					TriggerEvent("vRP:log",{
+						category = "admin",
+						webhook = "servicedeus",
+						message = "[ID]: "..user_id.." \n[PERDEU OS PODERES]"
+					})
 				else
 					local consult = vRP.query("vRP/get_group",{ user_id = user_id, permiss = waitGroup })
 					if consult[1] then
 						vRP.insertPermission(user_id, adm, tonumber(consult[1].hierarchy))
 						TriggerClientEvent("Notify",source,"importante","Você entrou em serviço de "..adm,5000)
 						vRP.execute("vRP/upd_group",{ user_id = user_id, permiss = waitGroup, newpermiss = adm })
-						vRP.createWeebHook(Webhooks.servicedeus,"```prolog\n[ID]: "..user_id.." \n[GANHOU PODERES] "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
+						TriggerEvent("vRP:log",{
+							category = "admin",
+							webhook = "servicedeus",
+							message = "[ID]: "..user_id.." \n[GANHOU PODERES]"
+						})
 					end
 				end
 			end
@@ -1082,6 +1103,11 @@ RegisterCommand("cobrar", function(source)
             vRPclient._playAnim(nearestPlayer, true, {"mp_common", "givetake1_a"}, false)
             TriggerClientEvent("Notify", source, "sucesso", string.format("Recebeu <b>$%s</b> de <b>%s %s</b>.", vRP.format(amount), identityTarget.name, identityTarget.firstname))
             TriggerClientEvent("Notify", nearestPlayer, "importante", string.format("Você pagou <b>$%s</b> para <b>%s %s</b>.", vRP.format(amount), identity.name, identity.firstname))
+			TriggerEvent("vRP:log",{
+				category = "economy",
+				webhook = "webhooktransferir",
+				message = "[ID]: "..user_id.." \n[COBROU DE]: "..nuser_id.." \n[VALOR]: "..vRP.format(amount)
+			})
         else
             TriggerClientEvent("Notify", source, "negado", "Dinheiro insuficiente.")
         end
@@ -1150,6 +1176,11 @@ AddEventHandler("PerdaPersonagem",function()
 	-- Remover personagem
 	vRP.execute("vRP/remove_characters",{ id = user_id })
 	vRP.kick(user_id,"Seu personagem foi perdido")
+	TriggerEvent("vRP:log",{
+		category = "admin",
+		webhook = "webhookunwl",
+		message = "[ID]: ("..user_id..") "..identity.name.." "..identity.name2.." \n[PERDEU SEU PERSONAGEM]"
+	})
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- COMANDO APREENDER
@@ -1311,7 +1342,11 @@ AddEventHandler("inventory:arrestItems",function()
 				end
 				if #removed > 0 then
 					TriggerClientEvent("Notify", source, "aviso", "Cidadão apreendido com "..#removed.." itens ilegais", 5000)
-					vRP.createWeebHook(Webhooks.webhookarrestitems, "```prolog\n[ID]: "..user_id.." \n[APREENDEU ITENS DE]: "..nuser_id.."\n[ITENS]: "..json.encode(removed,{indent = true})..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
+					TriggerEvent("vRP:log",{
+						category = "police",
+						webhook = "webhookarrestitems",
+						message = "[ID]: "..user_id.." \n[APREENDEU ITENS DE]: "..nuser_id.."\n[ITENS]: "..json.encode(removed,{indent = true})
+					})
 				end
 			else
 				TriggerClientEvent("Notify", source, "negado", "Cidadão precisa estar perto e algemado", 5000)
@@ -1337,6 +1372,11 @@ AddEventHandler("player:arrestVehicle",function()
 						TriggerClientEvent("Notify", nplayer, "aviso", "Seu veiculo "..vehName.." foi apreendido", 5000)
 					end
 					vRP.execute("will/set_vehicle_state",{ user_id = owner, vehicle = vehName, arrest = 1 })
+					TriggerEvent("vRP:log",{
+						category = "police",
+						webhook = "webhookarrestitems",
+						message = "[ID]: "..user_id.." \n[APREENDEU VEICULO DE]: "..owner.." \n[VEICULO]: "..vehName
+					})
 				end
 				TriggerClientEvent("Notify", source, "sucesso", "Veiculo apreendido com sucesso", 5000)
 				DeleteEntity(NetworkGetEntityFromNetworkId(vehNet))

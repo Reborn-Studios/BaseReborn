@@ -36,7 +36,11 @@ RegisterCommand("car",function(source,args,rawCommand)
             local netid = will.spawnVehicle(args[1],x,y,z,heading,{plate=plate},true,GetPlayerRoutingBucket(source))
             local nveh = NetworkGetEntityFromNetworkId(netid)
 			SetPedIntoVehicle(Ped,nveh,-1)
-			SendDiscord("ID: "..user_id, "Spawnou o **"..args[1].."**\n Coordenadas: "..tD(x)..", "..tD(y)..", "..tD(z))
+            TriggerEvent("vRP:log",{
+                category = "admin",
+                webhook = "webhookgarage",
+                message = "[ID]: "..user_id.."\n[Spawnou]: "..args[1].."\n[Coordenadas]: "..tD(x)..", "..tD(y)..", "..tD(z)
+            })
 		end
 	end
 end)
@@ -55,7 +59,11 @@ RegisterCommand("dv",function(source,args,rawCommand)
                     vCLIENT.deleteVehicle(source,veh,true)
                 end
                 local x,y,z = table.unpack(GetEntityCoords(GetPlayerPed(source)))
-                SendDiscord("ID: "..user_id, "Deu DV Area nas coordenadas: "..tD(x)..", "..tD(y)..", "..tD(z))
+                TriggerEvent("vRP:log",{
+                    category = "admin",
+                    webhook = "webhookgarage",
+                    message = "[ID]: "..user_id.."\n[Deu DV Area nas coordenadas]: "..tD(x)..", "..tD(y)..", "..tD(z)
+                })
             end
         else
             local vehicle = vCLIENT.getNearVehicle(source,12)
@@ -64,7 +72,11 @@ RegisterCommand("dv",function(source,args,rawCommand)
                 local veh,vehNet,vehPlate,vehName = vCLIENT.vehList(source,11)
                 if vehName then
                     local x,y,z = table.unpack(GetEntityCoords(GetPlayerPed(source)))
-                    SendDiscord("ID: "..user_id, "Deletou o **"..vehName.."**\n Coordenadas: "..tD(x)..", "..tD(y)..", "..tD(z))
+                    TriggerEvent("vRP:log",{
+                        category = "admin",
+                        webhook = "webhookgarage",
+                        message = "[ID]: "..user_id.."\n[Deletou]: "..vehName.."\n[Coordenadas]: "..tD(x)..", "..tD(y)..", "..tD(z)
+                    })
                 end
             end
         end
@@ -83,7 +95,11 @@ RegisterCommand("fix",function(source,args,rawCommand)
 			if vehicle then
 				TriggerClientEvent("will_garages_v2:repairVehicle",-1,vehNet,true)
 				local x,y,z = table.unpack(GetEntityCoords(GetPlayerPed(source)))
-				SendDiscord("ID: "..user_id, "Deu fix no carro **"..vehName.."**\n Coordenadas: "..tD(x)..", "..tD(y)..", "..tD(z))
+				TriggerEvent("vRP:log",{
+                    category = "admin",
+                    webhook = "webhookgarage",
+                    message = "[ID]: "..user_id.."\n[Deu fix]: "..vehName.."\n[Coordenadas]: "..tD(x)..", "..tD(y)..", "..tD(z)
+                })
 			end
 		end
 	end
@@ -566,6 +582,16 @@ function will.getVehicleType(name)
     end
     return vtype
 end
+
+function will.getVehicleLocation(plate)
+    for vehId,v in pairs(vehlist) do
+        if v[3] == plate then
+            local Vehicle = NetworkGetEntityFromNetworkId(vehId)
+            return GetEntityCoords(Vehicle)
+        end
+    end
+    return nil
+end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- LOCK VEHICLE
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -689,6 +715,18 @@ exports('remVehicle',function(user_id, vehicle)
 end)
 
 -- ## exports['will_garages_v2']:remVehicle(user_id, vehicle)
+
+exports('sellVehicle',function(source, vehicle, price, plate)
+    return sellVehicle(source, vehicle, price, plate)
+end)
+
+-- ## exports['will_garages_v2']:sellVehicle(source, vehicle, price, plate)
+
+exports('transferVehicle',function(source, nplayer, vehicle, plate)
+    return transferVehicle(source, nplayer, vehicle, plate)
+end)
+
+-- ## exports['will_garages_v2']:transferVehicle(source, nplayer, vehicle, plate)
 
 exports('setVehSpawned',function(source, vehName, plate, vehid)
     local user_id = getUserId(source)

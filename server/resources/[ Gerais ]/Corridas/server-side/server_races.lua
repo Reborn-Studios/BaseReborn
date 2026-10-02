@@ -25,7 +25,11 @@ function Races.finishRaces(selected)
 			payment = math.random(Config.races['payment']['min'],Config.races['payment']['max'])
 		end
 		vRP.giveInventoryItem(user_id,"dollars2",payment)
-		vRP.createWeebHook(Webhooks.webhookraces,"```prolog\n[ID]: "..user_id.."\n[Ganhou da corrida normal]: $"..payment..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
+		TriggerEvent("vRP:log",{
+			category = "economy",
+			webhook = "webhookraces",
+			message = "[ID]: "..user_id.."\n[Ganhou da corrida normal]: $"..payment
+		})
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------

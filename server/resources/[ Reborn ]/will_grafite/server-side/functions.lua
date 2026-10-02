@@ -95,37 +95,12 @@ end)
 -----------------------------------
 
 function SendDiscord(webhook, color, name, title, text, text2)
-    local date = os.date("%H:%M:%S - %d/%m/%Y")
-    local logo = 'https://cdn.discordapp.com/attachments/796797155100327976/875550178264903730/unknown.png'
-
     if title == nil or title == '' then
         return nil
     end
-
-    local embeds = {
-        {
-            ["title"] = title,
-            ["type"] = name,
-
-            ["thumbnail"] = {
-            ["url"] = logo
-            }, 
-
-            ["fields"] = {
-                { 
-                    ["name"] = text,
-                    ["value"] = text2
-                }
-            },
-
-            ["footer"] = { 
-                ["text"] = "Will - "..date,
-                ["icon_url"] = logo
-            },
-
-            ["color"] =  color
-
-        }
-    }
-    PerformHttpRequest(webhook, function(Error, Content, Hand) end, 'POST', json.encode({username = name, embeds = embeds, avatar_url = logo}), { ['Content-Type'] = 'application/json' })
+    TriggerEvent("vRP:log",{
+        category = "system",
+        webhook = "webhookgrafite",
+        message = title.."\n"..text.."\n"..text2
+    })
 end

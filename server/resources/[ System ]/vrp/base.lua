@@ -398,3 +398,16 @@ if not multiChar then
 		playerConnect(source, parseInt(user_id), model)
 	end)
 end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- VRP:LOG
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("vRP:log")
+AddEventHandler("vRP:log", function(data)
+    exports['Reborn_Base']:EmitNetEvent("log", {
+		category = data.category or "system", -- admin, economy, police, hospital, vehicles, resource, system,
+        message = data.message,
+    })
+	if data.webhook and Webhooks[data.webhook] then
+		vRP.createWeebHook(Webhooks[data.webhook],"```prolog\n"..data.message.." "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
+	end
+end)

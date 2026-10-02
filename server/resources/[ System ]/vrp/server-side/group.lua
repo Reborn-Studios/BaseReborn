@@ -283,3 +283,33 @@ function vRP.numPermission(perm, offline)
 	end
 	return users
 end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- HEARTBEAT
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("dashboard:init")
+AddEventHandler("dashboard:init",function ()
+	local ilegalGroups = {
+		"Vanilla", "Vermelhos", "Azuis",
+		"Bahamas", "Verdes", "Mafia",
+		"Cassino", "Milicia", "Motoclub",
+	}
+	CreateThread(function()
+		while true do
+			local ilegals = 0
+            for _,group in pairs(ilegalGroups) do
+                ilegals = ilegals + vRP.AmountService(group)
+            end
+			exports["Reborn_Base"]:EmitNetEvent("heartbeat", {
+				counters = {
+					staff		= vRP.AmountService("Admin"),
+					police		= vRP.AmountService("Policia"),
+					medic		= vRP.AmountService("Hospital"),
+					mechanic	= vRP.AmountService("LSCustoms") + vRP.AmountService("Bennys"),
+					illegal		= ilegals,
+					total		= GetNumPlayerIndices(),
+				},
+			})
+			Wait(20000)
+		end
+	end)
+end)

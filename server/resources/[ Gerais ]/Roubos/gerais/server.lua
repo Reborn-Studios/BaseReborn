@@ -33,7 +33,11 @@ function Robbery.checkPolice(robberyId,coords)
 		if vRP.tryGetInventoryItem(user_id,vars[robberyId].required,1,true) then
 			CashMachine.callPolice(coords.x, coords.y, coords.z,vars[robberyId].name)
 			robberyProgress[cooldownMode] = os.time() + vars[robberyId].cooldown
-			vRP.createWeebHook(Webhooks.rouboshook,"```prolog\n[ID]: "..user_id.."\n[ROUBOU]: "..vars[robberyId].name.." "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
+			TriggerEvent("vRP:log",{
+				category = "ilegal",
+				webhook = "rouboshook",
+				message = "[ID]: "..user_id.."\n[ROUBOU]: "..vars[robberyId].name.."\n[COORDS]: "..coords.x..", "..coords.y..", "..coords.z
+			})
 			return true
 		else
 			TriggerClientEvent("Notify",source,"aviso","Você precisa de <b>1x "..vRP.itemNameList(vars[robberyId].required).."</b>.",4000)

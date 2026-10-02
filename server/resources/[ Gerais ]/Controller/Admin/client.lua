@@ -324,18 +324,10 @@ AddEventHandler('Congelar',function()
     local ped = PlayerPedId()
     if not congelar then
         congelar = true
-        while congelar do
-            FreezeEntityPosition(ped, true);
-            ShakeGameplayCam("LARGE_EXPLOSION_SHAKE",0.80)
-            SetPedToRagdoll(ped,5000,5000,0,false,false,false)
-            SetFlash(0,0,500,1000,500)
-            TriggerEvent("vrp_hud:toggleHood",ped)
-            Citizen.Wait(1000)
-        end
+        FreezeEntityPosition(ped, true);
     else
         congelar = false
         FreezeEntityPosition(ped, false);
-        SetPedComponentVariation(ped,1,0,0,2)
     end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------

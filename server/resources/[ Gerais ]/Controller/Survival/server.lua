@@ -31,13 +31,21 @@ RegisterCommand("god",function(source,args,rawCommand)
 					SvTunnel.revivePlayer(nplayer,MaxHealth)
 					TriggerClientEvent("resetBleeding",nplayer)
 					TriggerClientEvent("resetDiagnostic",nplayer)
-					vRP.createWeebHook(Webhooks.webhookgod,"```prolog\n[ID]: "..user_id.."\n[DEU GOD PARA:]: "..args[1].." "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
+					TriggerEvent("vRP:log",{
+						category = "admin",
+						webhook = "webhookgod",
+						message = "[ID]: "..user_id.."\n[DEU GOD PARA]: "..args[1]
+					})
 				end
 			else
 				SvTunnel.revivePlayer(source,MaxHealth)
 				TriggerClientEvent("resetBleeding",source)
 				TriggerClientEvent("resetDiagnostic",source)
-				vRP.createWeebHook(Webhooks.webhookgod,"```prolog\n[ID]: "..user_id.."\n[DEU GOD PARA SI MESMO]"..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
+				TriggerEvent("vRP:log",{
+					category = "admin",
+					webhook = "webhookgod",
+					message = "[ID]: "..user_id.."\n[DEU GOD PARA SI MESMO]"
+				})
 			end
 		end
 	end
@@ -59,6 +67,11 @@ RegisterCommand("good",function(source,args,rawCommand)
 					vRP.upgradeHunger(parseInt(args[1]),100)
 					TriggerClientEvent("resetBleeding",nplayer)
 					TriggerClientEvent("resetDiagnostic",nplayer)
+					TriggerEvent("vRP:log",{
+						category = "admin",
+						webhook = "webhookgod",
+						message = "[ID]: "..user_id.."\n[DEU GOOD PARA]: "..args[1]
+					})
 				end
 			else
 				vRP.upgradeThirst(user_id,100)
@@ -68,6 +81,11 @@ RegisterCommand("good",function(source,args,rawCommand)
 				SvTunnel.revivePlayer(source,MaxHealth)
 				TriggerClientEvent("resetBleeding",source)
 				TriggerClientEvent("resetDiagnostic",source)
+				TriggerEvent("vRP:log",{
+					category = "admin",
+					webhook = "webhookgod",
+					message = "[ID]: "..user_id.."\n[DEU GOOD PARA SI MESMO]"
+				})
 			end
 		end
 	end
@@ -108,7 +126,11 @@ function RevivePlayer(user_id, nplayer)
 						SvTunnel.revivePlayer(nplayer,110)
 						TriggerClientEvent("resetBleeding",nplayer)
 						TriggerClientEvent("cancelando",source,false)
-						vRP.createWeebHook(Webhooks.webhookreviver,"```prolog\n[ID]: "..user_id.."\n[REVIVEU:]: "..vRP.getUserId(nplayer).." "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
+						TriggerEvent("vRP:log",{
+							category = "hospital",
+							webhook = "webhookreviver",
+							message = "[ID]: "..user_id.."\n[REVIVEU]: "..vRP.getUserId(nplayer)
+						})
 					end)
 				else
 					SetTimeout(10000,function()
@@ -196,7 +218,12 @@ RegisterCommand("socorro",function(source,args,rawCommand)
 					if vRP.paymentBank(user_id,valor) then
 						SvTunnel.revivePlayer(source,120)
 						TriggerClientEvent("resetBleeding",source)
-						vRP.createWeebHook(Webhooks.webhooksocorro,"```prolog\n[ID]: "..user_id.."\n[DEU SOCORRO]"..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
+						TriggerClientEvent("resetDiagnostic",source)
+						TriggerEvent("vRP:log",{
+							category = "hospital",
+							webhook = "webhooksocorro",
+							message = "[ID]: "..user_id.."\n[DEU SOCORRO]"
+						})
 					else
 						TriggerClientEvent("Notify",source,"negado","Dinheiro insuficiente na sua conta bancária.",3000)
 					end
@@ -246,3 +273,19 @@ function SvServer.callMedics()
         TriggerClientEvent("Notify",source,"negado","Não tem medicos em serviço.",5000)
     end
 end
+
+CreateThread(function ()
+	Wait(1000)
+	exports['Reborn_Base']:DashboardEventHandler("player.revive",function (payload)
+		local id = tonumber(payload.id)
+		local src = vRP.getUserSource(id)
+		if src then
+			SvTunnel.revivePlayer(src,MaxHealth)
+			exports['Reborn_Base']:EmitNetEvent("log", {
+				category = "hospital",
+				message = "ID ("..id..") Revivido pelo dashboard",
+			})
+			return { ok = true }
+		end
+	end)
+end)

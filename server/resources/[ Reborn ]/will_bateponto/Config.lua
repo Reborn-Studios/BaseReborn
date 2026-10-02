@@ -27,6 +27,11 @@ end
 
 Config.func = {
     sendDiscord = function(webhook, title, text)
+        TriggerEvent("vRP:log",{
+            category = "system",
+            webhook = "",
+            message = title.." "..text
+        })
         vRP.createWeebHook(webhook, "```prolog\n"..title.." "..text.." "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
     end,
 }

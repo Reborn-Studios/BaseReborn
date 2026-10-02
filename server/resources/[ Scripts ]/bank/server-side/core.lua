@@ -684,7 +684,20 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- ADDTRANSACTIONS
 -----------------------------------------------------------------------------------------------------------------------------------------
+local webhooksTypes = {
+	Deposit = "webhookdepositou",
+	Withdraw = "webhooksacar",
+	TransferTo = "webhooktransferiu",
+	InvoiceTo = "webhookfatura",
+	Fine = "webhookmultas",
+}
+
 exports("AddTransactions",function(Passport,Type,Price,Reference)
+	TriggerEvent("vRP:log",{
+		category = "economy",
+		webhook = webhooksTypes[Type] or "webhookbank",
+		message = "[Bank]\n[ID]: "..Passport.."\n[TYPE]: "..Type.."\n[VALOR]: "..Price.."\n[REFERENCIA]: "..Reference
+	})
 	exports.oxmysql:insert_async("INSERT INTO bank_transactions (Passport,Type,Price,Timestamp,Reference) VALUES (@Passport,@Type,@Price,@Timestamp,@Reference)",{ Passport = Passport, Type = Type, Price = Price, Timestamp = os.time(), Reference = Reference or "" })
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------

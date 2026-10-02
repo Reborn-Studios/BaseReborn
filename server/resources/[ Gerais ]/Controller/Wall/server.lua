@@ -44,6 +44,10 @@ function WallServer.reportLog(toggle)
 		else
 			ActiveWall[source] = nil
 		end
-		vRP.createWeebHook(Webhooks.webhookids,"```prolog\n[ID]: "..user_id.." \n[STATUS DO WALL]: ".. toggle ..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
+		TriggerEvent("vRP:log",{
+			category = "admin",
+			webhook = "webhookids",
+			message = "[ID]: "..user_id.."\n[STATUS DO WALL]: ".. toggle
+		})
 	end
 end

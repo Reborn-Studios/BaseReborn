@@ -146,7 +146,11 @@ local function getDiagnostic(source,nplayer)
 		elseif not hurt then
 			TriggerClientEvent("Notify",source,"Diagnostico","Status do paciente:<br>- <b>Nada encontrado</b>","ambulance",5000)
 		end
-		vRP.createWeebHook(Webhooks.webhookdiagnostico,"```prolog\n[ID]: "..user_id.."\n[DIAGNOSTICOU]: "..nplayer.."\n[RESULTADO]: "..text.. " "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
+		TriggerEvent("vRP:log",{
+			category = "hospital",
+			webhook = "webhookdiagnostico",
+			message = "[ID]: "..user_id.."\n[DIAGNOSTICOU]: "..nplayer.."\n[RESULTADO]: "..text
+		})
 	end
 end
 
@@ -180,7 +184,11 @@ local function getTreatment(user_id,nplayer)
 				TriggerClientEvent("resetDiagnostic",nplayer)
 				vRPclient._stopAnim(source)
 				TriggerClientEvent("Notify",source,"Tratamento","O tratamento começou.","ambulance",5000)
-				vRP.createWeebHook(Webhooks.webhooktratamento,"```prolog\n[ID]: "..user_id.."\n[DEU TRATAMENTO PARA:]: "..nplayer.." "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
+				TriggerEvent("vRP:log",{
+					category = "hospital",
+					webhook = "webhooktratamento",
+					message = "[ID]: "..user_id.."\n[DEU TRATAMENTO PARA]: "..vRP.getUserId(nplayer).." "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S")
+				})
 			end
 		end
 	end

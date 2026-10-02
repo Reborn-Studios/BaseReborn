@@ -57,6 +57,11 @@ RegisterCommand("time",function(source,args,rawCommand)
 		if GlobalState.clockHours >= 24 then
 			GlobalState.clockHours = 0
 		end
+		TriggerEvent("vRP:log",{
+			category = "admin",
+			webhook = "webhookadmin",
+			message = "[ID]: "..user_id.."\n[ALTEROU TEMPO]: "..args[1]..":"..args[2]
+		})
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -65,5 +70,10 @@ end)
 RegisterCommand("weather",function(source,args,rawCommand)
 	if HasPermission(source,"weather") and args[1] ~= "" and weatherTypes[string.upper(args[1])] then
 		GlobalState.weatherSync = string.upper(args[1])
+		TriggerEvent("vRP:log",{
+			category = "admin",
+			webhook = "webhookadmin",
+			message = "[ID]: "..user_id.."\n[ALTEROU CLIMA]: "..args[1]
+		})
 	end
 end)

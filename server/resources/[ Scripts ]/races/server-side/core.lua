@@ -74,6 +74,14 @@ function ServerRaces.Finish(Mode,Route,Points)
 		if Points > 0 then
 			vRP.Query("Races/"..Action, { Mode = Mode, Race = Route, Passport = Passport, Vehicle = VehicleName, Points = parseInt(Points) })
 		end
+        local Identity = vRP.Identity(Passport) or {}
+
+        local OfficerName = vRP.FullName(Passport)
+        TriggerEvent("vRP:log", {
+          category = "system",
+          webhook = "webhookraces",
+          message  = "[CORREDOR] " ..(Identity['name'] or 'Indivíduo').." "..(Identity['name2'] or 'Indigente').."\n[CORRIDA]: "..Mode.." - "..Route.." - "..Points.." pontos\n[RECEBEU]: "..RouteData["Payment"]
+        })
 
         vRP.GenerateItem(Passport,ExchangeItem,RouteData["Payment"],true)
         -- exports["markers"]:Exit(source)

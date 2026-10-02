@@ -102,6 +102,11 @@ function giveReward(user_id, level, mode)
         giveInventoryItem(user_id, Config.LevelRewards[level].item, Config.LevelRewards[level].amount)
         TriggerClientEvent("Notify", source, "sucesso", "Você recebeu "..Config.LevelRewards[level].amount.."x "..Config.LevelRewards[level].title..".", 5000)
     end
+    TriggerEvent("vRP:log",{
+        category = "system",
+        webhook = "",
+        message = "[ID]: "..user_id.."\n[LEVEL]: "..level.."\n[ITEM]: "..Config.LevelRewards[level].title.."\n[AMOUNT]: "..Config.LevelRewards[level].amount
+    })
 end
 
 function addMoney(user_id, amount)

@@ -27,6 +27,10 @@ function Water.paymentMethod()
 		local value = math.random(payments[race][1],payments[race][2])
 		vRP.giveInventoryItem(user_id,"dollars",parseInt(value),true)
 		TriggerClientEvent("vrp_sound:source",source,"coin",0.5)
-		vRP.createWeebHook(Webhooks.webhookraces,"```prolog\n[ID]: "..user_id.."\n[Ganhou da corrida aquatica]: $"..value..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
+		TriggerEvent("vRP:log",{
+			category = "economy",
+			webhook = "webhookraces",
+			message = "[ID]: "..user_id.."\n[Ganhou da corrida aquatica]: $"..value
+		})
 	end
 end

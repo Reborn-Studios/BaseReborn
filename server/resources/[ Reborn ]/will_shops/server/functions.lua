@@ -126,6 +126,11 @@ function paymentBuyShop(user_id, value, shop)
         local globalProducts = GlobalState["Will_Shops_Products"]
         globalProducts[shop] = Config.Shops[shop]['products']
         GlobalState:set("Will_Shops_Products",globalProducts,true)
+        TriggerEvent("vRP:log",{
+            category = "system",
+            webhook = "",
+            message = "[Empresas]\n[ID: "..user_id.."]\n[Comprou Empresa]: "..shop.name.."\n[VALOR]: "..value
+        })
     end
     return status
 end

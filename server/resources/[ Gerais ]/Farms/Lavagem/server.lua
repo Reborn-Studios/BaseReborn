@@ -45,7 +45,11 @@ function Lavagem.checkPayment(index)
 		if vRP.tryGetInventoryItem(user_id,"dollars2",dinheiro) then
 			local payment = dinheiro * (Farms.lavagem[index]['dinheiro_sujo'].porcentagem) / 100
 			vRP.giveInventoryItem(user_id,"dollars",payment)
-			vRP.createWeebHook(Webhooks.webhooklavagem,"```prolog\n[PASSAPORTE]: "..user_id.." \n[NOME]: "..identity.name.." "..identity.name2.." \n[LAVOU]: "..dinheiro.." \n[RECEBEU]: "..payment.." "..os.date("\n[Data]: %d/%m/%y \n[Hora]: %H:%M:%S").." \r```")
+			TriggerEvent("vRP:log",{
+				category = "ilegal",
+				webhook = "webhooklavagem",
+				message = "[ID]: "..user_id.."\n[NOME]: "..identity.name.." "..identity.name2.."\n[LAVOU]: "..dinheiro.."\n[RECEBEU]: "..payment
+			})
 		end
    end
 end

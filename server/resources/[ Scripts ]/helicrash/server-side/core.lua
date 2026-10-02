@@ -127,6 +127,11 @@ AddEventHandler("helicrash:Open",function (data)
 		local identity = vRP.getUserIdentity(user_id)
 		if not opened[Chests[data.service]] and identity then
 			opened[Chests[data.service]] = true
+			TriggerEvent("vRP:log",{
+				category = "system",
+				webhook = "webhookairdrop",
+				message = "[Helicrash]\n[ID]: "..user_id.."\n[ABRIU HELICRASH]: "..data.service.."\n[ITENS]: "..json.encode(Chests[data.service])
+			})
 			TriggerClientEvent('Notify', -1, 'amarelo', 'O jogador: <b>' ..identity["name"]..' '..identity["name2"].. '</b> coletou um suprimento do Helicrash.',5000)
 		end
 	end

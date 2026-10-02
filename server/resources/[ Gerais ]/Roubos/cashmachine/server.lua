@@ -48,7 +48,11 @@ function CashMachine.startMachine(x,y,z)
 		if vRP.tryGetInventoryItem(user_id,"c4",1,true) then
 			table.insert(registerTimers,{ x, y, z, os.time() + 120 })
 			vRP.wantedTimer(parseInt(user_id),300)
-			vRP.createWeebHook(Webhooks.rouboshook,"```prolog\n[ID]: "..user_id.."\n[ROUBOU]: ATM "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
+			TriggerEvent("vRP:log",{
+				category = "ilegal",
+				webhook = "rouboshook",
+				message = "[ID]: "..user_id.."\n[ROUBOU]: ATM\n[COORDS]: "..x..", "..y..", "..z
+			})
 			return true
 		else
 			TriggerClientEvent("Notify",source,"negado","Necessário de 1x C4.",5000)
@@ -122,7 +126,11 @@ function CashMachine.cashRegister(x,y,z)
 			Wait(500)
 			vRPclient._removeObjects(source)
 			vRP.wantedTimer(user_id,ROBBERY_TIME)
-			vRP.createWeebHook(Webhooks.rouboshook,"```prolog\n[ID]: "..user_id.."\n[ROUBOU]: Caixa Eletrônico "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
+			TriggerEvent("vRP:log",{
+				category = "ilegal",
+				webhook = "rouboshook",
+				message = "[ID]: "..user_id.."\n[ROUBOU]: Caixa Eletrônico\n[COORDS]: "..x..", "..y..", "..z
+			})
 			return true
 		else
 			TriggerClientEvent("Notify",source,"negado","Necessário de 1x lockpick.",5000)

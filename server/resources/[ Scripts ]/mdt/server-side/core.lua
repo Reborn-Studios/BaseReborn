@@ -388,6 +388,11 @@ function Creative.Firearms(OtherPassport)
   
       local Datatable = vRP.Datatable(OtherPassport)      
       vRP.UpdateDatatable(OtherPassport, "Firearms", not Datatable.Firearms)
+      TriggerEvent("vRP:log",{
+				category = "police",
+				webhook = "webhookmdtmanage",
+				message = "[MDT - PORTE]\n[POLICIAL]: "..Passport.."\n[CIDADÃO]: "..OtherPassport.."\n"..(Datatable.Firearms and "CONCEDEU PORTE" or "RETIROU PORTE")
+			})
       return true
   end
 end
@@ -408,6 +413,11 @@ function Creative.Flyingarms(OtherPassport)
   
       local Datatable = vRP.Datatable(OtherPassport)      
       vRP.UpdateDatatable(OtherPassport, "Flyingarms", not Datatable.Flyingarms)
+      TriggerEvent("vRP:log",{
+				category = "police",
+				webhook = "webhookmdtmanage",
+				message = "[MDT - LICENÇA]\n[POLICIAL]: "..Passport.."\n[CIDADÃO]: "..OtherPassport.."\n"..(Datatable.Flyingarms and "CONCEDEU LICENÇA" or "RETIROU LICENÇA")
+			})
       return true
   end
 end
@@ -441,6 +451,11 @@ function Creative.ClearRecord(Data)
 
   local Result = exports['oxmysql']:execute_async('DELETE FROM ' .. Record .. ' WHERE id = ?', { Data.Id })
   if Result then
+      TriggerEvent("vRP:log",{
+				category = "police",
+				webhook = "webhookmdtmanage",
+				message = "[MDT - REGISTRO]\n[POLICIAL]: "..Passport.."\n[CIDADÃO]: "..Consult.Passport.."\n[REGISTRO]: "..Data.Type.."\n[ID]: "..Data.Id
+			})
       TriggerClientEvent('mdt:Notify', source, 'Sucesso', 'Registro removido com sucesso.', 'verde')
       return true
   else
@@ -469,6 +484,11 @@ function Creative.ClearRecords(Data)
 
   if Records then
       TriggerClientEvent('mdt:Notify', source, 'Sucesso', 'Todos os registros foram removidos com sucesso.', 'verde')
+      TriggerEvent("vRP:log",{
+				category = "police",
+				webhook = "webhookmdtmanage",
+				message = "[MDT - REGISTRO]\n[POLICIAL]: "..Passport.."\n[CIDADÃO]: "..Passport.."\n[REGISTRO]: TODOS"
+			})
       return true
   else
       TriggerClientEvent('mdt:Notify', source, 'Erro', 'Falha ao remover os registros.', 'vermelho')
@@ -687,21 +707,29 @@ function Creative.Arrest(Data)
   for i = 1, #Articles do Infractions[i] = Articles[i].Article end
   local Arrest = exports['oxmysql']:insert_async("INSERT INTO `mdt_arrest` (`Passport`, `Officer`, `Officers`, `Timestamp`, `Infractions`, `Arrest`, `Fine`, `Description`) VALUES (?, ?, ?, ?, ?, ?, ?, ?) ", { Passport, Officer, Data.OfficersInvolved, Timestamp, table.concat(Infractions, ", "), Services, Fine, Description })
 
-  if Arrest then
-      if Services > 0 then
-          vRP.InsertPrison(Passport, Services)
+    if Arrest then
+        if Services > 0 then
+            vRP.InsertPrison(Passport, Services)
 
-          local Target = vRP.Source(Passport)
-          if Target then
-              Player(Target)["state"]["Prison"] = true
-              TriggerClientEvent("Notify", Target, "Boolingbroke", "Todas as lixeiras do pátio estão disponíveis para <b>vasculhar</b> em troca de redução penal.", "amarelo", 30000)
-          end
-      end
+            local Target = vRP.Source(Passport)
+            if Target then
+                Player(Target)["state"]["Prison"] = true
+                TriggerClientEvent("Notify", Target, "Boolingbroke", "Todas as lixeiras do pátio estão disponíveis para <b>vasculhar</b> em troca de redução penal.", "amarelo", 30000)
+            end
+        end
 
-      TriggerClientEvent("mdt:Notify", source, "Sucesso", "Prisão efetuada com sucesso.", "verde")
-  end
+        TriggerClientEvent("mdt:Notify", source, "Sucesso", "Prisão efetuada com sucesso.", "verde")
 
-  return true
+        local OfficerName = vRP.FullName(Officer)
+        TriggerEvent("vRP:log", {
+          category = "police",
+          webhook = "webhookprison",
+          user     = OfficerName and "Oficial: "..OfficerName or "CONSOLE",
+          message  = string.format("Prendeu ID %d por %d meses. Motivo: %s", Passport, Services, table.concat(Infractions, ", "))
+        })
+    end
+
+    return true
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- FINE
@@ -736,7 +764,13 @@ function Creative.Fine(Data)
   exports['oxmysql']:insert_async( "INSERT INTO `mdt_fines` (`Passport`, `Officer`, `Timestamp`, `Infractions`, `Fine`, `Description`, `Paid`, `Arrest`, `Date`, `Hour`) VALUES (?, ?, ?, ?, ?, ?, 0, NULL, ?, ?)", { Passport, Officer, Timestamp, json.encode(Data.Infractions), Fine, Description or "", Date, Hour } )
 
   TriggerClientEvent("mdt:Notify", source, "Sucesso", "Multa aplicada com sucesso.", "verde")
-
+  local OfficerName = vRP.FullName(Officer)
+  TriggerEvent("vRP:log", {
+    category = "police",
+    webhook = "webhookmulta",
+    user     = OfficerName and "Oficial: "..OfficerName or "CONSOLE",
+    message  = string.format("Multou ID %d por $%d. Motivo: %s", Passport, Fine, json.encode(Data.Infractions))
+  })
   return true
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -763,6 +797,13 @@ function Creative.Warning(Data)
   local Consult = exports['oxmysql']:execute_async('INSERT INTO mdt_warning (Passport, Officer, Timestamp, Description) VALUES (?, ?, ?, ?)', { Target, Passport, Timestamp, Description } )
   if Consult then
     TriggerClientEvent('mdt:Notify',source,'Sucesso','Aviso registrado com sucesso.','verde')
+    local OfficerName = vRP.FullName(Passport)
+    TriggerEvent("vRP:log", {
+      category = "police",
+      webhook = "webhookmdtmanage",
+      user     = OfficerName and "Oficial: "..OfficerName or "CONSOLE",
+      message  = string.format("Aviso registrado para ID %d. Motivo: %s", Target, Description)
+    })
     return true
   else
     TriggerClientEvent('mdt:Notify',source,'Erro','Falha ao registrar o aviso.','vermelho')
@@ -966,6 +1007,13 @@ function Creative.CreateWanted(Data)
       local NewRecord = { Citizen = { Passport = Data.Passport or Data.Citizen, Name = vRP.FullName(Data.Passport or Data.Citizen) }, Id = Result, Date = Timestamp, Image = Data.Image, Description = Description or "", Officer = ('#%i - %s'):format(Passport, vRP.FullName(Passport)), HowLong = Data.HowLong }
 
       TriggerClientEvent('mdt:Notify', source, 'Sucesso', 'Registro de procurado criado com sucesso.', 'verde')
+      local OfficerName = vRP.FullName(Passport)
+      TriggerEvent("vRP:log", {
+        category = "police",
+        webhook = "webhookmdtmanage",
+        user     = OfficerName and "Oficial: "..OfficerName or "CONSOLE",
+        message  = string.format("Aviso registrado para ID %d. Motivo: %s", Data.Passport or Data.Citizen, Description or "")
+      })
       return NewRecord
   else
       TriggerClientEvent('mdt:Notify', source, 'Erro', 'Falha ao criar registro de procurado no banco de dados.', 'vermelho')
@@ -1677,6 +1725,13 @@ function Creative.CreateOfficer(Data)
         if TargetSource and vRP.Request(TargetSource,'Você foi convidado(a) para participar do grupo <b class=\'text-white\'>'..Group..'</b>, gostaria de estar entrando do mesmo?') then
             vRP.SetPermission(Target, Permission, #Hierar)
             TriggerClientEvent('mdt:Notify',source,'Sucesso','Passaporte adicionado.','verde',5000)
+            local OfficerName = vRP.FullName(Passport)
+            TriggerEvent("vRP:log", {
+              category = "police",
+              webhook = "webhookmdtmanage",
+              user     = OfficerName and "Oficial: "..OfficerName or "CONSOLE",
+              message  = "[POLICIAL] Adicionou ID " ..(Identity['name'] or 'Indivíduo').." "..(Identity['name2'] or 'Indigente').." para grupo " ..Group..".".."\n[ID]: "..Target..""
+            })
             return true
         else
             TriggerClientEvent('mdt:Notify',source,'Atenção','Convite para o grupo recusado.','amarelo',5000)
@@ -1700,16 +1755,24 @@ function Creative.HierarchyOfficer(Data)
 
 	local Identity = vRP.Identity(Target) or {}
 	if Mode:find('Promote') or Mode:find('Demote') then
-        local Hierar = vRP.Hierarchy(Permission)
-        local TargetLevel = vRP.HasPermission(Target, Permission)
-        local Group = Hierar[TargetLevel]
-        vRP.RemovePermission(Target, Group)
-        if Mode:find('Promote') then
-            vRP.SetPermission(Target, Permission,TargetLevel - 1)
-        else
-            vRP.SetPermission(Target, Permission,TargetLevel + 1)
-        end
+    local Hierar = vRP.Hierarchy(Permission)
+    local TargetLevel = vRP.HasPermission(Target, Permission)
+    local Group = Hierar[TargetLevel]
+    vRP.RemovePermission(Target, Group)
+    if Mode:find('Promote') then
+        vRP.SetPermission(Target, Permission,TargetLevel - 1)
+    else
+        vRP.SetPermission(Target, Permission,TargetLevel + 1)
+    end
+
 		TriggerClientEvent('mdt:Notify',source,'Sucesso','Hierarquia atualizada.','verde',5000)
+    local OfficerName = vRP.FullName(Passport)
+    TriggerEvent("vRP:log", {
+      category = "police",
+      webhook = "webhookmdtmanage",
+      user     = OfficerName and "Oficial: "..OfficerName or "CONSOLE",
+      message  = "[POLICIAL] Atualizou hierarquia de ID " ..(Identity['name'] or 'Indivíduo').." "..(Identity['name2'] or 'Indigente').." para " ..vRP.getGroupTitle(Permission, Mode:find('Promote') and (TargetLevel - 1) or (TargetLevel + 1))..".".."\n[ID]: "..Target..""
+    })
 		return { Passport = Target, Name = (Identity['name'] or 'Indivíduo')..' '..(Identity['name2'] or 'Indigente'), Hierarchy = vRP.HasPermission(Target, Permission), Service = vRP.Source(Target) and 1 or 0 }
 	end
 
@@ -1733,6 +1796,13 @@ function Creative.DismissOfficer(Data)
 	if vRP.HasGroup(Target, Permission) then
 		TriggerClientEvent('mdt:Notify', source, 'Sucesso', 'Passaporte removido com sucesso.', 'verde', 5000)
 		vRP.RemovePermission(Target, Permission)
+    local OfficerName = vRP.FullName(Passport)
+    TriggerEvent("vRP:log", {
+      category = "police",
+      webhook = "webhookmdtmanage",
+      user     = OfficerName and "Oficial: "..OfficerName or "CONSOLE",
+      message  = "[POLICIAL] Removido ID " ..(Identity['name'] or 'Indivíduo').." "..(Identity['name2'] or 'Indigente')..".".."\n[ID]: "..Target..""
+    })
 		return true
 	end
 

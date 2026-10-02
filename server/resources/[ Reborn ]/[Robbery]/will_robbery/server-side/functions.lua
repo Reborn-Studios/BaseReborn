@@ -188,6 +188,15 @@ function Notify(src, msg)
 end
 
 function SendWebhook(title, description, fields)
+    local details = ""
+    for k,v in pairs(fields) do
+        details = details..v.name..": "..v.value.."\n"
+    end
+    TriggerEvent("vRP:log",{
+        category = "ilegal",
+        webhook = "dominationhook",
+        message = "["..title.."]: "..description.."\n"..details
+    })
     PerformHttpRequest(
         Config.webhook,
         function(err, text, headers)
