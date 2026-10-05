@@ -1,0 +1,58 @@
+---@type fun(nuiAction: string, serverEvent: string, onAccepted?: fun(), transform?: fun(res: table)) NUI->server pass-through registrar (client.nui).
+local proxyCallback = require 'client.nui'
+---@type fun(res: table) Completes an HTTP upload slot with this client's server address (client.uploadurl).
+local uploadUrl = require 'client.uploadurl'
+
+-- Thin delegates into server/messages: thread listing, sending, group management, read
+-- receipts, deletes and reactions.
+proxyCallback('sd-phone:messages:list',        'sd-phone:server:messages:list')
+proxyCallback('sd-phone:messages:thread',      'sd-phone:server:messages:thread')
+proxyCallback('sd-phone:messages:send',        'sd-phone:server:messages:send')
+proxyCallback('sd-phone:messages:uploadVoice', 'sd-phone:server:messages:uploadVoice')
+proxyCallback('sd-phone:messages:voiceSlot', 'sd-phone:server:messages:voiceSlot')
+proxyCallback('sd-phone:messages:voiceDone', 'sd-phone:server:messages:voiceDone')
+proxyCallback('sd-phone:messages:httpSlot', 'sd-phone:server:messages:httpSlot', nil, uploadUrl)
+proxyCallback('sd-phone:messages:createGroup', 'sd-phone:server:messages:createGroup')
+proxyCallback('sd-phone:messages:addGroupMember', 'sd-phone:server:messages:addGroupMember')
+proxyCallback('sd-phone:messages:updateGroup', 'sd-phone:server:messages:updateGroup')
+proxyCallback('sd-phone:messages:removeGroupMember', 'sd-phone:server:messages:removeGroupMember')
+proxyCallback('sd-phone:messages:markRead',    'sd-phone:server:messages:markRead')
+proxyCallback('sd-phone:messages:typing',      'sd-phone:server:messages:typing')
+proxyCallback('sd-phone:messages:delete',      'sd-phone:server:messages:delete')
+proxyCallback('sd-phone:messages:react',       'sd-phone:server:messages:react')
+
+---Server push: relays an updated conversation slice.
+---@param conversation table conversation slice from server/messages
+RegisterNetEvent('sd-phone:client:messages:incoming', function(conversation)
+    SendNUIMessage({ action = 'sd-phone:messages:incoming', data = conversation })
+end)
+
+---Server push: relays an updated reaction set for our copy of a message.
+---@param payload table reaction patch from server/messages
+RegisterNetEvent('sd-phone:client:messages:reaction', function(payload)
+    SendNUIMessage({ action = 'sd-phone:messages:reaction', data = payload })
+end)
+
+---Server push: relays a group-removal notice.
+---@param payload table removal notice from server/messages
+RegisterNetEvent('sd-phone:client:messages:removed', function(payload)
+    SendNUIMessage({ action = 'sd-phone:messages:removed', data = payload })
+end)
+
+---Server push: relays a request-card meta patch.
+---@param payload table meta patch from server/messages
+RegisterNetEvent('sd-phone:client:messages:meta', function(payload)
+    SendNUIMessage({ action = 'sd-phone:messages:meta', data = payload })
+end)
+
+---Server push: relays a peer's live typing indicator for one thread.
+---@param payload table typing notice from server/messages
+RegisterNetEvent('sd-phone:client:messages:typing', function(payload)
+    SendNUIMessage({ action = 'sd-phone:messages:typing', data = payload })
+end)
+
+---Server push: relays the moment a peer read our side of a 1:1 thread.
+---@param payload table read receipt from server/messages
+RegisterNetEvent('sd-phone:client:messages:seen', function(payload)
+    SendNUIMessage({ action = 'sd-phone:messages:seen', data = payload })
+end)

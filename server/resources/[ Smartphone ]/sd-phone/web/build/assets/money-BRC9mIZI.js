@@ -1,0 +1,1 @@
+function e(e,t={}){let n=t.decimals??(t.whole?0:2),r=Math.abs(e).toLocaleString(`en-US`,{minimumFractionDigits:n,maximumFractionDigits:n});return e<0?`-$${r}`:t.alwaysSign||t.showSign&&e>0?`+$${r}`:`$${r}`}export{e as t};

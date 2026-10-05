@@ -1,0 +1,78 @@
+-- Main config - an index that stitches the per-group config files together.
+-- Every consumer still does `require 'configs.config'` and reads the same
+-- table; to change a group's settings, edit its own file in this folder
+-- (e.g. configs/garages.lua for the Garages app).
+
+local config = {
+    -- Locale file under `locales/<Locale>.json`. Falls back to `en` if missing.
+    Locale = 'pt',
+
+    -- Keep the screen left-to-right even when the language reads right-to-left.
+    -- Arabic mirrors the whole interface by default, the way an Arabic iPhone does.
+    -- Turn this on only if you want the old left-to-right layout with Arabic text.
+    ForceLeftToRight = false,
+
+    -- Debug / dev logging toggle.
+    Debug  = false,
+
+    -- Per-group settings (one file each).
+    Framework   = require 'configs.framework',    -- ox_core group type mapping (other frameworks need none)
+    Phone       = require 'configs.phone',        -- open/close, keybind, safety blocks
+    Lockscreen  = require 'configs.lockscreen',    -- wallpaper, clock format
+    Apps        = require 'configs.apps',          -- dock, wallpaper, app catalog + enable flags
+    StatusBar   = require 'configs.statusbar',     -- carrier / signal / battery
+    Photos      = require 'configs.photos',        -- camera capture + Fivemanage upload
+    Payphone    = require 'configs.payphone',      -- street payphones (ox_target + dial UI)
+    Accounts    = require 'configs.accounts',      -- app-account limits (Photogram/Cherry/Vibez/Ryde)
+    Mail        = require 'configs.mail',          -- email accounts + limits
+    Messages    = require 'configs.messages',       -- SMS / iMessage threads
+    Groups      = require 'configs.groups',        -- player groups / crews
+    Birdy       = require 'configs.birdy',         -- microblog
+    Photogram   = require 'configs.photogram',     -- photo social + live video streaming
+    Vibez       = require 'configs.vibez',          -- short-video social + live video streaming
+    Voice       = require 'configs.voice',          -- camera/Live audio: own mic + nearby voices (WebRTC)
+    Contacts    = require 'configs.contacts',      -- phone-book + recents
+    Giphy       = require 'configs.giphy',         -- Messages GIF picker display tunables (key is in configs/server/apikeys.lua)
+    Garages     = require 'configs.garages',       -- vehicle list (multi-system)
+    Weather     = require 'configs.weather',       -- live weather + world time (multi-sync)
+    Health      = require 'configs.health',        -- daily step/distance totals + the steps leaderboard
+    DarkChat    = require 'configs.darkchat',      -- anonymous chat rooms
+    Marketplace = require 'configs.marketplace',   -- classifieds
+    Pages       = require 'configs.pages',          -- yellow-pages board
+    Banking     = require 'configs.banking',        -- wallet + transfers
+    Services    = require 'configs.services',        -- job/company directory + boss management
+    VoiceMemos  = require 'configs.voicememos',     -- voice notes + Fivemanage
+    Share       = require 'configs.share',          -- nearby share sheet
+    Notes       = require 'configs.notes',         -- per-character notes
+    Calendar    = require 'configs.calendar',      -- per-character events + shared invites with RSVP
+    Documents   = require 'configs.documents',     -- Files: per-character documents + folders
+    Id          = require 'configs.id',            -- ID: identity cards from framework records + nearby show
+    Housing     = require 'configs.housing',       -- property list (multi-system)
+    Cookie      = require 'configs.cookie',        -- clicker mini-game + leaderboard
+    Casino      = require 'configs.casino',        -- Casino app: blackjack/roulette/slots table limits + spin cadence
+    Stocks      = require 'configs.stocks',         -- stock + crypto market, brokerage wallet
+    Radio       = require 'configs.radio',          -- frequencies + job-restricted bands
+    Music       = require 'configs.music',          -- which URL sources the Music library accepts
+    WeazelNews  = require 'configs.weazelnews',     -- broadcast network: staff-published articles + breaking ticker
+    Streaks     = require 'configs.streaks',        -- photo-a-day streaks: milestone cash + global gallery
+    Medical     = require 'configs.medical',      -- Medical ID: who may scan another player's card in the field
+    Mdt         = require 'configs.mdt',            -- police terminal: departments, permission grades, jail + dispatch limits
+    Racing      = require 'configs.racing',         -- Racing: tracks, races, MMR, the gate creator
+    Migrate     = require 'configs.migrate',         -- one-time lb-phone -> sd-phone data import
+    Sim         = require 'configs.uniqueandsim',    -- unique phones + SIM cards (see its pick-your-setup header)
+    CellTowers  = require 'configs.celltowers',   -- degradable service by distance to a mast
+    Wifi        = require 'configs.wifi',          -- local networks that carry data off the towers
+    Bluetooth   = require 'configs.bluetooth',     -- devices other resources register for phones to pair with
+    Shells      = require 'configs.shells',        -- selectable phone chassis, and whether players may pick
+}
+
+-- Server-only secrets: third-party API keys live in configs/server/apikeys.lua, which is NOT in
+-- fxmanifest files{} (the glob is `configs/*.lua`, so the server/ subfolder never ships to a
+-- client). Merged in server-side only, reachable as config.ApiKeys; on the client this stays nil
+-- and no client code reads it.
+if IsDuplicityVersion() then
+    config.ApiKeys  = require 'configs.server.apikeys'
+    config.Webhooks = require 'configs.server.webhooks'
+end
+
+return config

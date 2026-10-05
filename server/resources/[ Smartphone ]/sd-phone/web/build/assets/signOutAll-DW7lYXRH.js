@@ -1,0 +1,1 @@
+import{Bn as e,Qt as t,T as n,ir as r}from"./index-FNeTOdiF.js";async function i(e){let{signedOut:i}=await r(e);return n([e]),t(`${e}:`),i}async function a(){let{signedOut:i}=await r();n(e);for(let n of e)t(`${n}:`);return i}export{a as n,i as t};

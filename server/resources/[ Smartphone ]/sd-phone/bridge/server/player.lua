@@ -1,0 +1,357 @@
+---@type table Framework detection (bridge.shared.framework): name ('qb'|'esx'|'ox'|'nd') + live core handle.
+local framework = require 'bridge.shared.framework'
+---@type table|nil ox_core helpers (bridge.shared.oxcore); nil on every other framework.
+local ox        = framework.name == 'ox' and require 'bridge.shared.oxcore' or nil
+---@type table|nil ND_Core helpers (bridge.shared.ndcore); nil on every other framework.
+local nd        = framework.name == 'nd' and require 'bridge.shared.ndcore' or nil
+
+---@type table Player module; the table returned at end of file. Player resolution + identity
+---helpers for the server bridge.
+local player = {}
+
+---Pick the framework's GetPlayer implementation once at module load; the unsupported fallback
+---raises an error.
+---@return fun(source: number): any|nil
+local function chooseGet()
+    if framework.name == 'qbx' then
+        return function(src) return exports.qbx_core:GetPlayer(src) end
+    end
+    if framework.qb then
+        return function(src) return framework.core.Functions.GetPlayer(src) end
+    end
+    if framework.name == 'esx' then
+        return function(src) return framework.core.GetPlayerFromId(src) end
+    end
+    if framework.name == 'ox' then
+        return function(src) return ox.player(src) end
+    end
+    if framework.name == 'nd' then
+        return function(src) return nd.player(src) end
+    end
+    return function(src)
+        error(('Unsupported framework — cannot resolve player for source %s'):format(src))
+    end
+end
+
+---@type fun(source: number): any|nil Framework GetPlayer implementation, bound once at load.
+local resolveGet = chooseGet()
+
+---Resolve a framework-native player object for the given source. Nil when the source isn't a
+---loaded player.
+---@param source number player server id
+---@return any|nil framework-specific player object
+function player.get(source) return resolveGet(source) end
+
+---Pick the framework's "extract identifier from player object" call once at module load.
+---@return fun(p: any): string|nil
+local function chooseIdentifier()
+    if framework.qb then
+        return function(p) return p.PlayerData.citizenid end
+    end
+    if framework.name == 'esx' then
+        return function(p) return p.identifier end
+    end
+    if framework.name == 'ox' then
+        -- charId, as a string: it is ox_core's character primary key, and the same value ox_core
+        -- hands ox_inventory, so the phone and the inventory agree on who owns what.
+        return function(p) return p.charId and tostring(p.charId) or nil end
+    end
+    if framework.name == 'nd' then
+        -- charid, as a string: it is ND's character primary key in `nd_characters`, and the value
+        -- `nd_vehicles.owner` is a foreign key onto, so the phone and ND agree on who owns what.
+        return function(p) return p.id and tostring(p.id) or nil end
+    end
+    return function() return nil end
+end
+
+---@type fun(p: any): string|nil Identifier extractor, bound once at load.
+local resolveIdentifier = chooseIdentifier()
+
+---@type integer Milliseconds a resolved identifier is served before it is re-resolved. The
+---lifecycle handlers below keep the cache exact; this is only the backstop that stops a missed
+---event from being permanent. Long on purpose: every resolve copies the whole framework player
+---object across the resource boundary (~0.3ms on QBox), and a short TTL made every once-a-minute
+---pass re-resolve every connected player.
+local IDENTITY_TTL = 300000
+
+---@type integer Milliseconds a "no character" answer is served. Short, because a connecting player
+---turns into a loaded one without this module necessarily seeing the event.
+local NEGATIVE_TTL = 2000
+
+---@type table<number, { cid: string|nil, at: number }> source -> resolved framework identifier.
+local identityCache = {}
+
+---@type table<number, { name: string, at: number }> source -> resolved display name. Same
+---lifetime and invalidation as identityCache.
+local nameCache = {}
+
+---@type table<string, number> identifier -> source. The reverse of identityCache, so resolving a
+---source from an identifier is a lookup instead of a walk over every connected player. Treated
+---as a hint, never as truth: a lookup verifies its answer and falls back to the scan.
+local sourceIndex = {}
+
+---@type integer Bumped by forget(); the built-map memo below only serves a value stamped with
+---the current generation, so any lifecycle event invalidates it immediately.
+local generation = 0
+
+---Framework identifier for a source, memoised. Resolving it is the most frequent framework call
+---in the resource (227 call sites; nearly every callback opens with one, and the cid -> source
+---maps resolve it once per connected player). Only the identifier STRING is cached, never the
+---player object: the object carries live money/job state, the identifier does not change for the
+---lifetime of a loaded character.
+---@param source number player server id
+---@return string|nil
+local function cachedIdentifier(source)
+    local hit = identityCache[source]
+    if hit and (GetGameTimer() - hit.at) < (hit.cid and IDENTITY_TTL or NEGATIVE_TTL) then return hit.cid end
+    local p = resolveGet(source)
+    local cid = p and resolveIdentifier(p) or nil
+    identityCache[source] = { cid = cid, at = GetGameTimer() }
+    if cid then sourceIndex[cid] = source end
+    return cid
+end
+
+---Drops a source's cached identifier so the next read re-resolves it. Called on disconnect and
+---on every character load/unload: after a multichar switch the same source carries a DIFFERENT
+---character, and serving the previous one would hand the player the old character's data.
+---@param source number|nil player server id
+function player.forget(source)
+    local s = tonumber(source) or source
+    if not s then return end
+    local hit = identityCache[s]
+    -- Only clear the reverse entry if it still points here: an identifier that has already moved
+    -- to another source belongs to that source now.
+    if hit and hit.cid and sourceIndex[hit.cid] == s then sourceIndex[hit.cid] = nil end
+    identityCache[s] = nil
+    nameCache[s] = nil
+    generation = generation + 1
+end
+
+AddEventHandler('playerDropped', function() player.forget(source) end)
+
+-- Character lifecycle: both edges matter. Load clears a negative entry cached while the player
+-- was still connecting; unload clears the outgoing character before the next one is resolved.
+if framework.qb then
+    AddEventHandler('QBCore:Server:PlayerLoaded', function(p)
+        player.forget(p and p.PlayerData and p.PlayerData.source)
+    end)
+    AddEventHandler('QBCore:Server:OnPlayerUnload', function(src) player.forget(src) end)
+elseif framework.name == 'esx' then
+    AddEventHandler('esx:playerLoaded', function(src) player.forget(src) end)
+    AddEventHandler('esx:playerLogout', function(src) player.forget(src) end)
+elseif framework.name == 'ox' then
+    AddEventHandler('ox:playerLoaded', function(src) player.forget(src) end)
+    AddEventHandler('ox:playerLogout', function(src) player.forget(src) end)
+elseif framework.name == 'nd' then
+    -- ND's two lifecycle events disagree on their signature: characterLoaded is handed the
+    -- character, which carries the source, while characterUnloaded is handed the source first.
+    AddEventHandler('ND:characterLoaded', function(character)
+        player.forget(character and character.source)
+    end)
+    AddEventHandler('ND:characterUnloaded', function(src) player.forget(src) end)
+end
+
+---The player's persistent per-character identifier (citizenid on QBCore/QBox, identifier on ESX).
+---Nil when offline. NOTE: when unique phones are enabled, server/sim/init.lua rewraps this to
+---return the acting SIM identity instead - use getRealIdentifier for character-scoped concerns.
+---@param source number player server id
+---@return string|nil
+function player.getIdentifier(source)
+    return cachedIdentifier(source)
+end
+
+---Always the framework-native character identifier, bypassing any SIM indirection installed
+---over getIdentifier. Nil when offline.
+---@param source number player server id
+---@return string|nil
+function player.getRealIdentifier(source)
+    return cachedIdentifier(source)
+end
+
+---Resolves the display name from the framework, uncached.
+---@param source number player server id
+---@return string
+local function resolveName(source)
+    local p = resolveGet(source)
+    if not p then return 'Unknown' end
+
+    if framework.name == 'esx'  then return p.getName() end
+    if framework.qb then
+        return ('%s %s'):format(p.PlayerData.charinfo.firstname, p.PlayerData.charinfo.lastname)
+    end
+    if framework.name == 'ox' then
+        local first = ox.call(source, 'get', 'firstName')
+        local last  = ox.call(source, 'get', 'lastName')
+        if first or last then return ('%s %s'):format(first or '', last or '') end
+        return 'Unknown'
+    end
+    if framework.name == 'nd' then
+        -- ND assembles `fullname` itself when the character loads; the parts are the fallback for
+        -- a record built before that ran.
+        if p.fullname and p.fullname ~= '' then return p.fullname end
+        if p.firstname or p.lastname then
+            return ('%s %s'):format(p.firstname or '', p.lastname or '')
+        end
+        return 'Unknown'
+    end
+    return 'Unknown'
+end
+
+---A friendly "First Last" name for the player; 'Unknown' when the player can't be resolved.
+---@param source number player server id
+---@return string
+function player.getName(source)
+    local hit = nameCache[source]
+    if hit and (GetGameTimer() - hit.at) < IDENTITY_TTL then return hit.name end
+    local name = resolveName(source)
+    if name ~= 'Unknown' then nameCache[source] = { name = name, at = GetGameTimer() } end
+    return name
+end
+
+---The player's current job name. Nil when unresolvable. Read-only.
+---@param source number player server id
+---@return string|nil
+function player.getJob(source)
+    local p = resolveGet(source)
+    if not p then return nil end
+    if framework.name == 'esx'  then return p.job and p.job.name or nil end
+    if framework.qb then return p.PlayerData.job and p.PlayerData.job.name or nil end
+    if framework.name == 'ox' then return (ox.groupByTypes(source, ox.jobTypes)) end
+    if framework.name == 'nd' then return (nd.jobOf(p)) end
+    return nil
+end
+
+---The player's current gang name. QBCore, ox_core and ND only; always nil on ESX.
+---@param source number player server id
+---@return string|nil
+function player.getGang(source)
+    local p = resolveGet(source)
+    if not p then return nil end
+    if framework.qb then return p.PlayerData.gang and p.PlayerData.gang.name or nil end
+    if framework.name == 'ox' then return (ox.groupByTypes(source, ox.gangTypes)) end
+    if framework.name == 'nd' then return (nd.gangOf(p)) end
+    return nil
+end
+
+---One framework metadata value for the player. Nil when the player is unresolvable, the framework
+---keeps no metadata, or the key was never set - callers cannot tell those apart, so a gate reading
+---this fails closed on all three.
+---@param source number player server id
+---@param key string metadata key
+---@return any
+function player.getMetadata(source, key)
+    if type(key) ~= 'string' or key == '' then return nil end
+
+    local p = resolveGet(source)
+    if not p then return nil end
+
+    if framework.qb then
+        local meta = p.PlayerData and p.PlayerData.metadata
+        return meta and meta[key] or nil
+    end
+    -- ESX only grew getMeta in 1.10; older builds have no metadata store to read at all.
+    if framework.name == 'esx' and type(p.getMeta) == 'function' then
+        local ok, value = pcall(p.getMeta, key)
+        return ok and value or nil
+    end
+    if framework.name == 'ox' then return ox.call(source, 'get', key) end
+    if framework.name == 'nd' then
+        -- getMetadata is a closure on the character record rather than a method, so it takes the
+        -- key alone; pcall-guarded because a record assembled offline carries no functions at all.
+        if type(p.getMetadata) ~= 'function' then return nil end
+        local ok, value = pcall(p.getMetadata, key)
+        return ok and value or nil
+    end
+    return nil
+end
+
+---Resolves a source from an identifier: an indexed lookup when the index knows it, otherwise the
+---scan, which repairs the index on the way out. The index is only ever a hint - the answer is
+---verified against a still-connected player whose identifier still matches - so a lifecycle event
+---this module never saw costs one scan rather than a wrong or missing answer.
+---@param citizenid string
+---@return number|nil source
+local function sourceFor(citizenid)
+    local hit = sourceIndex[citizenid]
+    if hit and GetPlayerName(hit) and cachedIdentifier(hit) == citizenid then return hit end
+
+    for _, src in ipairs(GetPlayers()) do
+        local s = tonumber(src)
+        if s and cachedIdentifier(s) == citizenid then
+            sourceIndex[citizenid] = s
+            return s
+        end
+    end
+    sourceIndex[citizenid] = nil
+    return nil
+end
+
+---Find the currently-connected source for a citizenid. Read-only.
+---@param citizenid string
+---@return number|nil source nil if offline
+function player.getSourceByIdentifier(citizenid)
+    if not citizenid or citizenid == '' then return nil end
+    return sourceFor(citizenid)
+end
+
+---Reachability resolver: the source carrying `citizenid` on ANY phone, not just the active one.
+---Identical to getSourceByIdentifier until unique phones wraps the two apart (calls ring a
+---pocketed phone; live UI pushes only land on the active one).
+---@param citizenid string|nil
+---@return number|nil source
+function player.getAnySourceByIdentifier(citizenid)
+    if not citizenid or citizenid == '' then return nil end
+    return sourceFor(citizenid)
+end
+
+---@type { map: table<string, number>|nil, at: number, gen: number } Memo of the built map. A
+---fan-out builds this per push, so on a busy server the same table was rebuilt many times a
+---second from an unchanged player list.
+local cidMapCache = { map = nil, at = 0, gen = -1 }
+
+---Builds `{ [citizenid] = source }` over every connected player, memoised until any lifecycle
+---event bumps the generation or the TTL expires. The returned table is SHARED - callers must
+---treat it as read-only, which every caller already does.
+---@return table<string, number>
+local function buildCidMap()
+    if cidMapCache.map and cidMapCache.gen == generation
+        and (GetGameTimer() - cidMapCache.at) < IDENTITY_TTL then
+        return cidMapCache.map
+    end
+    local out = {}
+    for _, src in ipairs(GetPlayers()) do
+        local s = tonumber(src)
+        if s then
+            local cid = cachedIdentifier(s)
+            if cid then out[cid] = s end
+        end
+    end
+    cidMapCache = { map = out, at = GetGameTimer(), gen = generation }
+    return out
+end
+
+---`{ [citizenid] = source }` over framework-native identifiers, bypassing SIM indirection.
+---Read-only; the table is shared with onlineCidMap.
+---@return table<string, number>
+function player.onlineRealCidMap()
+    return buildCidMap()
+end
+
+---`{ [citizenid] = source }` for the identity each player is CURRENTLY ACTING AS. The batch
+---equivalent of getSourceByIdentifier: a fan-out builds this once and indexes it per recipient
+---instead of resolving each one separately. Kept distinct from the SIM-aware onlineCidMap
+---override because that one maps every carried SIM, so live-UI pushes would reach a phone sitting
+---in a player's pocket. In this base module the acting identity IS the framework identifier, so
+---both share one memoised table. Read-only.
+---@return table<string, number>
+function player.activeCidMap()
+    return buildCidMap()
+end
+
+---A `{ [citizenid] = source }` lookup of every currently-connected player. Read-only.
+---@return table<string, number>
+function player.onlineCidMap()
+    return buildCidMap()
+end
+
+return player

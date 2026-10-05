@@ -1,0 +1,1 @@
+var e=``+new URL(`background9-DW0NWDXh.webp`,import.meta.url).href;export{e as t};

@@ -1,0 +1,1417 @@
+---@type table sd-phone config root (configs/config.lua).
+local config        = require 'configs.config'
+---@type table Player bridge (bridge.server.player): citizenid / name / source lookups.
+local player        = require 'bridge.server.player'
+---@type table Settings persistence (server.settings.store): number registry + airplane-mode flag.
+local settings      = require 'server.settings.store'
+---@type table Contacts persistence (server.contacts.store): saved-contact rows + the block list.
+local contactsStore = require 'server.contacts.store'
+---@type table Banking actions (server.banking.actions): validated transfers with refund-on-failure.
+local banking       = require 'server.banking.actions'
+---@type table Fivemanage uploader (server.photos.uploader): server-side media upload.
+local uploader      = require 'server.photos.uploader'
+---@type table Shared media-upload budget (server.photos.mediaLimit): cooldown + rolling byte cap.
+local mediaLimit    = require 'server.photos.mediaLimit'
+---@type table Presigned upload slots (server.photos.presign): mint + claim for the direct path.
+local presign = require 'server.photos.presign'
+---@type table HTTP upload ingest (server.media.httpUpload): single-use slots on the server's HTTP port.
+local httpUpload = require 'server.media.httpUpload'
+---@type table Messages persistence layer (server.messages.store): mailbox rows, groups, reactions.
+local store         = require 'server.messages.store'
+---@type table Badge engine (server.badges.init): server-authoritative home-screen unread counts.
+local badges        = require 'server.badges.init'
+---@type table Admin mute registry (server.admin.moderation): scope guards for sending texts.
+local moderation    = require 'server.admin.moderation'
+---@type table Media trust boundary: gallery/voice ownership and GIPHY host validation.
+local mediaGuard    = require 'server.media.guard'
+---@type table Cell service (server.service): authoritative signal level per player.
+local service       = require 'server.service'
+
+---@type table Messages knobs (configs/messages.lua): body / thread / group caps.
+local cfg = config.Messages or require 'configs.messages'
+
+---@type table Actions module; the table returned at end of file.
+local actions = {}
+
+---@type table Notification routing (server.notifications.init): identity-addressed banners
+---incl. the pocketed-phone (carried, not active) transient buzz.
+local notifications = require 'server.notifications.init'
+
+local util = require 'server.util'
+local ok, fail, digits, trim, initialsFor, formatNumber = util.ok, util.fail, util.digits, util.trim, util.initialsFor, util.formatNumber
+
+---Prunes a thread only once it has actually outgrown the cap. The anti-join DELETE is far dearer
+---than the indexed COUNT, and on most sends there is nothing to remove.
+---@param cid string mailbox owner
+---@param conversation string thread key
+local function trimThread(cid, conversation)
+    if store.threadCount(cid, conversation) > cfg.MessagesPerThread then
+        store.pruneThread(cid, conversation, cfg.MessagesPerThread)
+    end
+end
+
+
+local colorFor = util.colorFor
+
+-- Message kinds the composer can produce; anything else is coerced to text.
+---@type table<string, boolean> Allowed payload.kind values.
+local VALID_KINDS = {
+    text = true, image = true, gif = true, money = true, location = true, voice = true,
+}
+
+-- Message kinds a system text (actions.systemText) may carry via its opts table.
+---@type table<string, boolean> Allowed opts.kind values for system texts.
+local SYSTEM_KINDS = { image = true, gif = true, location = true }
+
+-- The Tapback emoji the picker offers; reactions outside this set are rejected.
+---@type table<string, boolean> Allowed reaction emoji.
+local REACTION_SET = { ['❤️'] = true, ['👍'] = true, ['👎'] = true, ['😂'] = true }
+
+---@type integer Upper bound on raw member entries scanned per group create / add call.
+local MAX_MEMBER_SCAN = 64
+
+---@type integer Minimum gap between accepted sends, per character. A group send costs one write
+---plus one push per member, so the gap is what bounds the fan-out, not the member cap.
+local SEND_GAP_MS = 500
+---@type integer Rolling send window, and the sends allowed inside it. A chatty player runs at
+---roughly 20 a minute; 60 leaves that untouched while capping a script at one per second.
+local SEND_WINDOW_MS, SEND_PER_WINDOW = 60000, 60
+
+---@type integer Distinct threads one mailbox may open by sending. Only a NEW thread is gated, so
+---an existing conversation always goes through; a heavy roleplay character sits well under this.
+local MAX_CONVERSATIONS = 300
+
+
+
+
+
+
+---Resolves a number into the React `Contact` shape. Prefers the viewer's saved contact card,
+---then a supplied display name, then the formatted number.
+---@param numberDigits string
+---@param contactRow table|nil saved-contact row, or nil
+---@param fallbackName string|nil
+---@return table
+local function resolveParticipant(numberDigits, contactRow, fallbackName)
+    if contactRow then
+        return {
+            id       = numberDigits,
+            name     = contactRow.name,
+            initials = initialsFor(contactRow.name),
+            color    = contactRow.color,
+            avatar   = contactRow.avatar,
+            phone    = numberDigits,
+        }
+    end
+
+    local name = (fallbackName and fallbackName ~= '') and fallbackName or formatNumber(numberDigits)
+    return {
+        id       = numberDigits,
+        name     = name,
+        initials = initialsFor(name),
+        color    = colorFor(numberDigits ~= '' and numberDigits or name),
+        phone    = numberDigits,
+    }
+end
+
+---Build a viewer's `digits -> contact row` lookup from their saved contacts.
+---@param citizenid string
+---@return table<string, table>
+local function contactMapFor(citizenid)
+    local map = {}
+    local rows = contactsStore.listContacts(citizenid)
+    for i = 1, #rows do map[digits(rows[i].phone)] = rows[i] end
+    return map
+end
+
+---Serialize the player's saved contacts for the compose / new-message picker, reusing the same
+---shape as `resolveParticipant`, sorted by name.
+---@param contactMap table<string, table>
+---@return table[]
+local function serializeContacts(contactMap)
+    local out = {}
+    for number, row in pairs(contactMap) do
+        out[#out + 1] = resolveParticipant(number, row)
+    end
+    table.sort(out, function(a, b) return a.name < b.name end)
+    return out
+end
+
+---Aggregates a message's reaction rows into the client's render shape: one entry per distinct
+---emoji (first-appearance order) with its count and whether the viewer chose it.
+---@param rows { citizenid: string, emoji: string }[] oldest-first
+---@param viewerCid string|nil
+---@return table[]
+local function buildReactions(rows, viewerCid)
+    local order, counts, mineByEmoji = {}, {}, {}
+    for _, r in ipairs(rows) do
+        if counts[r.emoji] == nil then order[#order + 1] = r.emoji; counts[r.emoji] = 0 end
+        counts[r.emoji] = counts[r.emoji] + 1
+        if viewerCid and r.citizenid == viewerCid then mineByEmoji[r.emoji] = true end
+    end
+    local out = {}
+    for _, e in ipairs(order) do
+        out[#out + 1] = { emoji = e, count = counts[e], mine = mineByEmoji[e] == true }
+    end
+    return out
+end
+
+---Reshapes a stored message row into the React `Message` shape from a viewer's perspective.
+---When a `reactionsByMid` lookup + viewer cid are supplied, aggregated reactions ride along.
+---@param row table
+---@param viewerNumber string
+---@param viewerCid string|nil
+---@param reactionsByMid table<string, table[]>|nil
+---@return table
+local function serializeMessage(row, viewerNumber, viewerCid, reactionsByMid)
+    local senderDigits = digits(row.sender)
+    local meta = store.decodeJson(row.meta)
+
+    local msg = {
+        id   = row.id,
+        from = (senderDigits ~= '' and senderDigits == viewerNumber) and 'me' or senderDigits,
+        body = row.body or '',
+        kind = row.kind or 'text',
+        ts   = (tonumber(row.created_at) or 0) * 1000,
+        read = (tonumber(row.is_read) or 0) == 1,
+    }
+    if meta.gifUrl   then msg.gifUrl   = meta.gifUrl end
+    if meta.amount   then msg.amount   = meta.amount end
+    if meta.duration then msg.duration = meta.duration end
+    if meta.audio    then msg.audioUrl = meta.audio end
+    if meta.waveform then msg.waveform = meta.waveform end
+    if meta.wpCode   then msg.wpCode   = meta.wpCode end
+    if meta.wpSub    then msg.wpSub    = meta.wpSub end
+    if meta.requested     then msg.requested     = true end
+    if meta.requestStatus then msg.requestStatus = meta.requestStatus end
+
+    local seenAt = tonumber(row.seen_at)
+    if seenAt and seenAt > 0 then msg.seenAt = seenAt * 1000 end
+
+    if reactionsByMid and row.mid then
+        local rrows = reactionsByMid[row.mid]
+        if rrows and #rrows > 0 then msg.reactions = buildReactions(rrows, viewerCid) end
+    end
+    return msg
+end
+
+---Builds a serialized message straight from its fields, for the send-action return value and
+---the live push.
+---@param id string
+---@param senderNumber string
+---@param kind string
+---@param body string
+---@param meta table
+---@param ts number unix epoch
+---@param isRead boolean
+---@param viewerNumber string
+---@return table
+local function buildMessage(id, senderNumber, kind, body, meta, ts, isRead, viewerNumber)
+    return serializeMessage({
+        id = id, sender = senderNumber, kind = kind, body = body,
+        meta = meta, is_read = isRead and 1 or 0, created_at = ts,
+    }, viewerNumber)
+end
+
+---Participants of a group thread as seen by `viewerCid` - every member except the viewer,
+---resolved against the viewer's own contacts.
+---@param viewerCid string
+---@param viewerContactMap table<string, table>
+---@param groupId string
+---@return table[]
+local function groupParticipants(viewerCid, viewerContactMap, groupId, members)
+    local out = {}
+    members = members or store.groupMembers(groupId)
+    for i = 1, #members do
+        local m = members[i]
+        if m.citizenid ~= viewerCid then
+            local d = digits(m.number)
+            out[#out + 1] = resolveParticipant(d, viewerContactMap[d], m.name)
+        end
+    end
+    return out
+end
+
+---Assemble one full conversation payload for a viewer. Dispatches on the thread key: 'g-'
+---prefix is a group, everything else a 1:1 by number.
+---@param viewerCid string
+---@param viewerNumber string
+---@param conversation string thread key
+---@param rows table[] message rows (chronological)
+---@param contactMap table<string, table>
+---@return table
+---@param preview? boolean Skip the reaction lookup. The list only renders each thread's last
+---line, and one reaction query per conversation was a second N+1 alongside the message fetch.
+local function buildConversation(viewerCid, viewerNumber, conversation, rows, contactMap, preview)
+    local reactionsByMid = {}
+    if not preview then
+        local mids = {}
+        for i = 1, #rows do mids[i] = rows[i].mid end
+        reactionsByMid = store.reactionsForMids(mids)
+    end
+    local messages = {}
+    for i = 1, #rows do messages[i] = serializeMessage(rows[i], viewerNumber, viewerCid, reactionsByMid) end
+
+    if lib.string.startsWith(conversation, 'g-') then
+        local groupId = conversation:sub(3)
+        local group   = store.getGroup(groupId)
+        return {
+            id           = conversation,
+            groupName    = group and group.name or 'Group',
+            groupAvatar  = group and group.avatar or nil,
+            groupOwner   = group ~= nil and group.owner_cid == viewerCid,
+            participants = groupParticipants(viewerCid, contactMap, groupId),
+            messages     = messages,
+            pinned       = false,
+            muted        = false,
+        }
+    end
+
+    return {
+        id           = conversation,
+        participants = { resolveParticipant(conversation, contactMap[conversation]) },
+        messages     = messages,
+        pinned       = false,
+        muted        = false,
+    }
+end
+
+---Sanitizes composer metadata: clamps string lengths, coerces money amounts to a non-negative
+---integer, accepts only 'pending' request statuses, and bounds voice waveforms.
+---@param cid string caller's framework character id
+---@param kind string
+---@param payload table
+---@return table
+local function sanitizeMeta(cid, kind, payload)
+    local meta = {}
+    if kind == 'image' then
+        meta.gifUrl = mediaGuard.photo(cid, payload.gifUrl)
+    elseif kind == 'gif' then
+        meta.gifUrl = mediaGuard.giphy(payload.gifUrl)
+    elseif kind == 'money' then
+        local amount = tonumber(payload.amount) or 0
+        if amount ~= amount or amount == math.huge or amount == -math.huge then amount = 0 end
+        amount = math.floor(amount)
+        if math.type(amount) ~= 'integer' then amount = 0 end
+        meta.amount = math.max(0, amount)
+        if payload.requested == true then meta.requested = true end
+        local rs = trim(payload.requestStatus)
+        if rs == 'pending' then meta.requestStatus = rs end
+    elseif kind == 'voice' then
+        meta.duration = lib.math.clamp(math.floor(tonumber(payload.duration) or 0), 0, 36000)
+        meta.audio = mediaGuard.voice(cid, payload.audioUrl)
+        if type(payload.waveform) == 'table' then
+            local bars = {}
+            for i = 1, math.min(#payload.waveform, 64) do
+                local v = math.floor(tonumber(payload.waveform[i]) or 0)
+                bars[i] = lib.math.clamp(v, 0, 100)
+            end
+            if #bars > 0 then meta.waveform = bars end
+        end
+    elseif kind == 'location' then
+        local code = trim(payload.wpCode)
+        local sub  = trim(payload.wpSub)
+        if code ~= '' then meta.wpCode = code:sub(1, 256) end
+        if sub  ~= '' then meta.wpSub  = sub:sub(1, 128) end
+    end
+    return meta
+end
+
+---True if a message of `kind` carries content, given its body + sanitized meta.
+---@param kind string
+---@param body string
+---@param meta table
+---@return boolean
+local function hasContent(kind, body, meta)
+    if kind == 'text'                     then return body ~= '' end
+    if kind == 'image' or kind == 'gif'   then return meta.gifUrl ~= nil end
+    if kind == 'money'                    then return (meta.amount or 0) > 0 end
+    if kind == 'voice'                    then return (meta.duration or 0) > 0 end
+    if kind == 'location'                 then return body ~= '' or meta.wpCode ~= nil end
+    return body ~= ''
+end
+
+---Builds a short list/banner preview line for a message of any kind. `meta` may be nil only
+---for kinds that never read it.
+---@param kind string
+---@param body string
+---@param meta table|nil
+---@return string
+local function previewFor(kind, body, meta)
+    if kind == 'image'      then return '📷 Photo' end
+    if kind == 'gif'        then return 'GIF' end
+    if kind == 'money'      then return ((meta.requested and '💵 Requested $%d' or '💵 $%d')):format(meta.amount or 0) end
+    if kind == 'voice'      then return '🎤 Voice message' end
+    if kind == 'location'   then return '📍 ' .. (body ~= '' and body or 'Location') end
+    if kind == 'locrequest' then return '📍 Location sharing request' end
+    return body
+end
+
+---Fires an iOS-style phone notification at a recipient's client, then refreshes their
+---home-screen Messages badge from the DB.
+---@param targetSrc number
+---@param title string
+---@param body string
+local function notify(targetSrc, title, body)
+    TriggerClientEvent('sd-phone:client:notify', targetSrc, {
+        app   = 'messages',
+        title = title,
+        body  = body,
+        time  = 'now',
+        appId = 'messages',
+    })
+    -- Per-recipient, so it must stay one indexed count: the full snapshot reads seven stores
+    -- including the unindexed mail scan, and a group send pays it once per member.
+    badges.pushApp(targetSrc, 'messages')
+end
+
+---Returns full message state for one player: every conversation (1:1 + group, including empty
+---new groups), their saved contacts, and their own number/name. Read-only.
+---@param source number
+---@return table
+function actions.list(source)
+    local cid = player.getIdentifier(source)
+    if not cid then return fail('messages.playerNotFound', 'Player not found') end
+
+    local myNumber  = digits(settings.ensurePhoneNumber(cid) or '')
+    local contactMap = contactMapFor(cid)
+
+    local conversations, seen = {}, {}
+    -- Previews only, from a single query. This used to fetch every thread in full (a query per
+    -- conversation, plus a reaction query each) before the app could paint anything: on a mailbox
+    -- with 550 threads that is ~1,100 round trips for a list that shows one line per row. The full
+    -- history is fetched by actions.thread when a conversation is actually opened.
+    for _, row in ipairs(store.threadPreviews(cid)) do
+        seen[row.conversation] = true
+        local conv = buildConversation(cid, myNumber, row.conversation, { row }, contactMap, true)
+        conv.unread  = math.floor(tonumber(row.unread) or 0)
+        conv.partial = true
+        conversations[#conversations + 1] = conv
+    end
+
+    for _, g in ipairs(store.groupsForMember(cid)) do
+        local key = 'g-' .. g.id
+        if not seen[key] then
+            conversations[#conversations + 1] = buildConversation(cid, myNumber, key, {}, contactMap)
+        end
+    end
+
+    return ok({
+        conversations = conversations,
+        contacts      = serializeContacts(contactMap),
+        myNumber      = myNumber,
+        myName        = player.getName(source),
+    })
+end
+
+---Full history for one conversation, with reactions. Fetched when the player opens a thread,
+---since actions.list only carries each thread's last line. Read-only.
+---@param source number
+---@param payload { id: string }|nil
+---@return table result { success, data = { conversation } }
+function actions.thread(source, payload)
+    local cid = player.getIdentifier(source)
+    if not cid then return fail('messages.playerNotFound', 'Player not found') end
+
+    payload = type(payload) == 'table' and payload or {}
+    local conversation = type(payload.id) == 'string' and payload.id or ''
+    if conversation == '' then return fail('messages.missingConversation', 'Missing conversation') end
+
+    local myNumber   = digits(settings.ensurePhoneNumber(cid) or '')
+    local contactMap = contactMapFor(cid)
+    local rows       = store.threadMessages(cid, conversation, cfg.MessagesPerThread)
+
+    return ok({ conversation = buildConversation(cid, myNumber, conversation, rows, contactMap) })
+end
+
+---@type integer Store-and-forward cap per number; past this the carrier drops new texts silently.
+local MAX_PENDING_PER_NUMBER = 100
+
+---Queues a text for a number that is registered on a SIM but currently out of service (unique
+---phones: the SIM is in no phone). Unregistered numbers still drop silently, like stock.
+---@param target string recipient number digits
+---@param mid string shared logical message id
+---@param senderNumber string
+---@param kind string
+---@param body string
+---@param meta table
+---@param ts number
+local function queueForNumber(target, mid, senderNumber, kind, body, meta, ts)
+    if not require('server.sim.state').active then return end
+    if not require('server.sim.store').get(target) then return end
+    if store.pendingCount(target) >= MAX_PENDING_PER_NUMBER then return end
+    store.queuePending(store.newId(), mid, target, senderNumber, kind, body, meta, ts)
+end
+
+---Delivers one 1:1 message: the sender's copy is always stored; the recipient's copy + live
+---push happen only when the number is in service, unblocked, and not in airplane mode.
+---@param source number
+---@param cid string
+---@param myNumber string
+---@param target string recipient number digits
+---@param kind string
+---@param body string
+---@param meta table
+---@param ts number
+---@param mid string shared logical message id stamped on both copies
+---@return table
+local function sendDirect(source, cid, myNumber, target, kind, body, meta, ts, mid)
+    if target == '' or #target > 48 then return fail('messages.noRecipient', 'No recipient') end
+    if target == myNumber then return fail('messages.canTMessageYourself', 'You can\'t message yourself') end
+
+    -- pruneThread caps rows per thread, so a fresh destination number each time is unbounded
+    -- growth. The count is only paid when the thread is genuinely new.
+    if not store.threadExists(cid, target) and store.conversationCount(cid) >= MAX_CONVERSATIONS then
+        return fail('messages.inboxFullDeleteConversationFirst', 'Your inbox is full. Delete a conversation first.')
+    end
+
+    local outId = store.newId()
+    store.insertMessage(outId, mid, cid, target, myNumber, 'outgoing', kind, body, meta, true, ts)
+    trimThread(cid, target)
+
+    local targetCid = settings.getCitizenByNumber(target)
+    local inId, withheld, targetSrc
+    if not targetCid then
+        queueForNumber(target, mid, myNumber, kind, body, meta, ts)
+    elseif targetCid ~= cid and not contactsStore.isBlocked(targetCid, myNumber) then
+        targetSrc = player.getSourceByIdentifier(targetCid)
+        withheld = settings.isAirplane(targetCid) or not service.allows(targetSrc, 'text')
+        inId = store.newId()
+        store.insertMessage(inId, mid, targetCid, myNumber, myNumber, 'incoming', kind, body, meta, false, ts, withheld)
+        trimThread(targetCid, myNumber)
+
+        if targetSrc and not withheld then
+            -- No character-name fallback: an unsaved sender shows as their number, matching
+            -- the buildConversation reload path (and not leaking identities).
+            local theirContacts = contactMapFor(targetCid)
+            local participant   = resolveParticipant(myNumber, theirContacts[myNumber])
+            local msg           = buildMessage(inId, myNumber, kind, body, meta, ts, false, digits(settings.getPhoneNumber(targetCid)))
+
+            TriggerClientEvent('sd-phone:client:messages:incoming', targetSrc, {
+                id           = myNumber,
+                participants = { participant },
+                messages     = { msg },
+                pinned       = false,
+                muted        = false,
+            })
+            notify(targetSrc, participant.name, previewFor(kind, body, meta))
+        elseif not withheld then
+            -- Recipient identity sits on a phone in someone's pocket (carried, not active):
+            -- transient colour-tagged buzz, no thread push - that phone catches up on open.
+            local theirContacts = contactMapFor(targetCid)
+            local participant   = resolveParticipant(myNumber, theirContacts[myNumber])
+            notifications.notifyCid(targetCid, {
+                appId = 'messages',
+                title = participant.name,
+                body  = previewFor(kind, body, meta),
+                time  = 'now',
+            })
+        end
+    end
+
+    -- First-party send announcement (1:1 shape).
+    TriggerEvent('sd-phone:server:messages:sent', {
+        system          = false,
+        group           = false,
+        source          = source,
+        citizenid       = cid,
+        senderNumber    = myNumber,
+        targetNumber    = target,
+        targetCitizenid = targetCid,
+        targetSource    = targetSrc,
+        kind            = kind,
+        body            = body,
+        meta            = meta,
+        mid             = mid,
+        messageId       = outId,
+        recipientId     = inId,
+        withheld        = withheld == true,
+        timestamp       = ts,
+    })
+
+    return ok(buildMessage(outId, myNumber, kind, body, meta, ts, true, myNumber))
+end
+
+---Delivers a rich app-generated 1:1 message on a player's behalf (internal, module-to-module
+---only) and mirrors the outgoing copy into the sender's own Messages UI.
+---@param source number sender
+---@param targetNumber string recipient number
+---@param kind string
+---@param body string
+---@param meta table|nil
+---@return table
+function actions.appMessage(source, targetNumber, kind, body, meta)
+    local cid = player.getIdentifier(source)
+    if not cid then return fail('messages.playerNotFound', 'Player not found') end
+
+    local myNumber = digits(settings.ensurePhoneNumber(cid) or '')
+    local target   = digits(targetNumber)
+    local res = sendDirect(source, cid, myNumber, target, kind, trim(body), meta or {}, os.time(), store.newId())
+
+    if res.success and res.data then
+        local contactMap = contactMapFor(cid)
+        TriggerClientEvent('sd-phone:client:messages:incoming', source, {
+            id           = target,
+            participants = { resolveParticipant(target, contactMap[target]) },
+            messages     = { res.data },
+            pinned       = false,
+            muted        = false,
+        })
+    end
+    return res
+end
+
+---Locates the caller's newest still-pending location-request card in the 1:1 thread with
+---`peerNumber`. Scoped to the caller's own mailbox. Read-only.
+---@param citizenid string
+---@param peerNumber string
+---@return string|nil copy id
+function actions.findRequestCopy(citizenid, peerNumber)
+    return store.latestPendingRequest(citizenid, digits(peerNumber), 'locrequest')
+end
+
+---Sets a request card's status on every mailbox copy of the message, pushing the change live
+---to online owners. `copyId` must be the caller's own copy.
+---@param citizenid string the responder
+---@param copyId string the responder's copy id
+---@param status string 'accepted' | 'declined'
+---@return boolean
+function actions.setRequestStatus(citizenid, copyId, status)
+    local mid = store.midForCopy(copyId, citizenid)
+    if not mid then return false end
+
+    -- One pass over the connected players for the whole fan-out; resolving per copy re-scanned
+    -- every player on the server each time.
+    local activeSrcs = player.activeCidMap()
+    for _, copy in ipairs(store.siblingCopies(mid)) do
+        local meta = store.decodeJson(store.messageMeta(copy.id))
+        meta.requestStatus = status
+        store.updateMeta(copy.id, meta)
+
+        local tgt = activeSrcs[copy.citizenid]
+        if tgt then
+            TriggerClientEvent('sd-phone:client:messages:meta', tgt, {
+                conversation  = copy.conversation,
+                id            = copy.id,
+                requestStatus = status,
+            })
+        end
+    end
+    return true
+end
+
+---Delivers a one-way system text from a service short code: no sender mailbox copy, contact
+---blocking ignored, non-whitelisted kinds delivered as plain text.
+---@param senderNumber string
+---@param senderName string
+---@param targetNumber string
+---@param body string
+---@param opts table|nil presentation-safe kind + its meta fields (kind, gifUrl, wpCode, wpSub)
+---@return boolean delivered
+---@return string? messageId recipient row id of the stored copy, nil when not delivered
+function actions.systemText(senderNumber, senderName, targetNumber, body, opts)
+    local target = digits(targetNumber)
+    if target == '' then return false end
+    local targetCid = settings.getCitizenByNumber(target)
+    if not targetCid then return false end
+
+    local kind, meta = 'text', nil
+    if type(opts) == 'table' and SYSTEM_KINDS[opts.kind] then
+        kind = opts.kind
+        if kind == 'image' or kind == 'gif' then
+            local url = mediaGuard.https(opts.gifUrl)
+            meta = url and { gifUrl = url } or {}
+        else
+            meta = sanitizeMeta(targetCid, kind, opts)
+        end
+    end
+    if not hasContent(kind, body, meta or {}) then return false end
+
+    local ts   = os.time()
+    local mid  = store.newId()
+    local inId = store.newId()
+    local targetSrc = player.getSourceByIdentifier(targetCid)
+    local withheld = settings.isAirplane(targetCid) or not service.allows(targetSrc, 'text')
+    store.insertMessage(inId, mid, targetCid, senderNumber, senderNumber, 'incoming', kind, body, meta, false, ts, withheld)
+    trimThread(targetCid, senderNumber)
+
+    if targetSrc and not withheld then
+        local participant = resolveParticipant(senderNumber, nil, senderName)
+        local msg = buildMessage(inId, senderNumber, kind, body, meta, ts, false, digits(settings.getPhoneNumber(targetCid)))
+        TriggerClientEvent('sd-phone:client:messages:incoming', targetSrc, {
+            id           = senderNumber,
+            participants = { participant },
+            messages     = { msg },
+            pinned       = false,
+            muted        = false,
+        })
+        notify(targetSrc, participant.name, previewFor(kind, body, meta))
+    elseif not withheld then
+        notifications.notifyCid(targetCid, {
+            appId = 'messages',
+            title = senderName or formatNumber(senderNumber),
+            body  = previewFor(kind, body, meta),
+            time  = 'now',
+        })
+    end
+
+    -- First-party send announcement (system shape).
+    TriggerEvent('sd-phone:server:messages:sent', {
+        system          = true,
+        group           = false,
+        senderNumber    = senderNumber,
+        senderName      = senderName,
+        targetNumber    = target,
+        targetCitizenid = targetCid,
+        targetSource    = targetSrc,
+        kind            = kind,
+        body            = body,
+        meta            = meta,
+        mid             = mid,
+        messageId       = inId,
+        recipientId     = inId,
+        withheld        = withheld == true,
+        timestamp       = ts,
+    })
+    return true, inId
+end
+
+---Fans a message out to every member of a group thread: an outgoing copy for the sender, an
+---incoming copy (plus live push + banner) for everyone else. Membership is store-checked.
+---@param source number
+---@param cid string
+---@param myNumber string
+---@param groupId string
+---@param kind string
+---@param body string
+---@param meta table
+---@param ts number
+---@param mid string shared logical message id stamped on every copy
+---@return table
+local function sendGroup(source, cid, myNumber, groupId, kind, body, meta, ts, mid)
+    local group = store.getGroup(groupId)
+    if not group then return fail('messages.conversationNotFound', 'Conversation not found') end
+    if not store.isGroupMember(groupId, cid) then return fail('messages.notConversation', 'You are not in this conversation') end
+
+    local key        = 'g-' .. groupId
+    local senderName = player.getName(source)
+    local members    = store.groupMembers(groupId)
+    local outId
+
+    -- One pass over the connected players for the whole fan-out.
+    local activeSrcs = player.activeCidMap()
+    ---@type table[] One mailbox copy per member, written in a single INSERT after the fan-out.
+    local batch = {}
+    for _, m in ipairs(members) do
+        local isMe = m.citizenid == cid
+        local withheld = (not isMe) and settings.isAirplane(m.citizenid)
+        local id   = store.newId()
+        batch[#batch + 1] = {
+            id = id, mid = mid, citizenid = m.citizenid, conversation = key, sender = myNumber,
+            direction = isMe and 'outgoing' or 'incoming', kind = kind, body = body, meta = meta,
+            isRead = isMe, createdAt = ts, withheld = withheld,
+        }
+
+        if isMe then
+            outId = id
+        else
+            local targetSrc = activeSrcs[m.citizenid]
+            if targetSrc and not withheld then
+                local theirContacts = contactMapFor(m.citizenid)
+                local msg = buildMessage(id, myNumber, kind, body, meta, ts, false, digits(m.number))
+                TriggerClientEvent('sd-phone:client:messages:incoming', targetSrc, {
+                    id           = key,
+                    groupName    = group.name,
+                    participants = groupParticipants(m.citizenid, theirContacts, groupId, members),
+                    messages     = { msg },
+                    pinned       = false,
+                    muted        = false,
+                })
+                notify(targetSrc, group.name, senderName .. ': ' .. previewFor(kind, body, meta))
+            elseif not withheld then
+                notifications.notifyCid(m.citizenid, {
+                    appId = 'messages',
+                    title = group.name,
+                    body  = senderName .. ': ' .. previewFor(kind, body, meta),
+                    time  = 'now',
+                })
+            end
+        end
+    end
+
+    store.insertMessages(batch)
+    for _, m in ipairs(members) do trimThread(m.citizenid, key) end
+
+    -- First-party send announcement (group shape), fired once per send.
+    TriggerEvent('sd-phone:server:messages:sent', {
+        system       = false,
+        group        = true,
+        source       = source,
+        citizenid    = cid,
+        senderNumber = myNumber,
+        groupId      = groupId,
+        members      = members,
+        kind         = kind,
+        body         = body,
+        meta         = meta,
+        mid          = mid,
+        messageId    = outId,
+        timestamp    = ts,
+    })
+
+    return ok(buildMessage(outId, myNumber, kind, body, meta, ts, true, myNumber))
+end
+
+---Sends a message from the composer. `payload.conversation` routes it ('g-' prefix = group,
+---else a destination number); kind, body, and meta are re-validated, money runs a bank transfer.
+---@param source number
+---@param payload table
+---@return table
+function actions.send(source, payload)
+    payload = type(payload) == 'table' and payload or {}
+    local cid = player.getIdentifier(source)
+    if not cid then return fail('messages.playerNotFound', 'Player not found') end
+    if not util.cooldown(cid, 'messages:send', SEND_GAP_MS)
+        or not util.rateLimit(cid, 'messages:send', SEND_WINDOW_MS, SEND_PER_WINDOW) then
+        return fail('messages.slowDown', 'Slow down')
+    end
+    if settings.isAirplane(cid) then return fail('messages.airplaneMode', 'Airplane Mode is on') end
+    if not service.allows(source, 'text') then return fail('messages.noService', 'No Service') end
+    local muted = moderation.guard(cid, 'sms'); if muted then return muted end
+
+    local conversation = tostring(payload.conversation or '')
+    if conversation == '' then return fail('messages.noConversation', 'No conversation') end
+
+    local kind = VALID_KINDS[payload.kind] and payload.kind or 'text'
+    local body = trim(payload.body)
+    if #body > cfg.MaxBodyLength then body = body:sub(1, cfg.MaxBodyLength) end
+
+    local meta = sanitizeMeta(cid, kind, payload)
+    if not hasContent(kind, body, meta) then return fail('messages.emptyMessage', 'Empty message') end
+
+    local isGroup = lib.string.startsWith(conversation, 'g-')
+
+    -- Number-dependent: a phone with no number in service can't send (device mode with the SIM
+    -- out; in legacy/stock a resolvable caller always has a number, so this never trips). Gate
+    -- BEFORE the money branch so a refused text never moves cash.
+    local myNumber = digits(settings.ensurePhoneNumber(cid) or '')
+    if myNumber == '' then return fail('messages.noServiceInstallSimCard', 'No service. Install a SIM card to send messages.') end
+
+    if kind == 'money' then
+        if isGroup then return fail('messages.moneyCanOnlySentDirect', 'Money can only be sent in a direct message') end
+        if not meta.requested then
+            local res = banking.send(source, {
+                number = digits(conversation),
+                amount = meta.amount,
+                note   = 'Phone payment',
+            })
+            if not res or not res.success then
+                if res and res.message then return res end
+                return fail('messages.paymentFailed', 'Payment failed')
+            end
+        end
+    end
+
+    local ts = os.time()
+    local mid = store.newId()
+
+    if isGroup then
+        return sendGroup(source, cid, myNumber, conversation:sub(3), kind, body, meta, ts, mid)
+    end
+    return sendDirect(source, cid, myNumber, digits(conversation), kind, body, meta, ts, mid)
+end
+
+---Toggles one of the caller's reactions on a message (whitelist- and ownership-checked),
+---returns the new aggregate, and pushes it live to every other online participant.
+---@param source number
+---@param payload { id?: string, emoji?: string }
+---@return table
+function actions.react(source, payload)
+    payload = type(payload) == 'table' and payload or {}
+    local cid = player.getIdentifier(source)
+    if not cid then return fail('messages.playerNotFound', 'Player not found') end
+
+    local id    = tostring(payload.id or '')
+    local emoji = tostring(payload.emoji or '')
+    if id == '' then return fail('messages.noMessage', 'No message') end
+    if not REACTION_SET[emoji] then return fail('messages.invalidReaction', 'Invalid reaction') end
+
+    local mid = store.midForCopy(id, cid)
+    if not mid then return fail('messages.messageNotFound', 'Message not found') end
+
+    store.toggleReaction(mid, cid, emoji, os.time())
+
+    local rows = store.reactionsFor(mid)
+
+    -- One pass over the connected players for the whole fan-out.
+    local activeSrcs = player.activeCidMap()
+    for _, copy in ipairs(store.siblingCopies(mid)) do
+        if copy.citizenid ~= cid then
+            local tgt = activeSrcs[copy.citizenid]
+            if tgt then
+                TriggerClientEvent('sd-phone:client:messages:reaction', tgt, {
+                    conversation = copy.conversation,
+                    id           = copy.id,
+                    reactions    = buildReactions(rows, copy.citizenid),
+                })
+            end
+        end
+    end
+
+    return ok({ id = id, reactions = buildReactions(rows, cid) })
+end
+
+---Creates a group thread from a set of recipient numbers + a name, resolving numbers to
+---citizens and capping the roster. Returns the new empty conversation; online members get it pushed.
+---@param source number
+---@param payload { name?: string, members?: string[] }
+---@return table
+function actions.createGroup(source, payload)
+    payload = type(payload) == 'table' and payload or {}
+    local cid = player.getIdentifier(source)
+    if not cid then return fail('messages.playerNotFound', 'Player not found') end
+
+    local name = trim(payload.name)
+    if name == '' then return fail('messages.groupNameRequired', 'Group name required') end
+    if #name > cfg.MaxGroupNameLength then name = name:sub(1, cfg.MaxGroupNameLength) end
+
+    local myNumber = digits(settings.ensurePhoneNumber(cid) or '')
+
+    local list = type(payload.members) == 'table' and payload.members or {}
+    local resolved, seenCid = {}, { [cid] = true }
+    for i = 1, math.min(#list, MAX_MEMBER_SCAN) do
+        local d = digits(list[i])
+        if d ~= '' and d ~= myNumber then
+            local mcid = settings.getCitizenByNumber(d)
+            if mcid and not seenCid[mcid] then
+                seenCid[mcid] = true
+                resolved[#resolved + 1] = { cid = mcid, number = d }
+            end
+        end
+    end
+
+    if #resolved == 0 then return fail('messages.addLeastOneValidMember', 'Add at least one valid member') end
+    if #resolved + 1 > cfg.MaxGroupMembers then
+        return fail('messages.groupsCappedMembers', 'Groups are capped at {n} members', { n = cfg.MaxGroupMembers })
+    end
+
+    local groupId = store.newId()
+    if not store.createGroup(groupId, name, cid, os.time()) then
+        return fail('messages.failedCreateGroup', 'Failed to create group')
+    end
+
+    store.addGroupMember(groupId, cid, myNumber, player.getName(source))
+    -- One pass over the connected players, shared by both loops below.
+    local activeSrcs = player.activeCidMap()
+    for _, m in ipairs(resolved) do
+        local msrc  = activeSrcs[m.cid]
+        local mname = msrc and player.getName(msrc) or formatNumber(m.number)
+        store.addGroupMember(groupId, m.cid, m.number, mname)
+    end
+
+    local key = 'g-' .. groupId
+
+    for _, m in ipairs(resolved) do
+        local msrc = activeSrcs[m.cid]
+        if msrc then
+            local theirContacts = contactMapFor(m.cid)
+            TriggerClientEvent('sd-phone:client:messages:incoming', msrc, {
+                id           = key,
+                groupName    = name,
+                participants = groupParticipants(m.cid, theirContacts, groupId),
+                messages     = {},
+                pinned       = false,
+                muted        = false,
+            })
+        end
+    end
+
+    local contactMap = contactMapFor(cid)
+    return ok(buildConversation(cid, myNumber, key, {}, contactMap))
+end
+
+---Adds one or more members to an existing group (any member may add; roster capped). Pushes
+---the refreshed thread to every online member and returns the caller's updated conversation.
+---@param source number
+---@param payload { conversation?: string, members?: string[] }
+---@return table
+function actions.addGroupMember(source, payload)
+    payload = type(payload) == 'table' and payload or {}
+    local cid = player.getIdentifier(source)
+    if not cid then return fail('messages.playerNotFound', 'Player not found') end
+
+    local key = tostring(payload.conversation or '')
+    if not lib.string.startsWith(key, 'g-') then return fail('messages.notGroupConversation', 'Not a group conversation') end
+    local groupId = key:sub(3)
+    if not store.isGroupMember(groupId, cid) then return fail('messages.notGroup', 'You are not in this group') end
+
+    local myNumber = digits(settings.ensurePhoneNumber(cid) or '')
+
+    local seenCid, current = { [cid] = true }, store.groupMembers(groupId)
+    for _, m in ipairs(current) do seenCid[m.citizenid] = true end
+
+    local list = type(payload.members) == 'table' and payload.members or {}
+    local resolved = {}
+    for i = 1, math.min(#list, MAX_MEMBER_SCAN) do
+        local d = digits(list[i])
+        if d ~= '' and d ~= myNumber then
+            local mcid = settings.getCitizenByNumber(d)
+            if mcid and not seenCid[mcid] then
+                seenCid[mcid] = true
+                resolved[#resolved + 1] = { cid = mcid, number = d }
+            end
+        end
+    end
+
+    if #resolved == 0 then return fail('messages.addLeastOneValidMember', 'Add at least one valid member') end
+    if #current + #resolved > cfg.MaxGroupMembers then
+        return fail('messages.groupsCappedMembers', 'Groups are capped at {n} members', { n = cfg.MaxGroupMembers })
+    end
+
+    -- One pass over the connected players, shared by both loops below.
+    local activeSrcs = player.activeCidMap()
+    for _, m in ipairs(resolved) do
+        local msrc  = activeSrcs[m.cid]
+        local mname = msrc and player.getName(msrc) or formatNumber(m.number)
+        store.addGroupMember(groupId, m.cid, m.number, mname)
+    end
+
+    local groupName = (store.getGroup(groupId) or {}).name or 'Group'
+    local roster = store.groupMembers(groupId)
+    for _, m in ipairs(roster) do
+        local msrc = m.citizenid ~= cid and activeSrcs[m.citizenid]
+        if msrc then
+            TriggerClientEvent('sd-phone:client:messages:incoming', msrc, {
+                id           = key,
+                groupName    = groupName,
+                participants = groupParticipants(m.citizenid, contactMapFor(m.citizenid), groupId, roster),
+                messages     = {},
+                pinned       = false,
+                muted        = false,
+            })
+        end
+    end
+
+    local contactMap = contactMapFor(cid)
+    return ok(buildConversation(cid, myNumber, key, {}, contactMap))
+end
+
+---Renames a group and/or sets its picture. Creator-only; pushes the refreshed thread to every
+---online member and returns the caller's updated conversation.
+---@param source number
+---@param payload { conversation?: string, name?: string, avatar?: string }
+---@return table
+function actions.updateGroup(source, payload)
+    payload = type(payload) == 'table' and payload or {}
+    local cid = player.getIdentifier(source)
+    if not cid then return fail('messages.playerNotFound', 'Player not found') end
+
+    local key = tostring(payload.conversation or '')
+    if not lib.string.startsWith(key, 'g-') then return fail('messages.notGroupConversation', 'Not a group conversation') end
+    local groupId = key:sub(3)
+
+    local group = store.getGroup(groupId)
+    if not group then return fail('messages.groupNotFound', 'Group not found') end
+    if group.owner_cid ~= cid then return fail('messages.onlyGroupCreatorCanEdit', 'Only the group creator can edit this group') end
+
+    local name = trim(payload.name)
+    if name == '' then name = group.name end
+    if name == '' then return fail('messages.groupNameRequired', 'Group name required') end
+    if #name > cfg.MaxGroupNameLength then name = name:sub(1, cfg.MaxGroupNameLength) end
+
+    local avatar = payload.avatar ~= nil and mediaGuard.photo(cid, payload.avatar) or group.avatar
+
+    store.updateGroup(groupId, name, avatar)
+
+    local myNumber = digits(settings.ensurePhoneNumber(cid) or '')
+
+    -- One pass over the connected players for the whole fan-out.
+    local activeSrcs = player.activeCidMap()
+    local roster = store.groupMembers(groupId)
+    for _, m in ipairs(roster) do
+        local msrc = m.citizenid ~= cid and activeSrcs[m.citizenid]
+        if msrc then
+            TriggerClientEvent('sd-phone:client:messages:incoming', msrc, {
+                id           = key,
+                groupName    = name,
+                groupAvatar  = avatar,
+                groupOwner   = false,
+                participants = groupParticipants(m.citizenid, contactMapFor(m.citizenid), groupId, roster),
+                messages     = {},
+                pinned       = false,
+                muted        = false,
+            })
+        end
+    end
+
+    local contactMap = contactMapFor(cid)
+    return ok(buildConversation(cid, myNumber, key, {}, contactMap))
+end
+
+---Removes a member (identified by number) from a group. Creator-only; drops the thread from
+---the removed member's app, refreshes the roster, and returns the caller's conversation.
+---@param source number
+---@param payload { conversation?: string, member?: string }
+---@return table
+function actions.removeGroupMember(source, payload)
+    payload = type(payload) == 'table' and payload or {}
+    local cid = player.getIdentifier(source)
+    if not cid then return fail('messages.playerNotFound', 'Player not found') end
+
+    local key = tostring(payload.conversation or '')
+    if not lib.string.startsWith(key, 'g-') then return fail('messages.notGroupConversation', 'Not a group conversation') end
+    local groupId = key:sub(3)
+
+    local group = store.getGroup(groupId)
+    if not group then return fail('messages.groupNotFound', 'Group not found') end
+    if group.owner_cid ~= cid then return fail('messages.onlyGroupCreatorCanRemove', 'Only the group creator can remove members') end
+
+    local mnum = digits(payload.member or '')
+    local mcid = mnum ~= '' and settings.getCitizenByNumber(mnum)
+    if not mcid then return fail('messages.memberNotFound', 'Member not found') end
+    if mcid == group.owner_cid then return fail('messages.creatorCannotRemoved', 'The creator cannot be removed') end
+    if not store.isGroupMember(groupId, mcid) then return fail('messages.notMemberGroup', 'Not a member of this group') end
+
+    store.removeGroupMember(groupId, mcid)
+
+    -- One pass over the connected players, covering the removed member and the fan-out below.
+    local activeSrcs = player.activeCidMap()
+
+    local removedSrc = activeSrcs[mcid]
+    if removedSrc then
+        TriggerClientEvent('sd-phone:client:messages:removed', removedSrc, { conversation = key })
+    end
+
+    local roster = store.groupMembers(groupId)
+    for _, m in ipairs(roster) do
+        local msrc = m.citizenid ~= cid and activeSrcs[m.citizenid]
+        if msrc then
+            TriggerClientEvent('sd-phone:client:messages:incoming', msrc, {
+                id           = key,
+                groupName    = group.name,
+                groupAvatar  = group.avatar,
+                groupOwner   = false,
+                participants = groupParticipants(m.citizenid, contactMapFor(m.citizenid), groupId, roster),
+                messages     = {},
+                pinned       = false,
+                muted        = false,
+            })
+        end
+    end
+
+    local myNumber   = digits(settings.ensurePhoneNumber(cid) or '')
+    local contactMap = contactMapFor(cid)
+    return ok(buildConversation(cid, myNumber, key, {}, contactMap))
+end
+
+---Stamps the peer's own outgoing copies of a 1:1 thread with the moment we read them, and tells
+---them so their thread updates live. Groups carry no read receipts, and a thread whose key no
+---identity holds resolves to nobody. Idempotent: only unstamped rows are touched, so a reopened
+---thread neither rewrites the stamp nor re-pushes.
+---@param cid string reader's citizenid
+---@param conversation string the reader's thread key, i.e. the peer's number on a 1:1
+local function pushSeen(cid, conversation)
+    if lib.string.startsWith(conversation, 'g-') then return end
+
+    local peerCid = settings.getCitizenByNumber(digits(conversation))
+    if not peerCid or peerCid == cid then return end
+
+    local myNumber = digits(settings.getPhoneNumber(cid) or '')
+    if myNumber == '' then return end
+
+    local seenAt = os.time()
+    if store.markOutgoingSeen(peerCid, myNumber, seenAt) == 0 then return end
+
+    local peerSrc = player.getSourceByIdentifier(peerCid)
+    if not peerSrc then return end
+
+    TriggerClientEvent('sd-phone:client:messages:seen', peerSrc, {
+        conversation = myNumber,
+        seenAt       = seenAt * 1000,
+    })
+end
+
+---Marks a thread's inbound messages as read for the caller, then refreshes their badge.
+---Idempotent.
+---@param source number
+---@param payload { conversation?: string }
+---@return table
+function actions.markRead(source, payload)
+    payload = type(payload) == 'table' and payload or {}
+    local cid = player.getIdentifier(source)
+    if not cid then return fail('messages.playerNotFound', 'Player not found') end
+
+    local conversation = tostring(payload.conversation or '')
+    if conversation == '' then return fail('messages.noConversation', 'No conversation') end
+
+    store.markThreadRead(cid, conversation)
+    pushSeen(cid, conversation)
+    badges.push(source)
+    return ok({ conversation = conversation })
+end
+
+---@type integer Rolling window for typing pings, and the number accepted inside it. A composer
+---emits at most one on plus one off every three seconds, so a real typist never reaches this
+---while a script driving the callback in a loop is capped.
+local TYPING_WINDOW_MS, TYPING_PER_WINDOW = 10000, 12
+
+---Relays a live typing indicator to the other side of a thread. Nothing is stored: the receiver
+---drops it on the matching off ping and, failing that, on its own after a few seconds of
+---silence. A group fans out to its online members, a 1:1 goes to the peer's number.
+---@param source number
+---@param payload { conversation?: string, on?: boolean }
+---@return table
+function actions.typing(source, payload)
+    payload = type(payload) == 'table' and payload or {}
+    local cid = player.getIdentifier(source)
+    if not cid then return fail('messages.playerNotFound', 'Player not found') end
+    if not util.rateLimit(cid, 'messages:typing', TYPING_WINDOW_MS, TYPING_PER_WINDOW) then
+        return fail('messages.slowDown', 'Slow down')
+    end
+
+    local conversation = tostring(payload.conversation or '')
+    if conversation == '' then return fail('messages.noConversation', 'No conversation') end
+
+    local myNumber = digits(settings.getPhoneNumber(cid) or '')
+    -- A player with no number, in airplane mode or out of coverage simply broadcasts nothing:
+    -- the indicator is cosmetic, so a silent drop beats a refusal the composer would ignore.
+    if myNumber == '' or settings.isAirplane(cid) or not service.allows(source, 'text') then
+        return ok({ conversation = conversation })
+    end
+
+    local on = payload.on == true
+
+    if lib.string.startsWith(conversation, 'g-') then
+        local groupId = conversation:sub(3)
+        if not store.isGroupMember(groupId, cid) then
+            return fail('messages.notConversation', 'You are not in this conversation')
+        end
+
+        local activeSrcs = player.activeCidMap()
+        for _, m in ipairs(store.groupMembers(groupId)) do
+            local targetSrc = m.citizenid ~= cid and activeSrcs[m.citizenid] or nil
+            if targetSrc and not settings.isAirplane(m.citizenid) then
+                TriggerClientEvent('sd-phone:client:messages:typing', targetSrc, {
+                    conversation = conversation,
+                    from         = myNumber,
+                    on           = on,
+                })
+            end
+        end
+        return ok({ conversation = conversation })
+    end
+
+    local target = digits(conversation)
+    local targetCid = target ~= '' and target ~= myNumber and settings.getCitizenByNumber(target) or nil
+    if not targetCid or targetCid == cid then return ok({ conversation = conversation }) end
+    if contactsStore.isBlocked(targetCid, myNumber) or settings.isAirplane(targetCid) then
+        return ok({ conversation = conversation })
+    end
+
+    local targetSrc = player.getSourceByIdentifier(targetCid)
+    if targetSrc and service.allows(targetSrc, 'text') then
+        -- Their key for this thread is our number, not theirs.
+        TriggerClientEvent('sd-phone:client:messages:typing', targetSrc, {
+            conversation = myNumber,
+            from         = myNumber,
+            on           = on,
+        })
+    end
+    return ok({ conversation = conversation })
+end
+
+---Deletes the caller's copy of a thread. Deleting a group thread also leaves the group; an
+---emptied group is removed entirely.
+---@param source number
+---@param payload { conversation?: string }
+---@return table
+function actions.deleteConversation(source, payload)
+    payload = type(payload) == 'table' and payload or {}
+    local cid = player.getIdentifier(source)
+    if not cid then return fail('messages.playerNotFound', 'Player not found') end
+
+    local conversation = tostring(payload.conversation or '')
+    if conversation == '' then return fail('messages.noConversation', 'No conversation') end
+
+    store.deleteThread(cid, conversation)
+
+    if lib.string.startsWith(conversation, 'g-') then
+        local groupId = conversation:sub(3)
+        store.removeGroupMember(groupId, cid)
+        if store.groupMemberCount(groupId) == 0 then store.deleteGroup(groupId) end
+    end
+
+    badges.push(source)
+    return ok({ conversation = conversation })
+end
+
+---Delivers every message withheld while the player had airplane mode on: pushes each affected
+---thread into the live UI and fires one summary banner. Idempotent.
+---@param source number
+function actions.releaseWithheld(source)
+    local cid = player.getIdentifier(source)
+    if not cid then return end
+
+    local convs = store.withheldConversations(cid)
+    if #convs == 0 then return end
+    store.releaseWithheld(cid)
+
+    local myNumber   = digits(settings.getPhoneNumber(cid) or '')
+    local contactMap = contactMapFor(cid)
+    for _, c in ipairs(convs) do
+        local rows = store.threadMessages(cid, c.conversation, cfg.MessagesPerThread)
+        TriggerClientEvent('sd-phone:client:messages:incoming', source,
+            buildConversation(cid, myNumber, c.conversation, rows, contactMap))
+    end
+
+    local n = #convs
+    notify(source, 'Messages', ('You have new messages in %d conversation%s.'):format(n, n == 1 and '' or 's'))
+end
+
+---Delivers every text queued for `number` while it was out of service, into the identity the
+---number just attached to (unique phones: SIM installed / moved). Mirrors releaseWithheld:
+---inserts the copies, pushes each affected thread live, fires one summary banner. Blocked
+---senders are dropped here, since the recipient was unknown at queue time.
+---@param source number player server id holding the phone the number attached to
+---@param cid string data identity the number now belongs to
+---@param number string bare-digit number that came back into service
+function actions.deliverPending(source, cid, number)
+    local rows = store.takePending(number)
+    if #rows == 0 then return end
+
+    local airplane = settings.isAirplane(cid)
+    local convs, seen = {}, {}
+    for _, row in ipairs(rows) do
+        if not contactsStore.isBlocked(cid, row.sender) then
+            local meta = row.meta
+            if type(meta) == 'string' then
+                local okDecode, decoded = pcall(json.decode, meta)
+                meta = okDecode and decoded or nil
+            end
+            store.insertMessage(store.newId(), row.mid, cid, row.sender, row.sender, 'incoming',
+                row.kind, row.body, meta, false, tonumber(row.created_at) or os.time(), airplane)
+            if not seen[row.sender] then
+                seen[row.sender] = true
+                convs[#convs + 1] = row.sender
+            end
+        end
+    end
+    if #convs == 0 then return end
+
+    for _, conversation in ipairs(convs) do
+        trimThread(cid, conversation)
+    end
+
+    if airplane or not GetPlayerName(source) then
+        badges.push(source)
+        return
+    end
+
+    local myNumber   = digits(settings.getPhoneNumber(cid) or '')
+    local contactMap = contactMapFor(cid)
+    for _, conversation in ipairs(convs) do
+        local threadRows = store.threadMessages(cid, conversation, cfg.MessagesPerThread)
+        TriggerClientEvent('sd-phone:client:messages:incoming', source,
+            buildConversation(cid, myNumber, conversation, threadRows, contactMap))
+    end
+
+    local n = #convs
+    notify(source, 'Messages', ('Delivered while you were out of service: %d conversation%s.'):format(n, n == 1 and '' or 's'))
+end
+
+---Mints a slot so the phone can upload a voice message itself. Nothing is settled here: unlike a
+---photo or a bodycam recording this writes no row, so there is no meta to bind - the claim's
+---answer is simply a trusted URL the caller then attaches to a message.
+---@param source number
+---@return table
+function actions.voiceSlot(source)
+    if not presign.available() then return fail('messages.uploadFailed', 'Upload failed') end
+    local maxBytes = (config.VoiceMemos and config.VoiceMemos.MaxAudioBytes) or (8 * 1024 * 1024)
+    local p = promise.new()
+    presign.mint(source, { maxBytes = math.floor(maxBytes * 0.75) }, function(url) p:resolve(url) end)
+    local url = Citizen.Await(p)
+    if not url then return fail('messages.uploadFailed', 'Upload failed') end
+    return ok({ url = url })
+end
+
+---Claims a voice message the phone uploaded itself and hands back the trusted URL, the same
+---answer the base64 route gives. Audio only, so a claim here can never attach a video to a thread.
+---@param source number
+---@param payload { url?: string }
+---@return table
+function actions.voiceDone(source, payload)
+    payload = type(payload) == 'table' and payload or {}
+
+    local maxBytes = (config.VoiceMemos and config.VoiceMemos.MaxAudioBytes) or (8 * 1024 * 1024)
+    local p = promise.new()
+    presign.claim(source, payload.url,
+        { maxBytes = math.floor(maxBytes * 0.75), kinds = { audio = true } },
+        function(url, code, bytes) p:resolve({ url = url, code = code, bytes = bytes }) end)
+    local res = Citizen.Await(p)
+    if not res.url then
+        print(('^1[sd-phone:messages]^0 direct voice claim refused (%s)'):format(tostring(res.code)))
+        return fail('messages.uploadFailed', 'Upload failed')
+    end
+
+    local trustedUrl = mediaGuard.rememberVoice(player.getIdentifier(source), res.url)
+    if not trustedUrl then return fail('messages.uploadFailed', 'Upload failed') end
+    return ok({ url = trustedUrl })
+end
+
+---Uploads a recorded voice message to Fivemanage and returns its hosted URL. The payload must
+---be a data:audio/ URI within config.VoiceMemos.MaxAudioBytes. Kept as the fallback for whenever
+---the direct pair above cannot run; it carries the whole recording in one event, which is why it
+---is no longer the first thing tried.
+---@param source number
+---@param payload { audio?: string }
+---@param prepaid boolean|nil true when an HTTP slot already holds the budget for it
+---@return table
+function actions.uploadVoice(source, payload, prepaid)
+    payload = type(payload) == 'table' and payload or {}
+    local audio = payload.audio
+    if type(audio) ~= 'string' or not lib.string.startsWith(audio, 'data:audio/') then return fail('messages.badAudioPayload', 'Bad audio payload') end
+
+    local maxBytes = (config.VoiceMemos and config.VoiceMemos.MaxAudioBytes) or (8 * 1024 * 1024)
+    if #audio > maxBytes then return fail('messages.recordingTooLong', 'Recording is too long') end
+    if not prepaid then
+        local okLimit, why = mediaLimit.charge(source, #audio)
+        if not okLimit then
+            if why == 'cooldown' then return fail('messages.slowDownMoment', 'Slow down a moment') end
+            return fail('messages.uploadLimitReached', 'Upload limit reached')
+        end
+    end
+
+    local ext = audio:find('^data:audio/mpeg') and 'mp3'
+        or audio:find('^data:audio/ogg') and 'ogg'
+        or audio:find('^data:audio/wav') and 'wav'
+        or 'webm'
+    local filename = ('sdphone-msgvoice-%d-%d.%s'):format(source, os.time(), ext)
+
+    local p = promise.new()
+    uploader.uploadMedia(audio, filename, function(url, err)
+        if not url then print(('^1[sd-phone:messages]^0 voice upload failed: %s'):format(tostring(err))) end
+        p:resolve(url)
+    end)
+
+    local url = Citizen.Await(p)
+    if not url then return fail('messages.uploadFailed', 'Upload failed') end
+    local trustedUrl = mediaGuard.rememberVoice(player.getIdentifier(source), url)
+    if not trustedUrl then return fail('messages.uploadFailed', 'Upload failed') end
+    return ok({ url = trustedUrl })
+end
+
+---Opens an HTTP upload slot for a voice message; the last part is answered with the hosted URL,
+---exactly as the base64 route answers.
+---@param source number
+---@return table
+function actions.voiceHttpSlot(source)
+    local maxBytes = (config.VoiceMemos and config.VoiceMemos.MaxAudioBytes) or (8 * 1024 * 1024)
+    local slot, why = httpUpload.mint(source, maxBytes, function(owner, body)
+        return actions.uploadVoice(owner, { audio = body }, true)
+    end)
+    if slot then return ok(slot) end
+    if why == 'cooldown' then return fail('messages.slowDownMoment', 'Slow down a moment') end
+    return fail('messages.uploadLimitReached', 'Upload limit reached')
+end
+
+return actions
