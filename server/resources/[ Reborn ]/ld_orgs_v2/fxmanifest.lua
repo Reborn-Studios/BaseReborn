@@ -4,7 +4,7 @@ lua54 'yes'
 
 author 'Lucca. (luccathereal)'
 description 'https://discord.gg/4YDS7mW6UE'
-version '1.0.0'
+version '2.0.0'
 
 shared_scripts {
     '@vrp/lib/utils.lua',
@@ -15,8 +15,10 @@ shared_scripts {
 }
 
 server_scripts {
+    'server/core/members.lua',
     'server/*.lua',
     'server/callbacks/*.lua',
+    'server/core/panel_context.lua',
 }  
 
 client_scripts {

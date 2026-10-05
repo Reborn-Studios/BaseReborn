@@ -53,7 +53,10 @@ Config.Groups = {
 
             Goals = { -- METAS (Pode ser ajustado pelo lider)
                 defaultReward = 500, -- Valor padrao da recompensa
-                itens = {}
+                itens = {
+                    ['warfarin'] = 50, -- Quantidade padrao da recompensa
+                    ['bandage'] = 5, -- Quantidade padrao da recompensa
+                }
             }
         },
 
@@ -78,7 +81,7 @@ Config.Groups = {
             },
         }
     },
-    ['Mecanico'] = {
+    ['LSCustoms'] = {
         Config = {
             Salary = {
                 active = true, -- Se vai estar ativo ou nao

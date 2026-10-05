@@ -1,6 +1,10 @@
 Config = {}
 
 Config.Main = {
+
+    -- AUTENTICAÇÂO DA BASE OU DO SCRIPT? (true = base, false = script)
+    baseVersion = true,
+
     cmd = 'painelfac',
     -- Comando usado pelos jogadores para abrir o painel da organização
 
@@ -10,8 +14,10 @@ Config.Main = {
     createAutomaticOrganizations = true,
     -- Se ativado, as organizações da configuração serão criadas automaticamente no banco de dados
 
-    serverLogo = 'https://files.catbox.moe/tpdqz8.png',
+    serverLogo = 'https://files.catbox.moe/7pffdk.png',
     -- Logo do servidor exibido no topo da interface do painel enquanto não definido pela facção
+
+    itemImagesUrl = 'https://api.rebornsystem.com.br/imagens/',
 
     blackList = 3,
     -- Quantidade de dias que o jogador ficará na blacklist
@@ -20,6 +26,11 @@ Config.Main = {
     clearChestLogs = 15,
     -- Intervalo (em dias) para limpeza automática dos logs do baú
     -- Ajuda a evitar acúmulo excessivo de dados no banco
+}
+
+Config.Permissions = {
+    adminPanel = 'admin.permissao',
+    removeBlacklist = 'admin.permissao',
 }
 
 -- ==============================================================
@@ -82,57 +93,3 @@ Config.defaultPermissions = {
         description = "Autoriza enviar alertas para todos os membros online."
     },
 }
-
-
--- ===================================================================
--- ====================== EXPORT: LOG DO BAÚ =========================
--- ===================================================================
---[[
-    Como usar o export para registrar ações no baú da organização:
-
-    Parâmetros:
-        user_id : number  -> ID permanente do jogador
-        action  : string  -> "deposit" (depositou)
-        item    : string  -> Nome/spawn do item (ex: "water", "weed")
-        amount  : number  -> Quantidade do item movimentado
-
-    Exemplo de uso (no seu sistema de inventário):
-        exports.ld_orgs_v2:addLogChest(user_id, "deposit", "coca_leaf", 100)
-]]
-
--- ===================================================================
--- =================== EXPORT: METAS DIÁRIAS =========================
--- ===================================================================
---[[
-    Como usar o export para registrar progresso nas metas diárias:
-
-    Esse export deve ser chamado sempre que o jogador:
-        - Guardar itens no armazém da organização
-        - Farmar/coletar itens que contam para metas
-
-    Parâmetros:
-        user_id : number  -> ID permanente do jogador
-        item    : string  -> Nome/spawn do item que conta para a meta (ex: "coca_leaf", "meth")
-        amount  : number  -> Quantidade processada/farmada
-
-    Exemplo de uso:
-        exports.ld_orgs_v2:addGoal(user_id, "coca_leaf", 50)
-        exports.ld_orgs_v2:addGoal(user_id, "meth", 10)
-]]
-
--- ===================================================================
--- =================== EXPORT: SYNC DO CACHE =========================
--- ===================================================================
---[[
-    Como usar o export/evento para atualizar o cache de um jogador:
-
-    Use após setar/remover grupos manualmente (ex: /group id grupo hierarquia),
-    para o jogador aparecer no painel e conseguir utilizar a organização.
-
-    Parâmetros:
-        user_id : number -> ID permanente do jogador
-
-    Exemplo de uso (no comando /group ou similar):
-        exports.ld_orgs_v2:syncPlayer(user_id)
-        TriggerEvent('ld_orgs_v2:syncPlayer', user_id)
-]]
