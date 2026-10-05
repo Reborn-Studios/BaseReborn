@@ -1919,4 +1919,68 @@ return {
 			image = "upgradechest.png",
 		}
 	},
+
+	['phone_black'] = {
+		label = 'Celular',
+		weight = 190,
+		stack = false,
+		consume = 0,
+		server = { export = 'sd-phone.usePhone_black' }
+	},
+
+	['phone_blue'] = {
+		label = 'Celular Azul',
+		weight = 190,
+		stack = false,
+		consume = 0,
+		server = { export = 'sd-phone.usePhone_blue' }
+	},
+
+	['phone_green'] = {
+		label = 'Celular Verde',
+		weight = 190,
+		stack = false,
+		consume = 0,
+		server = { export = 'sd-phone.usePhone_green' }
+	},
+
+	['phone_orange'] = {
+		label = 'Celular Laranja',
+		weight = 190,
+		stack = false,
+		consume = 0,
+		server = { export = 'sd-phone.usePhone_orange' }
+	},
+
+	['phone_pink'] = {
+		label = 'Celular Rosa',
+		weight = 190,
+		stack = false,
+		consume = 0,
+		server = { export = 'sd-phone.usePhone_pink' }
+	},
+
+	['phone_purple'] = {
+		label = 'Celular Lilás',
+		weight = 190,
+		stack = false,
+		consume = 0,
+		server = { export = 'sd-phone.usePhone_purple' }
+	},
+
+	['phone_red'] = {
+		label = 'Celular Vermelho',
+		weight = 190,
+		stack = false,
+		consume = 0,
+		server = { export = 'sd-phone.usePhone_red' }
+	},
+
+	['phone_yellow'] = {
+		label = 'Celular Amarelo',
+		weight = 190,
+		stack = false,
+		consume = 0,
+		server = { export = 'sd-phone.usePhone_yellow' }
+	},
 }

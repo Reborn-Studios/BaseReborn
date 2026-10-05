@@ -166,6 +166,6 @@ function SendDiscord(text, text2)
     TriggerEvent("vRP:log",{
         category = "system",
         webhook = "webhhokhomes",
-        message = text.."\n"..text2
+        message = text.."\n"..(text2 or "")
     })
 end

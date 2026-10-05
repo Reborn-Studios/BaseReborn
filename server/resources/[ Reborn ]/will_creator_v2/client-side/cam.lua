@@ -180,7 +180,7 @@ function IntroCam(data)
                             myJob = k
                             break
                         end
-                        for l2,perm2 in pairs(Group) do
+                        for l2,perm2 in pairs(Group["Permissions"]) do
                             if perm2 == perm then
                                 myJob = k
                                 break

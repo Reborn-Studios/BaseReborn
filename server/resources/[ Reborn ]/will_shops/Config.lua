@@ -113,6 +113,7 @@ local shopsProducts = {
         ['tacos'] = 150,
         ['soda'] = 150,
         ['celular'] = 500,
+        ['phone_black'] = 500,
         ['radio'] = 200,
         ['backpackp'] = 150,
         ['backpackm'] = 150,

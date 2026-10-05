@@ -129,7 +129,7 @@ function paymentBuyShop(user_id, value, shop)
         TriggerEvent("vRP:log",{
             category = "system",
             webhook = "",
-            message = "[Empresas]\n[ID: "..user_id.."]\n[Comprou Empresa]: "..shop.name.."\n[VALOR]: "..value
+            message = "[Empresas]\n[ID: "..user_id.."]\n[Comprou Empresa]: "..shop.."\n[VALOR]: "..value
         })
     end
     return status
