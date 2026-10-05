@@ -426,8 +426,8 @@ end
 
 function vRP.FullName(Passport)
     local identity = vRP.getUserIdentity(Passport)
-    if identity then
-        return identity["name"].." "..identity["name2"]
+    if identity and identity["name"] then
+        return identity["name"].." "..(identity["name2"] or "")
     end
     return ""
 end
