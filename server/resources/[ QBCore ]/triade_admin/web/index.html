@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Triade Admin</title>
+    <script>
+      document.write(
+        '<link rel="stylesheet" href="style.css?v=' + Date.now() + '">',
+      );
+    </script>
+  </head>
+  <body>
+    <div id="panel" class="panel hidden">
+      <div class="panel-window">
+        <aside class="rail">
+          <div class="brand">
+            <div class="brand-logo" id="brandLogo">R</div>
+          </div>
+
+          <nav class="nav" id="nav"></nav>
+
+          <div class="rail-foot">
+            <div class="avatar" id="staffAvatar">--</div>
+            <span class="dot-online"></span>
+          </div>
+        </aside>
+
+        <main class="main">
+          <header class="topbar">
+            <div class="topbar-text">
+              <span class="eyebrow" id="pageEyebrow">ADMINISTRACAO</span>
+              <h1 id="pageTitle">Servidor</h1>
+            </div>
+            <div class="topbar-actions">
+              <div class="chip-online">
+                <span class="dot-online"></span
+                ><strong id="onlineCount">0</strong> online
+              </div>
+              <button class="icon-btn" id="btnRefresh" title="Atualizar">
+                &#10227;
+              </button>
+              <button class="icon-btn danger" id="btnClose" title="Fechar">
+                &#10005;
+              </button>
+            </div>
+          </header>
+
+          <section class="view" id="view"></section>
+
+          <footer class="statusbar">
+            <span class="sb-item sb-brand"
+              ><strong id="brandTitle">TRIADE ADMIN</strong
+              ><em id="brandVersion">v1.0.0</em></span
+            >
+            <span class="sb-sep"></span>
+            <span class="sb-item"
+              ><i>OPERADOR</i><strong id="staffName">Staff</strong></span
+            >
+            <span class="sb-sep"></span>
+            <span class="sb-item"
+              ><i>SESSAO</i><strong id="staffMeta">ID #0</strong></span
+            >
+            <span class="sb-spacer"></span>
+            <span class="sb-item sb-key">ESC ENCERRA O PAINEL</span>
+          </footer>
+        </main>
+      </div>
+    </div>
+
+    <div id="modal" class="modal-backdrop hidden">
+      <div class="modal">
+        <div class="modal-head">
+          <div>
+            <h2 id="modalTitle">Titulo</h2>
+            <p id="modalSubtitle">Descricao</p>
+          </div>
+          <button class="icon-btn" id="modalClose">&#10005;</button>
+        </div>
+        <div class="modal-body" id="modalBody"></div>
+        <div class="modal-foot">
+          <button class="btn ghost" id="modalCancel">Cancelar</button>
+          <button class="btn primary" id="modalConfirm">
+            &#10003; Executar
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="toasts" class="toasts"></div>
+
+    <div id="ticketMenu" class="overlay hidden">
+      <div class="ticket-menu">
+        <div class="modal-head">
+          <div>
+            <span class="eyebrow">ATENDIMENTO</span>
+            <h2>Como podemos ajudar?</h2>
+            <p>Selecione o setor responsavel pelo seu chamado.</p>
+          </div>
+          <button class="icon-btn" id="ticketMenuClose">&#10005;</button>
+        </div>
+        <div class="ticket-types" id="ticketTypes"></div>
+        <div class="ticket-hint" id="ticketHint">
+          F5 abre e fecha esta tela.
+        </div>
+      </div>
+    </div>
+
+    <div id="ticketForm" class="overlay hidden">
+      <div class="ticket-menu">
+        <div class="modal-head">
+          <div>
+            <span class="eyebrow" id="ticketFormEyebrow">CHAMADO</span>
+            <h2>Em que voce precisa de ajuda?</h2>
+            <p>
+              Explique a situacao de forma objetiva para agilizar o atendimento.
+            </p>
+          </div>
+          <button class="icon-btn" id="ticketFormClose">&#10005;</button>
+        </div>
+        <textarea
+          id="ticketMessage"
+          maxlength="280"
+          placeholder="Descreva a sua situacao..."
+        ></textarea>
+        <div class="modal-foot">
+          <button class="btn ghost" id="ticketFormCancel">Cancelar</button>
+          <button class="btn primary" id="ticketFormSend">
+            Enviar chamado
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="ticketPopups" class="ticket-popups"></div>
+
+    <div id="ticketRating" class="overlay hidden">
+      <div class="ticket-menu small">
+        <div class="modal-head">
+          <div>
+            <span class="eyebrow">AVALIACAO</span>
+            <h2>Como foi o atendimento?</h2>
+            <p id="ratingStaff">Atendido por --</p>
+          </div>
+        </div>
+        <div class="stars" id="ratingStars"></div>
+        <textarea
+          id="ratingComment"
+          maxlength="180"
+          placeholder="Deixe um comentario (opcional)..."
+        ></textarea>
+        <div class="modal-foot">
+          <button class="btn ghost" id="ratingSkip">Agora nao</button>
+          <button class="btn primary" id="ratingSend">Enviar avaliacao</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- CASTIGO -->
+    <div id="punish" class="punish hidden">
+      <div class="punish-card">
+        <span class="eyebrow">CASTIGO ADMINISTRATIVO</span>
+        <h2 id="punishTimer">00:00</h2>
+        <p id="punishReason">--</p>
+      </div>
+    </div>
+
+    <!-- VER TELA (PREVISUALIZACAO AO VIVO) -->
+    <div id="preview" class="preview hidden">
+      <div class="preview-window">
+        <div class="preview-head">
+          <div class="row">
+            <div class="preview-ic">&#128065;</div>
+            <div>
+              <strong id="previewTitle">Ver tela</strong>
+              <span id="previewSubtitle" class="muted"></span>
+            </div>
+          </div>
+          <div class="row">
+            <span class="tag" style="color: #5eead4">AO VIVO</span>
+            <button class="icon-btn danger" id="previewCloseBtn" title="Fechar">
+              &#10005;
+            </button>
+          </div>
+        </div>
+        <div class="preview-body">
+          <img id="previewFrame" src="" alt="" />
+          <div class="preview-empty" id="previewEmpty">
+            Aguardando a tela do jogador...
+          </div>
+        </div>
+        <div class="preview-foot">
+          Pressione <strong>ESC</strong> para fechar a previsualizacao
+        </div>
+      </div>
+    </div>
+    <script>
+      document.write('<script src="app.js?v=' + Date.now() + '"><\/script>');
+    </script>
+  </body>
+</html>
