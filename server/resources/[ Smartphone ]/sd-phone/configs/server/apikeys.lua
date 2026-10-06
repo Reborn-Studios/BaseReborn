@@ -26,7 +26,7 @@
 --   3. Paste it below (it looks like qbox_live_...)
 -- Left blank here, the uploader falls back to the `sd_qbox_cdn_key` server convar.
 return {
-    Giphy           = '',
+    Giphy           = '844f8OsVoNz90pEdQg6U5C7W6LjEWJqR',
     FivemanageMedia = '',
     QboxCdn         = '',
 }

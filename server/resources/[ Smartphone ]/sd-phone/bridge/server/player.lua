@@ -46,7 +46,7 @@ function player.get(source) return resolveGet(source) end
 ---@return fun(p: any): string|nil
 local function chooseIdentifier()
     if framework.qb then
-        return function(p) return p.PlayerData.citizenid end
+        return function(p) return tostring(p.PlayerData.citizenid) end
     end
     if framework.name == 'esx' then
         return function(p) return p.identifier end

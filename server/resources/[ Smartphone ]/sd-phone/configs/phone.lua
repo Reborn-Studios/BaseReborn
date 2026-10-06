@@ -94,7 +94,7 @@ return {
 
     -- Default keybind to open / close the phone. Players can rebind
     -- via FiveM's keybinding menu (Settings → Key Bindings → FiveM).
-    Keybind  = 'F1',
+    Keybind  = 'K',
 
     -- Hide the phone while the player is dead, swimming, in water,
     -- or carrying a two-handed weapon. The phone is still openable
