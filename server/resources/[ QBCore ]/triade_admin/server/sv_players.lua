@@ -266,6 +266,10 @@ local function previewSettle(admin)
 end
 
 TA.action("player.spectate", "player.spectate", function(source, payload)
+	-- MANUTENÇÃO
+	if true then
+		return { ok = false, message = "Recurso em manutenção no momento." }
+	end
 	if previewAdmins[source] then
 		previewSettle(source)
 		TA.log(source, "ver-tela", "Fechou a previsualizacao.")

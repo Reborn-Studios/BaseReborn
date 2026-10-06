@@ -234,7 +234,7 @@ TA.fetch("characters", "character.view", function(source, payload)
 			["warns"] = TA.int(row.warns),
 			["fines"] = TA.int(row.fines),
 			["banned"] = TA.int(row.banned) == 1,
-			["whitelist"] = TA.int(row.whitelist) == 1,
+			["whitelist"] = TA.int(row.whitelist) == 1 or row.whitelist == true,
 			["online"] = vRP.getUserSource(passport) ~= nil
 		}
 	end

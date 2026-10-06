@@ -174,6 +174,7 @@ local function terminar(motivo)
 		:format(TA.Capture.ok, TA.Capture.fail, motivo or ""))
 
 	if #TA.Capture.failures > 0 then
+		TA.notify(source, "aviso",	"Verifique o console do Server para analisar as falhas", 12000)
 		print("^3[triade_admin]^7 modelos que falharam:")
 		for _, f in ipairs(TA.Capture.failures) do
 			print(("   ^1%-28s^7 %s"):format(f.spawn, f.motivo))

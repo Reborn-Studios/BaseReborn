@@ -1,3 +1,5 @@
+Proxy = module("vrp","lib/Proxy")
+Reborn = Proxy.getInterface("Reborn")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- TRIADE ADMIN - CONFIGURACAO
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -32,8 +34,8 @@ TriadeAdmin.Diagnostics = {
 -- IMAGENS
 -----------------------------------------------------------------------------------------------------------------------------------------
 TriadeAdmin.Images = {
-	["RemoteURL"] = "",		-- CDN de itens, ex. "http://O-SEU-IP/imagens/". Vazio = so o disco.
-	["VehiclesURL"] = "",	-- CDN de veiculos, ex. "http://O-SEU-IP/vehicles/". Vazio = nome relativo.
+	["RemoteURL"] = Reborn.images(),		-- CDN de itens, ex. "http://O-SEU-IP/imagens/". Vazio = so o disco.
+	["VehiclesURL"] = Reborn.images(),	-- CDN de veiculos, ex. "http://O-SEU-IP/vehicles/". Vazio = nome relativo.
 	["Folders"] = {
 		"C:/xampp/htdocs/imagens",
 		"C:/xampp/htdocs/vehicles",

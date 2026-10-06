@@ -6651,41 +6651,41 @@ document.addEventListener("DOMContentLoaded", function () {
     $("ticketForm").classList.add("hidden");
   });
 
-  $("previewCloseBtn").addEventListener("click", closePreview);
+  // $("previewCloseBtn").addEventListener("click", closePreview);
 
   // Janela de previsualizacao arrastavel pelo header
-  const previewWin = $("preview");
-  const previewHead = previewWin.querySelector(".preview-head");
-  let drag = null;
+  // const previewWin = $("preview");
+  // const previewHead = previewWin.querySelector(".preview-head");
+  // let drag = null;
 
-  previewHead.addEventListener("mousedown", function (event) {
-    if (event.button !== 0) return;
-    if (event.target.closest("button")) return;
-    const rect = previewWin.getBoundingClientRect();
-    drag = { dx: event.clientX - rect.left, dy: event.clientY - rect.top };
-    event.preventDefault();
-  });
+  // previewHead.addEventListener("mousedown", function (event) {
+  //   if (event.button !== 0) return;
+  //   if (event.target.closest("button")) return;
+  //   const rect = previewWin.getBoundingClientRect();
+  //   drag = { dx: event.clientX - rect.left, dy: event.clientY - rect.top };
+  //   event.preventDefault();
+  // });
 
-  document.addEventListener("mousemove", function (event) {
-    if (!drag) return;
-    const rect = previewWin.getBoundingClientRect();
-    previewWin.style.left =
-      Math.max(
-        8,
-        Math.min(event.clientX - drag.dx, window.innerWidth - rect.width - 8),
-      ) + "px";
-    previewWin.style.top =
-      Math.max(
-        8,
-        Math.min(event.clientY - drag.dy, window.innerHeight - rect.height - 8),
-      ) + "px";
-    previewWin.style.right = "auto";
-    previewWin.style.bottom = "auto";
-  });
+  // document.addEventListener("mousemove", function (event) {
+  //   if (!drag) return;
+  //   const rect = previewWin.getBoundingClientRect();
+  //   previewWin.style.left =
+  //     Math.max(
+  //       8,
+  //       Math.min(event.clientX - drag.dx, window.innerWidth - rect.width - 8),
+  //     ) + "px";
+  //   previewWin.style.top =
+  //     Math.max(
+  //       8,
+  //       Math.min(event.clientY - drag.dy, window.innerHeight - rect.height - 8),
+  //     ) + "px";
+  //   previewWin.style.right = "auto";
+  //   previewWin.style.bottom = "auto";
+  // });
 
-  document.addEventListener("mouseup", function () {
-    drag = null;
-  });
+  // document.addEventListener("mouseup", function () {
+  //   drag = null;
+  // });
 
   document.addEventListener("keydown", function (event) {
     if (event.key !== "Escape") return;
